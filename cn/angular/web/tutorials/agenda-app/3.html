@@ -1,0 +1,130 @@
+<div class="angular-tutorial tutorial">
+
+<h2>1. Event component</h2>
+
+<p>Our app will consist of two components. The main one - the App component, which will be responsible for layout and the Event component - a sub-component which will render a single event entity. </p>
+
+
+<ol>
+  <li>Create a new <code>components</code> folder under <code>src/app</code></li>
+    <li>Create a new <code>event</code> folder under <code>src/src/app/components/</code></li>
+  <li>Create a new <code>event.component.html</code> file</li>
+  <li>Paste the initial Event code </li>
+
+  <mdbsnippet>
+      <code data-lang="js" data-name="event.component.html">
+    <h3>9:00 - Title</h3>
+      </code>
+  </mdbsnippet>
+
+  <li>Create a new <code>app.component.ts</code> file</li>
+  <li>Paste initial Event code </li>
+  <mdbsnippet>
+      <code data-lang="js" data-name="event.component.ts">
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-event',
+  templateUrl: './event.component.html',
+})
+export class EventComponent {
+
+}      </code>
+  </mdbsnippet>
+</ol>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/3/files.png" alt="New files structure"/>
+
+
+
+<p>Most of the people will simply call Event a <strong>component</strong>. This is perfectly fine, however, there is the one important thing that I want you to remember if you didn't have any experience with Object Oriented Programming in the past.</p>
+
+<p><strong>Our class is just a definition of the component</strong>. It describes how our component will look and behave but <strong>it doesn't create an instance of the component yet</strong>.</p>
+
+<p>You can think of it like a stamp. A stamp itself <strong>is just a definition</strong> of a picture/image. In order to create a stamp imprint, you have to make some action. Furthermore - our single stamp (class) <strong>can create multiple copies (instances)</strong>.</p>
+
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/3/stamp.jpg" height="582" width="800" /><br /></div>
+
+<h2>2. Import and render EventComponent</h2>
+
+<ol>
+  <li>Open the<code>app.module.ts</code> file</li>
+  <li>Import <mark>EventComponent</mark></li>
+
+  <mdbsnippet>
+      <code data-lang="js" data-name="app.component.ts">
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppComponent } from './app.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { EventComponent } from './components/event/event.component'
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    EventComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MDBBootstrapModule.forRoot()
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  schemas: [ NO_ERRORS_SCHEMA ]
+})
+export class AppModule { }
+      </code>
+  </mdbsnippet>
+
+<li>Render the <mark>EventComponent</mark> component in the <mark>app.component.html</mark> file:</li>
+
+
+
+  <mdbsnippet>
+      <code data-lang="js" data-name="app.component.html">
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <app-event></app-event>
+    </div>
+    <div class="col-md-3">
+      Right column
+    </div>
+  </div>
+</div>
+
+      </code>
+  </mdbsnippet>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/3/preview.png" alt="App preview" />
+
+
+<p>As we mentioned before, since our <mark>EventComponent</mark> component is a definition, we can render multiple instances of the same component.</p>
+
+
+<li>Add the second instance of the <mark>EventComponent</mark> in the left column</li>
+<li>Remove the text from the right column</li>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="app.component.html">
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <app-event></app-event>
+      <app-event></app-event>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+</div>
+
+    </code>
+</mdbsnippet>
+
+<p>Now when we know how to create an instance of our <mark>Event</mark> component let's learn how to make it more dynamic and pass some data into it.</p>
+
+</ol>
+
+</div>

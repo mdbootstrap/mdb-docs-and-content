@@ -1,0 +1,1307 @@
+<style>
+  .square {
+    height: 90px;
+    width: 90px;
+    line-height: 90px;
+    font-size: 32px;
+  }
+
+  .drop-placeholder {
+    background-color: lightgray;
+    height: 3.5em;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    line-height: 1.2em;
+  }
+
+</style>
+
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Vue Bootstrap Sortable</h2>
+
+  <h1 class="secondary-heading mb-4">Vue Sortable Plugin - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p>Vue Bootstrap sortable plugin is an extension that allows you to move, reorder, sort and organize elements on your website by using drag and drop functionality. </p>
+
+  <blockquote class="blockquote bq-primary">
+    <p class="bq-title">To start working with sortable plugin see <strong>"API"</strong> tab on this page.</p>
+  </blockquote>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic Example
+  </h2>
+
+  <!-- Description -->
+  <p>Change the order of elements in the DOM tree by dragging the element.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <ul id="sortable" class="list-group">
+          <li class="list-group-item active">Item 1</li>
+          <li class="list-group-item">Item 2</li>
+          <li class="list-group-item">Item 3</li>
+          <li class="list-group-item">Item 4</li>
+          <li class="list-group-item">Item 5</li>
+          <li class="list-group-item">Item 6</li>
+          <li class="list-group-item">Item 7</li>
+          <li class="list-group-item">Item 8</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="template">
+
+        <template>
+          <mdb-container>
+            <mdb-list-group>
+              <mdb-sortable :list="list">
+                <mdb-list-group-item v-for="element in list" :key="element.id" :active="element.active">
+                  {{ element.name }}
+                </mdb-list-group-item>
+              </mdb-sortable>
+            </mdb-list-group>
+          </mdb-container>
+        </template>
+
+      </code>
+
+      <code data-lang="html" data-name="script">
+
+        <script>
+          import mdbSortable from 'mdb-sortable'
+          import { mdbContainer, mdbListGroup, mdbListGroupItem } from 'mdbvue'
+
+          export default {
+            name: 'app',
+            components: {
+              mdbSortable,
+              mdbContainer,
+              mdbListGroup,
+              mdbListGroupItem
+            },
+            data() {
+              return {
+                list: [
+                  { name: "Item 1", id: 0, active: true },
+                  { name: "Item 2", id: 1 },
+                  { name: "Item 3", id: 2 },
+                  { name: "Item 4", id: 3 },
+                  { name: "Item 5", id: 4 },
+                  { name: "Item 6", id: 5 },
+                  { name: "Item 7", id: 6 },
+                  { name: "Item 8", id: 7 }
+                ]
+              }
+            }
+          }
+        </script>
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="list-merging">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Merging lists
+  </h2>
+
+  <!-- Description -->
+  <p>Sorting items between two lists</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <ul id="sortable1" class="list-group connectedSortable">
+          <li class="list-group-item active">Lion</li>
+          <li class="list-group-item">Dog</li>
+          <li class="list-group-item">Cat</li>
+          <li class="list-group-item">Tiger</li>
+        </ul>
+      </div>
+      <div class="col-md-6 mx-auto">
+        <ul id="sortable2" class="list-group connectedSortable">
+          <li class="list-group-item active">Fish</li>
+          <li class="list-group-item">Bird</li>
+          <li class="list-group-item">Falcon</li>
+          <li class="list-group-item">Mouse</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="template">
+
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <mdb-col sm="6">
+                <mdb-list-group>
+                  <mdb-sortable :list="list2" group="merge">
+                    <mdb-list-group-item v-for="element in list2" :key="element.id" :active="element.active">
+                      {{ element.name }}
+                    </mdb-list-group-item>
+                  </mdb-sortable>
+                </mdb-list-group>
+              </mdb-col>
+              <mdb-col sm="6">
+                <mdb-list-group>
+                  <mdb-sortable :list="list3" group="merge">
+                    <mdb-list-group-item v-for="element in list3" :key="element.id" :active="element.active">
+                      {{ element.name }}
+                    </mdb-list-group-item>
+                  </mdb-sortable>
+                </mdb-list-group>
+              </mdb-col>
+            </mdb-row>
+          </mdb-container>
+        </template>
+
+      </code>
+
+      <code data-lang="html" data-name="script">
+
+        <script>
+          import mdbSortable from 'mdb-sortable'
+          import { mdbContainer, mdbRow, mdbCol, mdbListGroup, mdbListGroupItem } from 'mdbvue'
+
+          export default {
+            name: 'app',
+            components: {
+              mdbSortable,
+              mdbContainer,
+              mdbRow,
+              mdbCol,
+              mdbListGroup,
+              mdbListGroupItem
+            },
+            data() {
+              return {
+                list2: [
+                  { name: "Lion", id: 0, active: true },
+                  { name: "Cat", id: 1 },
+                  { name: "Tiger", id: 2 },
+                  { name: "Dog", id: 3 }
+                ],
+                list3: [
+                  { name: "Fish", id: 4, active: true },
+                  { name: "Bird", id: 5 },
+                  { name: "Falcon", id: 6 },
+                  { name: "Mouse", id: 7 }
+                ]
+              }
+            }
+          }
+        </script>
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="display-grid">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Display as grid
+  </h2>
+
+  <!-- Description -->
+  <p>Displays items in a sortable grid - this can be used to determine the order in which photos or files are uploaded.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div id="sortable3" class="col-md-5 d-flex flex-wrap">
+        <div class="text-center white-text blue m-2 square">1</div>
+        <div class="text-center white-text blue m-2 square">2</div>
+        <div class="text-center white-text blue m-2 square">3</div>
+        <div class="text-center white-text blue m-2 square">4</div>
+        <div class="text-center white-text blue m-2 square">5</div>
+        <div class="text-center white-text blue m-2 square">6</div>
+        <div class="text-center white-text blue m-2 square">7</div>
+        <div class="text-center white-text blue m-2 square">8</div>
+        <div class="text-center white-text blue m-2 square">9</div>
+        <div class="text-center white-text blue m-2 square">10</div>
+        <div class="text-center white-text blue m-2 square">11</div>
+        <div class="text-center white-text blue m-2 square">12</div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="template">
+
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <mdb-sortable :list="list4" class="col-md-5 d-flex flex-center flex-wrap">
+                <div v-for="element in list4" :key="element.id" class="text-center white-text blue m-2 square">
+                  {{ element.id }}
+                </div>
+              </mdb-sortable>
+            </mdb-row>
+          </mdb-container>
+        </template>
+
+      </code>
+
+      <code data-lang="html" data-name="script">
+
+        <script>
+          import mdbSortable from 'mdb-sortable'
+          import { mdbContainer, mdbRow } from 'mdbvue'
+
+          export default {
+            name: 'app',
+            components: {
+              mdbSortable,
+              mdbContainer,
+              mdbRow
+            },
+            data() {
+              return {
+                list4: [
+                  { id: 1 },
+                  { id: 2 },
+                  { id: 3 },
+                  { id: 4 },
+                  { id: 5 },
+                  { id: 6 },
+                  { id: 7 },
+                  { id: 8 },
+                  { id: 9 },
+                  { id: 10 },
+                  { id: 11 },
+                  { id: 12 }
+                ]
+              }
+            }
+          }
+        </script>
+
+      </code>
+      <code data-lang="html" data-name="style">
+
+        <style>
+          .square {
+            height: 90px;
+            width: 90px;
+            line-height: 90px;
+            font-size: 32px;
+          }
+        </style>
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="handle-empty-lists">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Handle empty lists
+  </h2>
+
+  <!-- Description -->
+  <p>By default, it is not possible to place an item in an empty list. In this example, this has been changed.</p>
+  <p>From the first list, it is possible to drag to an empty list, while from the second list you cannot drag elements
+    if the target list is empty.</p>
+    <p>The <code>dropOnEmpty: false</code> parameter is responsible for this behavior.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-4 mx-auto">
+        <ul id="sortable5" class="list-group droptrue">
+          <li class="list-group-item active">Lion</li>
+          <li class="list-group-item">Dog</li>
+          <li class="list-group-item">Cat</li>
+          <li class="list-group-item">Tiger</li>
+        </ul>
+      </div>
+      <div class="col-md-4 mx-auto">
+        <ul id="sortable6" class="list-group dropfalse">
+          <li class="list-group-item active">Fish</li>
+          <li class="list-group-item">Bird</li>
+          <li class="list-group-item">Falcon</li>
+          <li class="list-group-item">Mouse</li>
+        </ul>
+      </div>
+
+      <div class="col-md-4 mx-auto">
+        <ul id="sortable7" class="list-group droptrue grey lighten-1 py-2">
+
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="template">
+
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <mdb-col sm="4">
+                <mdb-list-group>
+                  <mdb-sortable :list="list5" group="empty-lists">
+                    <mdb-list-group-item v-for="element in list5" :key="element.id" :active="element.active">
+                      {{ element.name }}
+                    </mdb-list-group-item>
+                  </mdb-sortable>
+                </mdb-list-group>
+              </mdb-col>
+              <mdb-col sm="4">
+                <mdb-list-group>
+                  <mdb-sortable :list="list6" group="empty-lists">
+                    <mdb-list-group-item v-for="element in list6" :key="element.id" :active="element.active">
+                      {{ element.name }}
+                    </mdb-list-group-item>
+                  </mdb-sortable>
+                </mdb-list-group>
+              </mdb-col>
+              <mdb-col sm="4">
+                <mdb-list-group class="grey lighten-1 py-2">
+                  <mdb-sortable :list="list7" group="empty-lists">
+                    <mdb-list-group-item v-for="element in list7" :key="element.id" :active="element.active">
+                      {{ element.name }}
+                    </mdb-list-group-item>
+                  </mdb-sortable>
+                </mdb-list-group>
+              </mdb-col>
+            </mdb-row>
+          </mdb-container>
+        </template>
+
+      </code>
+
+      <code data-lang="html" data-name="script">
+
+        <script>
+          import mdbSortable from 'mdb-sortable'
+          import { mdbContainer, mdbRow, mdbCol, mdbListGroup, mdbListGroupItem } from 'mdbvue'
+
+          export default {
+            name: 'app',
+            components: {
+              mdbSortable,
+              mdbContainer,
+              mdbRow,
+              mdbCol,
+              mdbListGroup,
+              mdbListGroupItem
+            },
+            data() {
+              return {
+                list5: [
+                  { name: "Lion", id: 0, active: true },
+                  { name: "Dog", id: 1 },
+                  { name: "Cat", id: 2 },
+                  { name: "Tiger", id: 3 },
+                ],
+                list6: [
+                  { name: "Fish", id: 4, active: true },
+                  { name: "Bird", id: 5 },
+                  { name: "Falcon", id: 6 },
+                  { name: "Mouse", id: 7 }
+                ],
+                list7: [],
+              }
+            }
+          }
+        </script>
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="include-exclude-items">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Include / exclude items
+  </h2>
+
+  <!-- Description -->
+  <p>It is possible to exclude items from the possibility of sorting or dragging items before / after them.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-6">
+        <ul id="sortable9" class="list-group">
+          <li class="list-group-item active ui-state-default">I'm sortable</li>
+          <li class="list-group-item ui-state-default ui-state-disabled disabled">I'm not sortable</li>
+          <li class="list-group-item ui-state-default ui-state-disabled disabled">I'm not sortable</li>
+          <li class="list-group-item ui-state-default">I'm sortable</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="template">
+
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <mdb-col sm="6">
+                <mdb-list-group>
+                  <mdb-sortable :list="list12">
+                    <mdb-list-group-item v-for="element in list12" :key="element.id" :active="element.active" :disabled="element.disabled">
+                      {{ element.name }}
+                    </mdb-list-group-item>
+                  </mdb-sortable>
+                </mdb-list-group>
+              </mdb-col>
+            </mdb-row>
+          </mdb-container>
+        </template>
+
+      </code>
+
+      <code data-lang="html" data-name="script">
+
+        <script>
+          import mdbSortable from 'mdb-sortable'
+          import { mdbContainer, mdbRow, mdbCol, mdbListGroup, mdbListGroupItem } from 'mdbvue'
+
+          export default {
+            name: 'app',
+            components: {
+              mdbSortable,
+              mdbContainer,
+              mdbRow,
+              mdbCol,
+              mdbListGroup,
+              mdbListGroupItem
+            },
+            data() {
+              return {
+                list12: [
+                  { name: "I'm sortable", id: 0, active: true },
+                  { name: "I'm sortable", id: 1 },
+                  { name: "I'm not sortable", id: 2, disabled: true },
+                  { name: "I'm not sortable", id: 3, disabled: true }
+                ]
+              }
+            }
+          }
+        </script>
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="collapse-cards">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Sortable collapsed cards
+  </h2>
+
+  <!-- Description -->
+  <p>Cards with collapsed content and sorting between lists - similar behavior can be observed on Trello.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-4 mx-auto my-5 blue pb-4 white-text">
+        <div class="column">
+
+          <div class="portlet">
+            <div class="portlet-header blue darken-3 py-2 my-3 text-center white-text collapseButton" data-toggle="collapse"
+              href="#feeds">Feeds <i class="fas fa-caret-down  ml-2"></i></div>
+            <div class="portlet-content collapse text-center" id="feeds">Lorem ipsum dolor sit amet,
+              consectetuer
+              adipiscing elit</div>
+          </div>
+
+          <div class="portlet">
+            <div class="portlet-header blue darken-3 py-2 my-3 text-center white-text collapseButton" data-toggle="collapse"
+              href="#news">News <i class="fas fa-caret-down  ml-2"></i></div>
+            <div class="portlet-content collapse text-center" id="news">Lorem ipsum dolor sit amet,
+              consectetuer
+              adipiscing elit</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-4 mx-auto my-5 blue pb-4 white-text">
+        <div class="column">
+
+          <div class="portlet">
+            <div class="portlet-header blue darken-3 py-2 my-3 text-center white-text collapseButton" data-toggle="collapse"
+              href="#shopping">Shopping <i class="fas fa-caret-down  ml-2"></i></div>
+            <div class="portlet-content  collapse text-center" id="shopping">Lorem ipsum dolor sit amet,
+              consectetuer
+              adipiscing elit</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-4 mx-auto my-5 blue pb-4 white-text">
+        <div class="column">
+
+          <div class="portlet">
+            <div class="portlet-header blue darken-3 py-2 my-3 text-center white-text collapseButton" data-toggle="collapse"
+              href="#links">Links <i class="fas fa-caret-down  ml-2"></i></div>
+            <div class="portlet-content collapse text-center" id="links">Lorem ipsum dolor sit amet,
+              consectetuer
+              adipiscing elit</div>
+          </div>
+
+          <div class="portlet">
+            <div class="portlet-header blue darken-3 py-2 my-3 text-center white-text collapseButton" data-toggle="collapse"
+              href="#images">Images <i class="fas fa-caret-down  ml-2"></i></div>
+            <div class="portlet-content collapse text-center" id="images">Lorem ipsum dolor sit amet,
+              consectetuer
+              adipiscing elit</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="template">
+
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <mdb-col sm="4" class="blue mx-auto mb-5 pb-4 white-text">
+                <mdb-sortable :list="list8" group="cards">
+                  <div class="portlet" v-for="element in list8" :key="element.id">
+                    <mdb-btn color="blue" block class="portlet-header white-text blue darken-3 text-capitalize my-3" @click.native="element.collapse ? element.collapse = false : element.collapse = true">{{element.name}} <i class="fas ml-2" :class="element.collapse ? 'fa-caret-up' : 'fa-caret-down'"></i></mdb-btn>
+                    <transition @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave">
+                      <p v-if="element.collapse" class="collapse-item text-center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+                    </transition>
+                  </div>
+                </mdb-sortable>
+              </mdb-col>
+              <mdb-col sm="4" class="blue mx-auto mb-5 pb-4 white-text">
+                <mdb-sortable :list="list9" group="cards">
+                  <div class="portlet" v-for="element in list9" :key="element.id">
+                    <mdb-btn color="blue" block class="portlet-header white-text blue darken-3 text-capitalize my-3" @click.native="element.collapse ? element.collapse = false : element.collapse = true">{{element.name}} <i class="fas ml-2" :class="element.collapse ? 'fa-caret-up' : 'fa-caret-down'"></i></mdb-btn>
+                    <transition @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave">
+                      <p v-if="element.collapse" class="collapse-item text-center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+                    </transition>
+                  </div>
+                </mdb-sortable>
+              </mdb-col>
+              <mdb-col sm="4" class="blue mx-auto mb-5 pb-4 white-text">
+                <mdb-sortable :list="list10" group="cards">
+                  <div class="portlet" v-for="element in list10" :key="element.id">
+                    <mdb-btn color="blue" block class="portlet-header white-text blue darken-3 text-capitalize my-3" @click.native="element.collapse ? element.collapse = false : element.collapse = true">{{element.name}} <i class="fas ml-2" :class="element.collapse ? 'fa-caret-up' : 'fa-caret-down'"></i></mdb-btn>
+                    <transition @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave">
+                      <p v-if="element.collapse" class="collapse-item text-center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+                    </transition>
+                  </div>
+                </mdb-sortable>
+              </mdb-col>
+            </mdb-row>
+          </mdb-container>
+        </template>
+
+      </code>
+
+      <code data-lang="html" data-name="script">
+
+        <script>
+          import mdbSortable from 'mdb-sortable'
+          import { mdbContainer, mdbRow, mdbCol, mdbListGroup, mdbListGroupItem, mdbBtn } from 'mdbvue'
+
+          export default {
+            name: 'app',
+            components: {
+              mdbSortable,
+              mdbRow,
+              mdbCol,
+              mdbContainer,
+              mdbListGroup,
+              mdbListGroupItem,
+              mdbBtn
+            },
+            data() {
+              return {
+                list12: [
+                  { name: "I'm sortable", id: 0, active: true },
+                  { name: "I'm sortable", id: 1 },
+                  { name: "I'm not sortable", id: 2, disabled: true },
+                  { name: "I'm not sortable", id: 3, disabled: true }
+                ]
+              }
+            },
+            methods: {
+              beforeEnter(el) {
+                el.style.height = 0;
+              },
+              enter(el) {
+                el.style.height = el.scrollHeight + 'px';
+              },
+              beforeLeave(el) {
+                el.style.height = 0;
+              }
+            }
+          }
+        </script>
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="card-decks">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Sortable deck of cards
+  </h2>
+
+  <!-- Description -->
+  <p>Cards with collapsed content and sorting between lists - similar behavior can be observed on Trello.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <!-- Card deck -->
+      <div class="card-deck">
+
+        <div class="sortable-card col-md-4">
+          <!-- Card -->
+          <div class="card mb-4">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+              <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <!--Title-->
+              <h4 class="card-title">Card title</h4>
+              <!--Text-->
+              <p class="card-text">Some quick example text to build on the card title and make up the
+                bulk of
+                the card's content.</p>
+              <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+              <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+            </div>
+
+          </div>
+          <!-- Card -->
+        </div>
+
+        <div class="sortable-card col-md-4">
+          <!-- Card -->
+          <div class="card mb-4">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/14.jpg" alt="Card image cap">
+              <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <!--Title-->
+              <h4 class="card-title">Card title</h4>
+              <!--Text-->
+              <p class="card-text">Some quick example text to build on the card title and make up the
+                bulk of
+                the card's content.</p>
+              <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+              <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+            </div>
+
+          </div>
+          <!-- Card -->
+        </div>
+
+        <div class="sortable-card col-md-4">
+          <!-- Card -->
+          <div class="card mb-4">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/15.jpg" alt="Card image cap">
+              <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <!--Title-->
+              <h4 class="card-title">Card title</h4>
+              <!--Text-->
+              <p class="card-text">Some quick example text to build on the card title and make up the
+                bulk of
+                the card's content.</p>
+              <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+              <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+            </div>
+
+          </div>
+          <!-- Card -->
+        </div>
+
+      </div>
+      <!-- Card deck -->
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="template">
+
+        <template>
+          <mdb-container>
+            <mdb-sortable class="row">
+              <mdb-col sm="4" v-for="element in list11" :key="element.id">
+                <mdb-card>
+                  <mdb-view hover>
+                    <a href="#!">
+                      <mdb-card-image :src="element.image" alt="Card image cap"></mdb-card-image>
+                      <mdb-mask flex-center waves overlay="white-slight"></mdb-mask>
+                    </a>
+                  </mdb-view>
+                  <mdb-card-body>
+                    <mdb-card-title>Card title</mdb-card-title>
+                    <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
+                    <mdb-btn color="primary">Read more</mdb-btn>
+                  </mdb-card-body>
+                </mdb-card>
+              </mdb-col>
+            </mdb-sortable>
+          </mdb-container>
+        </template>
+
+      </code>
+
+      <code data-lang="html" data-name="script">
+
+        <script>
+          import mdbSortable from 'mdb-sortable'
+          import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbView, mdbCardImage, mdbMask, mdbCardBody, mdbCardTitle, mdbCardText } from 'mdbvue'
+
+          export default {
+            name: 'app',
+            components: {
+              mdbSortable,
+              mdbContainer,
+              mdbRow,
+              mdbCol,
+              mdbCard,
+              mdbView,
+              mdbCardImage,
+              mdbMask,
+              mdbCardBody,
+              mdbCardTitle,
+              mdbCardText
+            },
+            data() {
+              return {
+                list11: [
+                  { image: 'https://mdbootstrap.com/img/Photos/Others/images/14.jpg', id: 0 },
+                  { image: 'https://mdbootstrap.com/img/Photos/Others/images/15.jpg', id: 1 },
+                  { image: 'https://mdbootstrap.com/img/Photos/Others/images/16.jpg', id: 2 }
+                ]
+              }
+            }
+          }
+        </script>
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="masonry-panels">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Sortable masonry panels
+  </h2>
+
+  <!-- Description -->
+  <p>Sortable panels in masonry style. Similar behavior is used in Pinterest.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row my-5">
+      <div class="card-columns">
+
+        <div class="sortable">
+          <!--Panel-->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Panel title that wraps to a new line</h5>
+              <p class="card-text">This is a longer panel with supporting text below as a natural
+                lead-in
+                to
+                additional content. This content is a little bit longer.</p>
+            </div>
+          </div>
+          <!--/.Panel-->
+        </div>
+
+        <div class="sortable">
+          <!--Panel-->
+          <div class="card p-3">
+            <blockquote class="blockquote mb-0 card-body">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
+                ante.</p>
+              <footer class="blockquote-footer">
+                <small class="text-muted">
+                  Someone famous in <cite title="Source Title">Source Title</cite>
+                </small>
+              </footer>
+            </blockquote>
+          </div>
+          <!--/.Panel-->
+        </div>
+
+        <div class="sortable">
+          <!--Panel-->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Panel title</h5>
+              <p class="card-text">This panel has supporting text below as a natural lead-in to
+                additional
+                content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+          <!--/.Panel-->
+        </div>
+
+        <div class="sortable">
+          <!--Panel-->
+          <div class="card bg-primary text-white text-center p-3">
+            <blockquote class="blockquote mb-0">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+              <footer class="blockquote-footer">
+                <small>
+                  Someone famous in <cite title="Source Title">Source Title</cite>
+                </small>
+              </footer>
+            </blockquote>
+          </div>
+          <!--/.Panel-->
+        </div>
+
+        <div class="sortable">
+          <!--Panel-->
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Panel title</h5>
+              <p class="card-text">This panel has supporting text below as a natural lead-in to
+                additional
+                content.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+          <!--/.Panel-->
+        </div>
+
+        <div class="sortable">
+          <!--Panel-->
+          <div class="card p-3 text-right">
+            <blockquote class="blockquote mb-0">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
+                ante.</p>
+              <footer class="blockquote-footer">
+                <small class="text-muted">
+                  Someone famous in <cite title="Source Title">Source Title</cite>
+                </small>
+              </footer>
+            </blockquote>
+          </div>
+          <!--/.Panel-->
+        </div>
+
+        <div class="sortable">
+          <!--Panel-->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Panel title</h5>
+              <p class="card-text">This is a wider panel with supporting text below as a natural
+                lead-in
+                to
+                additional content. This panel has even longer content than the first to show that
+                equal
+                height action.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+          <!--/.Panel-->
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="template">
+
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <div class="card-columns">
+                <mdb-sortable>
+                  <mdb-card>
+                    <mdb-card-body>
+                      <mdb-card-title tag="h5">Panel title that wraps to a new line</mdb-card-title>
+                      <mdb-card-text>This is a longer panel with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</mdb-card-text>
+                    </mdb-card-body>
+                  </mdb-card>
+                  <mdb-card class="p-3">
+                    <blockquote class="blockquote mb-0 card-body">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                      <footer class="blockquote-footer">
+                        <small class="text-muted">
+                          Someone famous in <cite title="Source Title">Source Title</cite>
+                        </small>
+                      </footer>
+                    </blockquote>
+                  </mdb-card>
+                  <mdb-card>
+                    <mdb-card-body>
+                      <mdb-card-title tag="h5">Panel title</mdb-card-title>
+                      <mdb-card-text>This is a longer panel with supporting text below as a natural lead-in to additional content.</mdb-card-text>
+                      <mdb-card-text><small class="text-muted">Last updated 3 mins ago</small></mdb-card-text>
+                    </mdb-card-body>
+                  </mdb-card>
+                  <mdb-card class="bg-primary text-white text-center p-3">
+                    <blockquote class="blockquote mb-0">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+                      <footer class="blockquote-footer">
+                        <small>
+                          Someone famous in <cite title="Source Title">Source Title</cite>
+                        </small>
+                      </footer>
+                    </blockquote>
+                  </mdb-card>
+                  <mdb-card class="text-center">
+                    <mdb-card-body>
+                      <mdb-card-title tag="h5">Panel title</mdb-card-title>
+                      <mdb-card-text>This is a longer panel with supporting text below as a natural lead-in to additional content.</mdb-card-text>
+                      <mdb-card-text><small class="text-muted">Last updated 3 mins ago</small></mdb-card-text>
+                    </mdb-card-body>
+                  </mdb-card>
+                  <mdb-card class="text-right p-3">
+                    <blockquote class="blockquote mb-0">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+                      <footer class="blockquote-footer">
+                        <small>
+                          Someone famous in <cite title="Source Title">Source Title</cite>
+                        </small>
+                      </footer>
+                    </blockquote>
+                  </mdb-card>
+                  <mdb-card>
+                    <mdb-card-body>
+                      <mdb-card-title tag="h5">Panel title</mdb-card-title>
+                      <mdb-card-text>This is a longer panel with supporting text below as a natural lead-in to additional content. This panel has even longer content than the first to show that equal height action.</mdb-card-text>
+                      <mdb-card-text><small class="text-muted">Last updated 3 mins ago</small></mdb-card-text>
+                    </mdb-card-body>
+                  </mdb-card>
+                </mdb-sortable>
+              </div>
+            </mdb-row>
+          </mdb-container>
+        </template>
+
+      </code>
+
+      <code data-lang="html" data-name="script">
+
+        <script>
+          import mdbSortable from 'mdb-sortable'
+          import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbView, mdbCardImage, mdbMask, mdbCardBody, mdbCardTitle, mdbCardText } from 'mdbvue'
+
+          export default {
+            name: 'app',
+            components: {
+              mdbSortable,
+              mdbContainer,
+              mdbRow,
+              mdbCol,
+              mdbCard,
+              mdbView,
+              mdbCardImage,
+              mdbMask,
+              mdbCardBody,
+              mdbCardTitle,
+              mdbCardText
+            }
+          }
+        </script>
+
+      </code>
+
+      <code data-lang="html" data-name="style">
+        
+        <style>
+          .card-columns {
+            -webkit-column-count: 3;
+            -moz-column-count: 3;
+            column-count: 3;
+            -webkit-column-gap: 1.25rem;
+            -moz-column-gap: 1.25rem;
+            column-gap: 1.25rem;
+            orphans: 1;
+            widows: 1;
+          }
+        </style>
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="navs">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Sortable nav links
+  </h2>
+
+  <!-- Description -->
+  <p>Nav links with sortable feature.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <ul class="nav grey lighten-4 py-4 sortable">
+          <li class="nav-item">
+            <a class="nav-link active" href="#!">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#!">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="template">
+
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <mdb-col md="12" class="mx-auto">
+                <mdb-sortable class="nav grey lighten-4 py-4">
+                  <mdb-nav-item active href="#!">Active</mdb-nav-item>
+                  <mdb-nav-item active href="#!">Link</mdb-nav-item>
+                  <mdb-nav-item active href="#!">Link</mdb-nav-item>
+                  <mdb-nav-item disabled href="#!">Disabled</mdb-nav-item>
+                </mdb-sortable>
+              </mdb-col>
+            </mdb-row>
+          </mdb-container>
+        </template>
+
+      </code>
+
+      <code data-lang="html" data-name="script">
+
+        <script>
+          import mdbSortable from 'mdb-sortable'
+          import { mdbContainer, mdbRow, mdbCol, mdbNavItem } from 'mdbvue'
+
+          export default {
+            name: 'app',
+            components: {
+              mdbSortable,
+              mdbContainer,
+              mdbRow,
+              mdbCol,
+              mdbNavItem
+            }
+          }
+        </script>
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->

@@ -1,0 +1,402 @@
+<!--Section: Intro-->
+<section id="e-introduction">
+
+  <!--Title-->
+  <h2 class="section-heading">Angular File Input - examples & customization</h2>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="e-front">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Uploading file with File Input
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Description-->
+  <p>In order to show how to send a file through the File Input component, you need to set up a server. We will use
+    Node + Express.js stack.</p>
+
+  <p>If you come across a problem, please check our <a href="https://mdbootstrap.com/support/">support forum</a> to see
+    if someone else has already had a similar problem. If not, then feel free to set up a new topic!</p>
+
+  <p>The whole project is available at <a href="https://mdbootstrap.com/download/mdb-angular/code-examples/file-uploader-demo.zip">this address</a> as a zip archive.</p>
+
+  <p>As a first step, copy the following HTML and TS code into your project.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <form>
+          <div class="file-field md-form d-flex justify-content-between align-items-center">
+            <div mdbBtn floating="true" size="md" color="amber" mdbWavesEffect>
+              <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+              <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+            </div>
+            <div class="file-path-wrapper mt-1">
+              <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+            </div>
+            <button mdbBtn type="button" size="sm" color="amber" rounded="true" class="darken-2 waves-light" (click)="startUpload()"
+              mdbWavesEffect>Start
+              uploading</button>
+          </div>
+        </form>
+
+      </code>
+
+      <code data-lang="js" data-name="TS">
+            import { Component, EventEmitter } from '@angular/core';
+            import { UploadInput, UploadOutput, UploadFile, humanizeBytes } from 'ng-uikit-pro-standard';
+
+            @Component({
+              selector: 'app-root',
+              templateUrl: './app.component.html',
+              styleUrls: ['./app.component.scss']
+            })
+            export class AppComponent {
+              formData: FormData;
+              files: UploadFile[];
+              uploadInput: EventEmitter<UploadInput>;
+              humanizeBytes: Function;
+              dragOver: boolean;
+
+              constructor() {
+                  this.files = [];
+                  this.uploadInput = new EventEmitter<UploadInput>();
+                  this.humanizeBytes = humanizeBytes;
+              }
+
+              showFiles() {
+                  let files = '';
+                  for (let i = 0; i < this.files.length; i ++) {
+                    files += this.files[i].name;
+                     if (!(this.files.length - 1 === i)) {
+                       files += ',';
+                    }
+                  }
+                  return files;
+               }
+
+              startUpload(): void {
+                  const event: UploadInput = {
+                  type: 'uploadAll',
+                  url: 'http://localhost:3001/api/upload',
+                  method: 'POST',
+                  data: { foo: 'bar' },
+                  };
+                  this.files = [];
+                  this.uploadInput.emit(event);
+              }
+
+              cancelUpload(id: string): void {
+                  this.uploadInput.emit({ type: 'cancel', id: id });
+              }
+
+              onUploadOutput(output: UploadOutput | any): void {
+                  if (output.type === 'allAddedToQueue') {
+                  } else if (output.type === 'addedToQueue') {
+                    this.files.push(output.file); // add file to array when added
+                  } else if (output.type === 'uploading') {
+                    // update current data in files array for uploading file
+                    const index = this.files.findIndex(file => file.id === output.file.id);
+                    this.files[index] = output.file;
+                  } else if (output.type === 'removed') {
+                    // remove file from array when removed
+                    this.files = this.files.filter((file: UploadFile) => file !== output.file);
+                  } else if (output.type === 'dragOver') {
+                    this.dragOver = true;
+                  } else if (output.type === 'dragOut') {
+                  } else if (output.type === 'drop') {
+                    this.dragOver = false;
+                  }
+                  this.showFiles();
+              }
+            }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="e-folders">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Necessary files and folders
+  </h2>
+
+  <p>In the next step in your application's root directory, create the following folders and the files that they will
+    contain.</p>
+  <ul>
+    <li>bin/www.ts,</li>
+    <li>routes/index.ts,</li>
+    <li>uploads,</li>
+    <li>app.ts.</li>
+  </ul>
+
+  <img src="https://mdbootstrap.com/img/Angular/file-upload-project-structure.png" alt="File upload files structure">
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="e-server">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Necessary libraries and filling up files
+  </h2>
+
+  <p>The next step is to install the following additional libraries, thanks to which we will handle the sending of the
+    file to the backend, and then complete the previously created files with the required code.</p>
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="NPM Install">
+      npm install --save express body-parser cors multer
+    </code>
+  </mdbsnippet>
+
+  <p>Copy the below code into <code>app.ts</code> file</p>
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="app.ts">
+      const express = require('express');
+      const path = require('path');
+      const bodyParser = require('body-parser');
+      const cors = require('cors');
+
+      const indexRouter = require('./routes/index');
+      const app = express();
+
+      const corsOptions = {
+        origin: '*',
+        optionsSuccessStatus: 200
+      };
+
+      app.use(cors(corsOptions));
+      app.use(bodyParser.json());
+      app.use(bodyParser.urlencoded({ extended: true }));
+
+      // create a cors middleware
+      app.use((req, res, next) => {
+        // set headers to allow cross origin request.
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        next();
+      });
+
+      app.use('/api', indexRouter);
+
+      module.exports = app;
+
+    </code>
+  </mdbsnippet>
+
+  <p>Then copy the below code into <code>routes/index.ts</code> file</p>
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="routes/index.ts">
+      const exp = require('express');
+      const router = exp.Router();
+      const multer = require('multer');
+      const DIR = './uploads/';
+
+      let upload = multer({ dest: DIR }).single('file');
+
+      router.post('/upload', (req, res, next) => {
+        let path = '';
+        upload(req, res, (err) => {
+            if (err) {
+                console.log(err);
+                return res.status(422).send('An error occured');
+            }
+            path = req.file.path;
+            console.log('Uploaded');
+            return res.send('Upload completed for ' + path);
+        });
+      });
+      module.exports = router;
+
+    </code>
+  </mdbsnippet>
+
+  <p>And the last .ts file which you have to fill up is <code>bin/www.ts</code> file.</p>
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="bin/www.ts">
+      #!/usr/bin/env node
+
+      /**
+      * Module dependencies.
+      */
+
+      const appFile = require('../app');
+      const debug = require('debug')('file-upload:server');
+      const http = require('http');
+
+      /**
+      * Get port from environment and store in Express.
+      */
+
+      const port = normalizePort(process.env.PORT || '3001');
+      appFile.set('port', port);
+
+      /**
+      * Create HTTP server.
+      */
+
+      const server = http.createServer(appFile);
+
+      /**
+      * Listen on provided port, on all network interfaces.
+      */
+
+      server.listen(port);
+      server.on('error', onError);
+      server.on('listening', onListening);
+
+      /**
+      * Normalize a port into a number, string, or false.
+      */
+
+      function normalizePort(val) {
+        const portNumber = parseInt(val, 10);
+
+        if (isNaN(portNumber)) {
+        // named pipe
+        return val;
+        }
+
+        if (portNumber >= 0) {
+        // port number
+        return portNumber;
+        }
+
+        return false;
+      }
+
+      /**
+      * Event listener for HTTP server "error" event.
+      */
+
+      function onError(error) {
+      if (error.syscall !== 'listen') {
+        throw error;
+      }
+
+      const bind = typeof port === 'string' ?
+      'Pipe ' + port :
+      'Port ' + port;
+
+      // handle specific listen errors with friendly messages
+      switch (error.code) {
+        case 'EACCES':
+        console.error(bind + ' requires elevated privileges');
+        process.exit(1);
+        break;
+        case 'EADDRINUSE':
+        console.error(bind + ' is already in use');
+        process.exit(1);
+        break;
+        default:
+        throw error;
+      }
+      }
+
+      /**
+      * Event listener for HTTP server "listening" event.
+      */
+
+      function onListening() {
+        const addr = server.address();
+        const bind = typeof addr === 'string' ?
+        'pipe ' + addr :
+        'port ' + addr.port;
+        debug('Listening on ' + bind);
+      }
+
+    </code>
+  </mdbsnippet>
+
+  <p>After you have completed all required files with the above code, add a script to the <code>package.json</code>
+    file, which will run your server.</p>
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="NPM Install">
+      "server": "tsc app.ts && tsc routes/index.ts && tsc bin/www.ts && node ./bin/www.js"
+    </code>
+  </mdbsnippet>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="e-running-server">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Running the server and testing file upload
+  </h2>
+
+  <p>At the very end, we have nothing left to do but to run the server and the application. To do this, open two
+    terminal windows, and run the commands npm run server and ng serve in them.</p>
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="Server">
+      npm run server
+    </code>
+    <code data-lang="js" data-name="Application">
+      ng serve
+    </code>
+  </mdbsnippet>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="e-conclusion">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Conclusion
+  </h2>
+
+  <p>The above commands will run two processes - one responsible for server operation and the other for Angular
+    application operation. Now it is enough to select a file and press the Upload button, and after a while, this file
+    will be in your project, in the uploads directory. The name of this file is hashed, so you can avoid duplicate
+    files.
+  </p>
+
+  <blockquote class="blockquote bq-warning">
+    <p class="bq-title">Important note</p>
+    <p>
+      Please note that a piece of CORS-enabled code is only placed in the development environment. It is not recommended
+      to use this piece of code in a production environment unless you know what you are doing.</p>
+  </blockquote>
+
+</section>
+<!--/Section: -->

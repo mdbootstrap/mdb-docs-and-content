@@ -1,0 +1,198 @@
+<!--Section: Doc content-->
+<section class="documentation">
+  <!--Section: Intro-->
+  <section id="introduction">
+    <!--Title-->
+    <h1 class="main-title">Bootstrap Alerts <a href="https://mdbootstrap.com/products/react-ui-kit/" target="_blank"
+        class="btn btn-danger btn-md" role="button">MDB Pro component <i class="far fa-gem ml-1"></i></a></h1>
+    <!--Description-->
+    <div class="description">
+      <p>To improve the communication between your website/application and its users, you might want to consider adding
+        some automatic pop-up messages.</p>
+      <p>With the right use of colors, they add some emotional weight to our information, ranging from a simple warning
+        to critical system failure or from an operation success to a neutral information.</p>
+    </div>
+  </section>
+  <!--/Section: Intro-->
+  <hr class="my-5">
+  <!--Section: -->
+  <section id="examples">
+    <!--Title-->
+    <h2 class="title"><strong>Basic examples</strong> <a href="https://mdbootstrap.com/products/react-ui-kit/"
+        target="_blank" class="btn btn-danger btn-md" role="button">MDB Pro component <i class="far fa-gem ml-1"></i></a></h2>
+    <!--Description-->
+    <p class="description"></p>
+    <!--Section: Live preview-->
+    <section>
+      <!-- Live preview-->
+      <a class="btn btn-info" onclick="toastr.info('Hi! I am info message.');">Info message</a>
+      <a class="btn btn-warning" onclick="toastr.warning('Hi! I am warning message.');">Warning message</a>
+      <a class="btn btn-success" onclick="toastr.success('Hi! I am success message.');">Success message</a>
+      <a class="btn btn-danger" onclick="toastr.error('Hi! I am error message.');">Error message</a>
+    </section>
+    <!--Section: Live preview-->
+    <!--Section: Code-->
+    <section>
+      <pre class="code-toolbar">
+        <code class="language-markup">
+import React, { Component } from 'react';
+import { Button, ToastContainer, toast } from 'mdbreact';
+import './alerts.css';
+
+class AlertPage extends Component {
+  notify(type){
+  return () => {
+    switch (type) {
+      case 'info':
+        toast.info('Info message', {
+          autoClose: 3000
+        });
+        break;
+      case 'success':
+        toast.success('Success message', {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        break;
+      case 'warning':
+        toast.warn('Warning message');
+        break;
+      case 'error':
+        toast.error('Error message');
+        break;
+    }
+  };
+};
+  render(){
+    return (
+      &lt;div&gt;
+      &lt;button className='btn btn-info'
+        onClick={this.notify('info')}&gt;Info
+      &lt;/button&gt;
+      &lt;hr/&gt;
+      &lt;button className='btn btn-success'
+        onClick={this.notify('success')}&gt;Success
+      &lt;/button&gt;
+      &lt;hr/&gt;
+      &lt;button className='btn btn-warning'
+        onClick={this.notify('warning')}&gt;Warning
+      &lt;/button&gt;
+      &lt;hr/&gt;
+      &lt;button className='btn btn-danger'
+        onClick={this.notify('error')}&gt;Error
+      &lt;/button&gt;
+      &lt;ToastContainer
+        hideProgressBar={true}
+        newestOnTop={true}
+        autoClose={5000}
+      /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+export default AlertPage;</code>
+      </pre>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: -->
+  <hr class="my-5">
+  <!--Section: -->
+  <section id="options">
+    <!--Title-->
+    <h2 class="title mb-4"><strong>Options</strong></h2>
+    <p class="description">There are at least two legit ways to customize alerts. First one is method based, meaning that the toast is being activated programmatically. In that case, the <code>toast()</code> method accepts two arguments, first one being our message (or a JSX component to be rendered in its place) and an option object as the second one. The object's properties below.</p>
+    <!--Subheading-->
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>position</td>
+          <td>string</td>
+          <td>top-right</td>
+          <td>One of top-right, top-center, top-left, bottom-right, bottom-center, bottom-left</td>
+        </tr>
+        <tr>
+          <td>autoClose</td>
+          <td>false or int</td>
+          <td>5000</td>
+          <td>Delay in ms to close the toast. If set to false, the notification need to be closed manualy</td>
+        </tr>
+        <tr>
+          <td>closeButton</td>
+          <td>React Element or false</td>
+          <td>-</td>
+          <td>A React Component to replace the default close button or <code>false</code> to hide the button</td>
+        </tr>
+        <tr>
+          <td>transition</td>
+          <td>function</td>
+          <td>-</td>
+          <td>A reference to a valid react-transition-group/Transition component</td>
+        </tr>
+        <tr>
+          <td>hideProgressBar</td>
+          <td>bolean</td>
+          <td>false</td>
+          <td>Display or not the progress bar below the toast(remaining time)</td>
+        </tr>
+        <tr>
+          <td>pauseOnHover</td>
+          <td>bolean</td>
+          <td>true</td>
+          <td>Keep the timer running or not on hover</td>
+        </tr>
+        <tr>
+          <td>closeOnClick</td>
+          <td>bolean</td>
+          <td>true</td>
+          <td>Dismiss toast on click</td>
+        </tr>
+        <tr>
+          <td>newestOnTop</td>
+          <td>bolean</td>
+          <td>false</td>
+          <td>Display newest toast on top</td>
+        </tr>
+        <tr>
+          <td>className</td>
+          <td>string</td>
+          <td>-</td>
+          <td>Add optional classes to the container</td>
+        </tr>
+        <tr>
+          <td>style</td>
+          <td>object</td>
+          <td>-</td>
+          <td>Add optional inline style to the container</td>
+        </tr>
+        <tr>
+          <td>toastClassName</td>
+          <td>string</td>
+          <td>-</td>
+          <td>Add optional classes to the toast</td>
+        </tr>
+        <tr>
+          <td>bodyClassName</td>
+          <td>string</td>
+          <td>-</td>
+          <td>Add optional classes to the toast body</td>
+        </tr>
+        <tr>
+          <td>progressClassName</td>
+          <td>string</td>
+          <td>-</td>
+          <td>Add optional classes to the progress bar</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <!--/Section: -->
+</section>
+<!--/Section: Doc content-->

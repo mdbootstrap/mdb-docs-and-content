@@ -1,0 +1,76 @@
+<!--Section: Tutorial content-->
+<section class="tutorial">
+    <section id="browser">
+
+        <!--Title-->
+        <h2 class="title mb-4">
+            <strong>Running the application in a browser</strong>
+        </h2>
+
+        <p class="description">If you now run the application with the <code>ng serve </code>command, Service Workers
+            will
+            not work
+            because the browser is not able to handle it. In order to test how the PWA application works, we need to
+            install the <code>http-server</code> package from the npm repository. Thanks to it, we will be able to run
+            our
+            application on
+            the server, and check if everything works.</p>
+
+        <p class="description">To do this, execute the following command in the terminal:</p>
+
+        <pre class="code-toolbar">
+          <code class="language-javascript">npm install http-server -g</code>
+        </pre>
+
+        <p class="description">In order for a PWA application to be fully functional, its production version must be
+            launched on the server. To do this, open the file <code>angular.json</code>, and modify the line <code>"outputPath":
+                "dist/project-name",</code>.</p>
+        <p class="description">Remove <code>/project-name</code> part so that only <code>"outputPath"</code> and "dist"
+            are
+            left. The <code>"outputPath"</code> line should therefore, look like this:</p>
+
+        <pre class="code-toolbar">
+          <code class="language-javascript">
+              "outputPath": "dist",
+          </code>
+        </pre>
+
+        <p class="description">Then open the package.json file, and add the following script to the scripts object,
+            which
+            will remove the already existing dist directory, generate a new one, and the launch the <code>http-server</code>
+            package.</p>
+
+        <pre class="code-toolbar">
+            <code class="language-javascript">
+                "pwa": "ng build --prod && cd dist && http-server -p 8080 && cd .."
+            </code>
+          </pre>
+
+        <p class="description">After adding the above script there is nothing left for us to do but to run our PWA
+            application!
+            To do this, enter the following commands in the terminal:</p>
+
+        <pre class="code-toolbar">
+            <code class="language-javascript">
+              npm run pwa
+            </code>
+          </pre>
+
+        <p class="description">After running the <code>npm run pwa</code> command, just open the browser at <code>localhost:8080</code>,
+            and enjoy the working PWA application!</p>
+
+        <p class="description">
+            To see if the PWA mechanism is working, open the <code>localhost:8080</code> address in Google Chrome browser, open the
+            developer tools using the F12 key, then open the <strong>Network</strong> tab, and select the <strong>Offline</strong> checkbox and refresh
+            the page. The page should load correctly, even without an Internet connection. That's thanks to PWA!
+        </p>
+
+      <img class="img-fluid"
+           src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/new-angular-pwa/imgs/angular-pwa-4.png"
+           alt="Turn on offline mode">
+
+      <p class="description">Is something not working for you? Check the code for this lesson on our <a href="https://github.com/mdbootstrap/MDB-Angular-PWA/tree/4-checking-online-offline">repository</a></p>
+
+    </section>
+</section>
+<!--Section: Tutorial content-->

@@ -1,0 +1,87 @@
+
+  <p>In this lesson, we will learn how to use modals in our projects. </p>
+
+  <p class="note note-info"><strong>Note info:</strong> Modals are small popup windows that are really handy when you want to display to the user extra content, configuration  informationor consent requests.</p>
+
+    <p>1. Import</p>
+
+  <p>Make sure that you have imported the following components from the <mark>mdbreact</mark> library:</p>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            import {
+                ...
+                  MDBModal,
+                  MDBModalBody,
+                  MDBModalHeader,
+                  MDBModalFooter
+                ...
+                } from "mdbreact";                
+      </code>
+  </mdbsnippet>
+  <p>2. Add a new variable to <mark>state{}</mark></p>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+            this.state = {
+                modal: false,
+                ...              
+    </code>
+</mdbsnippet>
+<p>3. Add a new function to toggle (show/hide) the modal:</p>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+            toggleModal = () => {
+                this.setState({
+                  modal: !this.state.modal
+                });
+              };              
+    </code>
+</mdbsnippet>
+<p>4. Add a call to the <mark>toggleModal()</mark> function <mark>onClick</mark> on the "Add Event" button </p>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+            <MDBBtn color="info" rounded onClick={this.toggleModal}>
+                Add Event
+            </MDBBtn>                  
+    </code>
+</mdbsnippet>
+<p>5. Add a modal body at the bottom of the App component's <mark>render()</mark> function:</p>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+            render() {
+                return (
+                  <React.Fragment>
+                    <MDBContainer>
+                    ...
+                    </MDBContainer>
+             
+                    {/* Modal code below: */}
+                    <MDBModal isOpen={this.state.modal} toggle={this.toggleModal}>
+                      <MDBModalHeader
+                        className="text-center"
+                        titleClass="w-100 font-weight-bold"
+                        toggle={this.toggleModal}
+                      >
+                        Add new event
+                      </MDBModalHeader>
+                      <MDBModalBody>Body</MDBModalBody>
+                      <MDBModalFooter className="justify-content-center">
+                      </MDBModalFooter>
+                    </MDBModal>
+                  </React.Fragment>
+                );
+            
+    </code>
+</mdbsnippet>
+<p>6. Save the file and run the app: </p>
+
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/11/modal.gif" alt="Toggle modal preview" /><br /></div>
+  <div><br /></div>
+<p> As you can see we can close the modal either by clicking on the X sign in the top right corner or simply clicking
+    anywhere outside the modal.</p>
+    
+    
+    <p class="note note-info"> <strong>Note:</strong> <br />
+    Modals are great tools and they can be customized in a various way. Most probably you will use them to get user consent for using cookies / accept privacy policy on the website, display a registration/login form or to display some extra details like map and/or contact form. <br /> <br > You can find dozens of predefined modal templates in our <a href="https://mdbootstrap.com/docs/react/modals/basic/#docsTabsExamples">docs</a>.<br /> 
+    You can also check our modal <a href="https://mdbootstrap.com/docs/react/modals/generator/">generator</a>.     
+    </p>
+

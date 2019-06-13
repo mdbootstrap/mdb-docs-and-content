@@ -1,0 +1,115 @@
+<!--Section: Introduction-->
+<section id="e-introduction">
+  <h2 class="section-heading">Angular Validation - examples & customization</h2>
+</section>
+<!--/Section: Introduction-->
+
+<hr class="my-5">
+
+<!--Section: File upload validation-->
+<section id="e-file-upload">
+  <h2 class="section-heading">File upload validation</h2>
+
+  <!--Section: Code-->
+  <mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+      <form [formGroup]="validationForm">
+        <div class="file-field md-form">
+          <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
+            <span>Choose file</span>
+            <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()" formControlName="file">
+          </div>
+          <mdb-error *ngIf="file.invalid && (file.dirty || file.touched)">Input invalid</mdb-error>
+          <mdb-success *ngIf="file.valid && (file.dirty || file.touched)">Input valid</mdb-success>
+        </div>
+      </form>
+    </code>
+
+    <code data-lang="js" data-name="TS">
+      import { FormGroup, FormControl, Validators } from '@angular/forms';
+      import { Component, OnInit } from '@angular/core';
+
+      @Component({
+      selector: 'validators-component-example',
+      templateUrl: 'validators-example.html',
+      })
+      export class ValidatorsComponent implements OnInit {
+
+        validationForm: FormGroup;
+
+        formData: FormData;
+        files: UploadFile[];
+        uploadInput: EventEmitter<UploadInput>;
+        humanizeBytes: Function;
+        dragOver: boolean;
+
+        constructor() {
+            this.files = [];
+            this.uploadInput = new EventEmitter<UploadInput>();
+            this.humanizeBytes = humanizeBytes;
+        }
+
+        showFiles() {
+            let files = '';
+            for (let i = 0; i < this.files.length; i ++) {
+              files += this.files[i].name;
+               if (!(this.files.length - 1 === i)) {
+                 files += ',';
+              }
+            }
+            return files;
+         }
+
+        startUpload(): void {
+            const event: UploadInput = {
+            type: 'uploadAll',
+            url: 'your-path-to-backend-endpoint',
+            method: 'POST',
+            data: { foo: 'bar' },
+            };
+            this.files = [];
+            this.uploadInput.emit(event);
+        }
+
+        cancelUpload(id: string): void {
+            this.uploadInput.emit({ type: 'cancel', id: id });
+        }
+
+        onUploadOutput(output: UploadOutput | any): void {
+
+            if (output.type === 'allAddedToQueue') {
+            } else if (output.type === 'addedToQueue') {
+              this.files.push(output.file); // add file to array when added
+            } else if (output.type === 'uploading') {
+              // update current data in files array for uploading file
+              const index = this.files.findIndex(file => file.id === output.file.id);
+              this.files[index] = output.file;
+            } else if (output.type === 'removed') {
+              // remove file from array when removed
+              this.files = this.files.filter((file: UploadFile) => file !== output.file);
+            } else if (output.type === 'dragOver') {
+              this.dragOver = true;
+            } else if (output.type === 'dragOut') {
+            } else if (output.type === 'drop') {
+              this.dragOver = false;
+            }
+            this.file.setValue(this.showFiles());
+        }
+
+        ngOnInit() {
+          this.validationForm = new FormGroup({
+            file: new FormControl('', Validators.required)
+          });
+        }
+
+        get file() { return this.validationForm.get('file'); }
+      }
+    </code>
+  </mdbsnippet>
+  <!--/Section: Code-->
+
+</section>
+<!--/Section: File upload validation-->

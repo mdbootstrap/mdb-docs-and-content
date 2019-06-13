@@ -1,0 +1,217 @@
+<style>
+  .documentation .gif-content {
+    z-index: 1;
+    position: relative;
+    margin-top: -5px;
+    margin-left: 44px;
+    width: 445px;
+    padding: 20px 10px 0 10px
+  }
+
+  .documentation .gif-mockup {
+    position: absolute;
+    z-index: 10;
+    width: 530px
+  }
+
+  .documentation .gif-wrapper {
+    z-index: 8;
+    background: #fff;
+    padding-bottom: 30px;
+  }
+
+</style>
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Angular Bootstrap Mobile touch <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm" role="button">MDB Pro component
+  <i class="far fa-gem ml-1"></i>
+  </a></h2>
+
+  <h1 class="secondary-heading mb-4">Angular mobile touch gestures - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p class="description">Angular Bootstrap mobile gestures are touch-based interactions with mobile devices. Various of
+    different fingers movements indicate particular components responses.</p>
+
+  <p>MDB provides you support for most common touch gestures.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/pan.jpg" alt="Pan gesture"
+          class="img-fluid"></div>
+      <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/rotate.jpg" alt="Rotate gesture"
+          class="img-fluid"></div>
+      <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/press.jpg" alt="Press gesture"
+          class="img-fluid"></div>
+      <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/tap.jpg" alt="Tap gesture"
+          class="img-fluid"></div>
+      <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/swipe.jpg" alt="Swipe gesture"
+          class="img-fluid"></div>
+      <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/pinch.jpg" alt="Pinch gesture"
+          class="img-fluid"></div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="basic-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Carousel with gestures support
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="text-center">
+      <img src="https://mdbootstrap.com/img/Others/mobile.gif" alt="Mobile - Material Design for Bootstrap" class="img-fluid mb-5">
+    </div>
+    <p>Click on the button below to launch a live example and see the <strong>Carousel with a gestures support</strong>
+      in action.</p>
+
+    <a href="https://mdbootstrap.com/snippets/jquery/mdbootstrap/105243?action=full_screen_mode" class="btn btn-primary btn-lg">Live preview</a>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <p class="mt-5">To make it work, use the code below together with one of <a href="https://mdbootstrap.com/docs/angular/advanced/carousel/"><strong>MDB
+        carousels</strong></a>.</p>
+  <p><strong>Note:</strong> Remember to set a corresponding ID in both <strong>Carousel</strong> and <strong>script</strong>.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+        <mdb-carousel #carousel>
+          [ Slides ]
+      </mdb-carousel>
+      </code>
+      <code data-lang="js" data-name="TS">
+
+        import { Component, ViewChild, HostListener } from '@angular/core';
+
+        @Component({
+          selector: 'app-root',
+          templateUrl: 'app.component.html'
+        })
+
+        export class AppComponent {
+            @ViewChild('carousel') public el: any;
+
+            @HostListener('swipeleft', ['$event']) public swipePrev(event: any) {
+                this.el.previousSlide();
+            }
+
+            @HostListener('swiperight', ['$event']) public swipeNext(event: any) {
+                this.el.nextSlide();
+            }
+        }
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="usage">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Usage
+  </h2>
+
+  <!-- Description -->
+  <p class="description">It’s easy to use, just add global HammerJS config in <code>app.module.ts</code> file:</p>
+
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="js" data-name="app.module.ts">
+
+        import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+        declare var Hammer: any;
+
+        export class MyHammerConfig extends HammerGestureConfig {
+          overrides = <any> {
+            'pan': { direction: Hammer.DIRECTION_All },
+            'swipe': { direction: Hammer.DIRECTION_VERTICAL },
+          };
+
+          buildHammer(element: HTMLElement) {
+            const mc = new Hammer(element, {
+              touchAction: 'auto',
+                  inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
+                  recognizers: [
+                    [Hammer.Swipe, {
+                      direction: Hammer.DIRECTION_HORIZONTAL
+                    }]
+                  ]
+            });
+            return mc;
+          }
+        }
+
+        @NgModule({
+          declarations: [
+          ...
+          ],
+          imports: [
+          ...
+          ],
+          providers: [
+          ...,
+            {
+              provide: HAMMER_GESTURE_CONFIG,
+              useClass: MyHammerConfig
+            }
+          ],
+        })
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>Also the viewport meta tag is recommended, it gives more control back to the webpage by disabling the
+    doubletap/pinch
+    zoom. More recent browsers which support the touch-action property don’t require this.
+  </p>
+
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">

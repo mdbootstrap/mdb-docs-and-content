@@ -1,0 +1,141 @@
+<!--Section: Intro-->
+<section id="e-introduction">
+
+  <!--Title-->
+  <h2 class="section-heading">Angular Notification / Toast - examples & customization</h2>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section-->
+<section id="e-individual-options">
+
+  <!--Grid row-->
+
+  <!--Title-->
+  <h2 class="section-heading mb-3">
+    Individual config options
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+        <!--Info message-->
+        <a class="btn btn-info waves-light" (click)="showInfo()" mdbWavesEffect>Info message</a>
+        <!--Warning message-->
+        <a class="btn btn-warning waves-light" (click)="showWarning()" mdbWavesEffect>Warning message</a>
+        <!--Success message-->
+        <a class="btn btn-success waves-light" (click)="showSuccess()" mdbWavesEffect>Success message</a>
+        <!--Error message-->
+        <a class="btn btn-danger waves-light" (click)="showError()" mdbWavesEffect>Error message</a>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import { ToastService } from 'ng-uikit-pro-standard';
+        import { Component } from '@angular/core';
+
+        @Component({
+          selector: 'individual-config',
+          templateUrl: './individual-config.component.html',
+          styleUrls: ['./individual-config.component.scss'],
+        })
+        export class IndividualConfigComponent {
+          constructor(private toastrService: ToastService) { }
+
+          showSuccess() {
+            const options = { closeButton: true, actionButton: 'Action', tapToDismiss: false, titleClass: 'yellow' };
+            this.toastrService.success('Hello world!', 'Toastr success!', options);
+          }
+          showError() {
+            const options = { enableHtml: false, positionClass: 'md-toast-bottom-right' };
+            this.toastrService.error('Error message', 'Toastr error!', options);
+          }
+
+          showInfo() {
+            const options = { extendedTimeOut: 30000, messageClass: 'pink' };
+            this.toastrService.info('Info message', 'Toastr info!', options);
+          }
+
+          showWarning() {
+            const options = { progressBar: true, timeOut: 3000, toastClass: 'black' };
+            this.toastrService.warning('Warnig message', 'Toastr warning!', options);
+          }
+
+        }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+
+<hr class="my-5">
+
+<!--Section-->
+<section id="e-events">
+
+    <!--Grid row-->
+  
+    <!--Title-->
+    <h2 class="section-heading mb-3">
+      Toast events
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm" role="button">MDB
+        Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+  
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+  
+        <code data-lang="html" data-name="HTML">
+          <!--Success message-->
+          <a class="btn btn-success waves-light" (click)="showSuccess()" mdbWavesEffect>Success message</a>
+        </code>
+  
+        <code data-lang="js" data-name="TS">
+          import { ToastService } from 'ng-uikit-pro-standard';
+          import { Component } from '@angular/core';
+  
+          @Component({
+            selector: 'toast-events',
+            templateUrl: './toast-events.component.html',
+            styleUrls: ['./toast-events.component.scss'],
+          })
+          export class ToastEventsComponent {
+            constructor(private toastrService: ToastService) { }
+  
+            showSuccess() {
+                const options = { closeButton: true, progressBar: true, actionButton: 'Action', tapToDismiss: true };
+                const alertInstance = this.toastrService.success('Hello world!', 'Toastr success!', options);
+                alertInstance.onAction.subscribe(() => {
+                  console.log('on action');
+                });
+                alertInstance.onTap.subscribe(() => {
+                  console.log('on tap');
+                });
+                alertInstance.onShown.subscribe(() => {
+                  console.log('on shown');
+                });
+                alertInstance.onHidden.subscribe(() => {
+                  console.log('on hidden');
+                });
+              }
+          }
+        </code>
+  
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  
+  <hr class="my-5">

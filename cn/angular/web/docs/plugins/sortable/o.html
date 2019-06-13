@@ -1,0 +1,757 @@
+<style>
+  .square {
+    height: 90px;
+    width: 90px;
+    line-height: 90px;
+    font-size: 32px;
+  }
+
+  .drop-placeholder {
+    background-color: lightgray;
+    height: 3.5em;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    line-height: 1.2em;
+  }
+
+</style>
+
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Angular Bootstrap Sortable</h2>
+
+  <h1 class="secondary-heading mb-4">Angular sortable - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p>Angular Bootstrap sortable plugin is an extension that allows you to move, reorder, sort and organize elements on your website by using drag and drop functionality.</p>
+
+  <blockquote class="blockquote bq-primary">
+      <p class="bq-title">To start working with sortable plugin see <strong>"Getting Started"</strong> tab on this page.</p>
+    </blockquote>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic Example
+  </h2>
+
+  <!-- Description -->
+  <p>Change the order of elements in the DOM tree by dragging the element.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <ul id="sortable" class="list-group">
+          <li class="list-group-item active">Item 1</li>
+          <li class="list-group-item">Item 2</li>
+          <li class="list-group-item">Item 3</li>
+          <li class="list-group-item">Item 4</li>
+          <li class="list-group-item">Item 5</li>
+          <li class="list-group-item">Item 6</li>
+          <li class="list-group-item">Item 7</li>
+          <li class="list-group-item">Item 8</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <ul mdbSortableList class="list-group" (drop)="onDrop($event)">
+          <li *ngFor="let item of sortableList" mdbSortable class="list-group-item">{{ item }}</li>
+        </ul>
+
+      </code>
+
+      <code data-lang="js" data-name="TS">
+
+import { Component } from '@angular/core';
+import { moveItemInList } from 'mdb-sortable';
+
+@Component({
+  selector: 'sortable-example',
+  templateUrl: './sortable-example.component.html',
+})
+export class SortableExampleComponent {
+
+  sortableList = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+    'Item 6',
+    'Item 7',
+    'Item 8',
+    'Item 9',
+    'Item 10'
+  ];
+
+  onDrop(event: any) {
+    moveItemInList(this.sortableList, event.oldIndex, event.newIndex);
+  }
+
+}
+      </code>
+
+      <code data-lang="css" data-name="SCSS">
+          .mdb-sortable {
+            user-select: none;
+          }
+
+          .mdb-sortable-placeholder {
+            opacity: 0;
+          }
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="list-merging">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Merging lists
+  </h2>
+
+  <!-- Description -->
+  <p>Sorting items between two lists</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <ul id="sortable1" class="list-group connectedSortable">
+          <li class="list-group-item active">Lion</li>
+          <li class="list-group-item">Dog</li>
+          <li class="list-group-item">Cat</li>
+          <li class="list-group-item">Tiger</li>
+        </ul>
+      </div>
+      <div class="col-md-6 mx-auto">
+        <ul id="sortable2" class="list-group connectedSortable">
+          <li class="list-group-item active">Fish</li>
+          <li class="list-group-item">Bird</li>
+          <li class="list-group-item">Falcon</li>
+          <li class="list-group-item">Mouse</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+              <ul #list1="mdbSortableList" mdbSortableList [data]="sortableList1" [connectedWith]="[list2]" class="list-group w-100" (drop)="onDrop($event)">
+                  <li *ngFor="let item of sortableList1" class="list-group-item" mdbSortable>{{ item }}</li>
+                </ul>
+          </div>
+
+          <div class="col-md-6 mx-auto">
+              <ul #list2="mdbSortableList" mdbSortableList [data]="sortableList2" [connectedWith]="[list1]" class="list-group w-100" (drop)="onDrop($event)">
+                <li *ngFor="let item of sortableList2" class="list-group-item" mdbSortable>{{ item }}</li>
+              </ul>
+          </div>
+        </div>
+
+      </code>
+
+      <code data-lang="js" data-name="TS">
+
+        import { Component } from '@angular/core';
+        import { moveItemInList, moveItemToNewList } from 'mdb-sortable';
+
+        @Component({
+          selector: 'sortable-example',
+          templateUrl: './sortable-example.component.html',
+        })
+        export class SortableExampleComponent {
+
+          sortableList1 = [
+            'Lion',
+            'Dog',
+            'Cat',
+            'Tiger'
+          ];
+
+          sortableList2 = [
+            'Fish',
+            'Bird',
+            'Falcon',
+            'Mouse'
+          ];
+
+          onDrop(event: any) {
+            if (event.previousList === event.currentList) {
+              moveItemInList(event.previousList.data, event.oldIndex, event.newIndex);
+            } else {
+              moveItemToNewList(event.previousList.data,
+                event.currentList.data, event.oldIndex, event.newIndex);
+            }
+          }
+
+        }
+
+      </code>
+
+      <code data-lang="css" data-name="SCSS">
+          .mdb-sortable {
+            user-select: none;
+          }
+
+          .mdb-sortable-placeholder {
+            opacity: 0;
+          }
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="display-grid">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Display as grid
+  </h2>
+
+  <!-- Description -->
+  <p>Displays items in a sortable grid - this can be used to determine the order in which photos or files are uploaded.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div id="sortable3" class="col-md-5 d-flex flex-wrap">
+        <div class="text-center white-text blue m-2 square">1</div>
+        <div class="text-center white-text blue m-2 square">2</div>
+        <div class="text-center white-text blue m-2 square">3</div>
+        <div class="text-center white-text blue m-2 square">4</div>
+        <div class="text-center white-text blue m-2 square">5</div>
+        <div class="text-center white-text blue m-2 square">6</div>
+        <div class="text-center white-text blue m-2 square">7</div>
+        <div class="text-center white-text blue m-2 square">8</div>
+        <div class="text-center white-text blue m-2 square">9</div>
+        <div class="text-center white-text blue m-2 square">10</div>
+        <div class="text-center white-text blue m-2 square">11</div>
+        <div class="text-center white-text blue m-2 square">12</div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+<div mdbSortableList class="col-md-5 d-flex flex-center flex-wrap mt-5" (drop)="onDrop($event)">
+  <div *ngFor="let item of sortableList" mdbSortable class="text-center white-text blue m-2 square">{{ item }}</div>
+</div>
+
+      </code>
+
+      <code data-lang="js" data-name="TS">
+
+        import { Component } from '@angular/core';
+        import { moveItemInList, moveItemToNewList } from 'mdb-sortable';
+
+        @Component({
+          selector: 'sortable-example',
+          templateUrl: './sortable-example.component.html',
+        })
+        export class SortableExampleComponent {
+
+        sortableList = [
+          '1',
+          '2',
+          '3',
+          '4',
+          '5',
+          '6',
+          '7',
+          '8',
+          '9',
+          '10',
+          '11',
+          '12'
+        ];
+
+          onDrop(event: any) {
+            moveItemInList(this.sortableList, event.oldIndex, event.newIndex);
+          }
+
+        }
+
+      </code>
+
+      <code data-lang="css" data-name="SCSS">
+
+        .mdb-sortable {
+          user-select: none;
+        }
+
+        .mdb-sortable-placeholder {
+          opacity: 0;
+        }
+
+        .square {
+        height: 90px;
+        width: 90px;
+        line-height: 90px;
+        font-size: 32px;
+        }
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="disabled-items">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Disabled items
+  </h2>
+
+  <!-- Description -->
+  <p>It is possible to disable sorting functionality by using <code>[disabled]="true"</code> input.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <ul id="sortable8" class="list-group">
+          <li class="list-group-item active ui-state-default">Sortable item</li>
+          <li class="list-group-item ui-state-default ui-state-disabled disabled">Disabled sortable item</li>
+          <li class="list-group-item ui-state-default ui-state-disabled disabled">Disabled sortable item</li>
+          <li class="list-group-item ui-state-default">Sortable item</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <ul mdbSortableList class="list-group" (drop)="onDrop($event)">
+          <li *ngFor="let item of sortableList" mdbSortable class="list-group-item" [disabled]="item.disabled">{{ item.name }}</li>
+        </ul>
+
+      </code>
+
+      <code data-lang="js" data-name="TS">
+
+import { Component } from '@angular/core';
+import { moveItemInList } from 'mdb-sortable';
+
+@Component({
+  selector: 'sortable-example',
+  templateUrl: './sortable-example.component.html',
+})
+export class SortableExampleComponent {
+
+  sortableList = [
+    { name: 'Sortable item', disabled: false },
+    { name: 'Disabled sortable item', disabled: true },
+    { name: 'Disabled sortable item', disabled: true },
+    { name: 'Sortable item', disabled: false },
+  ];
+
+  onDrop(event: any) {
+    moveItemInList(this.sortableList, event.oldIndex, event.newIndex);
+  }
+
+}
+      </code>
+
+      <code data-lang="css" data-name="SCSS">
+        .mdb-sortable {
+          user-select: none;
+        }
+
+        .mdb-sortable-placeholder {
+          opacity: 0;
+        }
+
+        .mdb-sortable-disabled {
+          color: lightgray;
+        }
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="card-decks">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Sortable deck of cards
+  </h2>
+
+  <!-- Description -->
+  <p>Cards with collapsed content and sorting between lists - similar behavior can be observed on Trello.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <!-- Card deck -->
+      <div class="card-deck">
+
+        <div class="sortable-card col-md-4">
+          <!-- Card -->
+          <div class="card mb-4">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+              <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <!--Title-->
+              <h4 class="card-title">Card title</h4>
+              <!--Text-->
+              <p class="card-text">Some quick example text to build on the card title and make up the
+                bulk of
+                the card's content.</p>
+              <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+              <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+            </div>
+
+          </div>
+          <!-- Card -->
+        </div>
+
+        <div class="sortable-card col-md-4">
+          <!-- Card -->
+          <div class="card mb-4">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/14.jpg" alt="Card image cap">
+              <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <!--Title-->
+              <h4 class="card-title">Card title</h4>
+              <!--Text-->
+              <p class="card-text">Some quick example text to build on the card title and make up the
+                bulk of
+                the card's content.</p>
+              <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+              <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+            </div>
+
+          </div>
+          <!-- Card -->
+        </div>
+
+        <div class="sortable-card col-md-4">
+          <!-- Card -->
+          <div class="card mb-4">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/15.jpg" alt="Card image cap">
+              <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <!--Title-->
+              <h4 class="card-title">Card title</h4>
+              <!--Text-->
+              <p class="card-text">Some quick example text to build on the card title and make up the
+                bulk of
+                the card's content.</p>
+              <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+              <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+            </div>
+
+          </div>
+          <!-- Card -->
+        </div>
+
+      </div>
+      <!-- Card deck -->
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+<div class="card-deck" mdbSortableList>
+  <!-- Card -->
+  <mdb-card mdbSortable>
+    <div class="view overlay waves-light" mdbWavesEffect>
+      <!-- Card img -->
+      <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap"></mdb-card-img>
+      <a>
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+    <!--Card content-->
+    <mdb-card-body>
+      <!--Title-->
+      <mdb-card-title>
+        <h4>Card Title</h4>
+      </mdb-card-title>
+
+      <!--Text-->
+      <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
+        content.
+      </mdb-card-text>
+
+      <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+    </mdb-card-body>
+  </mdb-card>
+
+  <!-- Card -->
+  <mdb-card mdbSortable>
+    <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+      <!-- Card img -->
+      <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/14.jpg" alt="Card image cap"></mdb-card-img>
+      <a>
+        <div class="mask"></div>
+      </a>
+    </div>
+    <!--Card content-->
+    <mdb-card-body>
+      <!--Title-->
+      <mdb-card-title>
+        <h4>Card Title</h4>
+      </mdb-card-title>
+
+      <!--Text-->
+      <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
+        content.
+      </mdb-card-text>
+
+      <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+    </mdb-card-body>
+  </mdb-card>
+
+  <!-- Card -->
+  <mdb-card mdbSortable>
+    <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+      <!-- Card img -->
+      <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/images/15.jpg" alt="Card image cap"></mdb-card-img>
+      <a>
+        <div class="mask"></div>
+      </a>
+    </div>
+    <!--Card content-->
+    <mdb-card-body>
+      <!--Title-->
+      <mdb-card-title>
+        <h4>Card Title</h4>
+      </mdb-card-title>
+
+      <!--Text-->
+      <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
+        content.
+      </mdb-card-text>
+
+      <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+    </mdb-card-body>
+  </mdb-card>
+</div>
+
+      </code>
+
+      <code data-lang="css" data-name="SCSS">
+
+        .mdb-sortable {
+          user-select: none;
+        }
+
+        .mdb-sortable-placeholder {
+          opacity: 0;
+        }
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="navs">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Sortable nav links
+  </h2>
+
+  <!-- Description -->
+  <p>Nav links with sortable feature.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <ul class="nav grey lighten-4 py-4 sortable">
+          <li class="nav-item">
+            <a class="nav-link active" href="#!">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#!">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+<ul class="nav grey lighten-4 py-4 sortable" mdbSortableList>
+  <li class="nav-item" mdbSortable>
+    <a class="nav-link active" href="#!">Active</a>
+  </li>
+  <li class="nav-item" mdbSortable>
+    <a class="nav-link" href="#!">Link</a>
+  </li>
+  <li class="nav-item" mdbSortable>
+    <a class="nav-link" href="#!">Link</a>
+  </li>
+  <li class="nav-item" mdbSortable>
+    <a class="nav-link disabled" href="#!">Disabled</a>
+  </li>
+</ul>
+
+      </code>
+
+      <code data-lang="css" data-name="SCSS">
+
+        .mdb-sortable {
+          user-select: none;
+        }
+
+        .mdb-sortable-placeholder {
+          opacity: 0;
+        }
+
+        .mdb-sortable-helper {
+          list-style: none;
+        }
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->

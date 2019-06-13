@@ -1,0 +1,141 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+    <!--Section: Intro-->
+    <section id="basic-example">
+
+        <!--Title-->
+        <h1 class="main-title">Bootstrap scrollspy <a href="https://mdbootstrap.com/products/react-ui-kit/" target="_blank" class="btn btn-danger btn-md"
+            role="button">MDB Pro component <i class="far fa-gem ml-1"></i></a></h1>
+
+        <!--Description-->
+        <p class="description">Bootstrap scrollspy is a plugin which shows on the navigation list current position on the page depends on the scroll position defined by the user. </p>
+
+        <!--Section: Live preview-->
+        <section>
+
+            <style>
+                .scrollspy-example {
+                    position: relative;
+                    overflow-y: scroll;
+                    height: 200px;
+                }
+            </style>
+
+            <!-- Nav tabs -->
+            <ul id="navbar-example2" class="nav nav-tabs nav-justified indigo mb-4 mx-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#panel1">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#panel2">Follow</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#panel3">Contact</a>
+                </li>
+            </ul>
+            <h4>Scroll down to see the effect</h4>
+            <!--Spied element-->
+            <div class="scrollspy-example z-depth-1 mt-4" data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+                <h4 id="panel1" class="font-bold">section1</h4>
+                <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
+                <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
+                <h4 id="panel2" class="font-bold">section2</h4>
+                <p>Veniam marfa mustache skateboard, adipisicing fugiat velit pitchfork beard. Freegan beard aliqua cupidatat mcsweeney's vero. Cupidatat four loko nisi, ea helvetica nulla carles. Tattooed cosby sweater food truck, mcsweeney's quis non freegan vinyl. Lo-fi wes anderson +1 sartorial. Carles non aesthetic exercitation quis gentrify. Brooklyn adipisicing craft beer vice keytar deserunt.</p>
+                <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
+                <h4 id="panel3" class="font-bold">section3</h4>
+                <p>Occaecat commodo aliqua delectus. Fap craft beer deserunt skateboard ea. Lomo bicycle rights adipisicing banh mi, velit ea sunt next level locavore single-origin coffee in magna veniam. High life id vinyl, echo park consequat quis aliquip banh mi pitchfork. Vero VHS est adipisicing. Consectetur nisi DIY minim messenger bag. Cred ex in, sustainable delectus consectetur fanny pack iphone.</p>
+                <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
+            </div>
+            <!--/.Spied element-->
+
+        </section>
+        <!--Section: Live preview-->
+
+        <!--Section: Code-->
+        <section>
+            <pre class="code-toolbar">
+                <code class="language-markup">
+class ScrollSpyPage extends React.Component  {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: 1
+    }
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  componentDidMount() {
+    this.scrollSpyText.addEventListener('scroll', this.handleScroll);
+    let scrollSpySections = this.scrollSpyText.getElementsByTagName('h4');
+    for (let i = 0; i < scrollSpySections.length; i++) {
+      let currentOffsetTop = scrollSpySections[i].offsetTop - 16;
+      if (!scrollSpySectionsOffset.includes(currentOffsetTop)) {
+        scrollSpySectionsOffset.push(currentOffsetTop);
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    this.scrollSpyText.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll() {
+    for (let i = 0; i < scrollSpySectionsOffset.length; i++) {
+      if (this.scrollSpyText.scrollTop > scrollSpySectionsOffset[i]) {
+        if (this.scrollSpyText.scrollTop > scrollSpySectionsOffset[i+1]) {
+        } else {
+          this.setState({active: i+1});
+        }
+      }
+    }
+
+  }
+
+  render() {
+    return(
+        &lt;ScrollSpyBox&gt;
+          &lt;ScrollSpyList color=&quot;red&quot;&gt;
+            &lt;ScrollSpyListItem href=&quot;#section1&quot; active={this.state.active === 1 ? true : false}&gt;section1&lt;/ScrollSpyListItem&gt;
+            &lt;ScrollSpyListItem href=&quot;#section2&quot; active={this.state.active === 2 ? true : false}&gt;section2&lt;/ScrollSpyListItem&gt;
+            &lt;ScrollSpyListItem href=&quot;#section3&quot; active={this.state.active === 3 ? true : false}&gt;section3&lt;/ScrollSpyListItem&gt;
+          &lt;/ScrollSpyList&gt;
+          &lt;div style={{height: '60px'}}&gt;&lt;/div&gt;
+          &lt;h4&gt;Scroll down to see the effect&lt;/h4&gt;
+          &lt;hr className=&quot;mb-5&quot; /&gt;
+          &lt;ScrollSpyText scrollSpyRef={el =&gt; this.scrollSpyText = el}&gt;
+            &lt;h4 id=&quot;section1&quot;&gt;section1&lt;/h4&gt;
+            &lt;p&gt;Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+                booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+                cred irony biodiesel keffiyeh artisan ullamco consequat.&lt;/p&gt;
+            &lt;p&gt;Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+                booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+                cred irony biodiesel keffiyeh artisan ullamco consequat.&lt;/p&gt;
+            &lt;h4 id=&quot;section2&quot;&gt;section2&lt;/h4&gt;
+            &lt;p&gt;Veniam marfa mustache skateboard, adipisicing fugiat velit pitchfork beard. Freegan beard aliqua cupidatat mcsweeney's vero. Cupidatat four loko nisi, ea helvetica nulla carles. Tattooed cosby sweater food truck,
+                mcsweeney's quis non freegan vinyl. Lo-fi wes anderson +1 sartorial. Carles non aesthetic exercitation quis gentrify. Brooklyn adipisicing craft beer vice keytar deserunt.&lt;/p&gt;
+            &lt;p&gt;Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+                booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+                cred irony biodiesel keffiyeh artisan ullamco consequat.&lt;/p&gt;
+            &lt;h4 id=&quot;section3&quot;&gt;section3&lt;/h4&gt;
+            &lt;p&gt;Occaecat commodo aliqua delectus. Fap craft beer deserunt skateboard ea. Lomo bicycle rights adipisicing banh mi, velit ea sunt next level locavore single-origin coffee in magna veniam. High life id vinyl, echo
+                park consequat quis aliquip banh mi pitchfork. Vero VHS est adipisicing. Consectetur nisi DIY minim messenger bag. Cred ex in, sustainable delectus consectetur fanny pack iphone.&lt;/p&gt;
+            &lt;p&gt;Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+                booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+                cred irony biodiesel keffiyeh artisan ullamco consequat.&lt;/p&gt;
+          &lt;/ScrollSpyText&gt;
+        &lt;/ScrollSpyBox&gt;
+    );
+  }
+};
+                </code>
+            </pre>
+
+        </section>
+        <!--Section: Code-->
+
+    </section>
+    <!--/Section: -->
+
+</section>
+<!--/Section: Doc content-->

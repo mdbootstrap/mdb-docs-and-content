@@ -1,0 +1,232 @@
+<!--Title-->
+<section class="mb-4" id="a-introduction">
+  <h2 class="primary-heading mb-3">Vue Waves Effect - API</h2>
+
+  <p>In this section you will find advanced information Waves Effect, including how the Waves Effect mixin works, how to use it in your custom components and where the effect is enabled by default in the library.</p>
+
+  <hr class="mt-4 mb-5">
+
+  <h2 class="section-heading mb-4" id="a-basics">Basics</h2>
+  
+  <section>
+      <p>Wave or 'ripple' effect is widely used in the Material Design standard - it is elegant, indicates user interacion and adds additional depth to surfaces.</p>
+      
+  <p>Generally, it takes mouse/tap coordinates returned by a click event and renders a CSS-based effect in the pin-pointed location on <code>.ripple-parent</code> parent element.</p>
+      
+    
+    <p>In <code>mdbvue</code>, wave effect is implemented as a mixin, meaning that most of the heavy lifting (methods, calculation, props declaration) is done for us and encapsulated. Below we present necessary steps to use the effect in a custom component.</p>
+  </section>
+</section>
+
+  <hr class="mt-4 mb-5">  
+
+   <!--Section: -->
+<section id="a-customization">
+
+        <!--Title-->
+        <h2 class="section-heading mb-4">
+          Customization
+        </h2>
+      
+        <!--Description-->
+        <p class="description">Let's be completely honest - wave effect is awesome. It is very easy to use the mixin for custom components, too! This is why here we present steps you need to take to apply it whenever you want. </p>
+      
+        <h4 class="mt-5">Step 1: import the mixin and list in the adequate property of exported object</h4>
+      
+        <!--Section: Code-->
+        <section>
+          <mdbsnippet>
+      
+            <code data-lang="js" data-name="&lt;script&gt;">
+            import { waves } from 'mdbvue';
+    
+            export default {
+                name: 'MyComponent',
+                ...,
+                mixins: [waves]
+            }
+            </code>
+      
+          </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+    
+        <h4 class="mt-5">Step 2: designate the <code>.ripple-parent</code></h4>
+        <p>Use the CSS class to declare the ancestor, on which the wave-effect will be taking place.</p>
+      
+        <!--Section: Code-->
+        <section>
+          <mdbsnippet>
+            <code data-lang="html" data-name="&lt;template&gt;">
+                <div class="my-component ripple-parent">
+                    {{message}}
+                </div>
+              
+            </code>
+            <code data-lang="js" data-name="&lt;script&gt;">
+            import { waves } from 'mdbvue';
+    
+            export default {
+                name: 'MyComponent',
+                props: {
+                    message: {
+                        type: String,
+                        default: 'yay!'
+                    }
+                },
+                mixins: [waves]
+            }
+            </code>
+            <code data-lang="CSS" data-name="&lt;style&gt;">
+                .my-component {
+                    width: 100px;
+                    height: 100px;
+                    background-color: red;
+                    color: white
+                }
+            </code>
+      
+          </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+    
+        <h4 class="mt-5">Step 3: Handle the click event</h4>
+            <p>If wave-effect triggering part of your component does not emit a click event natively, add an event listener with <code>wave</code> function callback like so: <code>@click="wave"</code>. The function is available for components that are using the <code>waves</code> mixin.</p>
+      
+        <!--Section: Code-->
+        <section>
+          <mdbsnippet>
+            <code data-lang="html" data-name="&lt;template&gt;">
+                <div class="my-component ripple-parent" @click="wave">
+                    {{message}}
+                </div>
+              
+            </code>
+            <code data-lang="js" data-name="&lt;script&gt;">
+            import { waves } from 'mdbvue';
+    
+            export default {
+                name: 'MyComponent',
+                props: {
+                    message: {
+                        type: String,
+                        default: 'yay!'
+                    }
+                },
+                mixins: [waves]
+            }
+            </code>
+            <code data-lang="CSS" data-name="&lt;style&gt;">
+                .my-component {
+                    width: 100px;
+                    height: 100px;
+                    background-color: red;
+                    color: white
+                }
+            </code>
+      
+          </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+    
+        <h4 class="mt-5">Step 4 (optional): <code>darkWaves</code></h4>
+        <p>In case there is a bright-ish background for waves effect, consider using its dark variant by the <code>darkWaves</code> prop. All components with the mixin present on them are ready to receive it.</p>
+        <section>
+    
+        <mdbsnippet>
+            <code data-lang="html" data-name="&lt;template&gt;">
+                <MyComponent message="keep it dark" darkWaves/>
+            </code>      
+          </mdbsnippet>
+    
+      </section>
+      <!--/Section: -->
+    
+       
+    </section>
+    <!--/Section: props-->
+
+  <hr class="mt-4 mb-5">  
+    
+
+<section id="a-default">
+    <h4 class="primary-heading mb-3">Components using waves</h4>
+    
+    <p>Wave effect is implemented in a number of components. In some of them, like <code>mdbBtn</code> buttons, they are enabled by default. Some, say, <code>mdbMask</code> overlay mask, require initialization through the <code>waves</code> prop. Here is a table of you can find the mixin used:</p>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th class="th-sm">Component Name</th>
+            <th class="th-sm">Implementation</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbBtn</code></td>
+                <td><i>by default</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbCardImage</code></td>
+                <td><i>requires <code>waves</code> prop</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbDropdownToggle</code></td>
+                <td><i>by default</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbInput</code></td>
+                <td><i>requires <code>waves</code> prop</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbMask</code></td>
+                <td><i>requires <code>waves</code> prop</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbNavbarBrand</code></td>
+                <td><i>requires <code>waves</code> prop</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbNavItem</code></td>
+                <td><i>by default</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbPageItem</code></td>
+                <td><i>by default</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbPageNav</code></td>
+                <td><i>by default</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbChip</code></td>
+                <td><i>by default, <code>darkWaves</code> too</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbChipInput</code></td>
+                <td><i>requires <code>waves</code> prop, darkWaves by default</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbSideNav</code></td>
+                <td><i>enabled by default in logo</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbSideNavCat</code></td>
+                <td><i>by default</i></td>
+            </tr>
+
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbSideNavItem</code></td>
+                <td><i>by default</i></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">mdbTabs</code></td>
+                <td><i>by default</i></td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>
+  
+
+ 

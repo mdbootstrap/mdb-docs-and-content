@@ -1,0 +1,365 @@
+<!--Section: Intro-->
+<section id="a-introduction">
+
+  <!--Title-->
+  <h2 class="section-heading">Angular Notification / Toast - API</h2>
+
+  <p>In this section you will find informations about required modules and available inputs, outputs, methods and
+    events of toasts.</p>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section: Modules-->
+<section id="a-modules">
+  <h2 class="section-heading">Modules used</h2>
+
+  <!-- Description -->
+  <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of
+    importing
+    the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific
+    module, is bad practice, and can cause application errors.
+  </p>
+
+  <pre><code class="language-javascript">// For MDB Angular Pro
+import { ToastModule, WavesModule } from 'ng-uikit-pro-standard'</code></pre>
+  <pre><code class="language-javascript">// Angular Animations Module
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'</code></pre>
+  <div class="row">
+    <div class="col-md-6">
+      <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">Import
+        example</a>
+      <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">Modules
+        list</a>
+    </div>
+  </div>
+</section>
+<!--/Section: Modules-->
+
+<hr class="my-5">
+
+<!--Section: Services-->
+<section id="a-services">
+  <h2 class="section-heading">Services</h2>
+
+  <h5 class="mt-4 mb-2">ToastService</h5>
+
+  <p>Type: <code>ToastService</code></p>
+</section>
+<!--/Section: Services-->
+
+<hr class="my-5">
+
+<!--Section: Options-->
+<section id="a-options">
+  <h2 class="section-heading">Options</h2>
+
+  <p>There are global and individual alert options. All individual alert options are included in the global options.</p>
+  <p>Global options for alerts need to be set in <code>ToastModule.forRoot({})</code> in <code>imports: []</code> array
+    located in <code>app.module.ts</code> file.</p>
+  <p>For example, global options that allows only 2 alerts to be visible at time should look like this: <code>ToastModule.forRoot({maxOpened:
+      2})</code></p>
+
+      <p>Please note that if you want to use following options to add your custom class, you have to put this class in your global stylesheet (<code>styles.scss</code>) as well.</p>
+
+  <h5 class="mt-4 mb-2"><strong>Global options</strong></h5>
+
+  <table class="table table-bordered table-striped table-responsive-md">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code style="word-break: normal"><i>autoDismiss</i></code></td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Dismiss current alert when max number of opened alerts is reached</td>
+        <td><code>{ autoDismiss: true }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>iconClasses</i></code></td>
+        <td>string</td>
+        <td>error: 'toast-error', info: 'toast-info', success: 'toast-success', warning: 'toast-warning'</td>
+        <td>Classes used on toast service methods</td>
+        <td><code>iconClasses = {
+            error: 'md-toast-error',
+            info: 'md-toast-info',
+            success: 'md-toast-success',
+            warning: 'md-toast-warning'
+            };</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>maxOpened</i></code></td>
+        <td>number</td>
+        <td>0</td>
+        <td>Max alerts opened, alerts will be queued (0 means unlimited)</td>
+        <td><code>{ maxOpened: 5 }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>newestOnTop</i></code></td>
+        <td>boolean</td>
+        <td>true</td>
+        <td>Whether new alert should be placed on top</td>
+        <td><code>{ newestOnTop: false }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>preventDuplicates</i></code></td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Allow or block duplicate messages</td>
+        <td><code>{ preventDuplicates: true }</code></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <h5 class="mt-4 mb-2"><strong>Individual options</strong></h5>
+
+  <table class="table table-bordered table-striped table-responsive-md">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code style="word-break: normal"><i>actionButton</i></code></td>
+        <td>string</td>
+        <td>-</td>
+        <td>Show action button with specified title</td>
+        <td><code>{ actionButton: 'Action button' }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>actionButtonClass</i></code></td>
+        <td>string</td>
+        <td>-</td>
+        <td>Add provided class to the toast action button</td>
+        <td><code>{ actionButtonClass: 'text-red my-5' }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>closeButton</i></code></td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Show close buttons</td>
+        <td><code>{ closeButton: true }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>enableHtml</i></code></td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Allow html in message (UNSAFE)</td>
+        <td><code>{ enableHtml: true }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>extendedTimeOut</i></code></td>
+        <td>number</td>
+        <td>1000</td>
+        <td>Time for which alert display will be extended after user hover over toast (in miliseconds)</td>
+        <td><code>{ extendedTimeOut: 2000 }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>messageClass</i></code></td>
+        <td>string</td>
+        <td>'md-toast-message'</td>
+        <td>Class applied to alert message element</td>
+        <td><code>{ messageClass: 'custom-message' }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>positionClass</i></code></td>
+        <td>string</td>
+        <td>'md-toast-top-right'</td>
+        <td>Class applied to alert container, used to change alert positioning</td>
+        <td><code>{ positionClass: 'md-toast-bottom-right' }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>progressBar</i></code></td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Show progress bar</td>
+        <td><code>{ progressBar: true }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>tapToDismiss</i></code></td>
+        <td>boolean</td>
+        <td>true</td>
+        <td>Close alert on click</td>
+        <td><code>{ tapToDismiss: false }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>timeOut</i></code></td>
+        <td>number</td>
+        <td>5000</td>
+        <td>Time by which the alert will be active (in miliseconds)</td>
+        <td><code>{ timeOut: 3000 }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>titleClass</i></code></td>
+        <td>string</td>
+        <td>'md-toast-title'</td>
+        <td>Class applied to alert title</td>
+        <td><code>{ titleClass: 'custom-title' }</code></td>
+      </tr>
+
+      <tr>
+        <td><code style="word-break: normal"><i>toastClass</i></code></td>
+        <td>string</td>
+        <td>'md-toast'</td>
+        <td>Class applied to alert</td>
+        <td><code>{ toastClass: 'custom-toast' }</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h5 class="mt-4 mb-2"><strong>Usage examples</strong></h5>
+
+  <pre class="code-toolbar"><code class="language-javascript">
+      showSuccess() {
+        const options = { closeButton: true, actionButton: 'Action', tapToDismiss: false,  titleClass: 'yellow' };
+        this.toastrService.success('Hello world!', 'Toastr success!', options);
+      }
+      showError() {
+        const options = { enableHtml: false,  positionClass: 'md-toast-bottom-right' };
+        this.toastrService.error('Error message', 'Toastr error!', options);
+      }
+
+      showInfo() {
+        const options = { extendedTimeOut: 30000, messageClass: 'pink' };
+        this.toastrService.info('Info message', 'Toastr info!', options);
+      }
+
+      showWarning() {
+        const options = { progressBar: true,  timeOut: 3000,  toastClass: 'black'};
+        this.toastrService.warning('Warnig message', 'Toastr warning!', options);
+      }
+
+  </code></pre>
+
+</section>
+<!--/Section: Options-->
+
+<hr class="my-5">
+
+<!--Section: Events-->
+<section id="a-events">
+  <h2 class="section-heading">Events</h2>
+
+  <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>onAction</i></code></td>
+          <td>any</td>
+          <td>The event is fired when action button is clicked</td>
+          <td><code>alertInstance.onAction.subscribe(() => {})</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>onHidden</i></code></td>
+          <td>any</td>
+          <td>The event is fired when tap on the alert is detected</td>
+          <td><code>alertInstance.onHidden.subscribe(() => {})</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>onShown</i></code></td>
+          <td>any</td>
+          <td>The event is fired when alert shows on screen</td>
+          <td><code>alertInstance.onShown.subscribe(() => {})</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>onTap</i></code></td>
+          <td>any</td>
+          <td>The event is fired when tap on the alert is detected</td>
+          <td><code>alertInstance.onTap.subscribe(() => {}))</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h5 class="mt-4 mb-2">Usage examples</h5>
+    <pre class="code-toolbar"><code class="language-javascript">
+        showSuccess() {
+          const options = { closeButton: true, progressBar: true, actionButton: 'Action', tapToDismiss: true};
+          const alertInstance = this.toastrService.success('Hello world!', 'Toastr success!', options);
+          alertInstance.onAction.subscribe(() => {
+            console.log('on action');
+          });
+          alertInstance.onTap.subscribe(() => {
+            console.log('on tap');
+          });
+          alertInstance.onShown.subscribe(() => {
+            console.log('on shown');
+          });
+          alertInstance.onHidden.subscribe(() => {
+            console.log('on hidden');
+          });
+        }
+
+    </code></pre>
+</section>
+<!--/Section: Events-->
+
+<hr class="my-5">
+
+<!--Section: Methods-->
+<section id="a-methods">
+  <h2 class="section-heading">Methods</h2>
+
+  <p>To get access to alert methods inject ToastService to your component:</p>
+
+  <p><code>constructor(private toastrService: ToastService) {}</code></p>
+
+    <table class="table table-bordered table-striped table table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>clear(alertId)</i></code></td>
+          <td>Removes single active alert with specified id</td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>clear()</i></code></td>
+          <td>Removes all active alerts</td>
+        </tr>
+      </tbody>
+    </table>
+</section>
+<!--/Section: Methods-->

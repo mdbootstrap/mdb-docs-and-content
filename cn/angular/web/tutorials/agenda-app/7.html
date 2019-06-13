@@ -1,0 +1,255 @@
+<div class="angular-tutorial tutorial">
+
+<p>Currently, our <mark>Event</mark> component displays an icon that is supposed to delete the item from the list. As you already know, the list of the Events is held in the parent component - <mark>App</mark>. Therefore,<strong> it's not possible for the <mark>Event</mark> component to <i>delete itself</i></strong>.  </p>
+
+<p>In order to delete an event from a list,<strong> we have to pass a call from the child component (<mark>Event</mark>) to its parent component (<mark>App</mark>)</strong>. In this lesson, we will learn how to pass function calls between components. </p>
+
+<p>Before we start to that, let's work on <mark>App</mark> template first:</p>
+
+
+<h2>1. App template</h2>
+
+<h3>1.1. Style</h3>
+
+<p>We don't need styles anymore, let's remove them from <code>app.component.scss</code>. </p>
+
+<h3>1.2. Template</h3>
+
+
+  <p>Update <code>app.component.html</code> file with the following template:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.html">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9">
+        <div *ngFor="let event of events">
+          <app-event [value]="event"></app-event>
+        </div>
+        <div class="text-center">
+          <a
+            type="button"
+            mdbBtn
+            color="info"
+            class="waves-effect mb-4"
+            mdbWavesEffect
+            >Add event
+          </a>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <h3 class="text-uppercase my-3">Schedule</h3>
+        <h6 class="my-3">
+          It's going to be busy that today. You have
+          <b> {{ events.length }} events </b> today.
+        </h6>
+        <h1 class="my-3">
+          <div class="row">
+            <div class="col-3 text-center">
+              <mdb-icon fas icon="sun"></mdb-icon>
+            </div>
+            <div class="col-9 ">Sunny</div>
+          </div>
+          <div class="row">
+            <div class="col-3 text-center">
+              <mdb-icon fas icon="thermometer-three-quarters"></mdb-icon>
+            </div>
+            <div class="col-3 ">23°C</div>
+          </div>
+        </h1>
+        <p>
+          Don't forget your sunglasses. Today will dry and sunny, becoming warm
+          in the afternoon with temperatures of between 20 and 25 degrees.
+        </p>
+      </div>
+    </div>
+  </div>
+  </code>
+</mdbsnippet>
+
+<p>List of changes:
+<ul>
+  <li>Added "Add event" button</li>
+  <li>Added event counter (<mark>{{ events.length }}</mark>) in the right column </li>
+    <li>Added static (Weather Forecast) content to the right column</li>
+    <li>Added some minor classes to enhance spacing</li>
+</ul>
+</p>
+
+<p>Preview:</p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/7/preview.png" alt="Preview"/>
+
+<p class="note note-warning"><strong>Note:</strong><br/>
+ In the right-hand column, we added an Event counter which tells us how many events are scheduled for today. In order to get this number we are simply counting elements within the array using <mark>{{events.length}}</mark> function.
+</p>
+
+<br/>
+
+<h2>2. Delete Event function</h2>
+
+<p>Now we can create a function which removes a particular <mark>Event</mark> from an array. It's a very simple function, it looks for index of clicked item, and remove it from the <mark>events</mark> array[] using <mark>splice()</mark> function. </p>
+
+<p>Add following function to <mark>AppComponent</mark> class within the <code>app.component.ts</code> file</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.ts">
+  deleteEvent(event: any) {
+    const itemIndex = this.events.findIndex(el => el === event);
+    this.events.splice(itemIndex, 1);
+  }  	
+  </code>
+</mdbsnippet>
+
+<p class="note note-info"><strong>Note:</strong><br/>
+ <mark>findIndex()</mark> method <strong>returns the index of the first element in the array that satisfies the provided testing function</strong>. In our case we are checking whether item (<mark>event</mark>) which we are about to delete is one of the items (<mark>el</mark>) in the array, and returns it's position.
+</p>
+
+<p>Now when our function is ready, we can emit and event from Event component.</p>
+
+<h2>3. Handle click event</h2>
+
+<ol>
+	<li>Add new function to <mark>EventComponent</mark> class within the <code>event.component.ts</code> file.</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.ts">
+  handleDeleteClick() {
+    console.log("Delete button clicked!");
+  } 	
+  </code>
+</mdbsnippet>
+
+<li>Update the <mark>mdb-badge</mark> in <code>event.component.html</code></li>
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.ts">
+    <mdb-badge (click)="handleDeleteClick()" danger="true" class="text-center float-right">-</mdb-badge>    
+  </code>
+</mdbsnippet>
+
+<li>Test it. Run the app, open developers console and click on the delete icon. You should see confrimation message in a console.</li>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/7/clicked.gif" alt="Clicked event" /><br />
+
+</ol>
+
+
+<h2>4. Event emitting</h2>
+
+<p>In order to call the parent (<mark>App</mark>) component's  <mark>deleteEvent()</mark> function from child (<mark>Event</mark>) component we have to emit an <code>Event</code> from one component and catch it other. </p>
+
+<p class="note note-danger"><strong>Warning:</strong><br/>
+ The naming might be a little bit confusing. This is because we have component within our app which we called an <mark>Event</mark>. This <mark>Event</mark> represents a single entry in our agenda (we could  have called  it Item, Appointment or Entry). <br/>  <br/>
+ At the same time Angular uses <code>Event</code> to call JavaScript-like events. This <code>Event</code> reffers to "occurrence" on which JavaScript can <strong>react</strong>.  <br/> <br/>
+
+ Since this may be a bit confusing I will use different styles and whenever we will reffer to <mark>Event Component</mark> i will use yellow highligt, while whenever I will referr to <code>Angular Event</code> I will use a red font. 
+</p>
+
+<p>Whenever we want to emit an <code>Event</code>, we have to import <mark>EventEmmiter</mark> first. Since we will transfer outside the component, we also have to import <code>Output</code> directive.</p>
+
+
+
+<ol>
+	<li>Import <code>EventEmmiter</code> and <code>Output</code> in <code>event.components.ts</code></li>
+
+
+	<mdbsnippet>
+  <code data-lang="js" data-name="event.component.ts">
+    <mdb-badge (click)="handleDeleteClick()" danger="true" class="text-center float-right">-</mdb-badge>    
+  </code>
+</mdbsnippet>
+
+<p class="note note-info"><strong>Note:</strong><br/>
+ In a previous lessons we were passing data <strong>to</strong> (inside) our component, in order to do that we had to use <code>Input</code> directive.  <br/><br/>
+
+ Now, since we are passing data <strong>out</strong> (otuside) of our component, we have to use <code>Output</code> directive. 
+</p>
+
+<li>Define the <code>@Output()</code> within <mark>EventComponent</mark> class. </li>
+
+	<mdbsnippet>
+  <code data-lang="js" data-name="event.component.ts">
+  @Output() deleteEventInstanceEvent: EventEmitter<any> = new EventEmitter<any>();
+  </code>
+</mdbsnippet>
+
+<p class="note note-info"><strong>Note:</strong><br/>
+We called Output <strong>deleteEventInstanceEvent</strong> to make it clear that we are emitting and <code>Event</code> to delete instance of <mark>Event</mark>. <br/> <br/>
+
+You can read the name as <strong>delete<mark>Event</mark>Instance<code>Event</code>()</strong>. <br/> <br/>
+
+If we would call our calendar entry differently, i.e. Appointment, we could simply call this function <strong>deleteAppointmentEvent</strong> without ussing extra <i>Instance</i> word. 
+</p>
+
+<!-- <p>TODO explain EventEmitter</p> -->
+
+
+<li>Update the <mark>handleDeleteClick()</mark> method with the following code: </li>
+
+	<mdbsnippet>
+  <code data-lang="js" data-name="event.component.ts">
+  handleDeleteClick() {
+    this.deleteEventInstanceEvent.emit(this.value);
+  }
+  </code>
+</mdbsnippet>
+
+<p>That how your <code>event.component.ts</code> file should looks like:</p>
+
+	<mdbsnippet>
+  <code data-lang="js" data-name="event.component.ts">
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+
+@Component({
+  selector: 'app-event',
+  templateUrl: './event.component.html',
+})
+export class EventComponent {
+  @Input() value: any;
+  @Output() deleteEventInstanceEvent: EventEmitter<any> = new EventEmitter<any>();
+
+
+  handleDeleteClick() {
+    this.deleteEventInstanceEvent.emit(this.value);
+  }
+}
+
+  </code>
+</mdbsnippet>
+
+<p>Now whenever user click on the delete icon, next to the <mark>Event</mark> title, it will emit a new <code>event</code> and pass itself (an object) as a parameter.</p>
+
+
+</ol>
+<h2>4. Catching & handling events</h2>
+
+<p>The last thing we have to do is to <strong>catch</strong> emmited <code>event</code> from the <mark>Event</mark> component.</p>
+
+<p>In order to that let's update our <mark>&lt;app-event&gt;</mark> tag in <code>app.component.html</code>:</p>
+
+
+	<mdbsnippet>
+  <code data-lang="js" data-name="app.component.ts">
+        <app-event [value]="event" (deleteEventInstanceEvent)="deleteEvent($event)"></app-event>
+
+  </code>
+</mdbsnippet>
+
+<p>As you probably guessed, we have binded here emitted <code>event</code> (<mark>deleteEventInstanceEvent</mark>) with the internal <mark>App</mark> component's function - <mark>deleteEvent()</mark> and we are passing. </p> <p> In other words - we are telling Angular that he can expect that <code>&lt;app-event&gt;</code> can emmit <code>events</code> and which function do we want to use to handle it. </p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/7/delete.gif" alt="Delete Events" />
+
+
+<p>Now, whenever we click on a delete icon:
+<ol>
+	<li>User clicks on the delete icon</li>
+	<li><mark>(click)</mark> calls <mark>handleDeleteClick()</mark> function</li>
+	<li><mark>handleDeleteClick()</mark> emits <mark>deleteEventInstanceEvent</mark> <code>event</code></li>
+	<li><mark>App</mark> component catches it and triggers <mark>deleteEvent()</mark></li>
+	<li><mark>deleteEvent()</mark> deletes corresponding element from the array</li>
+</ol>
+ </p>
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/7/delete.png" alt="Flow" />
+
+
+</div>

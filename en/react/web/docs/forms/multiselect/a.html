@@ -1,0 +1,573 @@
+<!--Title-->
+<section class="mb-4" id="introduction">
+  <h2 class="section-heading">React Bootstrap Select - API</h2>
+
+  <!-- Description -->
+  <p>In this section you will find advanced information about the Select component. You will find out which modules
+    are required, what are the possibilities of configuring the component, and what events and methods you can use
+    to work with it.</p>
+  <!-- Description -->
+
+</section>
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="imports">
+  <!--Title-->
+  <h3 class="section-heading mb-4">
+    Imports
+  </h3>
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="Imports">
+      import React from 'react';
+      import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from 'mdbreact';
+    </code>
+  </mdbsnippet>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="usage">
+  <!--Title-->
+  <h3 class="section-heading mb-4">
+    Usage
+  </h3>
+
+  <p class="description">
+    There are two ways to bind your data into Select.<br />
+    You can use regular JSX/HTML markup, or build an Array of object structured data.
+  </p>
+
+  <mdbsnippet>
+
+    <code data-lang="js" data-name="JSX with Array">
+      import React, { Component } from "react";
+      import { MDBSelect } from "mdbreact";
+
+      class SelectPage extends Component {
+        state = {
+          options: [
+            {
+              checked: false,
+              disabled: false,
+              icon: null,
+              value: "1",
+              text: "Option 1"
+            },
+            {
+              checked: false,
+              disabled: false,
+              icon: null,
+              value: "2",
+              text: "Option 2"
+            },
+            {
+              checked: false,
+              disabled: false,
+              icon: null,
+              value: "3",
+              text: "Option 3"
+            }
+          ]
+        };
+
+        render() {
+          return (
+            <div>
+              <MDBSelect
+                multiple
+                options={this.state.options}
+                selected="Choose your option"
+              />
+              <label>Example label</label>
+            </div>
+          );
+        }
+      }
+
+      export default SelectPage;
+    </code>
+
+    <code data-lang="js" data-name="JSX with Markup">
+      import React, { Component } from "react";
+      import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from "mdbreact";
+
+      class SelectPage extends Component {
+        render() {
+          return (
+            <div>
+              <MDBSelect>
+                <MDBSelectInput selected="Choose your option" />
+                <SelectOptions>
+                  <MDBSelectOption disabled>Choose your option</MDBSelectOption>
+                  <MDBSelectOption value="1">Option nr 1</MDBSelectOption>
+                  <MDBSelectOption value="2">Option nr 2</MDBSelectOption>
+                  <MDBSelectOption value="3">Option nr 3</MDBSelectOption>
+                </MDBSelectOptions>
+              </MDBSelect>
+              <label>Example label</label>
+            </div>
+          );
+        }
+      }
+
+      export default SelectPage;
+    </code>
+
+  </mdbsnippet>
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section-->
+<section id="reference">
+
+  <!--Section-->
+  <section id="select-props">
+
+    <!--Title-->
+    <h3 class="section-heading mb-4">
+      API Reference: Select Properties
+    </h3>
+
+    <!-- Description -->
+    <p>
+      The table below shows the configuration options of the MDBSelect component.
+    </p>
+    <!-- Description -->
+
+    <table class="table table-bordered table-striped table-responsive-xl">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Default</th>
+          <th scope="col">Description</th>
+          <th scope="col">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal">className</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal">"select-wrapper md-form mdb-select"</code></td>
+          <td>Select wrapper classes.</td>
+          <td><code class='language-markup'>&lt;MDBSelect className="my-custom-class"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">color</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Sets colorfull hover efect on select options.</td>
+          <td><code class='language-markup'>&lt;MDBSelect color="primary"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">label</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Sets animated label for the select input.</td>
+          <td><code class='language-markup'>&lt;MDBSelect label="Example label"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">labelClass</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Sets custom class for select label (f.e. to change background color).</td>
+          <td><code class='language-markup'>&lt;MDBSelect labelClass="customClass"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">mutliple</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal">false</code></td>
+          <td>Allows to select multiple options.</td>
+          <td><code class='language-markup'>&lt;MDBSelect multiple={true}&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style='word-break: normal'>options</code></td>
+          <td><i>Array(Object)</i></td>
+          <td><code style='word-break: normal'>[]</code></td>
+          <td>Sets options array as source of data. This property is used in alternative Select version.</td>
+          <td><code class='language-markup'>&lt;MDBSelect options={this.state.options} /&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style='word-break: normal'>outline</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style='word-break: normal'>false</code></td>
+          <td>Switch outline mode - Material 2.0 design with outlines and animated label.</td>
+          <td><code class='language-markup'>&lt;MDBSelect outline /&gt;</code></td>
+        </tr>
+
+        <tr>
+          <td colspan="5" class="text-center">Next properties <code>works only for Select with data Array!</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal">required</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal">false</code></td>
+          <td>Makes select required when submitting form.</td>
+          <td><code class='language-markup'>&lt;MDBSelect required &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">search</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal">false</code></td>
+          <td>Search element will
+            appear as the first child of select.</td>
+          <td><code class='language-markup'>&lt;MDBSelect search={true} &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style='word-break: normal'>searchLabel</code></td>
+          <td><i>String</i></td>
+          <td><code style='word-break: normal'>Search</code></td>
+          <td>Changes default label of additional search element.</td>
+          <td><code class='language-markup'>&lt;MDBSelect searchLabel="Find option" /&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style='word-break: normal'>searchId</code></td>
+          <td><i>String</i></td>
+          <td><code style='word-break: normal'>selectSearchInput</code></td>
+          <td>Changes default id of additional search element.</td>
+          <td><code class='language-markup'>&lt;MDBSelect searchId="id" /&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">selected</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Set default select text content.</td>
+          <td><code class='language-markup'>&lt;MDBSelect selected="Choose option" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">selectAll</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal">false</code></td>
+          <td>Enables <code>Select All</code> button.</td>
+          <td><code class='language-markup'>&lt;MDBSelect selectAll &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">selectAllLabel</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal">"Select All"</code></td>
+          <td>Sets text for <code>Select All</code> button.</td>
+          <td><code class='language-markup'>&lt;MDBSelect selectAllLabel="Select All" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">selectAllValue</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal">"0"</code></td>
+          <td>Sets value for <code>Select All</code> button.</td>
+          <td><code class='language-markup'>&lt;MDBSelect selectAllValue="0" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">focusBackgroundColor</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal">"#eee"</code></td>
+          <td>Sets <code>background-color</code> for focused option.</td>
+          <td><code class='language-markup'>&lt;MDBSelect focusBackgroundColor="#eee" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">focusShadow</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal">"inset 0px -17px 15px -16px rgba(0, 0, 0, 0.35)"</code></td>
+          <td>Sets <code>box-shadow</code> for focused option.</td>
+          <td><code class='language-markup'>&lt;MDBSelect focusShadow="inset 0px -17px 15px -16px rgba(0, 0, 0, 0.35)" &gt;</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+  <hr class="my-5">
+
+  <!--Section: methods-->
+  <section id="select-methods">
+
+    <!--Title-->
+    <h3 class="section-heading mb-4">
+      API Reference: Select Methods
+    </h3>
+
+    <section>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Parameters</th>
+            <th class="th-sm">Description</th>
+            <th class="th-sm">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code style="word-break: normal">getTextContent</code></td>
+            <td><i></i></td>
+            <td>Returns input text content. Use this method to get string with selected options.</td>
+            <td><code class="language-markup">&lt;MDBSelect getTextContent={this.handleSelectChange} &gt;</code></td>
+          </tr>
+          <tr>
+            <td><code style="word-break: normal">getValue</code></td>
+            <td><i></i></td>
+            <td>Returns Select value. Use this method to get array with selected options.</td>
+            <td><code class="language-markup">&lt;MDBSelect getValue={this.handleSelectChange} &gt;</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </section>
+
+  </section>
+  <!--/Section: methods-->
+
+  <hr class="my-5">
+
+  <!--Section-->
+  <section id="input-props">
+
+    <!--Title-->
+    <h3 class="section-heading mb-4">
+      API Reference: SelectInput Properties
+    </h3>
+
+    <!-- Description -->
+    <p>
+      The table below shows the configuration options of the MDBSelectInput component.
+    </p>
+    <!-- Description -->
+
+    <table class="table table-bordered table-striped table-responsive-xl">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Default</th>
+          <th scope="col">Description</th>
+          <th scope="col">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal">className</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Sets custom classes.</td>
+          <td><code class='language-markup'>&lt;MDBSelectInput className="customClass" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">selected</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td><code>Works only with Select with markup!</code> Set default select text content.</td>
+          <td><code class='language-markup'>&lt;MDBSelect selected="Choose option" &gt;</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+  <hr class="my-5">
+
+  <!--Section-->
+  <section id="options-props">
+
+    <!--Title-->
+    <h3 class="section-heading mb-4">
+      API Reference: SelectOptions Properties
+    </h3>
+
+    <!-- Description -->
+    <p>
+      The table below shows the configuration options of the MDBSelectOptions component.
+    </p>
+    <!-- Description -->
+
+    <table class="table table-bordered table-striped table-responsive-xl">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Default</th>
+          <th scope="col">Description</th>
+          <th scope="col">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal">className</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Sets custom classes.</td>
+          <td><code class='language-markup'>&lt;MDBSelectOptions className="customClass" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">search</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal">false</code></td>
+          <td>Search element will appear as the firs child of select.</td>
+          <td><code class='language-markup'>&lt;MDBSelectOptions search &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style='word-break: normal'>searchLabel</code></td>
+          <td><i>String</i></td>
+          <td><code style='word-break: normal'>Search</code></td>
+          <td>Changes default label of additional search element.</td>
+          <td><code class='language-markup'>&lt;MDBSelectOptions searchLabel="Find option" /&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style='word-break: normal'>searchId</code></td>
+          <td><i>String</i></td>
+          <td><code style='word-break: normal'>selectSearchInput</code></td>
+          <td>Changes default id of additional search element.</td>
+          <td><code class='language-markup'>&lt;MDBSelectOptions searchId="id" /&gt;</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+  <hr class="my-5">
+
+  <!--Section-->
+  <section id="option-props">
+
+    <!--Title-->
+    <h3 class="section-heading mb-4">
+      API Reference: SelectOption Properties
+    </h3>
+
+    <!-- Description -->
+    <p>
+      The table below shows the configuration options of the MDBSelectOption component.
+    </p>
+    <!-- Description -->
+
+    <table class="table table-bordered table-striped table-responsive-xl">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Default</th>
+          <th scope="col">Description</th>
+          <th scope="col">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal">checked</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal">false</code></td>
+          <td>If true - the option will be preselected during mount.</td>
+          <td><code class='language-markup'>&lt;MDBSelectOption checked &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">className</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Sets custom classes.</td>
+          <td><code class='language-markup'>&lt;MDBSelectOption className="customClass" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">disabled</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal">false</code></td>
+          <td>If true - the option wont be clickable.</td>
+          <td><code class='language-markup'>&lt;MDBSelectOption disabled &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">separator</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal">false</code></td>
+          <td>If true - adds top border (sets disabled to true).</td>
+          <td><code class='language-markup'>&lt;MDBSelectOption separator &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">icon</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Inserts icon into select option.</td>
+          <td><code class='language-markup'>&lt;MDBSelectOption icon="icon_url" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">value</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Sets option value (you can still use text content - value will be readable in getValue method).</td>
+          <td><code class='language-markup'>&lt;MDBSelectOption value="option 1" &gt;</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+  <hr class="my-5">
+
+  <!--Section-->
+  <section id="array-props">
+
+    <!--Title-->
+    <h3 class="section-heading mb-4">
+      API Reference: Options Array Structure
+    </h3>
+
+    <!-- Description -->
+    <p>
+      The table below shows the configuration options as an list of objects for alternative Select.
+    </p>
+    <!-- Description -->
+
+    <table class="table table-bordered table-striped table-responsive-xl">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Default</th>
+          <th scope="col">Description</th>
+          <th scope="col">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal">checked</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>If true - the option will be preselected during mount.</td>
+          <td><code class='language-markup'>{ checked: true }</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">disabled</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>If true - the option wont be clickable.</td>
+          <td><code class='language-markup'>{ disabled: true }</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">icon</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Inserts icon into select option.</td>
+          <td><code class='language-markup'>{ icon="icon_url" }</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">text</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Sets option text content.</td>
+          <td><code class='language-markup'>{ text: "Option one" }</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">value</code></td>
+          <td><i>String</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td>Sets option value.</td>
+          <td><code class='language-markup'>{ value: "1" }</code></td>
+        </tr>
+    </table>
+
+  </section>
+</section>
+<!--/Section: methods-->

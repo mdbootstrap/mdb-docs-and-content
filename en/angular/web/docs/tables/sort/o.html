@@ -1,0 +1,345 @@
+<style>
+  table.dataTable thead {
+    cursor: pointer
+  }
+
+  table.dataTable thead>tr>td:active,
+  table.dataTable thead>tr>th:active {
+    outline: 0
+  }
+
+  div.dataTables_wrapper div.dataTables_length.d-flex.flex-row label {
+    margin-top: 1.2rem;
+    margin-right: 1rem
+  }
+
+  div.dataTables_wrapper div.dataTables_length.d-flex.flex-row .select-wrapper.mdb-select .select-dropdown,
+  div.dataTables_wrapper div.dataTables_length.d-flex.flex-row .select-wrapper.mdb-select span {
+    margin-top: 1rem
+  }
+
+  div.dataTables_wrapper div.dataTables_filter label,
+  div.dataTables_wrapper div.dataTables_length label {
+    text-align: left;
+    font-weight: 400;
+    padding-top: .5rem;
+    padding-bottom: .5rem
+  }
+
+  div.dataTables_wrapper div.dataTables_filter input,
+  div.dataTables_wrapper div.dataTables_filter select,
+  div.dataTables_wrapper div.dataTables_length input,
+  div.dataTables_wrapper div.dataTables_length select {
+    width: auto
+  }
+
+  div.dataTables_wrapper div.dataTables_filter {
+    text-align: right
+  }
+
+  div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: .5rem;
+    display: inline-block
+  }
+
+  div.dataTables_wrapper div.dataTables_info,
+  div.dataTables_wrapper div.dataTables_paginate {
+    font-weight: 400;
+    padding-top: 1rem;
+    padding-bottom: 1rem
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate {
+    text-align: right;
+    margin: 0
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.active .page-link:focus {
+    background-color: #4285f4
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item .page-link:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none
+  }
+
+  @media (max-width:767px) {
+
+    div.dataTables_wrapper div .dataTables_filter,
+    div.dataTables_wrapper div .dataTables_info,
+    div.dataTables_wrapper div .dataTables_length,
+    div.dataTables_wrapper div .dataTables_paginate ul.pagination {
+      text-align: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center
+    }
+  }
+
+  .bs-select select {
+    display: inline-block !important
+  }
+
+</style>
+
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Angular Bootstrap table sort</h2>
+
+  <h1 class="secondary-heading mb-4">Angular Table sort - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p>Angular Bootstrap Sort table are component with sorting functionality which lets you sort the data of the tables
+    according to any specific columns.</p>
+
+  <p>To manipulate table sorting use one of the options presented below.</p>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-4">
+
+<!--Section: -->
+<section id="basic-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic example
+  </h2>
+
+  <a href="https://ng-demo.mdbootstrap.com/tables/sort/" target="_blank" class="btn btn-primary waves-effect waves-light" role="button">
+    Live example
+    <i class="far fa-eye ml-2"></i>
+  </a>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <table id="tableSortExample" mdbTable class="z-depth-1">
+          <thead>
+            <tr>
+              <th *ngFor="let head of headElements; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="elements" [sortBy]="headElements[i]">{{head | titlecase}}
+                <mdb-icon fas icon="sort"></mdb-icon>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let el of elements; let i = index">
+              <th scope="row">{{el.id}}</th>
+              <td>{{el.first}}</td>
+              <td>{{el.last}}</td>
+              <td>{{el.handle}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+          selector: 'app-root',
+          templateUrl: './app.component.html',
+          styleUrls: ['./app.component.scss']
+        })
+        export class AppComponent implements OnInit {
+
+          elements: any = [];
+          headElements = ['id', 'first', 'last', 'handle'];
+
+          ngOnInit() {
+            for (let i = 1; i <= 15; i++) {
+              this.elements.push({ id: i, first: 'User ' + i, last: 'Name ' + i, handle: 'Handle ' + i });
+            }
+          }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="nested-sort">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Sort over nested properties
+  </h2>
+
+  <a href="https://ng-demo.mdbootstrap.com/tables/sort/" target="_blank" class="btn btn-primary waves-effect waves-light" role="button">
+    Live example
+    <i class="far fa-eye ml-2"></i>
+  </a>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+          <table mdbTable class="z-depth-1">
+            <thead>
+            <tr>
+              <th [mdbTableSort]="elements" sortBy="id">ID</th>
+              <th [mdbTableSort]="elements" sortBy="first.nick">First</th>
+              <th [mdbTableSort]="elements" sortBy="last">Last</th>
+              <th [mdbTableSort]="elements" sortBy="handle">Handle</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let el of elements; let i = index">
+              <th scope="row">{{el.id}}</th>
+              <td>{{el.first.nick}}</td>
+              <td>{{el.last}}</td>
+              <td>{{el.handle}}</td>
+            </tr>
+            </tbody>
+          </table>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'nested-sort',
+        templateUrl: './nested-sort.component.html',
+        styleUrls: ['./nested-sort.component.scss']
+        })
+        export class NestedSortComponent implements OnInit {
+
+          elements: any = [];
+
+          ngOnInit() {
+            for (let i = 1; i <= 11; i++) {
+              this.elements.push({
+                id: i,
+                first: {nick: 'Nick ' + i, name: 'Name ' + i},
+                last: 'Name ' + i,
+                handle: 'Handle ' + i
+              });
+            }
+          }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="advanced-table-options">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Advanced table options
+  </h2>
+
+  <!-- Description -->
+  <p>For advanced options of the tables have a look at specific documentation pages listed below.
+  </p>
+
+  <!-- List group -->
+  <div class="list-group">
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/datatables/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Datatables</h5>
+        </div>
+        <p class="mb-1">MDBootstrap integration with the most popular plugin enhancing the possibilities of standard
+          tables.</p>
+      </div>
+
+      <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/pagination/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Table pagination</h5>
+        </div>
+        <p class="mb-1">Pagination is a simple navigation which lets you split a huge amount of content within the
+          tables into smaller parts.
+        </p>
+      </div>
+
+      <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com//angular/angular-tables/table-search/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Table search</h5>
+        </div>
+        <p class="mb-1">MDBootstrap search box enables super fast searching among all the data of the table.</p>
+      </div>
+
+      <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+  </div>
+  <!-- List group -->
+
+  <!-- Item -->
+  <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/responsive/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="h5 mb-3">Table responsive</h5>
+      </div>
+      <p class="mb-1">This option allows you to use responsive tables on your mobile devices.</p>
+    </div>
+
+    <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+  </a>
+  <!-- Item -->
+
+  <!-- Item -->
+  <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/editable/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="h5 mb-3">Table editable</h5>
+      </div>
+      <p class="mb-1">Table editable allows you to edit existing data within the table and add new data to the table.</p>
+    </div>
+
+    <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+  </a>
+  <!-- Item -->
+
+  <!-- Item -->
+  <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/additional/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="h5 mb-3">Table styles</h5>
+      </div>
+      <p class="mb-1">Table styles shows you a new way of changing appearance of your existing tables</p>
+    </div>
+
+    <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+  </a>
+  <!-- Item -->
+
+</section>
+<!--/Section: -->

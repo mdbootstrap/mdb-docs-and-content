@@ -1,0 +1,70 @@
+<script>
+    var result = $('code#shortcodeOutput');
+    var modal = $('#exampleModalPreview');
+    var modalDialog = $('.modal-dialog');
+    var backdropInput = $("#modalBackdropWrapper").find('input[type="checkbox"]');
+    var sizeInput = $("#modalSizeWrapper").find('input[type="radio"]');
+    var positionInput =  $("#modalPositionWrapper").find('input[type="radio"]');
+    var button = $('#modalActivate');
+    var options = {};
+
+    // refresh modal
+    $(document).on('hidden.bs.modal', function (e) {
+        $(e.target).removeData('bs.modal');
+    });
+
+    button.on('click', function(){
+      $('#exampleModalPreview').modal(options);
+    })
+
+    // default settings
+    var params = [];
+    params['size'] = '';
+    params['position'] = '';
+    params['backdrop'] = "";
+    updateShortcode();
+
+    // event listener for backdrop switch
+    backdropInput.on('change', function(e){
+      if($(this).prop('checked')){
+        options = {...options, backdrop: false};
+        params['backdrop'] = " data-backdrop='false'";
+      } else {
+        options = {...options, backdrop: true}
+        params['backdrop'] = "";
+      }
+      updateShortcode();
+    });
+
+    // event listener for size radio inputs
+    sizeInput.on('change', function(e){
+      radioClass(this, modalDialog, "size")
+      updateShortcode();
+    });
+
+    // event listener for position radio inputs
+    positionInput.on('change', function(e){
+      radioClass(this, modalDialog, "position")
+      updateShortcode();
+    });
+
+    function radioClass(element, target, paramType){
+      target.removeClass(params[paramType]);
+      params[paramType] = element.value;
+      target.addClass(params[paramType]);
+    }
+
+    function updateShortcode(){
+
+      var code = '&lt;div' + params['backdrop'] + ' class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"&gt;\n';
+      code += '&thinsp;&lt;div class="modal-dialog' + params['size'] + params['position'] + '" role="document"&gt;'
+      result.html(code)
+      Prism.highlightAll()
+    }
+  </script>
+
+
+
+
+
+

@@ -1,0 +1,231 @@
+<div class="angular-tutorial tutorial">
+
+<p>In this lesson, we will learn how to deal with Inputs.<strong> Inputs are very widely used components in web development</strong>. We use them everywhere, starting with the <strong>login form, newsletter subscription forms, a new post editor</strong> through <strong>configuration panel</strong> etc. </p>
+
+<p>As you seen while playing with the final app, we will use inputs to create a form to add a new event to our daily agenda. </p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/9/form.gif" alt="Form" /><br />
+
+<p>In this lesson we will learn how to deal with forms.</p>
+<h2>1. <code>ngModel</code></h2>
+
+<ol>
+<p>The easiest way to work with forms is to use <code>ngModel</code> directive. Let's see how it works.</p>
+
+	<li>Import <code>FormsModule</code> in <code>app.module.ts</code>:</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.module.ts">
+import { FormsModule } from '@angular/forms';
+...
+  </code>
+</mdbsnippet>
+
+<li>Add <code>FormsModule</code> to the <mark>imports[]</mark> array:</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.html">
+  imports: [
+	...
+    FormsModule
+  ],
+
+  </code>
+</mdbsnippet>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/9/import.png" alt="Preview"/>
+
+
+<li>Add a new variable to <code>app.component.ts</code> and call it <mark>name</mark></li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.ts">
+export class AppComponent {
+  @ViewChild(ModalDirective) modal: ModalDirective;
+  name: string = '';
+  ...
+  </code>
+</mdbsnippet>
+
+<li>Update the Modal Body within the <code>app.component.html</code> template</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.html">
+      <!--Body-->
+      <div class="modal-body">
+        <input [(ngModel)]="name" #ctrl="ngModel">
+        {{name}}
+      </div>
+      <!--/.Body-->
+  </code>
+</mdbsnippet>
+
+<li>Save and run the project.</li>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/9/name.gif" alt="Form" /><br />
+
+<p>As you can see we have binded our view (Input) with the model (variable) thanks to <code>ngModel</code>. Furhter, this works in both ways, that's why it's called two-way Data Bindings. </p>
+
+<li>Add a new function (app.component.ts) and the button (app.component.html) to trigger the function as shown below</li>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.html">
+      <!--Body-->
+      <div class="modal-body">
+        <input [(ngModel)]="name" #ctrl="ngModel">
+        {{name}}
+        <button (click)="changeName()">Call me Johny</button>
+      </div>
+      <!--/.Body-->
+
+  </code>
+  <code data-lang="js" data-name="app.component.ts">
+export class AppComponent {
+  @ViewChild(ModalDirective) modal: ModalDirective;
+  name: string = '';
+  
+  changeName(){
+    this.name = "Johny";
+  }
+  ...
+
+  </code>
+</mdbsnippet>
+
+
+<li>Save the file and run the project</li>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/9/two_way.gif" alt="Two way data bingins" /><br />
+
+<p>Two-way binding means that any data-related changes affecting the model are <strong>immediately propagated to the matching view(s), and that any changes made in the view(s) (say, by the user) are immediately reflected in the underlying model</strong>. When app data changes, so does the UI, and conversely.</p>
+
+<p>So <code>ngModel</code> is the thing in Angular that implements two-way data binding. It’s not the only thing that does that, but it’s in most cases the directive we want to use for simple scenarios. We will dedicate a separate lesson to dive into more options.</p>
+
+
+<p>For now I want you to remember that Angular comes with three different ways of building forms in our applications. There’s the template-driven approach which allows us to build forms with very little to none application code required, then there’s the model-driven or reactive approach using low level APIs, which makes our forms testable without a DOM being required.  </p>
+
+<p>The <code>ngModel</code> is a template-driven case. Now I am gonna show you how to use a <strong>model-driven</strong> approach.</p>
+
+<p>Before we move on you can revert the changes:</p>
+<ul><li>remove <mark>name</mark> variable and <mark>changeName()</mark> function in <code>app.component.ts</code></li>
+<li>Empty Modal Body div in <code>app.component.html</code></li>
+</ul>
+
+<h2>2. <code>formControl</code></h2>
+
+<li>Import following <code>ReactiveFormsModule</code> and add it to <mark>imports[]</mark> </li>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.module.ts">
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+....
+
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MDBBootstrapModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
+  ],
+
+  </code>
+</mdbsnippet>
+
+<li>Import FormControl in <code>app.component.ts</code></li>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.ts">
+import {FormControl} from '@angular/forms';
+  </code>
+</mdbsnippet>
+
+<li>Define new variable in <code>app.component.ts</code></li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.ts">
+export class AppComponent {
+  @ViewChild(ModalDirective) modal: ModalDirective;
+
+  timeInput = new FormControl();
+  subjectInput = new FormControl();
+  locationInput = new FormControl();
+  descriptionInput = new FormControl();
+  ...
+    </code>
+</mdbsnippet>
+
+
+
+<li>Update the Modal Body in <code>app.component.html</code> with the following code</li>
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.html">
+
+<!--Body-->
+<div class="modal-body">
+  <div class="md-form mb-5">
+    <mdb-icon far icon="clock"></mdb-icon>
+    <input
+      type="text"
+      id="time"
+      class="form-control"
+      mdbInput
+      [formControl]="timeInput"
+    />
+    <label for="time">Time</label>
+  </div>
+
+  <div class="md-form">
+    <mdb-icon fas icon="edit"></mdb-icon>
+    <input
+      type="text"
+      id="subject"
+      class="form-control"
+      mdbInput
+      [formControl]="subjectInput"
+    />
+    <label for="subject">Subject</label>
+  </div>
+
+  <div class="md-form mb-5">
+    <mdb-icon far icon="map"></mdb-icon>
+    <input
+      type="text"
+      id="location"
+      class="form-control"
+      mdbInput
+      [formControl]="locationInput"
+    />
+    <label for="location">Location (optional) </label>
+  </div>
+
+  <div class="md-form">
+    <mdb-icon fas icon="sticky-note"></mdb-icon>
+
+    <input
+      type="text"
+      id="description"
+      class="form-control"
+      mdbInput
+      [formControl]="descriptionInput"
+    />
+    <label for="description">Description (optional) </label>
+  </div>
+</div>
+<!--/.Body-->
+  </code>
+</mdbsnippet>
+
+<li>Save and run project.</li>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/9/form.gif" alt="Form" /><br />
+
+<!-- TODO - explain formControl -->
+</ol>
+
+</div>
+
+
+

@@ -1,0 +1,113 @@
+
+  <div>Let's have a quick look at the current version of our current code. We have one class called App.</div>
+  <mdbsnippet>
+<code data-lang="php" data-name="JSX">
+    import React, { Component } from "react";
+    import ReactDOM from "react-dom";
+    import '@fortawesome/fontawesome-free/css/all.min.css';
+    import "bootstrap-css-only/css/bootstrap.min.css";
+    import "mdbreact/dist/css/mdb.css";
+    import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+    import "./index.css";
+    class App extends Component {
+        state = {};
+        render() {
+        return (
+            <React.Fragment>
+            <MDBContainer>
+                <MDBRow>
+                <MDBCol md="9">Left column </MDBCol>
+                <MDBCol md="3">Right column </MDBCol>
+                </MDBRow>
+            </MDBContainer>
+            </React.Fragment>
+        );
+        }
+    }
+    ReactDOM.render(<App />, document.getElementById("root"));
+      </code>
+  </mdbsnippet>
+<h2>1. A new class</h2> 
+
+  <div>To fully understand what classes are, let's create a new Event class below our App class:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            class Event extends Component {
+                state = {};
+                render() {
+                  return "Schedule item";
+                }
+              }
+              
+     </code>
+ </mdbsnippet>
+  <div>This is a very simple Class or as we call it more often<span style="font-weight: bold;"> React component class</span>,
+    or <span style="font-weight: bold;">React component type. </span>Most of the people will call it simply a <span style="font-weight: bold;">component</span>,
+    however here is the one important thing which I want you to remember if you didn't have any experience with Object
+    Oriented Programming in the past.<span style="font-weight: bold;"> Our class is just a definition of the component</span>. It describes how our
+    component will look and behave but it <span style="font-weight: bold;">doesn't create an instance of the component yet</span>. </div>
+  <div><br /></div>
+  <div>You can think of it like a stamp. The stamp itself <span style="font-weight: bold;"> is just a definition</span> of a picture/image. In order to create
+    a stamp imprint, you have to make some action. Furthermore - our of the single stamp (class) <span style="font-weight: bold;">can create multiple
+      copies (instances)</span>.</div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/5/stamp.jpg" height="582" width="800" /><br /></div>
+  <div><br /></div>
+  <h2>2. Component instance</h2>
+  <h3>2.1 Method #1 — ReactDOM.render()</h3>
+  <div>So how to render our "stamp" in React? You already know one of the ways, we could use the <mark>render()</mark> method which you
+    already know:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            ReactDOM.render(<Event />, document.getElementById("root"));
+
+      </code>
+  </mdbsnippet>
+<h3>2.2 Method #2 — &lt;ComponentTag&gt;</h3> 
+
+  <p>Let's be honest. It would be horrible to render each and every component that way. Especially in the case of nested
+    ones. There is another, much easier way — whenever we are creating a Component definition, <b>we can render it using the &lt;ComponentName&gt; tag</b>, in exactly the same way as we would use other HTML/JSX tags:  <code> &lt;Event /&gt;</code>.<br /></p>
+
+
+  <div>Let's render our schedule items in the left end right columns:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            <MDBCol md="9"><Event/></MDBCol>
+            <MDBCol md="3"><Event/></MDBCol>
+            
+      </code>
+  </mdbsnippet>
+  <p>As a result, we will see two instances of our Event component </p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/5/image.png" height="72" width="733" /><br /></div>
+  <div><br /></div>
+  <div>Let's work on our schedule item now. Update our render method with the following template:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            render() {
+                return (
+                    <React.Fragment>
+                      <h3>9:00 - Title</h3>
+                    </React.Fragment>
+                );
+              }
+              
+     </code>
+ </mdbsnippet>
+  <div>Now, delete the schedule item from the right—hand column and add the second one in the left—hand column:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            <MDBRow>
+                <MDBCol md="9">
+                    <Event/>
+                    <Event/>
+                </MDBCol>
+                <MDBCol md="3" />
+            </MDBRow>
+                
+     </code>
+ </mdbsnippet>
+  <div>Our app starts to look like a real agenda:</div>
+  <div><br /></div>
+<!--   <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/5/image_1.png" height="170" width="739" /><br /></div>
+ -->  <div>Since we know how to create a render class, it's a high time to learn how to make it a little bit more dynamic
+    and pass some values to it!</div>
+  <div><br /></div>

@@ -1,0 +1,1236 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+    <!--Section: Intro-->
+    <section id="introduction">
+
+        <!--Title-->
+        <h1 class="main-title">Angular Login App</h1>
+
+        <!--Description-->
+        <p class="description">Today we will show you how to create a sample system for logging in to your application. The guide covers topics
+            hierarchically - from very basic ones, such as e-mail and password logging without the use of a database, to
+            more advanced use together with backend and logging in via social media such as Facebook or Twitter. If you have
+            noticed an error, or something is not clear to you - we invite you to visit our
+            <a href="https://mdbootstrap.com/support/" alt="support forum">support forum</a>.</p>
+
+        <h3 class="mb-4">What will I learn? </h3>
+        <ol>
+            <a href="#html">
+                <li>How to build a complete Angular application</li>
+            </a>
+            <a href="#php">
+                <li>How to communicate between components using services</li>
+            </a>
+            <a href="#jsvalidation">
+                <li>How to store the application state</li>
+            </a>
+            <a href="#ajax">
+                <li>How to use Mongo database and Node environment in the application</li>
+            </a>
+            <a href="#antispam">
+                <li>How to work with external APIs such as Facebook, Google, Twitter</li>
+            </a>
+        </ol>
+        <p> After completing the manual, you should have basic knowledge about building a complete application. You should know
+            how to use the services to communicate between components, how to store the application status. You will learn
+            what a database is, how to use the MongoDB database and the NodeJS runtime environment in your application. Finally,
+            you will understand how to connect to external APIs such as Facebook, Google, Twitter, and how to log in through
+            social media in your applications.</p>
+
+        <p>See how the application we will build together looks like!
+            <a class="btn btn-danger" href="">Live Example</a>
+        </p>
+
+        <p>Download the complete <a href="">app</a>!</p>
+
+    </section>
+    <!--/Section: Intro-->
+
+    <hr class="my-5">
+
+    <!--Section: -->
+    <section id="html">
+
+        <!--Title-->
+        <h2 class="title mb-4">
+            <strong>Creating new application</strong>
+        </h2>
+
+        <!--Description-->
+        <p class="description mb-4">Let us start from the very beginning. Generate a new Angular application using the Angular CLI tool. To do this,
+            enter the bellow command in your terminal / command line.</p>
+        <pre class="code-toolbar">
+            <code class="language-javascript">ng new login-app --style=scss</code>
+        </pre>
+        <p class="description">Then open your newly generated Angular application with your favorite IDE.</p>
+
+        <blockquote class="blockquote bq-danger">
+            <p class="bq-title">Note!</p>
+            <p>Within this tutorial we are using Material Design for Bootstrap, you can download it for free from
+                <a href="https://mdbootstrap.com/docs/angular/getting-started/download/">here</a>. Without the library form will still work however it may look and behave differently. It's recommended
+                to use it along with the tutorial.</p>
+            <p>Visit our official
+                <a href="https://mdbootstrap.com/docs/angular/getting-started/quick-start/">5min-quickstart</a> guide to go through the MDB Angular installation process.</p>
+        </blockquote>
+
+        <h2 class="title mb-4">
+            <strong>Generating necessary components and services</strong>
+        </h2>
+
+        <p class="description">In our application we will use 3 components - login, register and application. Additionally, we will use the Auth
+            service. Generate components and service using the following commands:</p>
+        <pre class="code-toolbar">
+        <code class="language-javascript">
+            ng generate component components/login
+            ng generate component components/register
+            ng generate component components/application
+            ng generate service services/auth
+        </code>
+    </pre>
+
+        <p class="description">After generating the components let's configure the routes to appropriate components of our application. Also add
+            AuthService to the providers array.To do this, open app.module.ts and add the code below.</p>
+        <pre class="code-toolbar">
+                <code class="language-javascript">
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'application', component: ApplicationComponent}
+];
+                </code>
+            </pre>
+
+        <p class="description">After that, your app.module.ts file should looks like below.</p>
+        <pre class="code-toolbar">
+                <code class="language-javascript">
+import { AuthService } from './services/auth.service';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ApplicationComponent } from './components/application/application.component';
+
+import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
+const routes: Routes = [
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'application', component: ApplicationComponent}
+];
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    ApplicationComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    MDBBootstrapModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [AuthService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+                </code>
+            </pre>
+
+        <!--Title-->
+        <h2 class="title mb-4">
+            <strong>Creating the main view of our app</strong>
+        </h2>
+
+        <p class="description">
+            Work on creating the application will begin with writing the main view. It will be the one that will be displayed all the
+            time in the application. We are, of course, talking about Navbar. Paste the code below into your
+            <code>app.component.html</code> file and save the changes.
+        </p>
+        <pre class="code-toolbar">
+            <code class="language-markup">
+&lt;!-- app.component.html --&gt;
+&lt;!--Navbar--&gt;
+&lt;mdb-navbar SideClass=&quot;navbar navbar-expand-lg navbar-dark indigo&quot;&gt;
+
+  &lt;!-- Navbar brand --&gt;
+  &lt;mdb-navbar-brand&gt;
+    &lt;a class=&quot;navbar-brand&quot; routerLink=&quot;/login&quot;&gt;Basic Authentication&lt;/a&gt;
+  &lt;/mdb-navbar-brand&gt;
+
+  &lt;!-- Collapsible content --&gt;
+  &lt;links&gt;
+
+    &lt;!-- Links --&gt;
+    &lt;ul class=&quot;navbar-nav mr-auto&quot;&gt;
+      &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;a class=&quot;nav-link waves-light&quot; routerLink=&quot;/login&quot; mdbWavesEffect&gt;Login&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;a class=&quot;nav-link waves-light&quot; routerLink=&quot;/register&quot; mdbWavesEffect&gt;Register&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;a class=&quot;nav-link waves-light&quot; routerLink=&quot;/application&quot; mdbWavesEffect&gt;Application&lt;/a&gt;
+      &lt;/li&gt;
+
+    &lt;/ul&gt;
+    &lt;!-- Links --&gt;
+  &lt;/links&gt;
+  &lt;!-- Collapsible content --&gt;
+
+&lt;/mdb-navbar&gt;
+&lt;!--/.Navbar--&gt;
+&lt;router-outlet&gt;&lt;/router-outlet&gt;
+            </code>
+        </pre>
+
+        <p class="description">
+            If the routes in your application are correctly configured, after saving the changes you should be redirected to the path
+            /login, and under navigation you should see the default text from the login component - "login works! If everything
+            is okay, let's go further.
+        </p>
+
+        <h2 class="title mb-4">
+            <strong>Creating the login view of our app</strong>
+        </h2>
+
+        <p class="description">
+            Since our application redirects the default address you see in your browser to /login route, it is high time to write a view
+            for LoginComponent. To do this, open the
+            <code>login.component.html</code> and
+            <code>login.component.ts</code> files and paste its markup into it, which you will find below.
+        </p>
+
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+<!-- login.component.html -->
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-12 mx-auto my-4">
+      <h3 class="text-center">You're not logged in. Please log in to get access to the application.</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mx-auto my-5">
+      <mdb-card>
+        <mdb-card-body>
+          <!-- Material form register -->
+          <form [formGroup]="cardForm" (ngSubmit)="onSubmit(cardForm)">
+            <p class="h4 text-center py-4">Sign in</p>
+
+            <!-- Material input email -->
+            <div class="md-form">
+              <i class="fas fa-envelope prefix grey-text"></i>
+              <input type="email" id="materialFormCardEmailEx" formControlName="materialFormCardEmailEx" class="form-control" mdbInputDirective>
+              <label for="materialFormCardEmailEx" class="font-weight-light">Your email</label>
+            </div>
+
+            <!-- Material input password -->
+            <div class="md-form">
+              <i class="fas fa-lock prefix grey-text"></i>
+              <input type="password" id="materialFormCardPasswordEx" formControlName="materialFormCardPasswordEx" class="form-control"
+                mdbInputDirective>
+              <label for="materialFormCardPasswordEx" class="font-weight-light">Your password</label>
+            </div>
+
+            <div class="text-center py-4 mt-3">
+              <button mdbBtn color="cyan" class="waves-light" type="submit" mdbWavesEffect>Sign in</button>
+            </div>
+          </form>
+          <div class="row">
+            <div class="col-md-12 text-right">
+              Don't have an account?
+              <a routerLink="/register" class="blue-text">Create one!</a>
+            </div>
+          </div>
+          <!-- Material form register -->
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+</div>
+    </code>
+            <code data-lang="js" data-name="TS">
+// login.component.ts
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent {
+
+  cardForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder) {
+    this.cardForm = fb.group({
+      materialFormCardEmailEx: ['', [Validators.email, Validators.required]],
+      materialFormCardPasswordEx: ['', Validators.required]
+    });
+  }
+
+  onSubmit(form: FormGroup) {
+  }
+
+}
+    </code>
+        </mdbsnippet>
+
+        <p class="description">
+            After saving the changes and refreshing the page you will see the login screen of our application. There you will find two
+            inputs responsible for entering your email address and password. After clicking the "Sign In" button, the onSubmit()
+            method will be called up, which at a later stage of our application will send login data to the service that
+            deals with authentication of users.
+        </p>
+
+        <h2 class="title mb-4">
+            <strong>Creating the register view of our app</strong>
+        </h2>
+
+        <p class="description">
+            The next view we will create is Register view. To do this, open the
+            <code>register.component.html</code> and
+            <code>register.component.ts</code> files to fill in their basic code, which is responsible for rendering the view of the application when Angular
+            changes the address of our application from route /login to the /register route.
+        </p>
+
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+<!-- register.component.html -->
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-12 mx-auto my-4">
+      <h3 class="text-center">Create a new account.</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mx-auto my-5">
+      <mdb-card>
+        <mdb-card-body>
+          <!-- Material form register -->
+          <form [formGroup]="cardForm" (ngSubmit)="onSubmit(cardForm)">
+            <p class="h4 text-center py-4">Sign up</p>
+
+            <!-- Material input email -->
+            <div class="md-form">
+              <i class="fas fa-envelope prefix grey-text"></i>
+              <input type="email" id="materialFormCardEmailEx" formControlName="materialFormCardEmailEx" class="form-control" mdbInputDirective>
+              <label for="materialFormCardEmailEx" class="font-weight-light">Your email</label>
+            </div>
+
+            <!-- Material input password -->
+            <div class="md-form">
+              <i class="fas fa-lock prefix grey-text"></i>
+              <input type="password" id="materialFormCardPasswordEx" formControlName="materialFormCardPasswordEx" class="form-control"
+                mdbInputDirective>
+              <label for="materialFormCardPasswordEx" class="font-weight-light">Your password</label>
+            </div>
+
+            <div class="text-center py-4 mt-3">
+              <button mdbBtn color="cyan" class="waves-light" type="submit" mdbWavesEffect>Sign up</button>
+            </div>
+          </form>
+          <!-- Material form register -->
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+</div>
+            </code>
+            <code data-lang="js" data-name="TS">
+// register.component.ts
+
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
+})
+
+export class RegisterComponent {
+  cardForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder) {
+    this.cardForm = fb.group({
+      materialFormCardEmailEx: ['', [Validators.email, Validators.required]],
+      materialFormCardPasswordEx: ['', Validators.required]
+    });
+  }
+
+  onSubmit(form: FormGroup) {
+  }
+}
+            </code>
+        </mdbsnippet>
+
+        <h2 class="title mb-4">
+            <strong>Creating the application view of our app</strong>
+        </h2>
+        <p class="description">
+            The last view we will create in our application is Application view. This view is accessed by the user only after he has
+            logged in to the application. The view is very simple. Open the
+            <code>application.component.html</code> file and paste the code below into it.
+        </p>
+
+        <pre class="code-toolbar">
+            <code class="language-markup">
+&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-md-12 my-5&quot;&gt;
+      &lt;h3 class=&quot;text-center&quot;&gt;Welcome to Basic Authorization App!&lt;/h3&gt;
+      &lt;h4 class=&quot;text-center&quot;&gt;You&#39;re logged as: NOBODY&lt;/h4&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+            </code>
+        </pre>
+
+        <p class="description">
+            After going through all the above points without any problems you should receive the prototype of the ready application.
+            There are three components that are responsible for displaying the appropriate views, and one service, which
+            in a moment we will expand by methods that will be responsible for registration of users, and their further authorization
+            in our application.
+        </p>
+
+        <h2 class="title mb-4">
+            <strong>Creating the registration logic part of the Auth Service</strong>
+        </h2>
+
+        <p class="description">
+            We already have the whole application view ready. It's high time to write the logic that will be responsible for registering
+            users! To do this, open the
+            <code>auth.service.ts</code> file and paste the code below into it.
+        </p>
+
+        <pre class="code-toolbar">
+            <code class="language-javascript">
+// auth.service.ts
+import { Injectable } from '@angular/core';
+
+interface Credential {
+  email: string;
+  password: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  credentialsArray: Credential[] = [];
+  wasRegistered: boolean = false;
+
+  // main methods
+  createAccount(email: string, password: string) {
+    this.credentialsArray.push({ email: email, password: password });
+    this.wasRegistered = true;
+  }
+
+  checkDuplicates(email: string) {
+    return this.getCredentials().some((element: any) => element.email === email);
+  }
+
+  // helper methods
+  getCredentials() {
+    return this.credentialsArray.splice(0, 1);
+  }
+}
+            </code>
+        </pre>
+
+        <p class="description">
+            The Credential interface is responsible for the schema according to which we will create login data, send them to other methods,
+            and assign them to variables responsible for storing the state of the application. Interface creation is useful
+            even for small applications, and is considered as good practice.
+            <br>
+            <br> The CreateAccount() method accepts two parameters - email, which the user registers, and password to the account.
+            Registration consists in sending a Credential object to the credentialsArray variable, which stores all registered
+            users. After saving the data in the table, we change the value of the variable wasRegistered from false to true.
+        </p>
+
+        <h2 class="title mb-4">
+            <strong>Handling of the registration process</strong>
+        </h2>
+
+        <p class="description">
+            We already have a method in place that will be responsible for registering the user. It's time to use it in the right component!
+            <br>Open the
+            <code>register.component.ts</code> file, and add the following code to it, so that by clicking the "Sign Up" button you can create a new use
+        </p>
+
+        <p class="description">
+            Add two new parameters to the builder - authService and nav - and add the missing code to the onSubmit() method.
+            <br>
+            <br> P.S.: Don't forget to import the missing classes - authService and Router!
+        </p>
+
+        <pre class="code-toolbar">
+            <code class="language-javascript">
+// register.component.ts
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
+})
+export class RegisterComponent {
+
+  cardForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private nav: Router) {
+    this.cardForm = fb.group({
+      materialFormCardEmailEx: ['', [Validators.email, Validators.required]],
+      materialFormCardPasswordEx: ['', Validators.required]
+    });
+  }
+
+  onSubmit(form: FormGroup) {
+    const email = form.value.materialFormCardEmailEx;
+    const password = form.value.materialFormCardPasswordEx;
+
+    if (form.valid) {
+      if (this.authService.checkDuplicates(email)) {
+        alert('Account for email ' + email + ' already exists!');
+      } else
+        if (!this.authService.checkDuplicates(email)) {
+          this.authService.createAccount(email, password);
+          form.patchValue({ materialFormCardEmailEx: '', materialFormCardPasswordEx: '' });
+          this.nav.navigate(['login']);
+          alert('Account for email ' + email + ' has been created!');
+        }
+    }
+  }
+}
+            </code>
+        </pre>
+
+        <p class="description">
+            In the above code, we have updated the onSubmit() method so that the process of registering a new user is already completed.
+        </p>
+        <p class="description">
+            After pressing the "Sign Up" button, the application will call the onSubmit() method, which first checks whether the email
+            address provided by the user is a duplicate of the already existing one.
+        </p>
+        <p class="description">If it is, the application will display an appropriate message. If not, the createAccount() method is called. After
+            calling this method, the values entered in the form are cleared and Angular redirects us to the /login route.</p>
+        </p>
+
+        <h2 class="title mb-4">
+            <strong>Creating the login logic part of the Auth Service</strong>
+        </h2>
+
+        <p class="description">
+            After a positive registration we are ready to log in! To do this we have to go back to
+            <code>auth.service.ts</code> and add the code.
+        </p>
+
+        <pre class="code-toolbar">
+            <code class="language-javascript">
+  // add this code below the wasRegistered: boolean = false variable in auth.service.ts
+  loggedUser: Object;
+
+  constructor(private nav: Router) { }
+            </code>
+        </pre>
+
+        <p class="description">
+            The loggedUser variable is responsible for storing the state of the application - whether, and which user has been logged
+            in. In the constructor we define the Nav object of Router type, thanks to which we can change the route after
+            logging in.
+        </p>
+
+        <p class="description">
+            <strong>Remember to import Router class from @angular/router</strong>
+        </p>
+
+        <pre class="code-toolbar">
+            <code class="language-javascript">
+  // add this code below the checkDuplicates() method in auth.service.ts
+  logIn(email: string, password: string) {
+    if (this.credentialsArray.some((element) => element.email === email && element.password === password)) {
+      this.loggedUser = {
+        email: email,
+        password: password
+      };
+      this.nav.navigate(['application']);
+    } else {
+      alert('Incorrent login or password');
+    }
+  }
+
+  logOut() {
+    this.loggedUser = null;
+    this.nav.navigate(['login']);
+    }
+            </code>
+        </pre>
+
+        <p class="description">
+            The logIn method checks whether there is an element in the credentialsArray table whose email is identical to the one passed
+            to the method, and whether its password agrees with the one passed to the method.
+        </p>
+        <p class="description">
+            If so, we assign an email and a password to the currently logged in user to the loggedUser variable (this is the state of
+            our application). After a state has been assigned, Angular redirects us to the /application route.
+        </p>
+
+        <p class="description">
+            The logOut method makes the loggedUser variable null. Thanks to that the application knows that the user has logged out.
+            This operation is followed by a redirection to /login route, which is our main router.
+        </p>
+
+        </p>
+
+        <h2 class="title mb-4">
+            <strong>Handling of the login process</strong>
+        </h2>
+
+        <p class="description">
+            After writing the logic responsible for logging in and out of the user, we have no choice but to handle the login logic in
+            the component. Open the
+            <code>login.component.ts</code> file, and add the code below.
+        </p>
+
+        <pre class="code-toolbar">
+            <code class="language-javascript">
+constructor(
+    private fb: FormBuilder,
+    private authService: AuthService) {
+    this.cardForm = fb.group({
+      materialFormCardEmailEx: ['', [Validators.email, Validators.required]],
+      materialFormCardPasswordEx: ['', Validators.required]
+    });
+  }
+            </code>
+        </pre>
+
+        <p class="description">
+            Add a new authService parameter to your existing constructor to access the methods from the AuthService.
+        </p>
+
+        <pre class="code-toolbar">
+            <code class="language-javascript">
+    // add below code above the constructor in login.component.ts file
+    onSubmit(form: FormGroup) {
+    const email = form.value.materialFormCardEmailEx;
+    const password = form.value.materialFormCardPasswordEx;
+    if (form.valid) {
+      this.authService.logIn(email, password);
+    }
+  }
+
+  logout() {
+    this.authService.logOut();
+  }
+            </code>
+        </pre>
+
+        <p class="description">
+            After clicking the "Sign In" button, the application will call up the onSubmit() method, which will check whether the form
+            is filled in correctly, and then call up the logIn(e-mail, password) method located in the authService.
+            <br> logout() method calls the logOut() method from the authService.
+        </p>
+
+        <h2 class="title mb-4">
+            <strong>Finishing the AuthService</strong>
+        </h2>
+
+        <p class="description">
+            Let's go back to our AuthService for the last time (I swear). Now we only have to add a few helper methods, thanks to which
+            our application will gain some new features. To do this, open the auth.service.ts file and add the missing code.
+        </p>
+
+        <pre class="code-toolbar">
+            <code class="language-javascript">
+  // Add the following methods immediately below the getCredentials() method
+  isLoggednIn() {
+    if (this.loggedUser) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getLoggedUser() {
+    return {
+      email: this.loggedUser['email'],
+      password: this.loggedUser['password']
+    };
+  }
+
+  isRegistered() {
+    return this.wasRegistered;
+  }
+            </code>
+        </pre>
+
+        <p class="description">
+            isLoggedIn() method checks if there is a logged in user. If so, returns true. Otherwise false.
+        </p>
+        <p class="description">
+            getLoggedUser() method returns the loggedUser object.
+        </p>
+        <p class="description">isRegistered() method returns the true or false if user is registered or not.</p>
+        </p>
+
+        <h2 class="title mb-4">
+            <strong>Modifying the application component</strong>
+        </h2>
+
+        <p class="description">
+            It is high time to modify the application component to display the relevant information if the user is logged in or not.
+            <br> To do this, open the
+            <code>application.component.html</code> and
+            <code>application.component.ts</code> files and add the missing code.
+        </p>
+
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 my-5" *ngIf="isLogged()">
+            <h3 class="text-center">Welcome to Basic Authorization App!</h3>
+        </div>
+        <div class="col-md-12 my-5" *ngIf="!isLogged()">
+            <h3 class="text-center">You're not allowed to view this page. Please log in first!</h3>
+        </div>
+    </div>
+  </div>
+            </code>
+            <code data-lang="js" data-name="TS">
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+
+@Component({
+  selector: 'app-application',
+  templateUrl: './application.component.html',
+  styleUrls: ['./application.component.scss']
+})
+export class ApplicationComponent implements OnInit {
+
+  constructor(private authService: AuthService) { }
+  ngOnInit() {
+
+  }
+
+  isLogged() {
+    return this.authService.isLoggednIn();
+  }
+
+}
+            </code>
+        </mdbsnippet>
+
+        <h2 class="title mb-4">
+            <strong>Modifying the app component</strong>
+        </h2>
+
+        <p class="description">
+            The last step in this guide is the last modification of the AppComponent in order to add a button for logging out of the
+            application, and to dynamically change the active link depending on the route.
+            <br> To do this, open the
+            <code>app.component.html</code> and
+            <code>app.component.ts</code> files.
+
+        </p>
+
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+<!-- app.component.html -->
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand>
+        <a class="navbar-brand" routerLink="/login">Basic Authentication</a>
+    </mdb-navbar-brand>
+
+    <!-- Collapsible content -->
+    <links>
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light" *ngIf="!loggedUser" routerLink="/login" mdbWavesEffect>Login</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light" *ngIf="loggedUser" mdbWavesEffect (click)="logout()">Logout</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light" routerLink="/register" mdbWavesEffect>Register</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light" routerLink="/application" mdbWavesEffect>Application</a>
+            </li>
+
+        </ul>
+        <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+<router-outlet></router-outlet>
+            </code>
+            <code data-lang="js" data-name="TS">
+import { AfterViewChecked } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent implements AfterViewChecked {
+
+  loggedUser = null;
+  constructor(private authService: AuthService) { }
+
+  ngAfterViewChecked() {
+    if (!this.loggedUser) {
+      setTimeout(() => {
+        this.loggedUser = this.authService.isLoggednIn();
+      }, 0);
+    }
+  }
+
+  logout() {
+    this.authService.logOut();
+    this.loggedUser = null;
+  }
+
+}
+            </code>
+        </mdbsnippet>
+
+        <p class="description">
+            The above code checks if the user is logged in. If it is, the value of the loggedUser variable is set to true. If it is logged
+            out, it is false. Thanks to this variable we can dynamically change the login / logout button.
+        </p>
+
+        <h2 class="title mb-4">
+            <strong>The final version of every file</strong>
+        </h2>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">AppComponent</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">LoginComponent</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#panel3" role="tab">RegisterComponent</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#panel4" role="tab">ApplicationComponent</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#panel5" role="tab">AuthService</a>
+            </li>
+        </ul>
+        <!-- Tab panels -->
+        <div class="tab-content card">
+            <!--Panel 1-->
+            <div class="tab-pane fade in show active" id="panel1" role="tabpanel">
+                <mdbsnippet>
+                    <code data-lang="html" data-name="HTML">
+<!-- app.component.html -->
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand>
+        <a class="navbar-brand" routerLink="/login">Basic Authentication</a>
+    </mdb-navbar-brand>
+
+    <!-- Collapsible content -->
+    <links>
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light" *ngIf="!loggedUser" routerLink="/login" mdbWavesEffect>Login</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light" *ngIf="loggedUser" mdbWavesEffect (click)="logout()">Logout</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light" routerLink="/register" mdbWavesEffect>Register</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link waves-light" routerLink="/application" mdbWavesEffect>Application</a>
+            </li>
+
+        </ul>
+        <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+<router-outlet></router-outlet>
+            </code>
+                    <code data-lang="js" data-name="TS">
+import { AfterViewChecked } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent implements AfterViewChecked {
+
+  loggedUser = null;
+  constructor(private authService: AuthService) { }
+
+  ngAfterViewChecked() {
+    if (!this.loggedUser) {
+      setTimeout(() => {
+        this.loggedUser = this.authService.isLoggednIn();
+      }, 0);
+    }
+  }
+
+  logout() {
+    this.authService.logOut();
+    this.loggedUser = null;
+  }
+
+}
+            </code>
+                </mdbsnippet>
+            </div>
+            <!--/.Panel 1-->
+            <!--Panel 2-->
+            <div class="tab-pane fade" id="panel2" role="tabpanel">
+                <mdbsnippet>
+                    <code data-lang="html" data-name="HTML">
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-12 mx-auto my-4">
+      <h3 class="text-center">You're not logged in. Please log in to get access to the application.</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mx-auto my-5">
+      <mdb-card>
+        <mdb-card-body>
+          <!-- Material form register -->
+          <form [formGroup]="cardForm" (ngSubmit)="onSubmit(cardForm)">
+            <p class="h4 text-center py-4">Sign in</p>
+
+            <!-- Material input email -->
+            <div class="md-form">
+              <i class="fas fa-envelope prefix grey-text"></i>
+              <input type="email" id="materialFormCardEmailEx" formControlName="materialFormCardEmailEx" class="form-control" mdbInputDirective>
+              <label for="materialFormCardEmailEx" class="font-weight-light">Your email</label>
+            </div>
+
+            <!-- Material input password -->
+            <div class="md-form">
+              <i class="fas fa-lock prefix grey-text"></i>
+              <input type="password" id="materialFormCardPasswordEx" formControlName="materialFormCardPasswordEx" class="form-control"
+                mdbInputDirective>
+              <label for="materialFormCardPasswordEx" class="font-weight-light">Your password</label>
+            </div>
+
+            <div class="text-center py-4 mt-3">
+              <button mdbBtn color="cyan" class="waves-light" type="submit" mdbWavesEffect>Sign in</button>
+            </div>
+          </form>
+          <div class="row">
+            <div class="col-md-12 text-right">
+              Don't have an account?
+              <a routerLink="/register" class="blue-text">Create one!</a>
+            </div>
+          </div>
+          <!-- Material form register -->
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+</div>
+               </code>
+                    <code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent {
+
+  cardForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService) {
+    this.cardForm = fb.group({
+      materialFormCardEmailEx: ['', [Validators.email, Validators.required]],
+      materialFormCardPasswordEx: ['', Validators.required]
+    });
+  }
+
+  onSubmit(form: FormGroup) {
+    const email = form.value.materialFormCardEmailEx;
+    const password = form.value.materialFormCardPasswordEx;
+    if (form.valid) {
+      this.authService.logIn(email, password);
+    }
+  }
+
+  logout() {
+    this.authService.logOut();
+  }
+
+}
+               </code>
+                </mdbsnippet>
+            </div>
+            <!--/.Panel 2-->
+            <!--Panel 3-->
+            <div class="tab-pane fade" id="panel3" role="tabpanel">
+                <mdbsnippet>
+                    <code data-lang="html" data-name="HTML">
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-12 mx-auto my-4">
+      <h3 class="text-center">Create a new account.</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mx-auto my-5">
+      <mdb-card>
+        <mdb-card-body>
+          <!-- Material form register -->
+          <form [formGroup]="cardForm" (ngSubmit)="onSubmit(cardForm)">
+            <p class="h4 text-center py-4">Sign up</p>
+
+            <!-- Material input email -->
+            <div class="md-form">
+              <i class="fas fa-envelope prefix grey-text"></i>
+              <input type="email" id="materialFormCardEmailEx" formControlName="materialFormCardEmailEx" class="form-control" mdbInputDirective>
+              <label for="materialFormCardEmailEx" class="font-weight-light">Your email</label>
+            </div>
+
+            <!-- Material input password -->
+            <div class="md-form">
+              <i class="fas fa-lock prefix grey-text"></i>
+              <input type="password" id="materialFormCardPasswordEx" formControlName="materialFormCardPasswordEx" class="form-control"
+                mdbInputDirective>
+              <label for="materialFormCardPasswordEx" class="font-weight-light">Your password</label>
+            </div>
+
+            <div class="text-center py-4 mt-3">
+              <button mdbBtn color="cyan" class="waves-light" type="submit" mdbWavesEffect>Sign up</button>
+            </div>
+          </form>
+          <!-- Material form register -->
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+
+</div>
+               </code>
+                    <code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
+})
+export class RegisterComponent {
+
+  cardForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private nav: Router) {
+    this.cardForm = fb.group({
+      materialFormCardEmailEx: ['', [Validators.email, Validators.required]],
+      materialFormCardPasswordEx: ['', Validators.required]
+    });
+  }
+
+  onSubmit(form: FormGroup) {
+    const email = form.value.materialFormCardEmailEx;
+    const password = form.value.materialFormCardPasswordEx;
+
+    if (form.valid) {
+      if (this.authService.checkDuplicates(email)) {
+        alert('Account for email ' + email + ' already exists!');
+      } else
+        if (!this.authService.checkDuplicates(email)) {
+          this.authService.createAccount(email, password);
+          form.patchValue({ materialFormCardEmailEx: '', materialFormCardPasswordEx: '' });
+          this.nav.navigate(['login']);
+          alert('Account for email ' + email + ' has been created!');
+        }
+    }
+  }
+}
+               </code>
+                </mdbsnippet>
+            </div>
+            <!--/.Panel 3-->
+            <div class="tab-pane fade" id="panel4" role="tabpanel">
+                <mdbsnippet>
+                    <code data-lang="html" data-name="HTML">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 my-5" *ngIf="isLogged()">
+            <h3 class="text-center">Welcome to Basic Authorization App!</h3>
+        </div>
+        <div class="col-md-12 my-5" *ngIf="!isLogged()">
+            <h3 class="text-center">You're not allowed to view this page. Please log in first!</h3>
+        </div>
+    </div>
+  </div>
+               </code>
+                    <code data-lang="js" data-name="TS">
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+
+@Component({
+  selector: 'app-application',
+  templateUrl: './application.component.html',
+  styleUrls: ['./application.component.scss']
+})
+export class ApplicationComponent implements OnInit {
+
+  constructor(private authService: AuthService) { }
+  ngOnInit() {
+
+  }
+
+  isLogged() {
+    return this.authService.isLoggednIn();
+  }
+
+}
+               </code>
+                </mdbsnippet>
+            </div>
+            <!--/.Panel 3-->
+            <div class="tab-pane fade" id="panel5" role="tabpanel">
+                <pre class="code-toolbar">
+                <code class="language-javascript">
+                    import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
+interface Credential {
+  email: string;
+  password: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  credentialsArray: Credential[] = [];
+  wasRegistered: boolean = false;
+  loggedUser: Object;
+
+  constructor(private nav: Router) { }
+
+  // main methods
+  createAccount(email: string, password: string) {
+    this.credentialsArray.push({ email: email, password: password });
+    this.wasRegistered = true;
+  }
+
+  checkDuplicates(email: string) {
+    return this.getCredentials().some((element: any) => element.email === email);
+  }
+
+  logIn(email: string, password: string) {
+    if (this.credentialsArray.some((element) => element.email === email && element.password === password)) {
+      this.loggedUser = {
+        email: email,
+        password: password
+      };
+      this.nav.navigate(['application']);
+    } else {
+      alert('Incorrent login or password');
+    }
+  }
+
+  logOut() {
+    this.loggedUser = null;
+    this.nav.navigate(['login']);
+  }
+
+  // helper methods
+  getCredentials() {
+    return this.credentialsArray.splice(0, 1);
+  }
+
+  // Add the following methods immediately below the getCredentials() method
+  isLoggednIn() {
+    if (this.loggedUser) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getLoggedUser() {
+    return {
+      email: this.loggedUser['email'],
+      password: this.loggedUser['password']
+    };
+  }
+
+  isRegistered() {
+    return this.wasRegistered;
+  }
+}
+                </code>
+            </pre>
+            </div>
+            <!--/.Panel 3-->
+        </div>
+    </section>
+    <!--/Section: -->
+
+    <hr class="my-5">
+
+</section>
+<!--/Section: Doc content-->

@@ -1,0 +1,82 @@
+
+  <p>Our schedule looks nice however it's still not usable. Let's add some logic. </p>
+  <p>During the last lesson we prepared a special icon with a <mark>-</mark> (minus) sign which allows us to remove a given event from the list:</p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/10/image.png" alt="Remove icon" /><br /></div>
+  <div>Code:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            <MDBBadge color="danger" className="ml-2 float-right">
+                    -
+            </MDBBadge>                  
+     </code>
+ </mdbsnippet>
+  <p>As you may remember, the Event component represents a single event. The list of
+      events is currently maintained in the App component. <b>What does it mean for us?</b> </p>
+  <p>The delete button is a part of the Event Component, therefore we can easily call a function declared within the same component. However, <b> the instance of Event cannot delete itself</b>, therefore <b>we have to pass the call from the Event Component to the App Component</b> that will then remove the item from an array. How can we do that? We will again use props.</p>
+
+<h2>1. Define a function to handle deletion</h2>
+
+
+  
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <p>Let's add a new function within the scope of the <mark>App class</mark>:</p>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            handleDelete = eventId => {
+                const events = this.state.events.filter(e => e.id !== eventId);
+                this.setState({ events });
+              };
+            
+      </code>
+  </mdbsnippet>
+  <p>As we learned before, instead of a direct update on the state variable, we create a copy of the existing array, but excluding that event with a given ID</p>
+
+    <h2>2. Bind a child component property to a function call:</h2>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+            onDelete={this.handleDelete}
+    </code>
+</mdbsnippet>
+  <p>within our component call: </p>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            {this.state.events.map(event => (
+                <Event
+                  key={event.id}
+                  id={event.id}
+                  time={event.time}
+                  title={event.title}
+                  location={event.location}
+                  description={event.description}
+                  onDelete={this.handleDelete}
+                />
+              ))}              
+     </code>
+ </mdbsnippet>
+ <h2>3. Trigger a function call from child component:</h2>
+
+  <div><span style="font-size: 14px;"> </span></div>
+  <p>The last thing which we have to do is to trigger function call from our child
+      component:</p>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            onClick={() => this.props.onDelete(this.props.id)}
+     </code>
+ </mdbsnippet>
+  <p>within our badge:</p>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            <MDBBadge
+            color="danger"
+            className="ml-2 float-right"
+            onClick={() => this.props.onDelete(this.props.id)}
+          >
+            -
+          </MDBBadge>          
+      </code>
+  </mdbsnippet>
+  <p>Overview:</p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/10/image_1.png"  alt="Passing function call via props scheme" /><br /></div>
+  <div><br /></div>
+  <p>Preview:</p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/10/deleteItem.gif" alt="Removing event demo" /><br /></div>

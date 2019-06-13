@@ -1,0 +1,627 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Angular Bootstrap Google Maps</h2>
+
+  <h1 class="secondary-heading mb-4">Angular Google Maps - Bootstrap 4 & Material Design</h1>
+  <blockquote class="blockquote bq-warning my-4">
+    <p class="py-1 mb-0 text-warning">As of July 16, 2018, an API Key is required to obtain Google Maps feature. <a
+        href="https://cloud.google.com/maps-platform/#get-started" target="_blank" rel="nofollow">Click here </a>to get
+      an API Key</p>
+  </blockquote>
+  <!--Description-->
+  <p class="description">Angular Bootstrap Google Maps are the most advanced online maps in the world. Their use is
+    practically infinite.</p>
+
+
+  <p>They are mostly used on contact and about pages to increase awareness of your location.</p>
+
+  <p>It's quite easy to implement Google map in your project since all it requires is a small piece of JS code.</p>
+
+  <p>Examples of Angular Bootstrap Google Maps use:</p>
+
+  <ul>
+    <li>Traveling blog with map of every journey</li>
+    <li>Contact page</li>
+    <li>About section with your location</li>
+  </ul>
+
+  <p class="mb-5">See the following Angular Bootstrap Google maps examples:</p>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="basic-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic Example
+  </h2>
+
+  <!-- Description -->
+  <p>
+  </p>
+
+  <!--Grid row-->
+  <div class="row">
+
+    <!--Grid column-->
+    <div class="col-md-12 mb-4">
+
+      <!--Section: Live preview-->
+      <section>
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-12">
+
+            <!--Google map-->
+            <!--<div id="map-container" class="z-depth-1" style="height: 500px"></div>-->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24201.611061747586!2d-73.91128133645779!3d40.69156224120218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNowy+Jork%2C+Stany+Zjednoczone!5e0!3m2!1spl!2spl!4v1543827920020" style="width: 100%; height: 400px" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+        <mdbsnippet>
+
+          <code data-lang="html" data-name="HTML">
+
+            <agm-map [latitude]="map.lat" [longitude]="map.lng" style="height: 300px">
+              <agm-marker [latitude]="map.lat" [longitude]="map.lng"></agm-marker>
+            </agm-map>
+
+          </code>
+
+          <code data-lang="js" data-name="TS">
+
+            import { Component } from '@angular/core';
+
+            @Component({
+            selector: 'map-example',
+            templateUrl: 'map.html',
+            })
+
+            export class MapComponent {
+            public map: any = { lat: 51.678418, lng: 7.809007 };
+            }
+
+          </code>
+
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  <!--Grid row-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="dynamic-markers">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Dynamically adding markers on the map
+  </h2>
+
+  <!-- Description -->
+  <p>
+  </p>
+
+  <!--Grid row-->
+  <div class="row">
+
+    <!--Grid column-->
+    <div class="col-md-12 mb-4">
+
+      <!--Section: Live preview-->
+      <section>
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-12">
+
+            <!--Google map-->
+            <div id="map-container1" class="z-depth-1" style="height: 500px"></div>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+        <mdbsnippet>
+
+          <code data-lang="html" data-name="HTML">
+
+            <agm-map [latitude]="latitude" [longitude]="longitude" style="height: 300px" (mapClick)="placeMarker($event)">
+              <agm-marker *ngFor="let marker of markers" [latitude]="marker.latitude" [longitude]="marker.longitude"></agm-marker>
+            </agm-map>
+
+          </code>
+
+          <code data-lang="js" data-name="TS">
+
+
+            import { Component, OnInit } from '@angular/core';
+
+            @Component({
+            selector: 'dynamic-markers',
+            templateUrl: './dynamic-markers.component.html',
+            styleUrls: ['./dynamic-markers.component.scss'],
+            })
+            export class DynamicMarkersComponent implements OnInit {
+
+            longitude = 20.728218;
+            latitude = 52.128973;
+
+            markers = [
+            { latitude: 52.228973, longitude: 20.728218 }
+            ];
+
+            placeMarker(position: any) {
+            const lat = position.coords.lat;
+            const lng = position.coords.lng;
+
+            this.markers.push({ latitude: lat, longitude: lng });
+            }
+
+            }
+
+
+
+          </code>
+
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  <!--Grid row-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="agm-info-window">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Tooltip with agm-info-window
+  </h2>
+
+  <!-- Description -->
+  <p>
+  </p>
+
+  <!--Grid row-->
+  <div class="row">
+
+    <!--Grid column-->
+    <div class="col-md-12 mb-4">
+
+      <!--Section: Live preview-->
+      <section>
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-12">
+
+            <!--Google map-->
+            <div id="map-container3" class="z-depth-1" style="height: 500px"></div>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+        <mdbsnippet>
+
+          <code data-lang="html" data-name="HTML">
+
+            <agm-map [latitude]="latitude" [longitude]="longitude" style="height: 300px" (mapClick)="placeMarker($event)">
+              <agm-marker (mouseOver)="window.open()" (mouseOut)="window.close()" *ngFor="let marker of markers" [latitude]="marker.latitude"
+                [longitude]="marker.longitude">
+                <agm-info-window #window>
+                  <h6>Longitude: {{marker.longitude}}</h6>
+                  <h6>Latitude: {{marker.latitude}}</h6>
+                </agm-info-window>
+              </agm-marker>
+            </agm-map>
+            
+
+          </code>
+
+          <code data-lang="js" data-name="TS">
+
+
+            import { Component, OnInit } from '@angular/core';
+
+            @Component({
+            selector: 'agm-info-window',
+            templateUrl: './agm-info-window.component.html',
+            styleUrls: ['./agm-info-window.component.scss'],
+            })
+            export class AgmInfoWindowComponent implements OnInit {
+
+            longitude = 20.728218;
+            latitude = 52.128973;
+
+            markers = [
+            { latitude: 52.228973, longitude: 20.728218 }
+            ];
+
+            placeMarker(position: any) {
+            const lat = position.coords.lat;
+            const lng = position.coords.lng;
+
+            this.markers.push({ latitude: lat, longitude: lng });
+            }
+
+            }
+
+
+
+          </code>
+
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  <!--Grid row-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="map-types">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Map types
+  </h2>
+
+  <!-- Description -->
+  <p>
+    The input <code>[mapTypeId]</code> is responsible for the change of the map type and takes the values of the string
+    type.
+    Possible types are: roadmap (default), satellite, hybrid, terrain.
+  </p>
+
+  <!--Grid row-->
+  <div class="row">
+
+    <!--Grid column-->
+    <div class="col-md-12 mb-4">
+
+      <!--Section: Live preview-->
+      <section>
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-12">
+
+            <!--Google map-->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d33875.95298356599!2d-73.91128133645779!3d40.69156224120218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNowy+Jork%2C+Stany+Zjednoczone!5e1!3m2!1spl!2spl!4v1543829610359" frameborder="0" style="border:0; height: 500px; width: 100%" allowfullscreen></iframe>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+        <mdbsnippet>
+
+          <code data-lang="html" data-name="HTML">
+
+            <agm-map [latitude]="latitude" [longitude]="longitude" style="height: 300px">
+              <agm-marker [latitude]="latitude" [longitude]="longitude" [mapTypeId]="'hybrid'"></agm-marker>
+            </agm-map>
+
+          </code>
+
+          <code data-lang="js" data-name="TS">
+
+
+            import { Component } from '@angular/core';
+
+            @Component({
+            selector: 'map-types',
+            templateUrl: './map-types.component.html',
+            styleUrls: ['./map-types.component.scss'],
+            })
+            export class MapTypesComponent {
+
+            longitude = 20.728218;
+            latitude = 52.128973;
+
+            }
+
+
+
+          </code>
+
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  <!--Grid row-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="location-search">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Searching for a location
+  </h2>
+
+  <!-- Description -->
+  <p>
+    The following example shows you how to search for a location on the map.
+  </p>
+
+  <!--Grid row-->
+  <div class="row">
+
+    <!--Grid column-->
+    <div class="col-md-12 mb-4">
+
+      <!--Section: Code-->
+      <section>
+        <mdbsnippet>
+
+          <code data-lang="html" data-name="HTML">
+
+            <div class="container">
+              <div class="row my-5 d-flex flex-center">
+                <div class="col-md-6">
+                  <agm-map #map [mapTypeId]="'terrain'" [latitude]="location.lat" [longitude]="location.lng" style="height: 300px">
+                    <agm-marker [latitude]="location.lat" [longitude]="location.lng"></agm-marker>
+                  </agm-map>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form">
+                    <input type="text" [(ngModel)]='location.address_level_1' class="form-control" id="searchField"
+                      mdbInput>
+                    <label for="searchField">Search location</label>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 d-flex flex-center">
+                      <button mdbBtn color="primary" mdbWavesLight (click)='updateOnMap()' type="submit">Search</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </code>
+
+          <code data-lang="js" data-name="TS">
+
+
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
+declare var google: any;
+
+interface Marker {
+  lat: number;
+  lng: number;
+  label?: string;
+  draggable: boolean;
+}
+
+interface Location {
+  lat: number;
+  lng: number;
+  viewport?: Object;
+  zoom: number;
+  address_level_1?: string;
+  address_level_2?: string;
+  address_country?: string;
+  address_zip?: string;
+  address_state?: string;
+  marker?: Marker;
+}
+@Component({
+  selector: 'search-map',
+  templateUrl: './search-map.component.html',
+  styleUrls: ['./search-map.component.scss'],
+})
+export class SearchMapComponent implements OnInit {
+  geocoder: any;
+  public location: Location = {
+    lat: 51.678418,
+    lng: 7.809007,
+    marker: {
+      lat: 51.678418,
+      lng: 7.809007,
+      draggable: true
+    },
+    zoom: 5
+  };
+
+  @ViewChild(AgmMap) map: AgmMap;
+
+  constructor(public mapsApiLoader: MapsAPILoader) {
+    this.mapsApiLoader = mapsApiLoader;
+
+    this.mapsApiLoader.load().then(() => {
+      this.geocoder = new google.maps.Geocoder();
+    });
+  }
+
+  updateOnMap() {
+    let full_address: string = this.location.address_level_1 || ""
+    if (this.location.address_level_2) { full_address = full_address + " " + this.location.address_level_2; }
+    if (this.location.address_state) { full_address = full_address + " " + this.location.address_state; }
+    if (this.location.address_country) { full_address = full_address + " " + this.location.address_country; }
+
+    this.findLocation(full_address);
+  }
+
+  findLocation(address) {
+    if (!this.geocoder) { this.geocoder = new google.maps.Geocoder(); }
+    this.geocoder.geocode({
+      'address': address
+    }, (results, status) => {
+      if (status == google.maps.GeocoderStatus.OK) {
+        for (var i = 0; i < results[0].address_components.length; i++) {
+          let types = results[0].address_components[i].types;
+
+          if (types.indexOf('locality') !== -1) {
+            this.location.address_level_2 = results[0].address_components[i].long_name;
+          }
+          if (types.indexOf('country') !== -1) {
+            this.location.address_country = results[0].address_components[i].long_name;
+          }
+          if (types.indexOf('postal_code') !== -1) {
+            this.location.address_zip = results[0].address_components[i].long_name;
+          }
+          if (types.indexOf('administrative_area_level_1') !== -1) {
+            this.location.address_state = results[0].address_components[i].long_name;
+          }
+        }
+
+        if (results[0].geometry.location) {
+          this.location.lat = results[0].geometry.location.lat();
+          this.location.lng = results[0].geometry.location.lng();
+          this.location.marker.lat = results[0].geometry.location.lat();
+          this.location.marker.lng = results[0].geometry.location.lng();
+          this.location.marker.draggable = true;
+          this.location.viewport = results[0].geometry.viewport;
+        }
+
+        this.map.triggerResize();
+      } else {
+        alert("Sorry, this search produced no results.");
+      }
+    });
+  }
+
+
+  findAddressByCoordinates() {
+    this.geocoder.geocode({
+      'location': {
+        lat: this.location.marker.lat,
+        lng: this.location.marker.lng
+      }
+    }, (results, status) => {
+      this.decomposeAddressComponents(results);
+    });
+  }
+
+  decomposeAddressComponents(addressArray) {
+    if (addressArray.length == 0) { return false; }
+    let address = addressArray[0].address_components;
+
+    for (let element of address) {
+      if (element.length == 0 && !element['types']) { continue; }
+
+      if (element['types'].indexOf('street_number') > -1) {
+        this.location.address_level_1 = element['long_name'];
+        continue;
+      }
+      if (element['types'].indexOf('route') > -1) {
+        this.location.address_level_1 += ', ' + element['long_name'];
+        continue;
+      }
+      if (element['types'].indexOf('locality') > -1) {
+        this.location.address_level_2 = element['long_name'];
+        continue;
+      }
+      if (element['types'].indexOf('administrative_area_level_1') > -1) {
+        this.location.address_state = element['long_name'];
+        continue;
+      }
+      if (element['types'].indexOf('country') > -1) {
+        this.location.address_country = element['long_name'];
+        continue;
+      }
+      if (element['types'].indexOf('postal_code') > -1) {
+        this.location.address_zip = element['long_name'];
+        continue;
+      }
+    }
+  }
+}
+
+
+
+          </code>
+
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  <!--Grid row-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">

@@ -1,0 +1,732 @@
+<!-- SECTION-->
+<section id="autocomplete">
+  <h2 class="title">
+    <strong>Autocomplete</strong>
+    <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" class="btn btn-danger btn-md" role="button">MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+  <p class="description">Angular Bootstrap autocomplete is a component which predicts the words basing on the first few letters given by a user, while one is typing it.</p>
+
+  <!-- Live preview-->
+
+  <hr class="my-5">
+  <section id="basic">
+    <h3>
+      <strong>Basic example</strong>
+    </h3>
+    <div class="md-form" style="width: 22rem;">
+      <input type="search" id="form-autocomplete" class="form-control mdb-autocomplete">
+      <button class="mdb-autocomplete-clear">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </button>
+      <label for="form-autocomplete" class="active">What is your favorite US state?</label>
+    </div>
+
+  </section>
+  <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<mdb-autocomplete [label]="'Select color'" initialValue="Select color" name="autocomplete" [(ngModel)]="searchStr" [datasource]="dataService" [minSearchLength]="0">
+</mdb-autocomplete>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+import { CompleterData } from 'path-to-completerData';
+import { CompleterService } from 'path-to-completerService';
+
+@Component({
+selector: 'autocomplete-example',
+templateUrl: 'autocomplete.html',
+})
+export class AutocompleteComponent  {
+
+  protected searchStr: string;
+  protected dataService: CompleterData;
+  protected searchData = [
+    { color: 'red' },
+    { color: 'green' },
+    { color: 'blue' },
+    { color: 'cyan' },
+    { color: 'magenta' },
+    { color: 'yellow' },
+    { color: 'black' },
+  ];
+
+  constructor(private completerService: CompleterService) {
+    this.dataService = completerService.local(this.searchData, 'color', 'color');
+  }
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+  <hr class="my-5">
+  <section id="ngModel">
+    <h3>
+      <strong>NgModel value</strong>
+      <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h3>
+    <div class="md-form" style="width: 22rem;">
+      <input type="search" id="ng-model" class="form-control mdb-autocomplete">
+      <button class="mdb-autocomplete-clear">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </button>
+      <label for="ng-model" class="active">What is your favorite US state?</label>
+    </div>
+    <p id="ng-model-value">Selected state: </p>
+  </section>
+  <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<mdb-autocomplete [label]="'Select color'" name="autocomplete" initialValue="'Select color'" [(ngModel)]="searchStr" [datasource]="dataService"
+      [minSearchLength]="0">
+</mdb-autocomplete>
+<p>Selected value: {{searchStr}}</p>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+import { Component} from '@angular/core';
+import { CompleterService, CompleterData } from 'ng-uikit-pro-standard';
+
+@Component({
+    selector: 'autocomplete-model',
+    templateUrl: './autocomplete-model.component.html',
+    styleUrls: ['./autocomplete-model.component.scss']
+})
+export class AutocompleteModelComponent {
+
+    protected dataService: CompleterData;
+    protected searchData = [
+        { color: 'red' },
+        { color: 'green' },
+        { color: 'blue' },
+        { color: 'cyan' },
+        { color: 'magenta' },
+        { color: 'yellow' },
+        { color: 'black' },
+    ];
+    constructor(private completerService: CompleterService) {
+        this.dataService = completerService.local(this.searchData, 'color', 'color');
+    }
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+  <hr class="my-5">
+  <section id="initialValue">
+    <h3>
+      <strong>Initial value</strong>
+      <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h3>
+    <div class="md-form" style="width: 22rem;">
+      <input type="search" id="initial" class="form-control mdb-autocomplete">
+      <button class="mdb-autocomplete-clear">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </button>
+      <label for="initial" class="active">What is your favorite US state?</label>
+    </div>
+  </section>
+  <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<mdb-autocomplete [label]="'Select color'" name="autocomplete" initialValue="'Select color'" [(ngModel)]="searchStr" [datasource]="dataService"
+      [minSearchLength]="0">
+</mdb-autocomplete>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+import { Component} from '@angular/core';
+import { CompleterService, CompleterData } from 'ng-uikit-pro-standard';
+
+@Component({
+    selector: 'autocomplete-model',
+    templateUrl: './autocomplete-model.component.html',
+    styleUrls: ['./autocomplete-model.component.scss']
+})
+export class AutocompleteModelComponent {
+
+    protected dataService: CompleterData;
+    protected searchData = [
+        { color: 'red' },
+        { color: 'green' },
+        { color: 'blue' },
+        { color: 'cyan' },
+        { color: 'magenta' },
+        { color: 'yellow' },
+        { color: 'black' },
+    ];
+
+    // Initial value as ngModel
+    protected searchStr: string = this.searchData[0].color;
+    constructor(private completerService: CompleterService) {
+        this.dataService = completerService.local(this.searchData, 'color', 'color');
+    }
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+
+  <!--Section: Code-->
+
+  <hr class="my-5">
+  <section id="inputClass">
+    <h3>
+      <strong>inputClass example</strong>
+      <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h3>
+    <div class="md-form" style="width: 22rem">
+      <input type="search" id="inputClass" class="form-control mdb-autocomplete" style="color: red">
+      <button class="mdb-autocomplete-clear">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </button>
+      <label for="inputClass" class="active">What is your favorite US state?</label>
+    </div>
+  </section>
+  <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<mdb-autocomplete [label]="'Select color'" name="autocomplete" [inputClass]="'red-text'" initialValue="'Select color'" [(ngModel)]="searchStr" [datasource]="dataService"
+  [minSearchLength]="0">
+</mdb-autocomplete>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+import { Component} from '@angular/core';
+import { CompleterService, CompleterData } from 'ng-uikit-pro-standard';
+
+@Component({
+selector: 'autocomplete-model',
+templateUrl: './autocomplete-model.component.html',
+styleUrls: ['./autocomplete-model.component.scss']
+})
+export class AutocompleteModelComponent {
+
+protected dataService: CompleterData;
+protected searchData = [
+    { color: 'red' },
+    { color: 'green' },
+    { color: 'blue' },
+    { color: 'cyan' },
+    { color: 'magenta' },
+    { color: 'yellow' },
+    { color: 'black' },
+];
+
+constructor(private completerService: CompleterService) {
+    this.dataService = completerService.local(this.searchData, 'color', 'color');
+}
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+
+  <!--Section: Code-->
+
+  <hr class="my-5">
+  <section id="remoteData">
+    <h3>
+      <strong>Remote data</strong>
+      <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h3>
+  </section>
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<mdb-autocomplete [label]="'Select color'" name="autocomplete" initialValue="'Select color'" [(ngModel)]="searchStr"
+      [dataService]="dataRemote" [minSearchLength]="0">
+</mdb-autocomplete>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+import { CompleterService, CompleterData } from 'ng-uikit-pro-standard';
+
+@Component({
+    selector: 'completer-remote',
+    templateUrl: './completer-remote.component.html',
+    styleUrls: ['./completer-remote.component.scss']
+})
+export class CompleterRemoteComponent {
+
+    public dataRemote: CompleterData;
+    constructor(private completerService: CompleterService) {
+        // tslint:disable-next-line:max-line-length
+        this.dataRemote = completerService.remote('https://raw.githubusercontent.com/oferh/ng2-completer/master/demo/res/data/countries.json?', 'name', 'name');
+    }
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+    <hr class="my-5">
+
+    <section id="icons">
+      <h3>
+        <strong>Autocomplete with icons</strong>
+        <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" class="btn btn-danger btn-md" role="button">MDB Pro component
+          <i class="far fa-gem ml-1"></i>
+        </a>
+      </h3>
+
+      <!--Section: Code-->
+      <section>
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <mdb-autocomplete [label]="'Select color'" initialValue="Select color" name="autocomplete" [(ngModel)]="searchStr" [datasource]="dataService" [minSearchLength]="0">
+            </mdb-autocomplete>
+          </code>
+
+          <code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+import { CompleterData, CompleterService } from 'ng-uikit-pro-standard';
+
+@Component({
+  selector: 'autocomplete-icons',
+  templateUrl: './autocomplete-icons.component.html',
+  styleUrls: ['./autocomplete-icons.component.scss'],
+})
+export class AutocompleteIconsComponent {
+  protected searchStr: string;
+  protected dataService: CompleterData;
+  protected searchData = [
+    { name: 'Anthony', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-1.jpg' },
+    { name: 'Jane', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg' },
+    { name: 'John', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg' },
+    { name: 'Samantha', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-4.jpg' }
+  ];
+
+  constructor(private completerService: CompleterService) {
+    this.dataService = completerService.local(this.searchData, 'name', 'name').imageField('icon');
+  }
+
+}
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--/Section: Code-->
+    </section>
+
+    <hr class="my-5">
+
+    <section id="no-results">
+      <h3>
+        <strong>No results custom message</strong>
+      </h3>
+
+      <p class="description">Use textNoResults attribute to set your custom message, which will be displayed if the component doesn't return any value.</p>
+
+    </section>
+    <!-- /.Live preview-->
+
+      <!--Section: Code-->
+      <section class="mt-3">
+  <mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+        <mdb-autocomplete [label]="'Select color'" textNoResults="Your custom message" name="autocomplete" initialValue="'Select color'" [(ngModel)]="searchStr" [datasource]="dataService"
+        [minSearchLength]="0">
+  </mdb-autocomplete>
+
+    </code>
+    <code data-lang="js" data-name="TS">
+  import { Component } from '@angular/core';
+  import { CompleterData } from 'path-to-completerData';
+  import { CompleterService } from 'path-to-completerService';
+
+  @Component({
+  selector: 'autocomplete-example',
+  templateUrl: 'autocomplete.html',
+  })
+  export class AutocompleteComponent  {
+
+    protected searchStr: string;
+    protected dataService: CompleterData;
+    protected searchData = [
+      { color: 'red' },
+      { color: 'green' },
+      { color: 'blue' },
+      { color: 'cyan' },
+      { color: 'magenta' },
+      { color: 'yellow' },
+      { color: 'black' },
+    ];
+
+    constructor(private completerService: CompleterService) {
+      this.dataService = completerService.local(this.searchData, 'color', 'color');
+    }
+  }
+    </code>
+  </mdbsnippet>
+      </section>
+      <!--/Section: Code-->
+
+  <hr class="my-5">
+    <section id="searching-text">
+      <h3>
+        <strong>Custom searching text</strong>
+      </h3>
+
+      <p class="description">Use <code>[textSearching]</code> input to set custom text displayed when component searches for the given values.</p>
+
+    </section>
+    <!-- /.Live preview-->
+
+      <!--Section: Code-->
+      <section class="mt-3">
+  <mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+        <mdb-autocomplete [label]="'Select color'" [textSearching]="'Your custom searching text'" name="autocomplete" initialValue="'Select color'" [(ngModel)]="searchStr" [datasource]="dataService"
+        [minSearchLength]="0">
+  </mdb-autocomplete>
+
+    </code>
+    <code data-lang="js" data-name="TS">
+  import { Component } from '@angular/core';
+  import { CompleterData } from 'path-to-completerData';
+  import { CompleterService } from 'path-to-completerService';
+
+  @Component({
+  selector: 'autocomplete-example',
+  templateUrl: 'autocomplete.html',
+  })
+  export class AutocompleteComponent  {
+
+    protected searchStr: string;
+    protected dataService: CompleterData;
+    protected searchData = [
+      { color: 'red' },
+      { color: 'green' },
+      { color: 'blue' },
+      { color: 'cyan' },
+      { color: 'magenta' },
+      { color: 'yellow' },
+      { color: 'black' },
+    ];
+
+    constructor(private completerService: CompleterService) {
+      this.dataService = completerService.local(this.searchData, 'color', 'color');
+    }
+  }
+    </code>
+  </mdbsnippet>
+      </section>
+      <!--/Section: Code-->
+
+
+  <hr class="my-5">
+  <section id="events">
+    <h3>
+      <strong>Events</strong>
+    </h3>
+  </section>
+  <!-- /.Live preview-->
+
+  <p class="description">Here you can find events which are fired by Material Select</p>
+    <br>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style="width: 100px;">Name</th>
+            <th style="width: 100px;">Usage</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>selected</td>
+            <td>(opened)="onSelected($event)"</td>
+            <td>The event is fired when the option is selected.</td>
+          </tr>
+          <tr>
+            <td>highlighted</td>
+            <td>(highlighted)="onHighlighted($event)"</td>
+            <td>The event is fired when the item is highlighted.</td>
+          </tr>
+          <tr>
+            <td>blur</td>
+            <td>(blur)="onBlur($event)"</td>
+            <td>The event is fired when the blurring the input.</td>
+          </tr>
+          <tr>
+            <td>focusEvent</td>
+            <td>(focusEvent)="onFocusEvent($event)" </td>
+            <td>The event is fired when the input is focused.</td>
+          </tr>
+          <tr>
+            <td>opened</td>
+            <td>(opened)="onOpened($event)"</td>
+            <td>The event is fired when the dropdown in Autocomplete is opened.</td>
+          </tr>
+          <tr>
+            <td>keydown</td>
+            <td>(keydown)="onKeydown($event)"</td>
+            <td>The event is fired when key is pressed down in searchbox.</td>
+          </tr>
+          <tr>
+            <td>keyup</td>
+            <td>(keyup)="onKeyup($event)"</td>
+            <td>The event is fired when key is pressed up in searchbox.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<mdb-autocomplete [label]="'Select color'" (selected)="onSelected($event)" (highlighted)="onHighlighted($event)" (blur)="onBlur($event)"
+      (focusEvent)="onFocusEvent($event)" (opened)="onOpened($event)" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)"
+      initialValue="Select color" name="autocomplete" [(ngModel)]="searchStr" [datasource]="dataService" [minSearchLength]="0">
+    </mdb-autocomplete>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { CompleterService } from 'ng-uikit-pro-standard';
+import { CompleterData } from 'ng-uikit-pro-standard';
+import { Component, AfterViewInit } from '@angular/core';
+
+@Component({
+  selector: 'completer-events',
+  templateUrl: './completer-events.component.html',
+  styleUrls: ['./completer-events.component.scss'],
+})
+export class CompleterEventsComponent implements AfterViewInit {
+
+  protected searchStr: string;
+  protected dataService: CompleterData;
+  protected searchData = [
+    { color: 'red' },
+    { color: 'green' },
+    { color: 'blue' },
+    { color: 'cyan' },
+    { color: 'magenta' },
+    { color: 'yellow' },
+    { color: 'black' },
+  ];
+
+  constructor(private completerService: CompleterService) {
+    this.dataService = completerService.local(this.searchData, 'color', 'color');
+  }
+
+  onSelected(event: any) {
+    console.log(event);
+  }
+
+  onHighlighted(event: any) {
+    console.log(event);
+  }
+
+  onBlur(event: any) {
+    console.log(event);
+  }
+
+  onFocusEvent(event: any) {
+    console.log(event);
+  }
+
+  onOpened(event: any) {
+    console.log(event);
+  }
+
+  onKeyup(event: any) {
+    console.log(event);
+  }
+
+  onKeydown(event: any) {
+    console.log(event);
+  }
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+    <hr class="my-5">
+
+  <h3 class="mt-4" id="options">
+    <strong>Options:</strong></h3>
+  <table class="table table-responsive">
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">datasource</th>
+        <td>Autocomplete list data source can be an array of strings or a URL that results in an array of strings or a CompleterData
+          object</td>
+        <td>Array &lt;string&gt;|string|CompleterData
+        </td>
+        <td>Yes</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th scope="row">dataService</th>
+        <td>Deprecated use datasource instead. Autocomplete list data source.</td>
+        <td>CompleterData</td>
+        <td>Yes</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th scope="row">ngModel</th>
+        <td>see the angular forms API.</td>
+        <td>string</td>
+        <td>Yes</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th scope="row">autofocus</th>
+        <td>Set input focus when the page loads</td>
+        <td>boolean</td>
+        <td>No</td>
+        <td>false</td>
+      </tr>
+
+      <tr>
+        <th scope="row">clearUnselected</th>
+        <td>Clear the input on blur if not selected.</td>
+        <td>boolean</td>
+        <td>No</td>
+        <td>false</td>
+      </tr>
+
+      <tr>
+        <th scope="row">clearSelected</th>
+        <td>Clear the input when a result is selected.</td>
+        <td>boolean</td>
+        <td>No</td>
+        <td>false</td>
+      </tr>
+
+      <tr>
+        <th scope="row">clearButtonTabIndex</th>
+        <td>Changes tabindex attribute of clear button.</td>
+        <td>number</td>
+        <td>No</td>
+        <td>1</td>
+      </tr>
+
+      <tr>
+        <th scope="row">disableInput</th>
+        <td>If true disable the input field.</td>
+        <td>boolean</td>
+        <td>No</td>
+        <td>false</td>
+      </tr>
+
+      <tr>
+        <th scope="row">initialValue</th>
+        <td>Initial value for the component. Value is parsed using: titleField, descriptionField and imageField and used as selected
+          value</td>
+        <td>any</td>
+        <td>No</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th scope="row">inputClass</th>
+        <td>class attribute of the input element.</td>
+        <td>string</td>
+        <td>No</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th scope="row">matchClass</th>
+        <td>CSS class to apply for matching part of the title and description.</td>
+        <td>string</td>
+        <td>No</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th scope="row">maxChars</th>
+        <td>Maximal number of characters that the user can type in the component.</td>
+        <td>number</td>
+        <td>No</td>
+        <td>524288</td>
+      </tr>
+
+      <tr>
+        <th scope="row">minSearchLength</th>
+        <td>Minimal number of characters required for searching.</td>
+        <td>number</td>
+        <td>No</td>
+        <td>3</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION-->
+  <section id="APIref">
+
+    <h2 class="title my-4">API Reference:</h2>
+    <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of importing
+      the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific module,
+      is bad practice, and can cause application errors.
+    </p>
+
+    <h5 class="mb-4">API Reference for MDB Angular Autocomplete:</h5>
+    <pre class="code-toolbar"><code class="language-javascript">// MDB Angular Pro
+import { AutocompleteModule, WavesModule, InputsModule } from 'ng-uikit-pro-standard'</code></pre>
+    <div class="row">
+      <div class="col-md-6">
+        <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">Import example</a>
+        <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">Modules list</a>
+      </div>
+    </div>
+  </section>
+
+</section>
+<!-- SECTION-->

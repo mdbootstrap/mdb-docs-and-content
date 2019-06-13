@@ -1,0 +1,418 @@
+<!--Section: Intro-->
+<section id="e-introduction">
+
+  <!--Title-->
+  <h2 class="section-heading">Angular Datatables examples & customization</h2>
+  <p class="description">Here you can find a more advanced examples of Datatables component.</p>
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="e-data-from-api">
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Datatables with data from remote API
+    </h2>
+
+    <a href="https://ng-demo.mdbootstrap.com/tables/data-tables/" target="_blank" class="btn btn-primary waves-effect waves-light" role="button">
+      Live example
+      <i class="far fa-eye ml-2"></i>
+    </a>
+
+    <p class="description mt-4">Datatables with data fetching from real online API.</p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 mx-auto">
+              <div class="md-form">
+                <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()"
+                       id="search-input"
+                       mdbInput>
+                <label for="search-input">Search</label>
+              </div>
+            </div>
+            <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
+              <thead class="sticky-top">
+              <tr>
+                <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="elements"
+                    [sortBy]="headElements[i]"
+                    scope="col">{{head | titlecase}}
+                  <mdb-icon fas icon="sort"></mdb-icon>
+                </th>
+              </tr>
+              </thead>
+              <tbody #row>
+              <tr mdbTableCol (rowCreated)="onRowCreate($event)" (rowRemoved)="onRowRemove($event)"
+                  *ngFor="let el of elements; let i = index">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i <  mdbTablePagination.lastItemIndex"
+                    scope="row">{{el.id}}
+                </th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i <  mdbTablePagination.lastItemIndex"
+                    class="red-text">{{el.first}}
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i <  mdbTablePagination.lastItemIndex">
+                  {{el.last}}
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i <  mdbTablePagination.lastItemIndex">
+                  {{el.handle}}
+                </td>
+              </tr>
+              </tbody>
+              <tfoot class="grey lighten-5 w-100">
+
+              <tr>
+                <td colspan="4">
+                  <mdb-table-pagination [tableEl]="tableEl" paginationAlign=""
+                                        [searchDataSource]="elements"></mdb-table-pagination>
+                </td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import {
+        AfterViewInit,
+        ChangeDetectorRef,
+        Component,
+        ElementRef,
+        HostListener,
+        OnInit,
+        ViewChild} from '@angular/core';
+        import {
+        MdbTableDirective,
+        MdbTablePaginationComponent
+        } from "ng-uikit-pro-standard";
+        import {HttpClient} from "@angular/common/http";
+
+        @Component({
+        selector: 'remote-tables',
+        templateUrl: './remote-tables.component.html',
+        styleUrls: ['./remote-tables.component.scss']
+        })
+        export class RemoteTables implements OnInit, AfterViewInit {
+        @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
+        @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
+        @ViewChild('row') row: ElementRef;
+
+        elements: any = [];
+        headElements = ['id', 'first', 'last', 'handle'];
+
+        searchText: string = '';
+        previous: string;
+
+        maxVisibleItems: number = 5;
+
+        url = 'https://jsonplaceholder.typicode.com/posts';
+
+        constructor(private cdRef: ChangeDetectorRef, private http: HttpClient) { }
+
+        @HostListener('input') oninput() {
+        this.mdbTablePagination.searchText = this.searchText;
+        }
+
+        ngOnInit() {
+        this.http.get(this.url).subscribe((data: any) => {
+        data.forEach((el: any) => {
+        this.elements.push({
+        id: el.id.toString(),
+        first: el.title,
+        last: el.body,
+        handle: 'Handle ' + el.id.toString()
+        });
+        });
+        this.mdbTable.setDataSource(this.elements);
+        });
+        this.elements = this.mdbTable.getDataSource();
+        this.previous = this.mdbTable.getDataSource();
+        }
+
+        ngAfterViewInit() {
+        this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
+
+        this.mdbTablePagination.calculateFirstItemIndex();
+        this.mdbTablePagination.calculateLastItemIndex();
+
+        this.cdRef.detectChanges();
+        }
+
+        searchItems() {
+        const prev = this.mdbTable.getDataSource();
+
+        if (!this.searchText) {
+        this.mdbTable.setDataSource(this.previous);
+        this.elements = this.mdbTable.getDataSource();
+        }
+
+        if (this.searchText) {
+        this.elements = this.mdbTable.searchLocalDataBy(this.searchText);
+        this.mdbTable.setDataSource(prev);
+        }
+
+        this.mdbTablePagination.calculateFirstItemIndex();
+        this.mdbTablePagination.calculateLastItemIndex();
+
+        this.mdbTable.searchDataObservable(this.searchText).subscribe(() => {
+        this.mdbTablePagination.calculateFirstItemIndex();
+        this.mdbTablePagination.calculateLastItemIndex();
+        });
+        }
+        }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="e-dynamic-modal-edit">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Datatable with dynamic modal edit
+  </h2>
+
+  <a href="https://ng-demo.mdbootstrap.com/tables/data-tables/" target="_blank" class="btn btn-primary waves-effect waves-light" role="button">
+    Live example
+    <i class="far fa-eye ml-2"></i>
+  </a>
+
+  <p class="description mt-4">Combine Datatables with dynamic modal to create a table which will be able to edit rows with
+    modals.</p>
+  <p class="description">You can read more about dynamic modals <a
+    href="https://mdbootstrap.com/docs/angular/modals/basic/#dynamic">here</a>.</p>
+  <p class="description">For proper working of below example you have to import <code>FormsModule,
+    ReactiveFormsModule</code> to the <code>app.module.ts</code> file, and add there a <code>entryComponents:
+    [ModalEditComponent]</code>.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="app.component.html">
+        <div class="container">
+          <div class="row">
+            <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
+              <thead class="sticky-top">
+              <tr>
+                <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="elements"
+                    [sortBy]="headElements[i]"
+                    scope="col">{{head | titlecase}}
+                  <mdb-icon fas icon="sort"></mdb-icon>
+                </th>
+              </tr>
+              </thead>
+              <tbody #row>
+              <tr *ngFor="let el of elements; let i = index">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                    scope="row">{{el.id}}
+                </th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                  {{el.first}}
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                  {{el.last}}
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                  {{el.handle}}
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                  <button mdbBtn color="warning" size="sm" mdbWavesEffect (click)="editRow(el)">Edit</button>
+                  <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow(el)">Remove</button>
+                </td>
+              </tr>
+              </tbody>
+              <tfoot class="grey lighten-5 w-100">
+              <tr>
+                <td colspan="5">
+                  <mdb-table-pagination [tableEl]="tableEl" paginationAlign=""
+                                        [searchDataSource]="elements"></mdb-table-pagination>
+                </td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </code>
+
+      <code data-lang="js" data-name="app.component.ts">
+        import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core';
+        import {MdbTableDirective, MdbTablePaginationComponent} from "path-to-mdb-angular";
+        import {MDBModalRef, MDBModalService} from "path-to-mdb-angular";
+        import {ModalEditComponent} from "./modal-edit/modal-edit.component";
+
+        @Component({
+          selector: 'app-root',
+          templateUrl: './dynamic-modal-table.component.html',
+          styleUrls: ['./dynamic-modal-table.component.scss']
+        })
+        export class DynamicModalTableComponent {
+          @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
+          @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
+          @ViewChild('row') row: ElementRef;
+
+          elements: any = [];
+          headElements = ['id', 'first', 'last', 'handle', 'command'];
+
+          modalRef: MDBModalRef;
+
+          constructor(
+          private cdRef: ChangeDetectorRef,
+          private modalService: MDBModalService) { }
+
+          ngOnInit() {
+            for (let i = 1; i <= 25; i++) {
+              this.elements.push({id: i.toString(), first: 'User ' + i, last: 'Last ' + i, handle: 'Handle ' + i});
+            }
+
+            this.mdbTable.setDataSource(this.elements);
+            this.elements = this.mdbTable.getDataSource();
+          }
+
+          ngAfterViewInit() {
+            this.mdbTablePagination.setMaxVisibleItemsNumberTo(8);
+
+            this.mdbTablePagination.calculateFirstItemIndex();
+            this.mdbTablePagination.calculateLastItemIndex();
+            this.cdRef.detectChanges();
+          }
+
+          editRow(el: any) {
+            const elementIndex = this.elements.findIndex((elem: any) => el === elem);
+            const modalOptions = {
+              data: {
+                editableRow: el
+              }
+            };
+            this.modalRef = this.modalService.show(ModalEditComponent, modalOptions);
+            this.modalRef.content.saveButtonClicked.subscribe((newElement: any) => {
+              this.elements[elementIndex] = newElement;
+            });
+            this.mdbTable.setDataSource(this.elements);
+          }
+
+          removeRow(el: any) {
+            const elementIndex = this.elements.findIndex((elem: any) => el === elem);
+            this.mdbTable.removeRow(elementIndex);
+            this.mdbTable.getDataSource().forEach((el: any, index: any) => {
+              el.id = (index + 1).toString();
+            });
+            this.mdbTable.setDataSource(this.elements);
+          }
+        }
+      </code>
+
+    </mdbsnippet>
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="modal-edit.component.html">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title w-100" id="myModalLabel">Edit user: {{editableRow.first}}</h4>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="form">
+              <div class="md-form">
+                <input id="id" type="text" class="form-control grey-text" formControlName="id" mdbInput>
+                <label for="id">ID</label>
+              </div>
+              <div class="md-form">
+                <input id="first" type="text" class="form-control" formControlName="first" mdbInput mdbValidate
+                       [validateSuccess]="false">
+                <label for="first">First</label>
+                <mdb-error *ngIf="first.invalid && (first.dirty || first.touched)">Input is required</mdb-error>
+              </div>
+              <div class="md-form">
+                <input id="last" type="text" class="form-control" formControlName="last" mdbInput mdbValidate
+                       [validateSuccess]="false">
+                <label for="last">Last</label>
+                <mdb-error *ngIf="last.invalid && (last.dirty || last.touched)">Input is required</mdb-error>
+              </div>
+              <div class="md-form">
+                <input id="handle" type="text" class="form-control" formControlName="handle" mdbInput mdbValidate
+                       [validateSuccess]="false">
+                <label for="handle">Handle</label>
+                <mdb-error *ngIf="handle.invalid && (handle.dirty || handle.touched)">Input is required</mdb-error>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+                    (click)="modalRef.hide()" mdbWavesEffect>Close
+            </button>
+            <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect
+                    [disabled]="form.invalid" (click)="editRow()">Save!
+            </button>
+          </div>
+        </div>
+      </code>
+
+      <code data-lang="js" data-name="modal-edit.component.ts">
+        import {Component} from '@angular/core';
+        import {MDBModalRef} from "path-to-mdb-angular";
+        import {FormControl, FormGroup, Validators} from "@angular/forms";
+        import {Subject} from "rxjs";
+
+        @Component({
+          selector: 'app-modal-edit',
+          templateUrl: './modal-edit.component.html',
+          styleUrls: ['./modal-edit.component.scss']
+        })
+        export class ModalEditComponent {
+
+          public editableRow: { id: string, first: string, last: string, handle: string };
+          public saveButtonClicked: Subject&lt;any&gt; = new Subject&lt;any&gt;();
+
+          public form: FormGroup = new FormGroup({
+              id: new FormControl({value: '', disabled: true}),
+              first: new FormControl('', Validators.required),
+              last: new FormControl('', Validators.required),
+              handle: new FormControl('', Validators.required)
+            });
+
+            constructor(public modalRef: MDBModalRef) { }
+
+            ngOnInit() {
+              this.form.controls['id'].patchValue(this.editableRow.id);
+              this.form.controls['first'].patchValue(this.editableRow.first);
+              this.form.controls['last'].patchValue(this.editableRow.last);
+              this.form.controls['handle'].patchValue(this.editableRow.handle);
+            }
+
+            editRow() {
+              this.editableRow = this.form.getRawValue();
+              this.saveButtonClicked.next(this.editableRow);
+              this.modalRef.hide();
+            }
+
+            get first() { return this.form.get('first'); }
+
+            get last() { return this.form.get('last'); }
+
+            get handle() { return this.form.get('handle'); }
+            }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->

@@ -1,0 +1,179 @@
+<!--Section: Tutorial content-->
+<section class="tutorial">
+
+
+    <h2>Goal</h2>
+
+    <p> Within this tutorial, we will learn how to build a ToDo application which allows us to add/remove and complete tasks and organize time in handful lists. You can check a live demo of the app <a href="http://ng-todo-app.mdbootstrap.com/">here</a>. </p>
+
+
+
+
+
+    <h2>1. Creating the Todo Class</h2>
+
+    <p>Angular CLI generates TypeScript (TS) files. If you don't know what TS is - don't worry. We will explain that in next lessons. For now, you just have to know that TS is an extended version of JavaScript allows you to use extra functionalities. You might wonder how TS will be running in WebBrowser - actually, it won't. Angular uses compiler to transpile TypeScript into JavaScript which can be parsed by the browser.</p>
+
+
+    <ol>
+        <li>Generate <code>Todo</code> class using CLI, run:
+        <pre class="code-toolbar"><code class="language-typescript">ng generate class todos/Todo --spec
+</code></pre>
+        which will create;
+        <pre class="code-toolbar"><code class="language-typescript">src/app/todos/todo.spec.ts
+src/app/todos/todo.ts
+</code></pre>
+        </li>
+<li>Open up <code>src/app/todos/todo.ts (you can use any editor, I strongly recommend Visual Studio Code)</code>:
+        <pre class="code-toolbar"><code class="language-typescript">export class Todo {
+}
+</code></pre>
+and add the logic:
+        <pre class="code-toolbar"><code class="language-typescript">export class Todo {
+    id: number;
+    title = '';
+    complete = false;
+    category: number;
+
+    constructor(values: Object = {}) {
+      Object.assign(this, values);
+    }
+}
+</code></pre>
+In this Todo class definition, we specify that each Todo instance will have four properties:
+<ul>
+    <li><code>id</code>: unique id number of the todo</li>
+    <li><code>title</code>: todo item title</li>
+    <li><code>complete</code>: boolenan (yes/no), status of completion</li>
+    <li><code>category</code>: id of todo list</li>
+</ul>
+</li>
+
+
+
+<li>
+    We used the <code>--spec</code> option. This instructed CLI to generate src/app/todos/todo.spec.ts for us with a basic unit test:
+        <pre class="code-toolbar"><code class="language-typescript">import { Todo } from &#039;./todo&#039;;
+
+describe(&#039;Todo&#039;, () =&gt; {
+  it(&#039;should create an instance&#039;, () =&gt; {
+    expect(new Todo()).toBeTruthy();
+  });
+});
+</code></pre>
+
+the following file is a place where we will write test scenarios for our components/services/classes. We will cover that in detail in advanced tutorials. For now, we will just generate them for a future use.
+</li>
+
+    </ol>
+
+    <h2>2. Creating the TodoDataService Service</h2>
+
+    <p>The <code>TodoDataService</code> will be responsible for managing our Todo items. It will allow us to create/remove and change the status of todo item. </p>
+
+<ol>
+    <li>Generate TodoDataService:
+        <pre class="code-toolbar"><code class="language-typescript">ng generate service todos/TodoData
+</code></pre>
+which output is:
+
+        <pre class="code-toolbar"><code class="language-typescript">  create src/app/todos/todo-data.service.spec.ts (387 bytes)
+  create src/app/todos/todo-data.service.ts (114 bytes)
+</code></pre>
+
+as you may noticed, CLI generates a unit test for a service by default, therefore there is no need for <code>--spec</code> option.
+</li>
+<li>
+Open <code>src/app/todos/todo-data.service.ts</code>:
+<pre class="code-toolbar"><code class="language-typescript">import { Injectable } from '@angular/core';
+
+@Injectable()
+export class TodoDataService {
+
+  constructor() { }
+
+}
+</code></pre>
+
+and add following logic:
+<pre class="code-toolbar"><code class="language-typescript">import { Injectable } from '@angular/core';
+import {Todo} from './todo';
+
+@Injectable()
+export class TodoDataService {
+
+  // Placeholder for last id so we can simulate
+  // automatic incrementing of id's
+  lastId = 0;
+
+    // Placeholder for todo's
+    todos: Todo[] = [];
+
+  constructor() { }
+
+  // Simulate POST /todos
+  addTodo(todo: Todo): TodoDataService {
+    if (!todo.id) {
+      todo.id = ++this.lastId;
+    }
+    this.todos.push(todo);
+    return this;
+  }
+
+  // Simulate DELETE /todos/:id
+  deleteTodoById(id: number): TodoDataService {
+    this.todos = this.todos
+      .filter(todo => todo.id !== id);
+    return this;
+  }
+
+  // Simulate PUT /todos/:id
+  updateTodoById(id: number, values: Object = {}):  Todo | any {
+    const todo = this.getTodoById(id) ;
+    if (!todo) {
+      return this;
+    }
+    Object.assign(todo, values);
+    return todo;
+  }
+
+  // Simulate GET /todos
+  getAllTodos(): Todo[] {
+    return this.todos;
+  }
+
+  // Simulate GET /todos/:id
+  getTodoById(id: number):  Todo | any {
+    return this.todos
+      .filter(todo => todo.id === id)
+      .pop();
+  }
+
+  // Simulate GET /todos/:category
+  getTodoByCategory(id: number): Todo[] {
+    return this.todos
+      .filter(todo => todo.category === id);
+  }
+
+  // Toggle todo complete
+  toggleTodoComplete(todo: Todo) {
+    const updatedTodo = this.updateTodoById(todo.id, {
+      complete: !todo.complete
+    });
+    return updatedTodo;
+  }
+}
+
+</code></pre>
+
+
+
+
+    </li>
+</ol>
+
+
+<p>Now when our Todo item part is ready we can start creating a Class and the Service to maintain categories. </p>
+
+</section>
+<!--Section: Tutorial content-->

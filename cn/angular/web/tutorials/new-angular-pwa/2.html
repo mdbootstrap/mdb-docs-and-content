@@ -1,0 +1,277 @@
+<!--Section: Tutorial content-->
+<section class="tutorial">
+  <section id="app-view">
+
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>Creating the application view</strong>
+    </h2>
+
+    <p class="description">
+      What is an application without a view? Nothing! After all, users must click on something, read something,
+      and the
+      data must be displayed somewhere. For this purpose, we will now prepare a very simple application layout.
+    </p>
+w
+    <p class="description">
+      In this tutorial, we will create a simple application to display schedules. The application will work only in
+      online mode.
+      In this application, it will be possible to add new events, but we won't use a database.
+    </p>
+
+    <p class="description">
+      Let's start with creating the new component — <code>schedule-item</code>. Open your application terminal and
+      execute the command below:
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="ng">
+        ng generate component schedule-item
+      </code>
+    </mdbsnippet>
+
+    <p class="description">
+      Open the newly generated <code>ScheduleListComponent</code> file, and copy the code below:
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="media schedule-list">
+          <h3 class="h3-responsive font-weight-bold mr-3">{{value.time}}</h3>
+          <div class="media-body mb-3 mb-lg-5">
+            <h6 class="mt-0 font-weight-bold">{{value.subject}}</h6>
+            <hr class="hr-bold mb-0 my-2">
+            <p class="mb-0" *ngIf="value.location">
+              <mdb-icon fas icon="location-arrow"></mdb-icon>
+              {{value?.location}}
+            </p>
+          </div>
+        </div>
+        <p class="p-3 blue-grey lighten-5 blue-grey lighten-5" *ngIf="value.description">{{value?.description}}</p>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import {Component, Input} from '@angular/core';
+        import {Schedule} from '../app.component';
+
+        @Component({
+          selector: 'app-schedule-item',
+          templateUrl: './schedule-item.component.html',
+          styleUrls: ['./schedule-item.component.scss']
+        })
+        export class ScheduleItemComponent {
+          @Input() value: Schedule;
+          constructor() { }
+        }
+
+      </code>
+    </mdbsnippet>
+
+    <p class="description">A few words of explanation: this component will be used to generate a list of schedules. Data
+      from the parent will be sent to this component using the <code>@Input()</code> decorator. This decorator is of
+      type <code>Schedule</code>
+      with four fields — <code>time</code>, <code>subject</code>, <code>description</code> and <code>location</code>. Those
+      fields will contain all the data needed to generate
+      the schedules list. </p>
+
+    <p class="description">Then open the main component of your AppComponent application — and paste the following code
+      there:</p>
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <main>
+          <div class="container">
+            <section>
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <h2 class="text-uppercase my-3">Schedule</h2>
+                  <h5 class="mb-4 d-none d-md-block">Below you can find a schedule of your day.</h5>
+
+                  <div class="modal-footer justify-content-center">
+                    <a type="button" mdbBtn color="info" class="waves-effect mb-4" (click)="frame.show()"
+                       mdbWavesEffect>Add event
+                    </a>
+                  </div>
+
+                  <div *ngFor="let item of items">
+                    <app-schedule-item [value]="item"></app-schedule-item>
+                  </div>
+
+                  <h2 class="text-uppercase mb-3 mt-5 pt-4">Code of conduct</h2>
+                  <h6 class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h6>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+               aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-y: auto">
+            <div class="modal-dialog modal-notify modal-info" role="document">
+              <!--Content-->
+              <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header text-center">
+                  <h4 class="modal-title white-text w-100 font-weight-bold py-2">Schedule appointment</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                  </button>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+
+                  <div class="md-form mb-5">
+                    <mdb-icon far icon="clock" class="prefix blue-text"></mdb-icon>
+                    <input type="text" id="form1" class="form-control" mdbInputDirective [formControl]="timeInput"
+                           required>
+                    <label data-error="wrong" data-success="right" for="form1">Time</label>
+                  </div>
+
+                  <div class="md-form">
+                    <mdb-icon fas icon="pencil-alt" class="prefix grey-text"></mdb-icon>
+                    <input type="email" id="form2" class="form-control" mdbInputDirective [formControl]="subjectInput"
+                           required>
+                    <label data-error="wrong" data-success="right" for="form2">Subject</label>
+                  </div>
+
+                  <div class="md-form mb-5">
+                    <mdb-icon far icon="map" class="prefix grey-text"></mdb-icon>
+                    <input type="text" id="form3" class="form-control" mdbInputDirective [formControl]="locationInput">
+                    <label data-error="wrong" data-success="right" for="form3">Location (optional) </label>
+                  </div>
+
+                  <div class="md-form">
+                    <mdb-icon far icon="edit" class="prefix grey-text"></mdb-icon>
+                    <input type="email" id="form4" class="form-control" mdbInputDirective
+                           [formControl]="descriptionInput">
+                    <label data-error="wrong" data-success="right" for="form4">Description (optional) </label>
+                  </div>
+
+                </div>
+
+                <div class="modal-footer justify-content-center">
+                  <button type="button" mdbBtn color="info" class="waves-effect" (click)="addNewItem()"
+                          mdbWavesEffect [disabled]="timeInput.errors || subjectInput.errors">Add
+                  </button>
+                </div>
+
+                <!--Footer-->
+              </div>
+              <!--/.Content-->
+            </div>
+          </div>
+
+        </main>
+
+      </code>
+      <code data-lang="js" data-name="TS">
+        import {Component, ViewChild} from '@angular/core';
+        import {ModalDirective} from 'angular-bootstrap-md';
+        import {FormControl} from '@angular/forms';
+
+        export interface Schedule {
+          id?: string;
+          time: string;
+          subject: string;
+          location?: string;
+          description?: string;
+        }
+
+        @Component({
+          selector: 'app-root',
+          templateUrl: './app.component.html',
+          styleUrls: ['./app.component.scss']
+        })
+        export class AppComponent {
+          @ViewChild(ModalDirective) modal: ModalDirective;
+
+          timeInput = new FormControl();
+          subjectInput = new FormControl();
+          locationInput = new FormControl();
+          descriptionInput = new FormControl();
+
+          items: Array<Schedule> = [
+              {time: '08:00', subject: 'Breakfast with Simon', location: 'Lounge Caffe', description: 'Discuss Q3 targets'},
+              {time: '08:30', subject: 'Daily Standup Meeting (recurring)', location: 'Warsaw Spire Office'},
+              {time: '09:00', subject: 'Call with HRs'},
+              {time: '12:00', subject: 'Lunch with Timmoty', location: 'Canteen',
+              description: 'Project evalutation ile declaring a variable and using an if statement is a fine way to conditionally render a component, sometimes you might want to use a'},
+            ];
+
+            addNewItem() {
+              const value: Schedule = {
+                time: this.timeInput.value,
+                subject: this.subjectInput.value,
+                location: this.locationInput.value,
+                description: this.descriptionInput.value
+            };
+
+            this.items.push(value);
+
+            this.timeInput.setValue('');
+            this.subjectInput.setValue('');
+            this.locationInput.setValue('');
+            this.descriptionInput.setValue('');
+
+            this.modal.hide();
+            }
+
+          }
+
+      </code>
+    </mdbsnippet>
+
+    <p class="description">
+      At the very end, open the main module of your application - AppModules and check if there are imported form
+      modules in it: specifically the FormsModule and ReactiveFormsModule. If not, add them to the imports array.
+    </p>
+
+    <p class="description">
+      Your app.module.ts file should look like this:
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="app.module.ts">
+        import {BrowserModule} from '@angular/platform-browser';
+        import {NgModule} from '@angular/core';
+        import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+        import {AppComponent} from './app.component';
+        import {ScheduleItemComponent} from './schedule-item/schedule-item.component';
+
+        import {MDBBootstrapModule} from 'angular-bootstrap-md';
+        import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+        @NgModule({
+          declarations: [
+            AppComponent,
+            ScheduleItemComponent
+          ],
+          imports: [
+            BrowserModule,
+            BrowserAnimationsModule,
+            MDBBootstrapModule.forRoot(),
+            FormsModule,
+            ReactiveFormsModule
+          ],
+          providers: [],
+          bootstrap: [AppComponent]
+        })
+        export class AppModule {
+        }
+      </code>
+    </mdbsnippet>
+
+    <p class="description">After completing this lesson, your application should work only online, and the data should
+      be stored in memory. After refreshing the application, all data except those permanently stored in the code will
+      be deleted. To prevent this, we need to use a database. We will do this in the few next lessons.</p>
+
+    <p class="description">The screenshot below shows how your application should look like at this moment.</p>
+
+    <img class="img-fluid"
+         src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/new-angular-pwa/imgs/angular-pwa-2.png"
+         alt="Modified files list">
+
+    <p class="description">Something doesn't work for you? Check the code for this lesson on our <a href="https://github.com/mdbootstrap/MDB-Angular-PWA/tree/2-static-app-markup">repository</a>!</p>
+  </section>
+</section>
+<!--Section: Tutorial content -->

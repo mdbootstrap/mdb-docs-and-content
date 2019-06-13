@@ -1,0 +1,538 @@
+<!--Documentation file-->
+<div class="documentation">
+  <!-- ******-->
+
+  <!-- FIRST SECTION-->
+  <section id="introduction">
+    <h1 class="main-title">Angular Bootstrap alerts
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md waves-effect waves-light"
+        role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h1>
+    <p class="description">To improve the communication between your website/application and its users, you might want to consider adding some automatic
+      pop-up messages.</p>
+
+    <p class="description">With the right use of colors, they add some emotional weight to our information, ranging from a simple warning to critical
+      system failure or from an operation success to a neutral information.</p>
+
+
+
+    <blockquote class="blockquote bq-warning">
+      <p>Toast service requires either
+        <code>BrowserAnimationsModule</code> or
+        <code>NoopAnimationsModule</code> modules. Please import them to your app.module.ts.</p>
+    </blockquote>
+
+  </section>
+  <!-- FIRST SECTION-->
+
+  <hr class="my-5">
+
+  <!-- SECTION-->
+  <section id="examples">
+    <h2 class="title">Examples</h2>
+
+    <!-- Live preview-->
+    <a class="btn btn-info" onclick="toastr.info('Hi! I am info message.');">Info message</a>
+    <a class="btn btn-warning" onclick="toastr.warning('Hi! I am warning message.');">Warning message</a>
+    <a class="btn btn-success" onclick="toastr.success('Hi! I am success message.');">Success message</a>
+    <a class="btn btn-danger" onclick="toastr.error('Hi! I am error message.');">Error message</a>
+    <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<!--Info message-->
+<a class="btn btn-info waves-light" (click)="showInfo()" mdbWavesEffect>Info message</a>
+<!--Warning message-->
+<a class="btn btn-warning waves-light" (click)="showWarning()" mdbWavesEffect>Warning message</a>
+<!--Success message-->
+<a class="btn btn-success waves-light" (click)="showSuccess()" mdbWavesEffect>Success message</a>
+<!--Error message-->
+<a class="btn btn-danger waves-light" (click)="showError()" mdbWavesEffect>Error message</a>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+import { ToastService } from 'ng-uikit-pro-standard';
+
+@Component({
+  selector: 'toast-component-example',
+  templateUrl: 'toast.component.html',
+})
+
+export class ToastComponent  {
+
+  constructor(private toastrService: ToastService) {}
+
+  showSuccess() {
+    this.toastrService.success('Info message');
+  }
+
+  showError() {
+    this.toastrService.error('Warning message');
+  }
+
+  showInfo() {
+    this.toastrService.info('Success message');
+  }
+
+  showWarning() {
+    this.toastrService.warning('Error message');
+  }
+
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+    <br>
+    <blockquote class="blockquote bq-danger">
+      <p class="bq-title">Important update!</p>
+      <p>Since version 4.3.7 , Toast Service has to be imported separately as singleton to avoid circular dependencies.</p>
+    </blockquote>
+    <h4>Import Toast Service as singleton:</h4>
+
+
+    <code>app.module.ts</code>
+    <pre class="code-toolbar"><code class="language-javascript">
+import { ToastModule } from 'ng-uikit-pro-standard';
+...
+
+imports: [
+...
+ToastModule.forRoot(),
+...
+],
+                </code></pre>
+
+    <code>app.component.ts</code>
+    <pre class="code-toolbar"><code class="language-javascript">
+import {ToastService} from 'ng-uikit-pro-standard'
+...
+constructor(
+...
+private toast: ToastService
+...
+) { }</code></pre>
+
+    <p>Sample usage:</p>
+
+    <pre class="code-toolbar"><code class="language-javascript">
+ngOnInit() {
+    setTimeout(
+    () => this.toast.info("It works!")
+    );
+}
+                </code></pre>
+
+  </section>
+  <!-- SECTION-->
+
+  <hr class="my-5">
+
+    <!-- SECTION-->
+  <section id="examples">
+    <h2 class="title">Modifying opacity with toastClass</h2>
+
+    <p class="description">
+      In some cases, you may want to change the default opacity value for each individual alert. To do this, use the toastClass option to assign a class containing the opacity styles.
+    </p>
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<!--Info message-->
+<a class="btn btn-info waves-light" (click)="showInfo()" mdbWavesEffect>Info message</a>
+<!--Warning message-->
+<a class="btn btn-warning waves-light" (click)="showWarning()" mdbWavesEffect>Warning message</a>
+<!--Success message-->
+<a class="btn btn-success waves-light" (click)="showSuccess()" mdbWavesEffect>Success message</a>
+<!--Error message-->
+<a class="btn btn-danger waves-light" (click)="showError()" mdbWavesEffect>Error message</a>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+import { ToastService } from 'ng-uikit-pro-standard';
+
+@Component({
+  selector: 'toast-component-example',
+  templateUrl: 'toast.component.html',
+})
+
+export class ToastComponent  {
+
+  constructor(private toastrService: ToastService) { }
+
+  showSuccess() {
+    const options = { toastClass: 'opacity' };
+    this.toastrService.success('Success message description', 'Success message', options);
+  }
+
+  showError() {
+    const options = { toastClass: 'opacity' };
+    this.toastrService.error('Error message description', 'Error message', options);
+  }
+
+  showInfo() {
+    const options = { toastClass: 'opacity' };
+    this.toastrService.info('Info message description', 'Info message', options);
+  }
+
+  showWarning() {
+    const options = { toastClass: 'opacity' };
+    this.toastrService.warning('Warning message description', 'Warning message', options);
+  }
+
+}
+  </code>
+  <code data-lang="css" data-name="SCSS">.opacity {
+	opacity: 1.0 !important;
+}</code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+  </section>
+  <!-- SECTION-->
+
+  <hr class="my-5">
+
+      <!-- SECTION-->
+  <section id="serverAlert">
+    <h2 class="title">Showing alerts after server call</h2>
+
+    <p class="description">
+    If you are in contact with a server, it may be useful to display alerts to the user on whether the data
+    has been successfully downloaded or not. The following example illustrates the basic use of alerts in a
+    server contact.
+    </p>
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<div class="row">
+  <div class="col-md-6 mx-auto my-5">
+    <h3 class="text-center py-2">Users: </h3>
+    <ul class="list-group" *ngFor="let user of usersArray">
+      <li class="list-group-item">{{ user }}</li>
+    </ul>
+  </div>
+</div>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Http } from '@angular/http';
+import { ToastService } from 'ng-uikit-pro-standard';
+import { Component, AfterViewInit } from '@angular/core';
+
+@Component({
+  selector: 'server-alerts',
+  templateUrl: './server-alerts.component.html',
+  styleUrls: ['./server-alerts.component.scss'],
+})
+export class ServerAlertsComponent implements AfterViewInit {
+  url: string = 'https://jsonplaceholder.typicode.com/users/';
+  usersArray: Array<any> = [];
+
+  constructor(private toastrService: ToastService, private http: Http) { }
+
+  showSuccess(data: any) {
+    this.toastrService.success('User: ' + '"' + data.name + '"' + ' successfully fetched');
+  }
+
+  showError(id: number) {
+    this.toastrService.error("Error: User with ID: " + id + " doesn't exists");
+  }
+
+  connectionEnd(id: number) {
+    this.toastrService.error('Connection ended after ' + id + ' calls');
+  }
+
+  getData(id: number) {
+    return this.http.get(this.url + id);
+  }
+
+  ngAfterViewInit() {
+    let i = 1;
+
+    const getDataInterval = setInterval(() => {
+      this.getData(i).subscribe((response: any) => {
+        response = response.json();
+        this.usersArray.push(response.name);
+        this.showSuccess(response);
+        i++;
+      }, error => {
+        if (i < 15) {
+          this.showError(i);
+        } else {
+          clearInterval(getDataInterval);
+          this.connectionEnd(i);
+        }
+        i++;
+      });
+    }, 2000);
+  }
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+  </section>
+  <!-- SECTION-->
+
+  <hr class="my-5">
+
+  <!-- SECTION-->
+  <section id="options">
+    <h2 class="title mb-4">Options</h2>
+
+    <p class="description">There's global options and individual toast options. All individual toast options are included in the global options.
+      See file toastr-config.ts The toastComponent can be inherited and modified.</p>
+    <p class="description">Global options for alerts need to be set in
+      <code>ToastModule.forRoot({})</code> in
+      <code>imports: []</code> array located in
+      <code>app.module.ts</code>
+    </p>
+    <p class="description">For example, global options that allows only 2 alerts be visible at time should looks in this way:
+      <code>ToastModule.forRoot({maxOpened: 2})</code>
+    </p>
+    <br>
+
+    <h4>ToastrConfig (Global Options)</h4>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>maxOpened: number</td>
+            <td>0</td>
+            <td>max toasts opened; toasts will be queued</td>
+          </tr>
+          <tr>
+            <td>autoDismiss: boolean</td>
+            <td>false</td>
+            <td>dismiss current toast when max is reached</td>
+          </tr>
+          <tr>
+            <td>iconClasses</td>
+            <td>error: 'toast-error', info: 'toast-info', success: 'toast-success', warning: 'toast-warning'</td>
+            <td>classes used on toastr service methods</td>
+          </tr>
+          <tr>
+            <td>newestOnTop: boolean</td>
+            <td>true</td>
+            <td>new toast placement</td>
+          </tr>
+          <tr>
+            <td>preventDuplicates: boolean</td>
+            <td>false</td>
+            <td>block duplicate messages</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <h4>ToastConfig (Individual Toast options)</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>actionButoon: string</td>
+            <td>empty string</td>
+            <td>show action button with specified title</td>
+          </tr>
+          <tr>
+            <td>closeButton: boolean</td>
+            <td>false</td>
+            <td>show close button</td>
+          </tr>
+          <tr>
+            <td>timeOut: number</td>
+            <td>5000</td>
+            <td>time to live</td>
+          </tr>
+          <tr>
+            <td>enableHtml: boolean</td>
+            <td>false</td>
+            <td>allow html in message; (UNSAFE)</td>
+          </tr>
+          <tr>
+            <td>extendedTimeOut: number</td>
+            <td>1000</td>
+            <td>time to close after a user hovers over toast</td>
+          </tr>
+          <tr>
+            <td>progressBar: boolean</td>
+            <td>false</td>
+            <td>show progress bar</td>
+          </tr>
+          <tr>
+            <td>toastClass: string</td>
+            <td>'toast'</td>
+            <td>class on toast. Note that if you want to add your custom class, you have to put it in your's
+              <strong>global stylesheet -
+                <code>styles.scss</code>
+              </strong>
+            </td>
+          </tr>
+          <tr>
+            <td>positionClass: string</td>
+            <td>'toast-top-right'</td>
+            <td>class on toast</td>
+          </tr>
+          <tr>
+            <td>titleClass: string</td>
+            <td>'toast-title'</td>
+            <td>class inside toast on title</td>
+          </tr>
+          <tr>
+            <td>messageClass: string</td>
+            <td>'toast-message'</td>
+            <td>class inside toast on message</td>
+          </tr>
+          <tr>
+            <td>tapToDismiss: boolean</td>
+            <td>true</td>
+            <td>close on click</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+    <h4>Example:</h4>
+    <pre class="code-toolbar"><code class="language-javascript">
+showSuccess(){
+  const options = { closeButton: true, actionButton: 'Action', tapToDismiss: false,  titleClass: 'yellow' };
+  this.toastrService.success('Hello world!', 'Toastr success!', options);
+}
+showError() {
+  const options = { enableHtml: false,  positionClass: 'toast-bottom-right' };
+  this.toastrService.error('Error message', 'Toastr error!', options);
+}
+
+showInfo() {
+  const options = { extendedTimeOut: 30000, messageClass: 'pink' };
+  this.toastrService.info('Info message', 'Toastr info!', options);
+}
+
+showWarning() {
+  const options = { progressBar: true,  timeOut: 3000,  toastClass: 'black'};
+  this.toastrService.warning('Warnig message', 'Toastr warning!', options);
+}
+
+          </code></pre>
+
+  </section>
+  <!-- SECTION-->
+
+  <section id="events">
+      <h3>
+        <strong>Events</strong>
+      </h3>
+    </section>
+    <!-- /.Live preview-->
+
+    <p class="description">Here you can find events which are fired by Toast Service</p>
+      <br>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th style="width: 100px;">Name</th>
+              <th style="width: 100px;">Usage</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>onAction</td>
+              <td>alertInstance.onAction.subscribe(() => {})</td>
+              <td>The event is fired when action button is clicked</td>
+            </tr>
+            <tr>
+              <td>onTap</td>
+              <td>alertInstance.onTap.subscribe(() => {})</td>
+              <td>The event is fired when tap on the alert is detected.</td>
+            </tr>
+            <tr>
+              <td>onShown</td>
+              <td>alertInstance.onShown.subscribe(() => {})</td>
+              <td>The event is fired when alert shows on screen</td>
+            </tr>
+            <tr>
+              <td>onHidden</td>
+              <td>alertInstance.onHidden.subscribe(() => {})</td>
+              <td>The event is fired when alert dissapears from screen</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br>
+    <h4>Example:</h4>
+    <pre class="code-toolbar"><code class="language-javascript">
+        showSuccess() {
+          const options = { closeButton: true, progressBar: true, actionButton: 'Action', tapToDismiss: true};
+          const alertInstance = this.toastrService.success('Hello world!', 'Toastr success!', options);
+          alertInstance.onAction.subscribe(() => {
+            console.log('on action');
+          });
+          alertInstance.onTap.subscribe(() => {
+            console.log('on tap');
+          });
+          alertInstance.onShown.subscribe(() => {
+            console.log('on shown');
+          });
+          alertInstance.onHidden.subscribe(() => {
+            console.log('on hidden');
+          });
+        }
+
+          </code></pre>
+
+    </section>
+    <!--/Section: Code-->
+
+  <!-- SECTION-->
+  <section id="APIref">
+
+    <h2 class="title my-4">API Reference:</h2>
+    <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of importing
+      the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific module,
+      is bad practice, and can cause application errors.
+    </p>
+
+    <h5 class="mb-4">API Reference for MDB Angular Toasts:</h5>
+    <pre><code class="language-javascript">// For MDB Angular Pro
+import { ToastModule, WavesModule } from 'ng-uikit-pro-standard'</code></pre>
+<pre><code class="language-javascript">// Angular Animations Module
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'</code></pre>
+
+    <div class="row">
+      <div class="col-md-6">
+        <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">Import example</a>
+        <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">Modules list</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ******-->
+</div>
+<!--/.Documentation file-->

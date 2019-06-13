@@ -1,0 +1,173 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+    <style>
+        .documentation .gif-content {
+            z-index: 1;
+            position: relative;
+            margin-top: -5px;
+            margin-left: 44px;
+            width: 445px;
+            padding: 20px 10px 0 10px
+        }
+
+        .documentation .gif-mockup {
+            position: absolute;
+            z-index: 10;
+            width: 530px
+        }
+
+        .documentation .gif-wrapper {
+            z-index: 8;
+            background: #fff;
+            padding-bottom: 30px;
+        }
+    </style>
+
+    <!--Section: Intro-->
+    <section id="introduction">
+
+        <!--Title-->
+        <h1 class="main-title">Bootstrap mobile touch gestures <a href="https://mdbootstrap.com/products/jquery-ui-kit/" target="_blank"
+                class="btn btn-danger btn-md" role="button">MDB Pro component <i class="far fa-gem ml-1"></i></a></h1>
+
+        <!--Description-->
+        <p class="description">Bootstrap mobile gestures are touch-based interactions with mobile devices. Various of different fingers movements indicate particular components responses.</p>
+
+        <p>MDB provides you support for most common touch gestures.</p>
+        <!--Section: Live preview-->
+        <section>
+
+            <div class="row">
+                <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/pan.jpg" alt="Pan gesture" class="img-fluid"></div>
+                <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/rotate.jpg" alt="Rotate gesture" class="img-fluid"></div>
+                <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/press.jpg" alt="Press gesture" class="img-fluid"></div>
+                <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/tap.jpg" alt="Tap gesture" class="img-fluid"></div>
+                <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/swipe.jpg" alt="Swipe gesture" class="img-fluid"></div>
+                <div class="col-md-2 col-sm-4"><img src="https://mdbootstrap.com/img/Photos/Gesture/pinch.jpg" alt="Pinch gesture" class="img-fluid"></div>
+            </div>
+
+        </section>
+        <!--Section: Live preview-->
+
+    </section>
+    <!--/Section: Intro-->
+
+    <hr class="my-5">
+
+    <!--Section: -->
+    <section id="basic-example">
+
+        <!--Title-->
+        <h2 class="title"><strong>Carousel with gestures support</strong> </h2>
+
+        <!--Description-->
+        <p class="description"></p>
+
+        <!--Section: Live preview-->
+        <section>
+
+            <img src="https://mdbootstrap.com/img/Others/mobile.gif" alt="Mobile - Material Design for Bootstrap" class="img-fluid mb-5">
+
+            <p>Click on the button below to launch a live example and see the <strong>Carousel with a gestures support</strong>                in action.</p>
+
+            <a href="https://mdbootstrap.com/live/_MDB4/docs/carousel-touch.html" class="btn btn-primary btn-lg">Live preview</a>
+
+        </section>
+        <!--Section: Live preview-->
+
+        <p class="mt-5">To make it work, use the code below together with one of <a href="https://mdbootstrap.com/docs/jquery/javascript/carousel/"><strong>MDB carousels</strong></a>.</p>
+
+        <p><strong>Note:</strong> Remember to set a corresponding ID in both <strong>Carousel</strong> and <strong>script</strong>.</p>
+
+        <pre class="code-toolbar"><code class="language-javascript">
+$(document).ready(function () {
+    $('#carousel-example-1').hammer().on('swipeleft', function () {
+        $(this).carousel('next');
+    })
+    $('#carousel-example-1').hammer().on('swiperight', function () {
+        $(this).carousel('prev');
+    })
+});
+</code></pre>
+
+
+    </section>
+    <!--/Section: -->
+
+    <hr class="my-5">
+
+    <!--Section: -->
+    <section id="usage">
+
+        <!--Title-->
+        <h2 class="title"><strong>Usage</strong></h2>
+
+        <!--Description-->
+        <p class="description">It’s easy to use, just include the library and create a new instance.</p>
+
+        <!--Section: Code-->
+        <section>
+            <pre class="code-toolbar"><code class="language-javascript">
+var hammertime = new Hammer(myElement, myOptions);
+hammertime.on('pan', function(ev) {
+	console.log(ev);
+});
+</code></pre>
+            <p>By default it adds a set of <code>tap</code>, <code>doubletap</code>, <code>press</code>, horizontal
+                <code>pan</code> and <code>swipe</code>, and the multi-touch <code>pinch</code> and <code>rotate</code> recognizers.
+                The pinch and rotate recognizers are disabled by default because they would make the element blocking, but
+                you can enable them by calling:</p>
+
+            <pre class="code-toolbar"><code class="language-javascript">
+hammertime.get('pinch').set({ enable: true });
+hammertime.get('rotate').set({ enable: true });
+</code></pre>
+
+            <p>Enabling vertical or all directions for the <code>pan</code> and <code>swipe</code> recognizers:</p>
+
+
+            <pre class="code-toolbar"><code class="language-javascript">
+hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+</code></pre>
+
+            <p>Also the viewport meta tag is recommended, it gives more control back to the webpage by disabling the doubletap/pinch
+                zoom. More recent browsers which support the touch-action property don’t require this.
+            </p>
+
+            <pre class="code-toolbar"><code class="language-markup">
+&lt;meta name=&quot;viewport&quot; content=&quot;user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1&quot;&gt;
+</code></pre>
+
+            <p><strong>More control</strong></p>
+            <p>You can setup your own set of recognizers for your instance. This requires a bit more code, but it gives you
+                more control about the gestures that are being recognized.</p>
+
+            <pre class="code-toolbar"><code class="language-javascript">
+var mc = new Hammer.Manager(myElement, myOptions);
+
+mc.add( new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }) );
+mc.add( new Hammer.Tap({ event: 'quadrupletap', taps: 4 }) );
+
+mc.on("pan", handlePan);
+mc.on("quadrupletap", handleTaps);
+</code></pre>
+
+            <p>The example above creates an instance containing a <code>pan</code> and a <code>quadrupletap</code> gesture.
+                The recognizer instances which you create are being executed in the order they are added, and only one can
+                be recognized at the time.</p>
+
+
+            <pre class="code-toolbar"><code class="language-javascript">
+hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+</code></pre>
+        </section>
+        <!--Section: Code-->
+
+    </section>
+    <!--/Section: -->
+
+</section>
+<!--/Section: Doc content-->

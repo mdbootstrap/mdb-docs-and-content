@@ -1,0 +1,253 @@
+<!--Section: Intro-->
+<section id="a-introduction">
+
+  <!--Title-->
+  <h2 class="section-heading">Angular Pagination Table - API</h2>
+
+  <p class="description">
+    In this section you will find advanced information about the Table component. You will find out which modules are
+    required
+    in this component, what are the possibilities of configuring the component, and what events and methods you can use
+    in
+    working with it.
+  </p>
+</section>
+<!--/Section: Intro-->
+
+<!--Section: -->
+<section id="a-modules">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Modules used
+  </h2>
+
+  <p class="description">In order to speed up your application, you can choose to import only the modules you actually
+    need, instead of importing
+    the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific
+    module,
+    is bad practice, and can cause application errors. </p>
+
+  <pre class="code-toolbar">
+    <code class="language-javascript">
+    // MDB Angular Pro
+    import { WavesModule, TableModule } from 'ng-uikit-pro-standard';
+    </code>
+  </pre>
+  <pre class="code-toolbar">
+    <code class="language-javascript">
+    // MDB Angular Free
+    import { WavesModule, TableModule } from 'angular-bootstrap-md';
+    </code>
+  </pre>
+
+
+  <div class="row">
+    <div class="col-12">
+      <a href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="importing modules" class="btn btn-primary waves-light">Import
+        Example</a>
+      <a href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="modules list" class="btn btn-primary waves-light">Modules
+        List</a>
+    </div>
+  </div>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+<!--Section: -->
+<section id="a-pagination-component">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Components
+  </h2>
+
+  <h5 class="mb-4"><strong>MdbTablePaginationComponent</strong></h5>
+
+  <!-- Description -->
+  <p>Selector: <code>mdb-table-pagination</code></p>
+  <p>Type: <code>MdbTablePaginationComponent</code></p>
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="a-pagination-inputs">
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Inputs
+    </h2>
+
+    <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>searchPagination</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Defines whether you use pagination together with the search. This is required if you use pagination when
+            filtering results.</td>
+          <td><code>searchPagination="true"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>searchDataSource</i></code></td>
+          <td>any</td>
+          <td>null</td>
+          <td>Assigns the data source when filtering results. On this basis, the number of elements in the pagination
+            is
+            calculated. Required for pagination with search.</td>
+          <td><code>[searchDataSource]="elements"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>paginationAlign</i></code></td>
+          <td>string</td>
+          <td>' '</td>
+          <td>Defines whether the pagination should be fixed to the left or right edge of the table. By default, the
+            pagination is centered. Available values are: start / end.</td>
+          <td><code>paginationAlign="start"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>hideDescription</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Determines whether the number of elements in a pagination should be visible or not.</td>
+          <td><code>hideDescription="true"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>tableEl</i></code></td>
+          <td>MdbTableDirective</td>
+          <td>-</td>
+          <td>Input which is used to pass the instance of exported <code>mdb-table.directive</code> class to <code>mdb-table-pagination</code> component. This field is necessary.</td>
+          <td><code>[tableEl]="exportedTableIndex"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>ofKeyword</i></code></td>
+          <td>string</td>
+          <td>'of'</td>
+          <td>Input which is used to overwrite default "of" text from pagination items.</td>
+          <td><code>ofKeyword="from"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>dashKeyword</i></code></td>
+          <td>string</td>
+          <td>'-'</td>
+          <td>Input which is used to overwrite default "-" text from pagination items.</td>
+          <td><code>dashKeyword="/"</code></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="a-pagination-outputs">
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Outputs
+    </h2>
+
+    <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>nextPageClick</i></code></td>
+          <td>EventEmitter&lt;any&gt;</td>
+          <td>Emits the nextPageClick event, which contains first and last fields, which are responsible for the index
+            of
+            the first and last item currently visible on the table screen. It is required to use this event in order
+            for
+            the pagination to work properly.</td>
+          <td><code>(nextPageClick)="onNextPageClick($event)"</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal"><i>previousPageClick</i></code></td>
+          <td>EventEmitter&lt;any&gt;</td>
+          <td>Emits the previousPageClick event, which contains first and last fields, which are responsible for the
+            index
+            of
+            the first and last item currently visible on the table screen. It is required to use this event in order
+            for
+            the pagination to work properly.</td>
+          <td><code>(previousPageClick)="onPreviousPageClick($event)"</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="a-pagination-methods">
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Methods
+    </h2>
+
+    <p></p>
+
+    <table class="table table-bordered table-striped table table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>setMaxVisibleItemsNumberTo</i></code></td>
+          <td>It is used to set the maximum number of items displayed at once in the array. The default is 10.</td>
+          <td><code>setMaxVisibleItemsNumberTo(20)</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal"><i>calculateFirstItemIndex</i></code></td>
+          <td>Calculates the index of the first visible element of the table. From default it's 1. The use of this
+            method
+            is required for the proper functioning of pagination. It is used in the cycle ngAfterViewInit</td>
+          <td><code>calculateFirstItemIndex()</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal"><i>calculateLastItemIndex</i></code></td>
+          <td>Calculates the index of the last visible element of the table. From default it's 10. The use of this
+            method
+            is required for the proper functioning of pagination. It is used in the cycle ngAfterViewInit</td>
+          <td><code>calculateLastItemIndex()</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+  <!--/Section: -->
+
+</section>
+<!--/Section: -->

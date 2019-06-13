@@ -1,0 +1,326 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+    <!--Section: Intro-->
+    <section id="advanced">
+
+      <!--Title-->
+      <h1 class="main-title">Angular Bootstrap advanced table</h1>
+
+      <!--Description-->
+      <p class="description">Advanced use of the table where you can find data acquired from the external API, search and pagination and exporting the whole table to CSV file.</p>
+
+    </section>
+    <!--/Section: Intro-->
+
+    <hr class="my-5">
+
+    <!--Section: -->
+    <section id="firstEx">
+
+      <!--Title-->
+      <h2 class="title">
+        <strong>Basic example</strong>
+        <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md"
+          role="button">MDB Pro component
+          <i class="far fa-gem ml-1"></i>
+        </a>
+        <a href="https://ng-demo.mdbootstrap.com/tables/data-tables/" target="_blank" class="btn btn-danger btn-md"
+        role="button">Live Example
+      </a>
+      </h2>
+
+      <!--Description-->
+      <p class="description"></p>
+
+      <!--Section: Code-->
+      <section class="mt-3">
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+<div class="card card-cascade narrower mt-5">
+
+  <!--Card image-->
+  <div class="view view-cascade gradient-card-header purple-gradient narrower py-4 mx-4 mb-3 d-flex justify-content-center align-items-center">
+
+    <h4 class="white-text font-weight-bold text-uppercase mb-0">Advanced table</h4>
+
+  </div>
+
+  <!--/Card image-->
+  <div class="row  d-flex align-items-center justify-content-center">
+    <div class="col-md-6 mx-auto">
+      <div class="md-form">
+        <input type="search" [(ngModel)]="searchText" id="search" class="form-control" mdbInputDirective [mdbValidation]="false">
+        <label for="search">Search data</label>
+      </div>
+    </div>
+    <div class="col-md-3 mx-auto">
+      <button class="btn btn-primary waves-light btn-sm" mdbWavesEffect (click)="generateCsv()">Generate CSV</button>
+    </div>
+  </div>
+  <div class="px-2">
+
+    <!--Table-->
+    <table class="table table-hover table-responsive-md mb-0">
+
+      <!--Table head-->
+      <thead>
+        <tr>
+          <th style="width: 50px">id
+            <mdb-icon fas icon="sort" (click)="sortBy('id')"></mdb-icon>
+          </th>
+          <th class="th-lg">Post title
+            <mdb-icon fas icon="sort" (click)="sortBy('title')"></mdb-icon>
+          </th>
+          <th class="th-lg">Post body
+            <mdb-icon fas icon="sort" (click)="sortBy('body')"></mdb-icon>
+          </th>
+        </tr>
+      </thead>
+      <!--Table head-->
+
+      <!--Table body-->
+      <tbody>
+        <tr #list *ngFor="let data of search(); let i = index">
+          <th *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex" scope="row">{{data.id}}</th>
+          <td *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex">{{data.title}}</td>
+          <td *ngIf="i+1 >= firstVisibleIndex && i+1 <= lastVisibleIndex">{{data.body}}</td>
+        </tr>
+      </tbody>
+      <!--Table body-->
+    </table>
+
+  </div>
+
+  <hr class="my-0">
+
+  <!--Bottom Table UI-->
+  <div class="d-flex justify-content-center">
+
+    <!--Pagination -->
+    <nav class="my-4 pt-2">
+      <ul class="pagination pagination-circle pg-purple mb-0">
+
+        <!--First-->
+        <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == firstPageNumber}">
+          <a class="page-link">First</a>
+        </li>
+
+        <!--Arrow left-->
+        <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == firstPageNumber}">
+          <a class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+
+        <!--Numbers-->
+        <li *ngFor="let page of paginators; let i = index" class="page-item" [ngClass]="{active: i+1 == activePage}">
+          <a class="page-link waves-light" (click)="changePage($event)" mdbWavesEffect>{{page}}</a>
+        </li>
+
+
+
+        <!--Arrow right-->
+        <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == lastPageNumber}">
+          <a class="page-link" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+
+        <!--First-->
+        <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == lastPageNumber}">
+          <a class="page-link">Last</a>
+        </li>
+
+      </ul>
+    </nav>
+    <!--/Pagination -->
+
+  </div>
+  <!--Bottom Table UI-->
+
+</div>
+          </code>
+          <code data-lang="js" data-name="TS">
+import { Component, OnInit, HostListener, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Http } from '@angular/http';
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+
+@Component({
+  selector: 'advanced-table',
+  templateUrl: './advanced-table.component.html',
+  styleUrls: ['./advanced-table.component.scss']
+})
+
+export class AdvancedTableComponent implements OnInit {
+options = {
+    fieldSeparator: ',',
+    quoteStrings: '"',
+    decimalseparator: '.',
+    showLabels: true,
+    showTitle: true,
+    useBom: true,
+    headers: ['Post ID', 'Post title', 'Post body']
+  };
+
+
+  @ViewChildren('list') list: QueryList<ElementRef>;
+  paginators: Array<any> = [];
+  activePage: number = 1;
+  firstVisibleIndex: number = 1;
+  lastVisibleIndex: number = 10;
+  url: any = 'https://jsonplaceholder.typicode.com/posts';
+  tableData = [];
+  sorted = false;
+  searchText: string;
+  firstPageNumber: number = 1;
+  lastPageNumber: number;
+  maxVisibleItems: number = 10;
+
+  constructor(private http: Http) { }
+
+  getData() {
+    return this.http.get(this.url);
+  }
+
+  ngOnInit() {
+    this.getData().subscribe((next: any) => {
+      next.json().forEach((element: any) => {
+        this.tableData.push({ id: (element.id).toString(), title: element.title, body: element.body });
+      });
+    });
+
+    setTimeout(() => {
+      for ( let i = 1; i <= this.tableData.length; i++) {
+        if (i % 10 === 0) {
+          this.paginators.push(i / 10);
+        }
+      }
+      this.lastPageNumber = this.paginators.length;
+    }, 200);
+
+  }
+
+  @HostListener('input') oninput() {
+    this.paginators = [];
+    for (let i = 1; i <= this.search().length; i++) {
+      if (!(this.paginators.indexOf(Math.ceil(i / 10)) !== -1)) {
+        this.paginators.push(Math.ceil(i / 10));
+      }
+    }
+    this.lastPageNumber = this.paginators.length;
+  }
+  changePage(event: any) {
+    if (event.target.text >= 1 && event.target.text <= this.maxVisibleItems) {
+      this.activePage = +event.target.text;
+      this.firstVisibleIndex = this.activePage * this.maxVisibleItems - this.maxVisibleItems + 1;
+      this.lastVisibleIndex = this.activePage * this.maxVisibleItems;
+    }
+  }
+
+  nextPage() {
+    this.activePage += 1;
+    this.firstVisibleIndex = this.activePage * this.maxVisibleItems - this.maxVisibleItems + 1;
+    this.lastVisibleIndex = this.activePage * this.maxVisibleItems;
+  }
+  previousPage() {
+    this.activePage -= 1;
+    this.firstVisibleIndex = this.activePage * this.maxVisibleItems - this.maxVisibleItems + 1;
+    this.lastVisibleIndex = this.activePage * this.maxVisibleItems;
+  }
+
+  firstPage() {
+    this.activePage = 1;
+    this.firstVisibleIndex = this.activePage * this.maxVisibleItems - this.maxVisibleItems + 1;
+    this.lastVisibleIndex = this.activePage * this.maxVisibleItems;
+  }
+
+  lastPage() {
+    this.activePage = this.lastPageNumber;
+    this.firstVisibleIndex = this.activePage * this.maxVisibleItems - this.maxVisibleItems + 1;
+    this.lastVisibleIndex = this.activePage * this.maxVisibleItems;
+  }
+
+  sortBy(by: string | any): void {
+    if (by == 'id') {
+      this.search().reverse();
+    } else {
+      this.search().sort((a: any, b: any) => {
+        if (a[by] < b[by]) {
+          return this.sorted ? 1 : -1;
+        }
+        if (a[by] > b[by]) {
+          return this.sorted ? -1 : 1;
+        }
+        return 0;
+      });
+    }
+    this.sorted = !this.sorted;
+  }
+
+  filterIt(arr: any, searchKey: any) {
+    return arr.filter((obj: any) => {
+      return Object.keys(obj).some((key) => {
+        return obj[key].includes(searchKey);
+      });
+    });
+  }
+
+  search() {
+    if (!this.searchText) {
+      return this.tableData;
+    }
+    if (this.searchText) {
+      return this.filterIt(this.tableData, this.searchText);
+    }
+  }
+
+  generateCsv() {
+    new Angular5Csv(this.search(), 'data-table', this.options);
+  }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--/Section: Code-->
+
+    </section>
+    <!--/Section: -->
+
+    <hr class="my-5">
+    <!-- SECTION-->
+    <section id="APIref">
+
+      <h2 class="title my-4">API Reference:</h2>
+      <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of importing
+        the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific module,
+        is bad practice, and can cause application errors.
+      </p>
+
+      <p>Exporting table data to CSV requires external library called <code>Angular5-csv</code>. Install it by typing following command into your console. </p>
+      <pre>
+          <code class="language-javascript">
+              npm install angular5-csv --save
+          </code>
+      </pre>
+
+      <h5 class="mb-4">API Reference for MDB Angular Tables:</h5>
+    <pre><code class="language-javascript">// MDB Angular Pro
+import { WavesModule } from 'ng-uikit-pro-standard'</code></pre>
+    <pre><code class="language-javascript">// Forms Module
+import { FormsModule } from '@angular/forms'</code></pre>
+    <pre><code class="language-javascript">// HTTP Module
+import { HttpModule } from '@angular/http'</code></pre>
+
+      <div class="row">
+        <div class="col-md-6">
+          <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">Import example</a>
+          <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">Modules list</a>
+        </div>
+      </div>
+    </section>
+    <!-- ******-->
+
+  </section>
+  <!--/Section: Doc content-->

@@ -1,0 +1,229 @@
+<div class="angular-tutorial tutorial">
+
+<p>Since we know how to dynamically render <mark>Events</mark> from an array, let's give some shape to our app.</p>
+
+<h2>1. Style Event component</h2>
+
+<ol>
+	<li>Update the <code>event.component.html</code> template with the following code</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="event.component.html">
+
+<div class="media">
+  <h3 class="h3-responsive font-weight-bold mr-3">{{ value.time }}</h3>
+  <div class="media-body mb-3">
+    <mdb-badge danger="true" class="text-center float-right">-</mdb-badge>
+    <h6 class="mt-0 font-weight-bold">{{ value.subject }}</h6>
+    <hr class="hr-bold mb-0 my-2" />
+    <p class="mb-0">
+      <mdb-icon fas icon="location-arrow"></mdb-icon>
+      {{ value.location }}
+    </p>
+  </div>
+</div>
+<p class="p-3 blue-grey lighten-5 blue-grey lighten-5">
+  {{ value.description }}
+</p>
+
+
+  </code>
+</mdbsnippet>
+
+<li>Save and run project</li>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/6/preview.png" alt="Preview"/>
+
+
+<p>Our project starts looking good. However, we have some empty parts. <strong>Some of our events don't have decsription or/nor location</strong>. This is a perfect use case to use <strong>conditional rendering</strong>. </p>
+</ol>
+
+<h2><code>2. ngIf</code></h2>
+
+<p>One of the reasons why Angular has grown so fast recently is the fact that <strong>it comes with a variety of predefined directives</strong> like <mark>ngFor</mark> which you already know. In this lesson, we will learn how to use <mark>ngIf</mark>.</p>
+
+
+
+<p>Let's have a look at our description paragraph:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="event.component.html">
+<p class="p-3 blue-grey lighten-5 blue-grey lighten-5" >
+  {{ value.description }}
+</p>
+  </code>
+</mdbsnippet>
+
+
+<p>We can easily define whether we want to render entire paragraph using simple if condition:</p>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="event.component.html">
+<p *ngIf="true"> I am rendered! </p>
+<p *ngIf="false"> I am not :( </p>
+  </code>
+</mdbsnippet>
+
+<p>Of course we don't want to set it globally, instead we want to <strong>display paragraph depending on whether <mark>description</mark> exists</strong>. In order to do that we can simply provide it as an argument to the <mark>ngIf</mark> directive: </p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="event.component.html">
+<p class="p-3 blue-grey lighten-5 blue-grey lighten-5" *ngIf="value.description">
+  {{ value.description }}
+</p>
+  </code>
+</mdbsnippet>
+
+<p>The empty description paragraph is gone now</p>
+
+
+<p>Now let's do the same with paragraph including location</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="event.component.html">
+<div class="media">
+  <h3 class="h3-responsive font-weight-bold mr-3">{{ value.time }}</h3>
+  <div class="media-body mb-3 ">
+    <mdb-badge danger="true" class="text-center float-right">-</mdb-badge>
+    <h6 class="mt-0 font-weight-bold">{{ value.subject }}</h6>
+    <hr class="hr-bold mb-0 my-2" />
+    <p class="mb-0" *ngIf="value.location">
+      <mdb-icon fas icon="location-arrow"></mdb-icon>
+      {{ value.location }}
+    </p>
+  </div>
+</div>
+<p class="p-3 blue-grey lighten-5 blue-grey lighten-5" *ngIf="value.description">
+  {{ value.description }}
+</p>
+  </code>
+</mdbsnippet>
+
+<p>Which solves our original issue:</p>
+
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/6/final.png" alt="Preview"/>
+
+
+
+<h2>3. If-else </h2>
+
+<h4>3.1 Angular templates (<code>&lt;ng-template&gt;</code>) </h4>
+<p>In a previous lesson we have mentioned about templates within Angular. In order to understand how the <mark>else</mark> condtition works we have to start with understanding what templates are.</p>
+
+
+<p>Like the name indicates, the <code>&lt;ng-template&gt;</code> directive represents an Angular template: this means that the content of this tag will contain part of a template, that can be composed together with other templates in order to form the final component template.</p>
+
+<p><code>&lt;ng-template&gt;</code> is a template element that Angular uses with structural directives (*ngIf, *ngFor, [ngSwitch] and custom directives).</p>
+
+<p>Let's get started learning <code>&lt;ng-template&gt;</code> with an example</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="event.component.html">
+<div *ngIf="isLogged; else loggedOut">
+    Welcome back, friend.
+  </div>
+  
+  <ng-template #loggedOut>
+    Please friend, login.
+  </ng-template>
+<p class="p-3 blue-grey lighten-5 blue-grey lighten-5" *ngIf="value.description">
+  {{ value.description }}
+</p>
+  </code>
+</mdbsnippet>
+
+<p>The main two things worth noticing here are the template reference variable (the <mark>#loggedOut</mark> - which you can call whatever you like) and also the <code>&lt;ng-template&gt;</code>. We use the <code>&lt;ng-template&gt;</code> because much like it’s HTML5 counterpart <code>&lt;template&gt;</code>, it’s also considered “virtual”.
+
+</p>
+
+<p>Being “virtual” means the <ng-template> contents won’t actually exist in the compiled DOM, until it’s needed. When it’s needed (for example the “else” expression kicks into play), Angular will grab the contents of the <ng-template> tag, and replace the *ngIf contents with it.
+
+</p>
+
+<p>That’s it. It’s just a virtual container that won’t render any contents until it’s ready.
+</p>
+
+<p>So, before we continue, where does this * asterisk come from?</p>
+
+<p>It’s all about sugar syntax. When we do this:
+
+</p>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="component.html (*ngIf)">
+<div *ngIf="isLoggedIn">
+  Welcome back, friend.
+</div>
+  </code>
+</mdbsnippet>
+
+<p>With our new found knowledge, we can now understand that it’s equivalent to this:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="component.html (ngIf)">
+<ng-template [ngIf]="isLoggedIn">
+  <div>
+    Welcome back, friend.
+  </div>
+</ng-template>
+  </code>
+</mdbsnippet>
+
+<p>Angular will convert our *ngIf syntax across to the above, which I’m sure you’ll agree isn’t quite as fast to work with. It does however tell us more about what’s happening with [ngIf], which is the directive being bound with a property binding syntax.
+
+Yes, this does mean, we can supply ngIf, ngIfElse (and ngIfThen) the same way.</p>
+
+<h4>3.2 If-else</h4>
+
+<p>Let's get back to our use case</p>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="event.component.html">
+<div *ngIf="isLogged; else loggedOut">
+    Welcome back, friend.
+  </div>
+  
+  <ng-template #loggedOut>
+    Please friend, login.
+  </ng-template>
+<p class="p-3 blue-grey lighten-5 blue-grey lighten-5" *ngIf="value.description">
+  {{ value.description }}
+</p>
+  </code>
+</mdbsnippet>
+
+<p>As you can expect, if <mark>isLogged</mark> variable will evaluate to <cpde>true</cpde>, Angular will render <br/>  <i>Welcome back, friend.</i> <br/> message. However, in case of <mark>isLogged</mark> beeing <code>false</code> (or not existing at all), it will print <br/> <i>Please friend, login.</i> </p>
+
+<p>You could optionally adopt this approach to create a more descriptive if/then/else block. Again, use cases and preferences.</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="event.component.html">
+<ng-container
+  *ngIf="isLoggedIn; then loggedIn; else loggedOut">
+</ng-container>
+
+<ng-template #loggedIn>
+  <div>
+    Welcome back, friend.
+  </div>
+</ng-template>
+<ng-template #loggedOut>
+  <div>
+    Please friend, login.
+  </div>
+</ng-template>
+  </code>
+</mdbsnippet>
+
+
+<p class="note note-warning"><strong>Warning:</strong>  <br/>
+It is important to remember that <strong> it is impossible to</strong> use two structural directive (i.e. <mark>ngFor</mark> and <mark>ngIf</mark>) within a single tag at the same time!
+</p>
+
+
+
+</div>

@@ -1,0 +1,40 @@
+<!--Section: Tutorial content-->
+<section class="tutorial">
+
+  <h3>Static vs dynamic typing</h3>
+
+
+<ol>
+  <li>First, let's replace the content of the <code>onStartup</code> function:</li>
+  <pre class="code-toolbar"><code class="language-javascript">onStartup(){
+let test = 'mdb';
+test = 5;
+}  </code></pre>
+<p>You will see that TypeScript complains about the second assignment of test:</p>
+<pre class="code-toolbar"><code class="language-javascript">ERROR in src/app/app.component.ts(18,3): error TS2322: Type '5' is not assignable to type 'string'.
+</code></pre>
+
+<p>This code would work perfectly fine in JavaScript which allows dynamic change of types. You might think, that this approach is better, however, although it might look easier for a developer <strong>it is not.</strong> Imagine that there you are working on a project with a team of developers and one of them by mistake changes the type of your variable from <code>number</code> to <code>string</code>. All logic based on that variable will be broken now (as it would be comparing a variable to a number).</p>
+
+<li>Let's now surround number 5 with quotes: <code>'5'</code></li>
+<pre class="code-toolbar"><code class="language-javascript">  test = '5';</code></pre>
+<p>This time the compiler won't complain because we have cast our 5 from a number to a string. As a result we can assign it to our variable, however, we have to remember that it will be treated as a <code>string</code> and not a <code>number</code>.</p>
+
+<li>Let's try another test, copy the following condition into your code, but before you paste it think for a moment and try to guess what will be the output: </li>
+<pre class="code-toolbar"><code class="language-javascript">if (test === 5){
+  console.log('equals');
+} else {
+  console.log('not equals');
+}</code></pre>
+
+<p>Once you paste the following condition into your code,  TypeScript generates an error:</p>
+<pre class="code-toolbar"><code class="language-markup">ERROR in src/app/app.component.ts(20,5): error TS2365: Operator '===' cannot be applied to types 'string' and 'number'. </code></pre>
+<p>Once again, this condition would execute in plain JavaScript and could lead us to an error. By looking at the code you might think that result of the comparison will be true, but due to different types, it would evaluate to <code>false</code>. TypeScript protects you from making such mistakes warning that you are trying to compare different types. </p>
+
+</ol>
+
+
+
+
+</section>
+<!--Section: Tutorial content -->

@@ -1,0 +1,448 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+  <!--Section: Intro-->
+  <section id="introduction">
+
+      <!--Title-->
+      <h1 class="main-title mb-4">Bootstrap Validation</h1>
+
+      <!--Description-->
+      <p class="description mb-4">Provide valuable, actionable feedback to your users with HTML5 form validation – <a href="https://caniuse.com/#feat=form-validation" target="_blank">available in all our supported browsers</a>. Choose from the browser default validation feedback, or implement custom messages with our built-in classes and starter JavaScript.</p>
+
+      <blockquote class="blockquote bq-warning">
+          <p class="bq-title">Warning</p>
+          <p>We currently recommend using custom validation styles, as native browser default validation messages are not consistently exposed to assistive technologies in all browsers (most notably, Chrome on desktop and mobile).</p>
+      </blockquote>
+
+  </section>
+  <!--/Section: Intro-->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="how-it-works">
+
+      <!--Title-->
+      <h2 class="title mb-4"><strong>How it works</strong></h2>
+
+      <!--Description-->
+      <p class="description mb-4">Here’s how form validation works with Bootstrap:</p>
+
+      <ul>
+        <li>HTML form validation is applied via CSS’s two pseudo-classes, <code>:invalid</code> and <code>:valid</code>. It applies to <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, and <code>&lt;textarea&gt;</code> elements.</li>
+        <li>Bootstrap scopes the <code>:invalid</code> and <code>:valid</code> styles to parent <code>.was-validated</code> class, usually applied to the <code>&lt;form&gt;</code>. Otherwise, any required field without a value shows up as invalid on page load. This way, you may choose when to activate them (typically after form submission is attempted).</li>
+        <li>To reset the appearance of the form (for instance, in the case of dynamic form submissions using AJAX), remove the <code>.was-validated</code> class from the <code>&lt;form&gt;</code> again after submission.</li>
+        <li>As a fallback, <code>.is-invalid</code> and <code>.is-valid</code> classes may be used instead of the pseudo-classes for <a href="#server-side">server side validation</a>. They do not require a <code>.was-validated</code> parent class.</li>
+        <li>Due to constraints in how CSS works, we cannot (at present) apply styles to a <code>&lt;label&gt;</code> that comes before a form control in the DOM without the help of custom JavaScript.</li>
+        <li>All modern browsers support the <a href="https://www.w3.org/TR/html5/sec-forms.html#the-constraint-validation-api" target="_blank">constraint validation API</a>, a series of JavaScript methods for validating form controls.</li>
+        <li>Feedback messages may utilize the <a href="#browser-defaults">browser defaults</a> (different for each browser, and unstylable via CSS) or our custom feedback styles with additional HTML and CSS.</li>
+        <li>You may provide custom validity messages with <code>setCustomValidity</code> in JavaScript.</li>
+      </ul>
+
+      <p class="description mb-4">With that in mind, consider the following demos for our custom form validation styles, optional server side classes, and browser defaults.</p>
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="custom-styles">
+
+      <!--Title-->
+      <h2 class="title mb-4"><strong>Custom styles</strong></h2>
+
+      <!--Description-->
+      <p class="description mb-4">For custom Bootstrap form validation messages, you’ll need to add the <code>noValidate</code> attribute to your <code>&lt;form&gt;</code>. This disables the browser default feedback tooltips, but still provides access to the form validation APIs in JavaScript. Try to submit the form below; our JavaScript will intercept the submit button and relay feedback to you.</p>
+
+      <p class="description mb-4">When attempting to submit, you’ll see the <code>:invalid</code> and <code>:valid</code> styles applied to your form controls.</p>
+
+      <!--Section: Live preview-->
+      <section class="mb-5">
+
+        <form class="needs-validation" novalidate>
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationCustom01">First name</label>
+              <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="validationCustom02">Last name</label>
+              <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="validationCustomEmail">Email</label>
+              <div class="input-group">
+                <input type="email" class="form-control" id="validationCustomEmail" value="examplde@gmail.com" placeholder="Your Email address" aria-describedby="inputGroupPrepend">
+              </div>
+              <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="validationCustom03">City</label>
+              <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+              <div class="invalid-feedback">
+                Please provide a valid city.
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="validationCustom04">State</label>
+              <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+              <div class="invalid-feedback">
+                Please provide a valid state.
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="validationCustom05">Zip</label>
+              <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+              <div class="invalid-feedback">
+                Please provide a valid zip.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-check pl-0">
+              <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+              <label class="form-check-label" for="invalidCheck">
+                Agree to terms and conditions
+              </label>
+              <div class="invalid-feedback">
+                You must agree before submitting.
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Submit form</button>
+        </form>
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+          <pre class="code-toolbar">
+            <code class="language-markup">
+                import React from &apos;react&apos;;&#10;import { Container, Row, Col } from &apos;mdbreact&apos;;&#10;&#10;class FormsPage extends React.Component  {&#10;&#10;  state = {&#10;    fname: &apos;Mark&apos;,&#10;    lname: &apos;Otto&apos;,&#10;    email: &apos;examplde@gmail.com&apos;,&#10;    city: &apos;&apos;,&#10;    state: &apos;&apos;,&#10;    zip: &apos;&apos;&#10;  }&#10;&#10;  submitHandler = (event) =&gt; {&#10;    event.preventDefault();&#10;    event.target.className += &apos; was-validated&apos;;&#10;  }&#10;&#10;  changeHandler = (event) =&gt; {&#10;    this.setState({...this.state, [event.target.name]: event.target.value})&#10;  }&#10;&#10;  render() {&#10;    return(&#10;      &lt;Container className=&quot;mt-5&quot;&gt;&#10;        &lt;Row className=&quot;mt-6&quot;&gt;&#10;          &lt;Col md=&quot;&quot;&gt;&#10;            &lt;form className=&apos;needs-validation&apos; onSubmit={this.submitHandler} noValidate&gt;&#10;            &lt;Row&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterNameEx&quot; className=&quot;grey-text&quot;&gt;First name&lt;/label&gt;&#10;                &lt;input value={this.state.fname} name=&apos;fname&apos; onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterNameEx&quot; className=&quot;form-control&quot; placeholder=&quot;First name&quot; required/&gt;&#10;                &lt;div className=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;&#10;              &lt;/div&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterEmailEx2&quot; className=&quot;grey-text&quot;&gt;Last name&lt;/label&gt;&#10;                &lt;input value={this.state.lname} name=&apos;lname&apos; onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterEmailEx2&quot; className=&quot;form-control&quot; placeholder=&quot;Last name&quot; required/&gt;&#10;                &lt;div className=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;&#10;              &lt;/div&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterConfirmEx3&quot; className=&quot;grey-text&quot;&gt;Email&lt;/label&gt;&#10;                &lt;input value={this.state.email} onChange={this.changeHandler} type=&quot;email&quot; id=&quot;defaultFormRegisterConfirmEx3&quot; className=&quot;form-control&quot; name=&apos;email&apos; placeholder=&quot;Your Email address&quot;/&gt;&#10;                &lt;small id=&quot;emailHelp&quot; className=&quot;form-text text-muted&quot;&gt;We&apos;ll never share your email with anyone else.&lt;/small&gt;&#10;              &lt;/div&gt;&#10;            &lt;/Row&gt;&#10;            &lt;Row&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;City&lt;/label&gt;&#10;                &lt;input value={this.state.city} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control&quot; name=&apos;city&apos; placeholder=&quot;City&quot; required/&gt;&#10;                &lt;div className=&quot;invalid-feedback&quot;&gt;Please provide a valid city.&lt;/div&gt;&#10;                &lt;div className=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;&#10;              &lt;/div&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;State&lt;/label&gt;&#10;                &lt;input value={this.state.state} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control&quot; name=&apos;state&apos; placeholder=&quot;State&quot; required/&gt;&#10;                &lt;div className=&quot;invalid-feedback&quot;&gt;Please provide a valid state.&lt;/div&gt;&#10;                &lt;div className=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;&#10;              &lt;/div&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;Zip&lt;/label&gt;&#10;                &lt;input value={this.state.zip} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control&quot; name=&apos;zip&apos; placeholder=&quot;Zip&quot; required/&gt;&#10;                &lt;div className=&quot;invalid-feedback&quot;&gt;Please provide a valid zip.&lt;/div&gt;&#10;                &lt;div className=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;&#10;              &lt;/div&gt;&#10;            &lt;/Row&gt;&#10;            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;              &lt;div className=&quot;form-check pl-0&quot;&gt;&#10;                &lt;input className=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot; id=&quot;invalidCheck&quot; required /&gt;&#10;                &lt;label className=&quot;form-check-label&quot; htmlFor=&quot;invalidCheck&quot;&gt;&#10;                  Agree to terms and conditions&#10;                &lt;/label&gt;&#10;                &lt;div className=&quot;invalid-feedback&quot;&gt;&#10;                  You must agree before submitting.&#10;                &lt;/div&gt;&#10;              &lt;/div&gt;&#10;            &lt;/div&gt;&#10;            &lt;button className=&quot;btn btn-unique&quot; type=&quot;submit&quot;&gt;Submit Form&lt;/button&gt;&#10;            &lt;/form&gt;&#10;          &lt;/Col&gt;&#10;        &lt;/Row&gt;&#10;      &lt;/Container&gt;&#10;    );&#10;  }&#10;};&#10;&#10;export default FormsPage;
+            </code>
+          </pre>
+      </section>
+      <!--/Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="browser-defaults">
+
+      <!--Title-->
+      <h2 class="title mb-4"><strong>Browser defaults</strong></h2>
+
+      <!--Description-->
+      <p class="description mb-4">Not interested in custom validation feedback messages or writing JavaScript to change form behaviors? All good, you can use the browser defaults. Try submitting the form below. Depending on your browser and OS, you’ll see a slightly different style of feedback.</p>
+
+      <p class="description mb-4">While these feedback styles cannot be styled with CSS, you can still customize the feedback text through JavaScript.</p>
+
+      <!--Section: Live preview-->
+      <section class="mb-5">
+
+          <form>
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom01">First name</label>
+                  <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom02">Last name</label>
+                  <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustomEmail">Email</label>
+                  <div class="input-group">
+                    <input type="email" class="form-control" id="validationCustomEmail" value="examplde@gmail.com" placeholder="Your Email address" aria-describedby="inputGroupPrepend">
+                  </div>
+                  <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="validationCustom03">City</label>
+                  <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="validationCustom04">State</label>
+                  <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="validationCustom05">Zip</label>
+                  <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check pl-0">
+                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                  <label class="form-check-label" for="invalidCheck">
+                    Agree to terms and conditions
+                  </label>
+                </div>
+              </div>
+              <button class="btn btn-primary" type="submit">Submit form</button>
+            </form>
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+        <pre class="code-toolbar">
+          <code class="language-markup">import React from &apos;react&apos;;&#10;              import { Container, Row, Col } from &apos;mdbreact&apos;;&#10;&#10;              class FormsPage extends React.Component  {&#10;&#10;                state = {&#10;                  fname: &apos;Mark&apos;,&#10;                  lname: &apos;Otto&apos;,&#10;                  email: &apos;example@gmail.com&apos;,&#10;                  city: &apos;&apos;,&#10;                  state: &apos;&apos;,&#10;                  zip: &apos;&apos;&#10;                }&#10;&#10;                submitHandler = (event) =&gt; {&#10;                  event.preventDefault();&#10;                }&#10;&#10;                changeHandler = (event) =&gt; {&#10;                  this.setState({...this.state, [event.target.name]: event.target.value})&#10;                }&#10;&#10;                render() {&#10;                  return(&#10;                    &lt;Container className=&quot;mt-5&quot;&gt;&#10;                      &lt;Row className=&quot;mt-6&quot;&gt;&#10;                        &lt;Col md=&quot;&quot;&gt;&#10;                          &lt;form onSubmit={this.submitHandler}&gt;&#10;                          &lt;Row&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterNameEx&quot; className=&quot;grey-text&quot;&gt;First name&lt;/label&gt;&#10;                              &lt;input value={this.state.fname} name=&apos;fname&apos; onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterNameEx&quot; className=&quot;form-control&quot; placeholder=&quot;First name&quot; required/&gt;&#10;                            &lt;/div&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterEmailEx2&quot; className=&quot;grey-text&quot;&gt;Last name&lt;/label&gt;&#10;                              &lt;input value={this.state.lname} name=&apos;lname&apos; onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterEmailEx2&quot; className=&quot;form-control&quot; placeholder=&quot;Last name&quot; required/&gt;&#10;                            &lt;/div&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterConfirmEx3&quot; className=&quot;grey-text&quot;&gt;Email&lt;/label&gt;&#10;                              &lt;input value={this.state.email} onChange={this.changeHandler} type=&quot;email&quot; id=&quot;defaultFormRegisterConfirmEx3&quot; className=&quot;form-control&quot; name=&apos;email&apos; placeholder=&quot;Your Email address&quot;/&gt;&#10;                              &lt;small id=&quot;emailHelp&quot; className=&quot;form-text text-muted&quot;&gt;We&apos;ll never share your email with anyone else.&lt;/small&gt;&#10;                            &lt;/div&gt;&#10;                          &lt;/Row&gt;&#10;                          &lt;Row&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;City&lt;/label&gt;&#10;                              &lt;input value={this.state.city} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control&quot; name=&apos;city&apos; placeholder=&quot;City&quot; required/&gt;&#10;                            &lt;/div&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;State&lt;/label&gt;&#10;                              &lt;input value={this.state.state} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control&quot; name=&apos;state&apos; placeholder=&quot;State&quot; required/&gt;&#10;                            &lt;/div&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;Zip&lt;/label&gt;&#10;                              &lt;input value={this.state.zip} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control&quot; name=&apos;zip&apos; placeholder=&quot;Zip&quot; required/&gt;&#10;                            &lt;/div&gt;&#10;                          &lt;/Row&gt;&#10;                          &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                            &lt;div className=&quot;form-check pl-0&quot;&gt;&#10;                              &lt;input className=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot; id=&quot;invalidCheck&quot; required /&gt;&#10;                              &lt;label className=&quot;form-check-label&quot; htmlFor=&quot;invalidCheck&quot;&gt;&#10;                                Agree to terms and conditions&#10;                              &lt;/label&gt;&#10;                            &lt;/div&gt;&#10;                          &lt;/div&gt;&#10;                          &lt;button className=&quot;btn btn-unique&quot; type=&quot;submit&quot;&gt;Submit Form&lt;/button&gt;&#10;                          &lt;/form&gt;&#10;                        &lt;/Col&gt;&#10;                      &lt;/Row&gt;&#10;                    &lt;/Container&gt;&#10;                  );&#10;                }&#10;              };&#10;&#10;              export default FormsPage;
+              </code>
+        </pre>
+      </section>
+      <!--/Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="server-side">
+
+      <!--Title-->
+      <h2 class="title mb-4"><strong>Server side</strong></h2>
+
+      <!--Description-->
+      <p class="description mb-4">We recommend using client side validation, but in case you require server side, you can indicate invalid and valid form fields with <code>.is-invalid</code> and <code>.is-valid</code>. Note that <code>.invalid-feedback</code> is also supported with these classes.</p>
+
+      <!--Section: Live preview-->
+      <section class="mb-5">
+
+          <form class="needs-validation" novalidate>
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom01">First name</label>
+                  <input type="text" class="form-control is-valid" id="validationCustom01" placeholder="First name" value="Mark" required>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom02">Last name</label>
+                  <input type="text" class="form-control is-valid" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustomEmail">Email</label>
+                  <div class="input-group">
+                    <input type="email" class="form-control is-valid" id="validationCustomEmail" value="examplde@gmail.com" placeholder="Your Email address" aria-describedby="inputGroupPrepend">
+                  </div>
+                  <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="validationCustom03">City</label>
+                  <input type="text" class="form-control is-invalid" id="validationCustom03" placeholder="City" required>
+                  <div class="invalid-feedback">
+                    Please provide a valid city.
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="validationCustom04">State</label>
+                  <input type="text" class="form-control is-invalid" id="validationCustom04" placeholder="State" required>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="validationCustom05">Zip</label>
+                  <input type="text" class="form-control is-invalid" id="validationCustom05" placeholder="Zip" required>
+                  <div class="invalid-feedback">
+                    Please provide a valid zip.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check pl-0">
+                  <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck" required>
+                  <label class="form-check-label" for="invalidCheck">
+                    Agree to terms and conditions
+                  </label>
+                  <div class="invalid-feedback">
+                    You must agree before submitting.
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary" type="submit">Submit form</button>
+            </form>
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+        <pre class="code-toolbar">
+          <code class="language-markup">import React from &apos;react&apos;;&#10;              import { Container, Row, Col } from &apos;mdbreact&apos;;&#10;&#10;              class FormsPage extends React.Component  {&#10;&#10;                state = {&#10;                  fname: &apos;Mark&apos;,&#10;                  lname: &apos;Otto&apos;,&#10;                  email: &apos;example@gmail.com&apos;,&#10;                  city: &apos;&apos;,&#10;                  state: &apos;&apos;,&#10;                  zip: &apos;&apos;&#10;                }&#10;&#10;                submitHandler = (event) =&gt; {&#10;                  event.preventDefault();&#10;                  event.target.className += &apos; was-validated&apos;;&#10;                }&#10;&#10;                changeHandler = (event) =&gt; {&#10;                  this.setState({...this.state, [event.target.name]: event.target.value})&#10;                }&#10;&#10;                render() {&#10;                  return(&#10;                    &lt;Container className=&quot;mt-5&quot;&gt;&#10;                      &lt;Row className=&quot;mt-6&quot;&gt;&#10;                        &lt;Col md=&quot;&quot;&gt;&#10;                          &lt;form className=&apos;needs-validation&apos; onSubmit={this.submitHandler} noValidate&gt;&#10;                          &lt;Row&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterNameEx&quot; className=&quot;grey-text&quot;&gt;First name&lt;/label&gt;&#10;                              &lt;input value={this.state.fname} name=&apos;fname&apos; onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterNameEx&quot; className=&quot;form-control is-valid&quot; placeholder=&quot;First name&quot; required/&gt;&#10;                              &lt;div className=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;&#10;                            &lt;/div&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterEmailEx2&quot; className=&quot;grey-text&quot;&gt;Last name&lt;/label&gt;&#10;                              &lt;input value={this.state.lname} name=&apos;lname&apos; onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterEmailEx2&quot; className=&quot;form-control is-valid&quot; placeholder=&quot;Last name&quot; required/&gt;&#10;                              &lt;div className=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;&#10;                            &lt;/div&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterConfirmEx3&quot; className=&quot;grey-text&quot;&gt;Email&lt;/label&gt;&#10;                              &lt;input value={this.state.email} onChange={this.changeHandler} type=&quot;email&quot; id=&quot;defaultFormRegisterConfirmEx3&quot; className=&quot;form-control is-valid&quot; name=&apos;email&apos; placeholder=&quot;Your Email address&quot;/&gt;&#10;                              &lt;small id=&quot;emailHelp&quot; className=&quot;form-text text-muted&quot;&gt;We&apos;ll never share your email with anyone else.&lt;/small&gt;&#10;                            &lt;/div&gt;&#10;                          &lt;/Row&gt;&#10;                          &lt;Row&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;City&lt;/label&gt;&#10;                              &lt;input value={this.state.city} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control is-invalid&quot; name=&apos;city&apos; placeholder=&quot;City&quot; required/&gt;&#10;                              &lt;div className=&quot;invalid-feedback&quot;&gt;Please provide a valid city.&lt;/div&gt;&#10;                              &lt;div className=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;&#10;                            &lt;/div&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;State&lt;/label&gt;&#10;                              &lt;input value={this.state.state} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control is-invalid&quot; name=&apos;state&apos; placeholder=&quot;State&quot; required/&gt;&#10;                              &lt;div className=&quot;invalid-feedback&quot;&gt;Please provide a valid state.&lt;/div&gt;&#10;                              &lt;div className=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;&#10;                            &lt;/div&gt;&#10;                            &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                              &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;Zip&lt;/label&gt;&#10;                              &lt;input value={this.state.zip} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control is-invalid&quot; name=&apos;zip&apos; placeholder=&quot;Zip&quot; required/&gt;&#10;                              &lt;div className=&quot;invalid-feedback&quot;&gt;Please provide a valid zip.&lt;/div&gt;&#10;                              &lt;div className=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;&#10;                            &lt;/div&gt;&#10;                          &lt;/Row&gt;&#10;                          &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                            &lt;div className=&quot;form-check pl-0&quot;&gt;&#10;                              &lt;input className=&quot;form-check-input is-invalid&quot; type=&quot;checkbox&quot; value=&quot;&quot; id=&quot;invalidCheck&quot; required /&gt;&#10;                              &lt;label className=&quot;form-check-label&quot; htmlFor=&quot;invalidCheck&quot;&gt;&#10;                                Agree to terms and conditions&#10;                              &lt;/label&gt;&#10;                              &lt;div className=&quot;invalid-feedback&quot;&gt;&#10;                                You must agree before submitting.&#10;                              &lt;/div&gt;&#10;                            &lt;/div&gt;&#10;                          &lt;/div&gt;&#10;                          &lt;button className=&quot;btn btn-unique&quot; type=&quot;submit&quot;&gt;Submit Form&lt;/button&gt;&#10;                          &lt;/form&gt;&#10;                        &lt;/Col&gt;&#10;                      &lt;/Row&gt;&#10;                    &lt;/Container&gt;&#10;                  );&#10;                }&#10;              };&#10;&#10;              export default FormsPage;
+              </code>
+        </pre>
+      </section>
+      <!--/Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="supported-elements">
+
+      <!--Title-->
+      <h2 class="title mb-4"><strong>Supported elements</strong></h2>
+
+      <!--Description-->
+      <p class="description mb-4">Our example forms show native textual <code>&lt;input&gt;</code>s above, but form validation styles are available for our custom form controls, too.</p>
+
+      <!--Section: Live preview-->
+      <section>
+
+        <form class="was-validated">
+          <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+            <label class="custom-control-label" for="customControlValidation1">Check this custom checkbox</label>
+            <div class="invalid-feedback">Example invalid feedback text</div>
+          </div>
+
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required>
+            <label class="custom-control-label" for="customControlValidation2">Toggle this custom radio</label>
+          </div>
+          <div class="custom-control custom-radio mb-3">
+            <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked" required>
+            <label class="custom-control-label" for="customControlValidation3">Or toggle this other custom radio</label>
+            <div class="invalid-feedback">More example invalid feedback text</div>
+          </div>
+
+          <div class="form-group">
+            <select class="custom-select browser-default" required>
+              <option value="">Open this select menu</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <div class="invalid-feedback">Example invalid custom select feedback</div>
+          </div>
+
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+            <div class="invalid-feedback">Example invalid custom file feedback</div>
+          </div>
+        </form>
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+        <pre class="code-toolbar">
+          <code class="language-markup">import React from &apos;react&apos;;&#10;              import { Container, Row, Col } from &apos;mdbreact&apos;;&#10;&#10;              class FormsPage extends React.Component  {&#10;                render() {&#10;                  return(&#10;                    &lt;Container className=&quot;mt-5&quot;&gt;&#10;                      &lt;Row className=&quot;mt-6&quot;&gt;&#10;                        &lt;Col md=&quot;&quot;&gt;&#10;                          &lt;form className=&apos;was-validated&apos; noValidate&gt;&#10;                            &lt;div className=&quot;custom-control custom-checkbox mb-3&quot;&gt;&#10;                              &lt;input type=&quot;checkbox&quot; className=&quot;custom-control-input&quot; id=&quot;customControlValidation1&quot; required /&gt;&#10;                              &lt;label className=&quot;custom-control-label&quot; htmlFor=&quot;customControlValidation1&quot;&gt;Check this custom checkbox&lt;/label&gt;&#10;                              &lt;div className=&quot;invalid-feedback&quot;&gt;Example invalid feedback text&lt;/div&gt;&#10;                            &lt;/div&gt;&#10;&#10;                            &lt;div className=&quot;custom-control custom-radio&quot;&gt;&#10;                              &lt;input type=&quot;radio&quot; className=&quot;custom-control-input&quot; id=&quot;customControlValidation2&quot; name=&quot;radio-stacked&quot; required /&gt;&#10;                              &lt;label className=&quot;custom-control-label&quot; htmlFor=&quot;customControlValidation2&quot;&gt;Toggle this custom radio&lt;/label&gt;&#10;                            &lt;/div&gt;&#10;                            &lt;div className=&quot;custom-control custom-radio mb-3&quot;&gt;&#10;                              &lt;input type=&quot;radio&quot; className=&quot;custom-control-input&quot; id=&quot;customControlValidation3&quot; name=&quot;radio-stacked&quot; required /&gt;&#10;                              &lt;label className=&quot;custom-control-label&quot; htmlFor=&quot;customControlValidation3&quot;&gt;Or toggle this other custom radio&lt;/label&gt;&#10;                              &lt;div className=&quot;invalid-feedback&quot;&gt;More example invalid feedback text&lt;/div&gt;&#10;                            &lt;/div&gt;&#10;&#10;                            &lt;div className=&quot;form-group&quot;&gt;&#10;                              &lt;select className=&quot;custom-select browser-default&quot; required&gt;&#10;                                &lt;option value=&quot;&quot;&gt;Open this select menu&lt;/option&gt;&#10;                                &lt;option value=&quot;1&quot;&gt;One&lt;/option&gt;&#10;                                &lt;option value=&quot;2&quot;&gt;Two&lt;/option&gt;&#10;                                &lt;option value=&quot;3&quot;&gt;Three&lt;/option&gt;&#10;                              &lt;/select&gt;&#10;                              &lt;div className=&quot;invalid-feedback&quot;&gt;Example invalid custom select feedback&lt;/div&gt;&#10;                            &lt;/div&gt;&#10;&#10;                            &lt;div className=&quot;custom-file&quot;&gt;&#10;                              &lt;input type=&quot;file&quot; className=&quot;custom-file-input&quot; id=&quot;validatedCustomFile&quot; required /&gt;&#10;                              &lt;label className=&quot;custom-file-label&quot; htmlFor=&quot;validatedCustomFile&quot;&gt;Choose file...&lt;/label&gt;&#10;                              &lt;div className=&quot;invalid-feedback&quot;&gt;Example invalid custom file feedback&lt;/div&gt;&#10;                            &lt;/div&gt;&#10;                          &lt;/form&gt;&#10;                        &lt;/Col&gt;&#10;                      &lt;/Row&gt;&#10;                    &lt;/Container&gt;&#10;                  );&#10;                }&#10;              };&#10;&#10;              export default FormsPage;
+              </code>
+        </pre>
+      </section>
+      <!--/Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="tooltips">
+
+      <!--Title-->
+      <h2 class="title mb-4"><strong>Tooltips</strong></h2>
+
+      <!--Description-->
+      <p class="description mb-4">If your form layout allows it, you can swap the <code>.{valid|invalid}-feedback</code> classes for <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a styled tooltip. Be sure to have a parent with <code>position: relative</code> on it for tooltip positioning. In the example below, our column classes have this already, but your project may require an alternative setup.</p>
+
+      <!--Section: Live preview-->
+      <section class="mb-5">
+
+        <form class="needs-validation" novalidate>
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationTooltip01">First name</label>
+              <input type="text" class="form-control" id="validationTooltip01" placeholder="First name" value="Mark" required>
+              <div class="valid-tooltip">
+                Looks good!
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="validationTooltip02">Last name</label>
+              <input type="text" class="form-control" id="validationTooltip02" placeholder="Last name" value="Otto" required>
+              <div class="valid-tooltip">
+                Looks good!
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="validationCustomEmail">Email</label>
+              <div class="input-group">
+                <input type="email" class="form-control" id="validationCustomEmail" value="example@gmail.com" placeholder="Your Email address" aria-describedby="inputGroupPrepend">
+              </div>
+              <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="validationTooltip03">City</label>
+              <input type="text" class="form-control" id="validationTooltip03" placeholder="City" required>
+              <div class="invalid-tooltip">
+                Please provide a valid city.
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="validationTooltip04">State</label>
+              <input type="text" class="form-control" id="validationTooltip04" placeholder="State" required>
+              <div class="invalid-tooltip">
+                Please provide a valid state.
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="validationTooltip05">Zip</label>
+              <input type="text" class="form-control" id="validationTooltip05" placeholder="Zip" required>
+              <div class="invalid-tooltip">
+                Please provide a valid zip.
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Submit form</button>
+        </form>
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+          <pre class="code-toolbar">
+            <code class="language-markup">&#10;                import React from &apos;react&apos;;&#10;import { Container, Row, Col } from &apos;mdbreact&apos;;&#10;&#10;class FormsPage extends React.Component  {&#10;&#10;  state = {&#10;    fname: &apos;Mark&apos;,&#10;    lname: &apos;Otto&apos;,&#10;    email: &apos;example@gmail.com&apos;,&#10;    city: &apos;&apos;,&#10;    state: &apos;&apos;,&#10;    zip: &apos;&apos;&#10;  }&#10;&#10;  submitHandler = (event) =&gt; {&#10;    event.preventDefault();&#10;    event.target.className += &apos; was-validated&apos;;&#10;  }&#10;&#10;  changeHandler = (event) =&gt; {&#10;    this.setState({...this.state, [event.target.name]: event.target.value})&#10;  }&#10;&#10;  render() {&#10;    return(&#10;      &lt;Container className=&quot;mt-5&quot;&gt;&#10;        &lt;Row className=&quot;mt-6&quot;&gt;&#10;          &lt;Col md=&quot;&quot;&gt;&#10;            &lt;form className=&apos;needs-validation&apos; onSubmit={this.submitHandler} noValidate&gt;&#10;            &lt;Row&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterNameEx&quot; className=&quot;grey-text&quot;&gt;First name&lt;/label&gt;&#10;                &lt;input value={this.state.fname} name=&apos;fname&apos; onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterNameEx&quot; className=&quot;form-control&quot; placeholder=&quot;First name&quot; required/&gt;&#10;                &lt;div style={{top: &apos;auto&apos;}} className=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;&#10;              &lt;/div&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterEmailEx2&quot; className=&quot;grey-text&quot;&gt;Last name&lt;/label&gt;&#10;                &lt;input value={this.state.lname} name=&apos;lname&apos; onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterEmailEx2&quot; className=&quot;form-control&quot; placeholder=&quot;Last name&quot; required/&gt;&#10;                &lt;div style={{top: &apos;auto&apos;}} className=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;&#10;              &lt;/div&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterConfirmEx3&quot; className=&quot;grey-text&quot;&gt;Email&lt;/label&gt;&#10;                &lt;input value={this.state.email} onChange={this.changeHandler} type=&quot;email&quot; id=&quot;defaultFormRegisterConfirmEx3&quot; className=&quot;form-control&quot; name=&apos;email&apos; placeholder=&quot;Your Email address&quot;/&gt;&#10;                &lt;small id=&quot;emailHelp&quot; className=&quot;form-text text-muted&quot;&gt;We&apos;ll never share your email with anyone else.&lt;/small&gt;&#10;              &lt;/div&gt;&#10;            &lt;/Row&gt;&#10;            &lt;Row&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;City&lt;/label&gt;&#10;                &lt;input value={this.state.city} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control&quot; name=&apos;city&apos; placeholder=&quot;City&quot; required/&gt;&#10;                &lt;div style={{top: &apos;auto&apos;}} className=&quot;invalid-tooltip&quot;&gt;Please provide a valid city.&lt;/div&gt;&#10;                &lt;div style={{top: &apos;auto&apos;}} className=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;&#10;              &lt;/div&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;State&lt;/label&gt;&#10;                &lt;input value={this.state.state} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control&quot; name=&apos;state&apos; placeholder=&quot;State&quot; required/&gt;&#10;                &lt;div style={{top: &apos;auto&apos;}} className=&quot;invalid-tooltip&quot;&gt;Please provide a valid state.&lt;/div&gt;&#10;                &lt;div style={{top: &apos;auto&apos;}} className=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;&#10;              &lt;/div&gt;&#10;              &lt;div className=&quot;col-md-4 mb-3&quot;&gt;&#10;                &lt;label htmlFor=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;grey-text&quot;&gt;Zip&lt;/label&gt;&#10;                &lt;input value={this.state.zip} onChange={this.changeHandler} type=&quot;text&quot; id=&quot;defaultFormRegisterPasswordEx4&quot; className=&quot;form-control&quot; name=&apos;zip&apos; placeholder=&quot;Zip&quot; required/&gt;&#10;                &lt;div style={{top: &apos;auto&apos;}} className=&quot;invalid-tooltip&quot;&gt;Please provide a valid zip.&lt;/div&gt;&#10;                &lt;div style={{top: &apos;auto&apos;}} className=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;&#10;              &lt;/div&gt;&#10;            &lt;/Row&gt;&#10;            &lt;button className=&quot;btn btn-unique&quot; type=&quot;submit&quot;&gt;Submit Form&lt;/button&gt;&#10;            &lt;/form&gt;&#10;          &lt;/Col&gt;&#10;        &lt;/Row&gt;&#10;      &lt;/Container&gt;&#10;    );&#10;  }&#10;};&#10;&#10;export default FormsPage;
+            </code>
+          </pre>
+      </section>
+      <!--/Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+</section>
+<!--/Section: Doc content-->

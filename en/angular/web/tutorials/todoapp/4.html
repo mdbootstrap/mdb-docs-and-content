@@ -1,0 +1,293 @@
+<!--Section: Tutorial content-->
+<section class="tutorial">
+
+
+    <h2>1. Editing the AppComponent Component</h2>
+
+<p>When you initialize a new application, Angular CLI automatically generates a main <code>AppComponent</code> component for us:</p>
+
+<pre class="code-toolbar"><code class="language-typescript">src/app/app.component.css
+src/app/app.component.html
+src/app/app.component.spec.ts
+src/app/app.component.ts
+</code></pre>
+
+
+
+    <ol>
+        <li>Open <code>src/app/app.component.html</code>
+        <pre class="code-toolbar"><code class="language-markup">&lt;!-- Start your project here--&gt;
+&lt;div style=&quot;height: 100vh&quot;&gt;
+    &lt;div class=&quot;flex-center flex-column&quot;&gt;
+      &lt;h1 class=&quot;animated fadeIn mb-4&quot;&gt;Material Design for Bootstrap (Angular)&lt;/h1&gt;
+
+      &lt;h5 class=&quot;animated fadeIn mb-3&quot;&gt;Thank you for using our product. We&#039;re glad you&#039;re with us.&lt;/h5&gt;
+      &lt;h6 class=&quot;animated fadeIn mb-3&quot;&gt;Start browsing &lt;a href=&quot;https://mdbootstrap.com/docs/angular/&quot;&gt;documentation&lt;/a&gt;.&lt;/h6&gt;
+
+      &lt;p class=&quot;animated fadeIn text-muted&quot;&gt;MDB Team&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;!-- /Start your project here--&gt;
+</code></pre>
+
+
+        </li>
+<li>Replace default MDB placeholder with application logic:
+        <pre class="code-toolbar"><code class="language-markup">&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;row mt-5&quot;&gt;
+    &lt;div class=&quot;col-md-12 text-center&quot;&gt;
+      &lt;h1 class=&quot;h1-responsive&quot;&gt;MDB Todo App:&lt;/h1&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;row mt-5 &quot;&gt;
+    &lt;div class=&quot;col-md-3 offset-md-2 left-column mb-1&quot;&gt;
+      &lt;ul class=&quot;list-group&quot;&gt;
+        &lt;li *ngFor=&quot;let category of categories&quot; class=&quot;list-group-item d-flex justify-content-between align-items-center&quot; (click)=&quot;onSelect(category)&quot;&gt;
+          {{category.name}}
+          &lt;span class=&quot;badge primary-color badge-pill&quot;&gt;{{countTodosByCat(category.id)}}&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;list-group-item d-flex justify-content-between align-items-center&quot;&gt;
+          &lt;form&gt;
+            &lt;input mdbActive type=&quot;text&quot; placeholder=&quot;Add new category&quot; id=&quot;form1&quot; class=&quot;form-control&quot; [(ngModel)]=&quot;newCategory.name&quot;
+              (keyup.enter)=&quot;addCategory()&quot; name=&quot;addCat&quot;&gt;
+          &lt;/form&gt;
+          &lt;span class=&quot;badge primary-color badge-pill&quot;&gt;
+            &lt;a class=&quot;prefix&quot;&gt;
+              &lt;i class=&quot;fas fa-plus&quot; aria-hidden=&quot;true&quot; (click)=&quot;addCategory()&quot;&gt;&lt;/i&gt;
+            &lt;/a&gt;
+          &lt;/span&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-md-5 list mb-1&quot; *ngIf=&quot;selectedCategory; else elseBlock&quot;&gt;
+      &lt;div class=&quot;row px-3 py-3&quot;&gt;
+        &lt;div class=&quot;col-md-12&quot;&gt;
+          &lt;h4&gt;{{selectedCategory.name}}&lt;/h4&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;row px-4 mt-3&quot;&gt;
+        &lt;div class=&quot;form-group full-width&quot; *ngIf=&quot;todosForCat.length &gt; 0&quot;&gt;
+          &lt;form class=&quot;full-width&quot;&gt;
+            &lt;div *ngFor=&quot;let todo of todosForCat&quot;&gt;
+              &lt;input type=&quot;checkbox&quot; id=&quot;{{todo.id}}&quot; (click)=&quot;toggleTodoComplete(todo)&quot; [checked]=&quot;todo.complete&quot;&gt;
+              &lt;label for=&quot;{{todo.id}}&quot; [ngClass]=&quot;{&#039;strikethrough&#039; : todo.complete}&quot;&gt;{{todo.title}}&lt;/label&gt;
+              &lt;button type=&quot;button&quot; class=&quot;close&quot; aria-label=&quot;Close&quot; style=&quot;float: right;&quot; (click)=&quot;removeTodo(todo)&quot;&gt;
+                &lt;span aria-hidden=&quot;true&quot; &gt;&amp;times;&lt;/span&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;row px-4 mt-1&quot;&gt;
+        &lt;div class=&quot;md-form&quot;&gt;
+          &lt;form&gt;
+            &lt;a class=&quot;prefix&quot;&gt;
+              &lt;i class=&quot;fas fa-plus prefix&quot; (click)=&quot;addTodo()&quot;&gt;&lt;/i&gt;
+            &lt;/a&gt;
+            &lt;input mdbActive type=&quot;text&quot; id=&quot;form2&quot; class=&quot;form-control&quot; [(ngModel)]=&quot;newTodo.title&quot; (keyup.enter)=&quot;addTodo()&quot; name=&quot;addNew&quot;&gt;
+            &lt;label for=&quot;form2&quot;&gt;Add new task&lt;/label&gt;
+          &lt;/form&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;ng-template #elseBlock&gt;
+      &lt;div class=&quot;col-md-5 test 5 list text-center&quot;&gt;
+        &lt;h5 class=&quot;pt-3&quot;&gt;Choose category from menu in the left.&lt;/h5&gt;
+        &lt;p class=&quot;pt-5&quot;&gt;You can also create a new category by typing the name and pressing the enter or clicking on the
+          &lt;span class=&quot;badge primary-color badge-pill&quot;&gt;
+            &lt;i class=&quot;fas fa-plus&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+          &lt;/span&gt;
+          button.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/ng-template&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+</li>
+
+    </ol>
+
+    <h2>2. Adding logic</h2>
+
+<ol>
+    <li>Open <code>app.component.ts</code> file which contains main component TS code:
+        <pre class="code-toolbar"><code class="language-typescript">import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.css']
+
+})
+
+export class AppComponent {
+}
+
+</code></pre>
+</li>
+<li> Add following logic:
+<pre class="code-toolbar"><code class="language-typescript">import { CategoryDataService } from './categories/category-data.service';
+import { Component, OnInit } from '@angular/core';
+import {Todo} from './todos/todo';
+import {TodoDataService} from './todos/todo-data.service';
+import {Category} from './categories/category';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
+  providers: [TodoDataService, CategoryDataService]
+
+})
+
+export class AppComponent implements OnInit {
+
+  newTodo: Todo = new Todo();
+  newCategory: Category = new Category();
+  selectedCategory: Category;
+
+  constructor(private todoDataService: TodoDataService, private categoryDataService: CategoryDataService) {
+  }
+
+
+  addTodo() {
+    this.newTodo.category = this.selectedCategory.id;
+    this.todoDataService.addTodo(this.newTodo);
+    this.newTodo = new Todo();
+    console.log(this.todos);
+  }
+
+  toggleTodoComplete(todo: Todo) {
+    this.todoDataService.toggleTodoComplete(todo);
+  }
+
+  removeTodo(todo: Todo) {
+    this.todoDataService.deleteTodoById(todo.id);
+  }
+
+  get todos() {
+    return this.todoDataService.getAllTodos();
+  }
+
+  get todosForCat() {
+    return this.todoDataService.getTodoByCategory(this.selectedCategory.id);
+  }
+
+  countTodosByCat(id: number) {
+    return this.todoDataService.getTodoByCategory(id).length;
+  }
+
+  addCategory() {
+    this.categoryDataService.addCategory(this.newCategory);
+    this.newCategory = new Category();
+  }
+
+  removeCategory(category: Category) {
+    this.categoryDataService.deleteCategoryById(category.id);
+  }
+
+  get categories() {
+    return this.categoryDataService.getAllCategories();
+  }
+
+  categoryById(id: number) {
+    return this.categoryDataService.getCategoryById(id);
+  }
+
+  addInitialCategory(category: Category) {
+    this.categoryDataService.addCategory(category);
+  }
+
+  addInitialTodo(todo: Todo) {
+    this.todoDataService.addTodo(todo);
+  }
+
+
+  onSelect(category: Category): void {
+    this.selectedCategory = category;
+  }
+
+  ngOnInit() {
+    let initCat = new Category();
+    initCat = {'name' : 'Today', 'id' : 1 , };
+    this.addInitialCategory(initCat);
+    initCat = {'name' : 'Tomorrow', 'id' : 2 , };
+    this.addInitialCategory(initCat);
+    initCat = {'name' : 'Work', 'id' : 3 , };
+    this.addInitialCategory(initCat);
+    initCat = {'name' : 'Holidays', 'id' : 4 , };
+    this.addInitialCategory(initCat);
+    initCat = {'name' : 'Shopping list', 'id' : 5 , };
+    this.addInitialCategory(initCat);
+
+    let initTodo = new Todo();
+    initTodo = {'title' : 'Task1', 'complete': false, 'id' : 1 , category: 1 };
+    this.addInitialTodo(initTodo);
+    initTodo = {'title' : 'Task2', 'complete': true, 'id' : 2 , category: 2 };
+    this.addInitialTodo(initTodo);
+    initTodo = {'title' : 'Task3', 'complete': true, 'id' : 3 , category: 1 };
+    this.addInitialTodo(initTodo);
+  }
+
+}
+
+</code></pre>
+
+    </li>
+</ol>
+
+    <h2>3. Adding styles to our app</h2>
+
+<ol>
+  <li>Open <code>app.component.css</code>. File by default is empty.</li>
+  <li>Add styles:
+<pre class="code-toolbar"><code class="language-css">.list {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+  }
+
+  .full-width {
+      width: 100%;
+  }
+</code></pre>
+
+  </li>
+</ol>
+
+    <h2>4. Running application</h2>
+
+<p>Run following command <code>ng serve -o</code>. You will see our new application in a browser:</p>
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/todoapp/4/img/01.png" alt="todoapp">
+
+<p>Now you can play with our todo app. List on the right side shows the list of our categories and counter informing on how many items is currently assigned to each category.</p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/todoapp/4/img/02.png" alt="List of categories">
+
+<p>At the bottom of the list, you will find an input which allows us to create a new category. Type some name and press  <kbd>Enter &#9166;</kbd></p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/todoapp/4/img/03.png" alt="New category input">
+
+<p>When you click on the category name, list of the item will be shown in the right column:</p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/todoapp/4/img/04.png" alt="Todo list">
+
+<p>Similarly - there is an input at the bottom which allows you to create a new item. Type the name of a new task and click on an  <i class="fas fa-plus" aria-hidden="true"></i> icon. </p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/todoapp/4/img/05.png" alt="New todo input">
+
+<p>If you make a mistake, you can remove item clicking <button type="button" class="close" aria-label="Close"> </button> icon on the right. If task is complete you can click the checkbox on the left side of Todo. This will cross out the item name. </p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/todoapp/4/img/06.png" alt="New todo input">
+
+
+<p>Our application is running. Within next lesson, we will analyze, step by step, a different part of our code to get a better understanding of how different Angular functions work. </p>
+
+</section>
+<!--Section: Tutorial content-->

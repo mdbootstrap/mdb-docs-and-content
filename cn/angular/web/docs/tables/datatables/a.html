@@ -1,0 +1,416 @@
+<!--Section: Intro-->
+<section id="a-introduction">
+
+  <!--Title-->
+  <h2 class="section-heading">Angular Datatables - API</h2>
+
+  <p class="description">
+    In this section you will find advanced information about the Table component. You will find out which modules are required
+    in this component, what are the possibilities of configuring the component, and what events and methods you can use in
+    working with it.
+  </p>
+</section>
+<!--/Section: Intro-->
+
+<!--Section: -->
+<section id="a-modules">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Modules used
+  </h2>
+
+  <p class="description">In order to speed up your application, you can choose to import only the modules you actually need, instead of importing
+    the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific module,
+    is bad practice, and can cause application errors. </p>
+
+  <pre class="code-toolbar">
+                <code class="language-javascript">
+          // MDB Angular Pro
+          import { WavesModule } from 'ng-uikit-pro-standard';
+
+          // Angular Forms
+          import { FormsModule } from '@angular/forms';
+
+          // Angular Http
+          import { HttpModule } from '@angular/http';
+                </code>
+              </pre>
+
+  <p class="description">
+    Exporting table data to CSV requires external library called
+    <code>Angular5-csv</code>. Install it by typing following command into your console.
+  </p>
+
+  <pre class="code-toolbar">
+        <code class="language-javascript">
+            npm install angular5-csv --save
+        </code>
+    </pre>
+
+  <div class="row">
+    <div class="col-12">
+      <a href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="importing modules" class="btn btn-primary waves-light">Import Example</a>
+      <a href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="modules list" class="btn btn-primary waves-light">Modules List</a>
+    </div>
+  </div>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<section id="a-api-plugin">
+
+  <section>
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      angular5-csv plugin
+    </h2>
+
+    <p class="description">
+      The table shows the configuration options of the angular5-csv library.
+    </p>
+
+    <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code><i>fieldSeparator</i></code>
+          </td>
+          <td>string</td>
+          <td>' , '</td>
+          <td>Defines a character that separates fields in the generated .csv file</td>
+          <td>
+            <code>fieldSeparator: ','</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code><i>quoteStrings</i></code>
+          </td>
+          <td>string</td>
+          <td>' , '</td>
+          <td>If provided, will use this characters to "escape" fields, otherwise will use double quotes as deafult</td>
+          <td>
+            <code>quoteStrings: '"'</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code><i>decimalseparator</i></code>
+          </td>
+          <td>string</td>
+          <td>' . '</td>
+          <td>Defines the decimal separator character (default is .). If set to "locale", it uses the language sensitive representation
+            of the number.</td>
+          <td>
+            <code>decimalseparator: '.'</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code><i>showLabels</i></code>
+          </td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>If provided, would use this attribute to create a header row</td>
+          <td>
+            <code>showLabels: true</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code><i>showTitle</i></code>
+          </td>
+          <td> boolean </td>
+          <td>false</td>
+          <td>If provided, would use this attribute to create a title</td>
+          <td>
+            <code>showTitle: true</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code><i>useBom</i></code>
+          </td>
+          <td> boolean </td>
+          <td>true</td>
+          <td>If true, adds a BOM character at the start of the CSV</td>
+          <td>
+            <code>useBom: true</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code><i>noDownload</i></code>
+          </td>
+          <td> boolean </td>
+          <td>false</td>
+          <td>If true, disables automatic download and returns only formatted CSV</td>
+          <td>
+            <code>noDownload: true,</code>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code><i>headers</i></code>
+          </td>
+          <td> Array&lt;string&gt;</td>
+          <td>['']</td>
+          <td>If provided, defines the column headers in CSV</td>
+          <td>
+            <code>headers: ['Post ID', 'Post title', 'Post body']</code>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="a-api-properties">
+
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Properties
+    </h2>
+
+    <p class="description">
+      The table shows the available properties in component.
+    </p>
+
+    <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code><i>maxVisibleItems</i></code>
+          </td>
+          <td> number </td>
+          <td>10</td>
+          <td>If provided, defines the max visible items at one time.</td>
+          <td>
+            <code>maxVisibleItems: number = 10</code>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="a-api-methods">
+
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Methods
+    </h2>
+
+    <p class="description">
+      The table shows the available methods in component.
+    </p>
+
+    <table class="table table-bordered table-striped table-responsive-md">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Parameters</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code><i>generateCsv()</i></code>
+            </td>
+            <td> searchData: any, title: string, options: Object </td>
+            <td>Generates a .csv file from the currently displayed table. It uses the source, file name, and configuration options as arguments. </td>
+            <td>
+              <code> generateCsv() { new Angular5Csv(this.search(), 'data-table', this.options); } </code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </section>
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="a-table-scroll-directive">
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Directive
+    </h2>
+
+    <h5 class="mb-4"><strong>MdbTableDirective</strong></h5>
+
+    <!-- Description -->
+    <p>Selector: <code>mdbTable</code></p>
+    <p>Export as: <code>mdbTable</code></p>
+    <p>Type: <code>MdbTableDirective</code></p>
+
+    <hr class="my-5">
+
+    <!--Section: -->
+    <section id="a-table-methods">
+
+      <!--Title-->
+      <h2 class="section-heading mb-4">
+        Methods
+      </h2>
+
+      <p></p>
+
+      <table class="table table-bordered table-striped table table-responsive-md">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>setDataSource(source: Array&lt;any&gt;)</i></code></td>
+          <td>It is used to indicate service an array that stores the data contained in the table. The use of this
+            method is required for the use of results filtering.</td>
+          <td><code>this.tableService.setDataSource(this.elements)</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal"><i>getDataSource()</i></code></td>
+          <td>The method returns an array that has been indicated as the data source of the table. The use of this
+            method is required to filter the results.</td>
+          <td><code>this.elements = this.tableService.getDataSource()</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal"><i>searchLocalDataBy(searchText: string)</i></code></td>
+          <td>The method starts filtering the source array by the character provided as its parameter. The use of this
+            method is required to be able to filter the results.</td>
+          <td><code>this.elements = this.tableService.searchLocalDataBy(this.searchText)</code></td>
+        </tr>
+        </tbody>
+      </table>
+
+    </section>
+    <!--/Section: -->
+
+    <section id="a-table-inputs">
+      <!--Title-->
+      <h2 class="section-heading mb-4">
+        Inputs
+      </h2>
+
+      <table class="table table-bordered table-striped table-responsive-md">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>striped</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Adds a striped effect to the table. Striped is an effect similar to zebra - every second row is colored.</td>
+          <td><code>striped="true"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>bordered</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Adds a border to the entire table.</td>
+          <td><code>bordered="true"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>borderless</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Removes all borders from the table.</td>
+          <td><code>borderless="true"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>hover</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Adds a highlighting effect to the line on which the mouse cursor is located.</td>
+          <td><code>hover="true"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>small</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Changes the size of the table. Reduces row spacing to make the table narrower.</td>
+          <td><code>small="true"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>responsive</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Adds responsiveness to the table so that the table behaves correctly at lower resolutions.</td>
+          <td><code>responsive="true"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>stickyHeader</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Adds the ability to stick the header to the top edge of the table so that the header moves with the
+            scrolling of the table.</td>
+          <td><code>stickyHeader="true"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>stickyHeaderBgColor</i></code></td>
+          <td>string</td>
+          <td>' '</td>
+          <td>Adds the ability to change the background color of the table header. The default background color is
+            #f2f2f2f2.</td>
+          <td><code>stickyHeaderBgColor="#303030"</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>stickyHeaderTextColor</i></code></td>
+          <td>string</td>
+          <td>' '</td>
+          <td>Adds the ability to change the text color of the table header. The default text color is #f000000.</td>
+          <td><code>stickyHeaderTextColor="#ffffff"</code></td>
+        </tr>
+
+        </tbody>
+      </table>
+
+    </section>
+    <!--/Section: -->
+    </section>
+
+  </section>
+  <!--/Section: -->
+</section>

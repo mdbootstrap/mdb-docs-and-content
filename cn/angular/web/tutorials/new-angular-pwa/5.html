@@ -1,0 +1,234 @@
+<!--Section: Tutorial content-->
+<section class="tutorial" id="databases">
+
+  <section id="firebase">
+    <h2 class="title mb-4">
+      <strong>Creating the databases - Firebase</strong>
+    </h2>
+
+    <h4>Creating a Firebase application:</h4>
+
+    <p class="description">As the first step, please execute the command below to install the two new dependencies:
+      <code>@angular/fire</code> and <code>firebase</code> npm packages.</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="npm">
+        npm install @angular/fire firebase --save
+      </code>
+    </mdbsnippet>
+
+    <p class="description">In order to take advantage of the benefits provided by Firebase, a database in real time and
+      hosting, we need to create an application there.</p>
+
+    <p class="description">To do this, open the following address in your web browser: <a
+      href="https://console.firebase.google.com/">https://console.firebase.google.com/</a>.</p>
+
+    <p class="description">
+      After logging in to the Firebase service, you need to create a new application, which will be our PWA
+      application. To do this, click the "Add Project" button and go through the short form in which you will provide
+      the name of your project and some other required information.
+    </p>
+
+    <p class="description">
+      After creating a new Firebase application, we have to add it to our Angular application. To do this, click Add
+      Firebase to your web application — <i class="fas fa-code"></i> icon, and then copy the entire config object to the
+      clipboard.
+    </p>
+
+    <p class="description">
+      Then open the <code>environment.prod.ts</code> and <code>environment.ts</code> files in the src/environments
+      directory, and copy into them
+      the contents of the firebase object from the previous step.
+    </p>
+
+    <p class="description">Your environment file should look like below:</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="TS">
+        export const environment = {
+          production: true,
+          firebase: {
+            apiKey: 'AIzaSyDJhRi36BrDN7X0xREizJghcIpvXWTVEnQ',
+            authDomain: 'xxxx-213c1.firebaseapp.com',
+            databaseURL: 'https://xxxx-213c1.firebaseio.com',
+            projectId: 'xxxx-213c1',
+            storageBucket: 'xxxx-213c1.appspot.com',
+            messagingSenderId: '948885513845'
+          }
+        };
+      </code>
+    </mdbsnippet>
+
+    <p class="description">
+      After configuring the Firebase environment, you should start using it. To do this, open the file
+      <code>app.module.ts</code>,
+      and import two new modules in it: <code>AngularFireModule</code> and <code>AngularFirestoreModule</code>.
+    </p>
+
+    <p class="description">Your <code>app.module.ts</code> file should look like this below:</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="app.module.ts">
+        import { BrowserModule } from '@angular/platform-browser';
+        import { NgModule } from '@angular/core';
+
+        import { AppComponent } from './app.component';
+        import { ServiceWorkerModule } from '@angular/service-worker';
+        import { environment } from '../environments/environment';
+        import { MDBBootstrapModule } from 'angular-bootstrap-md';
+        import {AngularFireModule} from '@angular/fire';
+        import {AngularFirestoreModule} from '@angular/fire/firestore';
+
+        @NgModule({
+          declarations: [
+            AppComponent
+          ],
+          imports: [
+            BrowserModule,
+            ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+            MDBBootstrapModule.forRoot(),
+            AngularFireModule.initializeApp(environment.firebase),
+            AngularFirestoreModule
+          ],
+          providers: [],
+          bootstrap: [AppComponent]
+        })
+        export class AppModule { }
+
+      </code>
+    </mdbsnippet>
+
+    <h4>Creating a Firebase database:</h4>
+
+    <p class="description">Open your Firebase project, and from the left menu select the <strong>Develop</strong> ->
+      <strong>Database</strong> tab (1),
+      and then click the Create Database button and choose test mode.</p>
+
+    <p class="description">After creating the database add new collection by clicking the <strong>"Add
+      collection"</strong> button (2), and
+      choose a name for your collection.</p>
+
+    <img class="img-fluid"
+         src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/new-angular-pwa/imgs/angular-pwa-5.png"
+         alt="Modified files list">
+
+    <p class="description">
+      After setting up the new collection name, we have to define a few data fields in the new document.
+      Let's call it: <code>id: string</code>, <code>time: string</code>, <code>subject: string</code>, <code>location: string</code>,
+      <code>description: string</code>.
+      At this point feel free to fill those fields with some dummy data.
+    </p>
+
+    <p class="description">Your collection in Firebase should look like this:</p>
+
+    <img class="img-fluid"
+         src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/new-angular-pwa/imgs/angular-pwa-5-1.png"
+         alt="Modified files list">
+
+    <h4>Generating the Firebase Service:</h4>
+
+    <p class="description">The last step in this lesson will be to create a service for communication with Firebase. To
+      do this, open the terminal of your application, and then run the following command in it:</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="ng">
+        ng generate service services/Firebase
+      </code>
+    </mdbsnippet>
+
+    <p class="description">Now we should fill our generated service with some logic. Paste the code below into <code>FirebaseService</code>
+      class.</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="FirebaseService">
+        import {Injectable} from '@angular/core';
+        import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+        import {Schedule} from '../app.component';
+
+        @Injectable({
+          providedIn: 'root'
+        })
+        export class FirebaseService {
+          items: AngularFirestoreCollection<Schedule>;
+
+            constructor(private db: AngularFirestore) {
+              this.items = db.collection<Schedule>('Items');
+              }
+
+              addItem(item: any) {
+                this.items.add(item);
+              }
+
+              getData() {
+                return this.items;
+              }
+            }
+
+      </code>
+    </mdbsnippet>
+
+    <p class="description">Let me explain how this service works:
+    <ul>
+      <li>In the constructor we create a field called <code>db</code> of type <code>AngularFirestore</code>, and then in the items field we
+        connect with Firebase and get the Items collection.
+      </li>
+
+      <li>The <code>addItem()</code> method adds a new schedule to the Items collection in Firebase.</li>
+
+      <li>The <code>getData()</code> method returns the items field — thanks to this method we will retrieve data from Firebase.</li>
+    </ul>
+    </p>
+
+    <p class="description">Finally, open the main application module — AppModule — and then add the generated <code>FirebaseService</code>
+      to
+      the provider's array so that we can use it throughout the application.</p>
+
+    <p class="description">At the end of the lesson your <code>app.module.ts</code> file should look like this:</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="ng">
+        import {BrowserModule} from '@angular/platform-browser';
+        import {NgModule} from '@angular/core';
+        import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+        import {AppComponent} from './app.component';
+        import {ScheduleItemComponent} from './schedule-item/schedule-item.component';
+
+        import {MDBBootstrapModule} from 'angular-bootstrap-md';
+        import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+        import { ServiceWorkerModule } from '@angular/service-worker';
+        import { environment } from '../environments/environment';
+        import {AngularFireModule} from '@angular/fire';
+        import {AngularFirestoreModule} from '@angular/fire/firestore';
+        import {FirebaseService} from './services/firebase.service';
+
+        @NgModule({
+          declarations: [
+            AppComponent,
+            ScheduleItemComponent
+          ],
+          imports: [
+            BrowserModule,
+            BrowserAnimationsModule,
+            MDBBootstrapModule.forRoot(),
+            FormsModule,
+            ReactiveFormsModule,
+            ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+            AngularFireModule.initializeApp(environment.firebase),
+            AngularFirestoreModule
+          ],
+          providers: [FirebaseService],
+          bootstrap: [AppComponent]
+        })
+        export class AppModule {
+        }
+
+      </code>
+    </mdbsnippet>
+
+    <p class="description">If something doesn't work for you, then please check the code for this lesson on our <a href="https://github.com/mdbootstrap/MDB-Angular-PWA/tree/5-firebase-integration">repository</a></p>
+  </section>
+
+
+</section>
+<!--Section: Tutorial content-->

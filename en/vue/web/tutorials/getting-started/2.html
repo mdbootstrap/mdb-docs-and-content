@@ -1,0 +1,226 @@
+<div class="vue-tutorial tutorial">
+
+  <p>As we noticed in a previous lesson our <code>App.vue</code> component consisted of <strong>three parts</strong>:</p>
+  <ol>
+    <li>Template</li>
+    <li>Script</li>
+    <li>Style</li>
+  </ol>
+
+  <p>In this lesson, we will take a closer look at each of these.</p>
+
+  <p>First, please replace the content of <code>App.vue</code> file with the following content</p>
+
+  <mdbsnippet>
+      <code data-lang="js" data-name="Vue">
+<template>
+  <div class="app">
+    <h1>This is your first component in Vue</h1>
+    <h3>{{ message }}</h3>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "App",
+  data: () => ({
+    message: "Powered by MDB!"
+  })
+};
+</script>
+
+<style>
+.app {
+  margin: 0 auto;
+  font-family: sans-serif;
+  background-color: #ccf7e2;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 500px;
+}
+</style>
+      </code>
+  </mdbsnippet>
+
+  <p>Save the file and preview. You should get something like this</p>
+  <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/2/preview.png"  alt="Component preview"/>
+
+
+	<h2>1. Template</h2>
+  <h4>1.1 Single root element</h4>
+  <p>This part of the component is responsible for <strong>rendering its view</strong>. As you notice we use HTML inside. <strong>One important thing to remember</strong> is that the content inside should <strong>contain only a single root element</strong>. In other words - it should always be wrapped with some placeholder (i.e. <mark>div</mark>). </p>
+
+  <p>If we try to render two tags next to each other, the compiler will complain.</p>
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/2/1root.gif"  alt="2 root elements cause an error"/>
+
+  <h4>1.2 Mustache string interpolation </h4>
+  <p>The other interesting and possibly new to you element is the <mark>{{ message }}</mark> heading.</p>
+
+  <p>This is so-called "<i>Mustache</i>" syntax (double curly braces). This<strong> text interpolation is the most basic form of data binding</strong>. As you may notice, the <mark>message</mark> variable is dynamically replaced by the string assigned to the <mark>message</mark> variable inside the <mark>data</mark> function within <code>script</code> part.</p>
+
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/2/mustache.png"  alt="Text interpolation"/>
+
+<h4>Using JavaScript Expressions</h4>
+
+<p>So far we’ve only been binding to simple property keys in our templates. But Vue.js actually <strong>supports the full power of JavaScript expressions inside all data bindings</strong>. For example the code below:</p>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue">
+    <ul>
+      <li>{{ number + 1 }}</li>
+      <li>Value of ok var is: + {{ ok ? 'true' : 'false' }}</li>
+      <li>{{ message.split('').reverse().join('') }}</li>
+    </ul>
+
+    [...]
+
+  data: () => ({
+    message: "Powered by MDB!",
+    number: 5,
+    ok: true
+  })
+    </code>
+</mdbsnippet>
+
+<p>Runnint the above will result in: </p>
+
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/2/jsexpression.png"  alt="JS expression"/>
+
+<!-- TODO v-if v-for -->
+
+<h2>2. Script</h2>
+
+<p>This part of the code is important for each component for a few reasons. It's a place where:</p>
+
+<ol>
+  <li>we can export our component (and define its name) so that we can <strong>use it in other components</strong></li>
+  <li>we have to list external components <strong>before we are be able to use them within our component</strong> </li>
+  <li>we define attributes (variables) their values</li>
+  <li>we define JavaScript functions used within a component</li>
+</ol>
+
+<p>We will study the first and second point in details in the next lesson where we will learn <strong>how to export and import components</strong> within Vue. For now, let's have a closer look at points three and four.</p>
+
+<h3>2.1 Attributes</h3>
+
+<p>As you already seen in a previous lesson, we can define variables inside the <mark>data</mark> function so we can use them inside our template part:</p>
+
+<p>We can use them as part of our logic, for example:</p>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue - template">
+<span v-if="visible">Now you see me</span>
+    </code>
+</mdbsnippet>
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue - script">
+  data: () => ({
+    message: "Powered by MDB!",
+    visible: true
+  })
+    </code>
+</mdbsnippet>
+
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/2/visible.png"  alt="Visible "/>
+
+<p>Or as placeholders for our data (which can be directly modified using functions):</p>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue - template">
+    <ol>
+      <li v-for="todo in todos">{{ todo.text }}</li>
+    </ol>
+    </code>
+</mdbsnippet>
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue - script">
+  data: () => ({
+    todos: [
+      { text: "Learn JavaScript" },
+      { text: "Learn Vue" },
+      { text: "Build something awesome" }
+    ]
+  })
+    </code>
+</mdbsnippet>
+
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/2/todos.png"  alt="Todos "/>
+
+
+<h3>2.2 Functions</h3>
+
+<p>As you already know, we can do quite a lot of JS inside template sections using Mustache interpolation. Though, in-template expressions are very convenient, <strong>they are meant for simple operations</strong>. Putting too much logic in your templates can <strong>make them bloated and hard to maintain</strong>. For example:</p>
+
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue - template">
+<li>{{ message.split('').reverse().join('') }}</li>
+    </code>
+</mdbsnippet>
+
+<p>At this point, the template is no longer simple and declarative. <strong>You have to look at it for a second</strong> before realizing that it displays the <mark>message</mark> in reverse. The problem is made worse when you want to include the reversed <mark>message</mark> in your template more than once.
+
+</p>
+
+<p>That’s why for any complex logic, you should use functions and return final result.</p>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue (template)">
+<p>Original message: "{{ message }}"</p>
+<p>Computed reversed message: "{{ reversedMessage }}"</p>
+    </code>
+</mdbsnippet>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue (script)">
+export default {
+  name: "App",
+  data: () => ({
+    message: "Powered by MDB!",
+  }),
+  computed: {
+    // a computed getter
+    reversedMessage: function() {
+      // `this` points to the vm instance
+      return this.message
+        .split("")
+        .reverse()
+        .join("");
+    }
+  }
+};
+    </code>
+</mdbsnippet>
+
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/2/computed.png"  alt="Computed "/>
+
+<p>As you can see we can use double culry braces (mustache interpolation) not only to return value of a variable but also to <strong>call functions defined withing script part</strong>.</p>
+
+<h2>3. Styles</h2>
+
+
+<p>Last but not least is our CSS part. This section is quite self-descriptive. It's meant to store all the styles used by the component. <strong>What is important is that styles can be scoped</strong>. </p>
+
+<p>This means that if you use a style like that below:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (script)">
+<style>
+div[class*=" col"] {
+  border: 1px dotted black;
+}
+</style>
+  </code>
+</mdbsnippet>
+
+<p>...this style <strong>will be applied to any div within the entire website</strong>. It will be global. If you want to narrow its scope to divs within our component only, you can add the <mark>scoped</mark> option:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (script)">
+<style scoped>
+...
+</style>
+  </code>
+</mdbsnippet>
+
+</div>

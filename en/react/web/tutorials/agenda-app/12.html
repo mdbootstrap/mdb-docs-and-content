@@ -1,0 +1,310 @@
+
+  <p>In this lesson, we will learn <b>how to deal with Inputs</b>. Inputs are very widely used components in web
+    development. We use them everywhere. Starting from login forms, newsletter subscription forms, a new post editor, app configuration etc. </p>
+
+    <ol>
+    <li>
+      <div>Import <mark>MDBInputs</mark> — make sure that you have imported the following components from the <mark>mdbreact</mark> library:</div>
+    </li>
+  </ol>
+  <mdbsnippet>
+        <code data-lang="php" data-name="JSX">
+                import {
+                    ...
+                    MDBInput,
+                    ...
+                  } from "mdbreact";
+                  
+        </code>
+    </mdbsnippet>
+  <ol start="2">
+    <li>
+      <div>Add the following to store input values within a state: </div>
+    </li>
+  </ol>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            handleInputChange = inputName => value => {
+                const nextValue = value;
+                this.setState({
+                  [inputName]: nextValue
+                });
+              };
+              
+     </code>
+ </mdbsnippet>
+  <p>Every time we update the value of an input, it will update the corresponding variable within our state object. We will see that in a minute.</p>
+  <ol start="3">
+    <li>
+      <div>Add Inputs to our form inside the Modal Body:</div>
+    </li>
+  </ol>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            <MDBModalBody>
+                  <form className="mx-3 grey-text">
+                      <MDBInput
+                        name="time"
+                        label="Time"
+                        icon="clock"
+                        hint="12:30"
+                        group
+                        type="text"
+                        getValue={this.handleInputChange("time")}
+                      />
+                      <MDBInput
+                        name="title"
+                        label="Title"
+                        icon="edit"
+                        hint="Briefing"
+                        group
+                        type="text"
+                        getValue={this.handleInputChange("title")}
+                      />
+                      <MDBInput
+                        name="location"
+                        label="Location (optional)"
+                        icon="map"
+                        group
+                        type="text"
+                        getValue={this.handleInputChange("location")}
+                      />
+                      <MDBInput
+                        name="description"
+                        label="Description (optional)"
+                        icon="sticky-note"
+                        group
+                        type="textarea"
+                        getValue={this.handleInputChange("description")}
+                      />
+                    </form>
+                  </MDBModalBody>
+                  
+      </code>
+  </mdbsnippet>
+  <p>Now we can run our app. When you open the Add event modal you will see our inputs. </p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/12/image.png" alt="Inputs preview" /><br /></div>
+  <div><br /></div>
+  <p>Let's check how the <mark>handleInputChange()</mark> functions works. Let's print to console our state object every time this function is called. So, let's add  thefollowing code to the function body:</p>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            handleInputChange = inputName => value => {
+                [...]
+                console.log(this.state);
+                };
+                      </code>
+  </mdbsnippet>
+  <div>Preview:</div>
+  <div><br /></div>
+  <div><span style="font-family: Consolas;"> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/12/handleInputChange.gif"  alt="Console log demo" /><br /></span></div>
+  <div><br /></div>
+  <p>Every time we update a value of any of the inputs,<b> it's value is added to the <mark>state</mark> variable so we can use it when our form is be submitted.</b> </p>
+  <p>Since we have all of the inputs handled, let's remove <mark>console.log()</mark> and move to the last steps — to submit the form and add a new item to the list. </caption>
+  <ol start="4">
+    <li>
+      <div>Add new function in our <mark>App class</mark>: </div>
+    </li>
+  </ol>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            addEvent = () => {
+                var newArray = [...this.state.events];
+                newArray.push({
+                  id: newArray.length ? newArray[newArray.length - 1].id + 1 : 1,
+                  time: this.state.time,
+                  title: this.state.title,
+                  location: this.state.location,
+                  description: this.state.description,
+                  value: this.var > 5 ? "Its's grater then 5" : "Its lower or equal 5"
+                });
+                this.setState({ events: newArray });
+                this.setState({
+                  time: "",
+                  title: "",
+                  location: "",
+                  description: ""
+                });
+              };
+            
+     </code>
+ </mdbsnippet>
+  <p>4.1 As we already know,<b> we are not supposed to change the value of the state directly</b>.
+    Therefore we will create a copy of the existing events array: </p>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            var newArray = [...this.state.events];
+      </code>
+  </mdbsnippet>
+  <div>This is a short way of copying arrays in react. </div>
+  <div><br /></div>
+  <p>4.2 Once we have our new array, we will add a new item to it using <mark>push()</mark>. The new element should have a unique id.
+    For now,  we can assume that ids are always equal to the position in array, therefore:</p>
+  <div style="margin-left: 40px;"> </div>
+  <div style="margin-left: 40px;">a) First, we will check if the array exists:</div>
+  <div style="margin-left: 40px;"><br /></div>
+  <div style="background-color: rgb(30, 30, 30); font-size: 14px;  margin-left: 40px;"><span style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">newArray</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">.</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">length</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">?</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /></div>
+  <div style="margin-left: 40px;"><span style="font-size: 14px; font-family: Consolas;"><br /></span></div>
+  <div style="margin-left: 40px;">b) If it exists (it has some elements, therefore the length of the array will be greater
+    than 0), we will find the last element in the array:</div>
+  <div style="margin-left: 40px;"><br /></div>
+  <div style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; margin-left: 40px;"><span style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">newArray</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">[</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">newArray</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">.</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">length</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">-</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(181, 206, 168); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">1</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">]</span></div>
+  <div style="margin-left: 40px;"><span style="font-size: 14px; font-family: Consolas;"> </span></div>
+  <div style="margin-left: 40px;">  get its id value, and increase by 1: </div>
+  <div style="margin-left: 40px;"><br /></div>
+  <div style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; margin-left: 40px;"><span style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">newArray</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">[</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">newArray</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">.</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">length</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">-</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(181, 206, 168); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">1</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">].</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">id</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">+</span><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="background-color: rgb(30, 30, 30); font-size: 14px; white-space: pre; color: rgb(181, 206, 168); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">1</span></div>
+  <div style="margin-left: 40px;"><span style="font-size: 14px; font-family: Consolas;"><br /></span></div>
+  <div style="margin-left: 40px;">c) In case our array doesn't exist (<mark>newArray.length = 0</mark>) we know that new element
+    will be the first one so we will give it an id: 1</div>
+  <div><br /></div>
+  <div>This is a so-called <b>ternary operator</b> often used in JS. The structure might be confusing, however, it's very
+    handy and simple: </div>
+    <mdbsnippet>
+        <code data-lang="php" data-name="JSX">
+                (condition to be checked) ? (resolve if true) : (resolve if false) 
+        </code>
+    </mdbsnippet>
+  <div><br /></div>
+  <div style="margin-left: 40px;">Example: </div>
+  <div style="margin-left: 40px;"><span style="font-size: 14px; font-family: Consolas;"><br /></span></div>
+  <div style="background-color: rgb(30, 30, 30); font-size: 14px;  margin-left: 40px;"><span style="font-size: 14px; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">value:</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="font-size: 14px; color: rgb(86, 156, 214); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">this</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">.</span><span
+      style="font-size: 14px; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">var</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">&gt;</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="font-size: 14px; color: rgb(181, 206, 168); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">5</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">?</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="font-size: 14px; color: rgb(206, 145, 120); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">"Its's
+      grater then 5"</span><span style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">:</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="font-size: 14px; color: rgb(206, 145, 120); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">"Its
+      lower or equal 5"</span></div>
+  <div style="margin-left: 40px;"><span style="font-size: 14px;"><br /></span></div>
+  <div style="margin-left: 40px;">which is equivalent to the more readable version below: </div>
+  <div style="margin-left: 40px;"><br /></div>
+  <div style="background-color: rgb(30, 30, 30); font-size: 14px;  margin-left: 40px;"><span style="font-size: 14px; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">value:</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">
+      (</span><span style="font-size: 14px; color: rgb(86, 156, 214); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">this</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">.</span><span
+      style="font-size: 14px; color: rgb(156, 220, 254); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">var</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">&gt;</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;" /><span
+      style="font-size: 14px; color: rgb(181, 206, 168); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">5</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">)
+    </span><span style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">?</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">
+      (</span><span style="font-size: 14px; color: rgb(206, 145, 120); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">"Its's
+      grater then 5"</span><span style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">)
+    </span><span style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">:</span><span
+      style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">
+      (</span><span style="font-size: 14px; color: rgb(206, 145, 120); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">"Its
+      lower or equal 5"</span><span style="font-size: 14px; color: rgb(212, 212, 212); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px;">)</span></div>
+  <div style="margin-left: 40px;"><span style="font-size: 14px;"><br /></span></div>
+  <div style="margin-left: 40px;">So depending on <mark>this.var</mark>, value will assigned one of the strings.</div>
+  <div><br /></div>
+  <div>4.3 Then, after we are done with the calculation of the correct id,<b> we assign the new values which were previously stored using <mark>handleInputChange()</mark> function and update our events array using the <mark>setState()</mark> method.</b></div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            this.setState({ events: newArray });
+     </code>
+ </mdbsnippet>
+  <div>4.4 Finally, we have to clear our temporary variables (time, subject, location, and description) — otherwise, they will be re-used again when we call the function to add the second event. In other words. If we add the first event containing a description and second event without description, it would add the description to both events since the temporary variable wasn't
+    reset.</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            this.setState({
+                time: "",
+                subject: "",
+                location: "",
+                description: ""
+              });
+          
+     </code>
+ </mdbsnippet>
+  <ol start="5">
+    <li>
+      <div>Call the <mark>addEvent()</mark> function on form submit. </div>
+    </li>
+  </ol>
+  <div>The last step in this tutorial is to submit our form. Let's add a button to our Modal Footer:</div>
+<mdbsnippet>
+  <code data-lang="php" data-name="JSX">
+      <MDBModalFooter className="justify-content-center">
+          <MDBBtn
+            color="info"
+            onClick={() => {
+              this.toggleModal();
+              this.addEvent();
+            }}
+          >
+            Add
+          </MDBBtn>
+        </MDBModalFooter>
+  </code>
+</mdbsnippet>
+  <div>And Voila! We have just created from scratch our app from lesson 2. </div>
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/12/addNewEvent.gif" alt="Add new event preview" /><br /></div>
+  <div><br /></div>
+  <div>Our app is done, however, there are still a few more things which we should do:</div>
+  <ul>
+    <li>
+      <div>change the type of the event properties (i.e. switch time to JS Date instead of string)</div>
+    </li>
+    <li>
+      <div>split our app into functional components (multiple files)</div>
+    </li>
+    <li>
+      <div>call an external API to get a real weather forecast </div>
+    </li>
+    <li>
+      <div>add validation to our form (make sure that the user fills in all mandatory data)</div>
+    </li>
+    <li>
+      <div>handle duplicates</span></div>
+    </li>
+  </ul>
+ <p>and  a some more interesting stuff. We will learn all about this in Part 2 of our tutorial. </p>
+
+ <p>If you want to be notified as soon as second part of the tutorial will be released you can subscribe to our <a href="https://mdbootstrap.com/react/newsletter">newsletter</a>.</p>
+
+ <p class="note note-warning"><strong>Important!</strong> <br /> 
+ I am very happy that you reached this far. I would like to thank you and <strong>ask you for a small favor</strong>. If you didn't rate the previous lesson yet please either spend a few minutes and rate them or rate this lesson (as a summary of the entire tutorial) <strong>using the stars below</strong>.  <br /> <br />
+
+ <strong>Your feedback is very important to us!</strong> Once you vote (<strong>it's just a single click!</strong>) there will be an optional form which lets you leave a comment to us. Please let us know what you liked and what you didn't like so to help us make the later tutorials even better!
+ </p>

@@ -1,0 +1,225 @@
+<!--Section: Intro-->
+<section id="introduction">
+    <h2 class="primary-heading">Angular Bootstrap auto format inputs</h2>
+    <h1 class="secondary-heading mb-4">Angular Auto Format Inputs - Bootstrap 4 & Material Design</h1>
+
+    <p>Angular Bootstrap auto format inputs is a collection of directives which can be used to format inputs automatically as the user type.</p>
+
+    <p>Check following live examples to see how you can use our directives in your project:</p>
+
+    <a href="https://ng-demo.mdbootstrap.com/forms/auto-format-input/" class="btn btn-primary mt-4 waves-effect waves-light" role="button">
+      Live preview
+      <i class="far fa-eye ml-2"></i>
+    </a>
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section: Credit Card Number-->
+<section id="credit-card">
+    <h2 class="section-heading">
+      Credit card number
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm"
+      role="button">MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+    <p>Use <code>mdbCreditCard</code> directive to add credit card number formatting to an input. The directive support six card types by default: Visa, MasterCard, Dinners Club, JCB, Discover and American Express. You can add more card types programatically or by using <code>[additionalCard]</code> input. Check API section for more details</p>
+
+    <!--Section: Code-->
+    <section>
+    <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+<div class="row">
+  <div class="col-md-10">
+    <div class="md-form">
+      <input mdbInput mdbCreditCard #card="mdbCreditCard" id="form1" class="form-control" type="text">
+      <label for="form1" class="">Card Number</label>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+    <div class="d-flex align-items-center">
+      <i *ngIf="!card.cardName" class="fas fa-4x fa-credit-card"></i>
+      <i *ngIf="card.cardName" class="fab fa-4x fa-cc-{{card.cardName}}"></i>
+    </div>
+  </div>
+</div>
+        </code>
+    </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+    <hr class="my-5">
+
+    <!--Subheading-->
+    <h3 id="add-cards" class="secondary-heading">Add cards programatically</h3>
+
+    <!--Description-->
+    <p>Use <code>@ViewChild</code> decorator to get access to the <code>mdbCreditCard</code> directive in your typescript file, then pass array of new card types to the <code>addCards</code> method.</p>
+
+        <!--Section: Code-->
+    <section>
+    <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+    <div class="md-form">
+      <input mdbInput mdbCreditCard #card="mdbCreditCard" id="form1" class="form-control" type="text">
+      <label for="form1" class="">Card Number</label>
+    </div>
+        </code>
+
+        <code>
+            <code data-lang="js" data-name="TypeScript">
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { MdbCreditCardDirective } from '../lib/ng-uikit-pro-standard/pro/date-format/mdb-credit-card.directive';
+
+@Component({
+  selector: 'add-cards',
+  templateUrl: './add-cards.component.html',
+})
+export class AddCardsComponent implements OnInit {
+  @ViewChild('card') cardInput: MdbCreditCardDirective;
+
+  additionalCards = [
+    {
+      name: 'myNewCard',
+      fullName: 'My New Card',
+      re: /^9[47]\d{0,13}/,
+      pattern: /(\d{1,4})/g,
+      maxLength: 19,
+      cvvLength: 4
+    },
+    {
+      name: 'myNewCard1',
+      fullName: 'My New Card 1',
+      re: /^(?:39\d{0,2})\d{0,12}/,
+      pattern: /(\d{1,4})(\d{1,6})?(\d{1,5})?/,
+      maxLength: 16,
+      cvvLength: 3
+    },
+  ];
+
+  ngOnInit() {
+    this.cardInput.addCards(this.additionalCards);
+  }
+}
+            </code>
+        </code>
+    </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+
+    <hr class="my-5">
+
+    <!--Subheading-->
+    <h3 id="add-cards-input" class="secondary-heading">Add cards using input</h3>
+
+    <!--Description-->
+    <p>Pass array of cards objects to <code>[additionalCards]</code> input to update the <code>mdbCreditCard</code> directive with new credit card types.</p>
+
+    <!--Section: Code-->
+    <section>
+    <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+    <div class="md-form">
+      <input mdbInput mdbCreditCard [additionalCard]="additionalCards" id="form1" class="form-control" type="text">
+      <label for="form1" class="">Card Number</label>
+    </div>
+        </code>
+
+        <code>
+            <code data-lang="js" data-name="TypeScript">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'add-cards-input',
+  templateUrl: './add-cards-input.component.html',
+})
+export class AddCardsInputComponent {
+
+  additionalCards = [
+    {
+      name: 'myNewCard',
+      fullName: 'My New Card',
+      re: /^9[47]\d{0,13}/,
+      pattern: /(\d{1,4})/g,
+      maxLength: 19,
+      cvvLength: 4
+    },
+    {
+      name: 'myNewCard1',
+      fullName: 'My New Card 1',
+      re: /^(?:39\d{0,2})\d{0,12}/,
+      pattern: /(\d{1,4})(\d{1,6})?(\d{1,5})?/,
+      maxLength: 16,
+      cvvLength: 3
+    },
+  ];
+}
+            </code>
+        </code>
+    </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+</section>
+<!--.Section: Credit Card Number-->
+
+<hr class="my-5">
+
+<!--Section: CVV-->
+<section id="cvv">
+    <h2 class="section-heading">
+      Credit card CVV
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm"
+      role="button">MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <p>Use <code>mdbCvv</code> directive to add CVV number formatting to an input.</p>
+
+    <!--Section: Code-->
+    <section>
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+                <div class="md-form">
+                    <input mdbInput mdbCvv id="form3" class="form-control" type="text">
+                    <label for="form3" class="">CVV</label>
+                </div>
+            </code>
+        </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+</section>
+<!--/Section: CVV-->
+
+<hr class="my-5">
+
+<!--Section: Date-->
+<section id="date">
+    <h2 class="section-heading">
+      Date
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm"
+      role="button">MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <p>Use <code>mdbDateFormat</code> directive to add date formatting to an input element. Add <code>[format]</code> input to choose formatting pattern and <code>[separator]</code> input to change a string that appears between parts of the formatted date.</p>
+
+    <!--Section: Code-->
+    <section>
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+                <div class="md-form">
+                  <input mdbInput mdbDateFormat id="form4" class="form-control" type="text">
+                  <label for="form4" class="">Date format</label>
+                </div>
+            </code>
+        </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+</section>
+<!--/Section: Date-->

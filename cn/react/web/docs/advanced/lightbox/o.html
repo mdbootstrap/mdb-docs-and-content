@@ -1,0 +1,3000 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">React Bootstrap LightBox <a href="https://mdbootstrap.com/products/react-ui-kit/"
+      target="_blank" class="btn btn-danger btn-sm" role="button">MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a></h2>
+
+  <h1 class="secondary-heading mb-4">React Lightbox - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p>React Bootstrap lightbox is a group of images combined in one responsive gallery. Elements are grouped in
+    thumbnail
+    grid, which can be displayed as a slideshow.</p>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="basic-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic example
+  </h2>
+
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="mdb-lightbox-ui"></div>
+        <div class="mdb-lightbox no-margin">
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(117).jpg" class="img-fluid">
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(98).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(98).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(131).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(131).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(123).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(123).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(118).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(118).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(128).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(128).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(132).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(132).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(115).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(115).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(133).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(133).jpg" class="img-fluid" />
+            </a>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import Lightbox from "react-image-lightbox";
+        import "./Lightbox.css";
+
+        class LightboxPage extends React.Component {
+        state = {
+          photoIndex: 0,
+          isOpen: false,
+          images: [
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg',
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(98).jpg',
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(131).jpg',
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(123).jpg',
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(118).jpg',
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(128).jpg',
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(132).jpg',
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(115).jpg',
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(133).jpg'
+          ]
+        }
+
+        renderImages = () => {
+          let photoIndex = -1;
+          const { images } = this.state;
+
+        return images.map(imageSrc => {
+          photoIndex++;
+          const privateKey = photoIndex;
+          return (
+            <MDBCol md="4" key={photoIndex}>
+              <figure>
+                <img src={imageSrc} alt="Gallery" className="img-fluid" onClick={()=>
+                this.setState({ photoIndex: privateKey, isOpen: true })
+                }
+                />
+              </figure>
+            </MDBCol>
+            );
+          })
+        }
+
+        render() {
+        const { photoIndex, isOpen, images } = this.state;
+          return (
+              <MDBContainer className="mt-5">
+                <div className="mdb-lightbox no-margin">
+                  <MDBRow>
+                    {this.renderImages()}
+                  </MDBRow>
+                </div>
+                {isOpen && (
+                <Lightbox
+                  mainSrc={images[photoIndex]}
+                  nextSrc={images[(photoIndex + 1) % images.length]}
+                  prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                  imageTitle={photoIndex + 1 + "/" + images.length}
+                  onCloseRequest={() => this.setState({ isOpen: false })}
+                  onMovePrevRequest={() =>
+                    this.setState({
+                      photoIndex: (photoIndex + images.length - 1) % images.length
+                    })
+                  }
+                  onMoveNextRequest={() =>
+                    this.setState({
+                      photoIndex: (photoIndex + 1) % images.length
+                    })
+                    }
+                  />
+                )}
+              </MDBContainer>
+            );
+          }
+        }
+
+        export default LightboxPage;
+      </code>
+      <code data-lang="CSS" data-name="CSS">
+        @-webkit-keyframes closeWindow {
+        0% {
+        opacity: 1;
+        }
+        100% {
+        opacity: 0;
+        }
+        }
+
+        @keyframes closeWindow {
+        0% {
+        opacity: 1;
+        }
+        100% {
+        opacity: 0;
+        }
+        }
+
+        .ril__outer {
+        background-color: rgba(0, 0, 0, 0.85);
+        outline: none;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 100%;
+        -ms-content-zooming: none;
+        -ms-user-select: none;
+        -ms-touch-select: none;
+        -ms-touch-action: none;
+        touch-action: none;
+        }
+
+        .ril__outerClosing {
+        opacity: 0;
+        }
+
+        .ril__inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        }
+
+        .ril__image,
+        .ril__imagePrev,
+        .ril__imageNext {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        max-width: none;
+        -ms-content-zooming: none;
+        -ms-user-select: none;
+        -ms-touch-select: none;
+        -ms-touch-action: none;
+        touch-action: none;
+        }
+
+        .ril__imageDiscourager {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        }
+
+        .ril__navButtons {
+        border: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+        height: 34px;
+        padding: 40px 30px;
+        margin: auto;
+        cursor: pointer;
+        opacity: 0.7;
+        }
+        .ril__navButtons:hover {
+        opacity: 1;
+        }
+        .ril__navButtons:active {
+        opacity: 0.7;
+        }
+
+        .ril__navButtonPrev {
+        left: 0;
+        background: rgba(0, 0, 0, 0.2)
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDE5LDMgLTIsLTIgLTE2LDE2IDE2LDE2IDEsLTEgLTE1LC0xNSAxNSwtMTUgeiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==')
+        no-repeat center;
+        }
+
+        .ril__navButtonNext {
+        right: 0;
+        background: rgba(0, 0, 0, 0.2)
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDEsMyAyLC0yIDE2LDE2IC0xNiwxNiAtMSwtMSAxNSwtMTUgLTE1LC0xNSB6IiBmaWxsPSIjRkZGIi8+PC9zdmc+')
+        no-repeat center;
+        }
+
+        .ril__downloadBlocker {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+        background-size: cover;
+        }
+
+        .ril__caption,
+        .ril__toolbar {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        }
+
+        .ril__caption {
+        bottom: 0;
+        max-height: 150px;
+        overflow: auto;
+        }
+
+        .ril__captionContent {
+        padding: 10px 20px;
+        color: #fff;
+        }
+
+        .ril__toolbar {
+        top: 0;
+        height: 50px;
+        }
+
+        .ril__toolbarSide {
+        height: 50px;
+        margin: 0;
+        }
+
+        .ril__toolbarLeftSide {
+        padding-left: 20px;
+        padding-right: 0;
+        -webkit-box-flex: 0;
+        -ms-flex: 0 1 auto;
+        flex: 0 1 auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        }
+
+        .ril__toolbarRightSide {
+        padding-left: 0;
+        padding-right: 20px;
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        }
+
+        .ril__toolbarItem {
+        display: inline-block;
+        line-height: 50px;
+        padding: 0;
+        color: #fff;
+        font-size: 120%;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        }
+
+        .ril__toolbarItemChild {
+        vertical-align: middle;
+        }
+
+        .ril__builtinButton {
+        width: 40px;
+        height: 35px;
+        cursor: pointer;
+        border: none;
+        opacity: 0.7;
+        }
+        .ril__builtinButton:hover {
+        opacity: 1;
+        }
+        .ril__builtinButton:active {
+        outline: none;
+        }
+
+        .ril__builtinButtonDisabled {
+        cursor: default;
+        opacity: 0.5;
+        }
+        .ril__builtinButtonDisabled:hover {
+        opacity: 0.5;
+        }
+
+        .ril__closeButton {
+        background:
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIj48cGF0aCBkPSJtIDEsMyAxLjI1LC0xLjI1IDcuNSw3LjUgNy41LC03LjUgMS4yNSwxLjI1IC03LjUsNy41IDcuNSw3LjUgLTEuMjUsMS4yNSAtNy41LC03LjUgLTcuNSw3LjUgLTEuMjUsLTEuMjUgNy41LC03LjUgLTcuNSwtNy41IHoiIGZpbGw9IiNGRkYiLz48L3N2Zz4=')
+        no-repeat center;
+        }
+
+        .ril__zoomInButton {
+        background:
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PHBhdGggZD0iTTEyIDV2NiIvPjwvZz48Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')
+        no-repeat center;
+        }
+
+        .ril__zoomOutButton {
+        background:
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PC9nPjxjaXJjbGUgY3g9IjEyIiBjeT0iOCIgcj0iNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')
+        no-repeat center;
+        }
+
+        .ril__outerAnimating {
+        -webkit-animation-name: closeWindow;
+        animation-name: closeWindow;
+        }
+
+        @-webkit-keyframes pointFade {
+        0%,
+        19.999%,
+        100% {
+        opacity: 0;
+        }
+        20% {
+        opacity: 1;
+        }
+        }
+
+        @keyframes pointFade {
+        0%,
+        19.999%,
+        100% {
+        opacity: 0;
+        }
+        20% {
+        opacity: 1;
+        }
+        }
+
+        .ril__loadingCircle {
+        width: 60px;
+        height: 60px;
+        position: relative;
+        }
+
+        .ril__loadingCirclePoint {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        }
+        .ril__loadingCirclePoint::before {
+        content: '';
+        display: block;
+        margin: 0 auto;
+        width: 11%;
+        height: 30%;
+        background-color: #fff;
+        border-radius: 30%;
+        -webkit-animation: pointFade 800ms infinite ease-in-out both;
+        animation: pointFade 800ms infinite ease-in-out both;
+        }
+        .ril__loadingCirclePoint:nth-of-type(1) {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(7) {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(1)::before,
+        .ril__loadingCirclePoint:nth-of-type(7)::before {
+        -webkit-animation-delay: -800ms;
+        animation-delay: -800ms;
+        }
+        .ril__loadingCirclePoint:nth-of-type(2) {
+        -webkit-transform: rotate(30deg);
+        transform: rotate(30deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(8) {
+        -webkit-transform: rotate(210deg);
+        transform: rotate(210deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(2)::before,
+        .ril__loadingCirclePoint:nth-of-type(8)::before {
+        -webkit-animation-delay: -666ms;
+        animation-delay: -666ms;
+        }
+        .ril__loadingCirclePoint:nth-of-type(3) {
+        -webkit-transform: rotate(60deg);
+        transform: rotate(60deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(9) {
+        -webkit-transform: rotate(240deg);
+        transform: rotate(240deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(3)::before,
+        .ril__loadingCirclePoint:nth-of-type(9)::before {
+        -webkit-animation-delay: -533ms;
+        animation-delay: -533ms;
+        }
+        .ril__loadingCirclePoint:nth-of-type(4) {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(10) {
+        -webkit-transform: rotate(270deg);
+        transform: rotate(270deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(4)::before,
+        .ril__loadingCirclePoint:nth-of-type(10)::before {
+        -webkit-animation-delay: -400ms;
+        animation-delay: -400ms;
+        }
+        .ril__loadingCirclePoint:nth-of-type(5) {
+        -webkit-transform: rotate(120deg);
+        transform: rotate(120deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(11) {
+        -webkit-transform: rotate(300deg);
+        transform: rotate(300deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(5)::before,
+        .ril__loadingCirclePoint:nth-of-type(11)::before {
+        -webkit-animation-delay: -266ms;
+        animation-delay: -266ms;
+        }
+        .ril__loadingCirclePoint:nth-of-type(6) {
+        -webkit-transform: rotate(150deg);
+        transform: rotate(150deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(12) {
+        -webkit-transform: rotate(330deg);
+        transform: rotate(330deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(6)::before,
+        .ril__loadingCirclePoint:nth-of-type(12)::before {
+        -webkit-animation-delay: -133ms;
+        animation-delay: -133ms;
+        }
+        .ril__loadingCirclePoint:nth-of-type(7) {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(13) {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+        }
+        .ril__loadingCirclePoint:nth-of-type(7)::before,
+        .ril__loadingCirclePoint:nth-of-type(13)::before {
+        -webkit-animation-delay: 0ms;
+        animation-delay: 0ms;
+        }
+
+        .ril__loadingContainer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        }
+        .ril__imagePrev .ril__loadingContainer,
+        .ril__imageNext .ril__loadingContainer {
+        display: none;
+        }
+
+        .ril__errorContainer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        color: #fff;
+        }
+        .ril__imagePrev .ril__errorContainer,
+        .ril__imageNext .ril__errorContainer {
+        display: none;
+        }
+
+        .ril__loadingContainer__icon {
+          color: #fff;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: exmaple-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="lightbox-margins">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Gallery with margins
+  </h2>
+
+  <!-- Description -->
+  <p class="description">Remove <code>.no-margin</code> class to add a margins to your images.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <div id="mdb-lightbox-ui"></div>
+
+        <div class="mdb-lightbox">
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(145).jpg" class="img-fluid">
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(150).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(152).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(42).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(151).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(40).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(148).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(147).jpg" class="img-fluid" />
+            </a>
+          </figure>
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(149).jpg" class="img-fluid" />
+            </a>
+          </figure>
+
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JSX">
+          import React from "react";
+          import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+          import Lightbox from "react-image-lightbox";
+          import "./Lightbox.css";
+
+          class LightboxPage extends React.Component {
+          state = {
+            photoIndex: 0,
+            isOpen: false,
+            images: [
+              'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg'
+            ]
+          }
+
+          renderImages = () => {
+            let photoIndex = -1;
+            const { images } = this.state;
+
+          return images.map(imageSrc => {
+            photoIndex++;
+            const privateKey = photoIndex;
+            return (
+              <MDBCol md="4" key={photoIndex}>
+                <figure>
+                  <img src={imageSrc} alt="Gallery" className="img-fluid" onClick={()=>
+                  this.setState({ photoIndex: privateKey, isOpen: true })
+                  }
+                  />
+                </figure>
+              </MDBCol>
+              );
+            })
+          }
+
+          render() {
+          const { photoIndex, isOpen, images } = this.state;
+            return (
+                <MDBContainer className="mt-5">
+                  <div className="mdb-lightbox">
+                    <MDBRow>
+                      {this.renderImages()}
+                    </MDBRow>
+                  </div>
+                  {isOpen && (
+                  <Lightbox
+                    mainSrc={images[photoIndex]}
+                    nextSrc={images[(photoIndex + 1) % images.length]}
+                    prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                    imageTitle={photoIndex + 1 + "/" + images.length}
+                    onCloseRequest={() => this.setState({ isOpen: false })}
+                    onMovePrevRequest={() =>
+                      this.setState({
+                        photoIndex: (photoIndex + images.length - 1) % images.length
+                      })
+                    }
+                    onMoveNextRequest={() =>
+                      this.setState({
+                        photoIndex: (photoIndex + 1) % images.length
+                      })
+                      }
+                    />
+                  )}
+                </MDBContainer>
+              );
+            }
+          }
+
+          export default LightboxPage;
+        </code>
+      <code data-lang="CSS" data-name="CSS">
+          @-webkit-keyframes closeWindow {
+          0% {
+          opacity: 1;
+          }
+          100% {
+          opacity: 0;
+          }
+          }
+
+          @keyframes closeWindow {
+          0% {
+          opacity: 1;
+          }
+          100% {
+          opacity: 0;
+          }
+          }
+
+          .ril__outer {
+          background-color: rgba(0, 0, 0, 0.85);
+          outline: none;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 1000;
+          width: 100%;
+          height: 100%;
+          -ms-content-zooming: none;
+          -ms-user-select: none;
+          -ms-touch-select: none;
+          -ms-touch-action: none;
+          touch-action: none;
+          }
+
+          .ril__outerClosing {
+          opacity: 0;
+          }
+
+          .ril__inner {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          }
+
+          .ril__image,
+          .ril__imagePrev,
+          .ril__imageNext {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          margin: auto;
+          max-width: none;
+          -ms-content-zooming: none;
+          -ms-user-select: none;
+          -ms-touch-select: none;
+          -ms-touch-action: none;
+          touch-action: none;
+          }
+
+          .ril__imageDiscourager {
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          }
+
+          .ril__navButtons {
+          border: none;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 20px;
+          height: 34px;
+          padding: 40px 30px;
+          margin: auto;
+          cursor: pointer;
+          opacity: 0.7;
+          }
+          .ril__navButtons:hover {
+          opacity: 1;
+          }
+          .ril__navButtons:active {
+          opacity: 0.7;
+          }
+
+          .ril__navButtonPrev {
+          left: 0;
+          background: rgba(0, 0, 0, 0.2)
+          url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDE5LDMgLTIsLTIgLTE2LDE2IDE2LDE2IDEsLTEgLTE1LC0xNSAxNSwtMTUgeiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==')
+          no-repeat center;
+          }
+
+          .ril__navButtonNext {
+          right: 0;
+          background: rgba(0, 0, 0, 0.2)
+          url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDEsMyAyLC0yIDE2LDE2IC0xNiwxNiAtMSwtMSAxNSwtMTUgLTE1LC0xNSB6IiBmaWxsPSIjRkZGIi8+PC9zdmc+')
+          no-repeat center;
+          }
+
+          .ril__downloadBlocker {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+          background-size: cover;
+          }
+
+          .ril__caption,
+          .ril__toolbar {
+          background-color: rgba(0, 0, 0, 0.5);
+          position: absolute;
+          left: 0;
+          right: 0;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+          justify-content: space-between;
+          }
+
+          .ril__caption {
+          bottom: 0;
+          max-height: 150px;
+          overflow: auto;
+          }
+
+          .ril__captionContent {
+          padding: 10px 20px;
+          color: #fff;
+          }
+
+          .ril__toolbar {
+          top: 0;
+          height: 50px;
+          }
+
+          .ril__toolbarSide {
+          height: 50px;
+          margin: 0;
+          }
+
+          .ril__toolbarLeftSide {
+          padding-left: 20px;
+          padding-right: 0;
+          -webkit-box-flex: 0;
+          -ms-flex: 0 1 auto;
+          flex: 0 1 auto;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          }
+
+          .ril__toolbarRightSide {
+          padding-left: 0;
+          padding-right: 20px;
+          -webkit-box-flex: 0;
+          -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+          }
+
+          .ril__toolbarItem {
+          display: inline-block;
+          line-height: 50px;
+          padding: 0;
+          color: #fff;
+          font-size: 120%;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          }
+
+          .ril__toolbarItemChild {
+          vertical-align: middle;
+          }
+
+          .ril__builtinButton {
+          width: 40px;
+          height: 35px;
+          cursor: pointer;
+          border: none;
+          opacity: 0.7;
+          }
+          .ril__builtinButton:hover {
+          opacity: 1;
+          }
+          .ril__builtinButton:active {
+          outline: none;
+          }
+
+          .ril__builtinButtonDisabled {
+          cursor: default;
+          opacity: 0.5;
+          }
+          .ril__builtinButtonDisabled:hover {
+          opacity: 0.5;
+          }
+
+          .ril__closeButton {
+          background:
+          url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIj48cGF0aCBkPSJtIDEsMyAxLjI1LC0xLjI1IDcuNSw3LjUgNy41LC03LjUgMS4yNSwxLjI1IC03LjUsNy41IDcuNSw3LjUgLTEuMjUsMS4yNSAtNy41LC03LjUgLTcuNSw3LjUgLTEuMjUsLTEuMjUgNy41LC03LjUgLTcuNSwtNy41IHoiIGZpbGw9IiNGRkYiLz48L3N2Zz4=')
+          no-repeat center;
+          }
+
+          .ril__zoomInButton {
+          background:
+          url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PHBhdGggZD0iTTEyIDV2NiIvPjwvZz48Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')
+          no-repeat center;
+          }
+
+          .ril__zoomOutButton {
+          background:
+          url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PC9nPjxjaXJjbGUgY3g9IjEyIiBjeT0iOCIgcj0iNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')
+          no-repeat center;
+          }
+
+          .ril__outerAnimating {
+          -webkit-animation-name: closeWindow;
+          animation-name: closeWindow;
+          }
+
+          @-webkit-keyframes pointFade {
+          0%,
+          19.999%,
+          100% {
+          opacity: 0;
+          }
+          20% {
+          opacity: 1;
+          }
+          }
+
+          @keyframes pointFade {
+          0%,
+          19.999%,
+          100% {
+          opacity: 0;
+          }
+          20% {
+          opacity: 1;
+          }
+          }
+
+          .ril__loadingCircle {
+          width: 60px;
+          height: 60px;
+          position: relative;
+          }
+
+          .ril__loadingCirclePoint {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          }
+          .ril__loadingCirclePoint::before {
+          content: '';
+          display: block;
+          margin: 0 auto;
+          width: 11%;
+          height: 30%;
+          background-color: #fff;
+          border-radius: 30%;
+          -webkit-animation: pointFade 800ms infinite ease-in-out both;
+          animation: pointFade 800ms infinite ease-in-out both;
+          }
+          .ril__loadingCirclePoint:nth-of-type(1) {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(7) {
+          -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(1)::before,
+          .ril__loadingCirclePoint:nth-of-type(7)::before {
+          -webkit-animation-delay: -800ms;
+          animation-delay: -800ms;
+          }
+          .ril__loadingCirclePoint:nth-of-type(2) {
+          -webkit-transform: rotate(30deg);
+          transform: rotate(30deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(8) {
+          -webkit-transform: rotate(210deg);
+          transform: rotate(210deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(2)::before,
+          .ril__loadingCirclePoint:nth-of-type(8)::before {
+          -webkit-animation-delay: -666ms;
+          animation-delay: -666ms;
+          }
+          .ril__loadingCirclePoint:nth-of-type(3) {
+          -webkit-transform: rotate(60deg);
+          transform: rotate(60deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(9) {
+          -webkit-transform: rotate(240deg);
+          transform: rotate(240deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(3)::before,
+          .ril__loadingCirclePoint:nth-of-type(9)::before {
+          -webkit-animation-delay: -533ms;
+          animation-delay: -533ms;
+          }
+          .ril__loadingCirclePoint:nth-of-type(4) {
+          -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(10) {
+          -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(4)::before,
+          .ril__loadingCirclePoint:nth-of-type(10)::before {
+          -webkit-animation-delay: -400ms;
+          animation-delay: -400ms;
+          }
+          .ril__loadingCirclePoint:nth-of-type(5) {
+          -webkit-transform: rotate(120deg);
+          transform: rotate(120deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(11) {
+          -webkit-transform: rotate(300deg);
+          transform: rotate(300deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(5)::before,
+          .ril__loadingCirclePoint:nth-of-type(11)::before {
+          -webkit-animation-delay: -266ms;
+          animation-delay: -266ms;
+          }
+          .ril__loadingCirclePoint:nth-of-type(6) {
+          -webkit-transform: rotate(150deg);
+          transform: rotate(150deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(12) {
+          -webkit-transform: rotate(330deg);
+          transform: rotate(330deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(6)::before,
+          .ril__loadingCirclePoint:nth-of-type(12)::before {
+          -webkit-animation-delay: -133ms;
+          animation-delay: -133ms;
+          }
+          .ril__loadingCirclePoint:nth-of-type(7) {
+          -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(13) {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+          }
+          .ril__loadingCirclePoint:nth-of-type(7)::before,
+          .ril__loadingCirclePoint:nth-of-type(13)::before {
+          -webkit-animation-delay: 0ms;
+          animation-delay: 0ms;
+          }
+
+          .ril__loadingContainer {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          }
+          .ril__imagePrev .ril__loadingContainer,
+          .ril__imageNext .ril__loadingContainer {
+          display: none;
+          }
+
+          .ril__errorContainer {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          color: #fff;
+          }
+          .ril__imagePrev .ril__errorContainer,
+          .ril__imageNext .ril__errorContainer {
+          display: none;
+          }
+
+          .ril__loadingContainer__icon {
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+          }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+
+</section>
+<!--/Section: lightbox margins-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="lightbox-photography">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Gallery with heading
+  </h2>
+
+  <!-- Description -->
+  <p>
+  </p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <h2 class="font-weight-bold my-5 text-center">My Projects</h2>
+
+    <!--First row-->
+    <div class="row">
+
+      <!--First column-->
+      <div class="col-md-12">
+
+        <div id="mdb-lightbox-ui"></div>
+
+        <!--Full width lightbox-->
+        <div class="mdb-lightbox">
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(63).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(63).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(66).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(66).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(65).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(65).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(67).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(68).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(68).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(64).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(64).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(69).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(69).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(59).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(59).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(70).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(70).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+          </figure>
+
+        </div>
+        <!--/Full width lightbox-->
+
+      </div>
+      <!--/First column-->
+
+    </div>
+    <!--First row-->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JSX">
+            import React from "react";
+            import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+            import Lightbox from "react-image-lightbox";
+            import "./Lightbox.css";
+
+            class LightboxPage extends React.Component {
+            state = {
+              photoIndex: 0,
+              isOpen: false,
+              images: [
+                'https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(63).jpg',
+                'https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(66).jpg',
+                'https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(65).jpg',
+                'https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(67).jpg',
+                'https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(68).jpg',
+                'https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(64).jpg',
+                'https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(69).jpg',
+                'https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(59).jpg',
+                'https://mdbootstrap.com/img/Mockups/Lightbox/Original/img%20(70).jpg'
+              ]
+            }
+
+            renderImages = () => {
+              let photoIndex = -1;
+              const { images } = this.state;
+
+            return images.map(imageSrc => {
+              photoIndex++;
+              const privateKey = photoIndex;
+              return (
+                <MDBCol md="4" key={photoIndex}>
+                  <figure>
+                    <img src={imageSrc} alt="Gallery" className="img-fluid" onClick={()=>
+                    this.setState({ photoIndex: privateKey, isOpen: true })
+                    }
+                    />
+                  </figure>
+                </MDBCol>
+                );
+              })
+            }
+
+            render() {
+            const { photoIndex, isOpen, images } = this.state;
+              return (
+                  <MDBContainer className="mt-5">
+                    <h2 className="font-weight-bold my-5 text-center">My Projects</h2>
+                    <div className="mdb-lightbox">
+                      <MDBRow>
+                        {this.renderImages()}
+                      </MDBRow>
+                    </div>
+                    {isOpen && (
+                    <Lightbox
+                      mainSrc={images[photoIndex]}
+                      nextSrc={images[(photoIndex + 1) % images.length]}
+                      prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                      imageTitle={photoIndex + 1 + "/" + images.length}
+                      onCloseRequest={() => this.setState({ isOpen: false })}
+                      onMovePrevRequest={() =>
+                        this.setState({
+                          photoIndex: (photoIndex + images.length - 1) % images.length
+                        })
+                      }
+                      onMoveNextRequest={() =>
+                        this.setState({
+                          photoIndex: (photoIndex + 1) % images.length
+                        })
+                        }
+                      />
+                    )}
+                  </MDBContainer>
+                );
+              }
+            }
+
+            export default LightboxPage;
+          </code>
+      <code data-lang="CSS" data-name="CSS">
+            @-webkit-keyframes closeWindow {
+            0% {
+            opacity: 1;
+            }
+            100% {
+            opacity: 0;
+            }
+            }
+
+            @keyframes closeWindow {
+            0% {
+            opacity: 1;
+            }
+            100% {
+            opacity: 0;
+            }
+            }
+
+            .ril__outer {
+            background-color: rgba(0, 0, 0, 0.85);
+            outline: none;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            width: 100%;
+            height: 100%;
+            -ms-content-zooming: none;
+            -ms-user-select: none;
+            -ms-touch-select: none;
+            -ms-touch-action: none;
+            touch-action: none;
+            }
+
+            .ril__outerClosing {
+            opacity: 0;
+            }
+
+            .ril__inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            }
+
+            .ril__image,
+            .ril__imagePrev,
+            .ril__imageNext {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            max-width: none;
+            -ms-content-zooming: none;
+            -ms-user-select: none;
+            -ms-touch-select: none;
+            -ms-touch-action: none;
+            touch-action: none;
+            }
+
+            .ril__imageDiscourager {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            }
+
+            .ril__navButtons {
+            border: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            height: 34px;
+            padding: 40px 30px;
+            margin: auto;
+            cursor: pointer;
+            opacity: 0.7;
+            }
+            .ril__navButtons:hover {
+            opacity: 1;
+            }
+            .ril__navButtons:active {
+            opacity: 0.7;
+            }
+
+            .ril__navButtonPrev {
+            left: 0;
+            background: rgba(0, 0, 0, 0.2)
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDE5LDMgLTIsLTIgLTE2LDE2IDE2LDE2IDEsLTEgLTE1LC0xNSAxNSwtMTUgeiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==')
+            no-repeat center;
+            }
+
+            .ril__navButtonNext {
+            right: 0;
+            background: rgba(0, 0, 0, 0.2)
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDEsMyAyLC0yIDE2LDE2IC0xNiwxNiAtMSwtMSAxNSwtMTUgLTE1LC0xNSB6IiBmaWxsPSIjRkZGIi8+PC9zdmc+')
+            no-repeat center;
+            }
+
+            .ril__downloadBlocker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+            background-size: cover;
+            }
+
+            .ril__caption,
+            .ril__toolbar {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            }
+
+            .ril__caption {
+            bottom: 0;
+            max-height: 150px;
+            overflow: auto;
+            }
+
+            .ril__captionContent {
+            padding: 10px 20px;
+            color: #fff;
+            }
+
+            .ril__toolbar {
+            top: 0;
+            height: 50px;
+            }
+
+            .ril__toolbarSide {
+            height: 50px;
+            margin: 0;
+            }
+
+            .ril__toolbarLeftSide {
+            padding-left: 20px;
+            padding-right: 0;
+            -webkit-box-flex: 0;
+            -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            }
+
+            .ril__toolbarRightSide {
+            padding-left: 0;
+            padding-right: 20px;
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+            }
+
+            .ril__toolbarItem {
+            display: inline-block;
+            line-height: 50px;
+            padding: 0;
+            color: #fff;
+            font-size: 120%;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            }
+
+            .ril__toolbarItemChild {
+            vertical-align: middle;
+            }
+
+            .ril__builtinButton {
+            width: 40px;
+            height: 35px;
+            cursor: pointer;
+            border: none;
+            opacity: 0.7;
+            }
+            .ril__builtinButton:hover {
+            opacity: 1;
+            }
+            .ril__builtinButton:active {
+            outline: none;
+            }
+
+            .ril__builtinButtonDisabled {
+            cursor: default;
+            opacity: 0.5;
+            }
+            .ril__builtinButtonDisabled:hover {
+            opacity: 0.5;
+            }
+
+            .ril__closeButton {
+            background:
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIj48cGF0aCBkPSJtIDEsMyAxLjI1LC0xLjI1IDcuNSw3LjUgNy41LC03LjUgMS4yNSwxLjI1IC03LjUsNy41IDcuNSw3LjUgLTEuMjUsMS4yNSAtNy41LC03LjUgLTcuNSw3LjUgLTEuMjUsLTEuMjUgNy41LC03LjUgLTcuNSwtNy41IHoiIGZpbGw9IiNGRkYiLz48L3N2Zz4=')
+            no-repeat center;
+            }
+
+            .ril__zoomInButton {
+            background:
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PHBhdGggZD0iTTEyIDV2NiIvPjwvZz48Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')
+            no-repeat center;
+            }
+
+            .ril__zoomOutButton {
+            background:
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PC9nPjxjaXJjbGUgY3g9IjEyIiBjeT0iOCIgcj0iNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')
+            no-repeat center;
+            }
+
+            .ril__outerAnimating {
+            -webkit-animation-name: closeWindow;
+            animation-name: closeWindow;
+            }
+
+            @-webkit-keyframes pointFade {
+            0%,
+            19.999%,
+            100% {
+            opacity: 0;
+            }
+            20% {
+            opacity: 1;
+            }
+            }
+
+            @keyframes pointFade {
+            0%,
+            19.999%,
+            100% {
+            opacity: 0;
+            }
+            20% {
+            opacity: 1;
+            }
+            }
+
+            .ril__loadingCircle {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            }
+
+            .ril__loadingCirclePoint {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            }
+            .ril__loadingCirclePoint::before {
+            content: '';
+            display: block;
+            margin: 0 auto;
+            width: 11%;
+            height: 30%;
+            background-color: #fff;
+            border-radius: 30%;
+            -webkit-animation: pointFade 800ms infinite ease-in-out both;
+            animation: pointFade 800ms infinite ease-in-out both;
+            }
+            .ril__loadingCirclePoint:nth-of-type(1) {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(7) {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(1)::before,
+            .ril__loadingCirclePoint:nth-of-type(7)::before {
+            -webkit-animation-delay: -800ms;
+            animation-delay: -800ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(2) {
+            -webkit-transform: rotate(30deg);
+            transform: rotate(30deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(8) {
+            -webkit-transform: rotate(210deg);
+            transform: rotate(210deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(2)::before,
+            .ril__loadingCirclePoint:nth-of-type(8)::before {
+            -webkit-animation-delay: -666ms;
+            animation-delay: -666ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(3) {
+            -webkit-transform: rotate(60deg);
+            transform: rotate(60deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(9) {
+            -webkit-transform: rotate(240deg);
+            transform: rotate(240deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(3)::before,
+            .ril__loadingCirclePoint:nth-of-type(9)::before {
+            -webkit-animation-delay: -533ms;
+            animation-delay: -533ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(4) {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(10) {
+            -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(4)::before,
+            .ril__loadingCirclePoint:nth-of-type(10)::before {
+            -webkit-animation-delay: -400ms;
+            animation-delay: -400ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(5) {
+            -webkit-transform: rotate(120deg);
+            transform: rotate(120deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(11) {
+            -webkit-transform: rotate(300deg);
+            transform: rotate(300deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(5)::before,
+            .ril__loadingCirclePoint:nth-of-type(11)::before {
+            -webkit-animation-delay: -266ms;
+            animation-delay: -266ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(6) {
+            -webkit-transform: rotate(150deg);
+            transform: rotate(150deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(12) {
+            -webkit-transform: rotate(330deg);
+            transform: rotate(330deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(6)::before,
+            .ril__loadingCirclePoint:nth-of-type(12)::before {
+            -webkit-animation-delay: -133ms;
+            animation-delay: -133ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(7) {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(13) {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(7)::before,
+            .ril__loadingCirclePoint:nth-of-type(13)::before {
+            -webkit-animation-delay: 0ms;
+            animation-delay: 0ms;
+            }
+
+            .ril__loadingContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            }
+            .ril__imagePrev .ril__loadingContainer,
+            .ril__imageNext .ril__loadingContainer {
+            display: none;
+            }
+
+            .ril__errorContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            color: #fff;
+            }
+            .ril__imagePrev .ril__errorContainer,
+            .ril__imageNext .ril__errorContainer {
+            display: none;
+            }
+
+            .ril__loadingContainer__icon {
+              color: #fff;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              -webkit-transform: translateX(-50%) translateY(-50%);
+              transform: translateX(-50%) translateY(-50%);
+            }
+        </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="projects-presentation">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Projects presentation
+  </h2>
+
+  <!-- Description -->
+  <p>
+  </p>
+
+  <!--Section: Live preview-->
+  <section>
+    <h2 class="h1 text-center text-uppercase font-weight-bold mt-5 mb-3 mt-5">My projects</h2>
+
+    <!--Section description-->
+    <p class="text-center text-uppercase font-weight-bold">All about my work</p>
+
+    <!--Section description-->
+    <p class="section-description mt-5 pt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error
+      amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a
+      pariatur accusamus veniam. At ab ea a molestiae corrupti numquam quo beatae minima ratione magni accusantium
+      repellat eveniet quia vitae.</p>
+
+    <!--First row-->
+    <div class="row ml-3 mr-3 pb-4 pt-1">
+
+      <!--First column-->
+      <div class="col-md-12">
+
+        <div id="mdb-lightbox-ui"></div>
+
+        <!--Full width lightbox-->
+        <div class="mdb-lightbox">
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(135).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(135).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+            <p class="text-uppercase font-weight-bold blue-grey-text mt-4">| Lorem ipsum dolor sit amet</p>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(128).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(128).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+            <p class="text-uppercase font-weight-bold blue-grey-text mt-4">| Lorem ipsum dolor sit amet</p>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(133).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(133).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+            <p class="text-uppercase font-weight-bold blue-grey-text mt-4">| Lorem ipsum dolor sit amet</p>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(131).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(131).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+            <p class="text-uppercase font-weight-bold blue-grey-text mt-4">| Lorem ipsum dolor sit amet</p>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(130).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(130).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+            <p class="text-uppercase font-weight-bold blue-grey-text mt-4">| Lorem ipsum dolor sit amet</p>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(132).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(132).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+            <p class="text-uppercase font-weight-bold blue-grey-text mt-4">| Lorem ipsum dolor sit amet</p>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(134).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(134).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+            <p class="text-uppercase font-weight-bold blue-grey-text mt-4">| Lorem ipsum dolor sit amet</p>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(1).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(1).jpg"
+                class="img-fluid z-depth-1">
+            </a>
+            <p class="text-uppercase font-weight-bold blue-grey-text mt-4">| Lorem ipsum dolor sit amet</p>
+          </figure>
+
+        </div>
+        <!--/Full width lightbox-->
+
+      </div>
+      <!--/First column-->
+
+      <div class="col-md-12 text-center py-4">
+        <a class="btn btn-outline-black waves-effect"><strong>more</strong></a>
+      </div>
+
+    </div>
+    <!--/First row-->
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JSX">
+            import React from "react";
+            import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
+            import Lightbox from "react-image-lightbox";
+            import "./Lightbox.css";
+
+            class LightboxPage extends React.Component {
+            state = {
+              photoIndex: 0,
+              isOpen: false,
+              images: [
+                'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(135).jpg',
+                'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(128).jpg',
+                'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(133).jpg',
+                'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(131).jpg',
+                'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(130).jpg',
+                'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(132).jpg',
+                'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(134).jpg',
+                'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(1).jpg',
+              ]
+            }
+
+            renderImages = () => {
+              let photoIndex = -1;
+              const { images } = this.state;
+
+              return images.map(imageSrc => {
+                photoIndex++;
+                const privateKey = photoIndex;
+                return (
+                  <MDBCol md="3" key={photoIndex}>
+                    <figure>
+                      <img
+                        src={imageSrc}
+                        alt="Gallery"
+                        className="img-fluid z-depth-1"
+                        onClick={() =>
+                          this.setState({ photoIndex: privateKey, isOpen: true })
+                        }
+                      />
+                    </figure>
+                  </MDBCol>
+                );
+              })
+            }
+
+            render() {
+            const { photoIndex, isOpen, images } = this.state;
+              return (
+                <MDBContainer className="mt-5 p-3" style={{ backgroundColor: "#fff" }}>
+                  <h2 class="h1 text-center text-uppercase font-weight-bold pt-5 mb-3 mt-5">My projects</h2>
+                  <p class="text-center text-uppercase font-weight-bold">All about my work</p>
+                  <p class="section-description mt-5 pt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error
+                    amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a
+                    pariatur accusamus veniam. At ab ea a molestiae corrupti numquam quo beatae minima ratione magni accusantium
+                    repellat eveniet quia vitae.</p>
+                  <div className="mdb-lightbox p-3">
+                    <MDBRow>
+                      {this.renderImages()}
+                    </MDBRow>
+                  </div>
+                  {isOpen && (
+                    <Lightbox
+                      mainSrc={images[photoIndex]}
+                      nextSrc={images[(photoIndex + 1) % images.length]}
+                      prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                      imageTitle={photoIndex + 1 + "/" + images.length}
+                      onCloseRequest={() => this.setState({ isOpen: false })}
+                      onMovePrevRequest={() =>
+                        this.setState({
+                          photoIndex: (photoIndex + images.length - 1) % images.length
+                        })
+                      }
+                      onMoveNextRequest={() =>
+                        this.setState({
+                          photoIndex: (photoIndex + 1) % images.length
+                        })
+                      }
+                    />
+                  )}
+                  <MDBCol md="12" className="text-center py-4">
+                    <MDBBtn outline color="black"><strong>more</strong></MDBBtn>
+                  </MDBCol>
+                </MDBContainer>
+                );
+              }
+            }
+
+            export default LightboxPage;
+          </code>
+      <code data-lang="CSS" data-name="CSS">
+            @-webkit-keyframes closeWindow {
+            0% {
+            opacity: 1;
+            }
+            100% {
+            opacity: 0;
+            }
+            }
+
+            @keyframes closeWindow {
+            0% {
+            opacity: 1;
+            }
+            100% {
+            opacity: 0;
+            }
+            }
+
+            .ril__outer {
+            background-color: rgba(0, 0, 0, 0.85);
+            outline: none;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            width: 100%;
+            height: 100%;
+            -ms-content-zooming: none;
+            -ms-user-select: none;
+            -ms-touch-select: none;
+            -ms-touch-action: none;
+            touch-action: none;
+            }
+
+            .ril__outerClosing {
+            opacity: 0;
+            }
+
+            .ril__inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            }
+
+            .ril__image,
+            .ril__imagePrev,
+            .ril__imageNext {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            max-width: none;
+            -ms-content-zooming: none;
+            -ms-user-select: none;
+            -ms-touch-select: none;
+            -ms-touch-action: none;
+            touch-action: none;
+            }
+
+            .ril__imageDiscourager {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            }
+
+            .ril__navButtons {
+            border: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            height: 34px;
+            padding: 40px 30px;
+            margin: auto;
+            cursor: pointer;
+            opacity: 0.7;
+            }
+            .ril__navButtons:hover {
+            opacity: 1;
+            }
+            .ril__navButtons:active {
+            opacity: 0.7;
+            }
+
+            .ril__navButtonPrev {
+            left: 0;
+            background: rgba(0, 0, 0, 0.2)
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDE5LDMgLTIsLTIgLTE2LDE2IDE2LDE2IDEsLTEgLTE1LC0xNSAxNSwtMTUgeiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==')
+            no-repeat center;
+            }
+
+            .ril__navButtonNext {
+            right: 0;
+            background: rgba(0, 0, 0, 0.2)
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDEsMyAyLC0yIDE2LDE2IC0xNiwxNiAtMSwtMSAxNSwtMTUgLTE1LC0xNSB6IiBmaWxsPSIjRkZGIi8+PC9zdmc+')
+            no-repeat center;
+            }
+
+            .ril__downloadBlocker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+            background-size: cover;
+            }
+
+            .ril__caption,
+            .ril__toolbar {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            }
+
+            .ril__caption {
+            bottom: 0;
+            max-height: 150px;
+            overflow: auto;
+            }
+
+            .ril__captionContent {
+            padding: 10px 20px;
+            color: #fff;
+            }
+
+            .ril__toolbar {
+            top: 0;
+            height: 50px;
+            }
+
+            .ril__toolbarSide {
+            height: 50px;
+            margin: 0;
+            }
+
+            .ril__toolbarLeftSide {
+            padding-left: 20px;
+            padding-right: 0;
+            -webkit-box-flex: 0;
+            -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            }
+
+            .ril__toolbarRightSide {
+            padding-left: 0;
+            padding-right: 20px;
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+            }
+
+            .ril__toolbarItem {
+            display: inline-block;
+            line-height: 50px;
+            padding: 0;
+            color: #fff;
+            font-size: 120%;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            }
+
+            .ril__toolbarItemChild {
+            vertical-align: middle;
+            }
+
+            .ril__builtinButton {
+            width: 40px;
+            height: 35px;
+            cursor: pointer;
+            border: none;
+            opacity: 0.7;
+            }
+            .ril__builtinButton:hover {
+            opacity: 1;
+            }
+            .ril__builtinButton:active {
+            outline: none;
+            }
+
+            .ril__builtinButtonDisabled {
+            cursor: default;
+            opacity: 0.5;
+            }
+            .ril__builtinButtonDisabled:hover {
+            opacity: 0.5;
+            }
+
+            .ril__closeButton {
+            background:
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIj48cGF0aCBkPSJtIDEsMyAxLjI1LC0xLjI1IDcuNSw3LjUgNy41LC03LjUgMS4yNSwxLjI1IC03LjUsNy41IDcuNSw3LjUgLTEuMjUsMS4yNSAtNy41LC03LjUgLTcuNSw3LjUgLTEuMjUsLTEuMjUgNy41LC03LjUgLTcuNSwtNy41IHoiIGZpbGw9IiNGRkYiLz48L3N2Zz4=')
+            no-repeat center;
+            }
+
+            .ril__zoomInButton {
+            background:
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PHBhdGggZD0iTTEyIDV2NiIvPjwvZz48Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')
+            no-repeat center;
+            }
+
+            .ril__zoomOutButton {
+            background:
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PC9nPjxjaXJjbGUgY3g9IjEyIiBjeT0iOCIgcj0iNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')
+            no-repeat center;
+            }
+
+            .ril__outerAnimating {
+            -webkit-animation-name: closeWindow;
+            animation-name: closeWindow;
+            }
+
+            @-webkit-keyframes pointFade {
+            0%,
+            19.999%,
+            100% {
+            opacity: 0;
+            }
+            20% {
+            opacity: 1;
+            }
+            }
+
+            @keyframes pointFade {
+            0%,
+            19.999%,
+            100% {
+            opacity: 0;
+            }
+            20% {
+            opacity: 1;
+            }
+            }
+
+            .ril__loadingCircle {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            }
+
+            .ril__loadingCirclePoint {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            }
+            .ril__loadingCirclePoint::before {
+            content: '';
+            display: block;
+            margin: 0 auto;
+            width: 11%;
+            height: 30%;
+            background-color: #fff;
+            border-radius: 30%;
+            -webkit-animation: pointFade 800ms infinite ease-in-out both;
+            animation: pointFade 800ms infinite ease-in-out both;
+            }
+            .ril__loadingCirclePoint:nth-of-type(1) {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(7) {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(1)::before,
+            .ril__loadingCirclePoint:nth-of-type(7)::before {
+            -webkit-animation-delay: -800ms;
+            animation-delay: -800ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(2) {
+            -webkit-transform: rotate(30deg);
+            transform: rotate(30deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(8) {
+            -webkit-transform: rotate(210deg);
+            transform: rotate(210deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(2)::before,
+            .ril__loadingCirclePoint:nth-of-type(8)::before {
+            -webkit-animation-delay: -666ms;
+            animation-delay: -666ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(3) {
+            -webkit-transform: rotate(60deg);
+            transform: rotate(60deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(9) {
+            -webkit-transform: rotate(240deg);
+            transform: rotate(240deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(3)::before,
+            .ril__loadingCirclePoint:nth-of-type(9)::before {
+            -webkit-animation-delay: -533ms;
+            animation-delay: -533ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(4) {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(10) {
+            -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(4)::before,
+            .ril__loadingCirclePoint:nth-of-type(10)::before {
+            -webkit-animation-delay: -400ms;
+            animation-delay: -400ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(5) {
+            -webkit-transform: rotate(120deg);
+            transform: rotate(120deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(11) {
+            -webkit-transform: rotate(300deg);
+            transform: rotate(300deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(5)::before,
+            .ril__loadingCirclePoint:nth-of-type(11)::before {
+            -webkit-animation-delay: -266ms;
+            animation-delay: -266ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(6) {
+            -webkit-transform: rotate(150deg);
+            transform: rotate(150deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(12) {
+            -webkit-transform: rotate(330deg);
+            transform: rotate(330deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(6)::before,
+            .ril__loadingCirclePoint:nth-of-type(12)::before {
+            -webkit-animation-delay: -133ms;
+            animation-delay: -133ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(7) {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(13) {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(7)::before,
+            .ril__loadingCirclePoint:nth-of-type(13)::before {
+            -webkit-animation-delay: 0ms;
+            animation-delay: 0ms;
+            }
+
+            .ril__loadingContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            }
+            .ril__imagePrev .ril__loadingContainer,
+            .ril__imageNext .ril__loadingContainer {
+            display: none;
+            }
+
+            .ril__errorContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            color: #fff;
+            }
+            .ril__imagePrev .ril__errorContainer,
+            .ril__imageNext .ril__errorContainer {
+            display: none;
+            }
+
+            .ril__loadingContainer__icon {
+              color: #fff;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              -webkit-transform: translateX(-50%) translateY(-50%);
+              transform: translateX(-50%) translateY(-50%);
+            }
+        </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="mixed-content">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Gallery with mixed content
+  </h2>
+
+  <!-- Description -->
+  <p>
+  </p>
+
+  <!--Section: Live preview-->
+  <section>
+    <!--First row-->
+    <div class="row">
+
+      <!--First column-->
+      <div class="col-md-12">
+
+        <div id="mdb-lightbox-ui"></div>
+
+        <!--Full width lightbox-->
+        <div class="mdb-lightbox">
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(58).jpg" data-size="781x1172">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(58).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(61).jpg" data-size="781x1172">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(61).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(62).jpg" data-size="781x1172">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(62).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(60).jpg" data-size="781x1172">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(60).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(66).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(66).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(70).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(70).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+          <figure class="col-md-4">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(74).jpg" data-size="1600x1067">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(74).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(64).jpg" data-size="781x1172">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(64).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(77).jpg" data-size="781x1172">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(77).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(78).jpg" data-size="781x1172">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(78).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+          <figure class="col-md-3">
+            <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(76).jpg" data-size="781x1172">
+              <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(76).jpg" class="img-fluid">
+            </a>
+          </figure>
+
+        </div>
+        <!--/Full width lightbox-->
+
+      </div>
+      <!--/First column-->
+
+    </div>
+    <!--/First row-->
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
+        import Lightbox from "react-image-lightbox";
+        import "./Lightbox.css";
+        
+        class LightboxPage extends React.Component {
+          state = {
+            photoIndex: 0,
+            isOpen: false,
+            images: [
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(58).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(61).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(62).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(60).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(66).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(70).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(74).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(64).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(77).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(78).jpg',
+              'https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(76).jpg',
+            ],
+            colWidth: [3, 3, 3, 3, 4, 4, 4, 3, 3, 3, 3]
+          }
+        
+          renderImages = () => {
+            let photoIndex = -1;
+            const { images } = this.state;
+        
+            return images.map((imageSrc, index) => {
+              photoIndex++;
+              const privateKey = photoIndex;
+              return (
+                <MDBCol md={this.state.colWidth[index]} key={photoIndex}>
+                  <figure>
+                    <img
+                      src={imageSrc}
+                      alt="Gallery"
+                      className="img-fluid z-depth-1"
+                      onClick={() =>
+                        this.setState({ photoIndex: privateKey, isOpen: true })
+                      }
+                    />
+                  </figure>
+                </MDBCol>
+              );
+            })
+          }
+        
+          render() {
+            const { photoIndex, isOpen, images } = this.state;
+            return (
+              <MDBContainer className="mt-5 p-3" >
+                <div className="mdb-lightbox p-3">
+                  <MDBRow>
+                    {this.renderImages()}
+                  </MDBRow>
+                </div>
+                {isOpen && (
+                  <Lightbox
+                    mainSrc={images[photoIndex]}
+                    nextSrc={images[(photoIndex + 1) % images.length]}
+                    prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                    imageTitle={photoIndex + 1 + "/" + images.length}
+                    onCloseRequest={() => this.setState({ isOpen: false })}
+                    onMovePrevRequest={() =>
+                      this.setState({
+                        photoIndex: (photoIndex + images.length - 1) % images.length
+                      })
+                    }
+                    onMoveNextRequest={() =>
+                      this.setState({
+                        photoIndex: (photoIndex + 1) % images.length
+                      })
+                    }
+                  />
+                )}
+                <MDBCol md="12" className="text-center py-4">
+                  <MDBBtn outline color="black"><strong>more</strong></MDBBtn>
+                </MDBCol>
+              </MDBContainer >
+            );
+          }
+        }
+        
+        export default LightboxPage;
+      </code>
+      <code data-lang="CSS" data-name="CSS">
+            @-webkit-keyframes closeWindow {
+            0% {
+            opacity: 1;
+            }
+            100% {
+            opacity: 0;
+            }
+            }
+
+            @keyframes closeWindow {
+            0% {
+            opacity: 1;
+            }
+            100% {
+            opacity: 0;
+            }
+            }
+
+            .ril__outer {
+            background-color: rgba(0, 0, 0, 0.85);
+            outline: none;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            width: 100%;
+            height: 100%;
+            -ms-content-zooming: none;
+            -ms-user-select: none;
+            -ms-touch-select: none;
+            -ms-touch-action: none;
+            touch-action: none;
+            }
+
+            .ril__outerClosing {
+            opacity: 0;
+            }
+
+            .ril__inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            }
+
+            .ril__image,
+            .ril__imagePrev,
+            .ril__imageNext {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            max-width: none;
+            -ms-content-zooming: none;
+            -ms-user-select: none;
+            -ms-touch-select: none;
+            -ms-touch-action: none;
+            touch-action: none;
+            }
+
+            .ril__imageDiscourager {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            }
+
+            .ril__navButtons {
+            border: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            height: 34px;
+            padding: 40px 30px;
+            margin: auto;
+            cursor: pointer;
+            opacity: 0.7;
+            }
+            .ril__navButtons:hover {
+            opacity: 1;
+            }
+            .ril__navButtons:active {
+            opacity: 0.7;
+            }
+
+            .ril__navButtonPrev {
+            left: 0;
+            background: rgba(0, 0, 0, 0.2)
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDE5LDMgLTIsLTIgLTE2LDE2IDE2LDE2IDEsLTEgLTE1LC0xNSAxNSwtMTUgeiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==')
+            no-repeat center;
+            }
+
+            .ril__navButtonNext {
+            right: 0;
+            background: rgba(0, 0, 0, 0.2)
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDEsMyAyLC0yIDE2LDE2IC0xNiwxNiAtMSwtMSAxNSwtMTUgLTE1LC0xNSB6IiBmaWxsPSIjRkZGIi8+PC9zdmc+')
+            no-repeat center;
+            }
+
+            .ril__downloadBlocker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+            background-size: cover;
+            }
+
+            .ril__caption,
+            .ril__toolbar {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            }
+
+            .ril__caption {
+            bottom: 0;
+            max-height: 150px;
+            overflow: auto;
+            }
+
+            .ril__captionContent {
+            padding: 10px 20px;
+            color: #fff;
+            }
+
+            .ril__toolbar {
+            top: 0;
+            height: 50px;
+            }
+
+            .ril__toolbarSide {
+            height: 50px;
+            margin: 0;
+            }
+
+            .ril__toolbarLeftSide {
+            padding-left: 20px;
+            padding-right: 0;
+            -webkit-box-flex: 0;
+            -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            }
+
+            .ril__toolbarRightSide {
+            padding-left: 0;
+            padding-right: 20px;
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+            }
+
+            .ril__toolbarItem {
+            display: inline-block;
+            line-height: 50px;
+            padding: 0;
+            color: #fff;
+            font-size: 120%;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            }
+
+            .ril__toolbarItemChild {
+            vertical-align: middle;
+            }
+
+            .ril__builtinButton {
+            width: 40px;
+            height: 35px;
+            cursor: pointer;
+            border: none;
+            opacity: 0.7;
+            }
+            .ril__builtinButton:hover {
+            opacity: 1;
+            }
+            .ril__builtinButton:active {
+            outline: none;
+            }
+
+            .ril__builtinButtonDisabled {
+            cursor: default;
+            opacity: 0.5;
+            }
+            .ril__builtinButtonDisabled:hover {
+            opacity: 0.5;
+            }
+
+            .ril__closeButton {
+            background:
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIj48cGF0aCBkPSJtIDEsMyAxLjI1LC0xLjI1IDcuNSw3LjUgNy41LC03LjUgMS4yNSwxLjI1IC03LjUsNy41IDcuNSw3LjUgLTEuMjUsMS4yNSAtNy41LC03LjUgLTcuNSw3LjUgLTEuMjUsLTEuMjUgNy41LC03LjUgLTcuNSwtNy41IHoiIGZpbGw9IiNGRkYiLz48L3N2Zz4=')
+            no-repeat center;
+            }
+
+            .ril__zoomInButton {
+            background:
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PHBhdGggZD0iTTEyIDV2NiIvPjwvZz48Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')
+            no-repeat center;
+            }
+
+            .ril__zoomOutButton {
+            background:
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PC9nPjxjaXJjbGUgY3g9IjEyIiBjeT0iOCIgcj0iNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=')
+            no-repeat center;
+            }
+
+            .ril__outerAnimating {
+            -webkit-animation-name: closeWindow;
+            animation-name: closeWindow;
+            }
+
+            @-webkit-keyframes pointFade {
+            0%,
+            19.999%,
+            100% {
+            opacity: 0;
+            }
+            20% {
+            opacity: 1;
+            }
+            }
+
+            @keyframes pointFade {
+            0%,
+            19.999%,
+            100% {
+            opacity: 0;
+            }
+            20% {
+            opacity: 1;
+            }
+            }
+
+            .ril__loadingCircle {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            }
+
+            .ril__loadingCirclePoint {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            }
+            .ril__loadingCirclePoint::before {
+            content: '';
+            display: block;
+            margin: 0 auto;
+            width: 11%;
+            height: 30%;
+            background-color: #fff;
+            border-radius: 30%;
+            -webkit-animation: pointFade 800ms infinite ease-in-out both;
+            animation: pointFade 800ms infinite ease-in-out both;
+            }
+            .ril__loadingCirclePoint:nth-of-type(1) {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(7) {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(1)::before,
+            .ril__loadingCirclePoint:nth-of-type(7)::before {
+            -webkit-animation-delay: -800ms;
+            animation-delay: -800ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(2) {
+            -webkit-transform: rotate(30deg);
+            transform: rotate(30deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(8) {
+            -webkit-transform: rotate(210deg);
+            transform: rotate(210deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(2)::before,
+            .ril__loadingCirclePoint:nth-of-type(8)::before {
+            -webkit-animation-delay: -666ms;
+            animation-delay: -666ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(3) {
+            -webkit-transform: rotate(60deg);
+            transform: rotate(60deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(9) {
+            -webkit-transform: rotate(240deg);
+            transform: rotate(240deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(3)::before,
+            .ril__loadingCirclePoint:nth-of-type(9)::before {
+            -webkit-animation-delay: -533ms;
+            animation-delay: -533ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(4) {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(10) {
+            -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(4)::before,
+            .ril__loadingCirclePoint:nth-of-type(10)::before {
+            -webkit-animation-delay: -400ms;
+            animation-delay: -400ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(5) {
+            -webkit-transform: rotate(120deg);
+            transform: rotate(120deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(11) {
+            -webkit-transform: rotate(300deg);
+            transform: rotate(300deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(5)::before,
+            .ril__loadingCirclePoint:nth-of-type(11)::before {
+            -webkit-animation-delay: -266ms;
+            animation-delay: -266ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(6) {
+            -webkit-transform: rotate(150deg);
+            transform: rotate(150deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(12) {
+            -webkit-transform: rotate(330deg);
+            transform: rotate(330deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(6)::before,
+            .ril__loadingCirclePoint:nth-of-type(12)::before {
+            -webkit-animation-delay: -133ms;
+            animation-delay: -133ms;
+            }
+            .ril__loadingCirclePoint:nth-of-type(7) {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(13) {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+            }
+            .ril__loadingCirclePoint:nth-of-type(7)::before,
+            .ril__loadingCirclePoint:nth-of-type(13)::before {
+            -webkit-animation-delay: 0ms;
+            animation-delay: 0ms;
+            }
+
+            .ril__loadingContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            }
+            .ril__imagePrev .ril__loadingContainer,
+            .ril__imageNext .ril__loadingContainer {
+            display: none;
+            }
+
+            .ril__errorContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            color: #fff;
+            }
+            .ril__imagePrev .ril__errorContainer,
+            .ril__imageNext .ril__errorContainer {
+            display: none;
+            }
+
+            .ril__loadingContainer__icon {
+              color: #fff;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              -webkit-transform: translateX(-50%) translateY(-50%);
+              transform: translateX(-50%) translateY(-50%);
+            }
+        </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->

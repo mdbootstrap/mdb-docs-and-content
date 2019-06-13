@@ -1,0 +1,239 @@
+<!--Custom scripts-->
+<script>
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "md-toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": 300,
+    "hideDuration": 1000,
+    "timeOut": 5000,
+    "extendedTimeOut": 1000,
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+  
+  $(function () {
+    var i = -1;
+    var toastCount = 0;
+    var $toastlast;
+
+    var getMessage = function () {
+      var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
+        '<div><input class="input-small" value="textbox"/> <a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',
+        'Are you the six fingered man?',
+        'Inconceivable!',
+        'I do not think that means what you think it means.',
+        'Have fun storming the castle!'
+      ];
+      i++;
+      if (i === msgs.length) {
+        i = 0;
+      }
+      return msgs[i];
+    };
+
+    var getMessageWithClearButton = function (msg) {
+      msg = msg ? msg : 'Clear itself?';
+      msg += '<br /><br /><button type="button" class="btn clear">Yes</button>';
+      return msg;
+    };
+
+    $('#closeButton').click(function () {
+      if ($(this).is(':checked')) {
+        $('#addBehaviorOnToastCloseClick').prop('disabled', false);
+      } else {
+        $('#addBehaviorOnToastCloseClick').prop('disabled', true);
+        $('#addBehaviorOnToastCloseClick').prop('checked', false);
+      }
+    });
+
+    $('#showtoast').click(function () {
+      var shortCutFunction = $("#toastTypeGroup input:radio:checked").val();
+      var msg = $('#message').val();
+      var $showDuration = $('#showDuration');
+      var $hideDuration = $('#hideDuration');
+      var $timeOut = $('#timeOut');
+      var $rtl = $('#rtl');
+      var $draggable = $('#draggable');
+      var $closeOnClick = $('#closeOnClick');
+      var $pauseOnHover = $('#pauseOnHover');
+      var $customTransition = $('#customTransition');
+      var $onOpen = $('#onOpen');
+      var $onClose = $('#onClose');
+      var toastIndex = toastCount++;
+      var addClear = $('#addClear').prop('checked');
+      toastr.options = {
+        closeButton: $('#closeButton').prop('checked'),
+        newestOnTop: $('#newestOnTop').prop('checked'),
+        progressBar: $('#progressBar').prop('checked'),
+        rtl: $('#rtl').prop('checked'),
+        positionClass: $('#positionGroup input:radio:checked').val() || 'md-toast-top-right',
+        preventDuplicates: $('#preventDuplicates').prop('checked'),
+        onclick: null,
+        timeOut: $timeOut.val()
+      };
+
+      if ($('#addBehaviorOnToastClick').prop('checked')) {
+        toastr.options.onclick = function () {
+          alert('You can perform some custom action after a toast goes away');
+        };
+      }
+
+      if ($('#addBehaviorOnToastCloseClick').prop('checked')) {
+        toastr.options.onCloseClick = function () {
+          alert('You can perform some custom action when the close button is clicked');
+        };
+      }
+
+      if (addClear) {
+        msg = getMessageWithClearButton(msg);
+        toastr.options.tapToDismiss = false;
+      }
+
+      if (!msg) {
+        msg = getMessage();
+      }
+
+      let positionFix = $('#positionGroup input:radio:checked').val().slice(6, 20);
+      
+      let optionObjectForMethod = `\n  position: ${positionFix},
+      autoClose: ${$timeOut.val()}, ${$('#closeButton').prop('checked') ? '' : '\n  closeButton: false,'} ${$('#progressBar').prop('checked') ? '' : '\n  hideProgressBar: true'}  ${$('#rtl').prop('checked') ? '\n  rtl: true' : ''} ${$draggable.prop('checked') ? '' : '\n  draggable: false'} ${$closeOnClick.prop('checked') ? '' : '\n  closeOnClick: false'} ${$pauseOnHover.prop('checked') ? '' : '\n  pauseOnHover: false'} ${$customTransition.prop('checked') ? '\n  transition: // A reference to a valid react-transition-group/Transition component' : ''} ${$onOpen.prop('checked') ? '\n  onOpen: // Your custom function being called at componentDidMount' : ''} ${$onClose.prop('checked') ? '\n  onClose: // Your custom function being called at componentWillUnmount' : ''}`
+
+      let optionJSXForContainer = `  position="${positionFix}"
+      autoClose={${$timeOut.val()}} ${$('#closeButton').prop('checked') ? '' : '\n  closeButton={false}'} ${$('#progressBar').prop('checked') ? '' : '\n  hideProgressBar'}
+      newestOnTop${$('#newestOnTop').prop('checked') ? '' : '={false}'}
+      rtl${$('#rtl').prop('checked') ? '' : '={false}'}${$draggable.prop('checked') ? '' : '\n  draggable={false}'}${$closeOnClick.prop('checked') ? '' : '\n  closeOnClick={false}'}${$pauseOnHover.prop('checked') ? '' : '\n  pauseOnHover={false}'}${$customTransition.prop('checked') ? '\n  transition={...} // A reference to a valid react-transition-group/Transition component' : ''}>`
+
+      $('#containerOptions').text("<ToastContainer\n"
+        + optionJSXForContainer
+        + "\n</ToastContainer>");
+
+      $('#toastrOptions').text('toast'
+        + (shortCutFunction !== 'default' ? ('.' + shortCutFunction) : '')
+        + '("'
+        + msg
+        + '", {'
+        // + JSON.stringify(toastr.options, null, 2)
+        + optionObjectForMethod
+        + '\n});'
+      );
+
+      var $toast = toastr[shortCutFunction](msg); // Wire up an event handler to a button in the toast, if it exists
+
+      $toastlast = $toast;
+
+      if (typeof $toast === 'undefined') {
+        return;
+      }
+
+      if ($toast.find('#okBtn').length) {
+        $toast.delegate('#okBtn', 'click', function () {
+          alert('you clicked me. i was toast #' + toastIndex + '. goodbye!');
+          $toast.remove();
+        });
+      }
+      if ($toast.find('#surpriseBtn').length) {
+        $toast.delegate('#surpriseBtn', 'click', function () {
+          alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.');
+        });
+      }
+
+      if ($toast.find('.clear').length) {
+        $toast.delegate('.clear', 'click', function () {
+          toastr.clear($toast, { force: true });
+        });
+      }
+    });
+
+    function getLastToast() {
+      return $toastlast;
+    }
+
+    $('#clearlasttoast').click(function () {
+      toastr.clear(getLastToast());
+    });
+    
+    $('#cleartoasts').click(function () {
+      toastr.clear();
+    });
+  })
+  $('.toast').toast('show');
+</script>
+
+<!-- Structured data: Breadcrumbs -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "https://mdbootstrap.com/",
+        "name": "MDBootstrap",
+        "image": "https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg"
+      }
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@id": "https://mdbootstrap.com/docs/react/",
+        "name": "MDBootstrap React",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2018/03/react-cover.jpg"
+      }
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@id": "https://mdbootstrap.com/docs/react/advanced/",
+        "name": "Advanced",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2017/12/alerts.jpg"
+      }
+    },{
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@id": "https://mdbootstrap.com/docs/react/advanced/notifications/",
+        "name": "Notification / Toast",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2017/12/alerts.jpg"
+      }
+    }]
+  }
+</script>
+
+<!-- Structured data: Article -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://mdbootstrap.com/docs/react/advanced/notifications/"
+    },
+    "headline": "React Notification - Bootstrap 4 & Material Design. Examples & tutorial.",
+    "image": [
+      "https://mdbootstrap.com/wp-content/uploads/2017/12/alerts.jpg"
+    ],
+    "datePublished": "2018-11-26T08:00:00+08:00",
+    "dateModified": "2018-11-30T09:20:00+08:00",
+    "author": {
+      "@type": "Organization",
+      "name": "MDBootstrap"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MDBootstrap",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+      }
+    },
+    "description": "React Bootstrap notifications are feedback messages which are displayed after specific actions preceded by the user. Length of the text is not limited."
+  }
+</script>

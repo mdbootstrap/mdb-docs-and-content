@@ -1,0 +1,607 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+  <!--Section: Intro-->
+  <section id="introduction">
+
+    <!--Title-->
+    <h1 class="main-title">Angular Bootstrap collapse</h1>
+
+    <!--Description-->
+    <p class="description">Bootstrap collapse plugin allows you to toggle content on your pages with a bit of JavaScript and some classes. A flexible
+      plugin that utilizes a handful of classes for easy toggle behavior.</p>
+
+  </section>
+  <!--/Section: Intro-->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="basic-example">
+
+    <!--Title-->
+    <h2 class="title">
+      <strong>Basic examples</strong>
+    </h2>
+
+    <p class="description">Add
+      <code>(click)="test.toggle()" mdbWavesEffect</code> to the
+      <code>button</code> tag.</p>
+    <p class="description">Place the collapse content
+      <code>&lt;div&gt;</code> in the parent
+      <code>&lt;div&gt;</code> and add
+      <code>[collapse]="isCollapsed" #test="bs-collapse"</code> inside.</p>
+
+    <!-- Live preview-->
+    <p>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+        aria-controls="collapseExample">
+        Toggle collapse
+      </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh
+        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</p>
+    </div>
+    <!-- /.Live preview-->
+
+    <pre class="code-toolbar"><code class="language-markup">
+&lt;button mdbBtn color="primary" class="waves-light" type="button" (click)="test.toggle()" mdbWavesEffect&gt;
+    Toggle collapse
+&lt;/button&gt;
+
+&lt;div class="" mdbCollapse #test="bs-collapse"&gt;
+    &lt;p&gt;Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.&lt;/p&gt;
+&lt;/div&gt;
+        </code></pre>
+
+  </section>
+  <!--Section: Code-->
+
+  <hr class="my-5">
+
+    <!--Section: -->
+    <section id="visibleCollapse">
+
+      <!--Title-->
+      <h2 class="title">
+        <strong>Collapse visible after view init</strong>
+      </h2>
+
+      <!-- Live preview-->
+      <p>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExamplee" aria-expanded="false"
+          aria-controls="collapseExample">
+          Toggle collapse
+        </button>
+      </p>
+      <div class="collapse" id="collapseExamplee">
+        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh
+          helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</p>
+      </div>
+      <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<button class="btn btn-primary waves-light" type="button" (click)="test.toggle()" mdbWavesEffect>
+  Toggle collapse
+</button>
+
+<div class="" mdbCollapse [isCollapsed]="false" #test="bs-collapse">
+  <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica,
+    craft beer labore wes anderson cred nesciunt sapiente ea proident.</p>
+</div>
+	</code>
+	<code data-lang="js" data-name="TS">
+// For MDB Angular Free
+import { CollapseDirective } from 'angular-bootstrap-md';
+// For MDB Angular Pro
+import { CollapseDirective } from 'ng-uikit-pro-standard';
+import { Component, ViewChildren, AfterViewInit } from '@angular/core';
+
+@Component({
+  selector: 'visible-collapse',
+  templateUrl: './visible-collapse.component.html',
+  styleUrls: ['./visible-collapse.component.scss'],
+})
+export class VisibleCollapseComponent implements AfterViewInit {
+  @ViewChildren(CollapseDirective) collapses: CollapseDirective[];
+
+  ngAfterViewInit() {
+    this.collapses.forEach((collapse: CollapseDirective) => {
+      collapse.show();
+    });
+  }
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+    </section>
+    <!--Section: Code-->
+
+    <hr class="my-5">
+
+  <!-- SECTION-->
+  <section id="events">
+    <h2 class="title">Collapse events</h2>
+
+    <!-- Live preview-->
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style="width: 150px;">Event Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>(showBsCollapse)="showBsCollapse()"</td>
+            <td>This event fires immediately when the
+              <code>show</code> instance method is called.</td>
+          </tr>
+          <tr>
+            <td>(shownBsCollapse)="shownBsCollapse()"</td>
+            <td>This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions
+              to complete).</td>
+          </tr>
+          <tr>
+            <td>(hideBsCollapse)="hideBsCollapse()"</td>
+            <td>
+              This event is fired immediately when the
+              <code>hide</code> method has been called.
+            </td>
+          </tr>
+          <tr>
+            <td>(hiddenBsCollapse)="hiddenBsCollapse()"</td>
+            <td>This event is fired when a collapse element has been hidden from the user (will wait for CSS transitions to complete).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<button class="btn btn-primary waves-light" type="button" (click)="test.toggle()" mdbWavesEffect>
+    Toggle collapse
+</button>
+
+<div class="" mdbCollapse #test="bs-collapse" (showBsCollapse)="showBsCollapse($event)" (shownBsCollapse)="shownBsCollapse($event)" (hideBsCollapse)="hideBsCollapse($event)" (hiddenBsCollapse)="hiddenBsCollapse($event)">
+    <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+    </div>
+</div>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'collapse-example',
+  templateUrl: 'collapse-example.html',
+})
+
+export class CollapseExampleComponent  {
+
+    showBsCollapse(event: any) { console.log(event); }
+    shownBsCollapse(event: any) { console.log(event); }
+    hideBsCollapse(event: any) { console.log(event); }
+    hiddenBsCollapse(event: any) { console.log(event); }
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+  </section>
+  <!-- SECTION-->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="accessibility">
+
+    <!--Title-->
+    <h2 class="title">
+      <strong>Accessibility</strong>
+    </h2>
+
+    <!--Description-->
+    <p class="description">Be sure to add
+      <code>aria-expanded</code> to the control element. This attribute explicitly defines the current state of the collapsible
+      element to screen readers and similar assistive technologies. If the collapsible element is closed by default, it should
+      have a value of
+      <code>aria-expanded="false"</code>. If you’ve set the collapsible element to be open by default using the
+      <code>in</code> class, set
+      <code>aria-expanded="true"</code> on the control instead. The plugin will automatically toggle this attribute based on whether
+      or not the collapsible element has been opened or closed.</p>
+
+    <p>Additionally, if your control element is targeting a single collapsible element – i.e. the
+      <code>data-target</code> attribute is pointing to an
+      <code>id</code> selector – you may add an additional
+      <code>aria-controls</code> attribute to the control element, containing the
+      <code>id</code> of the collapsible element. Modern screen readers and similar assistive technologies make use of this attribute
+      to provide users with additional shortcuts to navigate directly to the collapsible element itself.
+    </p>
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!-- SECTION-->
+  <section id="accordion">
+    <h2 class="title">
+      <strong>Accordion</strong>
+      <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md"
+        role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+    <p class="description">Extend the default collapse behavior to create an accordion.</p>
+
+    <!-- Live preview-->
+
+    <!--Accordion wrapper-->
+    <div class="md-accordion accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+      <!-- Accordion card -->
+      <div class="card">
+
+        <!-- Card header -->
+        <div class="card-header" role="tab" id="headingOne">
+          <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <h5 class="mb-0">
+              Collapsible Group Item #1
+              <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
+
+        <!-- Card body -->
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+            craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+            occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+            labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <!-- Accordion card -->
+
+      <!-- Accordion card -->
+      <div class="card">
+
+        <!-- Card header -->
+        <div class="card-header" role="tab" id="headingTwo">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <h5 class="mb-0">
+              Collapsible Group Item #2
+              <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
+
+        <!-- Card body -->
+        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+            craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+            occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+            labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <!-- Accordion card -->
+
+      <!-- Accordion card -->
+      <div class="card">
+
+        <!-- Card header -->
+        <div class="card-header" role="tab" id="headingThree">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <h5 class="mb-0">
+              Collapsible Group Item #3
+              <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
+
+        <!-- Card body -->
+        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+            craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+            occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+            labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <!-- Accordion card -->
+    </div>
+    <!--/.Accordion wrapper-->
+
+    <!-- /.Live preview-->
+    <br>
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<!--Accordion wrapper-->
+<mdb-accordion [multiple]="false" aria-multiselectable="true">
+    <mdb-accordion-item  [collapsed]="false" *ngFor="let item of itemsList">
+        <mdb-accordion-item-head> {{ item.title }} </mdb-accordion-item-head>
+        <mdb-accordion-item-body> {{ item.description }} </mdb-accordion-item-body>
+    </mdb-accordion-item>
+</mdb-accordion>
+<!--/.Accordion wrapper-->
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'accordion-example',
+  templateUrl: 'accordion-example.html',
+})
+
+export class AccordionExampleComponent  {
+
+    public itemsList:Object[] = [
+        {
+            title: 'Collapsible Group Item #1',
+            description: 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.'
+        },
+         {
+            title: 'Collapsible Group Item #2',
+            description: 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.'
+        },
+         {
+            title: 'Collapsible Group Item #3',
+            description: 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.'
+        }
+    ]
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+  </section>
+  <!-- SECTION-->
+
+  <hr class="my-5">
+
+  <!-- SECTION-->
+  <section id="disabled-accordion">
+    <h2 class="title">
+      <strong>Disabled Accordion item</strong>
+      <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md"
+        role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+    <p class="description">Disabled item via isDisabled property in Accordion.</p>
+
+    <!-- Live preview-->
+
+    <!--Accordion wrapper-->
+    <div class="md-accordion accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+      <!-- Accordion card -->
+      <div class="card">
+
+        <!-- Card header -->
+        <div class="card-header" role="tab" id="headingOne">
+          <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <h5 class="mb-0">
+              Collapsible Group Item #1
+              <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
+
+        <!-- Card body -->
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+            craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+            occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+            labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <!-- Accordion card -->
+
+      <!-- Accordion card -->
+      <div class="card">
+
+        <!-- Card header -->
+        <div class="card-header" role="tab" id="headingTwo">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <h5 class="mb-0">
+              Collapsible Group Item #2
+              <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
+
+        <!-- Card body -->
+        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+            craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+            occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+            labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <!-- Accordion card -->
+
+      <!-- Accordion card -->
+      <div class="card">
+
+        <!-- Card header -->
+        <div class="card-header" role="tab" id="headingThree">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <h5 class="mb-0">
+              Collapsible Group Item #3
+              <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
+
+        <!-- Card body -->
+        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+            craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+            occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+            labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <!-- Accordion card -->
+    </div>
+    <!--/.Accordion wrapper-->
+
+    <!-- /.Live preview-->
+    <br>
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<!--Accordion wrapper-->
+<mdb-accordion [multiple]="true" aria-multiselectable="true">
+  <mdb-accordion-item [collapsed]="false">
+    <mdb-accordion-item-head> {{ itemsList[0].title }} </mdb-accordion-item-head>
+    <mdb-accordion-item-body> {{ itemsList[0].description }} </mdb-accordion-item-body>
+  </mdb-accordion-item>
+  <mdb-accordion-item [collapsed]="false">
+    <mdb-accordion-item-head [isDisabled]="true"> {{ itemsList[1].title }} </mdb-accordion-item-head>
+    <mdb-accordion-item-body> {{ itemsList[1].description }} </mdb-accordion-item-body>
+  </mdb-accordion-item>
+  <mdb-accordion-item [collapsed]="false">
+    <mdb-accordion-item-head> {{ itemsList[2].title }} </mdb-accordion-item-head>
+    <mdb-accordion-item-body> {{ itemsList[2].description }} </mdb-accordion-item-body>
+  </mdb-accordion-item>
+</mdb-accordion>
+<!--/.Accordion wrapper-->
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'accordion-disabled',
+  templateUrl: 'accordion-disabled.html',
+})
+
+export class DisabledAccordionItemComponent  {
+
+    public itemsList:Object[] = [
+        {
+            title: 'Collapsible Group Item #1',
+            description: 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.'
+        },
+         {
+            title: 'Collapsible Group Item #2',
+            description: 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.'
+        },
+         {
+            title: 'Collapsible Group Item #3',
+            description: 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.'
+        }
+    ]
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+  </section>
+  <!-- SECTION-->
+
+  <section id="options">
+    <h2 class="title my-5">Accordion Options</h2>
+
+    <!-- Live preview-->
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style="width: 150px;">Field name</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>multiple</td>
+            <td>Boolean</td>
+            <td>True</td>
+            <td>This attribute enable/disable the multiple item expanded at the same time.</td>
+          </tr>
+          <tr>
+            <td>collapsed</td>
+            <td>Boolean</td>
+            <td>True</td>
+            <td>This attribute enable/disable collapse from the beginning when component is rendered.</td>
+          </tr>
+          <tr>
+            <td>isDisabled</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>This attribute disable accordion item when true.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION-->
+  <section id="APIref">
+
+      <h2 class="title my-4">API Reference:</h2>
+      <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of importing
+        the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific module,
+        is bad practice, and can cause application errors.
+      </p>
+
+      <h5 class="mb-4">API Reference for MDB Angular Collapse:</h5>
+      <pre><code class="language-javascript">// For MDB Angular Pro
+import { CollapseModule, WavesModule } from 'ng-uikit-pro-standard'</code></pre>
+<pre><code class="language-javascript">// For MDB Angular Pro Accordion
+import { AccordionModule, WavesModule } from 'ng-uikit-pro-standard'</code></pre>
+      <pre><code class="language-javascript">// For MDB Angular Free
+import { CollapseModule, WavesModule } from 'angular-bootstrap-md'</code></pre>
+      <div class="row">
+        <div class="col-md-6">
+          <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">Import example</a>
+          <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">Modules list</a>
+        </div>
+      </div>
+    </section>
+</section>
+<!--/Section: Doc content-->

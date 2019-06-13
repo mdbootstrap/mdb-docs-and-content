@@ -1,0 +1,169 @@
+<script>
+  function testAnim(x, source) {
+    let $infinite = $('#infinite').prop('checked');
+    const $iteration = $('#iteration').val();
+    const $delay = $('#delay').val();
+    const $duration = $('#duration').val();
+    const isInfinite = ($infinite ? ' infinite' : '');
+    if (source == "iteration") {
+      $infinite = false;
+    }
+    let $changeAnimation = $('#animationSandbox').removeClass().addClass(x + ' animated')
+
+    if (source == "iteration" && !$infinite) {
+      $changeAnimation.css("animation-iteration-count", $iteration)
+    }
+    if (source == "delay") {
+    }
+    if (source == "infinite") {
+      if ($infinite) {
+        $changeAnimation.css("animation-iteration-count", "infinite")
+      } else {
+        ($iteration == undefined ? '1' : $iteration)
+        $changeAnimation.css("animation-iteration-count", $iteration)
+      }
+    }
+
+    if ($delay) {
+      $changeAnimation.css("animation-delay", $delay + "s");
+    }
+
+    if ($duration) {
+      $changeAnimation.css("animation-duration", $duration);
+    }
+
+    if (!$infinite) {
+      $changeAnimation.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+        $(this).removeClass();
+      });
+    }
+
+    const $animationSnippet = $('#animationSnippet');
+
+    $animationSnippet.text(`<Animation type="${x}"${isInfinite}${($iteration !== "1" && $iteration !== null && !$infinite) ? ' count={' + $iteration + '}' : ''}${($duration !== null && $duration !== undefined) ? ' duration="' + $duration + '"' : ''}${($delay !== "0" && $delay !== null) ? ' delay="' + $delay + '"' : ''}>
+  <img src="https://mdbootstrap.com/img/logo.png" alt="Transparent MDB Logo"/>
+</Animation>`)
+  };
+
+
+  $(document).ready(function () {
+    let anim;
+    let source;
+    $('.js--triggerAnimation').click(function (e) {
+      e.preventDefault();
+      anim = $('.js--animations').val();
+      testAnim(anim, "type");
+    });
+
+    $('.js--animations').change(function () {
+      anim = $(this).val();
+      testAnim(anim, "type");
+    });
+    $('#infinite').change(() => {
+      if (anim == undefined) {
+        anim = "bounce"
+      }
+      testAnim(anim, "infinite");
+    })
+
+    $('#iteration').change(() => {
+      let $infinite = $('#infinite')
+      $infinite.prop('checked', false);
+      if (anim == undefined) {
+        anim = "bounce"
+      }
+      testAnim(anim, "iteration")
+    })
+    $('#duration').change(() => {
+      if (anim == undefined) {
+        anim = "bounce"
+      }
+      testAnim(anim, "duration");
+    })
+    $('#delay').change(() => {
+      if (anim == undefined) {
+        anim = "bounce"
+      }
+      testAnim(anim, "delay");
+    })
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('select').material_select();
+  });
+</script>
+
+
+<!-- Structured data: Breadcrumbs -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "https://mdbootstrap.com/",
+        "name": "MDBootstrap",
+        "image": "https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg"
+      }
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@id": "https://mdbootstrap.com/docs/react/",
+        "name": "MDBootstrap React",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2018/03/react-cover.jpg"
+      }
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@id": "https://mdbootstrap.com/docs/react/css/",
+        "name": "Css",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2018/03/react-cover-1.jpg"
+      }
+    },{
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@id": "https://mdbootstrap.com/docs/react/css/animations/",
+        "name": "Animations",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2015/08/animations1-fb.jpg"
+      }
+    }]
+  }
+  </script>
+
+<!-- Structured data: Article -->
+<script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://mdbootstrap.com/docs/react/css/animations/"
+      },
+      "headline": "React Animations - Bootstrap 4 & Material Design. Examples & tutorial.",
+      "image": [
+        "https://mdbootstrap.com/wp-content/uploads/2015/08/animations1-fb.jpg"
+      ],
+      "datePublished": "2018-07-10T08:00:00+08:00",
+      "dateModified": "2018-12-19T09:20:00+08:00",
+      "author": {
+        "@type": "Organization",
+        "name": "MDBootstrap"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MDBootstrap",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+        }
+      },
+      "description": "React Bootstrap animations are illusions of motions for web elements. +70 animations generated by CSS only, work properly on every browser."
+    }
+    </script>

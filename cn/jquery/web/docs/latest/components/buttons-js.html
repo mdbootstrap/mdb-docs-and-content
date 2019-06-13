@@ -1,0 +1,131 @@
+<script>
+  var shortcodesGeneratorWrapper = jQuery('#shortcodesGeneratorWrapper');
+  var form = shortcodesGeneratorWrapper.children('form');
+  var result = $('code#shortcodeOutput');
+  var button = $('#buttonPreview');
+  var roundedInput = $("#buttonRoundedWrapper").find('input[type="checkbox"]');
+  var floatingInput = $("#buttonFloatingWrapper").find('input[type="checkbox"]');
+  var flatInput = $("#buttonFlatWrapper").find('input[type="checkbox"]');
+  var outlineInput = $("#buttonOutlineWrapper").find('input[type="checkbox"]');
+  var sizeInput = $('input[type=radio][name="size"]');
+
+
+  // default settings
+  var params = [];
+  params['class'] = 'btn';
+  params['buttonUrl'] = "#";
+  params['buttonText'] = "Primary";
+  params['colorClass'] = 'btn-primary';
+  params['sizeClass'] = "";
+  updateShortcode();
+
+  // Color Picker
+  var picker = $('#buttonColorsModal');
+  var colors = picker.find('[class^="btn-color-picker"]');
+  var noOutline = picker.find('.btn-color-picker-no-outline');
+  var outline = picker.find('.btn-color-picker');
+  colors.on("click", function(e){
+    button.removeClass(params['colorClass']);
+    var colorClass = this.className.split(' ')[2];
+    if ( $('input[name=buttonOutline]').prop('checked') ){
+        params['colorClass'] = colorClass.replace('-','-outline-');
+        button.addClass(params['colorClass']);
+        updateShortcode()
+    } else {
+        params['colorClass'] = colorClass;
+        button.addClass(colorClass);
+        updateShortcode()
+    }
+  });
+
+
+  outlineInput.on("change", function(e){
+      if ( $('input[name=buttonOutline]').prop('checked') ){
+        button.removeClass(params['colorClass']);
+        params['colorClass'] = params['colorClass'].replace('-', '-outline-');
+        params['class'] += " waves-effect";
+        button.addClass(params['colorClass']).removeClass("waves-light");
+        updateShortcode()
+      } else {
+        button.removeClass(params['colorClass']);
+        params['colorClass'] = params['colorClass'].replace('-outline-', '-');
+        button.addClass(params['colorClass']).addClass("waves-light");
+        params['class'] = params['class'].replace(" waves-effect", "");
+        updateShortcode()
+      }
+    });
+
+  // event listener for text input
+  var textInput = $('#buttonText');
+  textInput.on('input', function(e){
+    params['buttonText'] = textInput.val();
+    button.text(textInput.val())
+    updateShortcode()
+  })
+
+  // event listener for URL input
+  var urlInput = $('#buttonUrl');
+  urlInput.on('input', function(e){
+    params['buttonUrl'] = urlInput.val();
+    updateShortcode()
+  })
+
+  // event listener for rounded switch
+  roundedInput.on('change', function(e){
+      if( $('input[name=buttonRounded]').prop('checked') ) {
+        button.addClass('btn-rounded');
+        params['class'] += ' btn-rounded';
+        updateShortcode()
+      } else {
+        button.removeClass('btn-rounded');
+        params['class'] = params['class'].replace(' btn-rounded', "");
+        updateShortcode()
+      }
+  });
+
+  // event listener for floating switch
+  floatingInput.on('change', function(e){
+      if( $('input[name=buttonFloating]').prop('checked') ) {
+        button.addClass('btn-floating');
+        params['class'] += ' btn-floating';
+        updateShortcode()
+      } else {
+        button.removeClass('btn-floating');
+        params['class'] = params['class'].replace(' btn-floating', "");
+        updateShortcode()
+      }
+  });
+
+  // event listener for flat switch
+  flatInput.on('change', function(e){
+      if( $('input[name=buttonFlat]').prop('checked') ) {
+        button.addClass('btn-flat');
+        params['class'] += ' btn-flat';
+        updateShortcode()
+      } else {
+        button.removeClass('btn-flat');
+        params['class'] = params['class'].replace(' btn-flat', "");
+        updateShortcode()
+      }
+  });
+
+  // event listener for size radio inputs
+  sizeInput.on('change', function(e){
+    button.removeClass(params['sizeClass']);
+    params['sizeClass'] = this.value;
+    button.addClass(params['sizeClass']);
+    updateShortcode();
+  });
+
+  function updateShortcode(){
+    var code = '&lt;button';
+    code += params['buttonUrl'] ? ` url="${params['buttonUrl']}"` : '';
+    code += params['class'] ? ` class="${params['class'] + " " + params['colorClass'] + params['sizeClass']}"` : '';
+    code = code.trim() + '&gt;';
+    code += params['buttonText'] ? `${params['buttonText']}` : '';
+    code += '&lt;/button&gt;';
+    result.html(code)
+
+    Prism.highlightAll()
+  }
+</script>

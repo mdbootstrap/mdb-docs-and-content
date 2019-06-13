@@ -1,0 +1,273 @@
+<h2>1. State</h2>
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <div>In the last lesson, we learned how to pass data to our components using props (properties). We've also
+    learned that props cannot be overwritten within the component.<span style="font-weight: bold;"> In order to keep track of a component's internal state/configuration/setting React developers created a special variable called state</span>: </div>
+  <div><br /></div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            state = {
+                time: "10:00",
+                title: "My state title"
+              };            
+     </code>
+ </mdbsnippet>
+  <div>Which similarly to props can be easily accessed from inside the component: </div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            <h3>{this.state.time} - {this.state.title}</h3>
+      </code>
+  </mdbsnippet>
+  <div>The complete class code:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            class Event extends Component {
+                state = {
+                  time: "10:00",
+                  title: "My state name"
+                };
+                render() {
+                  return (
+                    <React.Fragment>
+                      <h3>{this.state.time} - {this.state.title}</h3>
+                      <button>Change my title</button>
+                    </React.Fragment>
+                  );
+                }
+              }              
+      </code>
+  </mdbsnippet>
+  <div>Preview:</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/7/image_1.png"  /><br /></div>
+  <div><br /></div>
+<h2>2. State vs standard variable </h2>
+  <div><br /></div>
+  <div>Those of you which are familiar with other libraries, frameworks or TypeScript could ask — <b>can't we use a normal variable? </b> Yes — we can. We can declare and assign variables in a constructor:</div>
+  <mdbsnippet>
+      <code data-lang="js" data-name="JSX">
+            class Event extends Component {
+                state = {
+                  time: "10:00",
+                  title: "My state title"
+                };
+                constructor() {
+                  super();
+                  this.vatTime = "12:00";
+                  this.varTitle = "My variable title";
+                }              
+      </code>
+  </mdbsnippet>
+  <div>And in a similar way to state: </div>
+<mdbsnippet>
+    <code data-lang="js" data-name="JSX">
+            <React.Fragment>
+                    <h3>
+                      State:
+                      {this.state.time} - {this.state.title}
+                    </h3>
+                    <h3>
+                      Variable:
+                      {this.vatTime} - {this.varTitle}
+                    </h3>
+                    <button>Change my title</button>
+                  </React.Fragment>            
+    </code>
+</mdbsnippet>
+  <div>However<span style="font-weight: bold;"> there is one very important difference between working on variables and
+      state in React</span>.  <span style="font-weight: bold;">State variables are meant to trigger a re-render</span> (if
+    they are updated in a proper way). In other words - <span style="font-weight: bold;">every time you update a state
+      variable React will automatically re-render our component view</span>.</div>
+  <div><br /></div>
+  <h2>3. Using setState() </h2>
+
+  <div><br /></div>
+  <div> Let's quickly test it — we will add two buttons to each heading - when we click on one of them it will update our
+    title with a new value.</div>
+ <mdbsnippet>
+     <code data-lang="js" data-name="JSX">
+            render() {
+                return (
+                  <React.Fragment>
+                    {/* This is genarated from state */}
+                    <h3>
+                      State:
+                      {this.state.time} - {this.state.title}
+                      <button
+                        onClick={() => {
+                          this.state.title = "My NEW state title";
+                          console.log(this.state.title);
+                        }}
+                      >
+                        Change state title
+                      </button>
+                    </h3>
+                    {/* This is genarated from variable (constructor)  */}
+                    <h3>
+                      Variable:
+                      {this.vatTime} - {this.varTitle}
+                      <button
+                        onClick={() => {
+                          this.varTitle = "My NEW variable title";
+                          console.log(this.varTitle);
+                        }}
+                      >
+                        Change variable title
+                      </button>
+                    </h3>
+                  </React.Fragment>
+                );
+              }            
+     </code>
+ </mdbsnippet>
+  <div>And test it:</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/7/directVarUpdate.gif"  /><br /></div>
+  <div><br /></div>
+  <div>Oops! Apparently, none of the above solution works. As I mentioned before,<span style="font-weight: bold;"> the update of the <mark>varTitle</mark> variable doesn't trigger an update in DOM</span>. But according to what I said — <span style="font-weight: bold;">whenever we update a state variable React should re-render component in DOM</span>. As we can see in console<span style="font-weight: bold;"> both variables are actually getting updated to the new value but the change isn't reflected in a browser</span>. So why it didn't work? </div>
+  <div><br /></div>
+  <div>If you look closer to console you will see a warning: </div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/7/image.png"  /><br /></div>
+  <div><br /></div>
+  <div>This is important to remember.<span style="font-weight: bold;"> You should never update state directly, instead use the dedicated for that purpose <mark>setState()</mark> function</span>. Otherwise, React won't detect the change and update the
+    DOM. Let's update our state variable in the proper way:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            render() {
+                return (
+                  <React.Fragment>
+                    {/* This is genarated from state */}
+                    <h3>
+                      State:
+                      {this.state.time} - {this.state.title}
+                      <button
+                        onClick={() => {
+                          this.setState({ title: "Me NEW state title" });
+                          console.log(this.state.title);
+                        }}
+                      >
+                        Change state title
+                      </button>
+                    </h3>
+                  </React.Fragment>
+                );
+              }              
+     </code>
+ </mdbsnippet>
+  <div>Preview:</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/7/setStateUpdate.gif" /><br /></div>
+  <div><br /></div>
+  <div><br /></div>
+  <h2>4. Asynchronous request</h2>
+  
+  <div><br /></div>
+  <div>Now our view is getting updated. However, there is one more important thing to remember. Look closer at the value printed in the console. <span style="font-weight: bold;">Although our view gets updated, the console log still shows us... the old value</span>. <span style="font-weight: bold;">But when we click for the second time it shows       correct value</span> so why it doesn't show it in the first function call? </div>
+  <div><br /></div>
+  <div>When you called <mark>setState()</mark> function (you told React to re-render) you have made an asynchronous request for update. You may be expecting it to do it straight away by checking state in the next line and then assuming no update has occurred because you did not see it change.<span style="font-weight: bold;"> This is something that
+      never happens in JavaScript let alone React</span>;<span style="font-weight: bold;"> the response to an async request never occurs until the current script has completed </span>(even if the async action actually occurs before the current script completes!). As with all async updates,<span style="font-weight: bold;"> you have to wait for an event that is fired when the update occurs</span>. In React, that event is one of the life cycle methods and we will learn about that in a separate lesson. For now, just<span style="font-weight: bold;"> keep in mind that although usually update happens really fast in certain cases it may get delayed</span>. </div>
+  <div><br /></div>
+
+  <h2>5. Combining state &amp; props </h2>
+  <div><br /></div>
+  <div>Let's now come back to our original issue. How can we edit data which were passed from outside the component
+    since we cannot update props? That's very simple, we will use both! States and props: </div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            constructor(props) {
+                super(props);
+                this.state = {
+                  time: this.props.time,
+                  title: this.props.title
+                };
+              }            
+      </code>
+  </mdbsnippet>
+  <div>And the entire class:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            render() {
+                return (
+                  <React.Fragment>
+                    <h3>
+                      {this.state.time} - {this.state.title}
+                      <button
+                        onClick={() => {
+                          this.setState({ title: "Me NEW state title" });
+                          console.log(this.state.title);
+                        }}
+                      >
+                        Change state title
+                      </button>
+                    </h3>
+                  </React.Fragment>
+                );
+              }
+            }            
+      </code>
+  </mdbsnippet>
+  <div>This allows us to set the initial value of the state to the one passed via props, and edit it later using
+   <mark> setState()</mark>. </div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/7/propsAndState.gif" /><br /></div>
+  <!-- <div>//TODO Imporant disclaimer </div> -->
+  <div><br /></div>
+  <h2>6. Two ways to initialize variables in React</h2>
+  <div><br /></div>
+  <div>Before we move to the next lesson, I want you to keep in mind one thing. You might noticed that along the lesson
+    I have assigned state{} in two different ways, directly in a class:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            class Event extends Component {
+                state = {
+                  time: "10:00",
+                  title: "My state title"
+                };              
+      </code>
+  </mdbsnippet>
+  <div>as well as in the <mark>constructor()</mark> </div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            class Event extends Component {
+                constructor(props) {
+                  super(props);
+                  this.state = {
+                    time: this.props.time,
+                    title: this.props.title
+                  };
+                }              
+     </code>
+ </mdbsnippet>
+  <div><b>Are they different?</b></div>
+  <div>They are roughly equivalent. The first approach uses the class fields proposal. It is not a part of the ECMAScript standard yet. You can think of it as an experimental feature. It most probably will work and become a standard soon but be aware that the second approach, although a bit longer is currently a recommended one. </div>
+  <div><br /></div>
+  <h2>7. Summary </h2>
+  
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <p>Let's summarize the main differences between React State and Props. </p>
+  <p>
+    <b>State</b> is referred to the local state of the component <b> which cannot be accessed and modified outside of the
+    component </b> and only can be used &amp; modified inside the component. </p>
+     <p> <b>Props</b>, on the other hand, make components
+    reusable by giving components the <b>ability to receive data from the parent component</b> in the form of props.</p>
+  <!-- <div>TODO If you are curious about more differences, I have covered it in a speciall lesson. </div> -->
+  <div><br /></div>
+  <h2>8. Cleanup</h2>
+  
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <div>Since we won't edit our Schedule items yet, let's remove our state code and clean everything up: </div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            class Event extends Component {
+                render() {
+                  return (
+                    <React.Fragment>
+                      <h3>
+                        {this.props.time} - {this.props.title}
+                      </h3>
+                    </React.Fragment>
+                  );
+                }
+              }              
+      </code>
+  </mdbsnippet>

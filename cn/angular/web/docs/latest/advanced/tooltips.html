@@ -1,0 +1,444 @@
+<!--Documentation file-->
+<div class="documentation">
+    <!-- ******-->
+
+    <!-- FIRST SECTION-->
+    <section id="introduction">
+        <h1 class="main-title">Angular Bootstrap tooltip</h1>
+        <div class="description">
+            <p>Tooltips are a convenient way of presenting additional information to your user. They are tiny little clouds
+                with a brief text message, triggered by clicking on specified element or hovering over it. </p>
+            <p>They significantly increase User Experience, especially with advanced UI elements, which often require additional
+                explanation. </p>
+        </div>
+    </section>
+    <!-- FIRST SECTION-->
+
+    <hr class="my-5">
+
+    <!-- SECTION-->
+    <section id="examples">
+        <h2 class="title">
+            <strong>Examples</strong>
+        </h2>
+        <p>Four options are available: top, right, bottom, and left aligned.</p>
+        <p>Add
+            <code>placement="top/left/bottom/right"</code> to the
+            <code>&lt;button&gt;</code> tag.</p>
+        <br>
+
+        <!-- Live preview-->
+        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+            Tooltip on top
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+            Tooltip on right
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+            Tooltip on bottom
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
+            Tooltip on left
+        </button>
+        <!-- /.Live preview-->
+
+
+        <pre class="code-toolbar"><code class="language-markup">
+&lt;button type=&quot;button&quot; mdbBtn color="primary" class=&quot;bwaves-light&quot; mdbTooltip=&quot;Tooltip on top&quot; placement=&quot;top&quot; mdbWavesEffect&gt;
+  Tooltip on top
+&lt;/button&gt;
+
+&lt;button type=&quot;button&quot; mdbBtn color="primary" class=&quot;waves-light&quot; mdbTooltip=&quot;Tooltip on right&quot; placement=&quot;right&quot; mdbWavesEffect&gt;
+  Tooltip on right
+&lt;/button&gt;
+
+&lt;button type=&quot;button&quot; mdbBtn color="primary" class=&quot;waves-light&quot; mdbTooltip=&quot;Tooltip on bottom&quot; placement=&quot;bottom&quot; mdbWavesEffect&gt;
+  Tooltip on bottom
+&lt;/button&gt;
+
+&lt;button type=&quot;button&quot; mdbBtn color="primary" class=&quot;waves-light&quot; mdbTooltip=&quot;Tooltip on left&quot; placement=&quot;left&quot; mdbWavesEffect&gt;
+  Tooltip on left
+&lt;/button&gt;
+        </code></pre>
+
+    </section>
+    <!-- SECTION-->
+
+    <hr class="my-5">
+
+    <!-- SECTION-->
+    <section id="options">
+        <h2 class="title">
+            <strong>Options</strong>
+        </h2>
+
+
+        <h4>dismissible</h4>
+        <p>Add
+            <code>triggers="focus"</code> to the
+            <code>&lt;button&gt;</code> tag.</p>
+
+        <pre class="code-toolbar"><code class="language-markup">
+&lt;button type=&quot;button&quot; mdbBtn color="success" class=&quot;waves-light&quot; mdbTooltip=&quot;Some tooltip text!&quot; triggers=&quot;focus&quot; mdbWavesEffect&gt;
+  Tooltip on top
+&lt;/button&gt;
+        </code></pre>
+        <br>
+
+        <h4>simple binding</h4>
+        <p>Add
+            <code>[tooltip]="content"</code> inside your
+            <code>&lt;button&gt;</code>.</p>
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<button type="button" class="btn btn-info waves-light" [mdbTooltip]="content" mdbWavesEffect>
+  Simple binding
+</button>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component} from '@angular/core';
+
+@Component({
+  selector: 'tooltip-binding-example',
+  templateUrl: 'tooltip-binding.html',
+})
+
+export class TooltipBindingComponent {
+  public content: string = 'Add your content here';
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+        <br>
+
+        <h4>dynamic HTML</h4>
+        <p>Create
+            <code>&lt;ng-template&gt;</code> tag and place
+            <code>[mdbTooltip]="popTemplate"</code> inside your
+            <code>&lt;button&gt;</code>tag.</p>
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<ng-template #popTemplate>Here we go: <div [innerHtml]="html"></div></ng-template>
+<button type="button" class="btn btn-success waves-light" [mdbTooltip]="popTemplate" mdbWavesEffect>
+  Show me tooltip with HTML
+</button>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component} from '@angular/core';
+
+@Component({
+  selector: 'tooltip-dynamic-example',
+  templateUrl: 'tooltip-dynamic.html',
+})
+
+export class TooltipDynamicComponent {
+  public html: string = '<span class="btn btn-danger">Your HTML here</span>';
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+        <br>
+
+        <h4>preconfigured</h4>
+
+        <pre class="code-toolbar"><code class="language-markup">
+&lt;button type=&quot;button&quot; mdbBtn color="primary" class=&quot;waves-light&quot; mdbTooltip=&quot;Some tooltip text!&quot; mdbWavesEffect&gt;
+  Preconfigured tooltip
+&lt;/button&gt;
+        </code></pre>
+
+        <br>
+
+        <h4>simple hover</h4>
+        <p>Add
+            <code>triggers="mouseenter:click"</code> to the
+            <code>&lt;button&gt;</code> tag.</p>
+
+        <pre class="code-toolbar"><code class="language-markup">
+&lt;button type=&quot;button&quot; mdbBtn color="info" class=&quot;waves-light&quot; mdbTooltip=&quot;I will hide on click&quot; triggers=&quot;mouseenter:click&quot; mdbWavesEffect&gt;
+  Hover over me!
+&lt;/button&gt;
+        </code></pre>
+
+        <br>
+
+        <h4>show and hide</h4>
+        <p>Create your own element with tooltip inside and add
+            <code>(click)="pop.show()</code> and
+            <code>(click)="pop.hide()"</code> to your buttons.</p>
+
+        <pre class="code-toolbar"><code class="language-markup">
+&lt;p&gt;
+  &lt;span mdbTooltip=&quot;Hello there! I was triggered manually&quot; triggers=&quot;&quot; #pop=&quot;mdb-tooltip&quot;&gt;
+    This text has attached tooltip
+  &lt;/span&gt;
+&lt;/p&gt;
+
+&lt;button type=&quot;button&quot; mdbBtn color="success" class=&quot;waves-light&quot; (click)=&quot;pop.show()&quot; mdbWavesEffect&gt;
+  Show
+&lt;/button&gt;
+&lt;button type=&quot;button&quot; mdbBtn color="warning" class=&quot;waves-light&quot; (click)=&quot;pop.hide()&quot; mdbWavesEffect&gt;
+  Hide
+&lt;/button&gt;
+        </code></pre>
+
+    </section>
+    <!-- SECTION-->
+
+    <hr class="my-5">
+
+    <section id="api">
+        <h2 class="title">
+            <strong>API Options</strong>
+        </h2>
+
+        <p>
+            <strong>TooltipDirective</strong>
+        </p>
+
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td>Selector</td>
+                    <td>
+                        <code class="highlighter-rouge">[mdbTooltip]</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Exported as</td>
+                    <td>
+                        <code class="highlighter-rouge">mdb-tooltip</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <p>
+            <strong>Inputs</strong>
+        </p>
+
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">container</code>
+                    </td>
+                    <td>
+                        <i>Type:</i>
+                        <code class="highlighter-rouge">string</code>
+                        <br> A selector specifying the element the tooltip should be appended to; at the present time only supports
+                        "body".
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">[isDisabled]</code>
+                    </td>
+                    <td>
+                        <i>Type:</i>
+                        <code class="highlighter-rouge">boolean</code>
+                        <br> Allows to disable tooltip.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">[isOpen]</code>
+                    </td>
+                    <td>
+                        <i>Type:</i>
+                        <code class="highlighter-rouge">boolean</code>
+                        <br> Returns whether or not the tooltip is currently being shown.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">placement</code>
+                    </td>
+                    <td>
+                        <i>Type:</i>
+                        <code class="highlighter-rouge">string</code>
+                        <br> Placement of a tooltip; pick one of the accepted options: "top", "bottom", "left", "right".</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">mdbTooltip</code>
+                    </td>
+                    <td>
+                        <i>Type:</i>
+                        <code class="highlighter-rouge">string</code>
+                        <br> The content of your tooltip.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">triggers</code>
+                    </td>
+                    <td>
+                        <i>Type:</i>
+                        <code class="highlighter-rouge">string</code>
+                        <br> Specifies the events that will be triggered. Supports a space separated list of event names.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Example:</p>
+        <pre class="code-toolbar"><code class="language-markup">
+&lt;button type="button" mdbBtn color="success" class="waves-light"
+        mdbTooltip="Click!"
+        triggers="mouseenter:click" mdbWavesEffect&gt;
+  Hover here!
+&lt;/button&gt;
+        </code></pre>
+
+        <br>
+
+        <p>
+            <strong>Outputs</strong>
+        </p>
+
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">(hidden)="onHidden()"</code>
+                    </td>
+                    <td>Emits an event when the tooltip is hidden.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">(tooltipChange)="tooltipChange()"</code>
+                    </td>
+                    <td>Fired when tooltip content changes.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">(shown)="onShown()"</code>
+                    </td>
+                    <td>Emits an event when the tooltip is shown.</td>
+                </tr>
+            </tbody>
+        </table>
+
+    <!--Section: Code-->
+    <section class="mt-3">
+<mdbsnippet>
+	<code data-lang="html" data-name="HTML">
+<button (shown)="onShown()" (hidden)="onHidden()" type="button" class="btn btn-success waves-light"
+        mdbTooltip="I'm a tooltip!" mdbWavesEffect>
+  Hover here!
+</button>
+	</code>
+	<code data-lang="js" data-name="TS">
+import { Component} from '@angular/core';
+
+@Component({
+  selector: 'tooltip-output-example',
+  templateUrl: 'tooltip-output.html',
+})
+
+export class TooltipOutputComponent {
+    public onShown(): void {
+        console.log('can be seen')
+    }
+    public onHidden(): void {
+        console.log("can not be seen")
+    }
+}
+  </code>
+</mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+        <br>
+        <p>Example:</p>
+
+        <br>
+
+        <p>
+            <strong>Methods</strong>
+        </p>
+
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">(event)="name.show()"</code>
+                    </td>
+                    <td>
+                        <i>Return type:</i>
+                        <code class="highlighter-rouge">void</code>
+                        <br> Opens an element’s tooltip. This is considered a "manual" triggering of the tooltip.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">(event)="name.hide()"</code>
+                    </td>
+                    <td>
+                        <i>Return type:</i>
+                        <code class="highlighter-rouge">void</code>
+                        <br> Closes an element’s tooltip. This is considered a "manual" triggering of the tooltip.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code class="highlighter-rouge">(event)="name.toggle(value: boolean)()"</code>
+                    </td>
+                    <td>
+                        <i>Return type:</i>
+                        <code class="highlighter-rouge">void</code>
+                        <br> Toggles an element’s tooltip. This is considered a “manual” triggering of the tooltip.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Example:</p>
+        <pre class="code-toolbar"><code class="language-markup">
+&lt;p&gt;
+  &lt;span mdbTooltip="I can show and hide on click."
+        triggers="" #example="mdb-tooltip"&gt;
+    Text with attached tooltip
+  &lt;/span&gt;
+&lt;/p&gt;
+
+&lt;button type="button" mdbBtn color="primary" class="waves-light" (click)="example.show()" mdbWavesEffect&gt;
+  Show
+&lt;/button&gt;
+&lt;button type="button" mdbBtn color="success" class="waves-light" (click)="example.hide()" mdbWavesEffect&gt;
+  Hide
+&lt;/button&gt;
+        </code></pre>
+
+    </section>
+    <!-- ******-->
+
+    <!-- SECTION-->
+  <section id="APIref">
+
+    <h2 class="title my-4">API Reference:</h2>
+    <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of importing
+      the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific module,
+      is bad practice, and can cause application errors.
+    </p>
+
+    <h5 class="mb-4">API Reference for MDB Angular Tooltip:</h5>
+    <pre><code class="language-javascript">// For MDB Angular Pro
+import { TooltipModule, WavesModule } from 'ng-uikit-pro-standard'</code></pre>
+<pre><code class="language-javascript">// For MDB Angular Free
+import { TooltipModule, WavesModule } from 'angular-bootstrap-md'</code></pre>
+    <div class="row">
+      <div class="col-md-6">
+        <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">Import example</a>
+        <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">Modules list</a>
+      </div>
+    </div>
+  </section>
+</div>
+<!--/.Documentation file-->

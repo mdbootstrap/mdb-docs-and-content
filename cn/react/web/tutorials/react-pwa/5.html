@@ -1,0 +1,356 @@
+<!--Section: Tutorial content-->
+<style>
+  .tutorial img {
+    margin-bottom: 2rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+    width: 50%;
+  }
+</style>
+
+<section class="tutorial">
+  <section id="deploy">
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>Working Offline</strong>
+    </h2>
+
+    <p class="description">Now, we are going to add an indicator, to inform the user, that the internet connection have
+      been
+      lost.</p>
+
+    <p class="description">You are free to design this notification as you wish. In our example, we will use a
+      Bootstrap Alert component. We will create the component in a separate file placed in the components directory.
+      Let's name it <code>Notification.js</code> . Then in our main <code>src/App.js</code> file, we will import the
+      component like this: </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="src/App.js">
+        import Notification from './components/Notification';
+      </code>
+    </mdbsnippet>
+
+    <p class="description">
+      Then, we will place the component in our render method. Put it inside <code>&lt;MDBContainer&gt;</code>, as a
+      direct child.</p>
+
+    <p class="description">Now the fun part - as we somehow have to decide - whether the app is in offline mode.
+      Fortunately,
+      there are handy JavaScript events available to us - 'online' and 'offline'. We just have to define an
+      eventListener
+      which lets us know about any changes in the connection mode.
+    </p>
+
+    <p class="description">We will attach this event listener to the window object. The best moment to declare these
+      event listeners is right after our app is first rendered. We will use the componentDidMount lifecycle method for
+      that.</p>
+
+    <p class="description">Lets add our method:</p>
+
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="src/App.js">
+        componentDidMount() {
+          window.addEventListener('online', () => {
+            this.setState({ notification: 'online' });
+          });
+
+          window.addEventListener('offline', () => {
+            this.setState({ notification: 'offline' });
+          });
+        }
+      </code>
+    </mdbsnippet>
+
+    <p class="description">It's pretty straight forward - whenever a browser is no longer capable of connecting to the
+      network an offline event is fired. Then, as a callback function, we fire a setState method to save in the state
+      information, that we are currently in the offline mode. It works similarly for the online event.</p>
+
+    <p>Now, we add this property to our state: </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="src/App.js">
+        ...
+        state = {
+          notification: "",
+          ...
+      </code>
+    </mdbsnippet>
+
+    <p class="description">Then the last thing which we have to take care of, is to pass a current state to the
+      notification component. First, let's destructure this property from the state, and then pass it down as a
+      notification prop:</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="src/App.js">
+          ...
+          render() {
+            const { events, modal, notification } = this.state;
+
+            return (
+              <>
+                <MDBContainer>
+                  <Notification notification={notification} />
+                  ...
+        </code>
+    </mdbsnippet>
+
+    <p>At the end, our <code>src/App.js</code> file looks like this</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="src/App.js">
+      import React, { Component } from "react";
+      import Modal from './components/Modal';
+      import Event from './components/Event';
+      import Notification from './components/Notification';
+      import WeatherForecast from './components/WeatherForecast'
+      import { MDBBtn,  MDBContainer, MDBRow, MDBCol } from "mdbreact";
+
+      class App extends Component {
+        state = {
+          notification: "",
+          modal: false,
+          events: [
+            {
+              id: 1,
+              time: "10:00",
+              title: "Breakfast with Simon",
+              location: "Lounge Caffe",
+              description: "Discuss Q3 targets"
+            },
+            {
+              id: 2,
+              time: "10:30",
+              title: "Daily Standup Meeting (recurring)",
+              location: "Warsaw Spire Office"
+            },
+            { id: 3, time: "11:00", title: "Call with HRs" },
+            {
+              id: 4,
+              time: "12:00",
+              title: "Lunch with Timmoty",
+              location: "Canteen",
+              description:
+                "Project evalutation ile declaring a variable and using an if statement is a fine way to conditionally render a component, sometimes you might want to use a"
+            }
+          ]
+        }
+
+        componentDidMount() {
+          window.addEventListener('online', () => {
+            this.setState({ notification: 'online' });
+          });
+
+          window.addEventListener('offline', () => {
+            this.setState({ notification: 'offline' });
+          });
+        }
+
+
+        addEvent = () => {
+          var newArray = [...this.state.events];
+          newArray.push({
+            id: newArray.length ? newArray[newArray.length - 1].id + 1 : 1,
+            time: this.state.time,
+            title: this.state.title,
+            location: this.state.location,
+            description: this.state.description,
+            value: this.var > 5 ? "Its's grater then 5" : "Its lower or equal 5"
+          });
+
+          this.setState({
+              events: newArray,
+              time: "",
+              title: "",
+              location: "",
+              description: ""
+            }
+          );
+        };
+
+        handleInputChange = inputName => value => {
+          const nextValue = value;
+
+          this.setState({
+            [inputName]: nextValue
+          });
+        };
+
+        handleDelete = eventId => () => {
+          const events = this.state.events.filter(e => e.id !== eventId);
+          this.setState({ events });
+        };
+
+        toggleModal = () => {
+          this.setState({
+            modal: !this.state.modal
+          });
+        };
+
+        render() {
+          const { events, modal, notification } = this.state;
+
+          return (
+            <>
+              <MDBContainer>
+                <Notification notification={notification} />
+                <MDBRow>
+                  <MDBCol md="9" className="mb-r">
+                    <h2 className="text-uppercase my-3">Today:</h2>
+                    <div id="schedule-items">
+                      {events.map(event => (
+                        <Event
+                          key={event.id}
+                          id={event.id}
+                          time={event.time}
+                          title={event.title}
+                          location={event.location}
+                          description={event.description}
+                          onDelete={this.handleDelete}
+                        />
+                      ))}
+                    </div>
+                    <MDBRow className="mb-4">
+                      <MDBCol xl="3" md="6" className="mx-auto text-center">
+                        <MDBBtn color="info" rounded onClick={this.toggleModal}>
+                          Add Event
+                        </MDBBtn>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCol>
+                  <WeatherForecast length={events.length} />
+                </MDBRow>
+              </MDBContainer>
+              <Modal isOpen={modal} toggleModal={this.toggleModal} handleInputChange={this.handleInputChange} addEvent={this.addEvent} />
+            </>
+          );
+        }
+      }
+
+      export default App;
+      </code>
+    </mdbsnippet>
+
+    <p>Now, let's switch to the <code>Notification.js</code> file. Open it and paste the following code into it:</p>
+
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="src/components/Notification.js">
+          import React, { Component } from 'react';
+          import { MDBAlert } from 'mdbreact';
+          import { CSSTransition } from 'react-transition-group';
+          import './Notification.css';
+
+          class Notification extends Component {
+              state={
+                  Component: null,
+                  in: false
+              }
+
+              componentDidUpdate = prevProps => {
+              let updateComponent;
+              const { notification } = this.props;
+
+              if (notification !== prevProps.notification) {
+
+                switch (notification) {
+                  case "online":
+                      updateComponent = (
+                          <MDBAlert color="success" >
+                              <span role={'img'} aria-label="emoji">👌</span>  Online mode again.
+                          </MDBAlert>);
+                          break;
+
+                  case "offline":
+                      updateComponent = (
+                          <MDBAlert color="danger" >
+                              <span role="img" aria-label="emoji">☢️</span>  Offline mode
+                          </MDBAlert>
+                          )
+                          break;
+                  default:
+                    break;
+                }
+
+                this.setState({Component: updateComponent, in: true}, () => this.setTiemoutHandler());
+              }
+            }
+
+            setTiemoutHandler = () => {
+              setTimeout(() => {
+                  this.setState({in: false});
+              }, 3000);
+            }
+
+            render() {
+                const { Component } = this.state;
+
+              return (
+                  Component
+                      ? <CSSTransition in={this.state.in} mountOnEnter unmountOnExit timeout={500} classNames={{exitActive: 'fade'}}>{Component}</CSSTransition>
+                      : null
+              );
+            }
+          }
+          export default Notification;
+        </code>
+    </mdbsnippet>
+
+    <p>At first, it may look complicated, but don't worry, we will explain everything so that you will have a good
+      understanding of the key concepts.</p>
+
+    <p>The main part of the component code is a <code>componentDidUpdate</code> lifecycle method. It is here because
+      we have to choose, based on our notification prop, what we need to render - an online or offline version of our
+      <code>&lt;MDBAlert&gt;</code>
+      component.</p>
+
+    <p>Then, we save the result of the switch statement into the <code>Component</code> property of the state. We also
+      added an <code>in</code> property set to true - The <code>in</code> property is responsible for performing the
+      transition. When the in prop is set to true the Component will shift to the entering state and become visible
+      eventually. We also fired a <code>setTiemoutHandler</code> method - to shift the <code>in</code> prop back to the
+      false and remove
+      the notification after a 500ms timeout.</p>
+
+    <p>In the end, we render our Component as a child of the <a
+        href="https://reactcommunity.org/react-transition-group/" target="_blank">CSSTransition</a> wrapper -
+      CSSTransition wrapper is here to show the animation.</p>
+
+
+    <p>I also added a few custom CSS rules to the <code>Notification.css</code> file:</p>
+
+    <mdbsnippet>
+      <code data-lang="CSS" data-name="src/components/Notification.css">
+          .alert{
+            position: absolute;
+            z-index: 2;
+            right: 0;
+          }
+
+          p{
+            margin: 0
+          }
+        </code>
+    </mdbsnippet>
+
+    <p>Ok, now, let's update our app:</p>
+
+
+    <code>npm run deploy</code>
+
+    <p>When it's done open your app and try to turn-on and turn-off your internet connection. You should see something
+      similar to this:</p>
+
+    <div class="d-flex justify-content-center"> <img class="img-fluid mr-2"
+        src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/react/tutorials/react-pwa/5/offline.png"
+        alt="Offline Mode"><img class="img-fluid"
+        src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/react/tutorials/react-pwa/5/online.png"
+        alt="Online Mode"></div>
+
+    <p class="description">Something doesn't work for you? Check the code for this lesson on our <a
+        href="https://github.com/mdbootstrap/React-Tutorial-PWA/archive/master.zip">repository</a></p>
+
+  </section>
+</section>
+<!--Section: Tutorial content

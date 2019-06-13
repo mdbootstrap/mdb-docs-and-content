@@ -1,0 +1,209 @@
+<!--Section: Intro-->
+<section id="e-introduction">
+
+  <!--Title-->
+  <h2 class="section-heading">Angular Loader - examples & customization</h2>
+
+  <p>Examples of using preloaders in real cases.</p>
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="e-version-check">
+
+  <!--Title-->
+  <h2 class="section-heading">
+    <strong>Preloader with application version checking</strong>
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <p class="description">Simple example showing, how could you use our preloaders in your real application.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="row">
+          <div class="col-12">
+            <div class="my-5" *ngIf="!visible">
+              <h3 class="h3-responsive text-center">Your version is up to date.</h3>
+              <h5 class="h5responsive text-center">Last update check on:
+                {{today}}
+              </h5>
+            </div>
+
+            <div class="view" *ngIf="visible" style="height:100vh; width:100vw; position:fixed; top:0; left:0; z-index:999">
+              <div class="mask rgba-black-strong flex-center">
+                <p class="white-text">Comparing versions...</p>
+                <br>
+                <mdb-spinner spinnerType="big"></mdb-spinner>
+              </div>
+            </div>
+          </div>
+        </div>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'preloader-usage',
+        templateUrl: './preloader-usage.component.html',
+        styleUrls: ['./preloader-usage.component.scss']
+        })
+        export class PreloaderUsageComponent implements OnInit {
+        visible: boolean = true;
+        date = new Date();
+        today = this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear();
+
+        ngOnInit() {
+        setTimeout(() => {
+        this.visible = false;
+        }, 3000);
+
+        }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="e-preloading-script">
+
+  <!--Title-->
+  <h2 class="section-heading">
+    <strong>Preloading script</strong>
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <p class="description">An example showing how to use the preloader in the ngOnInit cycle.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+<!--Subheading-->
+<h4 id="" class="">
+  <strong>Usage</strong>
+</h4>
+
+<!--Section: Code-->
+<section>
+  <h4>Adding preloader to your project</h4>
+  <br>
+  <p>In order to have working preloaders on every component in your project, you need to perform those 3 steps:</p>
+  <ol>
+      <li>Add
+          <code>MDBSpinningPreloader</code> to
+          <code>app.module.ts</code>,</li>
+      <li>Configure your
+          <code>app.component.ts</code> file by adding
+          <code>MDBSpinningPreloader</code> service to it,</li>
+      <li>Add preloader HTML markup to
+          <code>index.html</code> file between
+          <code> &lt;body&gt;&lt;/body&gt;</code> tags, above main component (default
+          <code> &lt;app-root&gt;&lt;/app-root&gt;</code>).</li>
+  </ol>
+
+  <br>
+  <h5 class="h5-responsive">
+      <strong>1st step - app.module.ts</strong>
+  </h5>
+  <pre class="code-toolbar"><code class="language-javascript">
+import { MDBSpinningPreloader } from 'ng-uikit-pro-standard';
+
+@NgModule({
+...
+providers: [MDBSpinningPreloader],
+...
+})
+
+  </code></pre>
+  <h5 class="h5-responsive">
+      <strong>2nd step - app.component.ts</strong>
+  </h5>
+  <pre class="code-toolbar"><code class="language-javascript">
+import { Component, OnInit } from '@angular/core';
+import {MDBSpinningPreloader} from 'ng-uikit-pro-standard';
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html'
+})
+
+export class AppComponent implements OnInit {
+  constructor(private mdbSpinningPreloader: MDBSpinningPreloader) {}
+
+  ngOnInit() {
+    this.mdbSpinningPreloader.stop();
+  }
+}
+  </code></pre>
+  <h5 class="h5-responsive">
+      <strong>3rd step - index.html</strong>
+  </h5>
+  <pre class="code-toolbar"><code class="language-markup">
+&lt;div class="spinning-preloader-container"&gt;
+&lt;div class="preloader-wrapper big active"&gt;
+
+&lt;div class="spinner-layer spinner-blue"&gt;
+  &lt;div class="circle-clipper left"&gt;
+    &lt;div class="circle"&gt; &lt;/div&gt;
+  &lt;/div&gt; &lt;div class="gap-patch"&gt;
+    &lt;div class="circle"&gt; &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="spinner-layer spinner-red"&gt;
+  &lt;div class="circle-clipper left"&gt;
+    &lt;div class="circle"&gt; &lt;/div&gt;
+  &lt;/div&gt; &lt;div class="gap-patch"&gt;
+    &lt;div class="circle"&gt; &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="spinner-layer spinner-yellow"&gt;
+  &lt;div class="circle-clipper left"&gt;
+    &lt;div class="circle"&gt; &lt;/div&gt;
+  &lt;/div&gt; &lt;div class="gap-patch"&gt;
+    &lt;div class="circle"&gt; &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="spinner-layer spinner-green"&gt;
+  &lt;div class="circle-clipper left"&gt;
+    &lt;div class="circle"&gt; &lt;/div&gt;
+  &lt;/div&gt; &lt;div class="gap-patch"&gt;
+    &lt;div class="circle"&gt; &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+  </code></pre>
+
+</section>
+
+<!--Section: Code-->
+
+  </section>
+  <!--Section: Live preview-->
+
+</section>

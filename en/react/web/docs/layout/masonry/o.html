@@ -1,0 +1,406 @@
+<!-- Section: Intro -->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">React Bootstrap Masonry</h2>
+
+  <h1 class="secondary-heading mb-4">React Masonry - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p>React Bootstrap masonry is a grid layout based on columns. Unlike other grid layouts, it doesn’t have fixed height
+    rows. Basically, Masonry layout optimizes the use of space inside the web page by reducing any unnecessary gaps.
+    Without this type of layout, certain restrictions are required to maintain the structure of layout.</p>
+
+  <hr class="my-4">
+
+  <!--Title-->
+  <h2 class="secondary-heading mb-3">
+    Basic layout
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="view rounded z-depth-1 mb-4">
+      <img src="https://mdbootstrap.com/img/screens/layout/masonry1-min.png" alt="Display of half page intro." class="img-fluid">
+    </div>
+    <div class="text-center">
+      <a href="https://mdbootstrap.com/snippets/jquery/marta-szymanska/320112?action=full_screen_mode" target="_blank"
+        class="btn btn-primary btn-rounded">Live
+        preview</a>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import ReactDOM from 'react-dom';
+        import { MDBRow } from "mdbreact";
+        
+        class MasonryPage extends React.Component {
+          constructor() {
+            super();
+        
+            this.MasonryRef = React.createRef();
+          }
+        
+          componentDidMount() {
+            this.arrangeMasonry();
+          }
+        
+          arrangeMasonry = () => {
+            const numCols = 3;
+            const colHeights = Array(numCols).fill(0);
+            const container = ReactDOM.findDOMNode(this.MasonryRef.current);
+        
+            Array.from(container.children).forEach((child, i) => {
+              const order = i % numCols;
+              child.style.order = order;
+              colHeights[order] += parseFloat(child.clientHeight);
+            })
+            container.style.height = Math.max(...colHeights) + 'px';
+          }
+        
+          render() {
+            return (
+              <MDBRow className="masonry-with-columns" ref={this.MasonryRef}>
+                <div style={{ order: 0 }}>
+                  1
+                </div>
+                <div style={{ order: 1 }}>
+                  2
+                </div>
+                <div style={{ order: 2 }}>
+                  3
+                </div>
+                <div style={{ order: 0 }}>
+                  4
+                </div>
+                <div style={{ order: 1 }}>
+                  5
+                </div>
+                <div style={{ order: 2 }}>
+                  6
+                </div>
+                <div style={{ order: 0 }}>
+                  7
+                </div>
+                <div style={{ order: 1 }}>
+                  8
+                </div>
+                <div style={{ order: 2 }}>
+                  9
+                </div>
+                <div style={{ order: 0 }}>
+                  10
+                </div>
+                <div style={{ order: 1 }}>
+                  11
+                </div>
+                <div style={{ order: 2 }}>
+                  12
+                </div>
+                <div style={{ order: 0 }}>
+                  13
+                </div>
+                <div style={{ order: 1 }}>
+                  14
+                </div>
+                <div style={{ order: 2 }}>
+                  15
+                </div>
+              </MDBRow>
+            );
+          }
+        }
+      </code>
+      <code data-lang="css" data-name="CSS">
+          // Within style tags in your html file
+          body {
+            margin: 0;
+            padding: 1rem;
+          }
+          // SCSS
+          // Masonry layout vertical
+          .masonry-with-columns {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            max-height: 1000px;
+            div {
+              flex: 1 0 auto;
+              background: #00997B;
+              color: white;
+              margin: 0 1rem 1rem 0;
+              text-align: center;
+              font-weight: 900;
+              font-size: 2rem;
+            } 
+            @for $i from 1 through 36 { 
+              div:nth-child(#{$i}) {
+                $h: (random(400) + 100) + px;
+                height: $h;
+                line-height: $h;
+              }
+            }
+          }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!-- Section: Intro -->
+
+<hr class="my-5">
+
+<!-- Section: Masonry layout -->
+<section id="v-2">
+
+  <!--Title-->
+  <h2 class="section-heading">Horizontal option</h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="view rounded z-depth-1 mb-4">
+      <img src="https://mdbootstrap.com/img/screens/layout/masonry2-min.png" alt="Display of half page intro." class="img-fluid">
+    </div>
+    <div class="text-center">
+      <a href="https://mdbootstrap.com/snippets/jquery/marta-szymanska/320268?action=full_screen_mode" target="_blank"
+        class="btn btn-primary btn-rounded">Live
+        preview</a>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBRow } from "mdbreact";
+        
+        class MasonryPage extends React.Component {
+          render() {
+            return (
+              <MDBRow className="masonry-with-columns-2">
+                <div>
+                  1
+                </div>
+                <div>
+                  2
+                </div>
+                <div>
+                  3
+                </div>
+                <div>
+                  4
+                </div>
+                <div>
+                  5
+                </div>
+                <div>
+                  6
+                </div>
+                <div>
+                  7
+                </div>
+                <div>
+                  8
+                </div>
+                <div>
+                  9
+                </div>
+                <div>
+                  10
+                </div>
+                <div>
+                  11
+                </div>
+                <div>
+                  12
+                </div>
+                <div>
+                  13
+                </div>
+                <div>
+                  14
+                </div>
+                <div>
+                  15
+                </div>
+              </MDBRow>
+            );
+          }
+        }
+      </code>
+      <code data-lang="css" data-name="CSS">
+          // Within style tags in your html file
+          body {
+            margin: 0;
+            padding: 1rem;
+          }
+          // SCSS
+          // Masonry layout horizontal
+          .masonry-with-columns-2 {
+            display: flex;
+            flex-wrap: wrap;
+            div {
+              height: 150px;
+              line-height: 150px;
+              background: #9B1B30;
+              color: white;
+              margin: 0 1rem 1rem 0;
+              text-align: center;
+              font-weight: 900;
+              font-size: 2rem;
+              flex: 1 0 auto;
+            } 
+            @for $i from 1 through 36 { 
+              div:nth-child(#{$i}) {
+                $h: (random(400) + 70) + px;
+                width: $h;
+              }
+            }
+          }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!-- Section: Masonry layout -->
+
+<hr class="my-5">
+
+<!-- Section:Masonry layout -->
+<section id="v-3">
+
+  <!--Title-->
+  <h2 class="section-heading">Flexbox option</h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="view rounded z-depth-1 mb-4">
+      <img src="https://mdbootstrap.com/img/screens/layout/masonry3-min.png" alt="Display of half page intro." class="img-fluid">
+    </div>
+    <div class="text-center">
+      <a href="https://mdbootstrap.com/snippets/jquery/marta-szymanska/320274?action=full_screen_mode" target="_blank"
+        class="btn btn-primary btn-rounded">Live
+        preview</a>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBRow } from "mdbreact";
+        
+        class MasonryPage extends React.Component {
+          render() {
+            return (
+              <MDBRow className="masonry-with-flex">
+                <div>
+                  1
+                </div>
+                <div>
+                  2
+                </div>
+                <div>
+                  3
+                </div>
+                <div>
+                  4
+                </div>
+                <div>
+                  5
+                </div>
+                <div>
+                  6
+                </div>
+                <div>
+                  7
+                </div>
+                <div>
+                  8
+                </div>
+                <div>
+                  9
+                </div>
+                <div>
+                  10
+                </div>
+                <div>
+                  11
+                </div>
+                <div>
+                  12
+                </div>
+                <div>
+                  13
+                </div>
+                <div>
+                  14
+                </div>
+                <div>
+                  15
+                </div>
+              </MDBRow>
+            );
+          }
+        }
+      </code>
+      <code data-lang="css" data-name="CSS">
+          // Within style tags in your html file
+          body {
+            margin: 0;
+            padding: 1rem;
+          }
+          // SCSS
+          // Masonry layout flex
+          .masonry-with-flex {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            max-height: 1000px;
+            div {
+              width: auto;
+              background: #975A58;
+              color: white;
+              margin: 0 1rem 1rem 0;
+              text-align: center;
+              font-weight: 900;
+              font-size: 2rem;
+            } 
+            @for $i from 1 through 36 { 
+              div:nth-child(#{$i}) {
+                $h: (random(400) + 100) + px;
+                height: $h;
+                line-height: $h;
+              }
+            }
+          }
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!-- Section: Masonry layout -->

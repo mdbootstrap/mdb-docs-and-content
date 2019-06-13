@@ -1,0 +1,343 @@
+<!--Documentation file-->
+<div class="documentation">
+    <!-- ******-->
+
+    <!-- FIRST SECTION-->
+    <section id="introduction">
+        <h1 class="main-title">Angular Bootstrap Calendar<a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md waves-effect waves-light" role="button">MDB Pro component <i class="far fa-gem ml-1"></i></a></h1>
+        <p class="description">Awesome MDB Calendar for Angular</p>
+
+    </section>
+    <!-- FIRST SECTION-->
+
+    <hr class="my-5">
+
+    <!-- SECTION-->
+    <section id="examples">
+        <h2 class="title">Calendar</h2>
+
+        <pre class="code-toolbar"><code class="language-markup">
+
+&lt;ng-template #modalContent let-close="close"&gt;
+  &lt;div class="modal-header"&gt;
+    &lt;h5 class="modal-title"&gt;Event action occurred&lt;/h5&gt;
+    &lt;button type="button" class="close" (click)="close()"&gt;
+      &lt;span aria-hidden="true"&gt;&times;&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="modal-body"&gt;
+    &lt;div&gt;
+      Action:
+      &lt;pre&gt;{{ modalData?.action }}&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      Event:
+      &lt;pre&gt;{{ modalData?.event | json }}&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="modal-footer"&gt;
+    &lt;button type="button" class="btn btn-secondary" (click)="close()"&gt;OK&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;
+
+&lt;div class="row text-center"&gt;
+  &lt;div class="col-md-4"&gt;
+    &lt;div class="btn-group"&gt;
+      &lt;div
+        class="btn btn-primary"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"&gt;
+        Previous
+      &lt;/div&gt;
+      &lt;div
+        class="btn btn-secondary"
+        mwlCalendarToday
+        [(viewDate)]="viewDate"&gt;
+        Today
+      &lt;/div&gt;
+      &lt;div
+        class="btn btn-primary"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"&gt;
+        Next
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="col-md-4"&gt;
+    &lt;h3&gt;{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="col-md-4"&gt;
+    &lt;div class="btn-group"&gt;
+      &lt;div
+        class="btn btn-primary"
+        (click)="view = 'month'"
+        [class.active]="view === 'month'"&gt;
+        Month
+      &lt;/div&gt;
+      &lt;div
+        class="btn btn-primary"
+        (click)="view = 'week'"
+        [class.active]="view === 'week'"&gt;
+        Week
+      &lt;/div&gt;
+      &lt;div
+        class="btn btn-primary"
+        (click)="view = 'day'"
+        [class.active]="view === 'day'"&gt;
+        Day
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;br&gt;
+&lt;div [ngSwitch]="view"&gt;
+  &lt;mwl-calendar-month-view
+    *ngSwitchCase="'month'"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [activeDayIsOpen]="activeDayIsOpen"
+    (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"&gt;
+  &lt;/mwl-calendar-month-view&gt;
+  &lt;mwl-calendar-week-view
+    *ngSwitchCase="'week'"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"&gt;
+  &lt;/mwl-calendar-week-view&gt;
+  &lt;mwl-calendar-day-view
+    *ngSwitchCase="'day'"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"&gt;
+  &lt;/mwl-calendar-day-view&gt;
+&lt;/div&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;h3&gt;
+  Edit events
+  &lt;button
+    class="btn btn-primary pull-right"
+    (click)="addEvent()"&gt;
+    Add new
+  &lt;/button&gt;
+  &lt;div class="clearfix"&gt;&lt;/div&gt;
+&lt;/h3&gt;
+
+&lt;table class="table table-bordered"&gt;
+
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Title&lt;/th&gt;
+      &lt;th&gt;Primary color&lt;/th&gt;
+      &lt;th&gt;Secondary color&lt;/th&gt;
+      &lt;th&gt;Starts at&lt;/th&gt;
+      &lt;th&gt;Ends at&lt;/th&gt;
+      &lt;th&gt;Remove&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr *ngFor="let event of events; let index = index"&gt;
+      &lt;td&gt;
+        &lt;input
+          type="text"
+          class="form-control"
+          [(ngModel)]="event.title"
+          (keyup)="refresh.next()"&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;input
+          type="color"
+          [(ngModel)]="event.color.primary"
+          (change)="refresh.next()"&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;input
+          type="color"
+          [(ngModel)]="event.color.secondary"
+          (change)="refresh.next()"&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;mwl-demo-utils-date-time-picker
+          [(date)]="event.start"
+          (dateChange)="refresh.next()"
+          placeholder="Not set"&gt;
+        &lt;/mwl-demo-utils-date-time-picker&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;mwl-demo-utils-date-time-picker
+          [(date)]="event.end"
+          (dateChange)="refresh.next()"
+          placeholder="Not set"&gt;
+        &lt;/mwl-demo-utils-date-time-picker&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;button
+          class="btn btn-danger"
+          (click)="events.splice(index, 1); refresh.next()"&gt;
+          Delete
+        &lt;/button&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+
+&lt;/table&gt;
+
+</code></pre>
+
+        <h4>Data structure:</h4>
+
+        <pre class="code-toolbar"><code class="language-javascript">
+        &lt;!--Info message--&gt;
+
+import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
+import {
+  startOfDay,
+  endOfDay,
+  subDays,
+  addDays,
+  endOfMonth,
+  isSameDay,
+  isSameMonth,
+  addHours
+} from 'date-fns';
+import { Subject } from 'rxjs/Subject';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent
+} from 'angular-calendar';
+
+const colors: any = {
+  red: {
+    primary: '#ad2121',
+    secondary: '#FAE3E3'
+  },
+  blue: {
+    primary: '#1e90ff',
+    secondary: '#D1E8FF'
+  },
+  yellow: {
+    primary: '#e3bc08',
+    secondary: '#FDF1BA'
+  }
+};
+
+@Component({
+  selector: 'calendar-example',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: 'calendar-example.html',
+})
+
+export class CalendarExampleComponent {
+@ViewChild('modalContent') modalContent: TemplateRef&gt;any&gt;;
+
+  view: string = 'month';
+
+  viewDate: Date = new Date();
+
+  modalData: {
+    action: string,
+    event: CalendarEvent
+  };
+
+  actions: CalendarEventAction[] = [{
+    label: '&lt;i class="fas fa-fw fa-pencil"&gt;&lt;/i&gt;',
+    onClick: ({event}: {event: CalendarEvent}): void =&gt; {
+      this.handleEvent('Edited', event);
+      event.draggable = true;
+      console.log(event);
+
+    }
+  }, {
+    label: '&lt;i class="fas fa-fw fa-times"&gt;&lt;/i&gt;',
+    onClick: ({event}: {event: CalendarEvent}): void =&gt; {
+      this.events = this.events.filter(iEvent =&gt; iEvent !== event);
+      this.handleEvent('Deleted', event);
+    }
+  }];
+
+  refresh: Subject&lt;any&gt; = new Subject();
+
+  events: CalendarEvent[] = [];
+
+  activeDayIsOpen: boolean = true;
+
+  constructor(private modal: NgbModal) {}
+
+  dayClicked({date, events}: {date: Date, events: CalendarEvent[]}): void {
+
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+        this.viewDate = date;
+      }
+    }
+  }
+
+  eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
+    event.start = newStart;
+    event.end = newEnd;
+    this.handleEvent('Dropped or resized', event);
+    this.refresh.next();
+  }
+
+  handleEvent(action: string, event: CalendarEvent): void {
+    this.modalData = {event, action};
+    this.modal.open(this.modalContent, {size: 'lg'});
+  }
+
+  addEvent(): void {
+    this.events.push({
+      title: 'New event',
+      start: startOfDay(new Date()),
+      end: endOfDay(new Date()),
+      color: colors.red,
+      draggable: true,
+      actions: this.actions,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true
+      }
+    });
+    this.refresh.next();
+  }
+
+}
+
+          </code></pre>
+
+    </section>
+    <!-- SECTION-->
+
+    <hr class="my-5">
+
+    <!-- SECTION-->
+    <section id="options">
+        <h2 class="title mb-4">Broken into parts</h2>
+<br>
+
+
+    </section>
+    <!-- SECTION-->
+
+
+    <!-- ******-->
+</div>
+<!--/.Documentation file-->

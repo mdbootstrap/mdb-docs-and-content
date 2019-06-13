@@ -1,0 +1,139 @@
+<!--Section: Tutorial content-->
+<section class="tutorial">
+
+
+    <h2>1. Creating the Category Class</h2>
+
+
+
+    <ol>
+        <li>Generate <code>Category</code> class using CLI, run:
+        <pre class="code-toolbar"><code class="language-typescript">ng generate class categories/category --spec
+</code></pre>
+        which will create;
+        <pre class="code-toolbar"><code class="language-typescript">src/app/categories/category.spec.ts
+src/app/categories/category.ts
+</code></pre>
+        </li>
+<li>Open up <code>src/app/categories/category.ts</code>:
+        <pre class="code-toolbar"><code class="language-typescript">export class Category {
+}
+</code></pre>
+and add the logic:
+        <pre class="code-toolbar"><code class="language-typescript">export class Category {
+    id: number;
+    name = '';
+
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+      }
+}
+</code></pre>
+Each Category instance will have two properties:
+<ul>
+    <li><code>id</code>: unique id number of the category</li>
+    <li><code>name</code>: category item name</li>
+</ul>
+</li>
+
+
+
+<li>
+    Since we used the <code>--spec</code> option CLI generates src/app/categories/category.spec.ts for us with a basic unit test. As previously - we will just generate them for a future use.
+</li>
+
+    </ol>
+
+    <h2>2. Creating the CategoryDataService Service</h2>
+
+    <p>The <code>CategoryDataService</code> will be responsible for managing our categories. It will allow us to create and delete categories. </p>
+
+<ol>
+    <li>Generate CategoryDataService:
+        <pre class="code-toolbar"><code class="language-typescript">ng generate service categories/CategoryData
+</code></pre>
+which output is:
+
+        <pre class="code-toolbar"><code class="language-typescript">  create src/app/categories/category-data.service.spec.ts (387 bytes)
+  create src/app/categories/category-data.service.ts (114 bytes)
+</code></pre>
+</li>
+<li>
+Open <code>src/app/categories/category-data.service.ts</code>:
+<pre class="code-toolbar"><code class="language-typescript">import { Injectable } from '@angular/core';
+
+@Injectable()
+export class CategoryDataService {
+
+  constructor() { }
+
+}
+</code></pre>
+
+and add following logic:
+<pre class="code-toolbar"><code class="language-typescript">import { Injectable } from '@angular/core';
+import {Category} from './category';
+
+@Injectable()
+export class CategoryDataService {
+
+  // Placeholder for last id so we can simulate
+  // automatic incrementing of id's
+  lastId = 0;
+
+    // Placeholder for category's
+    categories: Category[] = [];
+
+  constructor() { }
+
+  // Simulate POST /categories
+  addCategory(category: Category): CategoryDataService {
+    if (!category.id) {
+      category.id = ++this.lastId;
+    }
+    this.categories.push(category);
+    return this;
+  }
+
+  // Simulate DELETE /categories/:id
+  deleteCategoryById(id: number): CategoryDataService {
+    this.categories = this.categories
+      .filter(category => category.id !== id);
+    return this;
+  }
+
+  // Simulate PUT /categories/:id
+  updateCategoryById(id: number, values: Object = {}): Category | any {
+    let category = this.getCategoryById(id);
+    if (!category) {
+      return null;
+    }
+    Object.assign(category, values);
+    return category;
+  }
+
+  // Simulate GET /categories
+  getAllCategories(): Category[] {
+    return this.categories;
+  }
+
+  // Simulate GET /categories/:id
+  getCategoryById(id: number): Category | any{
+    return this.categories
+      .filter(category => category.id === id)
+      .pop();
+  }
+}
+</code></pre>
+
+
+
+
+    </li>
+</ol>
+
+
+<p>Now when our Category part is ready we can move to the most interesting part. We will create a frontend layer which will use Todo and Category services which we have just created. </p>
+
+</section>
+<!--Section: Tutorial content-->

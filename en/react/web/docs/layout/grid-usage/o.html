@@ -1,0 +1,1885 @@
+<style type='text/css'>
+  .col-example {
+    padding: 1rem;
+    background-color: #a9b5b9;
+    border: 3px solid #fff;
+    color: #fff;
+    text-align: center;
+  }
+
+  @media(min-width: 576px) {
+    .table-responsive {
+      display: inline-table !important;
+    }
+
+    .example-content-main {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+
+    .example-content-secondary {
+      -ms-flex: 0 0 50%;
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .example-content-secondary {
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+    }
+
+    .example-content-main {
+      flex: 0 0 66.666667%;
+      max-width: 66.666667%;
+    }
+  }
+
+  .example-container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .example-row {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+
+  .example-content-main {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .example-content-secondary {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+</style>
+
+<!--Section: Intro-->
+<section id="overview">
+
+  <!--Title-->
+  <h2 class="primary-heading">React Bootstrap Grid system</h2>
+
+  <h1 class="secondary-heading mb-4">React Grid system - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p>Use the powerful responsive flexbox grid to build layouts of all shapes and sizes thanks to a twelve column
+    system, five
+    default responsive tiers, and dozens of predefined classes.</p>
+
+  <hr class="my-4">
+
+  <!--Title-->
+  <h2 id="how-it-works" class="secondary-heading mb-3">
+    How it works
+  </h2>
+
+  <!--Description-->
+  <p>MDBReact grid system uses a series of components: Rows, Containers and Columns to layout and align content. It’s
+    built with
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes" rel="nofollow"
+      target="_blank">flexbox</a> and is fully responsive. Below is an example and an in-depth look at how the grid
+    comes together.</p>
+  <p>
+    <strong>New to or unfamiliar with flexbox?</strong> Read our
+    <a href="https://mdbootstrap.com/docs/jquery/utilities/flexbox/" target="_blank">CSS flexbox guide</a>.</p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm col-example">
+          One of three columns
+        </div>
+        <div class="col-sm col-example">
+          One of three columns
+        </div>
+        <div class="col-sm col-example">
+          One of three columns
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol>One of three columns</MDBCol>
+                <MDBCol>One of three columns</MDBCol>
+                <MDBCol>One of three columns</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+
+      <code data-lang="css" data-name="CSS">
+        .col {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+        }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Description-->
+  <p>The above example creates three equal-width columns on small, medium, large, and extra large devices using our
+    predefined
+    grid classes. Those columns are centered in the page with the parent
+    <code>Container</code>component.</p>
+
+  <p>
+    <strong>Breaking it down, here’s how it works:</strong>
+  </p>
+
+  <ul class="list-disc">
+    <li>Containers provide a means to center your site’s contents. Use
+      <code>&lt;MDBContainer&gt;</code> component for fixed width or
+      <code>&lt;MDBContainer fluid &gt;</code> for <code>width: 100%</code> across all viewport and device sizes.</li>
+    <li>Rows are wrappers for columns. Each MDBCol has horizontal
+      <code>padding</code> (called a gutter) for controlling the space between them. This
+      <code>padding</code> is then counteracted on the rows with negative margins. This way, all the content in your
+      columns is
+      visually aligned down the left side.</li>
+    <li>In a grid layout, content must be placed within MDBCol and only MDBCol may be immediate children of MDBRow.</li>
+    <li>Thanks to flexbox, Columns without a specified <code>width</code> will automatically layout as equal width
+      Columns. For example, four instances of
+      <code><Col size="sm"></code> will each automatically be 25% wide from the small breakpoint and up. See the
+      <a href="https://mdbootstrap.com/docs/react/layout/overview/#auto-latout-columns">auto-layout columns</a> section
+      for more examples.</li>
+    <li>Column props indicate the number of columns you’d like to use out of the possible 12 per row. So, if you want
+      three
+      equal-width columns, you can use
+      <code><MDBCol sm="4"></code>.</li>
+    <li>MDBCol
+      <code>width</code>s are set in percentages, so they’re always fluid and sized relative to their parent element.
+    </li>
+    <li>MDBCol have horizontal
+      <code>padding</code> to create the gutters between individual columns, however, you can remove the
+      <code>margin</code> from MDBRow and
+      <code>padding</code> from MDBCol with
+      <code>.no-gutters</code> className on the
+      <code>MDBRow</code>.</li>
+    <li>To make the grid responsive, there are five grid breakpoints, one for each
+      <a href="https://mdbootstrap.com/docs/react/layout/overview/#responsive-breakpoints">responsive breakpoint</a>:
+      all breakpoints (extra small), small, medium, large, and extra large.</li>
+    <li>Grid breakpoints are based on minimum width media queries, meaning
+      <strong>they apply to that one breakpoint and all those above it</strong> (e.g.,
+      <code><MDBCol sm="4"></code> applies to small, medium, large, and extra large devices, but not the first
+      <code>xs</code> breakpoint).
+    </li>
+    <li>You can use predefined grid classes (like
+      <code><MDBCol size="4"></code>).</li>
+  </ul>
+
+  <p>Be aware of the limitations and
+    <a href="https://github.com/philipwalton/flexbugs" rel="nofollow" target="_blank">bugs around flexbox</a>, like the
+    <a href="https://github.com/philipwalton/flexbugs#9-some-html-elements-cant-be-flex-containers" rel="nofollow"
+      target="_blank">inability to use some HTML elements as flex containers</a>.</p>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+
+<section id="grid-options">
+
+  <!--Title-->
+  <h2 class="section-heading mb-3">
+    Grid options
+  </h2>
+
+  <!--Description-->
+  <p>While Bootstrap uses
+    <code>em</code>s or
+    <code>rem</code>s for defining most sizes,
+    <code>px</code>s are used for grid breakpoints and container widths. This is because the viewport width is in
+    pixels and does
+    not change with the
+    <a href="https://drafts.csswg.org/mediaqueries-3/#units" rel="nofollow" target="_blank">font size</a>.
+  </p>
+
+  <p class="description">See how aspects of the Bootstrap grid system work across multiple devices with a handy table.</p>
+
+
+  <!--Section: Live preview-->
+  <section>
+
+    <table class="table table-bordered table-striped table-responsive">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="text-center">
+            Extra small
+            <br>
+            <small>&lt;576px</small>
+          </th>
+          <th class="text-center">
+            Small
+            <br>
+            <small>≥576px</small>
+          </th>
+          <th class="text-center">
+            Medium
+            <br>
+            <small>≥768px</small>
+          </th>
+          <th class="text-center">
+            Large
+            <br>
+            <small>≥992px</small>
+          </th>
+          <th class="text-center">
+            Extra large
+            <br>
+            <small>≥1200px</small>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="text-nowrap" scope="row">Grid behavior</th>
+          <td>Horizontal at all times</td>
+          <td colspan="4">Collapsed to start, horizontal above breakpoints</td>
+        </tr>
+        <tr>
+          <th class="text-nowrap" scope="row">Container width</th>
+          <td>None (auto)</td>
+          <td>540px</td>
+          <td>720px</td>
+          <td>960px</td>
+          <td>1140px</td>
+        </tr>
+        <tr>
+          <th class="text-nowrap" scope="row">prop</th>
+          <td>
+            <code>xs</code>
+          </td>
+          <td>
+            <code>sm</code>
+          </td>
+          <td>
+            <code>md</code>
+          </td>
+          <td>
+            <code>lg</code>
+          </td>
+          <td>
+            <code>xl</code>
+          </td>
+        </tr>
+        <tr>
+          <th class="text-nowrap" scope="row"># of columns</th>
+          <td colspan="5">12</td>
+        </tr>
+        <tr>
+          <th class="text-nowrap" scope="row">Gutter width</th>
+          <td colspan="5">30px (15px on each side of a column)</td>
+        </tr>
+        <tr>
+          <th class="text-nowrap" scope="row">Nestable</th>
+          <td colspan="5">Yes</td>
+        </tr>
+        <tr>
+          <th class="text-nowrap" scope="row">Column ordering</th>
+          <td colspan="5">Yes</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+</section>
+
+<hr class="mt-4 mb-5">
+
+<!--Section: auto-layout-->
+<section id="auto-layout-columns">
+
+  <!--Title-->
+  <h2 class="section-heading">
+    Auto-layout columns
+  </h2>
+
+  <!--Title-->
+  <h4 id="equal-width" class="secondary-heading">
+    Equal-width
+  </h4>
+  <!--Description-->
+  <p>
+    For example, here are two grid layouts that apply to every device and viewport, from xs to xl. Add any number of
+    <MDBCol> and every column will be the same width.
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <div class="row mb-1">
+        <div class="col col-example">
+          1 of 2
+        </div>
+        <div class="col col-example">
+          1 of 2
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-example">
+          1 of 3
+        </div>
+        <div class="col col-example">
+          1 of 3
+        </div>
+        <div class="col col-example">
+          1 of 3
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+              <MDBContainer>
+                <MDBRow>
+                  <MDBCol>1 of 2</MDBCol>
+                  <MDBCol>2 of 2</MDBCol>
+                </MDBRow>
+                <MDBRow>
+                  <MDBCol>1 of 3</MDBCol>
+                  <MDBCol>2 of 3</MDBCol>
+                  <MDBCol>3 of 3</MDBCol>
+                </MDBRow>
+              </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .col {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+        }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Description-->
+  <p>
+    Equal-width <code>&lt;MDBCol&gt;</code>can be broken into multiple lines.
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <div class="row">
+        <div class="col col-example">Column</div>
+        <div class="col col-example">Column</div>
+        <div class="w-100"></div>
+        <div class="col col-example">Column</div>
+        <div class="col col-example">Column</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol>Column</MDBCol>
+                <MDBCol>Column</MDBCol>
+                <div className="w-100" />
+                <MDBCol>Column</MDBCol>
+                <MDBCol>Column</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .col {
+          padding: 1rem;
+          background-color: #33b5e5;
+          border: 2px solid #fff;
+          color: #fff;
+          text-align: center;
+        }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Title-->
+  <h4 id="setting-one" class="secondary-heading">
+    Setting one column width
+  </h4>
+  <!--Description-->
+  <p>
+    You can set the width of one <code>&lt;MDBCol&gt;</code> and have the sibling <code>&lt;MDBCol&gt;</code>
+    components automatically
+    resize around it.
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <div class="row mb-1">
+        <div class="col col-example">
+          1 of 3
+        </div>
+        <div class="col-6 col-example">
+          2 of 3 (wider)
+        </div>
+        <div class="col col-example">
+          3 of 3
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-example">
+          1 of 3
+        </div>
+        <div class="col-5 col-example">
+          2 of 3 (wider)
+        </div>
+        <div class="col col-example">
+          3 of 3
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol>1 of 3</MDBCol>
+                <MDBCol size="6">2 of 3 (wider)</MDBCol>
+                <MDBCol>3 of 3</MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol>1 of 3</MDBCol>
+                <MDBCol size="5">2 of 3 (wider)</MDBCol>
+                <MDBCol>3 of 3</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .col,
+        .col-6,
+        .col-5 {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+        }
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Title-->
+  <h4 id="equal-multi" class="secondary-heading">
+    Equal-width multi-row
+  </h4>
+  <!--Description-->
+  <p>Create equal-width <code>&lt;MDBCol&gt;</code> that span multiple rows by inserting a
+    <code><div className="w-100" /></code> where you want the columns to break to a new line. Make the breaks
+    responsive by mixing the
+    <code>.w-100</code> with some
+    <a href="https://mdbootstrap.com/docs/jquery/utilities/display/">
+      responsive display utilities</a>.
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <div class="row">
+        <div class="col col-example">
+          col
+        </div>
+        <div class="col col-example">
+          col
+        </div>
+        <div class="w-100"></div>
+        <div class="col col-example">
+          col
+        </div>
+        <div class="col col-example">
+          col
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol>col</MDBCol>
+                <MDBCol>col</MDBCol>
+                <div className="w-100" />
+                <MDBCol>col</MDBCol>
+                <MDBCol>col</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .col {
+          padding: 1rem;
+          background-color: #33b5e5;
+          border: 2px solid #fff;
+          color: #fff;
+          text-align: center;
+        }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: auto-layout-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: auto-layout-->
+<section id="responsive-classes">
+
+  <!--Title-->
+  <h2 class="section-heading">
+    Responsive classes
+  </h2>
+
+  <!--Description-->
+  <p>MDBReact grid includes five tiers of props for building complex responsive layouts. Customize the size
+    of your <code>&lt;MDBCol&gt;</code> on extra small, small, medium, large, or extra large devices however you see
+    fit.</p>
+
+  <!--Title-->
+  <h4 id="break" class="secondary-heading">
+    All breakpoints
+  </h4>
+  <!--Description-->
+  <p>For grids that are the same from the smallest of devices to the largest, use the
+    <code>size</code> prop. Specify a value when you need a particularly sized column; otherwise, feel free
+    ommit it.
+  </p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="container">
+      <div class="row mb-1">
+        <div class="col col-example">
+          col
+        </div>
+        <div class="col col-example">
+          col
+        </div>
+        <div class="col col-example">
+          col
+        </div>
+        <div class="col col-example">
+          col
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-8 col-example">
+          col-8
+        </div>
+        <div class="col-4 col-example">
+          col-4
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+      import React from "react";
+      import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+      import './index.css';
+
+      const gridExamplesPage = () => {
+        return (
+          <MDBContainer>
+            <MDBRow>
+              <MDBCol>col</MDBCol>
+              <MDBCol>col</MDBCol>
+              <MDBCol>col</MDBCol>
+              <MDBCol>col</MDBCol>
+            </MDBRow>
+            <MDBRow>
+              <MDBCol size="8">col-8</MDBCol>
+              <MDBCol size="4">col-4</MDBCol>
+            </MDBRow>
+          </MDBContainer>
+        );
+      }
+
+      export default gridExamplesPage;
+    </code>
+
+      <code data-lang="css" data-name="CSS">
+      .col,
+      .col-8,
+      .col-4 {
+      padding: 1rem;
+      background-color: #33b5e5;
+      border: 2px solid #fff;
+      color: #fff;
+      text-align: center;
+      }
+
+    </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Title-->
+  <h4 id="stacked-horizontal" class="secondary-heading">
+    Stacked to horizontal
+  </h4>
+  <!--Description-->
+  <p class="description">Using a single set of
+    <code>sm</code> classes, you can create a basic grid system that starts out stacked before becoming horizontal on
+    desktop
+    (medium) devices.</p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+    <div class="container">
+      <div class="row mb-1">
+        <div class="col-sm-8 col-example">
+          col-sm-8
+        </div>
+        <div class="col-sm-4 col-example">
+          col-sm-4
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm col-example">
+          col-sm
+        </div>
+        <div class="col-sm col-example">
+          col-sm
+        </div>
+        <div class="col-sm col-example">
+          col-sm
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol sm="8">col-sm-8</MDBCol>
+                <MDBCol sm="4">col-sm-4</MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol size="sm">col-sm</MDBCol>
+                <MDBCol size="sm">col-sm</MDBCol>
+                <MDBCol size="sm">col-sm</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+      }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Title-->
+  <h4 id="max-match" class="secondary-heading">
+    Mix and match
+  </h4>
+  <!--Description-->
+  <p>Don’t want your <code>&lt;MDBCol&gt;</code> to simply stack in some grid tiers? Use a combination of different
+    props for each tier as needed.
+    See the example below for a better idea of how it all works. </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+      <div class="row">
+        <div class="col col-md-8 col-example">
+          .col .col-md-8
+        </div>
+        <div class="col-6 col-md-4 col-example">
+          .col-6 .col-md-4
+        </div>
+      </div>
+
+      <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+      <div class="row">
+        <div class="col-6 col-md-4 col-example">
+          .col-6 .col-md-4
+        </div>
+        <div class="col-6 col-md-4 col-example">
+          .col-6 .col-md-4
+        </div>
+        <div class="col-6 col-md-4 col-example">
+          .col-6 .col-md-4
+        </div>
+      </div>
+
+      <!-- Columns are always 50% wide, on mobile and desktop -->
+      <div class="row">
+        <div class="col-6 col-example">
+          .col-6
+        </div>
+        <div class="col-6 col-example">
+          .col-6
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol md="8">
+                  .col .col-md-8
+                </MDBCol>
+                <MDBCol size="6" md="4">
+                  .col-6 .col-md-4
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol size="6" md="4">
+                  .col-6 .col-md-4
+                </MDBCol>
+                <MDBCol size="6" md="4">
+                  .col-6 .col-md-4
+                </MDBCol>
+                <MDBCol size="6" md="4">
+                  .col-6 .col-md-4
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol size="6">
+                  .col-6
+                </MDBCol>
+                <MDBCol size="6">
+                  .col-6
+                </MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+      }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: responsive classes-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: Alignment-->
+<section id="alignment">
+
+  <!--Title-->
+  <h2 class="section-heading">
+    Alignment
+  </h2>
+
+  <!--Description-->
+  <p>Use MDBReact alignment utilities to vertically and horizontally align columns.</p>
+
+  <!--Title-->
+  <h3 id="vertical-alignment" class="secondary-heading">
+    Vertical alignment
+  </h3>
+  <!--Description-->
+  <p>For grids that are the same from the smallest of devices to the largest, use the
+    <code>.col</code> and
+    <code>.col-*</code> classes. Specify a numbered class when you need a particularly sized column; otherwise, feel
+    free to stick
+    to
+    <code>.col</code>.</p>
+
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+    <div class="container">
+      <h4 class="secondary-heading my-1">
+        Align items start
+      </h4>
+      <div class="row align-items-start example-row mb-3 example-parent">
+        <div class="col col-example">
+          One of three columns
+        </div>
+        <div class="col col-example">
+          One of three columns
+        </div>
+        <div class="col col-example">
+          One of three columns
+        </div>
+      </div>
+      <h4 class="secondary-heading my-1">
+        Align items center
+      </h4>
+      <div class="row align-items-center example-row mb-3 example-parent">
+        <div class="col col-example">
+          One of three columns
+        </div>
+        <div class="col col-example">
+          One of three columns
+        </div>
+        <div class="col col-example">
+          One of three columns
+        </div>
+      </div>
+      <h4 class="secondary-heading my-1">
+        Align items end
+      </h4>
+      <div class="row align-items-end example-row mb-3 example-parent">
+        <div class="col col-example">
+          One of three columns
+        </div>
+        <div class="col col-example">
+          One of three columns
+        </div>
+        <div class="col col-example">
+          One of three columns
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow top="true">
+                <MDBCol>One of three columns</MDBCol>
+                <MDBCol>One of three columns</MDBCol>
+                <MDBCol>One of three columns</MDBCol>
+              </MDBRow>
+              <MDBRow middle="true">
+                <MDBCol>One of three columns</MDBCol>
+                <MDBCol>One of three columns</MDBCol>
+                <MDBCol>One of three columns</MDBCol>
+              </MDBRow>
+              <MDBRow bottom="true">
+                <MDBCol>One of three columns</MDBCol>
+                <MDBCol>One of three columns</MDBCol>
+                <MDBCol>One of three columns</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+      }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Title-->
+  <h3 class="secondary-heading">
+    Algin self
+  </h3>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+    <div class="container example-parent">
+      <div class="row example-row">
+        <div class="col align-self-start col-example">
+          One of three columns
+        </div>
+        <div class="col align-self-center col-example">
+          One of three columns
+        </div>
+        <div class="col align-self-end col-example">
+          One of three columns
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol top>One of three columns</MDBCol>
+                <MDBCol middle>One of three columns</MDBCol>
+                <MDBCol bottom>One of three columns</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+      }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Title-->
+  <h3 id="horizontal-alignment" class="secondary-heading">
+    Horizontal alignment
+  </h3>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container example-parent">
+      <div class="row justify-content-start mb-1">
+        <div class="col-4 col-example">
+          One of two columns
+        </div>
+        <div class="col-4 col-example">
+          One of two columns
+        </div>
+      </div>
+      <div class="row justify-content-center mb-1">
+        <div class="col-4 col-example">
+          One of two columns
+        </div>
+        <div class="col-4 col-example">
+          One of two columns
+        </div>
+      </div>
+      <div class="row justify-content-end mb-1">
+        <div class="col-4 col-example">
+          One of two columns
+        </div>
+        <div class="col-4 col-example">
+          One of two columns
+        </div>
+      </div>
+      <div class="row justify-content-around mb-1">
+        <div class="col-4 col-example">
+          One of two columns
+        </div>
+        <div class="col-4 col-example">
+          One of two columns
+        </div>
+      </div>
+      <div class="row justify-content-between mb-1">
+        <div class="col-4 col-example">
+          One of two columns
+        </div>
+        <div class="col-4 col-example">
+          One of two columns
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow start>
+                <MDBCol size="4">One of two columns</MDBCol>
+                <MDBCol size="4">One of two columns</MDBCol>
+              </MDBRow>
+              <MDBRow center>
+                <MDBCol size="4">One of two columns</MDBCol>
+                <MDBCol size="4">One of two columns</MDBCol>
+              </MDBRow>
+              <MDBRow end>
+                <MDBCol size="4">One of two columns</MDBCol>
+                <MDBCol size="4">One of two columns</MDBCol>
+              </MDBRow>
+              <MDBRow around>
+                <MDBCol size="4">One of two columns</MDBCol>
+                <MDBCol size="4">One of two columns</MDBCol>
+              </MDBRow>
+              <MDBRow between>
+                <MDBCol size="4">One of two columns</MDBCol>
+                <MDBCol size="4">One of two columns</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+      }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Title-->
+  <h3 id="no-gutters" class="secondary-heading">
+    No gutters
+  </h3>
+
+  <!--Description-->
+  <p>The gutters between columns in our predefined grid classes can be removed with
+    <code>.no-gutters.</code> This removes the negative
+    <code>margin</code>s from
+    <code>&lt;MDBRow&gt;</code> and the horizontal
+    <code>padding</code> from all immediate children <code>&lt;MDBCol&gt;</code>.</p>
+
+  <p>
+    Need an edge-to-edge design? Remove the parent
+    <code>&lt;MDBContainer&gt;</code> or
+    <code>&lt;MDBContainer fluid&gt;</code> component.</p>
+
+
+  <!--Subheading-->
+  <h4 id="column-wrapping" class="mt-5">
+    <strong>Column wrapping</strong>
+  </h4>
+
+  <!--Description-->
+  <p class="description">If more than 12 columns are placed within a single row, each group of extra columns will, as
+    one unit, wrap onto a new
+    line.
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <div class="row example-parent">
+        <div class="col-9 col-example">
+          .col-9
+        </div>
+        <div class="col-4 col-example">
+          .col-4
+          <br> Since 9 + 4 = 13 > 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.
+        </div>
+        <div class="col-6 col-example">
+          .col-6
+          <br> Subsequent columns continue along the new line.
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+  <!--Section: Live preview-->
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+          import React from "react";
+          import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+          import './index.css';
+
+          const gridExamplesPage = () => {
+            return (
+              <MDBContainer>
+                <MDBRow>
+                  <MDBCol size="9">
+                    .col-9
+                  </MDBCol>
+                  <MDBCol size="4">
+                    .col-4
+                    <br />
+                    Since 9 + 4 = 13 > 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.
+                  </MDBCol>
+                  <MDBCol size="6">
+                    .col-6
+                    <br />
+                    Subsequent columns continue along the new line.
+                  </MDBCol>
+                </MDBRow>
+              </MDBContainer>
+            );
+          }
+
+          export default gridExamplesPage;
+          </code>
+      <code data-lang="css" data-name="CSS">
+            .row > div {
+            padding: 1rem;
+            background-color: #33b5e5;
+            border: 2px solid #fff;
+            color: #fff;
+            text-align: center;
+          }
+                </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+  <!--Subheading-->
+  <h4 id="column-breaks" class="mt-5">
+    <strong>Column breaks</strong>
+  </h4>
+
+  <!--Description-->
+  <p class="description">Breaking columns to a new line in flexbox requires a small hack: add an element with
+    <code>width: 100%</code> wherever you want to wrap your columns to a new line. Normally this is accomplished with
+    multiple
+    <code>&lt;MDBRow&gt;</code>s, but not every implementation method can account for this.</p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6 col-sm-4 col-example">
+          .col-6 .col-sm-4
+        </div>
+        <div class="col-6 col-sm-4 col-example">
+          .col-6 .col-sm-4
+        </div>
+
+        <!-- Force next columns to break to new line at md breakpoint and up -->
+        <div class="w-100 d-none d-md-block"></div>
+
+        <div class="col-6 col-sm-4 col-example">
+          .col-6 .col-sm-4
+        </div>
+        <div class="col-6 col-sm-4 col-example">
+          .col-6 .col-sm-4
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol size="6" sm="4">
+                  .col-6 .col-sm-4
+                </MDBCol>
+                <MDBCol size="6" sm="4">
+                  .col-6 .col-sm-4
+                </MDBCol>
+                <div className="w-100"></div>
+                <MDBCol size="6" sm="4">
+                  .col-6 .col-sm-4
+                </MDBCol>
+                <MDBCol size="6" sm="4">
+                  .col-6 .col-sm-4
+                </MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: Alignment-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: Reordering-->
+<section id="reordering">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Reordering
+  </h2>
+
+  <!--Title-->
+  <h3 id="order-classes" class="secondary-heading mb-3">
+    Order classes
+  </h3>
+
+  <!-- Description -->
+  <p class="description">Use
+    <code>.order-</code> classes for controlling the
+    <strong>visual order</strong> of your content. These classes are responsive, so you can set the
+    <code>order</code> by breakpoint (e.g.,
+    <code>.order-1.order-md-2</code>). Includes support for
+    <code>1</code> through
+    <code>12</code> across all five grid tiers.</p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <div class="row">
+        <div class="col col-example">
+          First, but unordered
+        </div>
+        <div class="col order-12 col-example">
+          Second, but last
+        </div>
+        <div class="col order-1 col-example">
+          Third, but second
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol>First, but unordered</MDBCol>
+                <MDBCol className="order-12">Second, but last</MDBCol>
+                <MDBCol className="order-1">Third, but second</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+      }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Description-->
+  <p class="description">There are also responsive
+    <code>.order-first</code> and
+    <code>.order-last</code> classes that change the order of an element by applying
+    <code>order: -1</code> and
+    <code>order: 13</code> (
+    <code>order: $columns + 1</code>), respectively. These classes can also be intermixed with the numbered
+    <code>.order-*</code> classes as needed.</p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <div class="row">
+        <div class="col order-last col-example">
+          First, but last
+        </div>
+        <div class="col col-example">
+          Second, but unordered
+        </div>
+        <div class="col order-first col-example">
+          Third, but first
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+          import React from "react";
+          import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+          import './index.css';
+
+          const gridExamplesPage = () => {
+            return (
+              <MDBContainer>
+                <MDBRow>
+                  <MDBCol>First, but unordered</MDBCol>
+                  <MDBCol> Second, but unordered</MDBCol>
+                  <MDBCol className="order-first">Third, but first</MDBCol>
+                </MDBRow>
+              </MDBContainer>
+            );
+          }
+
+          export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+      }
+      </code>
+
+    </mdbsnippet>
+  </section>
+
+  <!--Subheading-->
+  <h4 id="offsetting-columns" class="mt-5">
+    <strong>Offsetting columns</strong>
+  </h4>
+
+  <!--Description-->
+  <p class="description">You can offset <code>&lt;MDBCol&gt;</code> in two ways: our responsive
+    <code>.offset-</code> grid classes and our
+    <a href="https://mdbootstrap.com/docs/jquery/utilities/spacing/">margin utilities</a>. Grid classes are sized to
+    match columns while margins are more useful for quick layouts where the
+    width of the offset is variable.</p>
+
+
+  <!--Subheading-->
+  <h4 id="offset-classes" class="mt-5">
+    <strong>Offset classes</strong>
+  </h4>
+
+  <!--Description-->
+  <p class="description">Move columns to the right using
+    <code>.offset-md-*</code> classes. These classes increase the left margin of a column by
+    <code>*</code> columns. For example,
+    <code>.offset-md-4</code> moves
+    <code>.col-md-4</code> over four columns.</p>
+
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container example-parent">
+      <div class="row">
+        <div class="col-md-4 col-example">.col-md-4</div>
+        <div class="col-md-4 offset-md-4 col-example">.col-md-4 .offset-md-4</div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 offset-md-3 col-example">.col-md-3 .offset-md-3</div>
+        <div class="col-md-3 offset-md-3 col-example">.col-md-3 .offset-md-3</div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 offset-md-3 col-example">.col-md-6 .offset-md-3</div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol md="4">.col-md-4</MDBCol>
+                <MDBCol md="4" className="offset-md-4">
+                  .col-md-4 .offset-md-4
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol md="3" className="offset-md-3">
+                  .col-md-3 .offset-md-3
+                </MDBCol>
+                <MDBCol md="3" className="offset-md-3">
+                  .col-md-3 .offset-md-3
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol md="6" className="offset-md-3">.col-md-6 .offset-md-3</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+      }
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+  <!--Description-->
+  <p class="description">In addition to column clearing at responsive breakpoints, you may need to reset offsets. See
+    this in action: </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+    <div class="container example-parent">
+      <div class="row">
+        <div class="col-sm-5 col-md-6 col-example">.col-sm-5 .col-md-6</div>
+        <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0 col-example">.col-sm-5 .offset-sm-2 .col-md-6
+          .offset-md-0</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 col-md-5 col-lg-6 col-example">.col .col-sm-6 .col-md-5 .col-lg-6</div>
+        <div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0 col-example">.col-sm-6 .col-md-5 .offset-md-2
+          .col-lg-6 .offset-lg-0</div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol sm="5" md="6">
+                  .col-sm-5 .col-md-6
+                </MDBCol>
+                <MDBCol sm="5" md="6" className="offset-sm-2 offset-md-0">
+                  .col-sm-5 .offset-sm-2 .col-md-6 .offset-md-0
+                </MDBCol>
+              </MDBRow>
+
+              <MDBRow>
+                <MDBCol sm="6" md="5" lg="6">
+                  .col-sm-6 .col-md-5 .col-lg-6
+                </MDBCol>
+                <MDBCol sm="6" md="5" lg="6" className="offset-md-2 offset-lg-0">
+                  .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+                </MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+      }
+      </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+  <!--Subheading-->
+  <h4 id="margin-utilities" class="mt-5">
+    <strong>Margin utilities</strong>
+  </h4>
+
+  <!--Description-->
+  <p class="description">You can use margin utilities like
+    <code>.mr-auto</code> to force sibling <code>&lt;MDBCol&gt;</code> away from one another.</p>
+
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container example-parent">
+      <div class="row">
+        <div class="col-md-4 col-example">.col-md-4</div>
+        <div class="col-md-4 ml-auto col-example">.col-md-4 .ml-auto</div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 ml-md-auto col-example">.col-md-3 .ml-md-auto</div>
+        <div class="col-md-3 ml-md-auto col-example">.col-md-3 .ml-md-auto</div>
+      </div>
+      <div class="row">
+        <div class="col-auto mr-auto col-example">.col-auto .mr-auto</div>
+        <div class="col-auto col-example">.col-auto</div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol md="4">.col-md-4</MDBCol>
+                <MDBCol md="4" className="ml-auto">
+                  .col-md-4 .ml-auto
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol md="3" className="ml-md-auto">
+                  .col-md-3 .ml-md-auto
+                </MDBCol>
+                <MDBCol md="3" className="ml-md-auto">
+                  .col-md-3 .ml-md-auto
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol size="auto" className="mr-auto">
+                  .col-auto .mr-auto
+                </MDBCol>
+                <MDBCol size="auto">.col-auto</MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+        }
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: Reordering-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: Nesting-->
+<section id="nesting">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Nesting
+  </h2>
+
+  <!-- Description -->
+  <p class="description">To nest your content with the default grid, add a new
+    <code>&lt;MDBRow&gt;</code> and set of
+    <code>&lt;MDBCol&gt;</code> columns within an existing
+    <code>&lt;MDBCol&gt;</code> column. Nested rows should include a set of columns that add up to 12 or fewer (it is
+    not required that
+    you use all 12 available columns).</p>
+
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="container">
+      <div class="row example-parent">
+        <div class="col-sm-9 col-example">
+          Level 1: .col-sm-9
+          <div class="row">
+            <div class="col-8 col-sm-6 col-example">
+              Level 2: .col-8 .col-sm-6
+            </div>
+            <div class="col-4 col-sm-6 col-example">
+              Level 2: .col-4 .col-sm-6
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+        import './index.css';
+
+        const gridExamplesPage = () => {
+          return (
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol sm="9">
+                  Level 1: .col-sm-9
+                  <MDBRow>
+                    <MDBCol size="8" sm="6">Level 2: .col-8 .col-sm-6</MDBCol>
+                    <MDBCol size="4" sm="6">Level 2: .col-4 .col-sm-6</MDBCol>
+                  </MDBRow>
+                </MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          );
+        }
+
+        export default gridExamplesPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .row > div {
+        padding: 1rem;
+        background-color: #33b5e5;
+        border: 2px solid #fff;
+        color: #fff;
+        text-align: center;
+      }
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: Nesting-->

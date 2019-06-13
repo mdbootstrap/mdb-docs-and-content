@@ -1,0 +1,100 @@
+<script>
+  function testAnim(x, source) {
+    let $infinite = $('#infinite').prop('checked');
+    const $iteration = $('#iteration').val();
+    const $delay = $('#delay').val();
+    const $duration = $('#duration').val();
+    const isInfinite = ($infinite ? ' infinite' : '');
+      if(source =="iteration") {
+        $infinite = false;
+      }
+        let $changeAnimation = $('#animationSandbox').removeClass().addClass(x + ' animated')
+
+        if (source == "iteration" && !$infinite) {
+          $changeAnimation.css("animation-iteration-count", $iteration)
+        }
+        if (source == "delay") {
+        }
+        if (source == "infinite") {
+          if ($infinite) {
+            $changeAnimation.css("animation-iteration-count", "infinite")
+          } else {
+            ($iteration == undefined ? '1' : $iteration)
+            $changeAnimation.css("animation-iteration-count", $iteration)
+        }}
+
+        if ($delay) {
+          $changeAnimation.css("animation-delay", $delay+"s");
+        }
+
+        if ($duration) {
+          $changeAnimation.css("animation-duration", $duration);
+        }
+
+        if (!$infinite) {
+          $changeAnimation.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+              $(this).removeClass();
+          });
+        }
+
+        const $animationSnippet = $('#animationSnippet');
+
+        $animationSnippet.text(`<Animation type="${x}"${isInfinite}${($iteration !=="1" && $iteration !== null && !$infinite) ? ' count={' + $iteration+'}':''}${($duration!==null && $duration!==undefined) ? ' duration="'+$duration+'"':''}${($delay!=="0" && $delay !==null)? ' delay="'+$delay+'"':''}>
+  <img src="https://mdbootstrap.com/img/logo.png" alt="Transparent MDB Logo"/>
+</Animation>`)
+            };
+
+
+    $(document).ready(function () {
+      let anim;
+      let source;
+        $('.js--triggerAnimation').click(function (e) {
+            e.preventDefault();
+            anim = $('.js--animations').val();
+            testAnim(anim, "type");
+        });
+
+        $('.js--animations').change(function () {
+            anim = $(this).val();
+            testAnim(anim, "type");
+        });
+        $('#infinite').change(() => {
+          if (anim == undefined) {
+            anim = "bounce"
+          }
+          testAnim(anim, "infinite");
+        })
+
+        $('#iteration').change(()=>{
+          let $infinite = $('#infinite')
+          $infinite.prop('checked', false);
+          if (anim == undefined) {
+            anim = "bounce"
+          }
+          testAnim(anim, "iteration")
+        })
+        $('#duration').change(() => {
+          if (anim == undefined) {
+            anim = "bounce"
+          }
+          testAnim(anim, "duration");
+        })
+        $('#delay').change(() => {
+          if (anim == undefined) {
+            anim = "bounce"
+          }
+          testAnim(anim, "delay");
+        })
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+</script>
+
+<script src="js/wow.min.js"></script>
+          <script>
+          new WOW().init();
+</script>

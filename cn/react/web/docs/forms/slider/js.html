@@ -1,0 +1,133 @@
+<script>
+    var slider = $("#calculatorSlider");
+    var developerBtn = $("#developerBtn");
+    var corporateBtn = $("#corporateBtn");
+    var privateBtn = $("#privateBtn");
+    var reseller = $("#resellerEarnings");
+    var client = $("#clientPrice");
+    var percentageBonus = 30; // = 30%
+    var license = {
+        corpo: {
+            active: true,
+            price: 319,
+        },
+        dev: {
+            active: false,
+            price: 149,
+        },
+        priv: {
+            active: false,
+            price: 79,
+        }
+    }
+
+    function calculate(price, value) {
+        client.text((Math.round((price - (value / 100 * price)))) + '$');
+        reseller.text((Math.round(((percentageBonus - value) / 100 * price))) + '$')
+    }
+
+    function reset(price) {
+        slider.val(0);
+        client.text(price + '$');
+        reseller.text((Math.round((percentageBonus / 100 * price))) + '$');
+    }
+    developerBtn.on('click', function(e) {
+        license.dev.active = true;
+        license.corpo.active = false;
+        license.priv.active = false;
+        reset(license.dev.price)
+    });
+    privateBtn.on('click', function(e) {
+        license.dev.active = false;
+        license.corpo.active = false;
+        license.priv.active = true;
+        reset(license.priv.price);
+    });
+    corporateBtn.on('click', function(e) {
+        license.dev.active = false;
+        license.corpo.active = true;
+        license.priv.active = false;
+        reset(license.corpo.price);
+    });
+    slider.on("input change", function(e) {
+        if (license.priv.active) {
+            calculate(license.priv.price, $(this).val());
+        } else if (license.corpo.active) {
+            calculate(license.corpo.price, $(this).val());
+        } else if (license.dev.active) {
+            calculate(license.dev.price, $(this).val());
+        }
+    })
+  </script>
+
+  <!-- Structured data: Breadcrumbs -->
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://mdbootstrap.com/",
+          "name": "MDBootstrap",
+          "image": "https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg"
+        }
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "https://mdbootstrap.com/docs/react/",
+          "name": "MDBootstrap React",
+          "image": "https://mdbootstrap.com/wp-content/uploads/2018/03/react-cover.jpg"
+        }
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https://mdbootstrap.com/docs/react/forms/",
+          "name": "Forms",
+          "image": "https://mdbootstrap.com/wp-content/uploads/2015/08/forms.jpg"
+        }
+      },{
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@id": "https://mdbootstrap.com/docs/react/forms/slider/",
+          "name": "Slider",
+          "image": "https://mdbootstrap.com/wp-content/uploads/2017/09/slider-fb.jpg"
+        }
+      }]
+    }
+  </script>
+
+  <!-- Structured data: Article -->
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://mdbootstrap.com/docs/react/forms/slider/"
+      },
+      "headline": "React Slider - Bootstrap 4 & Material Design. Examples & tutorial.",
+      "image": [
+        "https://mdbootstrap.com/wp-content/uploads/2017/09/slider-fb.jpg"
+      ],
+      "datePublished": "2018-11-13T08:00:00+08:00",
+      "dateModified": "2018-11-13T09:20:00+08:00",
+      "author": {
+        "@type": "Organization",
+        "name": "MDBootstrap"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MDBootstrap",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+        }
+      },
+      "description": "React Bootstrap slider is an interactive component that lets the user swiftly slide through possible values spread on the desired range."
+    }
+  </script>

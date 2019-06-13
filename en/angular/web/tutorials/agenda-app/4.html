@@ -1,0 +1,185 @@
+<div class="angular-tutorial tutorial">
+
+
+<p>Earlier, we learned how to create the Event component. The problem is, that this <strong>component won’t be useful unless you can pass data to it</strong>, such as the time, title, location and description of the specific event we want to display. <strong>That's where inputs come into the picture</strong>. </p>
+
+<p>In this lesson we will learn 2 different ways on how we can pass data to our component.</p>
+
+<h2>1. Passing Data using <code>&lt;ng-content&gt;</code></h2>
+
+
+<p>The first way you pass data to our object is to use <mark>&lt;ng-content&gt;</mark> which allows us to render content between the tags.</p>
+
+<ol>
+	<li>Update <code>event.component.html</code> with the following code:</li>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="event.component.html">
+<ng-content></ng-content>
+	  </code>
+	</mdbsnippet>
+
+	<li>Add some data in between <mark>&lt;app-event&gt;&lt;/app-event&gt;</mark> tags in <code>app.component.html</code> file:</li>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <app-event>Event 1</app-event>
+      <app-event>Event 2</app-event>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+</div>
+	  </code>
+	</mdbsnippet>
+
+
+<li>Save the file and run the app</li>
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/4/ng_content.png" alt="ng-content"/>
+
+<p>Great! But what if we want to pass more varied data? Let's learn how to pass multiple data to our component.</p>
+
+</ol>
+
+<h2>1. Passing Data using <code>@Input</code></h2>
+
+<h4>Child component (<code>Event Component</code>)</h4>
+<ol>
+	<li> Import <code>Input</code> in <code>event.component.ts</code> (before we were importing only <code>Component</code>)</li>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="event.component.ts">
+import {Component, Input} from '@angular/core';
+	  </code>
+	</mdbsnippet>
+
+<li>Define new <code>@Input()</code> variable within <mark>EventComponent class:</mark></li>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="event.component.ts">
+export class EventComponent {
+  @Input() value: any;
+}	  </code>
+	</mdbsnippet>
+
+<li>Update the component template (<code>event.component.html</code>) to display our <code>value</code> variable:</li>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="event.component.html">
+<p>{{ value }}</p>
+  </code>
+	</mdbsnippet>
+
+</ol>
+
+<h4>Parent component (<code>App Component</code>)</h4>
+<ol>
+	<li>Update the App template (<code>app.component.html</code>): </li>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <app-event  [value]="5" ></app-event>
+      <app-event [value]="'string'"></app-event>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+</div>
+  </code>
+	</mdbsnippet>
+
+<li>Save the files and run the project</li>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/4/preview.png" alt="Preview"/>
+
+
+<p>Using this method <strong>we can pass as many parameters as we need</strong>. </p>
+
+<p>Note that the way we pass data from parent to the child component also matters.  </p>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+      [value]="5" // Value will be number 
+      [value]="'string'" // Value will be string 
+      [value="'5'"] // This also will be string (note '' )
+  </code>
+	</mdbsnippet>
+
+</ol>
+
+<p>We can als use <code>@Input</code> to pass more complex structure.</p>
+
+
+<p class="note note-warning"><strong>Important:</strong> <br/>
+Keep in mind that using the <code>@Input</code> allows us to pass data only in one direction - from the <code>Parent</code> to the <code>Child</code> component.
+</p>
+
+
+<h2>3. Passing complex objects</h2>
+
+<ol>
+	<li>Add initial event object to the <code>app.component.ts</code></li>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.ts">
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
+})
+export class AppComponent {
+  event: any =
+    {
+      time: "08:00",
+      subject: "Breakfast with Simon",
+      location: "Lounge Caffe",
+      description: "Discuss Q3 targets"
+    };
+}
+
+  </code>
+	</mdbsnippet>
+<li>Update the <code>App</code> template:</li>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <app-event [value]="event"></app-event>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+  </code>
+	</mdbsnippet>
+
+<li>Update the <code>Event</code> template:</li>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="event.component.html">
+<h1> {{value.time}} : {{value.location}} </h1> 
+<p> Location: {{value.location}} </p>
+<p> Description: {{value.description}} </p>
+  </code>
+	</mdbsnippet>
+
+	<li>Save the files and rune the project:</li>
+
+
+	<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/4/complex.png" alt="Passing complex objects"/>
+
+<p>As you can see, it's very easy to pass even a complex objects using</p>
+
+</ol>
+
+
+</div>

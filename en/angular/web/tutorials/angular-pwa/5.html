@@ -1,0 +1,81 @@
+<!--Section: Tutorial content-->
+<section class="tutorial">
+  <section id="app-logic">
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>Building the application logic</strong>
+    </h2>
+
+    <p class="description">
+      Finally, the time has come for us to take up something more interesting. It's high time that we complement our
+      template with the logic that is needed for our PWA to work.
+      To do this, copy the following code to the <code>app.component.ts</code> file.
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="TS">
+        import { SwUpdate } from '@angular/service-worker';
+        import { Component, ViewChild, OnInit } from '@angular/core';
+        import { ModalDirective } from 'angular-bootstrap-md';
+
+        @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+            styleUrls: ['./app.component.scss']
+        })
+        export class AppComponent implements OnInit {
+            @ViewChild('basicModal') basicModal: ModalDirective;
+
+            constructor(private swUpdate: SwUpdate) { }
+
+            ngOnInit() {
+                this.checkForUpdates();
+            }
+
+            forceUpdate() {
+                this.swUpdate.activateUpdate().then(() => {
+                document.location.reload();
+                });
+            }
+
+            checkForUpdates() {
+                if (this.swUpdate.isEnabled) {
+                    this.swUpdate.available.subscribe(() => {
+                    console.log('New Version');
+                    this.basicModal.show();
+                        });
+                    }
+                }
+            }
+      </code>
+    </mdbsnippet>
+
+    <p class="description">
+      We inject the <code>SwUpdate</code> service into the constructor, which is a Service Worker used for working with
+      application
+      updates.
+    </p>
+
+    <p class="description">
+      During the <code>ngOnInit</code> lifecycle the <code>checkForUpdates()</code> method is called, whose task is to
+      check if a new version of
+      the PWA application is available.
+    </p>
+
+    <p class="description">
+      If available, the <code>show()</code> method from the <code>ModalDirective</code> directive is called, which is
+      responsible for displaying
+      the modal with information that a new version of the application is available.
+      <br>
+      There are two buttons in this modal. One of them is responsible for calling the <code>forceUpdate()</code>
+      method, which
+      reloads the application. The second button closes the modal without updating the application.
+    </p>
+
+    <p class="description">It's very simple - isn't it? Service Worker checks if there is a new version based on
+      the application size. If there is one, the user can either reload the application or work with an older version
+      of the application.</p>
+
+  </section>
+</section>
+<!--Section: Tutorial content-->

@@ -1,0 +1,1920 @@
+<style>
+  table.dataTable thead {
+    cursor: pointer
+  }
+
+  table.dataTable thead>tr>td:active,
+  table.dataTable thead>tr>th:active {
+    outline: 0
+  }
+
+  div.dataTables_wrapper div.dataTables_length.d-flex.flex-row label {
+    margin-top: 1.2rem;
+    margin-right: 1rem
+  }
+
+  div.dataTables_wrapper div.dataTables_length.d-flex.flex-row .select-wrapper.mdb-select .select-dropdown,
+  div.dataTables_wrapper div.dataTables_length.d-flex.flex-row .select-wrapper.mdb-select span {
+    margin-top: 1rem
+  }
+
+  div.dataTables_wrapper div.dataTables_filter label,
+  div.dataTables_wrapper div.dataTables_length label {
+    text-align: left;
+    font-weight: 400;
+    padding-top: .5rem;
+    padding-bottom: .5rem
+  }
+
+  div.dataTables_wrapper div.dataTables_filter input,
+  div.dataTables_wrapper div.dataTables_filter select,
+  div.dataTables_wrapper div.dataTables_length input,
+  div.dataTables_wrapper div.dataTables_length select {
+    width: auto
+  }
+
+  div.dataTables_wrapper div.dataTables_filter {
+    text-align: right
+  }
+
+  div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: .5rem;
+    display: inline-block
+  }
+
+  div.dataTables_wrapper div.dataTables_info,
+  div.dataTables_wrapper div.dataTables_paginate {
+    font-weight: 400;
+    padding-top: 1rem;
+    padding-bottom: 1rem
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate {
+    text-align: right;
+    margin: 0
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.active .page-link:focus {
+    background-color: #4285f4
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item .page-link:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none
+  }
+
+  @media (max-width:767px) {
+
+    div.dataTables_wrapper div .dataTables_filter,
+    div.dataTables_wrapper div .dataTables_info,
+    div.dataTables_wrapper div .dataTables_length,
+    div.dataTables_wrapper div .dataTables_paginate ul.pagination {
+      text-align: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center
+    }
+  }
+
+  .bs-select select {
+    display: inline-block !important
+  }
+</style>
+
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">React Bootstrap Table Scroll</h2>
+
+  <h1 class="secondary-heading mb-4">React Table Scroll - Bootstrap 4 &amp; Material Design. Examples &amp; tutorial.</h1>
+
+  <!--Description-->
+  <p class="description">
+    Tables let you aggregate a huge amount of data and present it in the clear and orderly way. React Bootstrap
+    Datatables provide
+    additional benefits like responsiveness and the possibility to manipulate the styles of the tables. With Datatables
+    you
+    can use an advanced options like sorting, searching or pagination. Also, our Datatables are scallable and
+    responsive.
+  </p>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-4">
+
+<!--Section: -->
+<section id="static-table-vertical-scroll">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Static table vertical scroll
+  </h2>
+
+  <p>More scroll options for static tables you can find in thereact
+    <a href="https://mdbootstrap.com/docs/react/tables/responsive/">Table Responsive documentation</a>.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <style>
+      .table-wrapper-scroll-y {
+        display: block;
+        max-height: 200px;
+        overflow-y: auto;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+      }
+    </style>
+
+    <div class="table-wrapper-scroll-y">
+
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="js" data-name="JSX">
+          import React from 'react';
+          import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+
+          const TablePage = props => {
+          const data = {
+            columns: [
+              {
+                label: '#',
+                field: 'id',
+                sort: 'asc'
+              },
+              {
+                label: 'First',
+                field: 'first',
+                sort: 'asc'
+              },
+              {
+                label: 'Last',
+                field: 'last',
+                sort: 'asc'
+              },
+              {
+                label: 'Handle',
+                field: 'handle',
+                sort: 'asc'
+                }
+            ],
+            rows: [
+              {
+                'id': 1,
+                'first': 'Mark',
+                'last': 'Otto',
+                'handle': '@mdo'
+              },
+              {
+                'id': 2,
+                'first': 'Jacob',
+                'last': 'Thornton',
+                'handle': '@fat'
+              },
+              {
+                'id': 3,
+                'first': 'Larry',
+                'last': 'the Bird',
+                'handle': '@twitter'
+              },
+              {
+                'id': 4,
+                'first': 'Mark',
+                'last': 'Otto',
+                'handle': '@mdo'
+              },
+              {
+                'id': 5,
+                'first': 'Jacob',
+                'last': 'Thornton',
+                'handle': '@fat'
+              },
+              {
+                'id': 6,
+                'first': 'Larry',
+                'last': 'the Bird',
+                'handle': '@twitter'
+              }
+            ]
+          };
+
+          return (
+              <MDBTable scrollY>
+                <MDBTableHead columns={data.columns} />
+                <MDBTableBody rows={data.rows} />
+              </MDBTable>
+            );
+          };
+
+          export default TablePage;
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="datatable-vertical-scroll">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Datatable vertical scroll
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div id="dtVerticalScrollExample_wrapper" class="dataTables_wrapper dt-bootstrap4">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="dataTables_length bs-select" id="dtVerticalScrollExample_length"><label>Show <select name="dtVerticalScrollExample_length"
+                aria-controls="dtVerticalScrollExample" class="custom-select custom-select-sm form-control form-control-sm">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select> entries</label></div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div id="dtVerticalScrollExample_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm"
+                placeholder="" aria-controls="dtVerticalScrollExample"></label></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="dataTables_scroll">
+            <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+              <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 1125px; padding-right: 15px;">
+                <table class="table table-striped table-bordered table-sm dataTable" cellspacing="0" width="100%" role="grid"
+                  style="margin-left: 0px; width: 1125px;">
+                  <thead>
+                    <tr role="row">
+                      <th class="th-sm sorting_asc" tabindex="0" aria-controls="dtVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 197px;" aria-sort="ascending" aria-label="Name
+
+            : activate to sort column descending">Name
+
+                      </th>
+                      <th class="th-sm sorting" tabindex="0" aria-controls="dtVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 325px;" aria-label="Position
+
+            : activate to sort column ascending">Position
+
+                      </th>
+                      <th class="th-sm sorting" tabindex="0" aria-controls="dtVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 154px;" aria-label="Office
+
+            : activate to sort column ascending">Office
+
+                      </th>
+                      <th class="th-sm sorting" tabindex="0" aria-controls="dtVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 147px;" aria-label="Age
+
+            : activate to sort column ascending">Age
+
+                      </th>
+                      <th class="th-sm sorting" tabindex="0" aria-controls="dtVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 152px;" aria-label="Start date
+
+            : activate to sort column ascending">Start
+                        date
+
+                      </th>
+                      <th class="th-sm sorting" tabindex="0" aria-controls="dtVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 149px;" aria-label="Salary
+
+            : activate to sort column ascending">Salary
+
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+            <div class="dataTables_scrollBody" style="position: relative; overflow: auto; max-height: 200px; width: 100%;">
+              <table id="dtVerticalScrollExample" class="table table-striped table-bordered table-sm dataTable"
+                cellspacing="0" width="100%" role="grid" aria-describedby="dtVerticalScrollExample_info" style="width: 100%;">
+                <thead>
+                  <tr role="row" style="height: 0px;">
+                    <th class="th-sm sorting" aria-controls="dtVerticalScrollExample" rowspan="1" colspan="1" style="width: 197px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Name
+
+                      </div>
+                    </th>
+                    <th class="th-sm sorting" aria-controls="dtVerticalScrollExample" rowspan="1" colspan="1" style="width: 325px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Position
+
+                      </div>
+                    </th>
+                    <th class="th-sm sorting" aria-controls="dtVerticalScrollExample" rowspan="1" colspan="1" style="width: 154px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Office
+
+                      </div>
+                    </th>
+                    <th class="th-sm sorting" aria-controls="dtVerticalScrollExample" rowspan="1" colspan="1" style="width: 147px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Age
+
+                      </div>
+                    </th>
+                    <th class="th-sm sorting" aria-controls="dtVerticalScrollExample" rowspan="1" colspan="1" style="width: 152px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Start date
+
+                      </div>
+                    </th>
+                    <th class="th-sm sorting" aria-controls="dtVerticalScrollExample" rowspan="1" colspan="1" style="width: 149px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Salary
+
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr style="height: 0px;">
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 197px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Name
+                      </div>
+                    </th>
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 325px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Position
+                      </div>
+                    </th>
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 154px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Office
+                      </div>
+                    </th>
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 147px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Age
+                      </div>
+                    </th>
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 152px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Start date
+                      </div>
+                    </th>
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 149px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Salary
+                      </div>
+                    </th>
+                  </tr>
+                </tfoot>
+
+                <tbody>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">Airi Satou</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>33</td>
+                    <td>2008/11/28</td>
+                    <td>$162,700</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">Ashton Cox</td>
+                    <td>Junior Technical Author</td>
+                    <td>San Francisco</td>
+                    <td>66</td>
+                    <td>2009/01/12</td>
+                    <td>$86,000</td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">Brielle Williamson</td>
+                    <td>Integration Specialist</td>
+                    <td>New York</td>
+                    <td>61</td>
+                    <td>2012/12/02</td>
+                    <td>$372,000</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">Cedric Kelly</td>
+                    <td>Senior Javascript Developer</td>
+                    <td>Edinburgh</td>
+                    <td>22</td>
+                    <td>2012/03/29</td>
+                    <td>$433,060</td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">Colleen Hurst</td>
+                    <td>Javascript Developer</td>
+                    <td>San Francisco</td>
+                    <td>39</td>
+                    <td>2009/09/15</td>
+                    <td>$205,500</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">Garrett Winters</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>63</td>
+                    <td>2011/07/25</td>
+                    <td>$170,750</td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">Herrod Chandler</td>
+                    <td>Sales Assistant</td>
+                    <td>San Francisco</td>
+                    <td>59</td>
+                    <td>2012/08/06</td>
+                    <td>$137,500</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">Rhona Davidson</td>
+                    <td>Integration Specialist</td>
+                    <td>Tokyo</td>
+                    <td>55</td>
+                    <td>2010/10/14</td>
+                    <td>$327,900</td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>2011/04/25</td>
+                    <td>$320,800</td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+            <div class="dataTables_scrollFoot" style="overflow: hidden; border: 0px; width: 100%;">
+              <div class="dataTables_scrollFootInner" style="width: 1125px; padding-right: 15px;">
+                <table class="table table-striped table-bordered table-sm dataTable" cellspacing="0" width="100%" role="grid"
+                  style="margin-left: 0px; width: 1125px;">
+                  <tfoot>
+                    <tr>
+                      <th rowspan="1" colspan="1" style="width: 197px;">Name
+                      </th>
+                      <th rowspan="1" colspan="1" style="width: 325px;">Position
+                      </th>
+                      <th rowspan="1" colspan="1" style="width: 154px;">Office
+                      </th>
+                      <th rowspan="1" colspan="1" style="width: 147px;">Age
+                      </th>
+                      <th rowspan="1" colspan="1" style="width: 152px;">Start date
+                      </th>
+                      <th rowspan="1" colspan="1" style="width: 149px;">Salary
+                      </th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-5">
+          <div class="dataTables_info" id="dtVerticalScrollExample_info" role="status" aria-live="polite">Showing 1 to
+            9
+            of 9 entries</div>
+        </div>
+        <div class="col-sm-12 col-md-7">
+          <div class="dataTables_paginate paging_simple_numbers" id="dtVerticalScrollExample_paginate">
+            <ul class="pagination">
+              <li class="paginate_button page-item previous disabled" id="dtVerticalScrollExample_previous"><a href="#"
+                  aria-controls="dtVerticalScrollExample" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+              <li class="paginate_button page-item active"><a href="#" aria-controls="dtVerticalScrollExample"
+                  data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+              <li class="paginate_button page-item next disabled" id="dtVerticalScrollExample_next"><a href="#"
+                  aria-controls="dtVerticalScrollExample" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <p>To enable y-scrolling simply set the <code>scrollY</code> property. Manipulate table's height by using <code>maxHeight</code>
+    property.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="js" data-name="JSX">
+        import React from 'react';
+        import { MDBDataTable } from 'mdbreact';
+
+        const DatatablePage = () => {
+          const data = {
+            columns: [
+              {
+                label: 'Name',
+                field: 'name',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Position',
+                field: 'position',
+                sort: 'asc',
+                width: 270
+              },
+              {
+                label: 'Office',
+                field: 'office',
+                sort: 'asc',
+                width: 200
+              },
+              {
+                label: 'Age',
+                field: 'age',
+                sort: 'asc',
+                width: 100
+              },
+              {
+                label: 'Start date',
+                field: 'date',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Salary',
+                field: 'salary',
+                sort: 'asc',
+                width: 100
+              }
+            ],
+            rows: [
+              {
+                name: 'Tiger Nixon',
+                position: 'System Architect',
+                office: 'Edinburgh',
+                age: '61',
+                date: '2011/04/25',
+                salary: '$320'
+              },
+              {
+                name: 'Garrett Winters',
+                position: 'Accountant',
+                office: 'Tokyo',
+                age: '63',
+                date: '2011/07/25',
+                salary: '$170'
+              },
+              {
+                name: 'Ashton Cox',
+                position: 'Junior Technical Author',
+                office: 'San Francisco',
+                age: '66',
+                date: '2009/01/12',
+                salary: '$86'
+              },
+              {
+                name: 'Cedric Kelly',
+                position: 'Senior Javascript Developer',
+                office: 'Edinburgh',
+                age: '22',
+                date: '2012/03/29',
+                salary: '$433'
+              },
+              {
+                name: 'Airi Satou',
+                position: 'Accountant',
+                office: 'Tokyo',
+                age: '33',
+                date: '2008/11/28',
+                salary: '$162'
+              },
+              {
+                name: 'Brielle Williamson',
+                position: 'Integration Specialist',
+                office: 'New York',
+                age: '61',
+                date: '2012/12/02',
+                salary: '$372'
+              },
+              {
+                name: 'Herrod Chandler',
+                position: 'Sales Assistant',
+                office: 'San Francisco',
+                age: '59',
+                date: '2012/08/06',
+                salary: '$137'
+              },
+              {
+                name: 'Rhona Davidson',
+                position: 'Integration Specialist',
+                office: 'Tokyo',
+                age: '55',
+                date: '2010/10/14',
+                salary: '$327'
+              },
+              {
+                name: 'Colleen Hurst',
+                position: 'Javascript Developer',
+                office: 'San Francisco',
+                age: '39',
+                date: '2009/09/15',
+                salary: '$205'
+              }
+            ]
+          };
+
+          return (
+            <MDBDataTable
+              scrollY
+              maxHeight="200px"
+              striped
+              bordered
+              small
+              data={data}
+            />
+          );
+        }
+
+        export default DatatablePage;
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="datatable-vertical-dynamic-height">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Datatable vertical dynamic height
+  </h2>
+
+  <p>This example shows a vertically scrolling DataTable that makes use of the CSS3
+    <code>vh</code> unit in order to dynamically resize the viewport based on the browser window height. The
+    <code>vh</code> unit is effectively a percentage of the browser window height. So the
+    <code>20vh</code> used in this example is <strong>20%</strong> of the window height. The viewport size will update
+    dynamically as the window is resized.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div id="dtDynamicVerticalScrollExample_wrapper" class="dataTables_wrapper dt-bootstrap4">
+      <div class="row">
+        <div class="col-sm-12 col-md-6"></div>
+        <div class="col-sm-12 col-md-6">
+          <div id="dtDynamicVerticalScrollExample_filter" class="dataTables_filter"><label>Search:<input type="search"
+                class="form-control form-control-sm" placeholder="" aria-controls="dtDynamicVerticalScrollExample"></label></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="dataTables_scroll">
+            <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+              <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 1125px; padding-right: 15px;">
+                <table class="table table-striped table-bordered table-sm dataTable" cellspacing="0" width="100%" role="grid"
+                  style="margin-left: 0px; width: 1125px;">
+                  <thead>
+                    <tr role="row">
+                      <th class="th-sm sorting_asc" tabindex="0" aria-controls="dtDynamicVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 197px;" aria-sort="ascending" aria-label="Name
+              : activate to sort column descending">Name
+                      </th>
+                      <th class="th-sm sorting" tabindex="0" aria-controls="dtDynamicVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 325px;" aria-label="Position
+              : activate to sort column ascending">Position
+                      </th>
+                      <th class="th-sm sorting" tabindex="0" aria-controls="dtDynamicVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 154px;" aria-label="Office
+              : activate to sort column ascending">Office
+                      </th>
+                      <th class="th-sm sorting" tabindex="0" aria-controls="dtDynamicVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 147px;" aria-label="Age
+              : activate to sort column ascending">Age
+                      </th>
+                      <th class="th-sm sorting" tabindex="0" aria-controls="dtDynamicVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 152px;" aria-label="Start date
+              : activate to sort column ascending">Start
+                        date
+                      </th>
+                      <th class="th-sm sorting" tabindex="0" aria-controls="dtDynamicVerticalScrollExample" rowspan="1"
+                        colspan="1" style="width: 149px;" aria-label="Salary
+              : activate to sort column ascending">Salary
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+            <div class="dataTables_scrollBody" style="position: relative; overflow: auto; max-height: 20vh; width: 100%;">
+              <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm dataTable"
+                cellspacing="0" width="100%" role="grid" aria-describedby="dtDynamicVerticalScrollExample_info" style="width: 100%;">
+                <thead>
+                  <tr role="row" style="height: 0px;">
+                    <th class="th-sm sorting" aria-controls="dtDynamicVerticalScrollExample" rowspan="1" colspan="1"
+                      style="width: 197px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Name
+                      </div>
+                    </th>
+                    <th class="th-sm sorting" aria-controls="dtDynamicVerticalScrollExample" rowspan="1" colspan="1"
+                      style="width: 325px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Position
+                      </div>
+                    </th>
+                    <th class="th-sm sorting" aria-controls="dtDynamicVerticalScrollExample" rowspan="1" colspan="1"
+                      style="width: 154px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Office
+                      </div>
+                    </th>
+                    <th class="th-sm sorting" aria-controls="dtDynamicVerticalScrollExample" rowspan="1" colspan="1"
+                      style="width: 147px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Age
+                      </div>
+                    </th>
+                    <th class="th-sm sorting" aria-controls="dtDynamicVerticalScrollExample" rowspan="1" colspan="1"
+                      style="width: 152px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Start date
+                      </div>
+                    </th>
+                    <th class="th-sm sorting" aria-controls="dtDynamicVerticalScrollExample" rowspan="1" colspan="1"
+                      style="width: 149px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Salary
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr style="height: 0px;">
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 197px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Name
+                      </div>
+                    </th>
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 325px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Position
+                      </div>
+                    </th>
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 154px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Office
+                      </div>
+                    </th>
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 147px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Age
+                      </div>
+                    </th>
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 152px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Start date
+                      </div>
+                    </th>
+                    <th rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 149px;">
+                      <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Salary
+                      </div>
+                    </th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">Airi Satou</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>33</td>
+                    <td>2008/11/28</td>
+                    <td>$162,700</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">Ashton Cox</td>
+                    <td>Junior Technical Author</td>
+                    <td>San Francisco</td>
+                    <td>66</td>
+                    <td>2009/01/12</td>
+                    <td>$86,000</td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">Brielle Williamson</td>
+                    <td>Integration Specialist</td>
+                    <td>New York</td>
+                    <td>61</td>
+                    <td>2012/12/02</td>
+                    <td>$372,000</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">Cedric Kelly</td>
+                    <td>Senior Javascript Developer</td>
+                    <td>Edinburgh</td>
+                    <td>22</td>
+                    <td>2012/03/29</td>
+                    <td>$433,060</td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">Garrett Winters</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>63</td>
+                    <td>2011/07/25</td>
+                    <td>$170,750</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">Herrod Chandler</td>
+                    <td>Sales Assistant</td>
+                    <td>San Francisco</td>
+                    <td>59</td>
+                    <td>2012/08/06</td>
+                    <td>$137,500</td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">Rhona Davidson</td>
+                    <td>Integration Specialist</td>
+                    <td>Tokyo</td>
+                    <td>55</td>
+                    <td>2010/10/14</td>
+                    <td>$327,900</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>2011/04/25</td>
+                    <td>$320,800</td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+            <div class="dataTables_scrollFoot" style="overflow: hidden; border: 0px; width: 100%;">
+              <div class="dataTables_scrollFootInner" style="width: 1125px; padding-right: 15px;">
+                <table class="table table-striped table-bordered table-sm dataTable" cellspacing="0" width="100%" role="grid"
+                  style="margin-left: 0px; width: 1125px;">
+                  <tfoot>
+                    <tr>
+                      <th rowspan="1" colspan="1" style="width: 197px;">Name
+                      </th>
+                      <th rowspan="1" colspan="1" style="width: 325px;">Position
+                      </th>
+                      <th rowspan="1" colspan="1" style="width: 154px;">Office
+                      </th>
+                      <th rowspan="1" colspan="1" style="width: 147px;">Age
+                      </th>
+                      <th rowspan="1" colspan="1" style="width: 152px;">Start date
+                      </th>
+                      <th rowspan="1" colspan="1" style="width: 149px;">Salary
+                      </th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-5">
+          <div class="dataTables_info" id="dtDynamicVerticalScrollExample_info" role="status" aria-live="polite">Showing
+            1 to 8 of 8 entries</div>
+        </div>
+        <div class="col-sm-12 col-md-7"></div>
+      </div>
+    </div>
+
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="js" data-name="JSX">
+        import React from 'react';
+        import { MDBDataTable } from 'mdbreact';
+
+        const DatatablePage = () => {
+          const data = {
+            columns: [
+              {
+                label: 'Name',
+                field: 'name',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Position',
+                field: 'position',
+                sort: 'asc',
+                width: 270
+              },
+              {
+                label: 'Office',
+                field: 'office',
+                sort: 'asc',
+                width: 200
+              },
+              {
+                label: 'Age',
+                field: 'age',
+                sort: 'asc',
+                width: 100
+              },
+              {
+                label: 'Start date',
+                field: 'date',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Salary',
+                field: 'salary',
+                sort: 'asc',
+                width: 100
+              }
+            ],
+            rows: [
+              {
+                name: 'Tiger Nixon',
+                position: 'System Architect',
+                office: 'Edinburgh',
+                age: '61',
+                date: '2011/04/25',
+                salary: '$320'
+              },
+              {
+                name: 'Garrett Winters',
+                position: 'Accountant',
+                office: 'Tokyo',
+                age: '63',
+                date: '2011/07/25',
+                salary: '$170'
+              },
+              {
+                name: 'Ashton Cox',
+                position: 'Junior Technical Author',
+                office: 'San Francisco',
+                age: '66',
+                date: '2009/01/12',
+                salary: '$86'
+              },
+              {
+                name: 'Cedric Kelly',
+                position: 'Senior Javascript Developer',
+                office: 'Edinburgh',
+                age: '22',
+                date: '2012/03/29',
+                salary: '$433'
+              },
+              {
+                name: 'Airi Satou',
+                position: 'Accountant',
+                office: 'Tokyo',
+                age: '33',
+                date: '2008/11/28',
+                salary: '$162'
+              },
+              {
+                name: 'Brielle Williamson',
+                position: 'Integration Specialist',
+                office: 'New York',
+                age: '61',
+                date: '2012/12/02',
+                salary: '$372'
+              },
+              {
+                name: 'Herrod Chandler',
+                position: 'Sales Assistant',
+                office: 'San Francisco',
+                age: '59',
+                date: '2012/08/06',
+                salary: '$137'
+              },
+              {
+                name: 'Rhona Davidson',
+                position: 'Integration Specialist',
+                office: 'Tokyo',
+                age: '55',
+                date: '2010/10/14',
+                salary: '$327'
+              },
+              {
+                name: 'Colleen Hurst',
+                position: 'Javascript Developer',
+                office: 'San Francisco',
+                age: '39',
+                date: '2009/09/15',
+                salary: '$205'
+              }
+            ]
+          };
+
+          return (
+            <MDBDataTable
+              scrollY
+              maxHeight="20vh"
+              striped
+              bordered
+              small
+              data={data}
+            />
+          );
+        }
+
+        export default DatatablePage;
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="datatable-horizontal-scroll">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Datatable horizontal scroll
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <style>
+      .dtHorizontalExampleWrapper {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      #dtHorizontalExample th,
+      td {
+        white-space: nowrap;
+      }
+    </style>
+
+    <div class="dtHorizontalExampleWrapper">
+
+      <div id="dtHorizontalExample_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="dataTables_length bs-select" id="dtHorizontalExample_length"><label>Show <select name="dtHorizontalExample_length"
+                  aria-controls="dtHorizontalExample" class="custom-select custom-select-sm form-control form-control-sm">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select> entries</label></div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <div id="dtHorizontalExample_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm"
+                  placeholder="" aria-controls="dtHorizontalExample"></label></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="dataTables_scroll">
+              <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+                <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 971px; padding-right: 0px;">
+                  <table class="table table-striped table-bordered table-sm dataTable no-footer" cellspacing="0" width="100%"
+                    role="grid" style="margin-left: 0px; width: 971px;">
+                    <thead>
+                      <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="dtHorizontalExample" rowspan="1" colspan="1"
+                          style="width: 104px;" aria-sort="ascending" aria-label="First name: activate to sort column descending">First
+                          name</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalExample" rowspan="1" colspan="1"
+                          style="width: 104px;" aria-label="Last name: activate to sort column ascending">Last name</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalExample" rowspan="1" colspan="1"
+                          style="width: 186px;" aria-label="Position: activate to sort column ascending">Position</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalExample" rowspan="1" colspan="1"
+                          style="width: 100px;" aria-label="Office: activate to sort column ascending">Office</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalExample" rowspan="1" colspan="1"
+                          style="width: 61px;" aria-label="Age: activate to sort column ascending">Age</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalExample" rowspan="1" colspan="1"
+                          style="width: 99px;" aria-label="Start date: activate to sort column ascending">Start date</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalExample" rowspan="1" colspan="1"
+                          style="width: 76px;" aria-label="Salary: activate to sort column ascending">Salary</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalExample" rowspan="1" colspan="1"
+                          style="width: 68px;" aria-label="Extn.: activate to sort column ascending">Extn.</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalExample" rowspan="1" colspan="1"
+                          style="width: 172px;" aria-label="E-mail: activate to sort column ascending">E-mail</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%;">
+                <table id="dtHorizontalExample" class="table table-striped table-bordered table-sm dataTable no-footer"
+                  cellspacing="0" width="100%" role="grid" aria-describedby="dtHorizontalExample_info" style="width: 100%;">
+                  <thead>
+                    <tr role="row" style="height: 0px;">
+                      <th class="sorting" aria-controls="dtHorizontalExample" rowspan="1" colspan="1" style="width: 104px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">First name</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalExample" rowspan="1" colspan="1" style="width: 104px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Last name</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalExample" rowspan="1" colspan="1" style="width: 186px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Position</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalExample" rowspan="1" colspan="1" style="width: 100px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Office</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalExample" rowspan="1" colspan="1" style="width: 61px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Age</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalExample" rowspan="1" colspan="1" style="width: 99px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Start date</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalExample" rowspan="1" colspan="1" style="width: 76px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Salary</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalExample" rowspan="1" colspan="1" style="width: 68px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Extn.</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalExample" rowspan="1" colspan="1" style="width: 172px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">E-mail</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">Ashton</td>
+                      <td>Cox</td>
+                      <td>Junior Technical Author</td>
+                      <td>San Francisco</td>
+                      <td>66</td>
+                      <td>2009/01/12</td>
+                      <td>$86,000</td>
+                      <td>1562</td>
+                      <td>a.cox@datatables.net</td>
+                    </tr>
+                    <tr role="row" class="even">
+                      <td class="sorting_1">Cedric</td>
+                      <td>Kelly</td>
+                      <td>Senior Javascript Developer</td>
+                      <td>Edinburgh</td>
+                      <td>22</td>
+                      <td>2012/03/29</td>
+                      <td>$433,060</td>
+                      <td>6224</td>
+                      <td>c.kelly@datatables.net</td>
+                    </tr>
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">Garrett</td>
+                      <td>Winters</td>
+                      <td>Accountant</td>
+                      <td>Tokyo</td>
+                      <td>63</td>
+                      <td>2011/07/25</td>
+                      <td>$170,750</td>
+                      <td>8422</td>
+                      <td>g.winters@datatables.net</td>
+                    </tr>
+                    <tr role="row" class="even">
+                      <td class="sorting_1">Tiger</td>
+                      <td>Nixon</td>
+                      <td>System Architect</td>
+                      <td>Edinburgh</td>
+                      <td>61</td>
+                      <td>2011/04/25</td>
+                      <td>$320,800</td>
+                      <td>5421</td>
+                      <td>t.nixon@datatables.net</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info" id="dtHorizontalExample_info" role="status" aria-live="polite">Showing 1 to 4
+              of 4
+              entries</div>
+          </div>
+          <div class="col-sm-12 col-md-7">
+            <div class="dataTables_paginate paging_simple_numbers" id="dtHorizontalExample_paginate">
+              <ul class="pagination">
+                <li class="paginate_button page-item previous disabled" id="dtHorizontalExample_previous"><a href="#"
+                    aria-controls="dtHorizontalExample" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                <li class="paginate_button page-item active"><a href="#" aria-controls="dtHorizontalExample"
+                    data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                <li class="paginate_button page-item next disabled" id="dtHorizontalExample_next"><a href="#"
+                    aria-controls="dtHorizontalExample" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <p>
+    DataTables has the ability to show tables with horizontal scrolling, which is very useful for when you have a wide
+    table,
+    but want to constrain it to a limited horizontal display area. To enable x-scrolling simply set the prop <code>scrollX</code>.
+    For best looking effect set columns width within object columns properties.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="js" data-name="JSX">
+        import React from 'react';
+        import { MDBDataTable } from 'mdbreact';
+
+        const DatatablePage = () => {
+          const data = {
+            columns: [
+              {
+                label: 'Name',
+                field: 'name',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Surname',
+                field: 'surname',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Position',
+                field: 'position',
+                sort: 'asc',
+                width: 270
+              },
+              {
+                label: 'Office',
+                field: 'office',
+                sort: 'asc',
+                width: 200
+              },
+              {
+                label: 'Age',
+                field: 'age',
+                sort: 'asc',
+                width: 100
+              },
+              {
+                label: 'Start date',
+                field: 'date',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Salary',
+                field: 'salary',
+                sort: 'asc',
+                width: 100
+              },
+              {
+                label: 'Extn.',
+                field: 'extn',
+                sort: 'asc',
+                width: 100
+              },
+              {
+                label: "E-mail",
+                field: 'email',
+                sort: 'asc',
+                width: 200
+              }
+            ],
+            rows: [
+              {
+                name: 'Tiger',
+                surname: 'Nixon',
+                position: 'System Architect',
+                office: 'Edinburgh',
+                age: '61',
+                date: '2011/04/25',
+                salary: '$320,800',
+                extn: 5421,
+                email: 't.nixon@datatables.net'
+              },
+              {
+                name: 'Garrett',
+                surname: 'Winters',
+                position: 'Accountant',
+                office: 'Tokyo',
+                age: '63',
+                date: '2011/07/25',
+                salary: '$170,750',
+                extn: 8422,
+                email: 'q.winters@datatables.net'
+              },
+              {
+                name: 'Ashton',
+                surname: 'Cox',
+                position: 'Junior Technical Author',
+                office: 'San Francisco',
+                age: '66',
+                date: '2009/01/12',
+                salary: '$86,000',
+                extn: 1562,
+                email: 'a.cox@datatables.net'
+              },
+              {
+                name: 'Cedric',
+                surname: 'Kelly',
+                position: 'Senior Javascript Developer',
+                office: 'Edinburgh',
+                age: '22',
+                date: '2012/03/29',
+                salary: '$433,060',
+                extn: 6224,
+                email: 'c.kelly@datatables.net'
+              }
+            ]
+          };
+
+          return (
+            <MDBDataTable
+              scrollX
+              striped
+              bordered
+              data={data}
+            />
+          );
+        }
+
+        export default DatatablePage;
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="datatable-horizontal-and-vertical-scroll">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Datatable horizontal and vertical scroll
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <style>
+      .dtHorizontalVerticalExampleWrapper {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      #dtHorizontalVerticalExample th,
+      td {
+        white-space: nowrap;
+      }
+    </style>
+
+    <div class="dtHorizontalVerticalExampleWrapper">
+
+      <div id="dtHorizontalVerticalExample_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="dataTables_length bs-select" id="dtHorizontalVerticalExample_length"><label>Show <select name="dtHorizontalVerticalExample_length"
+                  aria-controls="dtHorizontalVerticalExample" class="custom-select custom-select-sm form-control form-control-sm">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select> entries</label></div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <div id="dtHorizontalVerticalExample_filter" class="dataTables_filter"><label>Search:<input type="search"
+                  class="form-control form-control-sm" placeholder="" aria-controls="dtHorizontalVerticalExample"></label></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="dataTables_scroll">
+              <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+                <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 992px; padding-right: 15px;">
+                  <table class="table table-striped table-bordered table-sm dataTable no-footer" cellspacing="0" width="100%"
+                    role="grid" style="margin-left: 0px; width: 992px;">
+                    <thead>
+                      <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="dtHorizontalVerticalExample" rowspan="1"
+                          colspan="1" style="width: 104px;" aria-sort="ascending" aria-label="First name: activate to sort column descending">First
+                          name</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalVerticalExample" rowspan="1"
+                          colspan="1" style="width: 104px;" aria-label="Last name: activate to sort column ascending">Last
+                          name</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalVerticalExample" rowspan="1"
+                          colspan="1" style="width: 186px;" aria-label="Position: activate to sort column ascending">Position</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalVerticalExample" rowspan="1"
+                          colspan="1" style="width: 100px;" aria-label="Office: activate to sort column ascending">Office</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalVerticalExample" rowspan="1"
+                          colspan="1" style="width: 61px;" aria-label="Age: activate to sort column ascending">Age</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalVerticalExample" rowspan="1"
+                          colspan="1" style="width: 99px;" aria-label="Start date: activate to sort column ascending">Start
+                          date</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalVerticalExample" rowspan="1"
+                          colspan="1" style="width: 76px;" aria-label="Salary: activate to sort column ascending">Salary</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalVerticalExample" rowspan="1"
+                          colspan="1" style="width: 68px;" aria-label="Extn.: activate to sort column ascending">Extn.</th>
+                        <th class="sorting" tabindex="0" aria-controls="dtHorizontalVerticalExample" rowspan="1"
+                          colspan="1" style="width: 193px;" aria-label="E-mail: activate to sort column ascending">E-mail</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%; height: 200px;">
+                <table id="dtHorizontalVerticalExample" class="table table-striped table-bordered table-sm dataTable no-footer"
+                  cellspacing="0" width="100%" role="grid" aria-describedby="dtHorizontalVerticalExample_info" style="width: 100%;">
+                  <thead>
+                    <tr role="row" style="height: 0px;">
+                      <th class="sorting" aria-controls="dtHorizontalVerticalExample" rowspan="1" colspan="1" style="width: 104px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">First name</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalVerticalExample" rowspan="1" colspan="1" style="width: 104px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Last name</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalVerticalExample" rowspan="1" colspan="1" style="width: 186px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Position</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalVerticalExample" rowspan="1" colspan="1" style="width: 100px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Office</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalVerticalExample" rowspan="1" colspan="1" style="width: 61px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Age</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalVerticalExample" rowspan="1" colspan="1" style="width: 99px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Start date</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalVerticalExample" rowspan="1" colspan="1" style="width: 76px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Salary</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalVerticalExample" rowspan="1" colspan="1" style="width: 68px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Extn.</div>
+                      </th>
+                      <th class="sorting" aria-controls="dtHorizontalVerticalExample" rowspan="1" colspan="1" style="width: 193px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                        <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">E-mail</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">Airi</td>
+                      <td>Satou</td>
+                      <td>Accountant</td>
+                      <td>Tokyo</td>
+                      <td>33</td>
+                      <td>2008/11/28</td>
+                      <td>$162,700</td>
+                      <td>5407</td>
+                      <td>a.satou@datatables.net</td>
+                    </tr>
+                    <tr role="row" class="even">
+                      <td class="sorting_1">Ashton</td>
+                      <td>Cox</td>
+                      <td>Junior Technical Author</td>
+                      <td>San Francisco</td>
+                      <td>66</td>
+                      <td>2009/01/12</td>
+                      <td>$86,000</td>
+                      <td>1562</td>
+                      <td>a.cox@datatables.net</td>
+                    </tr>
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">Brielle</td>
+                      <td>Williamson</td>
+                      <td>Integration Specialist</td>
+                      <td>New York</td>
+                      <td>61</td>
+                      <td>2012/12/02</td>
+                      <td>$372,000</td>
+                      <td>4804</td>
+                      <td>b.williamson@datatables.net</td>
+                    </tr>
+                    <tr role="row" class="even">
+                      <td class="sorting_1">Cedric</td>
+                      <td>Kelly</td>
+                      <td>Senior Javascript Developer</td>
+                      <td>Edinburgh</td>
+                      <td>22</td>
+                      <td>2012/03/29</td>
+                      <td>$433,060</td>
+                      <td>6224</td>
+                      <td>c.kelly@datatables.net</td>
+                    </tr>
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">Garrett</td>
+                      <td>Winters</td>
+                      <td>Accountant</td>
+                      <td>Tokyo</td>
+                      <td>63</td>
+                      <td>2011/07/25</td>
+                      <td>$170,750</td>
+                      <td>8422</td>
+                      <td>g.winters@datatables.net</td>
+                    </tr>
+                    <tr role="row" class="even">
+                      <td class="sorting_1">Tiger</td>
+                      <td>Nixon</td>
+                      <td>System Architect</td>
+                      <td>Edinburgh</td>
+                      <td>61</td>
+                      <td>2011/04/25</td>
+                      <td>$320,800</td>
+                      <td>5421</td>
+                      <td>t.nixon@datatables.net</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info" id="dtHorizontalVerticalExample_info" role="status" aria-live="polite">Showing
+              1
+              to 6 of 6 entries</div>
+          </div>
+          <div class="col-sm-12 col-md-7">
+            <div class="dataTables_paginate paging_simple_numbers" id="dtHorizontalVerticalExample_paginate">
+              <ul class="pagination">
+                <li class="paginate_button page-item previous disabled" id="dtHorizontalVerticalExample_previous"><a
+                    href="#" aria-controls="dtHorizontalVerticalExample" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                <li class="paginate_button page-item active"><a href="#" aria-controls="dtHorizontalVerticalExample"
+                    data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                <li class="paginate_button page-item next disabled" id="dtHorizontalVerticalExample_next"><a href="#"
+                    aria-controls="dtHorizontalVerticalExample" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <p>In this example you can see DataTables doing both horizontal and vertical scrolling at the same time. Note also
+    that pagination
+    is enabled in this example, and the scrolling accounts for this.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="js" data-name="JSX">
+        import React from 'react';
+        import { MDBDataTable } from 'mdbreact';
+
+        const DatatablePage = () => {
+          const data = {
+            columns: [
+              {
+                label: 'Name',
+                field: 'name',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Surname',
+                field: 'surname',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Position',
+                field: 'position',
+                sort: 'asc',
+                width: 270
+              },
+              {
+                label: 'Office',
+                field: 'office',
+                sort: 'asc',
+                width: 200
+              },
+              {
+                label: 'Age',
+                field: 'age',
+                sort: 'asc',
+                width: 100
+              },
+              {
+                label: 'Start date',
+                field: 'date',
+                sort: 'asc',
+                width: 150
+              },
+              {
+                label: 'Salary',
+                field: 'salary',
+                sort: 'asc',
+                width: 100
+              },
+              {
+                label: 'Extn.',
+                field: 'extn',
+                sort: 'asc',
+                width: 100
+              },
+              {
+                label: "E-mail",
+                field: 'email',
+                sort: 'asc',
+                width: 200
+              }
+            ],
+            rows: [
+              {
+                name: 'Tiger',
+                surname: 'Nixon',
+                position: 'System Architect',
+                office: 'Edinburgh',
+                age: '61',
+                date: '2011/04/25',
+                salary: '$320,800',
+                extn: 5421,
+                email: 't.nixon@datatables.net'
+              },
+              {
+                name: 'Garrett',
+                surname: 'Winters',
+                position: 'Accountant',
+                office: 'Tokyo',
+                age: '63',
+                date: '2011/07/25',
+                salary: '$170,750',
+                extn: 8422,
+                email: 'q.winters@datatables.net'
+              },
+              {
+                name: 'Ashton',
+                surname: 'Cox',
+                position: 'Junior Technical Author',
+                office: 'San Francisco',
+                age: '66',
+                date: '2009/01/12',
+                salary: '$86,000',
+                extn: 1562,
+                email: 'a.cox@datatables.net'
+              },
+              {
+                name: 'Cedric',
+                surname: 'Kelly',
+                position: 'Senior Javascript Developer',
+                office: 'Edinburgh',
+                age: '22',
+                date: '2012/03/29',
+                salary: '$433,060',
+                extn: 6224,
+                email: 'c.kelly@datatables.net'
+              },
+              {
+                name: 'Airi',
+                surname: 'Satou',
+                position: 'Accountant',
+                office: 'Tokyo',
+                age: '33',
+                date: '2008/11/28',
+                salary: '$162,700',
+                extn: 5407,
+                email: 'a.satou@datatables.net'
+              },
+              {
+                name: 'Brielle',
+                surname: 'Williamson',
+                position: 'Integration Specialist',
+                office: 'New York',
+                age: '61',
+                date: '2012/12/02',
+                salary: '$372,000',
+                extn: 4804,
+                email: 'b.williamson@datatables.net'
+              },
+            ]
+          };
+
+          return (
+            <MDBDataTable
+              scrollX
+              scrollY
+              maxHeight="300px"
+              striped
+              bordered
+              data={data}
+            />
+          );
+        }
+
+        export default DatatablePage;
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="advanced-table-options">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Advanced table options
+  </h2>
+
+  <!-- Description -->
+  <p>For advanced options of the tables have a look at specific documentation pages listed below.
+  </p>
+
+  <!-- List group -->
+  <div class="list-group">
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com/docs/react/tables/additional/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Tables with additional elements and customization options</h5>
+        </div>
+        <p class="mb-1">Tables with buttons, checkboxes, icons, panels & more.</p>
+      </div>
+
+      <i class="fa fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com/docs/react/tables/responsive/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Table responsive</h5>
+        </div>
+        <p class="mb-1">Advanced options of responsive tables</p>
+      </div>
+
+      <i class="fa fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com/docs/react/tables/datatables/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Datatables</h5>
+        </div>
+        <p class="mb-1">MDBootstrap integration with the most popular plugin enhancing the possibilities of standard
+          tables.</p>
+      </div>
+
+      <i class="fa fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com/docs/react/tables/pagination/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Table pagination</h5>
+        </div>
+        <p class="mb-1">Pagination is a simple navigation which lets you split a huge amount of content within the
+          tables into smaller parts.
+        </p>
+      </div>
+
+      <i class="fa fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com/docs/react/tables/search/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Table search</h5>
+        </div>
+        <p class="mb-1">MDBootstrap search box enables super fast searching among all the data of the table.</p>
+      </div>
+
+      <i class="fa fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+  </div>
+  <!-- List group -->
+
+  <!-- Item -->
+  <a target="_blank" href="https://mdbootstrap.com/docs/react/tables/sort/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="h5 mb-3">Table sort</h5>
+      </div>
+      <p class="mb-1">This functionality lets you sort the data of the tables according to any specific columns.</p>
+    </div>
+
+    <i class="fa fa-chevron-right" style="font-size: 1.3rem;"></i>
+  </a>
+  <!-- Item -->
+
+  <!-- Item -->
+  <a target="_blank" href="https://mdbootstrap.com/docs/react/tables/scroll/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="h5 mb-3">Table scroll</h5>
+      </div>
+      <p class="mb-1">If your table is too long or too wide you can limit its size and enable scroll functionality.</p>
+    </div>
+
+    <i class="fa fa-chevron-right" style="font-size: 1.3rem;"></i>
+  </a>
+  <!-- Item -->
+
+  <!-- Item -->
+  <a target="_blank" href="https://mdbootstrap.com/docs/react/tables/editable/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="h5 mb-3">Table editable</h5>
+      </div>
+      <p class="mb-1">Table editable allows you to edit existing data within the table and add new data to the table.</p>
+    </div>
+
+    <i class="fa fa-chevron-right" style="font-size: 1.3rem;"></i>
+  </a>
+  <!-- Item -->
+
+</section>
+<!--/Section: -->

@@ -1,0 +1,259 @@
+<!--Section: Intro-->
+<section id="a-introduction">
+
+  <!--Title-->
+  <h2 class="section-heading">MDB Table Editor - getting started : download & setup</h2>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="a-download">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Download
+  </h2>
+
+  <blockquote class="blockquote bq-primary">
+    <p class="bq-title">This plugin requires a purchase.</p>
+    <a class="btn btn-unique" href="https://mdbootstrap.com/products/angular-editor/" role="button">Buy Table Editor plugin - $9</a>
+  </blockquote>
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="a-modules">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Modules used
+  </h2>
+
+  <!-- Description -->
+  <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of
+    importing
+    the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific
+    module,
+    is bad practice, and can cause application errors.
+  </p>
+
+  <pre><code class="language-javascript">// MDB Table Editor
+import { MdbTableEditorModule } from 'mdb-table-editor'</code></pre>
+  <div class="row">
+    <div class="col-md-6">
+      <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/"
+         alt="Check how you should import MDB Angular modules">Import example</a>
+      <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/"
+         alt="Check how you should import MDB Angular modules">Modules list</a>
+    </div>
+  </div>
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: Options-->
+<section id="options">
+
+  <!--Title-->
+  <h2 class="primary-heading">Options</h2>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th style="width: 100px;">Name</th>
+      <th style="width: 50px;">Type</th>
+      <th style="width: 50px;">Default</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>itemsPerPage</td>
+      <td>number</td>
+      <td>10</td>
+      <td>Set the max visible items per one page.</td>
+      <td>[itemsPerPage]="5"</td>
+    </tr>
+    </tbody>
+  </table>
+
+</section>
+<!--/Section: Options-->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="a-outputs">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Outputs
+  </h2>
+
+  <table class="table table-bordered table-striped table-responsive-md">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code style="word-break: normal"><i>rowHighlight</i></code></td>
+      <td>EventEmitter&lt;any&gt;</td>
+      <td>Event fired item (row) is active (clicked).</td>
+      <td><code>(rowHighlight)="onRowHighlight($event)"</code></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: Options-->
+<section id="fields">
+
+  <!--Title-->
+  <h2 class="primary-heading">Fields</h2>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th style="width: 100px;">Name</th>
+      <th style="width: 50px;">Type</th>
+      <th style="width: 50px;">Default</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>dataArray</td>
+      <td>any[]</td>
+      <td>[]</td>
+      <td>Field (setter / getter) used to store table's data. On this field you has to operate when changing the data source (push, pop, overwrite, etc).</td>
+      <td>this.mdbTableEditor.dataArray.push({})</td>
+    </tr>
+
+    <tr>
+      <td>iterableDataArray</td>
+      <td>any[]</td>
+      <td>[]</td>
+      <td>Field (setter / getter) of recalculated table's data. Recalculated means, that this array contains only visible at this time items (calculated through
+        <code>[itemsPerPage]</code> input).</td>
+      <td>this.mdbTableEditor.iterableDataArray.splice(0, 1)</td>
+    </tr>
+
+    <tr>
+      <td>paginationInfo</td>
+      <td>{firstItem: number, lastItem: number, allItems: number, activePage: number}</td>
+      <td>{firstItem: 1, lastItem: itemsPerPage, allItems: dataArray.length, activePage: 1}</td>
+      <td>Public field which contains information about current pagination state. From this field you can obtain necessary pagination informations.</td>
+      <td>&lt;span&gt;Showing: {{table.paginationInfo.firstItem}}&lt;/span&gt;</td>
+    </tr>
+    </tbody>
+  </table>
+
+</section>
+<!--/Section: Options-->
+
+<hr class="my-5">
+
+<!--Section: Methods-->
+<section id="methods">
+
+  <!--Title-->
+  <h2 class="primary-heading">Methods</h2>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th style="width: 100px;">Name</th>
+      <th style="width: 50px;">Type</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>dataArrayChange</td>
+      <td>Observable&lt;any[]&gt;</td>
+      <td>Returns observable to which you can subscribe to get know when <code>dataArray</code> is changed.</td>
+      <td>this.mdbTableEditor.dataArrayChange.subscribe((data: any) => console.log(data));</td>
+    </tr>
+
+    <tr>
+      <td>iterableDataArrayChange</td>
+      <td>Observable&lt;any[]&gt;</td>
+      <td>Returns observable to which you can subscribe to get know when <code>iterableDataArray</code> is changed.</td>
+      <td>this.mdbTableEditor.iterableDataArrayChange.subscribe((data: any) => console.log(data));</td>
+    </tr>
+
+    <tr>
+      <td>calculatePagesNumber</td>
+      <td>number</td>
+      <td>Returns number of how much pages should be (dataArray.length / itemsPerPage).</td>
+      <td>console.log(this.mdbTableEditor.calculatePagesNumber())</td>
+    </tr>
+
+    <tr>
+      <td>updatePaginationInfo</td>
+      <td>void</td>
+      <td>Updates the <code>paginationInfo</code> variable with recalculated data. Use this when you're modifying the data array (pop, push, etc).</td>
+      <td>this.mdbTableEditor.paginationInfo()</td>
+    </tr>
+
+    <tr>
+      <td>nextPage(switchToLastPage?: boolean)</td>
+      <td>void</td>
+      <td>Use this method to change page (with pagination) to the next one. Set parameter to true if you want to change page to the last one.</td>
+      <td>table.nextPage(true)</td>
+    </tr>
+
+    <tr>
+      <td>prevPage(switchToFirstPage?: boolean)</td>
+      <td>void</td>
+      <td>Use this method to change page (with pagination) to the previous one. Set parameter to true if you want to change page to the first one.</td>
+      <td>table.prevPage(true)</td>
+    </tr>
+
+    <tr>
+      <td>disablePrevious()</td>
+      <td>boolean</td>
+      <td>Use this method to check, if previous (pagination) button should be disabled or not.</td>
+      <td>[ngClass]="{'disabled text-muted': table.disablePrevious()}"</td>
+    </tr>
+
+    <tr>
+      <td>disableNext()</td>
+      <td>boolean</td>
+      <td>Use this method to check, if next (pagination) button should be disabled or not.</td>
+      <td>[ngClass]="{'disabled text-muted': table.disableNext()}"</td>
+    </tr>
+
+    <tr>
+      <td>performSearch(searchKey: string)</td>
+      <td>any</td>
+      <td>Use this method to filter (search) table's data array for containing some characters.</td>
+      <td>*ngFor="let item of table.performSearch(this.searchText)"</td>
+    </tr>
+
+    </tbody>
+  </table>
+
+</section>
+<!--/Section: Options-->

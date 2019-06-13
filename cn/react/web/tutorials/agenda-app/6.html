@@ -1,0 +1,114 @@
+
+  <div>In the previous lesson, we have learned how to render our Components.</div>
+  <div><br /></div>
+  <h2>1. Passing properties within a tag</h2>
+  <div><br /></div>
+
+  <div>Alright now let's take this to the next level. instead of hard-coding text, I want to <b>display values dynamically</b>. You might notice that so far we were rendering an empty tag   <code> &lt;Event /&gt;</code> (note the slash at the end):</div>
+  <div><br /></div>
+
+  <div>JSX allows us to pass the value to our components as below:<br /></div>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+            <Event>Meeting with John </Event>
+    </code>
+</mdbsnippet>
+  <div>and access it using props:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            <h3>10:00 - {this.props.children}</h3>
+     </code>
+ </mdbsnippet>
+  <div>Preview:</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/6/image_1.png" /><br /></div>
+  <div><br /></div>
+  <div>Great that works, but actually what does "props" even mean? </div>
+  <div><br /></div>
+  <div>To get the jargon out of the way,<b> “props” is short for “properties”</b> so nothing particularly fancy there.</div>
+  <div><br /></div>
+
+  <h2>2. Passing properties using tag attributes </h2>
+
+  <div><br /></div>
+  <div>What if we want to pass a more complex structure to our component, not only a short string? React makes it very easy. Instead of passing a value in between tags, we will <b>pass them as tag attributes</b>, like this:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            <Event  title="Meeting with John" time="10:00" />
+      </code>
+  </mdbsnippet>
+  <div>And access it in our component like that:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            <h3>{this.props.time} - {this.props.title}</h3>
+     </code>
+ </mdbsnippet>
+  <div>Preview</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/6/image_2.png" height="144" width="596" /><br /></div>
+  <div><br /></div>
+  <h2>3. Curly braces </h2>
+
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <div>As you noticed, I am using curly braces. Whenever we want to render something dynamically in React, in order to do that we add curly braces. <b> In between these curly braces we can add</b></div>  <div><b>any valid JavaScript expressions</b>. This includes any arithmetic operations like      </div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            <p>Result: {2 + 2}</p>
+      </code>
+  </mdbsnippet>
+  <div>Which will render 4 or work with variables like </div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            <p>Result: {this.state.id + 10}</p>
+      </code>
+  </mdbsnippet>
+  <div>Which will render 11.  If you want to render today's date I could call <mark>{Date.now()}</mark> which will print the current date in milliseconds</div>
+  <div><br /></div>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+            <p>Result: {Date.now()}</p>
+    </code>
+</mdbsnippet>
+  <!-- <div>//TODO - variables </div> -->
+  <h2>4.Immutability </h2>
+
+  <div><br /></div>
+  <div>Now you know how to use props to pass different values between components. However, before we move one.... there
+    is one thing you must know about props.</div>
+  <div><br /></div>
+  <div>Imagine that we want to change the subject of our item. Intuitively we would try to update the value of title
+    property using JS. Let's try to do that - add a button: </div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            <React.Fragment>
+                    <h3>{this.props.time} - {this.props.title}</h3>
+                    <button>Change my title</button>
+                  </React.Fragment>                  
+     </code>
+ </mdbsnippet>
+  <div>Preview:</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/6/image.png"  /><br /></div>
+  <div><br /></div>
+  <div>Now bind the change of the title to the button click: </div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            <button onClick={(this.props.title = "New Title")}>Change my title</button>
+      </code>
+  </mdbsnippet>
+  <!-- <div>//TODO On Click disclaimer </div> -->
+  <div><br /></div>
+  <div>As soon as you save the file,<b> you will see an error</b> <span style="font-size: 14px;">in the browser
+
+    </span> similar to the one below:</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/6/error.png"  /><br /></div>
+
+  <div><br /></div>
+  <div>This is because <b>props by default <span style="font-size: 14px;">are
+
+      </span> read-only</b>, or as we often call it — <b>immutable</b>. That means that <b>once they are set, they can't
+      be overwritten</b>. </div>
+  <div><br /></div>
+  <div>You probably wonder how you can solve that issue since we can't overwrite the value. React developers predicted this and created so-called state which we will learn about in the next lesson. </div>
+  <div><br /></div>

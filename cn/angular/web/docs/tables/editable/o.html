@@ -1,0 +1,366 @@
+<style>
+  table.dataTable thead {
+    cursor: pointer
+  }
+
+  table.dataTable thead>tr>td:active,
+  table.dataTable thead>tr>th:active {
+    outline: 0
+  }
+
+  div.dataTables_wrapper div.dataTables_length.d-flex.flex-row label {
+    margin-top: 1.2rem;
+    margin-right: 1rem
+  }
+
+  div.dataTables_wrapper div.dataTables_length.d-flex.flex-row .select-wrapper.mdb-select .select-dropdown,
+  div.dataTables_wrapper div.dataTables_length.d-flex.flex-row .select-wrapper.mdb-select span {
+    margin-top: 1rem
+  }
+
+  div.dataTables_wrapper div.dataTables_filter label,
+  div.dataTables_wrapper div.dataTables_length label {
+    text-align: left;
+    font-weight: 400;
+    padding-top: .5rem;
+    padding-bottom: .5rem
+  }
+
+  div.dataTables_wrapper div.dataTables_filter input,
+  div.dataTables_wrapper div.dataTables_filter select,
+  div.dataTables_wrapper div.dataTables_length input,
+  div.dataTables_wrapper div.dataTables_length select {
+    width: auto
+  }
+
+  div.dataTables_wrapper div.dataTables_filter {
+    text-align: right
+  }
+
+  div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: .5rem;
+    display: inline-block
+  }
+
+  div.dataTables_wrapper div.dataTables_info,
+  div.dataTables_wrapper div.dataTables_paginate {
+    font-weight: 400;
+    padding-top: 1rem;
+    padding-bottom: 1rem
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate {
+    text-align: right;
+    margin: 0
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.active .page-link:focus {
+    background-color: #4285f4
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item .page-link:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none
+  }
+
+  @media (max-width:767px) {
+    div.dataTables_wrapper div .dataTables_filter,
+    div.dataTables_wrapper div .dataTables_info,
+    div.dataTables_wrapper div .dataTables_length,
+    div.dataTables_wrapper div .dataTables_paginate ul.pagination {
+      text-align: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center
+    }
+  }
+
+  .bs-select select {
+    display: inline-block !important
+  }
+
+  @media all and (min-width: 768px) {
+    tr td {
+      vertical-align: middle !important;
+    }
+    tr span:not([class]) {
+      padding: 1rem 1rem;
+    }
+  }
+
+</style>
+
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Angular Bootstrap table editable</h2>
+
+  <h1 class="secondary-heading mb-4">Angular Table editable - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p>Angular Bootstrap Editable Table are component with which you can add and remove rows and change text and information within cells. In-place editing
+    on your website - based on JavaScript - is now easier and quicker.</p>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-4">
+
+<!--Section: -->
+<section id="basic-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic example
+  </h2>
+
+  <a href="https://ng-demo.mdbootstrap.com/tables/editable/" target="_blank" class="btn btn-primary waves-effect waves-light" role="button">
+    Live example
+    <i class="far fa-eye ml-2"></i>
+  </a>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+<!-- Editable table -->
+<div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+        <a class="text-success" (click)="add()">
+          <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+        </a>
+      </span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <tr>
+          <th class="text-center">Person Name</th>
+          <th class="text-center">Age</th>
+          <th class="text-center">Company Name</th>
+          <th class="text-center">Country</th>
+          <th class="text-center">City</th>
+          <th class="text-center">Sort</th>
+          <th class="text-center">Remove</th>
+        </tr>
+        <tr *ngFor="let person of personList; let id = index">
+          <td>
+            <span (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true">{{person.name}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'age', $event)" (blur)="updateList(id, 'age', $event)">{{person.age}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'companyName', $event)" (blur)="updateList(id, 'companyName', $event)">{{person.companyName}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'country', $event)" (blur)="updateList(id, 'country', $event)">{{person.country}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (keyup)="changeValue(id, 'city', $event)" (blur)="updateList(id, 'city', $event)">{{person.city}}</span>
+          </td>
+          <td>
+            <span class="table-up">
+              <a class="indigo-text">
+                <mdb-icon fas icon="long-arrow-alt-up"></mdb-icon>
+              </a>
+            </span>
+            <span class="table-down">
+              <a class="indigo-text">
+                <mdb-icon fas icon="long-arrow-alt-down"></mdb-icon>
+              </a>
+            </span>
+          </td>
+          <td>
+            <span class="table-remove">
+              <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="remove(id)">Remove</button>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Editable table -->
+            </code>
+      <code data-lang="js" data-name="TS">
+            import { Component } from '@angular/core';
+
+            @Component({
+              selector: 'table-editable',
+              templateUrl: './table-editable.component.html',
+              styleUrls: ['./table-editable.component.css']
+            })
+            export class TableEditableComponent {
+                editField: string;
+                personList: Array<any> = [
+                  { id: 1, name: 'Aurelia Vega', age: 30, companyName: 'Deepends', country: 'Spain', city: 'Madrid' },
+                  { id: 2, name: 'Guerra Cortez', age: 45, companyName: 'Insectus', country: 'USA', city: 'San Francisco' },
+                  { id: 3, name: 'Guadalupe House', age: 26, companyName: 'Isotronic', country: 'Germany', city: 'Frankfurt am Main' },
+                  { id: 4, name: 'Aurelia Vega', age: 30, companyName: 'Deepends', country: 'Spain', city: 'Madrid' },
+                  { id: 5, name: 'Elisa Gallagher', age: 31, companyName: 'Portica', country: 'United Kingdom', city: 'London' },
+                ];
+
+                awaitingPersonList: Array<any> = [
+                  { id: 6, name: 'George Vega', age: 28, companyName: 'Classical', country: 'Russia', city: 'Moscow' },
+                  { id: 7, name: 'Mike Low', age: 22, companyName: 'Lou', country: 'USA', city: 'Los Angeles' },
+                  { id: 8, name: 'John Derp', age: 36, companyName: 'Derping', country: 'USA', city: 'Chicago' },
+                  { id: 9, name: 'Anastasia John', age: 21, companyName: 'Ajo', country: 'Brazil', city: 'Rio' },
+                  { id: 10, name: 'John Maklowicz', age: 36, companyName: 'Mako', country: 'Poland', city: 'Bialystok' },
+                ];
+
+                updateList(id: number, property: string, event: any) {
+                  const editField = event.target.textContent;
+                  this.personList[id][property] = editField;
+                }
+
+                remove(id: any) {
+                  this.awaitingPersonList.push(this.personList[id]);
+                  this.personList.splice(id, 1);
+                }
+
+                add() {
+                  if (this.awaitingPersonList.length > 0) {
+                    const person = this.awaitingPersonList[0];
+                    this.personList.push(person);
+                    this.awaitingPersonList.splice(0, 1);
+                  }
+                }
+
+                changeValue(id: number, property: string, event: any) {
+                  this.editField = event.target.textContent;
+                }
+            }
+            </code>
+
+      <code data-lang="css" data-name="SCSS">
+        @media all and (min-width: 768px) {
+          tr  {
+            td {
+              vertical-align: middle !important;
+            }
+            span {
+              &:not([class]) {
+                padding: 1rem 1rem;
+              }
+            }
+          }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="advanced-table-options">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Advanced table options
+  </h2>
+
+  <!-- Description -->
+  <p>For advanced options of the tables have a look at specific documentation pages listed below.
+  </p>
+
+  <!-- List group -->
+  <div class="list-group">
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/datatables/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Datatables</h5>
+        </div>
+        <p class="mb-1">MDBootstrap integration with the most popular plugin enhancing the possibilities of standard tables.</p>
+      </div>
+
+      <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/pagination/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Table pagination</h5>
+        </div>
+        <p class="mb-1">Pagination is a simple navigation which lets you split a huge amount of content within the tables into smaller parts.
+        </p>
+      </div>
+
+      <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+    <!-- Item -->
+    <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/search/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="h5 mb-3">Table search</h5>
+        </div>
+        <p class="mb-1">MDBootstrap search box enables super fast searching among all the data of the table.</p>
+      </div>
+
+      <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+    </a>
+    <!-- Item -->
+
+  </div>
+  <!-- List group -->
+
+  <!-- Item -->
+  <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/sort/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="h5 mb-3">Table sort</h5>
+      </div>
+      <p class="mb-1">This functionality lets you sort the data of the tables according to any specific columns.</p>
+    </div>
+
+    <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+  </a>
+  <!-- Item -->
+
+  <!-- Item -->
+  <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/responsive/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="h5 mb-3">Table responsive</h5>
+      </div>
+      <p class="mb-1">Table editable allows you to use tables on mobile devices.</p>
+    </div>
+
+    <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+  </a>
+  <!-- Item -->
+
+  <!-- Item -->
+  <a target="_blank" href="https://mdbootstrap.com/docs/angular/tables/additional/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="h5 mb-3">Table styles</h5>
+      </div>
+      <p class="mb-1">Table styles shows you how you can style your tables.</p>
+    </div>
+
+    <i class="fas fa-chevron-right" style="font-size: 1.3rem;"></i>
+  </a>
+  <!-- Item -->
+
+</section>
+<!--/Section: -->

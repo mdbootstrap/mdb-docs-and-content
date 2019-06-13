@@ -1,0 +1,1033 @@
+<!--Section: Doc content-->
+<section class="documentation">
+  <!--Section: Intro-->
+  <section id="introduction">
+    <!--Title-->
+    <h1 class="main-title">Bootstrap tabs</h1>
+    <!--Description-->
+    <div class="description">
+      <p>Bootstrap tabs are components which separate content placed in the same wrapper, but in the separate pane. Only one pane can be displayed at the time. Tabs available in MDB share general markup and styles, as well as the <code>.nav</code>ed element managing the active and
+      disabled states.</p>
+      <p>MDB Tabs are compatible with ReactRouter, meaning that <code>&lt;NavLink&gt;</code> components inside can be used both for one-page tabs as well as general routing solution for main navigation. Make sure to include the wrapping <code>&lt;BrowserRouter&gt;</code> (in the examples aliased as <code>&lt;Router&gt;</code>).</p>
+      <p>If you are using navs to provide a navigation bar, be sure to add a <code>role="navigation"</code> to <code>&lt;Nav&gt;</code> component, as well as approptiate <code>role</code> attributes to the <code>&lt;NavLinks&gt;</code> (<code>role="tab"</code>).</p>
+    </div>
+  </section>
+  <!--/Section: Intro-->
+  <hr class="my-5">
+  <!--Section: -->
+  <section id="basic-example">
+    <!--Title-->
+    <h2 class="title mb-5"><strong>Basic examples</strong> <a href="https://mdbootstrap.com/products/react-ui-kit/" target="_blank"
+    class="btn btn-danger btn-md" role="button">MDB Pro component <i class="far fa-gem ml-1"></i></a></h2>
+
+    <div class="description">
+      <p></p>
+  </div>
+    <!--Subheading-->
+
+    <!--Section: Live preview-->
+    <section>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs">
+        <li class="">
+          <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">Follow</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#panel3" role="tab">Contact</a>
+        </li>
+      </ul>
+      <!-- Tab panels -->
+      <div class="tab-content card">
+        <!--Panel 1-->
+        <div class="tab-pane fade in show active" id="panel1" role="tabpanel">
+          <br>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+            reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+          porro voluptate odit minima.</p>
+        </div>
+        <!--/.Panel 1-->
+        <!--Panel 2-->
+        <div class="tab-pane fade" id="panel2" role="tabpanel">
+          <br>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+            reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+          porro voluptate odit minima.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+            reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+          porro voluptate odit minima.</p>
+        </div>
+        <!--/.Panel 2-->
+        <!--Panel 3-->
+        <div class="tab-pane fade" id="panel3" role="tabpanel">
+          <br>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+            reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+          porro voluptate odit minima.</p>
+        </div>
+        <!--/.Panel 3-->
+      </div>
+    </section>
+    <!--Section: Live preview-->
+    <!--Section: Code-->
+    <section>
+                  <pre class="code-toolbar"><code class="language-javascript">import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { TabPane, TabContent, Nav, NavItem, NavLink, Row, Col, Containet } from 'mdbreact';
+import classnames from 'classnames';
+
+class TabsPage extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      activeItem: '1'
+    };
+  }
+  toggle(tab) {
+    if (this.state.activeItem !== tab) {
+      this.setState({
+        activeItem: tab
+      });
+    }
+  }
+  render() {
+    return (
+      &lt;Router&gt;
+        &lt;Container&gt;
+          &lt;Nav tabs className=&quot;nav-justified&quot;&gt;
+            &lt;NavItem&gt;
+              &lt;NavLink
+                className={classnames({ active: this.state.activeItem === '1' })}
+                onClick={() =&gt; { this.toggle('1'); }}
+              &gt;
+              Profile
+              &lt;/NavLink&gt;
+            &lt;/NavItem&gt;
+            &lt;NavItem&gt;
+              &lt;NavLink
+                className={classnames({ active: this.state.activeItem === '2' })}
+                onClick={() =&gt; { this.toggle('2'); }}
+              &gt;
+                Follow
+              &lt;/NavLink&gt;
+            &lt;/NavItem&gt;
+            &lt;NavItem&gt;
+              &lt;NavLink
+                className={classnames({ active: this.state.activeItem === '3' })}
+                onClick={() =&gt; { this.toggle('3'); }}
+              &gt;
+                Contact
+              &lt;/NavLink&gt;
+            &lt;/NavItem&gt;
+          &lt;/Nav&gt;
+          &lt;TabContent activeItem={this.state.activeItem}&gt;
+            &lt;TabPane tabId=&quot;1&quot;&gt;
+              &lt;Row&gt;
+                &lt;Col sm=&quot;12&quot;&gt;
+                &lt;br /&gt;
+                  &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.&lt;/p&gt;
+                &lt;/Col&gt;
+              &lt;/Row&gt;
+            &lt;/TabPane&gt;
+            &lt;TabPane tabId=&quot;2&quot;&gt;
+              &lt;Row&gt;
+                &lt;Col sm=&quot;12&quot;&gt;
+                  &lt;br /&gt;
+                  &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.&lt;/p&gt;
+                  &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.&lt;/p&gt;
+                &lt;/Col&gt;
+              &lt;/Row&gt;
+            &lt;/TabPane&gt;
+            &lt;TabPane tabId=&quot;3&quot;&gt;
+              &lt;Row&gt;
+                &lt;Col sm=&quot;12&quot;&gt;
+                  &lt;br /&gt;
+                  &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.&lt;/p&gt;
+                &lt;/Col&gt;
+              &lt;/Row&gt;
+            &lt;/TabPane&gt;
+          &lt;/TabContent&gt;
+        &lt;/Container&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default TabsPage;</code></pre>
+    </section>
+    <!--Section: Code-->
+
+            <!--Section: Live preview-->
+            <section>
+
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs nav-justified indigo" role="tablist">
+                  <li class="nav-item">
+                      <a class="nav-link active" data-toggle="tab" href="#panel5" role="tab">
+                          <i class="fa fa-user"></i> Profile</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#panel6" role="tab">
+                          <i class="fa fa-heart"></i> Follow</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#panel7" role="tab">
+                          <i class="fa fa-envelope"></i> Mail</a>
+                  </li>
+              </ul>
+              <!-- Tab panels -->
+              <div class="tab-content">
+                  <!--Panel 1-->
+                  <div class="tab-pane fade in show active" id="panel5" role="tabpanel">
+                      <br>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                          reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                          porro voluptate odit minima.</p>
+                  </div>
+                  <!--/.Panel 1-->
+                  <!--Panel 2-->
+                  <div class="tab-pane fade" id="panel6" role="tabpanel">
+                      <br>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                          reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                          porro voluptate odit minima.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                          reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                          porro voluptate odit minima.</p>
+                  </div>
+                  <!--/.Panel 2-->
+                  <!--Panel 3-->
+                  <div class="tab-pane fade" id="panel7" role="tabpanel">
+                      <br>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                          reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                          porro voluptate odit minima.</p>
+                  </div>
+                  <!--/.Panel 3-->
+              </div>
+
+          </section>
+          <!--Section: Live preview-->
+              <!--Section: Code-->
+    <section>
+<pre class="code-toolbar"><code class="language-javascript">import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { TabPane, TabContent, Nav, NavItem, NavLink, Fa, Row, Col, Container } from 'mdbreact';
+import classnames from 'classnames';
+class TabsPage extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      activeItem: '1'
+    };
+  }
+  toggle(tab) {
+    if (this.state.activeItem !== tab) {
+      this.setState({
+        activeItem: tab
+      });
+    }
+  }
+  render() {
+    return (
+      &lt;Router&gt;
+        &lt;Container&gt;
+          &lt;Nav tabs color=&quot;indigo&quot; className=&quot;nav-justified&quot;&gt;
+            &lt;NavItem&gt;
+              &lt;NavLink
+                className={classnames({ active: this.state.activeItem === '1' })}
+                onClick={() =&gt; { this.toggle('1'); }}
+              &gt;
+              &lt;Fa icon="user"/&gt; Profile
+              &lt;/NavLink&gt;
+            &lt;/NavItem&gt;
+            &lt;NavItem&gt;
+              &lt;NavLink
+                className={classnames({ active: this.state.activeItem === '2' })}
+                onClick={() =&gt; { this.toggle('2'); }}
+              &gt;
+                &lt;Fa icon="heart"/&gt; Follow
+              &lt;/NavLink&gt;
+            &lt;/NavItem&gt;
+            &lt;NavItem&gt;
+              &lt;NavLink
+                className={classnames({ active: this.state.activeItem === '3' })}
+                onClick={() =&gt; { this.toggle('3'); }}
+              &gt;
+                &lt;Fa icon="envelope"/&gt; Contact
+              &lt;/NavLink&gt;
+            &lt;/NavItem&gt;
+          &lt;/Nav&gt;
+          &lt;TabContent activeItem={this.state.activeItem}&gt;
+            &lt;TabPane tabId=&quot;1&quot;&gt;
+              &lt;Row&gt;
+                &lt;Col sm=&quot;12&quot;&gt;
+                &lt;br /&gt;
+                  &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.&lt;/p&gt;
+                &lt;/Col&gt;
+              &lt;/Row&gt;
+            &lt;/TabPane&gt;
+            &lt;TabPane tabId=&quot;2&quot;&gt;
+              &lt;Row&gt;
+                &lt;Col sm=&quot;12&quot;&gt;
+                  &lt;br /&gt;
+                    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.&lt;/p&gt;
+                    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.&lt;/p&gt;
+                &lt;/Col&gt;
+              &lt;/Row&gt;
+            &lt;/TabPane&gt;
+            &lt;TabPane tabId=&quot;3&quot;&gt;
+              &lt;Row&gt;
+                &lt;Col sm=&quot;12&quot;&gt;
+                  &lt;br /&gt;
+                    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.&lt;/p&gt;
+                &lt;/Col&gt;
+              &lt;/Row&gt;
+            &lt;/TabPane&gt;
+          &lt;/TabContent&gt;
+        &lt;/Container&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default TabsPage;</code></pre>
+    </section>
+    <!--Section: Code-->
+    <p>
+        <strong><span class="font-weight-bold">Note:</span> Please note, that for each tab navigation necessitates a state object property to store data about active panes (here <code>this.state.activeItem</code>) and a method to manage changes in this state (<code>this.toggle(tab)</code> in the example above). They both can me named however you like it, yet the naming needs to stay consistent.</strong>
+    </p>
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+    <!--Section: -->
+    <section id="pills">
+
+      <!--Title-->
+      <h2 class="title">
+          <strong>Pills</strong> <a href="https://mdbootstrap.com/products/react-ui-kit/" target="_blank"
+          class="btn btn-danger btn-md" role="button">MDB Pro component <i class="far fa-gem ml-1"></i></a>
+      </h2>
+
+      <!--Section: Live preview-->
+      <section>
+
+          <ul class="nav md-pills nav-justified pills-secondary">
+              <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#panel4" role="tab">Active</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#panel11" role="tab">Link</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#panel12" role="tab">Link</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">Help</a>
+              </li>
+          </ul>
+
+          <!-- Tab panels -->
+          <div class="tab-content">
+
+              <!--Panel 1-->
+              <div class="tab-pane fade in show active" id="panel11" role="tabpanel">
+                  <br>
+
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.</p>
+
+              </div>
+              <!--/.Panel 1-->
+
+              <!--Panel 2-->
+              <div class="tab-pane fade" id="panel12" role="tabpanel">
+                  <br>
+
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.</p>
+
+              </div>
+              <!--/.Panel 2-->
+
+              <!--Panel 3-->
+              <div class="tab-pane fade" id="panel13" role="tabpanel">
+                  <br>
+
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.</p>
+
+              </div>
+              <!--/.Panel 3-->
+
+              <!--Panel 4-->
+              <div class="tab-pane fade" id="panel14" role="tabpanel">
+                  <br>
+
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.</p>
+
+              </div>
+              <!--/.Panel 4-->
+
+          </div>
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+          <pre class="code-toolbar"><code class="language-javascript">import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Container, Row, Col, TabPane, TabContent, Nav, NavItem, NavLink, Fa } from 'mdbreact';
+import classnames from 'classnames';
+
+
+class TabsPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeItemPills: '1',
+    };
+    this.togglePills = this.togglePills.bind(this);
+  }
+
+  togglePills(tab) {
+    if (this.state.activePills !== tab) {
+      this.setState({
+        activeItemPills: tab
+      });
+    }
+  }
+
+  render() {
+    return (
+      &lt;Router&gt;
+        &lt;Container className=&quot;mt-4&quot;&gt;
+          &lt;Nav pills color=&quot;secondary&quot; className=&quot;nav-justified &quot;&gt;
+            &lt;NavItem&gt;
+              &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemPills === &apos;1&apos; })} onClick={() =&gt; { this.togglePills(&apos;1&apos;); }}&gt;
+                Active
+              &lt;/NavLink&gt;
+            &lt;/NavItem&gt;
+            &lt;NavItem&gt;
+              &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemPills === &apos;2&apos; })} onClick={() =&gt; { this.togglePills(&apos;2&apos;); }}&gt;
+                Link
+              &lt;/NavLink&gt;
+            &lt;/NavItem&gt;
+            &lt;NavItem&gt;
+              &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemPills === &apos;3&apos; })} onClick={() =&gt; { this.togglePills(&apos;3&apos;); }}&gt;
+                Link
+              &lt;/NavLink&gt;
+            &lt;/NavItem&gt;
+            &lt;NavItem&gt;
+              &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemPills === &apos;4&apos; })} onClick={() =&gt; { this.togglePills(&apos;4&apos;); }}&gt;
+                Help
+              &lt;/NavLink&gt;
+            &lt;/NavItem&gt;
+          &lt;/Nav&gt;
+          &lt;TabContent activeItem={this.state.activeItemPills}&gt;
+            &lt;TabPane tabId=&quot;1&quot;&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.&lt;/p&gt;
+            &lt;/TabPane&gt;
+            &lt;TabPane tabId=&quot;2&quot;&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.&lt;/p&gt;
+            &lt;/TabPane&gt;
+            &lt;TabPane tabId=&quot;3&quot;&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.&lt;/p&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.&lt;/p&gt;
+            &lt;/TabPane&gt;
+            &lt;TabPane tabId=&quot;4&quot;&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.&lt;/p&gt;
+            &lt;/TabPane&gt;
+          &lt;/TabContent&gt;
+        &lt;/Container&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default TabsPage;</code></pre>
+      </section>
+      <!--Section: Code-->
+
+      <!--Subheading-->
+      <h4 id="" class="">
+          <strong>Vertical pills</strong>
+      </h4>
+
+      <!--Description-->
+      <p class="description"></p>
+
+      <!--Section: Live preview-->
+      <section>
+
+          <!-- Nav tabs -->
+          <div class="row">
+              <div class="col-md-3">
+                  <ul class="nav  md-pills pills-primary flex-column" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" data-toggle="tab" href="#panel21" role="tab">Downloads
+                              <i class="fa fa-download ml-2"></i>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#panel22" role="tab">Orders & invoices
+                              <i class="fa fa-file-text ml-2"></i>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#panel23" role="tab">Billing details
+                              <i class="fa fa-address-card ml-2"></i>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+              <div class="col-md-9">
+                  <!-- Tab panels -->
+                  <div class="tab-content vertical">
+                      <!--Panel 1-->
+                      <div class="tab-pane fade in show active" id="panel21" role="tabpanel">
+
+                          <h5 class="my-2 h5">Panel 1</h5>
+
+                      </div>
+                      <!--/.Panel 1-->
+
+                      <!--Panel 2-->
+                      <div class="tab-pane fade" id="panel22" role="tabpanel">
+
+                          <h5 class="my-2 h5">Panel 2</h5>
+
+                      </div>
+                      <!--/.Panel 2-->
+                      <!--Panel 3-->
+                      <div class="tab-pane fade" id="panel23" role="tabpanel">
+
+                          <h5 class="my-2 h5">Panel 3</h5>
+
+                      </div>
+                      <!--/.Panel 3-->
+                  </div>
+              </div>
+          </div>
+          <!-- Nav tabs -->
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+          <pre class="code-toolbar"><code class="language-javascript">import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Container, Row, Col, TabPane, TabContent, Nav, NavItem, NavLink, Fa } from 'mdbreact';
+import classnames from 'classnames';
+
+
+class TabsPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggleVerticalPills = this.toggleVerticalPills.bind(this);
+    this.state = {
+      activeItemVerticalPills: '1',
+    };
+  }
+
+  toggleVerticalPills(tab) {
+    if (this.state.activeItem3 !== tab) {
+      this.setState({
+        activeItemVerticalPills: tab
+      });
+    }
+  }
+
+  render() {
+    return (
+      &lt;Router&gt;
+        &lt;Container className=&quot;mt-4&quot;&gt;
+          &lt;Row&gt;
+            &lt;Col md=&quot;12&quot;&gt;
+              &lt;h2 className=&quot;mt-5&quot;&gt;Vertical Pills&lt;/h2&gt;
+              &lt;Row&gt;
+                &lt;Col md=&quot;3&quot;&gt;
+                  &lt;Nav pills color=&quot;primary&quot; className=&quot;flex-column&quot;&gt;
+                  &lt;NavItem&gt;
+                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemVerticalPills === &apos;1&apos; })} onClick={() =&gt; { this.toggleVerticalPills(&apos;1&apos;); }}&gt;Downloads &lt;Fa icon=&quot;download&quot; className=&quot;ml-2&quot;/&gt;&lt;/NavLink&gt;
+                  &lt;/NavItem&gt;
+                  &lt;NavItem&gt;
+                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemVerticalPills === &apos;2&apos; })} onClick={() =&gt; { this.toggleVerticalPills(&apos;2&apos;); }}&gt;Orders &amp; invoices&lt;Fa icon=&quot;file-text&quot; className=&quot;ml-2&quot;/&gt;&lt;/NavLink&gt;
+                  &lt;/NavItem&gt;
+                  &lt;NavItem&gt;
+                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemVerticalPills === &apos;3&apos; })} onClick={() =&gt; { this.toggleVerticalPills(&apos;3&apos;); }}&gt;Billing Details&lt;Fa icon=&quot;address-card&quot; className=&quot;ml-2&quot;/&gt;&lt;/NavLink&gt;
+                  &lt;/NavItem&gt;
+                  &lt;/Nav&gt;
+                &lt;/Col&gt;
+                &lt;Col md=&quot;9&quot;&gt;
+                  &lt;TabContent activeItem={this.state.activeItemVerticalPills}&gt;
+                    &lt;TabPane tabId=&quot;1&quot;&gt;
+                      &lt;h5 className=&quot;my-2 h5&quot;&gt;Panel 1&lt;/h5&gt;
+                    &lt;/TabPane&gt;
+                    &lt;TabPane tabId=&quot;2&quot;&gt;
+                      &lt;h5 className=&quot;my-2 h5&quot;&gt;Panel 2&lt;/h5&gt;
+                    &lt;/TabPane&gt;
+                    &lt;TabPane tabId=&quot;3&quot;&gt;
+                      &lt;h5 className=&quot;my-2 h5&quot;&gt;Panel 3&lt;/h5&gt;
+                    &lt;/TabPane&gt;
+                  &lt;/TabContent&gt;
+                &lt;/Col&gt;
+              &lt;/Row&gt;
+            &lt;/Col&gt;
+          &lt;/Row&gt;
+        &lt;/Container&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default TabsPage;</code></pre>
+      </section>
+      <!--Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <!--Section: -->
+  <section id="pills-tabs">
+
+      <!--Title-->
+      <h4 class="title">
+          <strong>Pills within the tabs</strong>
+      </h4>
+
+      <!--Description-->
+      <p class="description"></p>
+
+      <!--Section: Live preview-->
+      <section>
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs nav-justified indigo" role="tablist">
+              <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#panel52" role="tab">
+                      <i class="fa fa-user"></i> Profile</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#panel62" role="tab">
+                      <i class="fa fa-heart"></i> Follow</a>
+              </li>
+          </ul>
+          <!-- Nav tabs -->
+          <!-- Tab panels -->
+          <div class="tab-content">
+              <!--Panel 1-->
+              <div class="tab-pane fade in show active" id="panel52" role="tabpanel">
+                  <!-- Nav tabs -->
+                  <div class="row">
+                      <div class="col-md-3">
+                          <ul class="nav  md-pills pills-primary flex-column" role="tablist">
+                              <li class="nav-item">
+                                  <a class="nav-link active" data-toggle="tab" href="#panel211" role="tab">Downloads
+                                      <i class="fa fa-download ml-2"></i>
+                                  </a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" data-toggle="tab" href="#panel222" role="tab">Orders & invoices
+                                      <i class="fa fa-file-text ml-2"></i>
+                                  </a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" data-toggle="tab" href="#panel233" role="tab">Billing details
+                                      <i class="fa fa-address-card ml-2"></i>
+                                  </a>
+                              </li>
+                          </ul>
+                      </div>
+                      <div class="col-md-9">
+                          <!-- Tab panels -->
+                          <div class="tab-content vertical">
+                              <!--Panel 1-->
+                              <div class="tab-pane fade in show active" id="panel211" role="tabpanel">
+
+                                  <h5 class="my-2 h5">Panel 1</h5>
+
+                              </div>
+                              <!--/.Panel 1-->
+
+                              <!--Panel 2-->
+                              <div class="tab-pane fade" id="panel222" role="tabpanel">
+
+                                  <h5 class="my-2 h5">Panel 2</h5>
+
+                              </div>
+                              <!--/.Panel 2-->
+                              <!--Panel 3-->
+                              <div class="tab-pane fade" id="panel233" role="tabpanel">
+
+                                  <h5 class="my-2 h5">Panel 3</h5>
+
+                              </div>
+                              <!--/.Panel 3-->
+                          </div>
+                      </div>
+                  </div>
+                  <!-- Nav tabs -->
+              </div>
+              <!--/.Panel 1-->
+              <!--Panel 2-->
+              <div class="tab-pane fade" id="panel62" role="tabpanel">
+                  <br>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                      reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                      porro voluptate odit minima.</p>
+              </div>
+              <!--/.Panel 2-->
+          </div>
+          <!-- Tab panels -->
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+<pre class="code-toolbar"><code class="language-javascript">import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Container, Row, Col, Button, CardBody, CardTitle, CardText, TabPane, TabContent, Nav, NavItem, NavLink, Fa } from 'mdbreact';
+import classnames from 'classnames';
+
+
+class TabsPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggleOuterTabs = this.toggleOuterTabs.bind(this);
+    this.toggleInnerPills = this.toggleInnerPills.bind(this);
+    this.state = {
+      activeItemOuterTabs: '1',
+      activeItemInnerPills: '1',
+    };
+  }
+  toggleOuterTabs(tab) {
+    if (this.state.activeItemOuterTabs2 !== tab) {
+      this.setState({
+        activeItemOuterTabs: tab
+      });
+    }
+  }
+  toggleInnerPills(tab) {
+    if (this.state.activeItemInnerPills !== tab) {
+      this.setState({
+        activeItemInnerPills: tab
+      });
+    }
+  }
+  render() {
+    return (
+      &lt;Router&gt;
+        &lt;Container className=&quot;mt-4&quot;&gt;
+          &lt;Row&gt;
+            &lt;Col md=&quot;12&quot;&gt;
+            &lt;h2 className=&quot;mt-5&quot;&gt;Pills within the tabs&lt;/h2&gt;
+            &lt;Nav tabs className=&quot;nav-justified&quot; color=&quot;indigo&quot;&gt;
+                &lt;NavItem&gt;
+                  &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemOuterTabs === &apos;1&apos; })} onClick={() =&gt; { this.toggleOuterTabs(&apos;1&apos;); }} role=&quot;tab&quot;&gt;
+                  &lt;Fa icon=&quot;user&quot;/&gt; Profile
+                  &lt;/NavLink&gt;
+                &lt;/NavItem&gt;
+                &lt;NavItem&gt;
+                  &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemOuterTabs === &apos;2&apos; })} onClick={() =&gt; { this.toggleOuterTabs(&apos;2&apos;); }} role=&quot;tab&quot;&gt;
+                  &lt;Fa icon=&quot;heart&quot;/&gt; Follow
+                  &lt;/NavLink&gt;
+                &lt;/NavItem&gt;
+              &lt;/Nav&gt;
+              &lt;TabContent className=&quot;card&quot; activeItem={this.state.activeItemOuterTabs}&gt;
+                &lt;TabPane tabId=&quot;1&quot; role=&quot;tabpanel&quot;&gt;
+                  &lt;Row&gt;
+                  &lt;Col md=&quot;3&quot;&gt;
+                    &lt;Nav pills color=&quot;primary&quot; className=&quot;flex-column&quot;&gt;
+                    &lt;NavItem&gt;
+                      &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemInnerPills === &apos;1&apos; })} onClick={() =&gt; { this.toggleInnerPills(&apos;1&apos;); }}&gt;Downloads &lt;Fa icon=&quot;download&quot; className=&quot;ml-2&quot;/&gt;&lt;/NavLink&gt;
+                    &lt;/NavItem&gt;
+                    &lt;NavItem&gt;
+                      &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemInnerPills === &apos;2&apos; })} onClick={() =&gt; { this.toggleInnerPills(&apos;2&apos;); }}&gt;Orders &amp; invoices&lt;Fa icon=&quot;file-text&quot; className=&quot;ml-2&quot;/&gt;&lt;/NavLink&gt;
+                    &lt;/NavItem&gt;
+                    &lt;NavItem&gt;
+                      &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemInnerPills === &apos;3&apos; })} onClick={() =&gt; { this.toggleInnerPills(&apos;3&apos;); }}&gt;Billing Details&lt;Fa icon=&quot;address-card&quot; className=&quot;ml-2&quot;/&gt;&lt;/NavLink&gt;
+                    &lt;/NavItem&gt;
+                    &lt;/Nav&gt;
+                  &lt;/Col&gt;
+                  &lt;Col md=&quot;9&quot;&gt;
+                    &lt;TabContent activeItem={this.state.activeItemInnerPills}&gt;
+                      &lt;TabPane tabId=&quot;1&quot;&gt;
+                        &lt;CardBody&gt;
+                          &lt;CardTitle&gt;Downloads&lt;/CardTitle&gt;
+                          &lt;CardText&gt;Completely legal&lt;/CardText&gt;
+                        &lt;/CardBody&gt;
+                      &lt;/TabPane&gt;
+                      &lt;TabPane tabId=&quot;2&quot;&gt;
+                        &lt;CardBody&gt;
+                          &lt;CardTitle&gt;Orders &amp; Invoices&lt;/CardTitle&gt;
+                          &lt;CardText&gt;&quot;Hello? Is it me you&apos;re looking for?&quot;&lt;/CardText&gt;
+                        &lt;/CardBody&gt;
+                      &lt;/TabPane&gt;
+                      &lt;TabPane tabId=&quot;3&quot;&gt;
+                        &lt;CardBody&gt;
+                          &lt;CardTitle&gt;Billing Details&lt;/CardTitle&gt;
+                          &lt;CardText&gt;Time to pay &lt;Button className=&quot;ml-3&quot; color=&quot;secondary&quot;&gt;pay&lt;/Button&gt;&lt;/CardText&gt;
+                        &lt;/CardBody&gt;
+                      &lt;/TabPane&gt;
+                    &lt;/TabContent&gt;
+                  &lt;/Col&gt;
+                &lt;/Row&gt;
+                &lt;/TabPane&gt;
+                &lt;TabPane tabId=&quot;2&quot; role=&quot;tabpanel&quot;&gt;
+                  &lt;Row&gt;
+                    &lt;Col md=&quot;6&quot;&gt;
+                      &lt;CardBody&gt;
+                        &lt;CardTitle&gt;Special Title Treatment&lt;/CardTitle&gt;
+                        &lt;CardText&gt;With supporting text below as a natural lead-in to additional content.&lt;/CardText&gt;
+                        &lt;Button&gt;Go somewhere&lt;/Button&gt;
+                      &lt;/CardBody&gt;
+                    &lt;/Col&gt;
+                    &lt;Col md=&quot;6&quot;&gt;
+                      &lt;CardBody&gt;
+                        &lt;CardTitle&gt;Special Title Treatment&lt;/CardTitle&gt;
+                        &lt;CardText&gt;With supporting text below as a natural lead-in to additional content.&lt;/CardText&gt;
+                        &lt;Button&gt;Go somewhere&lt;/Button&gt;
+                      &lt;/CardBody&gt;
+                    &lt;/Col&gt;
+                  &lt;/Row&gt;
+                &lt;/TabPane&gt;
+              &lt;/TabContent&gt;
+            &lt;/Col&gt;
+          &lt;/Row&gt;
+        &lt;/Container&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default TabsPage;</code></pre>
+      </section>
+      <!--Section: Code-->
+
+  </section>
+  <!--/Section: -->
+  <hr class="my-5">
+
+  <section id="classic-tabs">
+
+      <!--Title-->
+      <h2 class="title">
+          <strong>Classic tabs</strong>
+          <a href="https://mdbootstrap.com/products/react-ui-kit/" target="_blank" class="btn btn-danger btn-md"
+              role="button">MDB Pro component
+              <i class="far fa-gem ml-1"></i>
+          </a>
+      </h2>
+
+      <!--Description-->
+      <p class="description">We created a fresh new, all-React version of tabs for those, who missed the classic Material Design variant of tabs.</p>
+
+      <!--Section: Live preview-->
+      <section>
+
+          <!-- Nav tabs -->
+          <div class="classic-tabs">
+            <ul class="nav tabs-cyan" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link waves-light active" data-toggle="tab" href="#panel51" role="tab">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-light" data-toggle="tab" href="#panel52" role="tab">Follow</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-light" data-toggle="tab" href="#panel53" role="tab">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-light" data-toggle="tab" href="#panel54" role="tab">Be awesome</a>
+                </li>
+            </ul>
+
+            <!-- Tab panels -->
+            <div class="tab-content card">
+
+                <!--Panel 1-->
+                <div class="tab-pane fade in show active" id="panel51" role="tabpanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.</p>
+
+                </div>
+                <!--/.Panel 1-->
+
+                <!--Panel 2-->
+                <div class="tab-pane fade" id="panel52" role="tabpanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.</p>
+
+                </div>
+                <!--/.Panel 2-->
+
+                <!--Panel 3-->
+                <div class="tab-pane fade" id="panel53" role="tabpanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.</p>
+
+                </div>
+                <!--/.Panel 3-->
+
+                <!--Panel 4-->
+                <div class="tab-pane fade" id="panel54" role="tabpanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.</p>
+
+                </div>
+                <!--/.Panel 4-->
+
+            </div>
+          </div>
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+          <pre class="code-toolbar"><code class="language-javascript">
+import React from &apos;react&apos;;&#13;&#10;import { BrowserRouter as Router } from &apos;react-router-dom&apos;;&#13;&#10;import { Container, Row, Col, TabPane, TabContent, Nav, NavItem, NavLink } from &apos;mdbreact&apos;;&#13;&#10;import classnames from &apos;classnames&apos;;&#13;&#10;&#13;&#10;class TabsPage extends React.Component {&#13;&#10;  constructor(props) {&#13;&#10;    super(props);&#13;&#10;&#13;&#10;    this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);&#13;&#10;    this.state = {&#13;&#10;      activeItemClassicTabs1: &apos;1&apos;,&#13;&#10;    };&#13;&#10;  }&#13;&#10;&#13;&#10;  toggleClassicTabs1(tab) {&#13;&#10;    if (this.state.activeItemClassicTabs1 !== tab) {&#13;&#10;      this.setState({&#13;&#10;        activeItemClassicTabs1: tab&#13;&#10;      });&#13;&#10;    }&#13;&#10;  }&#13;&#10;&#13;&#10;&#13;&#10;  render() {&#13;&#10;    return (&#13;&#10;      &lt;Router&gt;&#13;&#10;        &lt;Container className=&quot;mt-4&quot;&gt;&#13;&#10;          &lt;Row&gt;&#13;&#10;            &lt;Col md=&quot;12&quot;&gt;&#13;&#10;              &lt;h2 className=&quot;mt-5&quot;&gt;Classic tabs&lt;/h2&gt;&#13;&#10;              &lt;div className=&quot;classic-tabs&quot;&gt;&#13;&#10;                &lt;Nav classicTabs color=&quot;cyan&quot;&gt;&#13;&#10;                  &lt;NavItem&gt;&#13;&#10;                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemClassicTabs1 === &apos;1&apos; })} onClick={() =&gt; { this.toggleClassicTabs1(&apos;1&apos;); }}&gt;&#13;&#10;                      Profile&#13;&#10;                    &lt;/NavLink&gt;&#13;&#10;                  &lt;/NavItem&gt;&#13;&#10;                  &lt;NavItem&gt;&#13;&#10;                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemClassicTabs1 === &apos;2&apos; })} onClick={() =&gt; { this.toggleClassicTabs1(&apos;2&apos;); }}&gt;&#13;&#10;                    Follow&#13;&#10;                    &lt;/NavLink&gt;&#13;&#10;                  &lt;/NavItem&gt;&#13;&#10;                  &lt;NavItem&gt;&#13;&#10;                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemClassicTabs1 === &apos;3&apos; })} onClick={() =&gt; { this.toggleClassicTabs1(&apos;3&apos;); }}&gt;&#13;&#10;                          Contact&#13;&#10;                    &lt;/NavLink&gt;&#13;&#10;                  &lt;/NavItem&gt;&#13;&#10;                  &lt;NavItem&gt;&#13;&#10;                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemClassicTabs1 === &apos;4&apos; })} onClick={() =&gt; { this.toggleClassicTabs1(&apos;4&apos;); }}&gt;&#13;&#10;                      Be Awesome&#13;&#10;                    &lt;/NavLink&gt;&#13;&#10;                  &lt;/NavItem&gt;&#13;&#10;                &lt;/Nav&gt;&#13;&#10;                &lt;TabContent className=&quot;card&quot; activeItem={this.state.activeItemClassicTabs1}&gt;&#13;&#10;                  &lt;TabPane tabId=&quot;1&quot;&gt;&#13;&#10;                    &lt;p&gt;Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias.&lt;/p&gt;&#13;&#10;                  &lt;/TabPane&gt;&#13;&#10;                  &lt;TabPane tabId=&quot;2&quot;&gt;&#13;&#10;                    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.&lt;/p&gt;&#13;&#10;                  &lt;/TabPane&gt;&#13;&#10;                  &lt;TabPane tabId=&quot;3&quot;&gt;&#13;&#10;                    &lt;p&gt;Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias.&lt;/p&gt;&#13;&#10;                  &lt;/TabPane&gt;&#13;&#10;                  &lt;TabPane tabId=&quot;4&quot;&gt;&#13;&#10;                    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.&lt;/p&gt;&#13;&#10;                  &lt;/TabPane&gt;&#13;&#10;                &lt;/TabContent&gt;&#13;&#10;              &lt;/div&gt;&#13;&#10;            &lt;/Col&gt;&#13;&#10;          &lt;/Row&gt;&#13;&#10;        &lt;/Container&gt;&#13;&#10;      &lt;/Router&gt;&#13;&#10;    );&#13;&#10;  }&#13;&#10;}&#13;&#10;&#13;&#10;export default TabsPage;
+</code></pre>
+      </section>
+      <!--Section: Code-->
+
+      <!--Section: Live preview-->
+      <section class="mt-5">
+
+          <!-- Nav tabs -->
+          <div class="classic-tabs">
+              <ul class="nav tabs-orange" role="tablist">
+                  <li class="nav-item">
+                      <a class="nav-link waves-light active" data-toggle="tab" href="#panel61" role="tab">
+                          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                          <br> Profile</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link waves-light" data-toggle="tab" href="#panel62" role="tab">
+                          <i class="fa fa-heart fa-2x" aria-hidden="true"></i>
+                          <br> Follow</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link waves-light" data-toggle="tab" href="#panel63" role="tab">
+                          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                          <br> Contact</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link waves-light" data-toggle="tab" href="#panel64" role="tab">
+                          <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                          <br> Be awesome</a>
+                  </li>
+              </ul>
+
+            <!-- Tab panels -->
+            <div class="tab-content card">
+
+                <!--Panel 1-->
+                <div class="tab-pane fade in show active" id="panel61" role="tabpanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.</p>
+
+                </div>
+                <!--/.Panel 1-->
+
+                <!--Panel 2-->
+                <div class="tab-pane fade" id="panel62" role="tabpanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.</p>
+
+                </div>
+                <!--/.Panel 2-->
+
+                <!--Panel 3-->
+                <div class="tab-pane fade" id="panel63" role="tabpanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.</p>
+
+                </div>
+                <!--/.Panel 3-->
+
+                <!--Panel 4-->
+                <div class="tab-pane fade" id="panel64" role="tabpanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
+                        reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima.</p>
+
+                </div>
+                <!--/.Panel 4-->
+
+            </div>
+          </div>
+
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+          <pre class="code-toolbar"><code class="language-javascript">
+import React from &apos;react&apos;;&#13;&#10;import { BrowserRouter as Router } from &apos;react-router-dom&apos;;&#13;&#10;import { Container, Row, Col, TabPane, TabContent, Nav, NavItem, NavLink, Fa } from &apos;mdbreact&apos;;&#13;&#10;import classnames from &apos;classnames&apos;;&#13;&#10;&#13;&#10;class TabsPage extends React.Component {&#13;&#10;  constructor(props) {&#13;&#10;    super(props);&#13;&#10;&#13;&#10;    this.toggleClassicTabs2 = this.toggleClassicTabs2.bind(this);&#13;&#10;    this.state = {&#13;&#10;      activeItemClassicTabs2: &apos;1&apos;&#13;&#10;    };&#13;&#10;  }&#13;&#10;&#13;&#10;  toggleClassicTabs2(tab) {&#13;&#10;    if (this.state.activeItemClassicTabs2 !== tab) {&#13;&#10;      this.setState({&#13;&#10;        activeItemClassicTabs2: tab&#13;&#10;      });&#13;&#10;    }&#13;&#10;  }&#13;&#10;&#13;&#10;  render() {&#13;&#10;    return (&#13;&#10;      &lt;Router&gt;&#13;&#10;        &lt;Container className=&quot;mt-4&quot;&gt;&#13;&#10;          &lt;Row&gt;&#13;&#10;            &lt;Col md=&quot;12&quot;&gt;&#13;&#10;              &lt;h2 className=&quot;mt-5&quot;&gt;Classic tabs&lt;/h2&gt;&#13;&#10;              &lt;div className=&quot;classic-tabs&quot;&gt;&#13;&#10;                &lt;Nav classicTabs color=&quot;orange&quot; className=&quot;mt-5&quot;&gt;&#13;&#10;                  &lt;NavItem&gt;&#13;&#10;                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemClassicTabs2 === &apos;1&apos; })} onClick={() =&gt; { this.toggleClassicTabs2(&apos;1&apos;); }}&gt;&#13;&#10;                    &lt;Fa icon=&quot;user&quot; size=&quot;2x&quot;/&gt;&lt;br/&gt;&#13;&#10;                      Profile&#13;&#10;                    &lt;/NavLink&gt;&#13;&#10;                  &lt;/NavItem&gt;&#13;&#10;                  &lt;NavItem&gt;&#13;&#10;                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemClassicTabs2 === &apos;2&apos; })} onClick={() =&gt; { this.toggleClassicTabs2(&apos;2&apos;); }}&gt;&#13;&#10;                    &lt;Fa icon=&quot;heart&quot; size=&quot;2x&quot;/&gt;&lt;br/&gt;&#13;&#10;                    Follow&#13;&#10;                    &lt;/NavLink&gt;&#13;&#10;                  &lt;/NavItem&gt;&#13;&#10;                  &lt;NavItem&gt;&#13;&#10;                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemClassicTabs2 === &apos;3&apos; })} onClick={() =&gt; { this.toggleClassicTabs2(&apos;3&apos;); }}&gt;&#13;&#10;                    &lt;Fa icon=&quot;envelope&quot; size=&quot;2x&quot;/&gt;&lt;br/&gt;&#13;&#10;                          Contact&#13;&#10;                    &lt;/NavLink&gt;&#13;&#10;                  &lt;/NavItem&gt;&#13;&#10;                  &lt;NavItem&gt;&#13;&#10;                    &lt;NavLink to=&quot;#&quot; className={classnames({ active: this.state.activeItemClassicTabs2 === &apos;4&apos; })} onClick={() =&gt; { this.toggleClassicTabs2(&apos;4&apos;); }}&gt;&#13;&#10;                    &lt;Fa icon=&quot;star&quot; size=&quot;2x&quot;/&gt;&lt;br/&gt;&#13;&#10;                      Be Awesome&#13;&#10;                    &lt;/NavLink&gt;&#13;&#10;                  &lt;/NavItem&gt;&#13;&#10;                &lt;/Nav&gt;&#13;&#10;                &lt;TabContent className=&quot;card mb-5&quot; activeItem={this.state.activeItemClassicTabs2}&gt;&#13;&#10;                  &lt;TabPane tabId=&quot;1&quot;&gt;&#13;&#10;                    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.&lt;/p&gt;&#13;&#10;                  &lt;/TabPane&gt;&#13;&#10;                  &lt;TabPane tabId=&quot;2&quot;&gt;&#13;&#10;                    &lt;p&gt;Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias.&lt;/p&gt;&#13;&#10;                  &lt;/TabPane&gt;&#13;&#10;                  &lt;TabPane tabId=&quot;3&quot;&gt;&#13;&#10;                    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.&lt;/p&gt;&#13;&#10;                  &lt;/TabPane&gt;&#13;&#10;                  &lt;TabPane tabId=&quot;4&quot;&gt;&#13;&#10;                    &lt;p&gt;Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias.&lt;/p&gt;&#13;&#10;                  &lt;/TabPane&gt;&#13;&#10;                &lt;/TabContent&gt;&#13;&#10;              &lt;/div&gt;&#13;&#10;            &lt;/Col&gt;&#13;&#10;          &lt;/Row&gt;&#13;&#10;      &lt;/Container&gt;&#13;&#10;    &lt;/Router&gt;&#13;&#10;    );&#13;&#10;  }&#13;&#10;}&#13;&#10;&#13;&#10;export default TabsPage;
+</code></pre>
+      </section>
+      <!--Section: Code-->
+
+
+  </section>
+  <!--/Section: -->
+</section>
+<!--/Section: Doc content-->

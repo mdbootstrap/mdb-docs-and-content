@@ -1,0 +1,3072 @@
+<!--Section: Intro-->
+<section id="introduction">
+  <style>
+    .bubble-main {
+      position: absolute;
+      width: 300px;
+      box-shadow: 0 12px 30px 0 rgba(0, 0, 0, .5);
+      z-index: 1050;
+      background: #fff;
+      box-sizing: border-box;
+      border-radius: 6px
+    }
+
+    .d-flex-not-important {
+      display: flex
+    }
+
+    .bubble-td-cursor {
+      cursor: pointer
+    }
+
+    .bubble-input-add-icon, .bubble-input-delete-icon {
+      cursor: pointer
+    }
+
+    .bubble-input-add-icon:hover, .bubble-input-delete-icon:hover {
+      transform: scale(1.1)
+    }
+
+    .disabled-btn, .disabled-table {
+      pointer-events: none
+    }
+
+    .bubble-arrow, .bubble-arrow-rotate {
+      position: absolute;
+      border-top: 45px solid #fff;
+      border-right: 45px solid transparent;
+      border-bottom: 45px solid transparent;
+      border-left: 45px solid transparent;
+      transform: scale(.25);
+      z-index: 1051;
+      top: -34px;
+      left: 0
+    }
+
+    .bubble-arrow-rotate {
+      transform: rotate(-270deg)
+    }
+
+    .bubble-bg {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, .3);
+      z-index: 1049
+    }
+
+    .tr-color-selected {
+      background-color: rgba(52, 181, 229, .3) !important;
+      transition: all .2s ease-in
+    }
+
+    .closeByClick {
+      transition: opacity .15s linear;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, .2);
+      z-index: 1090
+    }
+
+    div.dataTables_wrapper div.dataTables_filter select, div.dataTables_wrapper div.dataTables_length input, div.dataTables_wrapper div.dataTables_length select {
+      width: auto
+    }
+
+    table.dataTable thead {
+      cursor: pointer
+    }
+
+    div.dataTables_wrapper div.dataTables_length.d-flex.flex-row label {
+      margin-top: 1.2rem;
+      margin-right: 1rem
+    }
+
+    div.dataTables_wrapper div.dataTables_length.d-flex.flex-row .select-wrapper.mdb-select .select-dropdown, div.dataTables_wrapper div.dataTables_length.d-flex.flex-row .select-wrapper.mdb-select span {
+      margin-top: 1rem
+    }
+
+    div.dataTables_wrapper div.dataTables_filter label, div.dataTables_wrapper div.dataTables_length label {
+      text-align: left;
+      font-weight: 400;
+      padding-top: .5rem;
+      padding-bottom: .5rem
+    }
+
+    div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
+      font-weight: 400;
+      padding-top: 1rem;
+      padding-bottom: 1rem
+    }
+
+    div.dataTables_wrapper div.dataTables_filter {
+      text-align: right
+    }
+
+    div.dataTables_wrapper div.dataTables_filter input {
+      width: auto;
+      margin-left: .5rem;
+      display: inline-block
+    }
+
+    div.dataTables_wrapper div.dataTables_paginate {
+      text-align: right;
+      margin: 0
+    }
+
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+      justify-content: flex-end
+    }
+
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.active .page-link:focus {
+      background-color: #4285f4
+    }
+
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item .page-link:focus {
+      -webkit-box-shadow: none;
+      box-shadow: none
+    }
+
+    @media (max-width: 767px) {
+      div.dataTables_wrapper div .dataTables_filter, div.dataTables_wrapper div .dataTables_info, div.dataTables_wrapper div .dataTables_length, div.dataTables_wrapper div .dataTables_paginate ul.pagination {
+        text-align: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center
+      }
+    }
+
+    .bs-select select {
+      display: inline-block !important
+    }
+
+    table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc {
+      padding-right: 30px
+    }
+
+    table.dataTable thead > tr > td:active, table.dataTable thead > tr > th:active {
+      outline: 0
+    }
+
+    table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_desc_disabled {
+      cursor: pointer;
+      position: relative
+    }
+
+    table.dataTable thead .sorting:after, table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc_disabled:after, table.dataTable thead .sorting_desc_disabled:before {
+      position: absolute;
+      bottom: .9em;
+      display: block;
+      opacity: .3
+    }
+
+    table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc_disabled:before {
+      right: 1em;
+      content: "\f0de";
+      font-family: 'Font Awesome\ 5 Free';
+      font-weight: 900;
+      font-size: 1rem
+    }
+
+    table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_desc_disabled:after {
+      content: "\f0dd";
+      font-family: 'Font Awesome\ 5 Free';
+      font-weight: 900;
+      right: 16px;
+      font-size: 1rem
+    }
+
+    table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:after {
+      opacity: 1
+    }
+
+    table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:after {
+      opacity: 0
+    }
+
+  </style>
+  <!--Title-->
+  <h2 class="primary-heading">Angular Bootstrap Table Editor</h2>
+
+  <h1 class="secondary-heading mb-4">Angular table editable - Bootstrap 4 & Material Design</h1>
+
+  <blockquote class="blockquote bq-primary">
+    <p class="bq-title">To start working with Table Editor see <strong>"Getting Started"</strong> tab on this page.</p>
+  </blockquote>
+
+  <p>You can use 3 different types of editor:
+  </p>
+
+  <ul class="smooth-scroll">
+    <li><a href="#m-editor">Basic editor with the modal</a></li>
+    <li><a href="#r-editor">Extended version with the ability to
+      edit a particular line without using modal</a></li>
+    <li><a href="#content-editor">Extended version with ability to edit table data content when click on that table
+      data</a></li>
+  </ul>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="how-it-works">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    How editors works
+  </h2>
+
+  <!--Description-->
+  <p class="description">To get the most out of your Table Editor, it is best to use MDB Angular, although this is not
+    required. Only modals are required.</p>
+
+  <hr class="mt-4 mb-5">
+
+  <!--Title-->
+  <h2 id="m-editor" class="section-heading mb-4">
+    Editor with modal
+  </h2>
+
+  <!-- Description -->
+  <p>
+    This version of the Editor allows you to add, edit and remove rows by using a modal.
+  </p>
+  <p>Select a row and click the "Edit" button if you want to make changes in the given row. "Delete" button works the
+    same way.</p>
+
+  <hr class="mt-4">
+
+  <!--Subheading-->
+  <h4 id="how-m" class="mb-4"><strong>How modal editor works</strong></h4>
+
+  <p>See documenation about <a href="https://mdbootstrap.com/docs/angular/modals/basic/">modals</a>.</p>
+
+  <p>Modal editor is working corectly when <code>table</code> element has an <code>mdbTableEditor</code> directive on
+    it.</p>
+  <p>It is also required, to set the <code>[itemsPerPage]</code> input, and the export identificator <code>#your-template-id="mdbEditor"</code>.
+  </p>
+  <p>The last thing that is required for the table to work properly is to use the emitted event <code>(rowHighlight)</code> to assign
+    a highlighted table row (this is used when editing or deleting rows).</p>
+
+  <hr class="mt-4 mb-5">
+
+  <!--Section: Live preview-->
+  <section class="p-1">
+
+    <div class="wrapper-editor">
+
+      <div class="row d-flex justify-content-center modalWrapper">
+        <div class="modal fade addNewInputs" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd"
+             aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new form</h4>
+                <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                  <input type="text" id="inputName" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="inputName">Name</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" id="inputPosition" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="inputPosition">Position</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" id="inputOfficeInput" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="inputOfficeInput">Office</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" id="inputAge" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="inputAge">Age</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="date" id="inputDate" class="form-control" placeholder="Select Date">
+                  <label data-error="wrong" data-success="right" for="inputDate"></label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" id="inputSalary" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="inputSalary">Salary</label>
+                </div>
+
+              </div>
+              <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+                <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">Add form
+                  <i class="fas fa-paper-plane-o ml-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <a href="" class="btn btn-info btn-rounded btn-sm" data-toggle="modal" data-target="#modalAdd">Add<i
+            class="fas fa-plus-square ml-1"></i></a>
+        </div>
+
+        <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit form</h4>
+                <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                  <input type="text" id="formNameEdit" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="formNameEdit">Name</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" id="formPositionEdit" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="formPositionEdit">Position</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" id="formOfficeEdit" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="formOfficeEdit">Office</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" id="formAgeEdit" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="formAgeEdit">Age</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" id="formDateEdit" class="form-control datepicker">
+                  <label data-error="wrong" data-success="right" for="formDateEdit">Date</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type="text" id="formSalaryEdit" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="formSalaryEdit">Salary</label>
+                </div>
+
+
+              </div>
+              <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Edit
+                  form
+                  <i class="fas fa-paper-plane-o ml-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center buttonEditWrapper">
+          <button class="btn btn-info btn-rounded btn-sm buttonEdit" data-toggle="modal" data-target="#modalEdit"
+                  disabled>Edit<i class="fas fa-pencil-square-o ml-1"></i></button>
+        </div>
+
+        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete"
+             aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Delete</h4>
+                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body mx-3">
+                <p class="text-center h4">Are you sure to delete selected row?</p>
+
+              </div>
+              <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button class="btn btn-danger btn-sm btn-rounded buttonDelete" data-toggle="modal" disabled
+                  data-target="#modalDelete"
+                  disabled>Delete<i class="fas fa-times ml-1"></i></button>
+        </div>
+      </div>
+
+      <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+          <th class="th-sm">Name
+
+          </th>
+          <th class="th-sm">Position
+
+          </th>
+          <th class="th-sm">Office
+
+          </th>
+          <th class="th-sm">Age
+
+          </th>
+          <th class="th-sm">Start date
+
+          </th>
+          <th class="th-sm">Salary
+
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td>$320,800</td>
+        </tr>
+        <tr>
+          <td>Garrett Winters</td>
+          <td>Accountant</td>
+          <td>Tokyo</td>
+          <td>63</td>
+          <td>2011/07/25</td>
+          <td>$170,750</td>
+        </tr>
+        <tr>
+          <td>Ashton Cox</td>
+          <td>Junior Technical Author</td>
+          <td>San Francisco</td>
+          <td>66</td>
+          <td>2009/01/12</td>
+          <td>$86,000</td>
+        </tr>
+        <tr>
+          <td>Cedric Kelly</td>
+          <td>Senior Javascript Developer</td>
+          <td>Edinburgh</td>
+          <td>22</td>
+          <td>2012/03/29</td>
+          <td>$433,060</td>
+        </tr>
+        <tr>
+          <td>Airi Satou</td>
+          <td>Accountant</td>
+          <td>Tokyo</td>
+          <td>33</td>
+          <td>2008/11/28</td>
+          <td>$162,700</td>
+        </tr>
+        <tr>
+          <td>Brielle Williamson</td>
+          <td>Integration Specialist</td>
+          <td>New York</td>
+          <td>61</td>
+          <td>2012/12/02</td>
+          <td>$372,000</td>
+        </tr>
+        <tr>
+          <td>Herrod Chandler</td>
+          <td>Sales Assistant</td>
+          <td>San Francisco</td>
+          <td>59</td>
+          <td>2012/08/06</td>
+          <td>$137,500</td>
+        </tr>
+        <tr>
+          <td>Rhona Davidson</td>
+          <td>Integration Specialist</td>
+          <td>Tokyo</td>
+          <td>55</td>
+          <td>2010/10/14</td>
+          <td>$327,900</td>
+        </tr>
+        <tr>
+          <td>Colleen Hurst</td>
+          <td>Javascript Developer</td>
+          <td>San Francisco</td>
+          <td>39</td>
+          <td>2009/09/15</td>
+          <td>$205,500</td>
+        </tr>
+        <tr>
+          <td>Sonya Frost</td>
+          <td>Software Engineer</td>
+          <td>Edinburgh</td>
+          <td>23</td>
+          <td>2008/12/13</td>
+          <td>$103,600</td>
+        </tr>
+        <tr>
+          <td>Jena Gaines</td>
+          <td>Office Manager</td>
+          <td>London</td>
+          <td>30</td>
+          <td>2008/12/19</td>
+          <td>$90,560</td>
+        </tr>
+        <tr>
+          <td>Quinn Flynn</td>
+          <td>Support Lead</td>
+          <td>Edinburgh</td>
+          <td>22</td>
+          <td>2013/03/03</td>
+          <td>$342,000</td>
+        </tr>
+        <tr>
+          <td>Charde Marshall</td>
+          <td>Regional Director</td>
+          <td>San Francisco</td>
+          <td>36</td>
+          <td>2008/10/16</td>
+          <td>$470,600</td>
+        </tr>
+        <tr>
+          <td>Haley Kennedy</td>
+          <td>Senior Marketing Designer</td>
+          <td>London</td>
+          <td>43</td>
+          <td>2012/12/18</td>
+          <td>$313,500</td>
+        </tr>
+        <tr>
+          <td>Tatyana Fitzpatrick</td>
+          <td>Regional Director</td>
+          <td>London</td>
+          <td>19</td>
+          <td>2010/03/17</td>
+          <td>$385,750</td>
+        </tr>
+        <tr>
+          <td>Michael Silva</td>
+          <td>Marketing Designer</td>
+          <td>London</td>
+          <td>66</td>
+          <td>2012/11/27</td>
+          <td>$198,500</td>
+        </tr>
+        <tr>
+          <td>Paul Byrd</td>
+          <td>Chief Financial Officer (CFO)</td>
+          <td>New York</td>
+          <td>64</td>
+          <td>2010/06/09</td>
+          <td>$725,000</td>
+        </tr>
+        <tr>
+          <td>Gloria Little</td>
+          <td>Systems Administrator</td>
+          <td>New York</td>
+          <td>59</td>
+          <td>2009/04/10</td>
+          <td>$237,500</td>
+        </tr>
+        <tr>
+          <td>Bradley Greer</td>
+          <td>Software Engineer</td>
+          <td>London</td>
+          <td>41</td>
+          <td>2012/10/13</td>
+          <td>$132,000</td>
+        </tr>
+        <tr>
+          <td>Dai Rios</td>
+          <td>Personnel Lead</td>
+          <td>Edinburgh</td>
+          <td>35</td>
+          <td>2012/09/26</td>
+          <td>$217,500</td>
+        </tr>
+        <tr>
+          <td>Jenette Caldwell</td>
+          <td>Development Lead</td>
+          <td>New York</td>
+          <td>30</td>
+          <td>2011/09/03</td>
+          <td>$345,000</td>
+        </tr>
+        <tr>
+          <td>Yuri Berry</td>
+          <td>Chief Marketing Officer (CMO)</td>
+          <td>New York</td>
+          <td>40</td>
+          <td>2009/06/25</td>
+          <td>$675,000</td>
+        </tr>
+        <tr>
+          <td>Caesar Vance</td>
+          <td>Pre-Sales Support</td>
+          <td>New York</td>
+          <td>21</td>
+          <td>2011/12/12</td>
+          <td>$106,450</td>
+        </tr>
+        <tr>
+          <td>Doris Wilder</td>
+          <td>Sales Assistant</td>
+          <td>Sidney</td>
+          <td>23</td>
+          <td>2010/09/20</td>
+          <td>$85,600</td>
+        </tr>
+        <tr>
+          <td>Angelica Ramos</td>
+          <td>Chief Executive Officer (CEO)</td>
+          <td>London</td>
+          <td>47</td>
+          <td>2009/10/09</td>
+          <td>$1,200,000</td>
+        </tr>
+        <tr>
+          <td>Gavin Joyce</td>
+          <td>Developer</td>
+          <td>Edinburgh</td>
+          <td>42</td>
+          <td>2010/12/22</td>
+          <td>$92,575</td>
+        </tr>
+        <tr>
+          <td>Jennifer Chang</td>
+          <td>Regional Director</td>
+          <td>Singapore</td>
+          <td>28</td>
+          <td>2010/11/14</td>
+          <td>$357,650</td>
+        </tr>
+        <tr>
+          <td>Brenden Wagner</td>
+          <td>Software Engineer</td>
+          <td>San Francisco</td>
+          <td>28</td>
+          <td>2011/06/07</td>
+          <td>$206,850</td>
+        </tr>
+        <tr>
+          <td>Fiona Green</td>
+          <td>Chief Operating Officer (COO)</td>
+          <td>San Francisco</td>
+          <td>48</td>
+          <td>2010/03/11</td>
+          <td>$850,000</td>
+        </tr>
+        <tr>
+          <td>Shou Itou</td>
+          <td>Regional Marketing</td>
+          <td>Tokyo</td>
+          <td>20</td>
+          <td>2011/08/14</td>
+          <td>$163,000</td>
+        </tr>
+        <tr>
+          <td>Michelle House</td>
+          <td>Integration Specialist</td>
+          <td>Sidney</td>
+          <td>37</td>
+          <td>2011/06/02</td>
+          <td>$95,400</td>
+        </tr>
+        <tr>
+          <td>Suki Burks</td>
+          <td>Developer</td>
+          <td>London</td>
+          <td>53</td>
+          <td>2009/10/22</td>
+          <td>$114,500</td>
+        </tr>
+        <tr>
+          <td>Prescott Bartlett</td>
+          <td>Technical Author</td>
+          <td>London</td>
+          <td>27</td>
+          <td>2011/05/07</td>
+          <td>$145,000</td>
+        </tr>
+        <tr>
+          <td>Gavin Cortez</td>
+          <td>Team Leader</td>
+          <td>San Francisco</td>
+          <td>22</td>
+          <td>2008/10/26</td>
+          <td>$235,500</td>
+        </tr>
+        <tr>
+          <td>Martena Mccray</td>
+          <td>Post-Sales support</td>
+          <td>Edinburgh</td>
+          <td>46</td>
+          <td>2011/03/09</td>
+          <td>$324,050</td>
+        </tr>
+        <tr>
+          <td>Unity Butler</td>
+          <td>Marketing Designer</td>
+          <td>San Francisco</td>
+          <td>47</td>
+          <td>2009/12/09</td>
+          <td>$85,675</td>
+        </tr>
+        <tr>
+          <td>Howard Hatfield</td>
+          <td>Office Manager</td>
+          <td>San Francisco</td>
+          <td>51</td>
+          <td>2008/12/16</td>
+          <td>$164,500</td>
+        </tr>
+        <tr>
+          <td>Hope Fuentes</td>
+          <td>Secretary</td>
+          <td>San Francisco</td>
+          <td>41</td>
+          <td>2010/02/12</td>
+          <td>$109,850</td>
+        </tr>
+        <tr>
+          <td>Vivian Harrell</td>
+          <td>Financial Controller</td>
+          <td>San Francisco</td>
+          <td>62</td>
+          <td>2009/02/14</td>
+          <td>$452,500</td>
+        </tr>
+        <tr>
+          <td>Timothy Mooney</td>
+          <td>Office Manager</td>
+          <td>London</td>
+          <td>37</td>
+          <td>2008/12/11</td>
+          <td>$136,200</td>
+        </tr>
+        <tr>
+          <td>Jackson Bradshaw</td>
+          <td>Director</td>
+          <td>New York</td>
+          <td>65</td>
+          <td>2008/09/26</td>
+          <td>$645,750</td>
+        </tr>
+        <tr>
+          <td>Olivia Liang</td>
+          <td>Support Engineer</td>
+          <td>Singapore</td>
+          <td>64</td>
+          <td>2011/02/03</td>
+          <td>$234,500</td>
+        </tr>
+        <tr>
+          <td>Bruno Nash</td>
+          <td>Software Engineer</td>
+          <td>London</td>
+          <td>38</td>
+          <td>2011/05/03</td>
+          <td>$163,500</td>
+        </tr>
+        <tr>
+          <td>Sakura Yamamoto</td>
+          <td>Support Engineer</td>
+          <td>Tokyo</td>
+          <td>37</td>
+          <td>2009/08/19</td>
+          <td>$139,575</td>
+        </tr>
+        <tr>
+          <td>Thor Walton</td>
+          <td>Developer</td>
+          <td>New York</td>
+          <td>61</td>
+          <td>2013/08/11</td>
+          <td>$98,540</td>
+        </tr>
+        <tr>
+          <td>Finn Camacho</td>
+          <td>Support Engineer</td>
+          <td>San Francisco</td>
+          <td>47</td>
+          <td>2009/07/07</td>
+          <td>$87,500</td>
+        </tr>
+        <tr>
+          <td>Serge Baldwin</td>
+          <td>Data Coordinator</td>
+          <td>Singapore</td>
+          <td>64</td>
+          <td>2012/04/09</td>
+          <td>$138,575</td>
+        </tr>
+        <tr>
+          <td>Zenaida Frank</td>
+          <td>Software Engineer</td>
+          <td>New York</td>
+          <td>63</td>
+          <td>2010/01/04</td>
+          <td>$125,250</td>
+        </tr>
+        <tr>
+          <td>Zorita Serrano</td>
+          <td>Software Engineer</td>
+          <td>San Francisco</td>
+          <td>56</td>
+          <td>2012/06/01</td>
+          <td>$115,000</td>
+        </tr>
+        <tr>
+          <td>Jennifer Acosta</td>
+          <td>Junior Javascript Developer</td>
+          <td>Edinburgh</td>
+          <td>43</td>
+          <td>2013/02/01</td>
+          <td>$75,650</td>
+        </tr>
+        <tr>
+          <td>Cara Stevens</td>
+          <td>Sales Assistant</td>
+          <td>New York</td>
+          <td>46</td>
+          <td>2011/12/06</td>
+          <td>$145,600</td>
+        </tr>
+        <tr>
+          <td>Hermione Butler</td>
+          <td>Regional Director</td>
+          <td>London</td>
+          <td>47</td>
+          <td>2011/03/21</td>
+          <td>$356,250</td>
+        </tr>
+        <tr>
+          <td>Lael Greer</td>
+          <td>Systems Administrator</td>
+          <td>London</td>
+          <td>21</td>
+          <td>2009/02/27</td>
+          <td>$103,500</td>
+        </tr>
+        <tr>
+          <td>Jonas Alexander</td>
+          <td>Developer</td>
+          <td>San Francisco</td>
+          <td>30</td>
+          <td>2010/07/14</td>
+          <td>$86,500</td>
+        </tr>
+        <tr>
+          <td>Shad Decker</td>
+          <td>Regional Director</td>
+          <td>Edinburgh</td>
+          <td>51</td>
+          <td>2008/11/13</td>
+          <td>$183,000</td>
+        </tr>
+        <tr>
+          <td>Michael Bruce</td>
+          <td>Javascript Developer</td>
+          <td>Singapore</td>
+          <td>29</td>
+          <td>2011/06/27</td>
+          <td>$183,000</td>
+        </tr>
+        <tr>
+          <td>Donna Snider</td>
+          <td>Customer Support</td>
+          <td>New York</td>
+          <td>27</td>
+          <td>2011/01/25</td>
+          <td>$112,000</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th>Name
+          </th>
+          <th>Position
+          </th>
+          <th>Office
+          </th>
+          <th>Age
+          </th>
+          <th>Start date
+          </th>
+          <th>Salary
+          </th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+
+  </section>
+
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+        <div class="row d-flex justify-content-center modalWrapper mt-5">
+          <div mdbModal #modalAdd="mdbModal" class="modal fade addNewInputs" id="modalAdd" tabindex="-1" role="dialog"
+               aria-labelledby="modalAdd"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new form</h4>
+                  <button type="button" class="close text-primary" (click)="modalAdd.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <form #addForm>
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputName" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputName">Name</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputPosition" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputPosition">Position</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputOfficeInput" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputOfficeInput">Office</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputAge" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputAge">Age</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="date" id="inputDate" class="form-control" placeholder="Select Date" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputDate"></label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputSalary" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputSalary">Salary</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+                  <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal"
+                          (click)="addModalForm(addForm, modalAdd)">Add form
+                    <i class="fas fa-paper-plane-o ml-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <a class="btn btn-info btn-rounded btn-sm" (click)="modalAdd.show()" data-target="#modalAdd" mdbWavesEffect>
+              Add <i class="fas fa-plus-square ml-1"></i></a>
+          </div>
+
+          <div mdbModal #modalEdit="mdbModal" class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit form</h4>
+                  <button type="button" class="close text-secondary" (click)="modalEdit.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <form #editForm>
+                    <div class="md-form mb-5">
+                      <input type="text" id="formNameEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.name : ''">
+                      <label data-error="wrong" data-success="right" for="formNameEdit">Name</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formPositionEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.position : ''">
+                      <label data-error="wrong" data-success="right" for="formPositionEdit">Position</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formOfficeEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.office : ''">
+                      <label data-error="wrong" data-success="right" for="formOfficeEdit">Office</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formAgeEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.age : ''">
+                      <label data-error="wrong" data-success="right" for="formAgeEdit">Age</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formDateEdit" class="form-control datepicker" mdbInput
+                             [value]="highlightedRow ? highlightedRow.start_date : ''">
+                      <label data-error="wrong" data-success="right" for="formDateEdit">Date</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formSalaryEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.salary : ''">
+                      <label data-error="wrong" data-success="right" for="formSalaryEdit">Salary</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                  <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal"
+                          (click)="editModalForm(editForm, modalEdit)">
+                    Edit form <i class="fas fa-paper-plane-o ml-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center buttonEditWrapper">
+            <button class="btn btn-info btn-rounded btn-sm buttonEdit" [disabled]="!highlightedRow"
+                    (click)="modalEdit.show()" data-target="#modalEdit">
+              Edit<i class="fas fa-pencil-square-o ml-1"></i></button>
+          </div>
+
+          <div mdbModal #modalDelete="mdbModal" class="modal fade" id="modalDelete" tabindex="-1" role="dialog"
+               aria-labelledby="modalDelete"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Delete</h4>
+                  <button type="button" class="close text-danger" (click)="modalDelete.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <p class="text-center h4">Are you sure to delete selected row?</p>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                  <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal" mdbWavesEffect
+                          (click)="modalRemove(modalDelete)">
+                    Yes
+                  </button>
+                  <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal" mdbWavesEffect
+                          (click)="modalDelete.hide()">
+                    No
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-danger btn-sm btn-rounded buttonDelete" [disabled]="!highlightedRow" (click)="modalDelete.show()"
+                    data-target="#modalDelete">Delete<i class="fas fa-times ml-1"></i></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 mx-auto my-5">
+
+            <div class="row w-100 d-flex justify-content-between mx-auto">
+              <div class="col-md-3 my-3 d-flex align-items-center">
+                <span class="font-weight-bolder">Show</span>
+
+                <select class="browser-default custom-select mx-2" [(ngModel)]="visibleItems"
+                        (ngModelChange)="visibleItems = +$event" style="width: unset;">
+                  <option value="10" selected>10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+
+                <span class="font-weight-bolder">Entries</span>
+              </div>
+
+              <div class="col-md-6 my-3 text-right d-flex justify-content-between align-items-center">
+                <label class="font-weight-bolder mb-0">Search: </label>
+                <input type="search" class="form-control form-control-sm ml-2"[(ngModel)]="searchText">
+              </div>
+            </div>
+            <table mdbTableEditor class="table table-striped z-depth-1" [itemsPerPage]="visibleItems" #table="mdbEditor" (rowHighlight)="highlightedRow = $event">
+              <thead>
+              <tr>
+                <th
+                  *ngFor="let head of headElements; let i = index"
+                  scope="col"
+
+                >{{head}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of table.performSearch(this.searchText); let i = index">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.position}}</td>
+                <td>{{item.office}}</td>
+                <td>{{item.age}}</td>
+                <td>{{item.start_date}}</td>
+                <td>{{item.salary}}</td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <td colspan="7">
+                  <div class="d-flex flex-center">
+                    <span>Showing {{table.paginationInfo.firstItem}} to {{table.paginationInfo.lastItem}} of {{table.paginationInfo.allItems}} entries</span>
+                    <div class="flex-1"></div>
+                    <mdb-icon fas icon="angle-left" size="lg" (click)="table.prevPage()" class="p-2"
+                              [ngClass]="{'disabled text-muted': table.disablePrevious()}" mdbWavesEffect></mdb-icon>
+                    <mdb-icon fas icon="angle-right" size="lg" (click)="table.nextPage()" class="p-2"
+                              [ngClass]="{'disabled text-muted': table.disableNext()}" mdbWavesEffect></mdb-icon>
+                  </div>
+                </td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import { Component, ViewChild, } from '@angular/core';
+        import {HttpClient} from "@angular/common/http";
+        import {MdbTableEditorDirective} from "mdb-table-editor";
+
+        @Component({
+          selector: 'app-basic-table-editor',
+          templateUrl: './basic-table-editor.component.html',
+          styleUrls: ['./basic-table-editor.component.scss']
+        })
+        export class BasicTableEditorComponent {
+          @ViewChild('table') mdbTableEditor: MdbTableEditorDirective;
+            headElements = ['ID', 'Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'];
+            visibleItems: number = 10;
+            searchText: string = '';
+            highlightedRow: any = null;
+
+          constructor(private http: HttpClient) {
+            this.http.get('http://www.json-generator.com/api/json/get/cfDQtoFAde?indent=2').subscribe((data: any) => {
+              data.forEach((el: any, index: number) => {
+              el.id = index + 1;
+            });
+              this.mdbTableEditor.dataArray = data;
+            });
+          }
+
+          addModalForm(form: any, modalInstance: any) {
+            const values: any = {
+              id: this.mdbTableEditor.dataArray[this.mdbTableEditor.dataArray.length - 1]['id'] + 1,
+              name: form[0].value,
+              position: form[1].value,
+              office: form[2].value,
+              age: form[3].value,
+              start_date: form[4].value,
+              salary: form[5].value
+            };
+            this.mdbTableEditor.dataArray.push(values);
+            this.mdbTableEditor.iterableDataArray.push(values);
+            this.mdbTableEditor.updatePaginationInfo();
+            modalInstance.hide();
+          }
+
+          editModalForm(form: any, modalInstance: any) {
+            const userDataRowIndex = this.mdbTableEditor.dataArray.findIndex((el: any) => el.name === this.highlightedRow.name);
+            const values: any = {
+              id: userDataRowIndex + 1,
+              name: form[0].value,
+              position: form[1].value,
+              office: form[2].value,
+              age: form[3].value,
+              start_date: form[4].value,
+              salary: form[5].value
+            };
+            this.mdbTableEditor.dataArray[userDataRowIndex] = values;
+            this.mdbTableEditor.iterableDataArray[userDataRowIndex] = values;
+            this.mdbTableEditor.iterableDataArray[userDataRowIndex] = values;
+            modalInstance.hide();
+          }
+
+          modalRemove(modalInstance: any) {
+            const rowIndex = this.mdbTableEditor.dataArray.findIndex((el: any) => el == this.highlightedRow);
+            this.mdbTableEditor.dataArray.splice(rowIndex, 1);
+            this.mdbTableEditor.iterableDataArray.splice(rowIndex, 1);
+            this.mdbTableEditor.updatePaginationInfo();
+            modalInstance.hide();
+          }
+        }
+
+      </code>
+
+      <code data-lang="css" data-name="SCSS">
+        .tr-color-selected{
+          background-color: hsla(196, 77%, 55%, 0.3) !important;
+          transition: all .2s ease-in;
+        }
+        td {
+          vertical-align: middle !important;
+        }
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--/Section: -->
+
+</section>
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="r-editor">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Row Editor
+  </h2>
+
+  <!-- Description -->
+  <p>This version of the Editor allows you to add, edit and remove rows by activating an edition mode.</p>
+  <p>All operations are carried out directly in a row.</p>
+
+  <hr class="mt-4">
+
+  <!--Subheading-->
+  <h4 id="how-r" class="mb-4"><strong>How row editor works</strong></h4>
+
+  <p>Row editor is working corectly when <code>table</code> element has an <code>mdbTableEditor</code> directive on
+    it.</p>
+  <p>It is also required, to set the <code>[itemsPerPage]</code> input, and the export identificator <code>#your-template-id="mdbEditor"</code>.
+  </p>
+  <p>The last thing that is required for the table to work properly is to use the emitted event <code>(rowHighlight)</code> to assign
+    a highlighted table row (this is used when editing or deleting rows).</p>
+  <p>Row editor has been designed to make it possible to edit individual rows of the table.
+    To do this, you must have variables that check if the table is in edit mode - <code>isTableEditable</code>,
+    if the icons for accepting editing or deleting are visible - <code>visibleEditIcons</code> and if the row of the
+    table matches the identifier of this row - <code>rowIndex</code>.</p>
+
+  <p>Everything what you need is a code below a table.</p>
+
+  <hr class="mt-4 mb-5">
+
+  <!--Section: Live preview-->
+  <section class="p-1">
+
+    <div class="wrapper-editor">
+
+      <div class="d-flex justify-content-center buttons-wrapper">
+        <button id="" class="btn btn-sm btn-teal btn-rounded addNewColumn">Activate edits</button>
+        <button id="" class="btn btn-sm btn-mdb-color btn-rounded removeColumns" disabled>Deactivate edits</button>
+        <button id="" class="btn btn-sm btn-info btn-rounded addNewRows">Add new rows</button>
+      </div>
+
+      <div class="closeByClick d-none"></div>
+
+      <div class="showForm d-none"
+           style="position: fixed; top: 20%; left:50%; transform: translate(-50%, -50%); z-index: 1100;">
+
+        <form class="text-center border border-light p-5" style="background: white;">
+
+          <button type="button" class="close position-relative button-x" style="top:-12%; right: -5%">
+            <span aria-hidden="true" class="text-danger">×</span>
+          </button>
+
+          <h3 class="h3 my-3 text-danger font-weight-bold">Delete</h3>
+
+          <hr class="mt-2 mb-3">
+
+          <p class="text-center h5 py-2 pb-3">Are you sure to delete selected rows?</p>
+
+          <hr class="mt-2 mb-3">
+
+          <div class="d-flex justify-content-center buttonYesNoWrapper">
+            <button type="button" class="btn btn-danger btnYes btn-sm">Yes</button>
+            <button type="button" class="btn btn-primary btnNo btn-sm">No</button>
+          </div>
+        </form>
+
+      </div>
+
+      <table id="dtBasicExample-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+          <th class="th-sm">Name
+
+          </th>
+          <th class="th-sm">Position
+
+          </th>
+          <th class="th-sm">Office
+
+          </th>
+          <th class="th-sm">Age
+
+          </th>
+          <th class="th-sm">Start date
+
+          </th>
+          <th class="th-sm">Salary
+
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td>$320,800</td>
+        </tr>
+        <tr>
+          <td>Garrett Winters</td>
+          <td>Accountant</td>
+          <td>Tokyo</td>
+          <td>63</td>
+          <td>2011/07/25</td>
+          <td>$170,750</td>
+        </tr>
+        <tr>
+          <td>Ashton Cox</td>
+          <td>Junior Technical Author</td>
+          <td>San Francisco</td>
+          <td>66</td>
+          <td>2009/01/12</td>
+          <td>$86,000</td>
+        </tr>
+        <tr>
+          <td>Cedric Kelly</td>
+          <td>Senior Javascript Developer</td>
+          <td>Edinburgh</td>
+          <td>22</td>
+          <td>2012/03/29</td>
+          <td>$433,060</td>
+        </tr>
+        <tr>
+          <td>Airi Satou</td>
+          <td>Accountant</td>
+          <td>Tokyo</td>
+          <td>33</td>
+          <td>2008/11/28</td>
+          <td>$162,700</td>
+        </tr>
+        <tr>
+          <td>Brielle Williamson</td>
+          <td>Integration Specialist</td>
+          <td>New York</td>
+          <td>61</td>
+          <td>2012/12/02</td>
+          <td>$372,000</td>
+        </tr>
+        <tr>
+          <td>Herrod Chandler</td>
+          <td>Sales Assistant</td>
+          <td>San Francisco</td>
+          <td>59</td>
+          <td>2012/08/06</td>
+          <td>$137,500</td>
+        </tr>
+        <tr>
+          <td>Rhona Davidson</td>
+          <td>Integration Specialist</td>
+          <td>Tokyo</td>
+          <td>55</td>
+          <td>2010/10/14</td>
+          <td>$327,900</td>
+        </tr>
+        <tr>
+          <td>Colleen Hurst</td>
+          <td>Javascript Developer</td>
+          <td>San Francisco</td>
+          <td>39</td>
+          <td>2009/09/15</td>
+          <td>$205,500</td>
+        </tr>
+        <tr>
+          <td>Sonya Frost</td>
+          <td>Software Engineer</td>
+          <td>Edinburgh</td>
+          <td>23</td>
+          <td>2008/12/13</td>
+          <td>$103,600</td>
+        </tr>
+        <tr>
+          <td>Jena Gaines</td>
+          <td>Office Manager</td>
+          <td>London</td>
+          <td>30</td>
+          <td>2008/12/19</td>
+          <td>$90,560</td>
+        </tr>
+        <tr>
+          <td>Quinn Flynn</td>
+          <td>Support Lead</td>
+          <td>Edinburgh</td>
+          <td>22</td>
+          <td>2013/03/03</td>
+          <td>$342,000</td>
+        </tr>
+        <tr>
+          <td>Charde Marshall</td>
+          <td>Regional Director</td>
+          <td>San Francisco</td>
+          <td>36</td>
+          <td>2008/10/16</td>
+          <td>$470,600</td>
+        </tr>
+        <tr>
+          <td>Haley Kennedy</td>
+          <td>Senior Marketing Designer</td>
+          <td>London</td>
+          <td>43</td>
+          <td>2012/12/18</td>
+          <td>$313,500</td>
+        </tr>
+        <tr>
+          <td>Tatyana Fitzpatrick</td>
+          <td>Regional Director</td>
+          <td>London</td>
+          <td>19</td>
+          <td>2010/03/17</td>
+          <td>$385,750</td>
+        </tr>
+        <tr>
+          <td>Michael Silva</td>
+          <td>Marketing Designer</td>
+          <td>London</td>
+          <td>66</td>
+          <td>2012/11/27</td>
+          <td>$198,500</td>
+        </tr>
+        <tr>
+          <td>Paul Byrd</td>
+          <td>Chief Financial Officer (CFO)</td>
+          <td>New York</td>
+          <td>64</td>
+          <td>2010/06/09</td>
+          <td>$725,000</td>
+        </tr>
+        <tr>
+          <td>Gloria Little</td>
+          <td>Systems Administrator</td>
+          <td>New York</td>
+          <td>59</td>
+          <td>2009/04/10</td>
+          <td>$237,500</td>
+        </tr>
+        <tr>
+          <td>Bradley Greer</td>
+          <td>Software Engineer</td>
+          <td>London</td>
+          <td>41</td>
+          <td>2012/10/13</td>
+          <td>$132,000</td>
+        </tr>
+        <tr>
+          <td>Dai Rios</td>
+          <td>Personnel Lead</td>
+          <td>Edinburgh</td>
+          <td>35</td>
+          <td>2012/09/26</td>
+          <td>$217,500</td>
+        </tr>
+        <tr>
+          <td>Jenette Caldwell</td>
+          <td>Development Lead</td>
+          <td>New York</td>
+          <td>30</td>
+          <td>2011/09/03</td>
+          <td>$345,000</td>
+        </tr>
+        <tr>
+          <td>Yuri Berry</td>
+          <td>Chief Marketing Officer (CMO)</td>
+          <td>New York</td>
+          <td>40</td>
+          <td>2009/06/25</td>
+          <td>$675,000</td>
+        </tr>
+        <tr>
+          <td>Caesar Vance</td>
+          <td>Pre-Sales Support</td>
+          <td>New York</td>
+          <td>21</td>
+          <td>2011/12/12</td>
+          <td>$106,450</td>
+        </tr>
+        <tr>
+          <td>Doris Wilder</td>
+          <td>Sales Assistant</td>
+          <td>Sidney</td>
+          <td>23</td>
+          <td>2010/09/20</td>
+          <td>$85,600</td>
+        </tr>
+        <tr>
+          <td>Angelica Ramos</td>
+          <td>Chief Executive Officer (CEO)</td>
+          <td>London</td>
+          <td>47</td>
+          <td>2009/10/09</td>
+          <td>$1,200,000</td>
+        </tr>
+        <tr>
+          <td>Gavin Joyce</td>
+          <td>Developer</td>
+          <td>Edinburgh</td>
+          <td>42</td>
+          <td>2010/12/22</td>
+          <td>$92,575</td>
+        </tr>
+        <tr>
+          <td>Jennifer Chang</td>
+          <td>Regional Director</td>
+          <td>Singapore</td>
+          <td>28</td>
+          <td>2010/11/14</td>
+          <td>$357,650</td>
+        </tr>
+        <tr>
+          <td>Brenden Wagner</td>
+          <td>Software Engineer</td>
+          <td>San Francisco</td>
+          <td>28</td>
+          <td>2011/06/07</td>
+          <td>$206,850</td>
+        </tr>
+        <tr>
+          <td>Fiona Green</td>
+          <td>Chief Operating Officer (COO)</td>
+          <td>San Francisco</td>
+          <td>48</td>
+          <td>2010/03/11</td>
+          <td>$850,000</td>
+        </tr>
+        <tr>
+          <td>Shou Itou</td>
+          <td>Regional Marketing</td>
+          <td>Tokyo</td>
+          <td>20</td>
+          <td>2011/08/14</td>
+          <td>$163,000</td>
+        </tr>
+        <tr>
+          <td>Michelle House</td>
+          <td>Integration Specialist</td>
+          <td>Sidney</td>
+          <td>37</td>
+          <td>2011/06/02</td>
+          <td>$95,400</td>
+        </tr>
+        <tr>
+          <td>Suki Burks</td>
+          <td>Developer</td>
+          <td>London</td>
+          <td>53</td>
+          <td>2009/10/22</td>
+          <td>$114,500</td>
+        </tr>
+        <tr>
+          <td>Prescott Bartlett</td>
+          <td>Technical Author</td>
+          <td>London</td>
+          <td>27</td>
+          <td>2011/05/07</td>
+          <td>$145,000</td>
+        </tr>
+        <tr>
+          <td>Gavin Cortez</td>
+          <td>Team Leader</td>
+          <td>San Francisco</td>
+          <td>22</td>
+          <td>2008/10/26</td>
+          <td>$235,500</td>
+        </tr>
+        <tr>
+          <td>Martena Mccray</td>
+          <td>Post-Sales support</td>
+          <td>Edinburgh</td>
+          <td>46</td>
+          <td>2011/03/09</td>
+          <td>$324,050</td>
+        </tr>
+        <tr>
+          <td>Unity Butler</td>
+          <td>Marketing Designer</td>
+          <td>San Francisco</td>
+          <td>47</td>
+          <td>2009/12/09</td>
+          <td>$85,675</td>
+        </tr>
+        <tr>
+          <td>Howard Hatfield</td>
+          <td>Office Manager</td>
+          <td>San Francisco</td>
+          <td>51</td>
+          <td>2008/12/16</td>
+          <td>$164,500</td>
+        </tr>
+        <tr>
+          <td>Hope Fuentes</td>
+          <td>Secretary</td>
+          <td>San Francisco</td>
+          <td>41</td>
+          <td>2010/02/12</td>
+          <td>$109,850</td>
+        </tr>
+        <tr>
+          <td>Vivian Harrell</td>
+          <td>Financial Controller</td>
+          <td>San Francisco</td>
+          <td>62</td>
+          <td>2009/02/14</td>
+          <td>$452,500</td>
+        </tr>
+        <tr>
+          <td>Timothy Mooney</td>
+          <td>Office Manager</td>
+          <td>London</td>
+          <td>37</td>
+          <td>2008/12/11</td>
+          <td>$136,200</td>
+        </tr>
+        <tr>
+          <td>Jackson Bradshaw</td>
+          <td>Director</td>
+          <td>New York</td>
+          <td>65</td>
+          <td>2008/09/26</td>
+          <td>$645,750</td>
+        </tr>
+        <tr>
+          <td>Olivia Liang</td>
+          <td>Support Engineer</td>
+          <td>Singapore</td>
+          <td>64</td>
+          <td>2011/02/03</td>
+          <td>$234,500</td>
+        </tr>
+        <tr>
+          <td>Bruno Nash</td>
+          <td>Software Engineer</td>
+          <td>London</td>
+          <td>38</td>
+          <td>2011/05/03</td>
+          <td>$163,500</td>
+        </tr>
+        <tr>
+          <td>Sakura Yamamoto</td>
+          <td>Support Engineer</td>
+          <td>Tokyo</td>
+          <td>37</td>
+          <td>2009/08/19</td>
+          <td>$139,575</td>
+        </tr>
+        <tr>
+          <td>Thor Walton</td>
+          <td>Developer</td>
+          <td>New York</td>
+          <td>61</td>
+          <td>2013/08/11</td>
+          <td>$98,540</td>
+        </tr>
+        <tr>
+          <td>Finn Camacho</td>
+          <td>Support Engineer</td>
+          <td>San Francisco</td>
+          <td>47</td>
+          <td>2009/07/07</td>
+          <td>$87,500</td>
+        </tr>
+        <tr>
+          <td>Serge Baldwin</td>
+          <td>Data Coordinator</td>
+          <td>Singapore</td>
+          <td>64</td>
+          <td>2012/04/09</td>
+          <td>$138,575</td>
+        </tr>
+        <tr>
+          <td>Zenaida Frank</td>
+          <td>Software Engineer</td>
+          <td>New York</td>
+          <td>63</td>
+          <td>2010/01/04</td>
+          <td>$125,250</td>
+        </tr>
+        <tr>
+          <td>Zorita Serrano</td>
+          <td>Software Engineer</td>
+          <td>San Francisco</td>
+          <td>56</td>
+          <td>2012/06/01</td>
+          <td>$115,000</td>
+        </tr>
+        <tr>
+          <td>Jennifer Acosta</td>
+          <td>Junior Javascript Developer</td>
+          <td>Edinburgh</td>
+          <td>43</td>
+          <td>2013/02/01</td>
+          <td>$75,650</td>
+        </tr>
+        <tr>
+          <td>Cara Stevens</td>
+          <td>Sales Assistant</td>
+          <td>New York</td>
+          <td>46</td>
+          <td>2011/12/06</td>
+          <td>$145,600</td>
+        </tr>
+        <tr>
+          <td>Hermione Butler</td>
+          <td>Regional Director</td>
+          <td>London</td>
+          <td>47</td>
+          <td>2011/03/21</td>
+          <td>$356,250</td>
+        </tr>
+        <tr>
+          <td>Lael Greer</td>
+          <td>Systems Administrator</td>
+          <td>London</td>
+          <td>21</td>
+          <td>2009/02/27</td>
+          <td>$103,500</td>
+        </tr>
+        <tr>
+          <td>Jonas Alexander</td>
+          <td>Developer</td>
+          <td>San Francisco</td>
+          <td>30</td>
+          <td>2010/07/14</td>
+          <td>$86,500</td>
+        </tr>
+        <tr>
+          <td>Shad Decker</td>
+          <td>Regional Director</td>
+          <td>Edinburgh</td>
+          <td>51</td>
+          <td>2008/11/13</td>
+          <td>$183,000</td>
+        </tr>
+        <tr>
+          <td>Michael Bruce</td>
+          <td>Javascript Developer</td>
+          <td>Singapore</td>
+          <td>29</td>
+          <td>2011/06/27</td>
+          <td>$183,000</td>
+        </tr>
+        <tr>
+          <td>Donna Snider</td>
+          <td>Customer Support</td>
+          <td>New York</td>
+          <td>27</td>
+          <td>2011/01/25</td>
+          <td>$112,000</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th>Name
+          </th>
+          <th>Position
+          </th>
+          <th>Office
+          </th>
+          <th>Age
+          </th>
+          <th>Start date
+          </th>
+          <th>Salary
+          </th>
+        </tr>
+        </tfoot>
+      </table>
+
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+        <div class="row d-flex justify-content-center modalWrapper mt-5">
+
+          <button mdbBtn color="teal" size="sm" rounded="true"  mdbWavesEffect (click)="isTableEditable = true"> Activate edits</button>
+          <button mdbBtn color="mdb-color" size="sm" rounded="true" [disabled]="!isTableEditable" (click)="isTableEditable = false"  mdbWavesEffect> Deactivate edits</button>
+          <button mdbBtn color="info" size="sm" rounded="true"  mdbWavesEffect (click)="addBlankRow()"> Add new rows</button>
+
+
+          <div mdbModal #modalDelete="mdbModal" class="modal fade" id="modalDelete" tabindex="-1" role="dialog"
+               aria-labelledby="modalDelete"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Delete</h4>
+                  <button type="button" class="close text-danger" (click)="modalDelete.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <p class="text-center h4">Are you sure to delete selected row?</p>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                  <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal" mdbWavesEffect
+                          (click)="modalRemove(modalDelete)">
+                    Yes
+                  </button>
+                  <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal" mdbWavesEffect
+                          (click)="modalDelete.hide()">
+                    No
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 mx-auto my-5">
+
+            <div class="row w-100 d-flex justify-content-between mx-auto">
+              <div class="col-md-3 my-3 d-flex align-items-center">
+                <span class="font-weight-bolder">Show</span>
+
+                <select class="browser-default custom-select mx-2" [(ngModel)]="visibleItems"
+                        (ngModelChange)="visibleItems = +$event" style="width: unset;">
+                  <option value="10" selected>10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+
+                <span class="font-weight-bolder">Entries</span>
+              </div>
+
+              <div class="col-md-6 my-3 text-right d-flex justify-content-between align-items-center">
+                <label class="font-weight-bolder mb-0">Search: </label>
+                <input type="search" class="form-control form-control-sm ml-2"[(ngModel)]="searchText">
+              </div>
+            </div>
+            <table mdbTableEditor class="table table-striped z-depth-1" [itemsPerPage]="visibleItems" #table="mdbEditor" (rowHighlight)="highlightedRow = $event">
+              <thead>
+              <tr>
+                <th *ngFor="let head of headElements" scope="col" >{{head}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of table.performSearch(this.searchText); let i = index" #tableRow>
+                <td>{{item.id}} </td>
+                <td>
+                  <ng-container *ngIf="i !== rowIndex">
+                    {{item.name}}
+                  </ng-container>
+                  <ng-container *ngIf="i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.name">
+                  </ng-container>
+                </td>
+                <td>
+                  <ng-container *ngIf="i !== rowIndex">
+                    {{item.position}}
+                  </ng-container>
+                  <ng-container *ngIf="i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.position">
+                  </ng-container>
+                </td>
+                <td>
+                  <ng-container *ngIf="i !== rowIndex">
+                    {{item.office}}
+                  </ng-container>
+                  <ng-container *ngIf="i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.office">
+                  </ng-container>
+                </td>
+                <td>
+                  <ng-container *ngIf="i !== rowIndex">
+                    {{item.age}}
+                  </ng-container>
+                  <ng-container *ngIf="i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.age">
+                  </ng-container>
+                </td>
+                <td>
+                  <ng-container *ngIf="i !== rowIndex">
+                    {{item.start_date}}
+                  </ng-container>
+                  <ng-container *ngIf="i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.start_date">
+                  </ng-container>
+                </td>
+                <td>
+                  <ng-container *ngIf="i !== rowIndex">
+                    {{item.salary}}
+                  </ng-container>
+                  <ng-container *ngIf="i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.salary">
+                  </ng-container>
+                </td>
+                <td *ngIf="isTableEditable">
+                  <div class="d-flex flex-column flex-center">
+                    <button mdbBtn color="teal" size="sm" mdbWavesEffect (click)="showEditIcons(i)">
+                      <mdb-icon far icon="edit"></mdb-icon>
+                    </button>
+                    <div *ngIf="visibleEditIcons && i == rowIndex" class="d-flex flex-center">
+                      <button mdbBtn color="primary" size="sm" mdbWavesEffect (click)="approveEdit(tableRow)">
+                        <mdb-icon fas icon="check"></mdb-icon>
+                      </button>
+                      <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="modalDelete.show()">
+                        <mdb-icon far icon="trash-alt"></mdb-icon>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <td colspan="8">
+                  <div class="d-flex flex-center">
+                    <span>Showing {{table.paginationInfo.firstItem}} to {{table.paginationInfo.lastItem}} of {{table.paginationInfo.allItems}} entries</span>
+                    <div class="flex-1"></div>
+                    <mdb-icon fas icon="angle-left" size="lg" (click)="table.prevPage()" class="p-2"
+                              [ngClass]="{'disabled text-muted': table.disablePrevious()}" mdbWavesEffect></mdb-icon>
+                    <mdb-icon fas icon="angle-right" size="lg" (click)="table.nextPage()" class="p-2"
+                              [ngClass]="{'disabled text-muted': table.disableNext()}" mdbWavesEffect></mdb-icon>
+                  </div>
+                </td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import {Component, ViewChild} from '@angular/core';
+        import {MdbTableEditorDirective} from "mdb-table-editor";
+        import {HttpClient} from "@angular/common/http";
+
+        @Component({
+          selector: 'app-row-table-editor',
+          templateUrl: './row-table-editor.component.html',
+          styleUrls: ['./row-table-editor.component.scss']
+        })
+        export class RowTableEditorComponent {
+          @ViewChild('table') mdbTableEditor: MdbTableEditorDirective;
+          headElements = ['ID', 'Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'];
+          visibleItems: number = 10;
+          searchText: string = '';
+          highlightedRow: any = null;
+
+          rowIndex: any = null;
+          isTableEditable: boolean = false;
+          visibleEditIcons: boolean = false;
+          isRowEditable: boolean = false;
+
+          constructor(
+          private http: HttpClient) {
+
+            this.http.get('http://www.json-generator.com/api/json/get/cfDQtoFAde?indent=2').subscribe((data: any) => {
+              data.forEach((el: any, index: number) => {
+                el.id = index + 1;
+              });
+              this.mdbTableEditor.dataArray = data;
+            });
+          }
+
+          modalRemove(modalInstance: any) {
+            const rowIndex = this.mdbTableEditor.dataArray.findIndex((el: any) => el == this.highlightedRow);
+            this.mdbTableEditor.dataArray.splice(rowIndex, 1);
+            this.mdbTableEditor.iterableDataArray.splice(rowIndex, 1);
+            this.mdbTableEditor.updatePaginationInfo();
+            this.visibleEditIcons = false;
+            this.rowIndex = null;
+            modalInstance.hide();
+          }
+
+          showEditIcons(index: number) {
+            this.rowIndex = index;
+            this.visibleEditIcons = true;
+            this.isRowEditable = true;
+          }
+
+          approveEdit(row: any) {
+            const userDataRowIndex = this.mdbTableEditor.dataArray.findIndex((el: any) => el.name === this.highlightedRow.name);
+            let values: any = {
+              id: (row.childNodes[0].textContent.trim()),
+              name: '',
+              position: '',
+              office: '',
+              age: '',
+              start_date: '',
+              salary: '',
+            };
+            row.childNodes.forEach((el: any, index: number) => {
+              if (index > 0  && index <= row.childNodes.length - 2) {
+                if (el.firstElementChild) {
+                  values[Object.keys(values)[index]] = el.firstElementChild.value;
+                }
+              };
+            });
+            this.mdbTableEditor.dataArray[userDataRowIndex] = values;
+            this.mdbTableEditor.iterableDataArray[userDataRowIndex] = values;
+            this.visibleEditIcons = false;
+            this.isRowEditable = false;
+            this.rowIndex = null;
+          }
+
+          addBlankRow() {
+            this.mdbTableEditor.dataArray.push({
+              id: this.mdbTableEditor.dataArray[this.mdbTableEditor.dataArray.length - 1]['id'] + 1,
+            });
+            this.mdbTableEditor.updatePaginationInfo();
+          }
+
+        }
+      </code>
+
+      <code data-lang="css" data-name="SCSS">
+        .tr-color-selected{
+          background-color: hsla(196, 77%, 55%, 0.3) !important;
+          transition: all .2s ease-in;
+        }
+        td {
+          vertical-align: middle !important;
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="content-editor">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Content Editor
+  </h2>
+
+  <!-- Description -->
+  <p>Content editor has a special featuers that if you click on each table data it becomes editable. </p>
+  <p>Content editor is working corectly when <code>table</code> element has an <code>mdbTableEditor</code> directive on
+    it.</p>
+  <p>It is also required, to set the <code>[itemsPerPage]</code> input, and the export identificator <code>#your-template-id="mdbEditor"</code>.
+  </p>
+  <p>The last thing that is required for the table to work properly is to use the emitted event <code>(rowHighlight)</code> to assign
+    a highlighted table row (this is used when editing or deleting rows).</p>
+  <p>Content editor has been designed to make it possible to edit cell of each rows of the table.
+    To do this, you must have variables that check if the table is in edit mode - <code>isTableEditable</code>,
+    if specified table row cell is in editable mode - <code>showNameInput, showPositionInput, showOfficeInput, showAgeInput, showStartDateInput, showSalaryInput</code>.</p>
+  <p>Also you need the variable for checking if the row of the table matches the identifier of this row - <code>rowIndex</code>.</p>
+  <p>Necessary methods are: <code>editTableData('cellNameVariable', row's index), onInputBlur('cellNameVariable', $event,
+    #table-identificator)</code>.</p>
+
+  <hr class="mt-4 mb-5">
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="wrapper-editor">
+
+      <div class="d-flex justify-content-center buttons-wrapper my-3">
+        <button class="btn btn-rounded text-white blue darken-3 btn-sm add-content-edit" type="button"><i
+          class="fas fa-toggle-off"></i></button>
+        <button class=" btn btn-rounded text-white purple
+                lighten-2 btn-sm add-new-row" type="button">
+          <i class="fas fa-plus"></i></button>
+        <button class="btn btn-rounded text-white red btn-sm remove-first-tr" type="button"><i
+          class="fas fa-eraser"></i></button>
+      </div>
+
+      <table id="contentEx" class="table table-striped display" cellspacing=" 0" width="100%">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Position</th>
+          <th>Office</th>
+          <th>Extn.</th>
+          <th>Start date</th>
+          <th>Salary</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+          <th>Name</th>
+          <th>Position</th>
+          <th>Office</th>
+          <th>Extn.</th>
+          <th>Start date</th>
+          <th>Salary</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+        <div class="row d-flex justify-content-center modalWrapper mt-5">
+
+          <div mdbModal #modalAdd="mdbModal" class="modal fade addNewInputs" id="modalAdd" tabindex="-1" role="dialog"
+               aria-labelledby="modalAdd"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new form</h4>
+                  <button type="button" class="close text-primary" (click)="modalAdd.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <form #addForm>
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputName" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputName">Name</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputPosition" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputPosition">Position</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputOfficeInput" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputOfficeInput">Office</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputAge" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputAge">Age</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="date" id="inputDate" class="form-control" placeholder="Select Date" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputDate"></label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputSalary" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputSalary">Salary</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+                  <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal"
+                          (click)="addModalForm(addForm, modalAdd)">Add form
+                    <i class="fas fa-paper-plane-o ml-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button mdbBtn color="blue" class="darken-3" size="sm" rounded="true"  mdbWavesEffect (click)="isTableEditable = !isTableEditable">
+            <mdb-icon fas [icon]="isTableEditable ? 'toggle-on' : 'toggle-off'"></mdb-icon>
+          </button>
+          <button mdbBtn color="secondary" size="sm" rounded="true" (click)="modalAdd.show()" mdbWavesEffect>
+            <mdb-icon fas icon="plus"></mdb-icon>
+          </button>
+          <button mdbBtn color="red" size="sm" rounded="true"  mdbWavesEffect (click)="removeRow()">
+            <mdb-icon fas icon="eraser"></mdb-icon>
+          </button>
+
+
+          <div mdbModal #modalDelete="mdbModal" class="modal fade" id="modalDelete" tabindex="-1" role="dialog"
+               aria-labelledby="modalDelete"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Delete</h4>
+                  <button type="button" class="close text-danger" (click)="modalDelete.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <p class="text-center h4">Are you sure to delete selected row?</p>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                  <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal" mdbWavesEffect
+                          (click)="removeRow()">
+                    Yes
+                  </button>
+                  <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal" mdbWavesEffect
+                          (click)="modalDelete.hide()">
+                    No
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 mx-auto my-5">
+
+            <div class="row w-100 d-flex justify-content-between mx-auto">
+              <div class="col-md-3 my-3 d-flex align-items-center">
+                <span class="font-weight-bolder">Show</span>
+
+                <select class="browser-default custom-select mx-2" [(ngModel)]="visibleItems"
+                        (ngModelChange)="visibleItems = +$event" style="width: unset;">
+                  <option value="10" selected>10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+
+                <span class="font-weight-bolder">Entries</span>
+              </div>
+
+              <div class="col-md-6 my-3 text-right d-flex justify-content-between align-items-center">
+                <label class="font-weight-bolder mb-0">Search: </label>
+                <input type="search" class="form-control form-control-sm ml-2"[(ngModel)]="searchText">
+              </div>
+            </div>
+            <table mdbTableEditor class="table table-striped z-depth-1" [itemsPerPage]="visibleItems" #table="mdbEditor" (rowHighlight)="highlightedRow = $event">
+              <thead>
+              <tr>
+                <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of table.performSearch(this.searchText); let i = index" #tableRow>
+                <td>{{item.id}} </td>
+                <td (click)="editTableData('showNameInput', i)">
+                  <ng-container *ngIf="!isTableEditable || !showNameInput || i !== rowIndex">
+                    {{item.name}}
+                  </ng-container>
+                  <ng-container *ngIf="isTableEditable && showNameInput && i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.name" (blur)="onInputBlur('showNameInput', $event, tableRow)">
+                  </ng-container>
+                </td>
+                <td  (click)="editTableData('showPositionInput', i)">
+                  <ng-container *ngIf="!isTableEditable || !showPositionInput || i !== rowIndex">
+                    {{item.position}}
+                  </ng-container>
+                  <ng-container *ngIf="isTableEditable && showPositionInput && i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.position" (blur)="onInputBlur('showPositionInput', $event, tableRow)">
+                  </ng-container>
+                </td>
+                <td (click)="editTableData('showOfficeInput', i)">
+                  <ng-container *ngIf="!isTableEditable || !showOfficeInput || i !== rowIndex">
+                    {{item.office}}
+                  </ng-container>
+                  <ng-container *ngIf="isTableEditable && showOfficeInput && i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.office" (blur)="onInputBlur('showOfficeInput', $event, tableRow)">
+                  </ng-container>
+                </td>
+                <td (click)="editTableData('showAgeInput', i)">
+                  <ng-container *ngIf="!isTableEditable || !showAgeInput || i !== rowIndex">
+                    {{item.age}}
+                  </ng-container>
+                  <ng-container *ngIf="isTableEditable && showAgeInput && i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.age" (blur)="onInputBlur('showAgeInput', $event, tableRow)">
+                  </ng-container>
+                </td>
+                <td (click)="editTableData('showStartDateInput', i)">
+                  <ng-container *ngIf="!isTableEditable || !showStartDateInput || i !== rowIndex">
+                    {{item.start_date}}
+                  </ng-container>
+                  <ng-container *ngIf="isTableEditable && showStartDateInput && i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.start_date" (blur)="onInputBlur('showStartDateInput', $event, tableRow)">
+                  </ng-container>
+                </td>
+                <td (click)="editTableData('showSalaryInput', i)">
+                  <ng-container *ngIf="!isTableEditable || !showSalaryInput || i !== rowIndex">
+                    {{item.salary}}
+                  </ng-container>
+                  <ng-container *ngIf="isTableEditable && showSalaryInput && i == rowIndex">
+                    <input type="text" class="form-control" [value]="item.salary" (blur)="onInputBlur('showSalaryInput', $event, tableRow)">
+                  </ng-container>
+                </td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <td colspan="7">
+                  <div class="d-flex flex-center">
+                    <span>Showing {{table.paginationInfo.firstItem}} to {{table.paginationInfo.lastItem}} of {{table.paginationInfo.allItems}} entries</span>
+                    <div class="flex-1"></div>
+                    <mdb-icon fas icon="angle-left" size="lg" (click)="table.prevPage()" class="p-2"
+                              [ngClass]="{'disabled text-muted': table.disablePrevious()}" mdbWavesEffect></mdb-icon>
+                    <mdb-icon fas icon="angle-right" size="lg" (click)="table.nextPage()" class="p-2"
+                              [ngClass]="{'disabled text-muted': table.disableNext()}" mdbWavesEffect></mdb-icon>
+                  </div>
+                </td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+      </code>
+      <code data-lang="js" data-name="TS">
+
+        import {Component, ViewChild} from '@angular/core';
+        import {MdbTableEditorDirective} from "mdb-table-editor";
+        import {HttpClient} from "@angular/common/http";
+
+        @Component({
+          selector: 'app-content-table-editor',
+          templateUrl: './content-table-editor.component.html',
+          styleUrls: ['./content-table-editor.component.scss']
+        })
+        export class ContentTableEditorComponent {
+          @ViewChild('table') mdbTableEditor: MdbTableEditorDirective;
+          headElements = ['ID', 'Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'];
+          visibleItems: number = 10;
+          searchText: string = '';
+          highlightedRow: any = null;
+
+          rowIndex: any = null;
+          isTableEditable: boolean = false;
+          visibleEditIcons: boolean = false;
+
+          showNameInput: any = false;
+          showPositionInput: any = false;
+          showOfficeInput: any = false;
+          showAgeInput: any = false;
+          showStartDateInput: any = false;
+          showSalaryInput: any = false;
+
+          constructor(private http: HttpClient) {
+            this.http.get('http://www.json-generator.com/api/json/get/cfDQtoFAde?indent=2').subscribe((data: any) => {
+              data.forEach((el: any, index: number) => {
+                el.id = index + 1;
+              });
+              this.mdbTableEditor.dataArray = data;
+            });
+          }
+
+          removeRow() {
+          const rowIndex = this.mdbTableEditor.dataArray.findIndex((el: any) => el == this.highlightedRow);
+          this.mdbTableEditor.dataArray.splice(rowIndex, 1);
+          this.mdbTableEditor.iterableDataArray.splice(rowIndex, 1);
+          this.mdbTableEditor.updatePaginationInfo();
+          this.visibleEditIcons = false;
+          this.rowIndex = null;
+          }
+
+          editTableData(input: string, index: number) {
+            [
+            'showNameInput',
+            'showPositionInput',
+            'showOfficeInput',
+            'showAgeInput',
+            'showStartDateInput',
+            'showSalaryInput'
+            ].forEach((el: any) => {
+              if ((this as any)[el] == true) {
+                (this as any)[el] = false;
+              }
+            });
+            (this as any)[input] = true;
+            this.rowIndex = index;
+          }
+
+          onInputBlur(input: string, event: any, row: any) {
+            const userDataRowIndex = this.mdbTableEditor.dataArray.findIndex((el: any) => el.name === this.highlightedRow.name);
+            let values: any = {
+              id: (row.childNodes[0].textContent.trim()),
+              name: '',
+              position: '',
+              office: '',
+              age: '',
+              start_date: '',
+              salary: '',
+            };
+            row.childNodes.forEach((el: any, index: number) => {
+              if (el.firstElementChild) {
+                values[Object.keys(values)[index]] = event.target.value;
+              } else {
+                values[Object.keys(values)[index]] = el.textContent.trim()
+              }
+            });
+            this.mdbTableEditor.dataArray[userDataRowIndex] = values;
+            this.mdbTableEditor.iterableDataArray[userDataRowIndex] = values;
+            this.rowIndex = null;
+            (this as any)[input] = false;
+          }
+
+          addModalForm(form: any, modalInstance: any) {
+            const values: any = {
+              id: this.mdbTableEditor.dataArray[this.mdbTableEditor.dataArray.length - 1]['id'] + 1,
+              name: form[0].value,
+              position: form[1].value,
+              office: form[2].value,
+              age: form[3].value,
+              start_date: form[4].value,
+              salary: form[5].value
+            };
+            this.mdbTableEditor.dataArray.push(values);
+            this.mdbTableEditor.iterableDataArray.push(values);
+            this.mdbTableEditor.updatePaginationInfo();
+            modalInstance.hide();
+          }
+
+        }
+      </code>
+
+       <code data-lang="css" data-name="SCSS">
+         .tr-color-selected{
+           background-color: hsla(196, 77%, 55%, 0.3) !important;
+           transition: all .2s ease-in;
+         }
+         td {
+          vertical-align: middle !important;
+         }
+       </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="without-pagination-editor">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Table Editor without pagination
+  </h2>
+
+  <!-- Description -->
+  <p>Modal Table Editor without pagination. Use it when you don't need to have any pagination, because you have short set of table's data.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="row d-flex justify-content-center modalWrapper mt-5">
+          <div mdbModal #modalAdd="mdbModal" class="modal fade addNewInputs" id="modalAdd" tabindex="-1" role="dialog"
+               aria-labelledby="modalAdd"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new form</h4>
+                  <button type="button" class="close text-primary" (click)="modalAdd.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <form #addForm>
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputName" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputName">Name</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputPosition" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputPosition">Position</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputOfficeInput" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputOfficeInput">Office</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputAge" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputAge">Age</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="date" id="inputDate" class="form-control" placeholder="Select Date" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputDate"></label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputSalary" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputSalary">Salary</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+                  <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal"
+                          (click)="addModalForm(addForm, modalAdd)">Add form
+                    <i class="fas fa-paper-plane-o ml-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <a class="btn btn-info btn-rounded btn-sm" (click)="modalAdd.show()" data-target="#modalAdd" mdbWavesEffect>
+              Add <i class="fas fa-plus-square ml-1"></i></a>
+          </div>
+
+          <div mdbModal #modalEdit="mdbModal" class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit form</h4>
+                  <button type="button" class="close text-secondary" (click)="modalEdit.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <form #editForm>
+                    <div class="md-form mb-5">
+                      <input type="text" id="formNameEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.name : ''">
+                      <label data-error="wrong" data-success="right" for="formNameEdit">Name</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formPositionEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.position : ''">
+                      <label data-error="wrong" data-success="right" for="formPositionEdit">Position</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formOfficeEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.office : ''">
+                      <label data-error="wrong" data-success="right" for="formOfficeEdit">Office</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formAgeEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.age : ''">
+                      <label data-error="wrong" data-success="right" for="formAgeEdit">Age</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formDateEdit" class="form-control datepicker" mdbInput
+                             [value]="highlightedRow ? highlightedRow.start_date : ''">
+                      <label data-error="wrong" data-success="right" for="formDateEdit">Date</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formSalaryEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.salary : ''">
+                      <label data-error="wrong" data-success="right" for="formSalaryEdit">Salary</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                  <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal"
+                          (click)="editModalForm(editForm, modalEdit)">
+                    Edit form <i class="fas fa-paper-plane-o ml-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center buttonEditWrapper">
+            <button class="btn btn-info btn-rounded btn-sm buttonEdit" [disabled]="!highlightedRow"
+                    (click)="modalEdit.show()" data-target="#modalEdit">
+              Edit<i class="fas fa-pencil-square-o ml-1"></i></button>
+          </div>
+
+          <div mdbModal #modalDelete="mdbModal" class="modal fade" id="modalDelete" tabindex="-1" role="dialog"
+               aria-labelledby="modalDelete"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Delete</h4>
+                  <button type="button" class="close text-danger" (click)="modalDelete.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <p class="text-center h4">Are you sure to delete selected row?</p>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                  <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal" mdbWavesEffect
+                          (click)="modalRemove(modalDelete)">
+                    Yes
+                  </button>
+                  <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal" mdbWavesEffect
+                          (click)="modalDelete.hide()">
+                    No
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-danger btn-sm btn-rounded buttonDelete" [disabled]="!highlightedRow" (click)="modalDelete.show()"
+                    data-target="#modalDelete">Delete<i class="fas fa-times ml-1"></i></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 mx-auto my-5">
+
+            <div class="row w-100 d-flex justify-content-between mx-auto">
+
+              <div class="col-md-6 my-3 text-right d-flex justify-content-between align-items-center">
+                <label class="font-weight-bolder mb-0">Search: </label>
+                <input type="search" class="form-control form-control-sm ml-2" [(ngModel)]="searchText">
+              </div>
+            </div>
+            <table mdbTableEditor class="table table-striped z-depth-1" #table="mdbEditor" (rowHighlight)="highlightedRow = $event">
+              <thead>
+              <tr>
+                <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of table.performSearch(this.searchText)">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.position}}</td>
+                <td>{{item.office}}</td>
+                <td>{{item.age}}</td>
+                <td>{{item.start_date}}</td>
+                <td>{{item.salary}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </code>
+      <code data-lang="js" data-name="TS">
+
+        import {Component, ViewChild} from '@angular/core';
+        import {MdbTableEditorDirective} from "mdb-table-editor";
+
+        @Component({
+          selector: 'app-without-pagination-table-editor',
+          templateUrl: './without-pagination-table-editor.component.html',
+          styleUrls: ['./without-pagination-table-editor.component.scss']
+        })
+        export class WithoutPaginationTableEditorComponent {
+        @ViewChild('table') mdbTableEditor: MdbTableEditorDirective;
+        headElements = ['ID', 'Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'];
+        searchText: string = '';
+        highlightedRow: any = null;
+        dataArray: any[] = [];
+
+        ngOnInit() {
+          this.dataArray = [
+            {id: 1, name: 'John Wick', office: 'Brussel', age: 42, position: 'Technical Engineer', start_date: '02/26/2018', salary: 120000 },
+            {id: 2, name: 'Gabriellia Boyer', office: 'Ţafas', age: 80, position: 'Senior Financial Analyst', start_date: '06/08/2018', salary: 340000 },
+            {id: 3, name: 'Berkly Vaskin', office: 'Trảng Bom', age: 79, position: 'Graphic Designer', start_date: '02/26/2018', salary: 345122 },
+            {id: 4, name: 'Ronald Maddick', office: 'Garça', age: 42, position: 'Research Nurse', start_date: '03/15/2018', salary: 444444 },
+            {id: 5, name: 'Neysa Servante', office: 'Zomba', age: 22, position: 'Accountant IV', start_date: '07/12/2018', salary: 123456 },
+          ];
+          this.mdbTableEditor.dataArray = this.dataArray;
+        }
+
+        addModalForm(form: any, modalInstance: any) {
+          const values: any = {
+            id: this.mdbTableEditor.dataArray[this.mdbTableEditor.dataArray.length - 1]['id'] + 1,
+            name: form[0].value,
+            position: form[1].value,
+            office: form[2].value,
+            age: form[3].value,
+            start_date: form[4].value,
+            salary: form[5].value
+          };
+          this.mdbTableEditor.dataArray.push(values);
+          this.mdbTableEditor.iterableDataArray.push(values);
+          modalInstance.hide();
+        }
+
+        editModalForm(form: any, modalInstance: any) {
+          const userDataRowIndex = this.mdbTableEditor.dataArray.findIndex((el: any) => el.name === this.highlightedRow.name);
+          const values: any = {
+            id: userDataRowIndex + 1,
+            name: form[0].value,
+            position: form[1].value,
+            office: form[2].value,
+            age: form[3].value,
+            start_date: form[4].value,
+            salary: form[5].value
+          };
+          this.mdbTableEditor.dataArray[userDataRowIndex] = values;
+          this.mdbTableEditor.iterableDataArray[userDataRowIndex] = values;
+          modalInstance.hide();
+        }
+
+        modalRemove(modalInstance: any) {
+          const rowIndex = this.mdbTableEditor.dataArray.findIndex((el: any) => el == this.highlightedRow);
+          this.mdbTableEditor.dataArray.splice(rowIndex, 1);
+          this.mdbTableEditor.iterableDataArray.splice(rowIndex, 1);
+          modalInstance.hide();
+        }
+        }
+      </code>
+
+      <code data-lang="css" data-name="SCSS">
+        .tr-color-selected{
+          background-color: hsla(196, 77%, 55%, 0.3) !important;
+          transition: all .2s ease-in;
+        }
+        td {
+          vertical-align: middle !important;
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="without-search-editor">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Table Editor without search
+  </h2>
+
+  <!-- Description -->
+  <p>Modal Table Editor without filtering. Use it when you don't need to have any search mechanism.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+        <div class="row d-flex justify-content-center modalWrapper mt-5">
+          <div mdbModal #modalAdd="mdbModal" class="modal fade addNewInputs" id="modalAdd" tabindex="-1" role="dialog"
+               aria-labelledby="modalAdd"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new form</h4>
+                  <button type="button" class="close text-primary" (click)="modalAdd.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <form #addForm>
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputName" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputName">Name</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputPosition" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputPosition">Position</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputOfficeInput" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputOfficeInput">Office</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputAge" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputAge">Age</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="date" id="inputDate" class="form-control" placeholder="Select Date" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputDate"></label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="inputSalary" class="form-control validate" mdbInput>
+                      <label data-error="wrong" data-success="right" for="inputSalary">Salary</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+                  <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal"
+                          (click)="addModalForm(addForm, modalAdd)">Add form
+                    <i class="fas fa-paper-plane-o ml-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <a class="btn btn-info btn-rounded btn-sm" (click)="modalAdd.show()" data-target="#modalAdd" mdbWavesEffect>
+              Add <i class="fas fa-plus-square ml-1"></i></a>
+          </div>
+
+          <div mdbModal #modalEdit="mdbModal" class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit form</h4>
+                  <button type="button" class="close text-secondary" (click)="modalEdit.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <form #editForm>
+                    <div class="md-form mb-5">
+                      <input type="text" id="formNameEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.name : ''">
+                      <label data-error="wrong" data-success="right" for="formNameEdit">Name</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formPositionEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.position : ''">
+                      <label data-error="wrong" data-success="right" for="formPositionEdit">Position</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formOfficeEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.office : ''">
+                      <label data-error="wrong" data-success="right" for="formOfficeEdit">Office</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formAgeEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.age : ''">
+                      <label data-error="wrong" data-success="right" for="formAgeEdit">Age</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formDateEdit" class="form-control datepicker" mdbInput
+                             [value]="highlightedRow ? highlightedRow.start_date : ''">
+                      <label data-error="wrong" data-success="right" for="formDateEdit">Date</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                      <input type="text" id="formSalaryEdit" class="form-control validate" mdbInput
+                             [value]="highlightedRow ? highlightedRow.salary : ''">
+                      <label data-error="wrong" data-success="right" for="formSalaryEdit">Salary</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                  <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal"
+                          (click)="editModalForm(editForm, modalEdit)">
+                    Edit form <i class="fas fa-paper-plane-o ml-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center buttonEditWrapper">
+            <button class="btn btn-info btn-rounded btn-sm buttonEdit" [disabled]="!highlightedRow"
+                    (click)="modalEdit.show()" data-target="#modalEdit">
+              Edit<i class="fas fa-pencil-square-o ml-1"></i></button>
+          </div>
+
+          <div mdbModal #modalDelete="mdbModal" class="modal fade" id="modalDelete" tabindex="-1" role="dialog"
+               aria-labelledby="modalDelete"
+               aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Delete</h4>
+                  <button type="button" class="close text-danger" (click)="modalDelete.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  <p class="text-center h4">Are you sure to delete selected row?</p>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                  <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal" mdbWavesEffect
+                          (click)="modalRemove(modalDelete)">
+                    Yes
+                  </button>
+                  <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal" mdbWavesEffect
+                          (click)="modalDelete.hide()">
+                    No
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-danger btn-sm btn-rounded buttonDelete" [disabled]="!highlightedRow"
+                    (click)="modalDelete.show()"
+                    data-target="#modalDelete">Delete<i class="fas fa-times ml-1"></i></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 mx-auto my-5">
+
+            <div class="row w-100 d-flex justify-content-between mx-auto">
+              <div class="col-md-3 my-3 d-flex align-items-center">
+                <span class="font-weight-bolder">Show</span>
+
+                <select class="browser-default custom-select mx-2" [(ngModel)]="visibleItems"
+                        (ngModelChange)="visibleItems = +$event" style="width: unset;">
+                  <option value="10" selected>10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+
+                <span class="font-weight-bolder">Entries</span>
+              </div>
+            </div>
+            <table mdbTableEditor class="table table-striped z-depth-1" [itemsPerPage]="visibleItems" #table="mdbEditor"
+                   (rowHighlight)="highlightedRow = $event">
+              <thead>
+              <tr>
+                <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of table.performSearch('')">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.position}}</td>
+                <td>{{item.office}}</td>
+                <td>{{item.age}}</td>
+                <td>{{item.start_date}}</td>
+                <td>{{item.salary}}</td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <td colspan="7">
+                  <div class="d-flex flex-center">
+            <span>Showing {{table.paginationInfo.firstItem}} to {{table.paginationInfo.lastItem}}
+              of {{table.paginationInfo.allItems}} entries</span>
+                    <div class="flex-1"></div>
+                    <mdb-icon fas icon="angle-left" size="lg" (click)="table.prevPage()" class="p-2"
+                              [ngClass]="{'disabled text-muted': table.disablePrevious()}" mdbWavesEffect></mdb-icon>
+                    <mdb-icon fas icon="angle-right" size="lg" (click)="table.nextPage()" class="p-2"
+                              [ngClass]="{'disabled text-muted': table.disableNext()}" mdbWavesEffect></mdb-icon>
+                  </div>
+                </td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+      </code>
+      <code data-lang="js" data-name="TS">
+        import {Component, ViewChild} from '@angular/core';
+        import {MdbTableEditorDirective} from "mdb-table-editor";
+        import {HttpClient} from "@angular/common/http";
+
+        @Component({
+          selector: 'app-without-search-table-editor',
+          templateUrl: './without-search-table-editor.component.html',
+          styleUrls: ['./without-search-table-editor.component.scss']
+        })
+        export class WithoutSearchTableEditorComponent {
+          @ViewChild('table') mdbTableEditor: MdbTableEditorDirective;
+          headElements = ['ID', 'Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'];
+          visibleItems: number = 10;
+          searchText: string = '';
+          highlightedRow: any = null;
+
+          constructor(private http: HttpClient) {
+            this.http.get('http://www.json-generator.com/api/json/get/cfDQtoFAde?indent=2').subscribe((data: any) => {
+              data.forEach((el: any, index: number) => {
+              el.id = index + 1;
+          });
+            this.mdbTableEditor.dataArray = data;
+            });
+          }
+
+          addModalForm(form: any, modalInstance: any) {
+            const values: any = {
+              id: this.mdbTableEditor.dataArray[this.mdbTableEditor.dataArray.length - 1]['id'] + 1,
+              name: form[0].value,
+              position: form[1].value,
+              office: form[2].value,
+              age: form[3].value,
+              start_date: form[4].value,
+              salary: form[5].value
+            };
+            this.mdbTableEditor.dataArray.push(values);
+            this.mdbTableEditor.iterableDataArray.push(values);
+            this.mdbTableEditor.updatePaginationInfo();
+            modalInstance.hide();
+          }
+
+          editModalForm(form: any, modalInstance: any) {
+            const userDataRowIndex = this.mdbTableEditor.dataArray.findIndex((el: any) => el.name === this.highlightedRow.name);
+            const values: any = {
+              id: userDataRowIndex + 1,
+              name: form[0].value,
+              position: form[1].value,
+              office: form[2].value,
+              age: form[3].value,
+              start_date: form[4].value,
+              salary: form[5].value
+            };
+            this.mdbTableEditor.dataArray[userDataRowIndex] = values;
+            this.mdbTableEditor.iterableDataArray[userDataRowIndex] = values;
+            modalInstance.hide();
+          }
+
+          modalRemove(modalInstance: any) {
+          const rowIndex = this.mdbTableEditor.dataArray.findIndex((el: any) => el == this.highlightedRow);
+          this.mdbTableEditor.dataArray.splice(rowIndex, 1);
+          this.mdbTableEditor.iterableDataArray.splice(rowIndex, 1);
+          this.mdbTableEditor.updatePaginationInfo();
+          modalInstance.hide();
+          }
+        }
+
+      </code>
+
+      <code data-lang="css" data-name="SCSS">
+        .tr-color-selected{
+          background-color: hsla(196, 77%, 55%, 0.3) !important;
+          transition: all .2s ease-in;
+        }
+        td {
+          vertical-align: middle !important;
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->

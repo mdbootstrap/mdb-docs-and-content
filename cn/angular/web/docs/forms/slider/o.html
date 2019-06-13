@@ -1,0 +1,704 @@
+<style>
+  @supports (--css: variables) {
+    input[type="range"].mdbMultiRange {
+      padding: 0;
+      margin: 0;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    input[type="range"].mdbMultiRange.original {
+      position: absolute;
+    }
+
+    input[type="range"].mdbMultiRange.original::-webkit-slider-thumb {
+      position: relative;
+      z-index: 2;
+    }
+
+    input[type="range"].mdbMultiRange.original::-moz-range-thumb {
+      transform: scale(1);
+      z-index: 1;
+    }
+
+    input[type="range"].mdbMultiRange::-moz-range-track {
+      border-color: transparent;
+    }
+
+    input[type="range"].mdbMultiRange.ghost {
+      position: relative;
+    }
+
+    input[type="range"].mdbMultiRange.ghost:nth-of-type(n+1) {
+      position: absolute;
+    }
+
+  }
+
+
+  .multi-range-field {
+    position: relative;
+  }
+
+  .multi-range-field input[type=range] {
+    cursor: pointer;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin: 15px 0px;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid #fff;
+    /* fix for FF unable to apply focus style bug  */
+  }
+
+  .multi-range-field input[type=range]:focus {
+    outline: none;
+  }
+
+  .multi-range-field input[type=range]+.thumb {
+    position: absolute;
+    border: none;
+    height: 0;
+    width: 0;
+    border-radius: 50%;
+    background-color: #4285f4;
+    top: 10px;
+    margin-left: -6px;
+    transform-origin: 50% 50%;
+    transform: rotate(-45deg);
+  }
+
+  .multi-range-field input[type=range]+.thumb .value {
+    display: block;
+    width: 30px;
+    text-align: center;
+    color: #4285f4;
+    font-size: 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .multi-range-field input[type=range]+.thumb.active {
+    -webkit-border-radius: 50% 50% 50% 0;
+    border-radius: 50% 50% 50% 0;
+  }
+
+  .multi-range-field input[type=range]+.thumb.active .value {
+    color: #fff;
+    margin-left: -1px;
+    margin-top: 8px;
+    font-size: 10px;
+  }
+
+  .multi-range-field input[type=range]::-webkit-slider-runnable-track {
+    height: 3px;
+    background: #c2c0c2;
+    border: none;
+  }
+
+  .multi-range-field input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    height: 14px;
+    width: 14px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background-color: #4285f4;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    margin: -5px 0 0 0;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+  }
+
+  .multi-range-field input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+  }
+
+  .multi-range-field input[type=range]::-moz-range-track {
+    /*required for proper track sizing in FF*/
+    height: 3px;
+    background: #c2c0c2;
+    border: none;
+  }
+
+  .multi-range-field input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #4285f4;
+    margin-top: -5px;
+  }
+
+  .multi-range-field input[type=range]:-moz-focusring {
+    /*hide the outline behind the border*/
+    outline: 1px solid #fff;
+    outline-offset: -1px;
+  }
+
+  .multi-range-field input[type=range]:focus::-moz-range-track {
+    background: #c2c0c2;
+  }
+
+  .multi-range-field input[type=range]::-ms-track {
+    height: 3px;
+    background: transparent;
+    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    border-color: transparent;
+    /*leave room for the larger thumb to overflow with a transparent border */
+    border-width: 6px 0;
+    color: transparent;
+    /*remove default tick marks*/
+  }
+
+  .multi-range-field input[type=range]::-ms-fill-lower {
+    background: #c2c0c2;
+  }
+
+  .multi-range-field input[type=range]::-ms-fill-upper {
+    background: #c2c0c2;
+  }
+
+  .multi-range-field input[type=range]::-ms-thumb {
+    border: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #4285f4;
+  }
+
+  .multi-range-field input[type=range]:focus::-ms-fill-lower {
+    background: #c2c0c2;
+  }
+
+  .multi-range-field input[type=range]:focus::-ms-fill-upper {
+    background: #c2c0c2;
+  }
+
+  .thumb-horizontal-wrapper {
+    position: relative;
+    top: 190px;
+    transform: rotate(-270deg);
+    top: 500px;
+  }
+
+  .multi-range-field input[type=range]+.thumb-horizontal .value {
+    transform: rotate(315deg) !important;
+  }
+</style>
+
+<section id="introduction">
+  <h2 class="primary-heading">Angular Bootstrap slider</h2>
+  <h1 class="secondary-heading mb-4">Angular Slider - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p class="description">Angular Bootstrap slider is an interactive component that lets the user swiftly slide through
+    possible values spread
+    on the desired range.</p>
+
+  <p>Its basic implementation is quite simple and does not require big blocks of code.</p>
+
+  <p>Examples of Angular Bootstrap slider use:</p>
+
+  <ul>
+    <li>Video progress bar</li>
+    <li>Volume increase/decrease</li>
+    <li>Enthusiasm-o-meter</li>
+  </ul>
+
+  <p class="mb-5">See the following Angular Bootstrap slider examples:</p>
+
+  <blockquote class="blockquote bq-primary mt-5">
+    <p class="bq-title">Info notification</p>
+    <p>If you were looking for a slider and you meant a carousel component, click
+      <a href="https://mdbootstrap.com/docs/angular/advanced/carousel/" target="_blank">here</a> to see all the
+      possibilities.</p>
+  </blockquote>
+</section>
+
+  <hr class="my-5">
+
+  <section id="default-range">
+
+
+  <!--Title-->
+  <h2 class="secondary-heading">
+    Default slider
+  </h2>
+
+  <!--Description-->
+  <p>Default styling for Angular Bootstrap Slider component</p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <label for="customRange1">Example range</label>
+    <input type="range" class="custom-range" id="customRange1">
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <mdb-range-input default="true" id="range" min="0" max="100"></mdb-range-input>
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+
+<hr class="my-5">
+
+<section id="material-range">
+
+
+
+  <!--Title-->
+  <h2 class="secondary-heading">
+    Material slider
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm"
+      role="button">MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Description-->
+  <p>Material Design styling for Angular Bootstrap Slider component</p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <form class="range-field">
+      <input type="range" min="0" max="100" />
+    </form>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <mdb-range-input id="range" min="0" max="100"></mdb-range-input>
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section: -->
+  <section id="pricing">
+
+    <!--Title-->
+    <h2 class="section-heading">
+     Slider with price counter
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank"
+        class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <!--Description-->
+    <p class="description"></p>
+
+    <!--Section: Live preview-->
+    <section>
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-10 col-lg-8 col-xl-5">
+
+          <div class="card">
+            <div class="card-body">
+
+              <h3 class="text-center font-weight-bold blue-text mt-3 mb-4 pb-4">
+                <strong>Slide to see the pricing change</strong>
+              </h3>
+              <hr>
+
+              <form class="range-field my-5">
+                <input id="calculatorSlider" class="no-border" type="range" value="0" min="0" max="30" />
+              </form>
+
+              <!-- Grid row -->
+              <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-6 text-center pb-5">
+
+                  <h2>
+                    <span class="badge blue lighten-2 mb-4">You earn</span>
+                  </h2>
+                  <h2 class="display-4" style="color:#0d47a1">
+                    <strong id="resellerEarnings">75$</strong>
+                  </h2>
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-6 text-center pb-5">
+
+                  <h2>
+                    <span class="badge blue lighten-2 mb-4">Client pays</span>
+                  </h2>
+                  <h2 class="display-4" style="color:#0d47a1">
+                    <strong id="clientPrice">319$</strong>
+                  </h2>
+
+                </div>
+                <!-- Grid column -->
+
+              </div>
+              <!-- Grid row -->
+
+            </div>
+          </div>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section class="my-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-card>
+            <mdb-card-body>
+
+              <h3 class="text-center font-weight-bold blue-text mt-3 mb-4 pb-4">
+                <strong>Slide to see the pricing change</strong>
+              </h3>
+              <hr>
+
+              <mdb-range-input (rangeValueChange)="onRangeValueChange($event)" id="range" min="0" max="100"></mdb-range-input>
+
+              <div class="row">
+
+                <div class="col-md-6 text-center pb-5">
+
+                  <h2>
+                    <span class="badge blue lighten-2 mb-4">You earn</span>
+                  </h2>
+                  <h2 class="display-4" style="color:#0d47a1">
+                    <strong id="resellerEarnings">{{range}} $</strong>
+                  </h2>
+
+                </div>
+
+                <div class="col-md-6 text-center pb-5">
+
+                  <h2>
+                    <span class="badge blue lighten-2 mb-4">Client pays</span>
+                  </h2>
+                  <h2 class="display-4" style="color:#0d47a1">
+                    <strong id="clientPrice">{{219 + range}} $</strong>
+                  </h2>
+
+                </div>
+
+              </div>
+
+            </mdb-card-body>
+          </mdb-card>
+        </code>
+        <code data-lang="ts" data-name="TypeScript">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'card-slider',
+  templateUrl: './card-slider.component.html',
+  styleUrls: ['./card-slider.component.scss'],
+})
+export class CardSliderComponent {
+
+  range: any = 0;
+  onRangeValueChange(event: any) {
+    const value = event.value;
+    this.range = value;
+  }
+
+}</code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="width">
+
+    <!--Title-->
+    <h2 class="section-heading">
+      Slider with different width
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank"
+        class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <!--Description-->
+    <p class="description"></p>
+
+    <!--Section: Live preview-->
+    <section class="section-preview">
+
+      <form class="range-field my-4 w-25">
+        <input type="range" min="0" max="100" />
+      </form>
+
+      <form class="range-field my-4 w-50">
+        <input type="range" min="0" max="100" />
+      </form>
+
+      <form class="range-field my-4 w-75">
+        <input type="range" min="0" max="100" />
+      </form>
+
+      <form class="range-field my-4 w-100">
+        <input type="range" min="0" max="100" />
+      </form>
+
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+        <form class="my-3 w-25">
+          <mdb-range-input id="range" min="1" value="50" max="100"></mdb-range-input>
+        </form>
+        <form class="my-3 w-50">
+          <mdb-range-input id="range" min="1" value="50" max="100"></mdb-range-input>
+        </form>
+        <form class="my-3 w-75">
+          <mdb-range-input id="range" min="1" value="50" max="100"></mdb-range-input>
+        </form>
+        <form class="my-3 w-100">
+          <mdb-range-input id="range" min="1" value="50" max="100"></mdb-range-input>
+        </form>
+    </code>
+	<code data-lang="js" data-name="TypeScript">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'width-slider',
+  templateUrl: './width-slider.component.html',
+  styleUrls: ['./width-slider.component.scss'],
+})
+export class WidthSliderComponent {
+
+    range: any = 0;
+    onRangeValueChange(event: any) {
+      const value = event.value;
+      this.range = value;
+    }
+
+}
+	</code>
+</mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="values">
+
+    <!--Title-->
+    <h2 class="section-heading">
+      Slider with first and last value
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/"
+        target="_blank" class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <!--Description-->
+    <p class="description"></p>
+
+    <!--Section: Live preview-->
+    <section>
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-12">
+
+          <div class="card indigo lighten-5">
+            <div class="card-body">
+
+              <div class="d-flex justify-content-center my-4">
+                <span class="font-weight-bold indigo-text mr-2">0</span>
+                <form class="range-field w-25">
+                  <input class="no-border" type="range" min="0" max="100" />
+                </form>
+                <span class="font-weight-bold indigo-text ml-2">100</span>
+              </div>
+
+              <div class="d-flex justify-content-center my-4">
+                <span class="font-weight-bold blue-text mr-2">0</span>
+                <form class="range-field w-50">
+                  <input class="no-border" type="range" min="0" max="100" />
+                </form>
+                <span class="font-weight-bold blue-text ml-2">100</span>
+              </div>
+
+              <div class="d-flex justify-content-center my-4">
+                <span class="font-weight-bold purple-text mr-2">0</span>
+                <form class="range-field w-75">
+                  <input class="no-border" type="range" min="0" max="100" />
+                </form>
+                <span class="font-weight-bold purple-text ml-2">100</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section class="my-3">
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+      <mdb-card class="indigo lighten-5">
+      <mdb-card-body>
+
+        <div class="d-flex justify-content-center align-items-center my-4">
+          <span class="font-weight-bold indigo-text mr-2">{{min}}</span>
+          <form class="my-3 w-25">
+            <mdb-range-input id="range" [min]="min" value="50" [max]="max"></mdb-range-input>
+          </form>
+          <span class="font-weight-bold indigo-text ml-2">{{max}}</span>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center my-4">
+          <span class="font-weight-bold blue-text mr-2">{{min}}</span>
+          <form class="my-3 w-50">
+            <mdb-range-input id="range" [min]="min" value="50" [max]="max"></mdb-range-input>
+          </form>
+          <span class="font-weight-bold blue-text ml-2">{{max}}</span>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center my-4">
+          <span class="font-weight-bold purple-text mr-2">{{min}}</span>
+          <form class="my-3 w-75">
+            <mdb-range-input id="range" [min]="min" value="50" [max]="max"></mdb-range-input>
+          </form>
+          <span class="font-weight-bold purple-text ml-2">{{max}}</span>
+        </div>
+
+      </mdb-card-body>
+    </mdb-card>
+    </code>
+	<code data-lang="js" data-name="TypeScript">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'first-and-last-slider',
+  templateUrl: './first-and-last-slider.component.html',
+  styleUrls: ['./first-and-last-slider.component.scss'],
+})
+export class FirstAndLastSliderComponent {
+
+    range: any = 0;
+    min = 0;
+    max = 100;
+    onRangeValueChange(event: any) {
+        const value = event.value;
+        this.range = value;
+    }
+}
+	</code>
+</mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="multi-range">
+
+  <!--Title-->
+  <h2 class="section-heading">
+    Multi range slider
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/"
+       target="_blank" class="btn btn-danger btn-md" role="button">MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Description-->
+  <p class="description"></p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <form class="multi-range-field my-5 pb-5">
+      <input id="multi" class="multi-range" type="range" />
+    </form>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section class="my-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <mdb-multi-range-input id="multi-range" min="0" max="100"></mdb-multi-range-input>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+

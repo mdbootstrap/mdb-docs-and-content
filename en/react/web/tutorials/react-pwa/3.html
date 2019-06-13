@@ -1,0 +1,150 @@
+<!--Section: Tutorial content-->
+<section class="tutorial">
+  <section id="app-view">
+
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>Making an app installable - manifest.json</strong>
+    </h2>
+
+    <p class="description">
+      One of the most powerful functions that PWA offers is the ability to add our web app to a device's home screen.
+      This single feature fills the big gap between native and web apps - from now on our web apps can look and feel
+      like regular native apps.
+    </p>
+
+    <p class="description">Surprisingly, <strong>it doesn't require a lot of work</strong>. We will cover everything in
+      upcoming lessons.</p>
+
+    <p class="description">If you look through <a href="https://developers.google.com/web/fundamentals/app-install-banners/
+      ">the
+        official documentation</a>, you find out that there are only a few requirements, which have to be met:</p>
+    <ul>
+      <li>The web app is not already installed</li>
+      <li>the user has interacted with the domain for at least 30 seconds</li>
+      <li>codebase includes a web app manifest</li>
+      <li>App is served over HTTPS</li>
+      <li>Has registered a service worker with a fetch event handler</li>
+    </ul>
+
+    <p>Of course the two first are beyond our control. As a developer, you have to take care of the last three ones.
+      Let's begin with the app manifest.</p>
+
+    <h4 class="mt-5"><strong> What is an app manifest?</strong></h4>
+
+    <p>App manifest is a simple JSON file. If you have previously worked with <code>create-react-app</code> boilerplate
+      you probably stumbled upon this file while browsing through project directories. By default, it is placed in the
+      public directory. Let's open our project and check what is inside.</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="public/manifest.json">
+          {
+            "short_name": "React App",
+            "name": "Create React App Sample",
+            "icons": [
+              {
+                "src": "favicon.ico",
+                "sizes": "64x64 32x32 24x24 16x16",
+                "type": "image/x-icon"
+              }
+            ],
+            "start_url": "./index.html",
+            "display": "standalone",
+            "theme_color": "#000000",
+            "background_color": "#ffffff"
+          }
+        </code>
+    </mdbsnippet>
+
+    <p>As you can see, it's a simple JSON object with a key-value pairs which describes our application. It resembles
+      an App Store description of a native app. There are a lot of supported properties which you can use there. A full
+      list can be found <a href="https://developer.mozilla.org/en-US/docs/Web/Manifest">here</a>.</p>
+
+    <p>Most of the key names are self-explanatory.
+      <ul>
+        <li><code>name</code> and <code>short_name</code> - simple! Short name will be displayed as a label for an icon
+          on the device home screen.</li>
+        <li><code>icons</code> - is just an array of icons to use. We will use a set of icons of varying sizes to make
+          sure that it will look good on every device.</li>
+        <li><code>start_url</code> - defines the URL that loads when a user launches the application. It might also be
+          a good idea to use it for analytics purposes, for example by defining UTM</li>
+      </ul>
+
+      <mdbsnippet>
+        <code data-lang="js" data-name="public/manifest.json">
+            "start_url": "/?utm_source=homescreen",
+          </code>
+      </mdbsnippet>
+
+      <ul>
+        <li><code>display</code> - I chose thr standalone option to mimic a native app look.</li>
+        <li><code>background_color</code> - lets us define the background color of the splash screen.</li>
+      </ul>
+    </p>
+
+    <p>Let's adjust the file already provided by the create-react-app boilerplate to our needs:</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="public/manifest.json">
+          {
+            "short_name": "Agenda App",
+            "name": "Daily Agenda Progressive Web App",
+            "icons": [
+              {
+                "src": "icons/icon-72x72.png",
+                "sizes": "72x72",
+                "type": "image/png"
+              },
+              {
+                "src": "icons/icon-96x96.png",
+                "sizes": "96x96",
+                "type": "image/png"
+              },
+              {
+                "src": "icons/icon-128x128.png",
+                "sizes": "128x128",
+                "type": "image/png"
+              },
+              {
+                "src": "icons/icon-144x144.png",
+                "sizes": "144x144",
+                "type": "image/png"
+              },
+              {
+                "src": "icons/icon-152x152.png",
+                "sizes": "152x152",
+                "type": "image/png"
+              },
+              {
+                "src": "icons/icon-192x192.png",
+                "sizes": "192x192",
+                "type": "image/png"
+              },
+              {
+                "src": "icons/icon-384x384.png",
+                "sizes": "384x384",
+                "type": "image/png"
+              },
+              {
+                "src": "icons/icon-512x512.png",
+                "sizes": "512x512",
+                "type": "image/png"
+              }
+            ],
+            "start_url": "./index.html",
+            "display": "standalone",
+            "theme_color": "#2EA6E7",
+            "background_color": "#2EA6E7"
+          }
+
+        </code>
+    </mdbsnippet>
+
+    <p> And that's it, out basic app manifest is ready. In the next lesson, we will take care of the two other points
+      on our criteria list - HTTPS and service worker.</p>
+
+    <p class="description">Something doesn't work for you? Then check the code for this lesson on our <a href="https://github.com/mdbootstrap/React-Tutorial-PWA/archive/master.zip">repository</a>!</p>
+
+  </section>
+</section>
+<!--Section: Tutorial content

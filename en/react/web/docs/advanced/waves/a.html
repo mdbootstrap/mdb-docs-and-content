@@ -1,0 +1,141 @@
+<!--Title-->
+<section class="mb-4" id="introduction">
+  <h2 class="section-heading">React Bootstrap Waves effect - API</h2>
+
+  <!-- Description -->
+  <p>In this section you will find advanced information about the Waves component. You will find out which modules
+    are required, what are the possibilities of configuring the component, and what events and methods you can use
+    to work with it.</p>
+  <!-- Description -->
+
+</section>
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="imports">
+  <!--Title-->
+  <h3 class="section-heading mb-4">
+    Imports
+  </h3>
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="Imports">
+      import React from 'react';
+      import { MDBWaves  } from 'mdbreact';
+    </code>
+  </mdbsnippet>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="usage">
+  <!--Title-->
+  <h3 class="section-heading mb-4">
+    Usage
+  </h3>
+
+  <p class="description">
+    Use <code>MDBWaves</code> component as a child of the component on which you want to achieve waves effect.<br />
+    Add click events to the component to find out the cursor position and pass those information to the Waves component.
+  </p>
+
+  <mdbsnippet>
+    <code data-lang="JavaScript" data-name="JSX">
+      import React from "react";
+      import { MDBWaves } from "mdbreact";
+
+      class CustomComponent extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            cursorPos: {}
+          };
+        }
+
+        handleClick = e => {
+          e.stopPropagation();
+          // Waves - Get Cursor Position
+          let cursorPos = {
+            top: e.clientY,
+            left: e.clientX,
+            time: Date.now() // time indicates particular clicks
+          };
+          this.setState({ cursorPos: cursorPos });
+        };
+
+        render() {
+
+          return (
+            <div
+              onMouseUp={this.handleClick}
+              onTouchStart={this.handleClick}
+            >
+              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(54).jpg" />
+              <MDBWaves
+                cursorPos={this.state.cursorPos}
+              />
+            </div>
+          );
+        }
+      }
+
+      export default CustomComponent;
+    </code>
+
+  </mdbsnippet>
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section-->
+<section id="reference">
+
+  <!--Section-->
+  <section id="select-props">
+
+    <!--Title-->
+    <h3 class="section-heading mb-4">
+      API Reference: Waves Properties
+    </h3>
+
+    <!-- Description -->
+    <p>
+      The table below shows the configuration options of the MDBWaves component.
+    </p>
+    <!-- Description -->
+
+    <table class="table table-bordered table-striped table-responsive-xl">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Default</th>
+          <th scope="col">Description</th>
+          <th scope="col">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal">cursorPos</code></td>
+          <td><i>Object</i></td>
+          <td><code style="word-break: normal"></code></td>
+          <td><code>Required!</code> The position and time of cursor click event.</td>
+          <td><code class='language-markup'>&lt;MDBWaves cursorPos={{ top, left, time }} /&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code style="word-break: normal">dark</code></td>
+          <td><i>Boolean</i></td>
+          <td><code style="word-break: normal">false</code></td>
+          <td>Change wave color to dark.</td>
+          <td><code class='language-markup'>&lt;MDBWaves cursorPos={this.state.cursorPos} dark /&gt;</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+</section>

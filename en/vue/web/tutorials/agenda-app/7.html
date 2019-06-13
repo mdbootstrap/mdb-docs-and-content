@@ -1,0 +1,222 @@
+<div class="vue-tutorial tutorial">
+
+<p>Currently, our <mark>Event</mark> component displays an icon that is supposed to delete the item from the list. As you already know, the list of the Events is held in the parent component - <mark>App</mark>. Therefore,<strong> it's not possible for the <mark>Event</mark> component to <i>delete itself</i></strong>.  </p>
+
+<p>In order to delete an event from a list,<strong> we have to pass a call from the child component (<mark>Event</mark>) to its parent component (<mark>App</mark>)</strong>. In this lesson, we will learn how to pass function calls between components. </p>
+
+<p>Before we start to that, let's work on <mark>App</mark> template first:</p>
+
+<h2>1. App template</h2>
+
+<h3>1.1. Style</h3>
+
+<p>We don't need styles anymore, so let's remove them from both of the <code>App.vue</code> and <code>Event.vue</code> files. </p>
+
+
+<h3>1.2. Template</h3>
+
+
+<p>Let's update the template of our app:  </p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+<template>
+  <mdb-container>
+    <mdb-row>
+      <mdb-col col="9">
+        <h2 class="text-uppercase my-3">Today:</h2>
+        <Event
+          v-for="(event, index) in events"
+          :index="index"
+          :time="event.time"
+          :title="event.title"
+          :location="event.location"
+          :description="event.description"
+          :key="index"
+        />
+        <mdb-row>
+          <mdb-col xl="3" md="6" class="mx-auto text-center">
+            <mdb-btn color="info">Add Event</mdb-btn>
+          </mdb-col>
+        </mdb-row>
+      </mdb-col>
+      <mdb-col col="3">
+        <h3 class="text-uppercase my-3">Schedule</h3>
+        <h6 class="my-3">
+          It's going to be busy that today. You have
+          <b>{{events.length}} events</b> today.
+        </h6>
+        <h1 class="my-3">
+          <mdb-row>
+            <mdb-col col="3" class="text-center">
+              <mdb-icon far icon="sun"/>
+            </mdb-col>
+            <mdb-col col="9">Sunny</mdb-col>
+          </mdb-row>
+          <mdb-row>
+            <mdb-col col="3" class="text-center">
+              <mdb-icon icon="thermometer-three-quarters"/>
+            </mdb-col>
+            <mdb-col col="9">23°C</mdb-col>
+          </mdb-row>
+        </h1>
+        <p>
+          Don't forget your sunglasses. Today will dry and sunny, becoming
+          warm in the afternoon with temperatures of between 20 and 25
+          degrees.
+        </p>
+      </mdb-col>
+    </mdb-row>
+  </mdb-container>
+</template>
+  </code>
+</mdbsnippet>
+
+
+<h3>1.3. Script</h3>
+
+<p>Finally, let's import some missing components like <mark>mdbButton</mark> and <mark>mdbIcon</mark> from the library:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (script)">
+import { mdbContainer, mdbRow, mdbCol, mdbIcon, mdbBtn, } from "mdbvue";
+[...]
+  components: {
+    mdbContainer,
+    mdbRow,
+    mdbCol,
+    Event,
+    mdbIcon,
+    mdbBtn,
+  },
+  </code>
+</mdbsnippet>
+
+<p>Preview:</p>
+
+   <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/7/preview.png" alt="App preview" />
+
+
+<p class="note note-warning"><strong>Note:</strong><br/>
+ In the right-hand column, we added an Event counter which tells us how many events are scheduled for today. In order to get this number we are simply counting elements within the array using <mark>{{events.length}}</mark> function.
+</p>
+
+
+<h2>2. Delete Event function</h2>
+
+<p>Now we can create a function which removes a particular <mark>Event</mark> from an array. It's a very simple function which accepts the id of the event which we want to delete, and remove it from the array[] using the <mark>splice()</mark> function:
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+    handleDelete(eventIndex) {
+      this.events.splice(eventIndex, 1);
+    }	
+  </code>
+</mdbsnippet>
+
+
+ In Vue we define new functions inside the <mark>methods:{}</mark> within the <mark>export{...}</mark> function. </p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (script)">
+ export default {
+  name: "App",
+  components: {
+	[...]
+  },
+  data() {
+	[...]
+  },
+  methods: {
+    handleDelete(eventIndex) {
+      this.events.splice(eventIndex, 1);
+    }
+  }
+};
+  </code>
+</mdbsnippet>
+
+<p>Now when our function is ready, we can emit an event from the <mark>Event</mark> component. </p>
+
+<h2>3. Event emitting</h2>
+
+<p>Let's define an event handler for our <mark>Event</mark> component:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+  methods: {
+    onDelete() {
+      this.$emit('delete', this.index);
+    }
+  }
+  </code>
+</mdbsnippet>
+
+<p>This function will emit an event with two parameters: 
+<ul>
+	<li>name of the event - in our case <i><mark>delete</mark></i></li>
+	<li>payload - in our case it will be the id of the corresponding <mark>Event</mark></li>
+</ul></p>
+
+<p>Now we have to trigger it whenever users click on the delete icon. Let's therefore update our existing: <mark>&lt;mdb-badge&gt;</mark> tag.
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="Vue">
+<mdb-badge tag="a" color="danger-color" class="ml-2 float-right">-</mdb-badge>
+ 	
+	  </code>
+	</mdbsnippet>
+
+<p>with a <mark>@click.native</mark> function call.</p> 
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+    <mdb-badge @click.native="onDelete" tag="a" color="danger-color" class="ml-2 float-right">-</mdb-badge>
+  </code>
+</mdbsnippet>
+
+<p>Now whenever a user clicks on the delete icon, next to the <mark>Event</mark> title, it will emit a new <mark>delete</mark> event with the id of the clicked <mark>Event</mark>.</p>
+
+<h2>4. Catching & handling events</h2>
+
+<p>The last thing we have to do is to catch the emitted event in <code>App.ve</code>. In order to do that, let's update our <mark>Event</mark> invocation within <mark>App</mark> template:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+<Event
+  v-for="(event, index) in events"
+  :index="index"
+  :time="event.time"
+  :title="event.title"
+  :location="event.location"
+  :description="event.description"
+  :key="index"
+  @delete="handleDelete"
+/>
+  </code>
+</mdbsnippet>
+
+
+<p>As you noticed, we have added a <mark>@delete</mark> handle and bound it to the <mark>handleDelete</mark> function which created in step 2.</p>
+
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/7/delete.gif" alt="Delete Events" />
+
+
+
+<p>Now, whenever we click on a delete icon:
+<ol>
+	<li>User clicks on the delete icon</li>
+	<li><mark>@click.native</mark> calls the <mark>onDelete()</mark> function</li>
+	<li><mark>onDelete()</mark> emits an event</li>
+	<li>The <mark>App</mark> component catches it and triggers <mark>handleDelete()</mark></li>
+	<li><mark>handleDelete()</mark> deletes the corresponding element from the array</li>
+</ol>
+ </p>
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/7/flow.jpg" alt="Flow" />
+
+<p>Finally, Vue automatically notices that the data model has changed and re-renders the list of events.</p>
+
+
+
+</div>

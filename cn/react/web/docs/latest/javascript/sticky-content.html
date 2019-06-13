@@ -1,0 +1,317 @@
+<!--Documentation file-->
+<div class="documentation">
+  <!-- ******-->
+
+  <!-- FIRST SECTION-->
+  <section id="introduction">
+      <h1 class="main-title">React Sticky (Bootstrap affix) <a target="_blank" href="https://mdbootstrap.com/product/angular-bootstrap-pro/"
+          class="btn btn-danger btn-md" role="button">MDB Pro component <i class="far fa-gem ml-1"></i></a></h1>
+
+      <p>React Sticky is a special component that allows an element to become affixed (locked) to an area on the page. It was created to allow for the <strong>sticky behavior</strong>, while the CSS property (<code>position: sticky</code>) is only partly supported. It offers an interesting way of customization of navigation components, social media buttons, widgets and other dynamic parts of user interface.</p>
+
+      <p>Click the button below to see an example of a Sticky. </p>
+
+      <!-- Live preview-->
+      <a href="https://mdbootstrap.com/live/_MDB/index/docs/sticky-content/sticky-content.html" target="_blank" class="btn btn-primary btn-lg">Sticky Content Example <i class="fa fa-eye ml-1"></i></a>
+      <!-- /.Live preview-->
+
+  </section>
+  <!-- FIRST SECTION-->
+<hr class="my-5">
+
+  <!-- SECTION-->
+  <section id="usage">
+      <h2 class="title"><strong>Usage</strong> </h2>
+
+      <p><strong>Step 1: </strong>Import and apply the <code>&lt;StickyContener&gt;</code> component. It will serve as a wrapper and a box, through which we will be shaping behaviors of the <code>&lt;Sticky&gt;</code>. Naturally, we can style and populate the component however we see fit. It supports all valid <code>&lt;div&gt;</code> props.</p>
+
+      <pre class="code-toolbar"><code class="language-javascript">&lt;StickyContainer style={{ background: "#fff", height: '465px' }}&gt;
+        ...
+&lt;/StickyContainer&gt;</code></pre>
+
+      <p><strong>Step 2:</strong> Import <code>&lt;Sticky&gt;</code> and place it within <code>&lt;StickyContainer&gt;</code>. The <code>&lt;Sticky&gt;</code>, again, is a wrapper for content about to become <code>sticky</code>, but this time the child elements is getting served in a <code>return</code> statement <em>of a function</em>.
+       </p>
+
+      <pre class="code-toolbar"><code class="language-javascript">&lt;StickyContainer style={{ background: "#fff", height: '465px' }}&gt;
+  &lt;Sticky&gt;
+      {({
+        isSticky,
+        wasSticky,
+        style,
+        distanceFromTop,
+        distanceFromBottom,
+        calculatedHeight
+      }) =&gt; {
+
+        return (
+          &lt;div
+            style={{
+              ...style,
+            }}
+          &gt;
+            &lt;h1&gt;Sticky Content demo&lt;/h1&gt;
+            &lt;h4&gt;Scroll down to see the effect&lt;/h4&gt;
+          &lt;/div&gt;
+        );
+      }}
+  &lt;/Sticky&gt;
+&lt;/StickyContainer&gt;</code></pre>
+
+<p>It might be confusing at first, but using such solution allows for more control over the environment where the <code>stickyness</code> takes place. As you can see below, the function within a <code>&lt;Sticky&gt;</code> may take in few handy object properties.</p>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Property name</th>
+                <th>Type</th>
+                <th>Meaning</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>isSticky</code></td>
+                <td><em>boolean</em></td>
+                <td>Determines whether the element is <code>sticky</code> as a result of current event</td>
+            </tr>
+            <tr>
+                <td><code>wasSticky</code></td>
+                <td><em>boolean</em></td>
+                <td>Is used to determine whether the element was <code>sticky</code> <em>before</em> the event.</td>
+            </tr>
+            <tr>
+                <td><code>distanceFromTop</code></td>
+                <td><em>number</em></td>
+                <td>Number of pixels from the top of the <code>&lt;Sticky&gt;</code> to the nearest <code>&lt;StickyContainer&gt;</code>'s top</td>
+            </tr>
+            <tr>
+              <td><code>distanceFromBottom</code></td>
+              <td><em>number</em></td>
+              <td>Number of pixels from the top of the <code>&lt;Sticky&gt;</code> to the nearest <code>&lt;StickyContainer&gt;</code>'s bottom</td>
+            </tr>
+            <tr>
+              <td><code>calculatedHeight</code></td>
+              <td><em>number</em></td>
+              <td>Height of the element returned by this function</td>
+            </tr>
+            <tr>
+              <td><code>style</code></td>
+              <td><em>object</em></td>
+              <td>Modifiable style attributes to optionally be passed to the element returned by this function
+              </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+  <p>Lastly, <code>&lt;Sticky&gt;</code> itself may take in props:</p>
+
+      <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th>Prop name and default value</th>
+                      <th>Meaning</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                    <td><code>relative</code>
+                      (default: <em>false</em>)</td>
+                    <td>
+                      Set relative to true if the <code>&lt;Sticky&gt;</code> element will be rendered within an overflowing <code>&lt;StickyContainer/&gt;</code> (e.g. <code>style={{ overflowY: 'auto' }}</code>) and you want the <code>&lt;Sticky&gt;</code> behavior to react to events only within that container.
+
+                      When in <code>relative</code> mode, <code>window</code> events will not trigger sticky state changes. Only scrolling within the nearest <code>&lt;StickyContainer&gt;</code> can trigger sticky state changes.</td>
+                  </tr>
+                  <tr>
+                    <td><code>topOffset</code>
+                      (default: <em>0</em>)</td>
+                    <td>
+                      Sticky state will be triggered when the top of the element is topOffset pixels from the top of the closest <code>&lt;StickyContainer&gt;</code>. Positive numbers give the impression of a lazy sticky state, whereas negative numbers are more eager in their attachment.<code>topOffset={80}</code> would result in an element that becomes sticky once its top is greater than or equal to 80px away from the top of the <code>&lt;StickyContainer&gt;</code>.
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>BottomOffset</code>
+                      (default: <em>0</em>)</td>
+                    <td>
+                      Sticky state will be triggered when the bottom of the element is <code>bottomOffset</code> pixels from the bottom of the closest <code>&lt;StickyContainer&gt;</code>.
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>disableCompensation</code>
+                      (default: <em>false</em>)</td>
+                    <td><p>
+                        Set to <code>true</code> if you do not want your <code>&lt;Sticky&gt;</code> to apply padding to a hidden placeholder <code>&lt;div&gt;</code> to correct "jumpiness" as attachment changes from <code>position:fixed</code> and back.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>disableHardwareAcceleration</code>
+                      (default: <em>false</em>)</td>
+                    <td>
+
+                        When is set to <code>true</code>, the <code>&lt;Sticky&gt;</code> element will not use hardware acceleration (e.g. <code>transform: translateZ(0)</code>). This setting is not recommended as it negatively impacts the mobile experience, and can usually be avoided by improving the structure of your DOM.
+
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <p id="example"><strong>A more complex Sticky content example code:</strong></p>
+
+      <pre class="code-toolbar"><code class="language-javascript">import React from &apos;react&apos;;
+import { Sticky, StickyContainer } from &apos;mdbreact&apos;;
+
+class StickyExample extends React.Component {
+    render() {
+    const wrapper = { height: &apos;3500px&apos;, backgroundColor: &apos;rgba(0,0,0,.15)&apos; }
+    const background = {width: &apos;100%&apos;, backgroundColor: &apos;#fff&apos;, height: &apos;3000px&apos;, lineHeight: &apos;1.5&apos;}
+    const headerStyle = { width: &apos;100%&apos;, background: &apos;#2f93ce&apos;, color: &apos;#fff&apos;, padding: &apos;10px 20px&apos;, margin: &apos;0&apos;};
+    const mainWrapper = { width: 960, margin: &apos;0 auto&apos;, };
+    const sidebar = { float: &apos;left&apos;, width: &apos;230px&apos;, padding: &apos;10px 15px&apos;};
+    const article = { width: &apos;458px&apos;, padding: &apos;0 20px&apos;, borderLeft: &apos;1px solid #ccc&apos;, borderRight: &apos;1px solid #ccc&apos;,float: &apos;left&apos;}
+    const footer = {background: &apos;#67686b&apos;, color: &apos;#fff&apos;, textAlign: &apos;center&apos;, height: &apos;700px&apos;, display: &apos;block&apos;};
+    return(
+      &lt;div style={wrapper}&gt;
+        &lt;div style={background}&gt;
+          &lt;div style={mainWrapper}&gt;
+            &lt;StickyContainer style={{ background: &quot;#fff&quot;, height: &apos;465px&apos; }}&gt;
+              &lt;Sticky&gt;
+                {({
+                    isSticky,
+                    wasSticky,
+                    style,
+                    distanceFromTop,
+                    distanceFromBottom,
+                    calculatedHeight
+                }) =&gt; {
+
+                    return (
+                      &lt;div
+                        style={{
+                          ...style,
+                      }}
+                    &gt;
+                      &lt;div style={headerStyle}&gt;
+                        &lt;h1&gt;Sticky Content demo&lt;/h1&gt;
+                        &lt;h4&gt;Scroll down to see the effect&lt;/h4&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  );
+              }}
+              &lt;/Sticky&gt;
+              &lt;div style={sidebar}&gt;
+                &lt;h2&gt;Static Widget&lt;/h2&gt;
+                &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+                &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium.&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div style={article}&gt;
+                &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum lacus sed velit luctus tempus. Ut bibendum gravida rutrum. Phasellus et ipsum id ante interdum laoreet. Vivamus pharetra tortor sed libero interdum at volutpat arcu cursus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas porta tempor ullamcorper. Curabitur quis elit nisl. In tincidunt, purus eget commodo pretium, libero mauris egestas sem, in vestibulum sem lacus ac odio. Donec pharetra tristique nulla, non scelerisque mauris auctor in. Sed elit mauris, pellentesque sed iaculis id, condimentum eget sem. Maecenas at enim mi. Duis non nunc justo, vitae tristique purus. Quisque sagittis convallis elementum.&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div style={sidebar}&gt;
+                &lt;h2&gt;Static Widget&lt;/h2&gt;
+                &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+                &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium.&lt;/p&gt;
+              &lt;/div&gt;
+          &lt;/StickyContainer&gt;
+          &lt;div style={sidebar}&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+            &lt;StickyContainer style={{height: &apos;2200px&apos;}}&gt;
+              &lt;Sticky&gt;
+                {({
+                    isSticky,
+                    wasSticky,
+                    style,
+                    distanceFromTop,
+                    distanceFromBottom,
+                    calculatedHeight
+                }) =&gt; {
+
+                  return (
+                      &lt;div
+                      style={{
+                          ...style,
+                      }}
+                    &gt;
+                      &lt;div style={headerStyle}&gt;
+                        &lt;h2&gt;Sticky Widget&lt;/h2&gt;
+                        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  );
+              }}
+              &lt;/Sticky&gt;
+              &lt;h2 className=&quot;mt-3&quot;&gt;Static Widget&lt;/h2&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+            &lt;/StickyContainer&gt;
+          &lt;/div&gt;
+          &lt;div style={article}&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum lacus sed velit luctus tempus. Ut bibendum gravida rutrum. Phasellus et ipsum id ante interdum laoreet. Vivamus pharetra tortor sed libero interdum at volutpat arcu cursus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas porta tempor ullamcorper. Curabitur quis elit nisl. In tincidunt, purus eget commodo pretium, libero mauris egestas sem, in vestibulum sem lacus ac odio. Donec pharetra tristique nulla, non scelerisque mauris auctor in. Sed elit mauris, pellentesque sed iaculis id, condimentum eget sem. Maecenas at enim mi. Duis non nunc justo, vitae tristique purus. Quisque sagittis convallis elementum.&lt;/p&gt;
+
+            &lt;p&gt;Donec sed lectus tellus. Cras felis leo, imperdiet a interdum in, vestibulum eu quam. Donec elit est, interdum eget mattis quis, semper ac est. Nam dignissim ultrices risus, a ornare justo pretium vitae. Quisque vitae pellentesque mauris. Cras consectetur laoreet adipiscing. Morbi placerat, elit et dapibus vestibulum, ipsum diam pellentesque metus, eu tincidunt tellus elit in quam. Mauris quis accumsan urna. Proin commodo sapien volutpat lectus ultricies varius. Duis elit enim, dapibus nec convallis id, egestas non neque. Sed a libero eu dolor ultrices ultricies a sit amet nulla.&lt;/p&gt;
+
+            &lt;p&gt;In hac habitasse platea dictumst. Nulla a velit dolor. Vestibulum in purus libero. Donec et orci libero. Proin eget lacinia nisi. Proin eget pretium nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse purus diam, adipiscing quis ultrices in, fringilla non neque. Integer et lectus lectus, vel congue massa. Duis tincidunt ipsum non quam bibendum et lacinia purus viverra. Etiam tortor est, volutpat vel ultricies a, aliquet et augue. Vivamus sed nulla enim, vel egestas tortor.&lt;/p&gt;
+
+            &lt;p&gt;Cras eu ipsum ac erat convallis gravida. Donec porta consequat odio, id pharetra augue volutpat vitae. Etiam ut volutpat dui. Vestibulum eu risus leo. Ut quis nisl in magna gravida feugiat in vel libero. Donec felis nunc, fermentum quis luctus elementum, vulputate quis turpis. Vestibulum erat arcu, feugiat eu eleifend et, pretium et enim. Integer dignissim nunc ac velit pharetra quis laoreet ipsum varius. Praesent dictum, elit tempus aliquam vulputate, lorem est euismod neque, sit amet vulputate nisl turpis at magna. Maecenas felis ipsum, adipiscing ut mollis ut, feugiat vel nunc. Morbi blandit, enim a faucibus cursus, mi nunc rutrum turpis, a dictum diam justo eget ipsum. Vestibulum facilisis dolor sed elit faucibus nec ornare eros bibendum. Etiam enim odio, ultricies vitae imperdiet vel, aliquam id ante. In hac habitasse platea dictumst. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae fringilla sapien.&lt;/p&gt;
+
+            &lt;p&gt;Sed consectetur ornare nisi eu lobortis. Curabitur nunc purus, vulputate vel blandit nec, dignissim pharetra tortor. Nulla sagittis condimentum semper. Maecenas auctor hendrerit enim, quis ultrices justo venenatis sagittis. Aliquam erat volutpat. In hac habitasse platea dictumst. Sed sed ipsum lorem, eu tincidunt lacus. Suspendisse porttitor, elit sit amet placerat vestibulum, urna urna convallis odio, nec accumsan urna nulla sit amet orci.&lt;/p&gt;
+
+            &lt;p&gt;Sed in massa diam, et luctus neque. Morbi viverra turpis ut quam faucibus mattis quis sit amet lorem. Vestibulum porta tellus at sem rhoncus pharetra. Aenean quis erat eu sem convallis scelerisque cursus at lectus. Morbi ipsum turpis, consectetur et scelerisque quis, molestie sit amet sem. Etiam mollis, quam pellentesque sagittis egestas, justo nibh gravida lacus, ac rhoncus leo neque sed leo. Nunc consequat lacinia lorem, et blandit justo tempus non. Morbi quam turpis, sodales non porttitor nec, fermentum vel risus. Praesent quam lacus, hendrerit a consectetur a, viverra vitae enim. Morbi varius pulvinar mi, ut sodales eros mattis viverra. Nam condimentum, ante nec varius posuere, turpis orci gravida nulla, eget cursus tellus libero sed risus.&lt;/p&gt;
+
+            &lt;p&gt;Suspendisse pulvinar urna non libero viverra viverra. Pellentesque commodo sagittis mattis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla consequat nunc semper enim sodales accumsan aliquam justo luctus. Pellentesque quis leo at mauris malesuada malesuada. Integer vel metus lectus. Duis lobortis, massa ac viverra dignissim, ipsum magna auctor ante, et venenatis massa justo eget velit. Pellentesque vel leo ipsum, rhoncus adipiscing lacus. Donec neque lacus, tempus id pulvinar et, fermentum vitae lectus. Pellentesque aliquam velit sit amet libero ornare eu facilisis sem tristique. Nunc faucibus congue lorem, non ultricies ligula faucibus non. Duis vehicula, est sit amet congue convallis, leo lorem posuere eros, a feugiat felis nisl non turpis.&lt;/p&gt;
+
+            &lt;p&gt;Donec arcu lectus, ullamcorper ut blandit sit amet, consequat eu quam. Fusce augue augue, blandit non ornare nec, auctor in purus. Quisque nec turpis arcu. Phasellus hendrerit massa quis erat pulvinar dapibus. Maecenas at elit et nulla tempor varius. Aenean consectetur elit ac ligula dignissim aliquam. Praesent adipiscing metus bibendum libero malesuada porta. Suspendisse potenti. Cras molestie mauris id orci lobortis congue. Phasellus accumsan placerat euismod. Vivamus non viverra dolor. Ut tempus gravida elit, sed vehicula velit porttitor sit amet.&lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;div style={sidebar}&gt;
+            &lt;StickyContainer style={{height: &apos;2520px&apos;}}&gt;
+              &lt;Sticky&gt;
+                {({
+                    isSticky,
+                    wasSticky,
+                    style,
+                    distanceFromTop,
+                    distanceFromBottom,
+                    calculatedHeight
+                }) =&gt; {
+
+                  return (
+                      &lt;div
+                      style={{
+                          ...style,
+                      }}
+                    &gt;
+                      &lt;div style={headerStyle}&gt;
+                        &lt;h2&gt;Sticky Widget&lt;/h2&gt;
+                        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+                        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  );
+              }}
+              &lt;/Sticky&gt;
+              &lt;h2 className=&quot;mt-5&quot;&gt;Static Widget&lt;/h2&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum luctus eros sed pretium. Proin turpis odio, viverra et tincidunt nec, tincidunt sed nisl.&lt;/p&gt;
+            &lt;/StickyContainer&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    );
+  }
+};
+
+export default StickyExample;</code></pre>
+
+  </section>
+  <!-- SECTION-->
+
+
+  <!-- ******-->
+</div>
+<!--/.Documentation file-->

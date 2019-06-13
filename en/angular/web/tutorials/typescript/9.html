@@ -1,0 +1,220 @@
+<section class="tutorial">
+
+<!-- arrow functions Volume: 8,100/mo  -->
+
+<p>Since you already know how to use <code>Named functions</code> and <code>Anonymous functions</code> let me show you another type of function which you will be dealing with while building Angular Applications</p>
+
+<p>Let's have a look at the following sample:</p>
+
+<pre class="code-toolbar"><code class="language-javascript">// Named function
+function add(x, y) {
+    return x + y;
+}
+
+// Call named function
+console.log(add(5,10));
+</code></pre>
+
+
+<p>You can write the same using <code>arrow functions</code> (sometimes also called <strong>fat arrow</strong> functions):</p>
+
+
+<pre class="code-toolbar"><code class="language-javascript">var add = (x,y) => x+y;
+console.log(add(5,10));
+</code></pre>
+
+<p>As you can see they are not that fat :) They are actually, shorter and less verbose than traditional function expressions. Arrow functions have two huge advantages, the first one you already know: </p>
+
+<h4>1. Shorter syntax:</h4>
+    <p>Arrow functions are <strong>always anonymous</strong> and turn: </p>
+  <pre class="code-toolbar"><code class="language-javascript">(parameters) { expression }
+
+// Example:
+function add(x, y) {
+    return x + y;
+}</code></pre> <p>into:</p>
+    <pre class="code-toolbar"><code class="language-javascript">(parameters) => {expression}
+
+// Example:
+(x,y) => {x+y};</code></pre>
+
+      <p>In the case that your function doesn't use any input parameters, you can use even shorter syntax:</p>
+
+      <pre class="code-toolbar"><code class="language-javascript"> () => {expression}
+
+// Example:
+() => {console.log('Doing some math...'); return 1;}</code></pre>
+
+      <p>When you only have one parameter, the opening parentheses are optional:</p>
+
+      <pre class="code-toolbar"><code class="language-javascript">parameters => { expression }
+
+// Example:
+z => { return z*z}</code></pre>
+
+      <p>Finally, if you are returning an expression, you can <strong> remove the brackets and return statement</strong>:</p>
+
+      <pre class="code-toolbar"><code class="language-javascript"> () => expression
+
+// Example:
+z => z*z; </code></pre>
+
+<h4>2. Handling `this` </h4>
+
+<!-- Before we move on, you should have a good understanding of the keyword this and how it works. If you want to learn, or need a refresher, read my post on the subject before continuing. -->
+
+<p>A function's this keyword behaves a little differently in JavaScript compared to other languages. It also has some differences between strict mode and non-strict mode.</p>
+
+
+<p> Arrow functions do not have <console>this</console>, arguments or other special names bound at all — when the object is being created the name this is found in the enclosing scope, not the person object.</p>
+
+<p>Consider the following example:</p>
+
+
+<pre class="code-toolbar"><code class="language-javascript">var name = "david";
+var person = {
+    name: "john",
+
+    shout: function () {
+        console.log("my name is ", this.name);
+    },
+    shout2: () => {
+        console.log("my name is ", this.name);
+    },
+};
+
+person.shout();  // "john"
+person.shout2(); // "david"
+</code></pre>
+
+<p>As you can see, when we are using normal functions <code>this</code> corresponds to the  name: <code>john</code> (the closest object), while in case of arrow function, this refers to the global scope: <code>david</code></p>
+
+<p><strong>Why is it important?</strong>  </p>
+
+<p>Functions always have their own <code>this</code>. But that prevents you from accessing the <code>this</code> of, e.g., a surrounding method from inside a callback:</p>
+
+<pre class="code-toolbar"><code class="language-javascript">function Prefixer(prefix) {
+    this.prefix = prefix;
+}
+Prefixer.prototype.prefixArray = function (arr) { // (A)
+    'use strict';
+    return arr.map(function (x) { // (B)
+        // Doesn’t work:
+        return this.prefix + x; // (C)
+    });
+};
+
+var pre = new Prefixer('Hi ');
+console.log(pre.prefixArray(['Joe', 'Alex']));</code></pre>
+
+<p>This will generate an error: </p>
+
+<pre class="code-toolbar"><code class="language-javascript">TypeError: Cannot read property 'prefix' of undefined</code></pre>
+
+<p>This is because, in line C, we’d like to access this.prefix, but can’t, because the <code>this</code> of the function from line B shadows the <code>this</code> of the method from line A. In strict mode, this is undefined in non-method functions, which is why we get an error if we use Prefixer.</p>
+
+<p>There is a workaround which we can use: </p>
+
+<pre class="code-toolbar"><code class="language-javascript">function Prefixer(prefix) {
+    this.prefix = prefix;
+}
+Prefixer.prototype.prefixArray = function (arr) {
+    var that = this; // (A)
+    return arr.map(function (x) {
+        return that.prefix + x;
+    });
+};
+
+var pre = new Prefixer('Hi ');
+console.log(pre.prefixArray(['Joe', 'Alex']));</code></pre>
+
+<p>But this is tricky and makes code more complex, while using an arrow function solves the issue:</p>
+
+<pre class="code-toolbar"><code class="language-javascript">function Prefixer(prefix) {
+    this.prefix = prefix;
+}
+Prefixer.prototype.prefixArray = function (arr) {
+    return arr.map((x) => {
+        return this.prefix + x;
+    });
+};
+
+var pre = new Prefixer('Hi ');
+console.log(pre.prefixArray(['Joe', 'Alex']));
+</code></pre>
+
+<blockquote class="blockquote bq-primary">
+    <p class="bq-title">Lesson summary:</p>
+    <p>Since ES6, you can use arrow functions to make your code less verbose: </p>
+    <pre class="code-toolbar"><code class="language-javascript">//Multiple input parameters => mixed output
+(param1, param2, …, paramN) => { statements }
+(param1, param2, …, paramN) => expression
+(param1, param2, …, paramN) => { return expression; }
+
+// Single input (parenthesis are optional)
+(singleParam) => { statements }
+singleParam => { statements }
+singleParam => expression
+
+
+// Empty list of parameters
+() => { statements }</code></pre>
+</blockquote>
+
+
+
+<p>As a disclaimer, there is more to arrow functions than what was explained in this article. But this should give you a great base for further learning! As always, leave a comment if you have any great resources on the subject for others to explore.</p>
+
+<blockquote class="blockquote bq-success">
+    <p class="bq-title">New tutorials coming soon!</p>
+   <p>This is the last lesson in this chapter, in the next tutorial, I will show you how to create a real <a href="https://mdbootstrap.com/previews/free-templates/admin/dashboard.html">Admin Panel</a>  in Angular. If you don't want to miss that — subscribe to our <a href="https://mdbootstrap.com/docs/angular/newsletter/"> newsletter  </a>. No spam, just content :) </p>
+</blockquote>
+
+
+<!--
+// An empty arrow function returns undefined
+let empty = () => {};
+
+(() => 'foobar')();
+// Returns "foobar"
+// (this is an Immediately Invoked Function Expression
+// see 'IIFE' in glossary)
+
+var simple = a => a > 15 ? 15 : a;
+simple(16); // 15
+simple(10); // 10
+
+let max = (a, b) => a > b ? a : b;
+
+// Easy array filtering, mapping, ...
+
+var arr = [5, 6, 13, 0, 1, 18, 23];
+
+var sum = arr.reduce((a, b) => a + b);
+// 66
+
+var even = arr.filter(v => v % 2 == 0);
+// [6, 0, 18]
+
+var double = arr.map(v => v * 2);
+// [10, 12, 26, 0, 2, 36, 46]
+
+// More concise promise chains
+promise.then(a => {
+  // ...
+}).then(b => {
+  // ...
+});
+
+// Parameterless arrow functions that are visually easier to parse
+setTimeout( () => {
+  console.log('I happen sooner');
+  setTimeout( () => {
+    // deeper code
+    console.log('I happen later');
+  }, 1);
+}, 1);
+ -->
+
+
+</section>

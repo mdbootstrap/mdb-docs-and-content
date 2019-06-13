@@ -1,0 +1,162 @@
+<div class="angular-tutorial tutorial">
+  <h2>1. Initial events list</h2>
+  <p>Since the <mark>Event</mark> component receives information like the date or title from the <mark>App</mark> (parent) component,<strong> it is now the <mark>App</mark> component which will be responsible for storing and managing list of events</strong>. Let's add an initial list of the events into the <code>app.component.ts</code> </p>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.ts">
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
+})
+export class AppComponent {
+  events: Array<any> = [
+    {time: '08:00', subject: 'Breakfast with Simon', location: 'Lounge Caffe', description: 'Discuss Q3 targets'},
+    {time: '08:30', subject: 'Daily Standup Meeting (recurring)', location: 'Warsaw Spire Office'},
+    {time: '09:00', subject: 'Call with HRs'},
+    {time: '12:00', subject: 'Lunch with Timmoty', location: 'Canteen', description: 'Project evalutation ile declaring a variable and using an if statement is a fine way to conditionally render a component, sometimes you might want to use a'},
+  ];
+}
+  </code>
+	</mdbsnippet>
+
+<p>Now when we have our initial data, let's learn how to use for loop to dynamically generate all event from <mark>events[]</mark> array.</p>
+
+  <h2>2. <code>*ngFor</code></h2>
+
+
+<p>Angular allows us to variety of usefull directive. On on the most basic and common is <code>ngFor</code> which is a implementation of <code>for loop</code>. </p>
+
+<p><code>ngFor</code> is designed work with the collections. Since we have collection of events let's see how to use <code>ngFor</code> directive in our code. Update <code>app.component.html</code> with the following code: </p>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+      <ul>
+        <li *ngFor="let event of events; let i = index">
+          {{ i }} {{ event.subject }}
+        </li>
+      </ul>
+  </code>
+	</mdbsnippet>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/5/ngfor.png" alt="Preview"/>
+
+
+<p>As you can see, it's very intuitive. We are browsing through	<code>events</code> collection and reffering single instance as <code>event</code>. We have also defined our autoincremented index as <code>i</code>. </p>
+
+<p>Of course names can be adjusted to our variables and convention i.e.: </p>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+        <li *ngFor="let item of items; let counter = index">
+  </code>
+	</mdbsnippet>
+
+<p>We can also put more complex structure within our loop (i.e. surrounding div, headings etc.):</p>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+<ul>
+  <li *ngFor="let event of events; let i = index">
+    <div class="someClass">
+     <h3>{{ i }} {{ event.subject }} </h3>
+    </div>
+  </li>
+</ul>
+  </code>
+	</mdbsnippet>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/5/complex.png" alt="Preview"/>
+
+
+<h2>3. <code>&lt;ng-container&gt;</code></h2>
+
+<p>As you probably noticed <code>ngFor</code> directive is used <strong>inside the HTML tags</strong> like <code>&lt;li&gt;</code>.</p>
+
+<p>This means that given tag will be duplicated as many times as our loop will iterate. Sometimes you may want to use <code>ngFor</code> loop outside the tag (don't want any element to be repeated).  </p>
+
+<p>Although it is impossible to use <code>ngFor</code> directive outside the tag, there is another way. We can use special Angular tag <code><ng-container></code>:</p>
+
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+  <ng-container *ngFor="let event of events; let i = index">
+     {{ i }} {{ event.subject }} 
+  </ng-container>
+  </code>
+	</mdbsnippet>
+
+	<p>This <strong>will not</strong> render any wraping element around our elements.</p>
+
+<h2>4. <code>ngFor</code> vs <code>*ngFor</code></h2>
+
+<p>You also may noticed that we are using a asterisk  (<code>*</code>) before the <code>ngFor</code> directive.</p>
+
+<p>It is related to so called <code>templates</code> within Angular. We will learn more about them in a future lesson. For now just remember that: </p>
+
+<ul>
+	<li>Both <code>ngFor</code> and <code>*ngFor</code> are valid Angular directives</li>
+	<li><code>*ngFor</code> is simplified version of <code> ngFor</code> which allows us to use it directly on elements like <code>&lt;li&gt;</code></li>
+</ul>
+
+
+<p>If you are curious what are the difference, have a look at following code. This: </p>
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+<ng-container  *ngFor="let item of items; let i = index">
+  {{ i }} {{ item }}
+</ng-container >
+
+  </code>
+	</mdbsnippet>
+
+<p>is a shorter version of: </p>
+
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+<ng-template ngFor let-item="$implicit" [ngForOf]="items" let-i="index">
+    {{i}} {{item}}
+  </ng-template>
+  </code>
+	</mdbsnippet>
+
+<p>Therefore, before we will get to the lesson about Angular templates, keep in mind to rather use asterix if you wan't to avoid issues.</p>
+
+
+<h2>5. Using <code>ngFor</code> to pass events</h2>
+
+<p>Now when we know how <code>ngFor</code> works, let's use it to pass dynamically list of all events and render them:</p>
+
+
+	<mdbsnippet>
+	  <code data-lang="js" data-name="app.component.html">
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div *ngFor="let event of events">
+        <app-event [value]="event"></app-event>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+
+
+  </code>
+	</mdbsnippet>
+
+
+
+<p class="note note-warning"><strong>Note:</strong> 
+<br/>
+We skipped the index (iterator) part on purpose. We don't need to reffer to it within our loop, therefore we haven't defined a variable for it.</p>
+
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/5/preview.png" alt="Preview"/>
+
+
+</div>

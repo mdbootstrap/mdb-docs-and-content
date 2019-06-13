@@ -1,0 +1,138 @@
+<div class="vue-tutorial tutorial">
+
+<p>We will start building our app by <strong>setting up the two column structure of our app</strong>. As you can see in the demo app our app consists of two columns: the first, on the left and wider, which lists all the daily events; and the right hand one - which shows the events counter as well as the weather forecast. </p>
+
+<p>As you also noticed our app will be responsible. This is thanks to Bootstrap 4. In this lesson, <strong>we will learn how to use a Bootstrap grid in Vue</strong>.</p>
+
+<p class="note note-warning"><strong>Disclaimer:</strong> I will explain the key concepts and basic usage here. If you want to master Bootstrap usage I strongly suggest to finish <a href="https://mdbootstrap.com/education/bootstrap/">this course</a> first and come back here.</p>
+
+
+<h2>1. Open the project</h2>
+
+<p>In order to start building our project let's open a boilerplate which I have prepared for you in Tutorial files which you downloaded before.</p>
+<ol>
+  <li>Open the <code>agenda-app/start-here</code> project in code editor</li>
+  <li>Replace the content of the <code>App.vue</code> file with the following code:</li>
+
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue">
+<template>
+  <mdb-container>
+    <mdb-row>
+      <mdb-col col="6">Left column</mdb-col>
+      <mdb-col col="6">Right column</mdb-col>
+    </mdb-row>
+  </mdb-container>
+</template>
+
+<script>
+import { mdbContainer, mdbRow, mdbCol } from "mdbvue";
+export default {
+  name: "App",
+  components: {
+    mdbContainer,
+    mdbRow,
+    mdbCol
+  }
+};
+</script>
+
+<style>
+div[class^="col"],
+div[class*=" col"] {
+  border: 1px dotted black;
+}
+</style>
+    </code>
+</mdbsnippet>
+</ol>
+<ul>
+<p>What we did:</p>
+<li>Added a container, with a row and two columns inside within <mark>template</mark></li>
+<li>Imported container, row and column component and registered them inside the <mark>script</mark></li>
+<li>Added a style to make our grid borders visible inside the <mark>style</mark></li>
+
+</ul>
+
+    <h2>1. The concept of the grid</h2>
+
+
+  <p>Currently, our app has two equal-sized columns which are placed next to each other on a large screen. When we resize our browser window <strong>they will nest one beneath the other</strong>:</p>
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/2/appResponsive.render.gif" alt="Bootstrap columns" /><br />
+
+<p><strong>What is the Bootstrap Grid? </strong></p>
+
+<p>In nutshell, it's a mechanism which allows us to create a responsive website. The Bootstrap grid allows us to define rows, and each row consists of up to 12 columns.</p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/2/image_1.png" alt="12 bootstrap columns"/>
+
+  <p>You can<strong> either use one column which will be 12 blocks long or use multiple smaller blocks</strong>. The only rule is that <strong>you cannot exceed more than 12 blocks in a row</strong>. The blocks don't have to be equal in size: </p>
+
+  <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/2/image_3.png" />
+
+<p>And you can skip some of the columns, as well as align them horizontally:</p>
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/2/image_2.png" />
+
+<p>For more advanced usage you can check our <a href="https://mdbootstrap.com/docs/vue/layout/overview/">docs:</a></p>
+
+<h2>3. Responsive breakpoints</h2>
+
+
+  <p>Bootstrap is developed to be <strong>mobile first</strong> - it uses a handful of media queries to create sensible breakpoints for our layouts. These <strong> breakpoints are mostly based on minimum viewport widths</strong> and allow you to scale up elements as the viewport changes.</p>
+
+ <p>This is one of the most important features - in other words: <strong>you can define a different column size for different screen sizes</strong>. Bootstrap lists five different screen sizes, extra small (<b>default</b>), small (<b>sm</b>), medium (<b>md</b>), large (<b>lg</b>)  and extra large (<b>xl</b>).  Each size has a breaking point defined according to the table below:</p>
+  <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/2/image.png" />
+  <span class="small mx-auto">Bootstrap responsive breakpoints table</span> <br/><br/>
+
+<p>Coming to the conclusion - <strong>this super handy tool allows us to create content which will automatically adjust to the screen size</strong>. Let's try the following code:</p>
+
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue (template)">
+<template>
+  <mdb-container>
+    <mdb-row>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+      <mdb-col xl="1" lg="2" md="4" sm="6" size="12">xl=1 lg=2 md=4 sm=6 xs=12</mdb-col>
+    </mdb-row>
+  </mdb-container>
+</template>
+    </code>
+</mdbsnippet>
+
+<p>Run the app and resize the browser size: </p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/2/colsize.gif" alt="Bootstrap columns size" />
+
+<p>I hope that you now you can understand how easy it is to build responsive components using Bootstrap. Let's get back to our app. We want to create a two-column layout that will be visible on the desktop (extra large and large) as well as tablets in horizontal aspect (medium). For smaller screen size we want our columns to nest one below the other.</p>
+
+<h2>4. Responsive grid of our Calendar App</h2>
+
+<p>Replace the template of our <code>App.vue</code> file with following code:</p>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue (template)">
+  <mdb-container>
+    <mdb-row>
+      <mdb-col col="9">Left column</mdb-col>
+      <mdb-col col="3">Right column</mdb-col>
+    </mdb-row>
+  </mdb-container>
+    </code>
+</mdbsnippet>
+
+<p>This will render the expected result. note that we have provided only a medium breaking point. Bootstrap by default assumes that we want 9/3 ratio <strong>not only for medium screen but also for bigger screens</strong>, as well as that we want everything which is lower than md to display on full 12 width. </p>
+</div>
+
+

@@ -1,0 +1,211 @@
+<h2>1. Using IF - ELSE</h2>
+  <div><br /></div>
+  <div>Currently, we have a list of events on our agenda:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            events: [
+            {
+              id: 1,
+              time: "10:00",
+              title: "Breakfast with Simon",
+              location: "Lounge Caffe",
+              description: "Discuss Q3 targets"
+            },
+            {
+              id: 2,
+              time: "10:30",
+              title: "Daily Standup Meeting (recurring)",
+              location: "Warsaw Spire Office"
+            },
+          [...]
+          ]
+          
+      </code>
+  </mdbsnippet>
+  <div>but for some of them the parameters like location or description are optional. Currently, our <mark>render()</mark> method doesn't check whether a value exists:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            <React.Fragment>
+                <h3>
+                    {this.props.time} - {this.props.title}
+                </h3>
+                <h6>Location: {this.props.location}</h6>
+                <p>Desc: {this.props.description}</p>
+            </React.Fragment>                  
+     </code>
+ </mdbsnippet>
+  <p>As a result, we see empty values:</p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/9/image_3.png"  /><br /></div>
+  <div><br /></div>
+  <div>As you already know, we cannot use JS directly inside our render method. We could, however, offload the logic to separate     functions as below:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            function Hello(props) {
+                const isLoggedIn = props.isLoggedIn;
+                if (isLoggedIn) {
+                  return "Hello!";
+                }
+                return "Please login first!";
+              }
+              ReactDOM.render(
+                // Try changing to isLoggedIn={true}:
+                <Hello isLoggedIn={false} />,
+                document.getElementById("root")
+              );              
+      </code>
+  </mdbsnippet>
+  <div>That said, React provides us a more useful mechanism for conditional rendering called<span style="font-weight: bold;"> i</span><span
+      style=" font-weight: bold;">nline If with Logical &amp;&amp; Operator. </span></div>
+  <div><br /></div>
+
+  <h2>2. If with Logical &amp;&amp; Operator</h2>
+
+  <div><br /></div>
+  <p>How does it work? Let's replace or Location heading with the following code:</p>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            {this.props.location && <h6>Location: {this.props.location}</h6>}
+      </code>
+  </mdbsnippet>
+  <p>As you can see we have wrapped it with curly braces and added a logical check
+      followed by the logical &amp;&amp; operator.</p>
+
+
+  <p class="note note-info"> <strong>Note:</strong> <br /> 
+    You can read it as an <b>IF-THEN condition</b>:    <br />
+    "<b>IF </b>this.props.location exists <b>THEN </b>display content after
+      &amp;&amp;"</p>
+  <p>Let's also update our description code:</p>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            {this.props.description && (
+                <p className="p-2 mb-4  blue-grey lighten-5 blue-grey lighten-5">
+                  {this.props.description}
+                </p>
+              )}              
+     </code>
+ </mdbsnippet>
+  <p>Preview:</p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/9/image.png" alt="Conditional rendering" /><br /></div>
+  <div><br /></div>
+
+  <h2>3. Conditional blocks rendering</h2>
+
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <p>You can also apply the same logic to bigger blocks of code. Let's import a few more
+      components from the MDB library: </p>
+   <mdbsnippet>
+       <code data-lang="php" data-name="JSX">
+            import {MDBBtn, MDBInput, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBIcon, MDBBadge, MDBContainer, MDBRow, MDBCol} from "mdbreact";
+       </code>
+   </mdbsnippet>
+  <p>and update our <mark>render()</mark> method ins the Event component: </p>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            render() {
+                return (
+                  <React.Fragment>
+                    <div className="media mt-1">
+                      <h3 className="h3-responsive font-weight-bold mr-3">
+                        {this.props.time}
+                      </h3>
+                      <div className="media-body mb-3 mb-lg-3">
+                        <MDBBadge color="danger" className="ml-2 float-right">
+                          -
+                        </MDBBadge>
+                        <h6 className="mt-0 font-weight-bold">{this.props.title} </h6>{" "}
+                        <hr className="hr-bold my-2" />
+                        {this.props.location && (
+                          <React.Fragment>
+                            <p className="font-smaller mb-0">
+                              <MDBIcon icon="location-arrow" /> {this.props.location}
+                            </p>
+                          </React.Fragment>
+                        )}
+                      </div>
+                    </div>
+                    {this.props.description && (
+                      <p className="p-2 mb-4  blue-grey lighten-5 blue-grey lighten-5">
+                        {this.props.description}
+                      </p>
+                    )}
+                  </React.Fragment>
+                );
+              }
+            
+     </code>
+ </mdbsnippet>
+  <p>As you can see we are using <mark> &lt;React.Fragment&gt;</mark> in a conditional rendering of a location item. We have also added some styles to our app. Now it looks much better:</p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/9/image_1.png"  alt="Calendar app preview" /><br /></div>
+  <div>Let's update also the <mark>App Class</mark>: </div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            render() {
+                return (
+                  <React.Fragment>
+                    <MDBContainer>
+                      <MDBRow>
+                        <MDBCol md="9" className="mb-r">
+                          <h2 className="text-uppercase my-3">Today:</h2>
+                          <div id="schedule-items">
+                            {this.state.events.map(event => (
+                              <Event
+                                key={event.id}
+                                id={event.id}
+                                time={event.time}
+                                title={event.title}
+                                location={event.location}
+                                description={event.description}
+                              />
+                            ))}
+                          </div>
+                          <MDBRow className="mb-4">
+                            <MDBCol xl="3" md="6" className="mx-auto text-center">
+                              <MDBBtn color="info" rounded>
+                                Add Event
+                              </MDBBtn>
+                            </MDBCol>
+                          </MDBRow>
+                        </MDBCol>
+                        <MDBCol md="3">
+                          <h3 className="text-uppercase my-3">Schedule</h3>
+                          <h6 className="my-3">
+                            It's going to be busy that today. You have{" "}
+                            <b>{this.state.events.length} events </b> today.
+                          </h6>
+                          <h1 className="my-3">
+                            <MDBRow>
+                                <MDBCol xs="3" className="text-center">
+                                  <MDBIcon icon="sun" fixed />
+                                </MDBCol>
+                                <MDBCol xs="9">Sunny</MDBCol>
+                              </MDBRow>
+                              <MDBRow>
+                                <MDBCol xs="3" className="text-center">
+                                <MDBIcon icon="thermometer-three-quarters" fixed />                  
+                                </MDBCol>
+                                <MDBCol xs="9">23°C</MDBCol>
+                              </MDBRow>
+                          </h1>
+                          <p>
+                            Don't forget your sunglasses. Today will dry and sunny, becoming
+                            warm in the afternoon with temperatures of between 20 and 25
+                            degrees.
+                          </p>
+                        </MDBCol>
+                      </MDBRow>
+                    </MDBContainer>
+                  </React.Fragment>
+                );
+              }
+              
+      </code>
+  </mdbsnippet>
+  <p>And remove any styles if they are present in the <code>index.css</code> file. Now our app looks
+      much better! </p>
+  <p>Preview:</p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/9/image_2.png" height="656" width="808" /><br /></div>
+  <div><br /></div>
+  <p">As you noticed we have added small buttons that we will use to remove items from
+      the list, as well as a button in the bottom which will show a new window to add events to our schedule. Let's move
+      on to the next lesson where we will learn how to add and delete events!</p>

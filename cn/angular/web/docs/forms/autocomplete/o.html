@@ -1,0 +1,467 @@
+<!--Section: Introduction-->
+<section id="introduction">
+  <h2 class="primary-heading">Angular Bootstrap autocomplete</h2>
+  <h1 class="secondary-heading mb-4">Angular Autocomplete - Bootstrap 4 & Material Design</h1>
+
+  <p class="description">Angular Bootstrap autocomplete is a component which predicts the words basing on the first few
+    letters given by a user, while one is typing it.</p>
+
+  <blockquote class="blockquote bq-danger">
+    <p class="bq-title">Warning notification</p>
+    <p>In the MDB Angular 7.2.0 version, the <code>mdb-autocomplete</code> component was changed to <code>mdb-auto-completer</code>. Its construction is completely different.
+      The following documentation presents a new version of this component.
+      If you are still using the old version, its documentation can be found <a href="https://mdbootstrap.com/legacy/angular/7.1.0/?page=forms/autocomplete/">here</a>.
+      In MDB Angular 8 we will remove the old version of <code>mdb-autocomplete</code>, so we recommend that you migrate to the new version as soon as possible.
+    </p>
+  </blockquote>
+</section>
+<!--Section: Introduction-->
+
+<hr class="my-5">
+
+<!--Section: Basic example-->
+<section id="basic-example">
+
+  <h2 class="section-heading">
+    Basic example
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank"
+      class="btn btn-danger btn-sm btn-md" role="button">MDB Pro component <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+    <div class="md-form" style="width: 22rem;">
+      <input type="search" id="form-autocomplete" class="form-control mdb-autocomplete">
+      <button class="mdb-autocomplete-clear">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </button>
+      <label for="form-autocomplete" class="active">What is your favorite US state?</label>
+    </div>
+  </section>
+  <!--/Section: Live preview-->
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="md-form">
+          <input type="text" class="completer-input form-control mdb-autocomplete"
+                 [(ngModel)]="searchText"
+                 (input)="getFilteredData()" (ngModelChange)="onChange()"
+                 [mdbAutoCompleter]="auto"
+                 placeholder="Choose your color">
+          <mdb-auto-completer #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
+            <mdb-option *ngFor="let option of results | async" [value]="option">
+              {{option}}
+            </mdb-option>
+          </mdb-auto-completer>
+        </div>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import {AfterViewInit, Component, ViewChild} from '@angular/core';
+        import {of} from 'rxjs';
+        import {MdbAutoCompleterComponent} from 'ng-uikit-pro-standard';
+
+        @Component({
+          selector: 'basic-auto-completer',
+          templateUrl: './basic-auto-completer.component.html',
+          styleUrls: ['./basic-auto-completer.component.scss'],
+        })
+        export class BasicAutoCompleterComponent implements AfterViewInit {
+        @ViewChild(MdbAutoCompleterComponent) completer: MdbAutoCompleterComponent;
+        searchText = '';
+        results: any;
+        data: any = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'black'];
+
+        constructor() {
+          this.results = this.searchEntries(this.searchText);
+        }
+
+        getDataItems() {
+          return this.data;
+        }
+
+        searchEntries(term: string) {
+          return of(this.getDataItems().filter((data: any) => data.toString().toLowerCase().includes(term.toString().toLowerCase())));
+        }
+
+        getFilteredData() {
+          this.results = this.searchEntries(this.searchText);
+        }
+
+        onChange() {
+          this.getFilteredData();
+        }
+
+        ngAfterViewInit() {
+          this.completer.selectedItemChanged().subscribe((data: any) => {
+            this.searchText = data.text;
+            this.getFilteredData();
+          });
+         }
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+<!--/Section: Basic example-->
+
+<hr class="my-5">
+
+<!--Section: Disabled Autocomplete-->
+<section id="disabled">
+  <h2 class="section-heading">
+    Disabled autocomplete
+    <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <p>Use <code>disabled</code> attribute on input element, and <code>[disabled]="true"</code> on the <code>mdb-auto-completer</code> element to disable the whole autocompleter component.</p>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="md-form">
+          <input type="text" disabled class="completer-input form-control mdb-autocomplete"
+                 [(ngModel)]="searchText"
+                 (input)="getFilteredData()" (ngModelChange)="onChange()"
+                 [mdbAutoCompleter]="auto"
+                 placeholder="Choose your color">
+          <mdb-auto-completer [disabled]="true" #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
+            <mdb-option *ngFor="let option of results | async" [value]="option">
+              {{option}}
+            </mdb-option>
+          </mdb-auto-completer>
+        </div>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import {AfterViewInit, Component, ViewChild} from '@angular/core';
+        import {of} from 'rxjs';
+        import {MdbAutoCompleterComponent} from 'ng-uikit-pro-standard';
+
+        @Component({
+        selector: 'disabled-completer',
+        templateUrl: './disabled-completer.component.html',
+        styleUrls: ['./disabled-completer.component.scss'],
+        })
+        export class DisabledCompleterComponent implements AfterViewInit {
+        @ViewChild(MdbAutoCompleterComponent) completer: MdbAutoCompleterComponent;
+        searchText = '';
+        results: any;
+        data: any = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'black'];
+
+        constructor() {
+          this.results = this.searchEntries(this.searchText);
+        }
+
+        getDataItems() {
+          return this.data;
+        }
+
+        searchEntries(term: string) {
+          return of(this.getDataItems().filter((data: any) => data.toString().toLowerCase().includes(term.toString().toLowerCase())));
+        }
+
+        getFilteredData() {
+          this.results = this.searchEntries(this.searchText);
+        }
+
+        onChange() {
+          this.getFilteredData();
+        }
+
+        ngAfterViewInit() {
+          this.completer.selectedItemChanged().subscribe((data: any) => {
+            this.searchText = data.text;
+            this.getFilteredData();
+          });
+         }
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+</section>
+<!--/Section: Disabled Autocomplete-->
+
+<hr class="my-5">
+
+<!--Section: Remote data-->
+<section id="remoteData">
+  <h2 class="section-heading">
+    Remote data
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank"
+      class="btn btn-danger btn-sm btn-sm" role="button">MDB Pro component <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="md-form">
+          <input type="text" class="completer-input form-control mdb-autocomplete mb-0"
+                 [(ngModel)]="searchText"
+                 (input)="getFilteredData()" (ngModelChange)="onChange()"
+                 [mdbAutoCompleter]="auto"
+                 placeholder="Pick the Star Wars character">
+          <mdb-auto-completer #auto="mdbAutoCompleter"  textNoResults="I have found no results :(">
+            <mdb-option *ngFor="let option of results | async" [value]="option.name">
+              <div class="d-flex flex-column">
+                <strong>Name: {{option.name}}</strong>
+                <small>Gender: {{option.gender}}</small>
+                <small>Hair color: {{option.hair_color}}</small>
+              </div>
+            </mdb-option>
+          </mdb-auto-completer>
+        </div>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import {Component} from '@angular/core';
+        import {of} from 'rxjs';
+        import {HttpClient} from '@angular/common/http';
+
+        @Component({
+          selector: 'remote-auto-completer',
+          templateUrl: './remote-auto-completer.component.html',
+          styleUrls: ['./remote-auto-completer.component.scss'],
+        })
+        export class RemoteAutoCompleterComponent {
+        searchText = '';
+        url = 'https://swapi.co/api/people/?search=';
+        results: any;
+        data: any;
+        constructor(private httpClient: HttpClient) {
+          this.httpClient.get(this.url + this.searchText).subscribe((data: any) => {
+            console.log(data);
+            this.data = data;
+          });
+        }
+
+        getDataItems() {
+          return this.data['results'];
+        }
+
+        searchEntries(term: string) {
+          return of(this.getDataItems().filter((data: any) => data['name'].toString().toLowerCase().includes(term.toString().toLowerCase())));
+        }
+
+        getFilteredData() {
+          this.results = this.searchEntries(this.searchText);
+        }
+
+        onChange() {
+          if (this.searchText) {
+            this.getFilteredData();
+            }
+          }
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+<!--/Section: Remote data-->
+
+<hr class="my-5">
+
+<!--Section: Reactive forms-->
+<section id="reactive-forms">
+  <h2 class="section-heading">
+    Reactive forms
+    <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" class="btn btn-danger btn-sm" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <p>In this section you will find informations on how to use our autocomplete component in reactive forms.</p>
+
+  <p class="mb-5">Remember to import
+    <code>ReactiveFormsModule</code> in your's
+    <code>app.module.ts</code>
+  </p>
+
+  <h4 id="preselect-reactive" class="secondary-heading">Default value</h4>
+
+  <p>Set default value in <code>FormControl</code></p>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form [formGroup]="testForm">
+          <div class="md-form">
+            <input formControlName="testAutocomplete" type="text" class="completer-input form-control mdb-autocomplete mb-0" (keydown)="searchText = $event.target.value"
+                   (input)="getFilteredData()" (ngModelChange)="onChange()"
+                   [mdbAutoCompleter]="auto"
+                   placeholder="Choose your color">
+            <mdb-auto-completer #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
+              <mdb-option *ngFor="let option of results | async" [value]="option">
+                {{option}}
+              </mdb-option>
+            </mdb-auto-completer>
+          </div>
+        </form>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import {AfterViewInit, Component, ViewChild} from '@angular/core';
+        import {of} from 'rxjs';
+        import {MdbAutoCompleterComponent} from 'ng-uikit-pro-standard';
+        import {FormControl, FormGroup} from '@angular/forms';
+
+        @Component({
+          selector: 'reactive-form-auto-completer',
+          templateUrl: './reactive-form-auto-completer.component.html',
+          styleUrls: ['./reactive-form-auto-completer.component.scss'],
+        })
+        export class ReactiveFormAutoCompleterComponent implements AfterViewInit {
+        @ViewChild(MdbAutoCompleterComponent) completer: MdbAutoCompleterComponent;
+        searchText = '';
+        results: any;
+        data: any = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'black'];
+
+        testForm: FormGroup;
+
+        constructor() {
+          this.results = this.searchEntries(this.searchText);
+          this.testForm = new FormGroup({
+            testAutocomplete: new FormControl()
+          });
+        }
+
+        getDataItems() {
+          return this.data;
+        }
+
+        searchEntries(term: string) {
+          return of(this.getDataItems().filter((data: any) => data.toString().toLowerCase().includes(term.toString().toLowerCase())));
+        }
+
+        getFilteredData() {
+          this.results = this.searchEntries(this.searchText);
+        }
+
+        onChange() {
+          this.getFilteredData();
+        }
+
+        ngAfterViewInit() {
+          this.completer.selectedItemChanged().subscribe((data: any) => {
+            this.searchText = data.text;
+            this.getFilteredData();
+          });
+
+        setTimeout(() => {
+            this.testForm.controls['testAutocomplete'].setValue('red');
+          }, 0);
+         }
+
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+</section>
+<!--/Section: Reactive forms-->
+
+<hr class="my-5">
+
+<!--Section: Reactive forms-->
+<section id="append-to-body">
+  <h2 class="section-heading">
+    Append to body
+    <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" class="btn btn-danger btn-sm" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <p>In this section you will find informations on how to append <code>mdb-auto-completer</code> component to the body element.</p>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="row">
+          <div class="col-md-6 mx-auto my-5" style="overflow-y: hidden">
+            <div class="md-form">
+              <input type="text" class="completer-input form-control mdb-autocomplete"
+                     [(ngModel)]="searchText"
+                     (input)="getFilteredData()" (ngModelChange)="onChange()"
+                     [mdbAutoCompleter]="auto"
+                     placeholder="Choose your color">
+              <mdb-auto-completer [appendToBody]="true" #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
+                <mdb-option *ngFor="let option of results | async" [value]="option">
+                  {{option}}
+                </mdb-option>
+              </mdb-auto-completer>
+            </div>
+          </div>
+        </div>
+
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { Component, ViewChild, AfterViewInit } from '@angular/core';
+        import {MdbAutoCompleterComponent} from "../../projects/ng-uikit-pro-standard/src/lib/pro/auto-completer";
+        import { of } from 'rxjs';
+
+        @Component({
+          selector: 'body-auto-completer',
+          templateUrl: './body-auto-completer.component.html',
+          styleUrls: ['./body-auto-completer.component.scss']
+        })
+        export class BodyAutoCompleterComponent implements AfterViewInit {
+          @ViewChild(MdbAutoCompleterComponent) completer: MdbAutoCompleterComponent;
+          searchText = '';
+          results: any;
+          data: any = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'black'];
+
+          constructor() {
+            this.results = this.searchEntries(this.searchText);
+          }
+
+          getDataItems() {
+            return this.data;
+          }
+
+          searchEntries(term: string) {
+            return of(this.getDataItems().filter((data: any) => data.toString().toLowerCase().includes(term.toString().toLowerCase())));
+          }
+
+          getFilteredData() {
+            this.results = this.searchEntries(this.searchText);
+          }
+
+          onChange() {
+            this.getFilteredData();
+          }
+
+          ngAfterViewInit() {
+            this.completer.selectedItemChanged().subscribe((data: any) => {
+              this.searchText = data.text;
+              this.getFilteredData();
+            });
+          }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+</section>
+<!--/Section: Reactive forms-->

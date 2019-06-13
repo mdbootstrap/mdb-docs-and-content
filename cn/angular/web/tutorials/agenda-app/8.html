@@ -1,0 +1,249 @@
+<div class="angular-tutorial tutorial">
+<p>In this lesson, we will learn how to use modals in our projects. </p>
+
+<p class="note note-primary"><strong>Note:</strong> <br/> Modals are small pop up windows which are really handy when you want to display to user extra content, configuration or consent request.</p>
+
+  <p>To use modals, follow the steps below.</p>
+
+
+<ol>
+
+	<li>1. Import the required <code>ViewChild</code> and <code>Modal</code> directives in <code>app.component.ts</code></li>
+
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.ts">
+import {Component, ViewChild} from '@angular/core';
+import {ModalDirective} from 'angular-bootstrap-md';
+  </code>
+</mdbsnippet>
+
+<li>Define the <code>@ViewChild</code> element within the <mark>AppComponent</mark> class</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.ts">
+export class AppComponent {
+  @ViewChild(ModalDirective) modal: ModalDirective;
+...
+}
+  </code>
+</mdbsnippet>
+
+<li>Add a modal template at the end of the <code>app.component.html</code> file:</li>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.html">
+
+<!--Modal-->
+<div
+  mdbModal
+  #frame="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  style="overflow-y: auto"
+>
+  <!--Dialog-->
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h4 class="modal-title white-text w-100 font-weight-bold py-2">
+          Schedule appointment
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="frame.hide()"
+        >
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        Modal Body
+      </div>
+      <!--/.Body-->
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <button
+          type="button"
+          mdbBtn
+          color="info"
+          class="waves-effect"
+          mdbWavesEffect
+        >
+          Add
+        </button>
+      </div>
+      <!--Footer-->
+    </div>
+    <!--/.Content-->
+  </div>
+  <!--/.Dialog-->
+</div>
+<!--/.Modal-->
+  </code>
+</mdbsnippet>
+
+<p>Our modal is almost ready, the last thing we have to do is to display it. In order to do that we will use <mark>frame.show()</mark> function (which comes with <code>ModalDirective</code>) and bind it to the Add event button using <mark>(click)</mark> binding.</p>
+
+<li>Update the <i>Add event</i> button with modal call:</li>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.html">
+        <a
+          type="button"
+          mdbBtn
+          color="info"
+          class="waves-effect mb-4"
+          (click)="frame.show()"
+          mdbWavesEffect
+          >Add event
+        </a>
+
+  </code>
+</mdbsnippet>
+
+<p>That how your <code>app.component.html</code> file should looks like:</p>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="app.component.html">
+
+<div class="container mt-3">
+  <div class="row ">
+    <div class="col-md-9">
+      <div *ngFor="let event of events">
+        <app-event
+          [value]="event"
+          (deleteEventInstanceEvent)="deleteEvent($event)"
+        ></app-event>
+      </div>
+      <div class="text-center">
+        <a
+          type="button"
+          mdbBtn
+          color="info"
+          class="waves-effect mb-4"
+          (click)="frame.show()"
+          mdbWavesEffect
+          >Add event
+        </a>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <h3 class="text-uppercase">Schedule</h3>
+      <h6 class="my-3">
+        It's going to be busy that today. You have
+        <b> {{ events.length }} events </b> today.
+      </h6>
+      <h1 class="my-3">
+        <div class="row">
+          <div class="col-3 text-center">
+            <mdb-icon fas icon="sun"></mdb-icon>
+          </div>
+          <div class="col-9 ">Sunny</div>
+        </div>
+        <div class="row">
+          <div class="col-3 text-center">
+            <mdb-icon fas icon="thermometer-three-quarters"></mdb-icon>
+          </div>
+          <div class="col-3 ">23°C</div>
+        </div>
+      </h1>
+      <p>
+        Don't forget your sunglasses. Today will dry and sunny, becoming warm in
+        the afternoon with temperatures of between 20 and 25 degrees.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!--Modal-->
+<div
+  mdbModal
+  #frame="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  style="overflow-y: auto"
+>
+  <!--Dialog-->
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h4 class="modal-title white-text w-100 font-weight-bold py-2">
+          Add Event
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="frame.hide()"
+        >
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        Modal Body
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <button
+          type="button"
+          mdbBtn
+          color="info"
+          class="waves-effect"
+          mdbWavesEffect
+        >
+          Add
+        </button>
+      </div>
+      <!--Footer-->
+    </div>
+    <!--/.Content-->
+  </div>
+  <!--/.Dialog-->
+</div>
+<!--/.Modal-->
+
+  </code>
+</mdbsnippet>
+
+
+<li>Run and test the app</li>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/agenda-app/8/preview.gif" alt="Modal Demo" />
+
+
+
+<p class="note note-primary"><strong>Note:</strong> <br />
+Modals are great tools and they can be customized in various ways. Most probably you will use them to get user consent for using cookies or to accept a privacy policy on a website, display a registration/login form or some extra details like map and/or contact form. 
+<br /><br />
+You can find dozens of predefined modal templates in our <a href="https://mdbootstrap.com/docs/angular/modals/additional/">docs</a>. <br />
+You may also wish to check out our <a href="https://mdbootstrap.com/docs/angular/modals/generator/">modal generator</a>. 
+</p>
+
+</ol>
+</div>

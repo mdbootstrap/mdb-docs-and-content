@@ -1,0 +1,136 @@
+<div class="vue-tutorial tutorial">
+
+<p>Amongst other advantages, Vue <strong>gained incredible momentum within the last year thanks to its reactive and composable components</strong>. Components are reusable Vue instances with a name. We can use this component as a custom element inside a root.</p>
+
+
+<p>It’s common for an app to be organized into a tree of nested components:</p>
+
+  <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/3/components.png"  alt="Components tree"/>
+
+
+<p>In this lesson, we will learn how to create, use and organize components.</p>
+
+<h2>1. Create and export component</h2>
+
+<ol>
+  <li>Create a new folder and call it <code>components</code> inside the <code>src</code> folder:</li>
+      <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/3/components.gif"  alt="Create components folder"/>
+  <li>Create a new file called <code>HelloWorld.vue</code> inside <code>comopnents/</code> folder:</li>
+      <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/3/helloworld.gif"  alt="Create HelloWorld component"/>
+
+<li>Open the <code>HelloWorld.vue</code> file and paste the following code into it:</li>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue">
+<template>
+  <div class="hello">
+    <h3>I am Hello World Component</h3>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "HelloWorld"
+};
+</script>
+
+<style scoped>
+h3 {
+  font-weight: normal;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+</style>
+
+    </code>
+</mdbsnippet>
+</ol>
+
+<p>As you noticed - within our <code>script</code> part we export our component: </p>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue (script)">
+<script>
+export default {
+  name: "HelloWorld"
+};
+</script>
+    </code>
+</mdbsnippet>
+<p>This is the place where we can define the name of our component.  Now when our component is ready can use it within our App component.</p>
+
+<h2>2. Import component</h2>
+
+<ol>
+  <li>Open and replace the content of the <code>App.vue</code> file with the following:</li>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue">
+<template>
+  <div class="app">
+    <h2>I am App (main component)</h2>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "App"
+};
+</script>
+
+<style>
+.app {
+  margin: 0 auto;
+  font-family: sans-serif;
+  background-color: #ccf7e2;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 500px;
+}
+</style>
+    </code>
+</mdbsnippet>
+
+<p>In order to use the HelloWorld component <strong>we have to first import and define it</strong> within the<code>script</code> part:</p>
+
+<li>Add an import statement:</li>
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue (script)">
+<script>
+import HelloWorld from "@/components/HelloWorld";
+
+[...]
+</script>
+    </code>
+</mdbsnippet>
+<li>Within the <mark>export default{...}</mark> declaration add <mark>HelloWorld</mark> to components list:</li>
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue (script)">
+export default {
+  name: "App",
+  components: {
+    HelloWorld
+  }
+};
+    </code>
+</mdbsnippet>
+
+<li>Now we can use our new component using the <mark>&lt;HelloWorld/&gt;</mark> tag:</li>
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue (template)">
+<template>
+  <div class="app">
+    <h2>I am App (main component)</h2>
+    <HelloWorld/>
+  </div>
+</template>
+    </code>
+</mdbsnippet>
+
+  <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/getting-started/3/HelloWorld.png"  alt="HellWorld"/>
+
+
+</ol>
+
+</div>

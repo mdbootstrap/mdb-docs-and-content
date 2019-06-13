@@ -1,0 +1,867 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Angular Bootstrap file input</h2>
+  <h1 class="secondary-heading mb-4">Angular File Input - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p class="description">Angular Bootstrap file input is a field which user can use to upload one or more files
+    (photos, documents or any
+    other file type) from the local storage.</p>
+
+  <p>Standard file inputs usually leave a lot to wish for in terms of design, but MDB takes care of that by enhancing
+    them with Material Design best practices.</p>
+
+  <p>Most common use examples:</p>
+
+  <ul>
+    <li>CSV upload to CRM system</li>
+    <li>Avatar picture upload</li>
+    <li>Simple GIF upload</li>
+  </ul>
+
+  <p>Below you can see a number of Angular Bootstrap file inputs created with Material Design for Bootstrap.</p>
+
+</section>
+
+<hr class="my-5">
+
+<section id="basic-example">
+
+  <h2 class="section-heading">
+    Basic example
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+        <form class="md-form">
+            <div class="file-field">
+                <div class="btn btn-primary btn-sm float-left">
+                    <span>Choose file</span>
+                    <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Upload your file">
+                </div>
+            </div>
+        </form>
+            <button class="btn btn-md btn-primary">Start uploading</button>
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form>
+          <div class="file-field md-form">
+            <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
+              <span>Choose file</span>
+              <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+            </div>
+          </div>
+          <button class="btn btn-md btn-primary" (click)="startUpload()">Start uploading</button>
+        </form>
+      </code>
+
+      <code data-lang="js" data-name="TypeScript">
+import { Component, EventEmitter } from '@angular/core';
+import { UploadFile, UploadInput, UploadOutput } from 'ng-uikit-pro-standard';
+import { humanizeBytes } from 'ng-uikit-pro-standard';
+
+@Component({
+selector: 'file-input-example',
+templateUrl: 'file-input.html',
+})
+
+export class FileInputComponent  {
+  formData: FormData;
+  files: UploadFile[];
+  uploadInput: EventEmitter<UploadInput>;
+  humanizeBytes: Function;
+  dragOver: boolean;
+
+  constructor() {
+      this.files = [];
+      this.uploadInput = new EventEmitter<UploadInput>();
+      this.humanizeBytes = humanizeBytes;
+  }
+
+  showFiles() {
+      let files = '';
+      for (let i = 0; i < this.files.length; i ++) {
+        files += this.files[i].name;
+         if (!(this.files.length - 1 === i)) {
+           files += ',';
+        }
+      }
+      return files;
+   }
+
+  startUpload(): void {
+      const event: UploadInput = {
+      type: 'uploadAll',
+      url: 'your-path-to-backend-endpoint',
+      method: 'POST',
+      data: { foo: 'bar' },
+      };
+      this.files = [];
+      this.uploadInput.emit(event);
+  }
+
+  cancelUpload(id: string): void {
+      this.uploadInput.emit({ type: 'cancel', id: id });
+  }
+
+  onUploadOutput(output: UploadOutput | any): void {
+
+      if (output.type === 'allAddedToQueue') {
+      } else if (output.type === 'addedToQueue') {
+        this.files.push(output.file); // add file to array when added
+      } else if (output.type === 'uploading') {
+        // update current data in files array for uploading file
+        const index = this.files.findIndex(file => file.id === output.file.id);
+        this.files[index] = output.file;
+      } else if (output.type === 'removed') {
+        // remove file from array when removed
+        this.files = this.files.filter((file: UploadFile) => file !== output.file);
+      } else if (output.type === 'dragOver') {
+        this.dragOver = true;
+      } else if (output.type === 'dragOut') {
+      } else if (output.type === 'drop') {
+        this.dragOver = false;
+      }
+      this.showFiles();
+  }
+}
+      </code>
+    </mdbsnippet>
+  </section>
+
+</section>
+
+<hr class="my-5">
+
+<section id="file-floating">
+
+  <h2 class="section-heading">
+    File input with floating button
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+      <form class="md-form">
+          <div class="file-field">
+              <a class="btn-floating amber darken-2 mt-0 float-left">
+                  <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                  <input type="file" multiple>
+              </a>
+              <div class="file-path-wrapper">
+                 <input class="file-path validate" type="text" placeholder="Upload one or more files">
+              </div>
+          </div>
+      </form>
+      <button class="btn btn-md amber darken-2">Start uploading</button>
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+          <form>
+              <div class="file-field md-form">
+                  <div mdbBtn floating="true" size="md" color="amber" mdbWavesEffect>
+                    <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                    <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+                  </div>
+                <div class="file-path-wrapper mt-3">
+                  <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+                </div>
+              </div>
+              <button mdbBtn type="button" color="amber" class="waves-light" (click)="startUpload()" mdbWavesEffect>Start uploading</button>
+        </form>
+      </code>
+
+      <code data-lang="js" data-name="TypeScript">
+import { Component, EventEmitter } from '@angular/core';
+import { UploadFile, UploadInput, UploadOutput } from 'ng-uikit-pro-standard';
+import { humanizeBytes } from 'ng-uikit-pro-standard';
+
+@Component({
+selector: 'file-input-example',
+templateUrl: 'file-input.html',
+})
+
+export class FileInputComponent  {
+  formData: FormData;
+  files: UploadFile[];
+  uploadInput: EventEmitter<UploadInput>;
+  humanizeBytes: Function;
+  dragOver: boolean;
+
+  constructor() {
+      this.files = [];
+      this.uploadInput = new EventEmitter<UploadInput>();
+      this.humanizeBytes = humanizeBytes;
+  }
+
+  showFiles() {
+      let files = '';
+      for (let i = 0; i < this.files.length; i ++) {
+        files += this.files[i].name;
+         if (!(this.files.length - 1 === i)) {
+           files += ',';
+        }
+      }
+      return files;
+   }
+
+  startUpload(): void {
+      const event: UploadInput = {
+      type: 'uploadAll',
+      url: 'your-path-to-backend-endpoint',
+      method: 'POST',
+      data: { foo: 'bar' },
+      };
+      this.files = [];
+      this.uploadInput.emit(event);
+  }
+
+  cancelUpload(id: string): void {
+      this.uploadInput.emit({ type: 'cancel', id: id });
+  }
+
+  onUploadOutput(output: UploadOutput | any): void {
+
+      if (output.type === 'allAddedToQueue') {
+      } else if (output.type === 'addedToQueue') {
+        this.files.push(output.file); // add file to array when added
+      } else if (output.type === 'uploading') {
+        // update current data in files array for uploading file
+        const index = this.files.findIndex(file => file.id === output.file.id);
+        this.files[index] = output.file;
+      } else if (output.type === 'removed') {
+        // remove file from array when removed
+        this.files = this.files.filter((file: UploadFile) => file !== output.file);
+      } else if (output.type === 'dragOver') {
+        this.dragOver = true;
+      } else if (output.type === 'dragOut') {
+      } else if (output.type === 'drop') {
+        this.dragOver = false;
+      }
+      this.showFiles();
+  }
+}
+      </code>
+    </mdbsnippet>
+  </section>
+
+</section>
+
+<hr class="my-5">
+
+<section id="file-floating-gradient">
+
+  <h2 class="section-heading">
+    File input with gradient floating button
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+      <form class="md-form">
+          <div class="file-field">
+              <a class="btn-floating purple-gradient mt-0 float-left">
+                  <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                  <input type="file">
+              </a>
+              <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Upload your file">
+              </div>
+          </div>
+      </form>
+      <button class="btn btn-md purple-gradient">Start uploading</button>
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+          <form>
+              <div class="file-field md-form">
+                  <div mdbBtn floating="true" size="md" gradient="purple" mdbWavesEffect>
+                    <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                    <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+                  </div>
+                <div class="file-path-wrapper mt-3">
+                  <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+                </div>
+              </div>
+              <button mdbBtn type="button" gradient="purple" class="waves-light" (click)="startUpload()" mdbWavesEffect>Start uploading</button>
+        </form>
+      </code>
+
+      <code data-lang="js" data-name="TypeScript">
+import { Component, EventEmitter } from '@angular/core';
+import { UploadFile, UploadInput, UploadOutput } from 'ng-uikit-pro-standard';
+import { humanizeBytes } from 'ng-uikit-pro-standard';
+
+@Component({
+selector: 'file-input-example',
+templateUrl: 'file-input.html',
+})
+
+export class FileInputComponent  {
+  formData: FormData;
+  files: UploadFile[];
+  uploadInput: EventEmitter<UploadInput>;
+  humanizeBytes: Function;
+  dragOver: boolean;
+
+  constructor() {
+      this.files = [];
+      this.uploadInput = new EventEmitter<UploadInput>();
+      this.humanizeBytes = humanizeBytes;
+  }
+
+  showFiles() {
+      let files = '';
+      for (let i = 0; i < this.files.length; i ++) {
+        files += this.files[i].name;
+         if (!(this.files.length - 1 === i)) {
+           files += ',';
+        }
+      }
+      return files;
+   }
+
+  startUpload(): void {
+      const event: UploadInput = {
+      type: 'uploadAll',
+      url: 'your-path-to-backend-endpoint',
+      method: 'POST',
+      data: { foo: 'bar' },
+      };
+      this.files = [];
+      this.uploadInput.emit(event);
+  }
+
+  cancelUpload(id: string): void {
+      this.uploadInput.emit({ type: 'cancel', id: id });
+  }
+
+  onUploadOutput(output: UploadOutput | any): void {
+
+      if (output.type === 'allAddedToQueue') {
+      } else if (output.type === 'addedToQueue') {
+        this.files.push(output.file); // add file to array when added
+      } else if (output.type === 'uploading') {
+        // update current data in files array for uploading file
+        const index = this.files.findIndex(file => file.id === output.file.id);
+        this.files[index] = output.file;
+      } else if (output.type === 'removed') {
+        // remove file from array when removed
+        this.files = this.files.filter((file: UploadFile) => file !== output.file);
+      } else if (output.type === 'dragOver') {
+        this.dragOver = true;
+      } else if (output.type === 'dragOut') {
+      } else if (output.type === 'drop') {
+        this.dragOver = false;
+      }
+      this.showFiles();
+  }
+}
+      </code>
+    </mdbsnippet>
+  </section>
+
+<hr class="my-5">
+
+<section id="file-rounded-outline">
+
+  <h2 class="section-heading">
+    File input with rounded outline button
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+      <form class="md-form">
+          <div class="file-field">
+              <a class="btn btn-rounded btn-outline-secondary mt-0 float-left waves-effect">
+                  <span>Choose file</span>
+                  <input type="file" multiple>
+              </a>
+              <div class="file-path-wrapper">
+                 <input class="file-path validate" type="text" placeholder="Upload one or more files">
+              </div>
+          </div>
+      </form>
+      <button class="btn btn-rounded btn-outline-secondary waves-effect">Start uploading</button>
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+          <form>
+              <div class="file-field md-form">
+                  <div mdbBtn rounded="true" outline="true" color="secondary" size="md" mdbWavesEffect>
+                    <span class="pt-1">Choose file</span>
+                    <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+                  </div>
+                <div class="file-path-wrapper mt-2">
+                  <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+                </div>
+              </div>
+              <button mdbBtn type="button" rounded="true" outline="true" color="secondary" (click)="startUpload()" mdbWavesEffect>Start uploading</button>
+        </form>
+      </code>
+
+      <code data-lang="js" data-name="TypeScript">
+import { Component, EventEmitter } from '@angular/core';
+import { UploadFile, UploadInput, UploadOutput } from 'ng-uikit-pro-standard';
+import { humanizeBytes } from 'ng-uikit-pro-standard';
+
+@Component({
+selector: 'file-input-example',
+templateUrl: 'file-input.html',
+})
+
+export class FileInputComponent  {
+  formData: FormData;
+  files: UploadFile[];
+  uploadInput: EventEmitter<UploadInput>;
+  humanizeBytes: Function;
+  dragOver: boolean;
+
+  constructor() {
+      this.files = [];
+      this.uploadInput = new EventEmitter<UploadInput>();
+      this.humanizeBytes = humanizeBytes;
+  }
+
+  showFiles() {
+      let files = '';
+      for (let i = 0; i < this.files.length; i ++) {
+        files += this.files[i].name;
+         if (!(this.files.length - 1 === i)) {
+           files += ',';
+        }
+      }
+      return files;
+   }
+
+  startUpload(): void {
+      const event: UploadInput = {
+      type: 'uploadAll',
+      url: 'your-path-to-backend-endpoint',
+      method: 'POST',
+      data: { foo: 'bar' },
+      };
+      this.files = [];
+      this.uploadInput.emit(event);
+  }
+
+  cancelUpload(id: string): void {
+      this.uploadInput.emit({ type: 'cancel', id: id });
+  }
+
+  onUploadOutput(output: UploadOutput | any): void {
+
+      if (output.type === 'allAddedToQueue') {
+      } else if (output.type === 'addedToQueue') {
+        this.files.push(output.file); // add file to array when added
+      } else if (output.type === 'uploading') {
+        // update current data in files array for uploading file
+        const index = this.files.findIndex(file => file.id === output.file.id);
+        this.files[index] = output.file;
+      } else if (output.type === 'removed') {
+        // remove file from array when removed
+        this.files = this.files.filter((file: UploadFile) => file !== output.file);
+      } else if (output.type === 'dragOver') {
+        this.dragOver = true;
+      } else if (output.type === 'dragOut') {
+      } else if (output.type === 'drop') {
+        this.dragOver = false;
+      }
+      this.showFiles();
+  }
+}
+      </code>
+    </mdbsnippet>
+  </section>
+
+</section>
+
+<hr class="my-5">
+
+<section id="file-rounded-gradient">
+
+  <h2 class="section-heading">
+    File input with rounded gradient button
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+      <form class="md-form">
+          <div class="file-field">
+              <a class="btn btn-rounded aqua-gradient mt-0 float-left text-white waves-effect">
+                  <span>Choose file</span>
+                  <input type="file" multiple>
+              </a>
+              <div class="file-path-wrapper">
+                 <input class="file-path validate" type="text" placeholder="Upload one or more files">
+              </div>
+          </div>
+      </form>
+      <button class="btn btn-rounded aqua-gradient waves-effect">Start uploading</button>
+  </section>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+          <form>
+              <div class="file-field md-form">
+                  <div mdbBtn rounded="true" gradient="aqua" size="md" mdbWavesEffect>
+                    <span class="pt-1">Choose file</span>
+                    <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+                  </div>
+                <div class="file-path-wrapper mt-2">
+                  <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+                </div>
+              </div>
+              <button mdbBtn type="button" rounded="true" gradient="aqua" (click)="startUpload()" mdbWavesEffect>Start uploading</button>
+        </form>
+      </code>
+
+      <code data-lang="js" data-name="TypeScript">
+import { Component, EventEmitter } from '@angular/core';
+import { UploadFile, UploadInput, UploadOutput } from 'ng-uikit-pro-standard';
+import { humanizeBytes } from 'ng-uikit-pro-standard';
+
+@Component({
+selector: 'file-input-example',
+templateUrl: 'file-input.html',
+})
+
+export class FileInputComponent  {
+  formData: FormData;
+  files: UploadFile[];
+  uploadInput: EventEmitter<UploadInput>;
+  humanizeBytes: Function;
+  dragOver: boolean;
+
+  constructor() {
+      this.files = [];
+      this.uploadInput = new EventEmitter<UploadInput>();
+      this.humanizeBytes = humanizeBytes;
+  }
+
+  showFiles() {
+      let files = '';
+      for (let i = 0; i < this.files.length; i ++) {
+        files += this.files[i].name;
+         if (!(this.files.length - 1 === i)) {
+           files += ',';
+        }
+      }
+      return files;
+   }
+
+  startUpload(): void {
+      const event: UploadInput = {
+      type: 'uploadAll',
+      url: 'your-path-to-backend-endpoint',
+      method: 'POST',
+      data: { foo: 'bar' },
+      };
+      this.files = [];
+      this.uploadInput.emit(event);
+  }
+
+  cancelUpload(id: string): void {
+      this.uploadInput.emit({ type: 'cancel', id: id });
+  }
+
+  onUploadOutput(output: UploadOutput | any): void {
+
+      if (output.type === 'allAddedToQueue') {
+      } else if (output.type === 'addedToQueue') {
+        this.files.push(output.file); // add file to array when added
+      } else if (output.type === 'uploading') {
+        // update current data in files array for uploading file
+        const index = this.files.findIndex(file => file.id === output.file.id);
+        this.files[index] = output.file;
+      } else if (output.type === 'removed') {
+        // remove file from array when removed
+        this.files = this.files.filter((file: UploadFile) => file !== output.file);
+      } else if (output.type === 'dragOver') {
+        this.dragOver = true;
+      } else if (output.type === 'dragOut') {
+      } else if (output.type === 'drop') {
+        this.dragOver = false;
+      }
+      this.showFiles();
+  }
+}
+      </code>
+    </mdbsnippet>
+  </section>
+
+</section>
+
+  <hr class="my-5">
+
+  <section id="removing-files">
+
+    <h2 class="section-heading">
+      Removing files from file upload queue
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+        Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <p class="description">Use the <code>removeFile(id: string)</code> method to remove specific file from upload queue. Use the <code>this.files[index].id</code> property as an method argument.</p>
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form>
+            <div class="file-field md-form">
+              <div mdbBtn rounded="true" gradient="aqua" size="md" mdbWavesEffect>
+                <span class="pt-1">Choose file</span>
+                <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+              </div>
+              <div class="file-path-wrapper mt-2">
+                <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+              </div>
+            </div>
+            <button mdbBtn type="button" rounded="true" gradient="aqua" (click)="startUpload()" mdbWavesEffect>Start uploading
+            </button>
+            <button mdbBtn type="button" rounded="true" gradient="aqua" (click)="removeFirstFileFromQueue()" mdbWavesEffect>Remove
+              file from queue
+            </button>
+          </form>
+
+        </code>
+
+        <code data-lang="js" data-name="TypeScript">
+          import { Component, EventEmitter } from '@angular/core';
+          import { UploadFile, UploadInput, UploadOutput } from 'ng-uikit-pro-standard';
+          import { humanizeBytes } from 'ng-uikit-pro-standard';
+
+          @Component({
+          selector: 'file-input-example',
+          templateUrl: 'file-input.html',
+          })
+
+          export class FileInputComponent  {
+          formData: FormData;
+          files: UploadFile[];
+          uploadInput: EventEmitter<UploadInput>;
+          humanizeBytes: Function;
+          dragOver: boolean;
+
+          constructor() {
+          this.files = [];
+          this.uploadInput = new EventEmitter<UploadInput>();
+            this.humanizeBytes = humanizeBytes;
+            }
+
+            showFiles() {
+            let files = '';
+            for (let i = 0; i < this.files.length; i ++) {
+            files += this.files[i].name;
+            if (!(this.files.length - 1 === i)) {
+            files += ',';
+            }
+            }
+            return files;
+            }
+
+            startUpload(): void {
+            const event: UploadInput = {
+            type: 'uploadAll',
+            url: 'your-path-to-backend-endpoint',
+            method: 'POST',
+            data: { foo: 'bar' },
+            };
+            this.removeFirstFileFromQueue();
+            this.files = [];
+            this.uploadInput.emit(event);
+            }
+
+            cancelUpload(id: string): void {
+            this.uploadInput.emit({ type: 'cancel', id: id });
+            }
+
+            onUploadOutput(output: UploadOutput | any): void {
+            if (output.type === 'allAddedToQueue') {
+            } else if (output.type === 'addedToQueue') {
+            this.files.push(output.file); // add file to array when added
+            } else if (output.type === 'uploading') {
+            // update current data in files array for uploading file
+            const index = this.files.findIndex(file => file.id === output.file.id);
+            this.files[index] = output.file;
+            } else if (output.type === 'removed') {
+            // remove file from array when removed
+            this.files = this.files.filter((file: UploadFile) => file !== output.file);
+            } else if (output.type === 'dragOver') {
+            this.dragOver = true;
+            } else if (output.type === 'dragOut') {
+            } else if (output.type === 'drop') {
+            this.dragOver = false;
+            }
+            this.showFiles();
+            }
+
+            removeFile(id: string): void {
+            this.uploadInput.emit({ type: 'remove', id: id });
+            }
+
+            removeFirstFileFromQueue() {
+            this.removeFile(this.files[0].id);
+            }
+            }
+        </code>
+      </mdbsnippet>
+    </section>
+
+  </section>
+
+  <hr class="my-5">
+
+  <!--Section: Using options-->
+  <section id="upload-options">
+    <h2 class="section-heading">
+      Using upload options
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+        Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form>
+            <div class="file-field md-form">
+              <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
+                <span>Choose file</span>
+                <input type="file" mdbFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+              </div>
+            </div>
+            <button class="btn btn-md btn-primary" (click)="startUpload()">Start uploading</button>
+          </form>
+        </code>
+
+        <code data-lang="js" data-name="TS">
+          import { Component, EventEmitter } from '@angular/core';
+import { UploadFile, UploadInput, UploadOutput, UploaderOptions } from 'ng-uikit-pro-standard';
+import { humanizeBytes } from 'ng-uikit-pro-standard';
+
+@Component({
+selector: 'file-input-example',
+templateUrl: 'file-input.html',
+})
+
+export class FileInputComponent  {
+  formData: FormData;
+  files: UploadFile[];
+  uploadInput: EventEmitter<UploadInput>;
+  humanizeBytes: Function;
+  dragOver: boolean;
+  options: UploaderOptions
+
+  constructor() {
+      this.options = {
+        concurrency: 1,
+        maxUploads: 2,
+        allowedContentTypes: ['text/plain']
+      };
+      this.files = [];
+      this.uploadInput = new EventEmitter<UploadInput>();
+      this.humanizeBytes = humanizeBytes;
+  }
+
+  showFiles() {
+      let files = '';
+      for (let i = 0; i < this.files.length; i ++) {
+        files += this.files[i].name;
+         if (!(this.files.length - 1 === i)) {
+           files += ',';
+        }
+      }
+      return files;
+   }
+
+  startUpload(): void {
+      const event: UploadInput = {
+      type: 'uploadAll',
+      url: 'your-path-to-backend-endpoint',
+      method: 'POST',
+      data: { foo: 'bar' },
+      };
+      this.files = [];
+      this.uploadInput.emit(event);
+  }
+
+  cancelUpload(id: string): void {
+      this.uploadInput.emit({ type: 'cancel', id: id });
+  }
+
+  onUploadOutput(output: UploadOutput | any): void {
+
+      if (output.type === 'allAddedToQueue') {
+      } else if (output.type === 'addedToQueue') {
+        this.files.push(output.file); // add file to array when added
+      } else if (output.type === 'uploading') {
+        // update current data in files array for uploading file
+        const index = this.files.findIndex(file => file.id === output.file.id);
+        this.files[index] = output.file;
+      } else if (output.type === 'removed') {
+        // remove file from array when removed
+        this.files = this.files.filter((file: UploadFile) => file !== output.file);
+      } else if (output.type === 'dragOver') {
+        this.dragOver = true;
+      } else if (output.type === 'dragOut') {
+      } else if (output.type === 'drop') {
+        this.dragOver = false;
+      }
+      this.showFiles();
+  }
+}
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+  </section>
+  <!--/Section: Using options-->

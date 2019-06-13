@@ -1,0 +1,425 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Angular Bootstrap calendar</h2>
+
+  <h1 class="secondary-heading mb-4">Angular Calendar - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p>Angular Bootstrap calendar plugin is an extension that allows you to create calendar functionality. Thanks to this plugin you will be able to easily create, delete and manage events.</p>
+
+  <a href="https://ng-demo.mdbootstrap.com/plugins/calendar" target="_blank" class="btn btn-primary mt-4 waves-effect waves-light" role="button">
+    Live preview
+    <i class="far fa-eye ml-2"></i>
+  </a>
+
+  <hr class="my-4">
+
+  <section class="mx-1" id="basic-example">
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Basic example
+    </h2>
+
+    <p>To update calendar events array dynamically, mdb-calendar component uses the Angular change detection mechanism. Since Angular only checks if array reference has changed, component will not detect a change when you add new event with push method. Instead, you can use spread operator like in examples below:</p>
+
+    <!--Live preview-->
+    <section>
+      <mdbsnippet data-editor="false">
+
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [events]="events" (eventEdited)="onEventEdit($event)" (eventAdded)="onEventAdd($event)" (eventDeleted)="onEventDelete($event)"></mdb-calendar>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { startOfDay, endOfDay } from 'date-fns';
+          import { CalendarEvent } from 'mdb-calendar';
+
+
+          @Component({
+            selector: 'calendar-example',
+            templateUrl: './calendar-example.component.html',
+            styleUrls: ['./calendar-example.component.css']
+          })
+
+          export class AppComponent implements OnInit {
+
+            events: CalendarEvent[] = [
+              {
+                id: 'mdb-calendar-event-1',
+                startDate: new Date(startOfDay(new Date())),
+                endDate: new Date(endOfDay(new Date(2019, 2, 9))),
+                name: 'Conference',
+                color: 'info',
+              },
+              {
+                id: 'mdb-calendar-event-2',
+                startDate: new Date(startOfDay(new Date())),
+                endDate: new Date(endOfDay(new Date())),
+                name: 'Meeting',
+                color: 'success'
+              },
+            ];
+
+            generateUid() {
+              const uid = Math.random().toString(36).substr(2, 9);
+              return `mdb-calendar-event-${uid}`;
+            }
+
+            ngOnInit() {
+            }
+
+            onEventEdit(event: CalendarEvent) {
+              const oldEvent = this.events.findIndex( test => test.id === event.id);
+              this.events[oldEvent] = event;
+              this.events = [...this.events];
+            }
+
+            onEventAdd(event: CalendarEvent) {
+              event.id = this.generateUid();
+              this.events = [...this.events, event];
+            }
+
+            onEventDelete(deletedEvent: CalendarEvent) {
+              const eventIndex = this.events.findIndex( event => event.id === deletedEvent.id);
+              this.events.splice(eventIndex, 1);
+              this.events = [...this.events];
+            }
+          }
+        </code>
+
+      </mdbsnippet>
+      <!--/Code-->
+
+    </section>
+    <!--/Section: Intro-->
+
+  </section>
+
+  <hr class="mt-4 mb-5">
+
+  <section class="mx-1" id="add-events">
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Add events
+    </h2>
+
+    <p>You can listen to <code>(eventAdded)</code> output and update your events array with new event.</p>
+
+    <!--Live preview-->
+    <section>
+      <!--Code-->
+      <mdbsnippet data-editor="false">
+
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [events]="events" (eventAdded)="onEventAdd($event)"></mdb-calendar>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { startOfDay, endOfDay } from 'date-fns';
+          import { CalendarEvent } from 'mdb-calendar';
+
+
+          @Component({
+            selector: 'calendar-example',
+            templateUrl: './calendar-example.component.html',
+            styleUrls: ['./calendar-example.component.css']
+          })
+
+          export class AppComponent implements OnInit {
+
+            events: CalendarEvent[] = [
+              {
+                id: 'mdb-calendar-event-1',
+                startDate: new Date(startOfDay(new Date())),
+                endDate: new Date(endOfDay(new Date(2019, 2, 9))),
+                name: 'Conference',
+                color: 'info',
+              },
+              {
+                id: 'mdb-calendar-event-2',
+                startDate: new Date(startOfDay(new Date())),
+                endDate: new Date(endOfDay(new Date())),
+                name: 'Meeting',
+                color: 'success'
+              },
+            ];
+
+            generateUid() {
+              const uid = Math.random().toString(36).substr(2, 9);
+              return `mdb-calendar-event-${uid}`;
+            }
+
+            ngOnInit() {
+            }
+
+            onEventAdd(event: CalendarEvent) {
+              event.id = this.generateUid();
+              this.events = [...this.events, event];
+            }
+          }
+        </code>
+
+      </mdbsnippet>
+      <!--/Code-->
+
+    </section>
+    <!--/Section: Intro-->
+
+  </section>
+
+  <hr class="mt-4 mb-5">
+
+  <section class="mx-1" id="edit-events">
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Edit events
+    </h2>
+
+    <p>You can listen to <code>(eventEdited)</code> output and update specific events in your events array.</p>
+
+    <!--Live preview-->
+    <section>
+      <!--Code-->
+      <mdbsnippet data-editor="false">
+
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [events]="events" (eventEdited)="onEventEdit($event)"></mdb-calendar>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { startOfDay, endOfDay } from 'date-fns';
+          import { CalendarEvent } from 'mdb-calendar';
+
+
+          @Component({
+            selector: 'calendar-example',
+            templateUrl: './calendar-example.component.html',
+            styleUrls: ['./calendar-example.component.css']
+          })
+
+          export class AppComponent implements OnInit {
+
+            events: CalendarEvent[] = [
+              {
+                id: 'mdb-calendar-event-1',
+                startDate: new Date(startOfDay(new Date())),
+                endDate: new Date(endOfDay(new Date(2019, 2, 9))),
+                name: 'Conference',
+                color: 'info',
+              },
+              {
+                id: 'mdb-calendar-event-2',
+                startDate: new Date(startOfDay(new Date())),
+                endDate: new Date(endOfDay(new Date())),
+                name: 'Meeting',
+                color: 'success'
+              },
+            ];
+
+            ngOnInit() {
+            }
+
+            onEventEdit(event: CalendarEvent) {
+              const oldEvent = this.events.findIndex( test => test.id === event.id);
+              this.events[oldEvent] = event;
+              this.events = [...this.events];
+            }
+          }
+        </code>
+
+      </mdbsnippet>
+      <!--/Code-->
+
+    </section>
+    <!--/Section: Intro-->
+
+  </section>
+
+  <hr class="mt-4 mb-5">
+
+  <section class="mx-1" id="delete-events">
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Delete events
+    </h2>
+
+    <p>You can listen to <code>(eventDeleted)</code> output and update your events array accordingly.</p>
+
+    <!--Live preview-->
+    <section>
+      <!--Code-->
+      <mdbsnippet data-editor="false">
+
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [events]="events" (eventDeleted)="onEventDelete($event)"></mdb-calendar>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { startOfDay, endOfDay } from 'date-fns';
+          import { CalendarEvent } from 'mdb-calendar';
+
+
+          @Component({
+            selector: 'calendar-example',
+            templateUrl: './calendar-example.component.html',
+            styleUrls: ['./calendar-example.component.css']
+          })
+
+          export class AppComponent implements OnInit {
+
+            events: CalendarEvent[] = [
+              {
+                id: 'mdb-calendar-event-1',
+                startDate: new Date(startOfDay(new Date())),
+                endDate: new Date(endOfDay(new Date(2019, 2, 9))),
+                name: 'Conference',
+                color: 'info',
+              },
+              {
+                id: 'mdb-calendar-event-2',
+                startDate: new Date(startOfDay(new Date())),
+                endDate: new Date(endOfDay(new Date())),
+                name: 'Meeting',
+                color: 'success'
+              },
+            ];
+
+            ngOnInit() {
+            }
+
+            onEventDelete(deletedEvent: CalendarEvent) {
+              const eventIndex = this.events.findIndex( event => event.id === deletedEvent.id);
+              this.events.splice(eventIndex, 1);
+              this.events = [...this.events];
+            }
+          }
+        </code>
+
+      </mdbsnippet>
+      <!--/Code-->
+
+    </section>
+    <!--/Section: Intro-->
+
+    <hr class="mt-4 mb-5">
+
+    <!--Section: Options usage-->
+    <section class="mx-1" id="options-usage">
+      <h2 class="section-heading mb-4">
+        Options usage
+      </h2>
+
+      <!--Section: Code-->
+      <section>
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+              <mdb-calendar [events]="events" [options]="calendarOptions" (eventEdited)="onEventEdit($event)" (eventAdded)="onEventAdd($event)" (eventDeleted)="onEventDelete($event)"></mdb-calendar>
+          </code>
+
+          <code data-lang="javascript" data-name="TS">
+              import { Component, OnInit } from '@angular/core';
+              import { startOfDay, endOfDay } from 'date-fns';
+              import { CalendarEvent, MdbCalendarOptions } from 'mdb-calendar';
+
+
+              @Component({
+                selector: 'calendar-example',
+                templateUrl: './calendar-example.component.html',
+                styleUrls: ['./calendar-example.component.css']
+              })
+
+              export class AppComponent implements OnInit {
+
+                calendarOptions: MdbCalendarOptions = {
+                  firstDayOfWeek: 'Monday',
+                  monthViewBtnTxt: 'Month view',
+                  weekViewBtnTxt: 'Week view',
+                  listViewBtnTxt: 'List view',
+                  todayBtnTxt: 'Go to today',
+                  eventAddTitle: 'Custom add modal title',
+                  eventEditTitle: 'Custom edit modal title',
+                  eventCancelBtnTxt: 'Close',
+                  eventAddBtnTxt: 'Save new event',
+                  eventEditBtnTxt: 'Update event data',
+                  eventDeleteBtnTxt: 'Delete event'
+                };
+
+                events: CalendarEvent[] = [
+                  {
+                    id: 'mdb-calendar-event-1',
+                    startDate: new Date(startOfDay(new Date())),
+                    endDate: new Date(endOfDay(new Date(2019, 2, 9))),
+                    name: 'Conference',
+                    color: 'info',
+                  },
+                  {
+                    id: 'mdb-calendar-event-2',
+                    startDate: new Date(startOfDay(new Date())),
+                    endDate: new Date(endOfDay(new Date())),
+                    name: 'Meeting',
+                    color: 'success'
+                  },
+                ];
+
+                generateUid() {
+                  const uid = Math.random().toString(36).substr(2, 9);
+                  return `mdb-calendar-event-${uid}`;
+                }
+
+                ngOnInit() {
+                }
+
+                onEventEdit(event: CalendarEvent) {
+                  const oldEvent = this.events.findIndex( test => test.id === event.id);
+                  this.events[oldEvent] = event;
+                  this.events = [...this.events];
+                }
+
+                onEventAdd(event: CalendarEvent) {
+                  event.id = this.generateUid();
+                  this.events = [...this.events, event];
+                }
+
+                onEventDelete(deletedEvent: CalendarEvent) {
+                  const eventIndex = this.events.findIndex( event => event.id === deletedEvent.id);
+                  this.events.splice(eventIndex, 1);
+                  this.events = [...this.events];
+                }
+              }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--/Section: Code-->
+    </section>
+
+
+    <!--/Section: Options usage-->
+
+    <hr class="mt-4 mb-5">
+
+  <section class="mx-1" id="events-colors">
+
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Events colors
+    </h2>
+
+    <p>Here is a list of available events colors:</p>
+
+    <ul>
+      <li>info</li>
+      <li>success</li>
+      <li>warning</li>
+      <li>danger</li>
+      <li>primary</li>
+      <li>secondary</li>
+    </ul>
+
+
+  </section>

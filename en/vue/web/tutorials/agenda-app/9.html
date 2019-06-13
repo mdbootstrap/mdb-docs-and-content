@@ -1,0 +1,152 @@
+<div class="vue-tutorial tutorial">
+
+<p>In this lesson, we will learn how to deal with Inputs.<strong> Inputs are very widely used components in web development</strong>. We use them everywhere, starting with the <strong>login form, newsletter subscription forms, a new post editor</strong> through to<strong>configuration panels</strong> etc. </p>
+
+<p>Just follow the steps below.</p>
+<ol>
+	<li>Import <mark>mdbInput</mark> and <mark>mdbTextarea</mark> to <code>App.vue</code> </li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (script)">
+import {
+  ...
+  mdbInput,
+  mdbTextarea
+} from "mdbvue";
+
+[...]
+export default {
+  name: "App",
+	  components: {
+	    ...
+	    mdbInput,
+	    mdbTextarea,
+	    ...
+	  },
+  </code>
+</mdbsnippet>
+
+<li>Add a new <mark>newValues: []</mark> array to <mark>data()</mark></li>
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (script)">
+
+  data() {
+    return {
+      events: [
+		...
+      ],
+      modal: false,
+      newValues: []
+    };
+  },
+  </code>
+</mdbsnippet>
+
+
+<li>Replace the modal body with the following code</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+  <mdb-modal-body>
+    <form class="mx-3 grey-text">
+      <mdb-input
+        name="time"
+        label="Time"
+        icon="clock"
+        placeholder="12:30"
+        type="text"
+        @input="handleInput($event, 'time')"
+      />
+      <mdb-input
+        name="title"
+        label="Title"
+        icon="edit"
+        placeholder="Briefing"
+        type="text"
+        @input="handleInput($event, 'title')"
+      />
+      <mdb-input
+        name="location"
+        label="Location (optional)"
+        icon="map"
+        type="text"
+        @input="handleInput($event, 'location')"
+      />
+      <mdb-textarea
+        name="description"
+        label="Description (optional)"
+        icon="sticky-note"
+        @input="handleInput($event, 'description')"
+      />
+    </form>
+  </mdb-modal-body>
+  </code>
+</mdbsnippet>
+
+<li>Add the <mark>handleInput</mark> function </li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+    handleInput(val, type) {
+      this.newValues[type] = val;
+      console.log(this.newValues);
+    },
+  </code>
+</mdbsnippet>
+
+
+<p>Let's check how <mark>handleInput()</mark> functions works. Let's print to console our state object every time this function is called. To do this, we add <mark>console.log(this.newValues);</mark> to the function body:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+    handleInput(val, type) {
+      this.newValues[type] = val;
+      console.log(this.newValues);
+    },
+  </code>
+</mdbsnippet>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/9/handleinput.gif" alt="Handle input event" />
+
+<p><strong>Every time</strong> we type something inside the input, it's <strong>value is added to the <mark>newValues</mark> variable</strong> so we can use it when our form is submitted. </p>
+
+<p>Since we have all of our inputs handled, let's remove console.log() and move to the final steps - to submit the form and add the new item to the list. </p>
+
+
+<li>Add the <mark>addEvent()</mark> function:</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+    addEvent() {
+      this.events.push({
+        time: this.newValues["time"],
+        title: this.newValues["title"],
+        location: this.newValues["location"],
+        description: this.newValues["description"]
+      });
+    }
+  </code>
+</mdbsnippet>
+
+
+<li>Add <mark>@click.native="addEvent"</mark> to the Add button in modal footer:</mark></li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+<mdb-btn color="info" @click.native="addEvent">Add</mdb-btn>
+  </code>
+</mdbsnippet>
+
+<p>Now every time we click on the Add button, we will trigger the addEvent() function which will add a new item to the events array using push(). </p>
+
+
+
+<p class="note note-success"><strong>Note:</strong>  <br />
+	 We don't have to add an id to the new event ourselves. Our <mark>v-for</mark> loop will do that for us automatically.</p>
+
+
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/9/preview.gif" alt="Add Event demo" />
+</ol>
+
+</div>

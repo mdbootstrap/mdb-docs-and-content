@@ -1,0 +1,488 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+  <!--Section: Intro-->
+  <section id="introduction">
+
+    <!--Title-->
+    <h1 class="main-title">Angular Progressive Web App Tutorial</h1>
+
+    <!--Description-->
+    <p class="description">Today you will learn how to create your first Progressive Web App based on Angular 6 and MDB
+      Angular!</p>
+    <p class="description">
+      Progressive Web Apps combine the convenience and functionality of native mobile applications with the simplicity
+      of creating and managing web applications. Progressive Web App or PWA for short is simply a web app
+      that behaves like a normal web app on a desktop and like a native app on mobile devices. So you can use it with
+      Push Notifications, without an Internet connection, and much more!
+    </p>
+
+    <p>If you notice an error, or something below is not clear to you - we invite you to visit our
+      <a href="https://mdbootstrap.com/support/" alt="support forum">support forum</a>.</p>
+
+    <h3 class="mb-4">What will I learn? </h3>
+    <ol>
+      <a href="#pwa">
+        <li>How to build a Progressive Web App</li>
+      </a>
+      <a href="#app-logic">
+        <li>How to implement update-check mechanism</li>
+      </a>
+      <a href="#deploy">
+        <li>How to publish application in Firebase Hosting</li>
+      </a>
+    </ol>
+    <p> After completing this guide you should have a basic knowledge of how PWA works, what Service Workers are and
+      how to publish an application on Firebase Hosting.</p>
+
+    <p>See how the application we will build together looks like!
+      <a href="https://ng-pwa-tutorial.mdbootstrap.com/">Live Example</a>
+    </p>
+
+    <p>You can also download the complete <a href="https://github.com/mdbootstrap/Angular-PWA-Tutorial-Application/" target="blank">app</a>!</p>
+
+  </section>
+  <!--/Section: Intro-->
+
+  <hr class="my-5">
+
+  <h3 class="">Requirements:</h3>
+  <p class="description">You should have the following environments / packages installed.</p>
+  <ul>
+    <li>Angular 6 with Angular CLI 6</li>
+    <li>NodeJS,</li>
+    <li>The firebase-tools npm package,</li>
+    <li>The http-server npm package.</li>
+  </ul>
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="ng-app">
+
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>Creating a new application</strong>
+    </h2>
+
+    <!--Description-->
+    <p class="description mb-4">Let us start from the very beginning. We will generate a new Angular application using
+      the
+      Angular CLI tool. To do this,
+      enter the command below into your terminal / command line.</p>
+    <pre class="code-toolbar">
+            <code class="language-javascript">ng new mdb-pwa --style=scss</code>
+        </pre>
+    <p class="description">Then open your newly generated Angular application with your favorite IDE.</p>
+
+    <blockquote class="blockquote bq-danger">
+      <p class="bq-title">Note!</p>
+      <p>Within this tutorial we are using Material Design for Bootstrap, you can download it for free from
+        <a href="https://mdbootstrap.com/docs/angular/getting-started/download/">here</a>.</p>
+      <p>Visit our official
+        <a href="https://mdbootstrap.com/docs/angular/getting-started/quick-start/">5min-quickstart</a> guide to go through the MDB
+        Angular installation process.</p>
+    </blockquote>
+  </section>
+
+  <section id="pwa">
+    <h2 class="title mb-4">
+      <strong>Adding the @angular/pwa mechanism to your existing application</strong>
+    </h2>
+
+    <p class="description">In Angular 6 we gained a very convenient option, thanks to which we can use one command to
+      configure the PWA mechanism in our application. Thanks to that we save ourselves the effort of modifying
+      individual project files.
+      In order to add PWA to your application, type the following command in the terminal:</p>
+    <pre class="code-toolbar">
+        <code class="language-javascript">
+            ng add @angular/pwa
+        </code>
+    </pre>
+
+    <p class="description">After performing the above command, some new files have been created in our project and some
+      existing ones have been modified.</p>
+    <p><strong>New files:</strong></p>
+    <ul>
+      <li><code>ngsw-config.json</code> - this contains the Service Workers configuration, thanks to which it is
+        possible to cache
+        application data in PWA;</li>
+      <li><code>manifest.json</code> - in this file you will find the configuration of application's appearance. Here
+        you
+        can also change the name of the application, change the background and theme color;</li>
+      <li>The <code>assets</code> directory has been expanded with icons for different resolutions, so that each type
+        of device gets
+        a customized icon for it.</li>
+    </ul>
+
+    <p><strong>Modified files</strong></p>
+    <ul>
+      <li><code>app.module.ts</code> - the ServiceWorkerModule module has been added to the main module of our
+        application. This allows us to use various functions provided by Service Workers;</li>
+      <li><code>angular.json</code> - several options for configuration and operation of PWA have been added to the
+        file;</li>
+      <li><code>package.json</code> - a new @angular/wa package has been added, which we added in the previous step;</li>
+      <li><code>index.html</code> - a link to the manifest.json file was added as well as the theme color - the same as
+        defined in
+        the manifest.json file.</li>
+    </ul>
+
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>What Service Workers are?</strong>
+    </h2>
+
+    <p><strong>Service Workers</strong> is a JavaScript script that does not have direct access to the DOM tree. It is
+      run independently
+      of the website and allows you to use features that do not require interaction with the user or the website. As of
+      today, this is, among other things, the Push Notification and background synchronization.
+    </p>
+    <p>In the future it will
+      also be geofencing and periodical synchronization. Service Workers are very interesting because they also support
+      offline mechanisms, thanks to which the programmer has complete control over the functionality of the
+      application.
+    </p>
+    <p>Service Workers switch off when not used to free resources, and start up automatically when needed. If you need
+      to use some data that will always be the same, use the IndexedDB API.</p>
+  </section>
+
+  <section id="app-view">
+
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>Creating the application view</strong>
+    </h2>
+
+    <p class="description">
+      What is an application without a view? Nothing! After all, users must click on something, read something, and the
+      data must be displayed somewhere. For this purpose we will prepare a very simple application layout. We will use
+      the navigation bar, a footer, two buttons, a modal and some text.
+    </p>
+
+    <p class="description">
+      Let's start with the navigation bar. Open <code>app.component.html</code>, and paste in the code below, which is
+      responsible for
+      rendering the navigation bar.
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <!--Navbar-->
+        <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark blue">
+          <mdb-navbar-brand class="mx-auto">
+            <a class="logo navbar-brand white-text"><strong>MDB Angular Sample PWA</strong></a>
+          </mdb-navbar-brand>
+        </mdb-navbar>
+        <!--/.Navbar-->
+      </code>
+    </mdbsnippet>
+
+    <p class="description">
+      Once we have the navigation bar, it is time to take care of the footer. Paste the following code right after the
+      end
+      of the navigation bar in the <code></code>app.component.html file
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <footer class="footer-copyright fixed-bottom blue py-3 text-center text-white">
+          © 2018 Copyright:
+          <a class="text-white" href="https://mdbootstrap.com/docs/angular/"> MDBootstrap.com </a>
+        </footer>
+      </code>
+    </mdbsnippet>
+
+    <p class="description">
+      If you refresh the page at this point, you will see that our application is slowly taking shape - great! It's
+      now time to add the last piece of code to our template, which will present the final application. To do this,
+      copy the code
+      below between the navigation bar and the footer.
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="container">
+
+          <h2 class="text-center h2-responsive mt-5">MDB Angular Progressive Web App</h2>
+
+          <div class="row">
+            <div class="col-md-12 mx-auto my-5 d-flex flex-center">
+              <button mdbBtn color="primary" outline="true" class="waves-effect" mdbWavesEffect (click)="checkForUpdates()">Check
+                For Updates</button>
+              <button mdbBtn color="primary" outline="true" class="waves-effect" mdbWavesEffect (click)="forceUpdate()">Force
+                Update</button>
+            </div>
+          </div>
+
+          <h3 class="text-center h3-responsive">Change me to observe app update!</h3>
+          <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title w-100" id="myModalLabel">New version</h4>
+                </div>
+                <div class="modal-body">
+                  A new version of the application has appeared. Do you want to update?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" mdbBtn color="danger" class="waves-light" aria-label="Close" (click)="basicModal.hide()"
+                    mdbWavesEffect>Don't update</button>
+                  <button type="button" mdbBtn color="success" class="relative waves-light" mdbWavesEffect (click)="forceUpdate()">Update!</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </code>
+    </mdbsnippet>
+
+  </section>
+
+  <section id="app-logic">
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>Building the application logic</strong>
+    </h2>
+
+    <p class="description">
+      Finally, the time has come for us to take up something more interesting. It's high time that we complement our
+      template with the logic that is needed for our PWA to work.
+      To do this, copy the following code to the <code>app.component.ts</code> file.
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="TS">
+        import { SwUpdate } from '@angular/service-worker';
+        import { Component, ViewChild, OnInit } from '@angular/core';
+        import { ModalDirective } from 'angular-bootstrap-md';
+
+        @Component({
+          selector: 'app-root',
+          templateUrl: './app.component.html',
+          styleUrls: ['./app.component.scss']
+        })
+        export class AppComponent implements OnInit {
+          @ViewChild('basicModal') basicModal: ModalDirective;
+
+          constructor(private swUpdate: SwUpdate) { }
+
+          ngOnInit() {
+            this.checkForUpdates();
+          }
+
+          forceUpdate() {
+            this.swUpdate.activateUpdate().then(() => {
+              document.location.reload();
+            });
+          }
+
+        checkForUpdates() {
+          if (this.swUpdate.isEnabled) {
+            this.swUpdate.available.subscribe(() => {
+              console.log('New Version');
+              this.basicModal.show();
+              });
+            }
+          }
+        }
+      </code>
+    </mdbsnippet>
+
+    <p class="description">
+      We inject the <code>SwUpdate</code> service into the constructor, which is a Service Worker used for working with
+      application
+      updates.
+    </p>
+
+    <p class="description">
+      During the <code>ngOnInit</code> lifecycle the <code>checkForUpdates()</code> method is called, whose task is to
+      check if a new version of
+      the PWA application is available.
+    </p>
+
+    <p class="description">
+      If available, the <code>show()</code> method from the <code>ModalDirective</code> directive is called, which is
+      responsible for displaying
+      the modal with information that a new version of the application is available.
+      <br>
+      There are two buttons in this modal. One of them is responsible for calling the <code>forceUpdate()</code>
+      method, which
+      reloads the application. The second button closes the modal without updating the application.
+    </p>
+
+    <p class="description">It's very simple - isn't it? Service Worker checks if there is a new version based on
+      the application size. If there is one, the user can either reload the application or work with an older version
+      of the application.</p>
+
+  </section>
+
+  <section id="browser">
+
+
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>Running the application in a browser</strong>
+    </h2>
+
+    <p class="description">If you now run the application with the <code>ng serve </code>command, Service Workers would
+      not work
+      because the browser is not able to handle them. In order to test how the PWA application works, we need to
+      install the <code>http-server</code> package from the npm repository. Thanks to it we will be able to run our
+      application on
+      the server, and check if everything works.</p>
+
+    <p class="description">To do this, execute the following command in the terminal:</p>
+
+    <pre class="code-toolbar">
+      <code class="language-javascript">npm install http-server -g</code>
+    </pre>
+
+    <p class="description">In order for a PWA application to be fully functional, its production version must be
+      launched on the server. To do this, open the file <code>angular.json</code>, and modify the line <code>"outputPath":
+        "dist/project-name",</code>.</p>
+    <p class="description">Remove <code>/project-name</code> part so that only <code>"outputPath"</code> and "dist" are
+      left. The <code>"outputPath"</code> line should therefore look like this:</p>
+
+    <pre class="code-toolbar">
+      <code class="language-javascript">
+          "outputPath": "dist",
+      </code>
+    </pre>
+
+    <p class="description">Then open the package.json file, and add the following script to the scripts object, which
+      will remove the already existing dist directory, generate a new one, and the launch the http-server package.</p>
+
+    <pre class="code-toolbar">
+        <code class="language-javascript">
+            "pwa": "rm -rf dist && ng build --prod && cd dist && http-server -p 8080 && cd .."
+        </code>
+      </pre>
+
+    <p class="description">After adding the above script there is nothing left for us to do but to run our PWA application!
+      To do this, enter the following commands in the terminal:</p>
+
+    <pre class="code-toolbar">
+        <code class="language-javascript">
+          npm run pwa
+        </code>
+      </pre>
+
+    <p class="description">After running the <code>npm run pwa</code> command, just open the browser at <code>localhost:8080</code>,
+      and enjoy the PWA application!</p>
+
+    <p>In order to observe the effects of any changes, close the <code>http-server</code> with the
+      combination of
+      <code>CTRL + C</code> in the terminal, change something in your application - just add or remove one letter from
+      the template,
+      then save the file <code>app.component.html</code>, and execute command npm run pwa one more time.</p>
+    <p>Remember that during this
+      time you cannot close the browser window in which you have started the application. After running http-server one
+      more time, refresh your browser tab, in which the <code>localhost:8080</code> address was opened.</p>
+
+    <p class="description">After a few seconds you should see the modal, that tells us that a new version of the application has been
+      detected, and asks whether you want to update it. If you press the Update! button, the website should be reloaded.</p>
+
+  </section>
+
+  <section id="deploy">
+
+
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>Deploying the application on Firebase</strong>
+    </h2>
+
+    <p class="description">The PWA application will only work on a server that is encrypted (HTTPS protocol). The
+      quickest way to run a PWA application on a domain that is HTTPS-certified is to deploy applications in Firebase
+      Hosting. In order to create a Firebase account, open <a href="https://console.firebase.google.com/" target="blank">this
+        page</a>.</p>
+
+    <p class="description">After logging in to the Firebase service, you need to create a new application, which will
+      be our PWA application. To do this, click the "Add Project" button and go through the short form in which you
+      will provide the name of your project and some other required information.</p>
+
+    <p class="description">After creating a new Firebase application, return to your PWA application terminal,
+      and install the firebase-tools utility by running the following command in it.</p>
+
+    <pre class="code-toolbar">
+        <code class="language-javascript">
+          npm install -g firebase-tools
+        </code>
+    </pre>
+
+    <p class="description">After installing firebase-tools we will have no choice but to then sign in to the Firebase
+      service using the login and password of the Google account, initiate a new Firebase project, and deploy it in the
+      Firebase Hosting service. To do this, type in the command <code>firebase login</code> in your terminal.</p>
+
+    <pre class="code-toolbar">
+        <code class="language-javascript">
+          firebase login
+        </code>
+    </pre>
+
+    <p class="description">After logging in to Firebase, type in the command <code>firebase init hosting</code> to
+      initialize the
+      project, which will be deposited in Firebase Hosting. Then, from the menu that will appear to you in the terminal,
+      select the Firebase application created two steps above. Then the console will ask you a few questions - answer
+      them according to the diagram below:</p>
+
+    <pre class="code-toolbar">
+        <code class="language-javascript">
+          firebase init hosting
+        </code>
+    </pre>
+    <ul>
+      <li>What do you want to use as your public directory? - <strong>dist</strong></li>
+      <li>Configure as a single-page app (rewrite all urls to /index.html)? - <strong>y</strong></li>
+      <li>File dist/index.html already exists. Overwrite? - <strong>n</strong></li>
+    </ul>
+
+    <p class="description">After initializing the application we have nothing else left to do but to send it to
+      the Firebase servers. But first we have to build a production version of our application!
+      <br> To do this, run the command below in the terminal of your application.</p>
+
+    <pre class="code-toolbar">
+        <code class="language-javascript">
+          npm run pwa
+        </code>
+      </pre>
+
+    <p class="description">The last step after initiating the Firebase application is to deploy it in the Firebase Hosting
+      service. To do this, type in the command below in the terminal of your PWA application,
+      and open the
+      browser at the address, that will display the terminal after the deployment process is finished.</p>
+
+    <pre class="code-toolbar">
+        <code class="language-javascript">
+          firebase deploy
+        </code>
+      </pre>
+
+    <p class="description">And that's it! Your first PWA application is already on the Firebase servers, so you can pick up
+      your mobile phone and open your favorite web browser at the address of the application. When you add it to your
+      smartphone's home screen, you can launch it at any time - even without an active Internet connection via the
+      icon. Isn't this a great option?</p>
+
+  </section>
+
+  <section id="summary">
+
+    <!--Title-->
+    <h2 class="title mb-4">
+      <strong>Tutorial conclusion</strong>
+    </h2>
+
+    <p class="description">
+      In this tutorial I wanted to show what a Progressive Web Application really is. The topic is so broad that it
+      cannot be described in one article. The application itself - its functionality and appearance may not impress,
+      but in my opinion, it is a good example for the very beginning of your adventure with PWA. Thanks to that you have
+      at least a basic knowledge of how to build a PWA application and what it is related to.
+    </p>
+  </section>
+</section>
+<!--/Section: Doc content-->

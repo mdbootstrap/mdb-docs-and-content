@@ -1,0 +1,396 @@
+<!-- Section: Intro -->
+<section id="introduction">
+
+  <!-- Title -->
+  <h2 class="primary-heading">Angular Notification / Toast</h2>
+
+  <h1 class="secondary-heading mb-4">Angular notification / toast - Bootstrap 4 & Material Design</h1>
+
+  <!-- Description -->
+  <p>Angular Bootstrap notifications are feedback messages which are displayed after specific actions preceded by the
+    user. Length of the text is not limited.</p>
+
+  <p>With the right use of colors, they add some emotional weight to our information, ranging from a simple warning to
+    critical system failure or from an operation success to a neutral information.</p>
+
+  <div class="py-2">
+    <p class="border border-danger p-3 mb-0"><strong><span class="font-weight-bold">Additional resources:</span> Have a
+        look at our tutorial about <a href="https://mdbootstrap.com/web-push-start/" target="_blank">Web Push alerts</a></strong></p>
+  </div>
+
+  <hr class="my-5">
+
+<!--Section: Basic example-->
+<section id="basic">
+  <h2 class="section-heading">
+    Basic example
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!-- Info message -->
+  <a class="btn btn-info" onclick="toastr.info('Hi! I am info message.');">Info message</a>
+  <!-- Warning message -->
+  <a class="btn btn-warning" onclick="toastr.warning('Hi! I am warning message.');">Warning message</a>
+  <!-- Success message -->
+  <a class="btn btn-success" onclick="toastr.success('Hi! I am success message.');">Success message</a>
+  <!-- Error message -->
+  <a class="btn btn-danger" onclick="toastr.error('Hi! I am error message.');">Error message</a>
+
+  <!--Section: Code-->
+  <section class="mb-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <!--Info message-->
+        <a class="btn btn-info waves-light" (click)="showInfo()" mdbWavesEffect>Info message</a>
+        <!--Warning message-->
+        <a class="btn btn-warning waves-light" (click)="showWarning()" mdbWavesEffect>Warning message</a>
+        <!--Success message-->
+        <a class="btn btn-success waves-light" (click)="showSuccess()" mdbWavesEffect>Success message</a>
+        <!--Error message-->
+        <a class="btn btn-danger waves-light" (click)="showError()" mdbWavesEffect>Error message</a>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { Component } from '@angular/core';
+        import { ToastService } from 'ng-uikit-pro-standard';
+
+        @Component({
+        selector: 'toast-component-example',
+        templateUrl: 'toast.component.html',
+        })
+
+        export class ToastComponent {
+
+        constructor(private toastrService: ToastService) {}
+
+        showSuccess() {
+          this.toastrService.success('Info message');
+        }
+
+        showError() {
+          this.toastrService.error('Warning message');
+        }
+
+        showInfo() {
+          this.toastrService.info('Success message');
+        }
+
+        showWarning() {
+          this.toastrService.warning('Error message');
+        }
+
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+  <blockquote class="blockquote bq-danger">
+    <p class="bq-title">Important update!</p>
+    <p>Since version 4.3.7 , Toast Service has to be imported separately as singleton to avoid circular dependencies.</p>
+  </blockquote>
+  <h4>Import Toast Service as singleton:</h4>
+
+
+  <code>app.module.ts</code>
+  <pre class="code-toolbar"><code class="language-javascript">
+import { ToastModule } from 'ng-uikit-pro-standard';
+...
+
+imports: [
+...
+ToastModule.forRoot(),
+...
+],
+              </code></pre>
+
+  <code>app.component.ts</code>
+  <pre class="code-toolbar"><code class="language-javascript">
+import {ToastService} from 'ng-uikit-pro-standard'
+...
+constructor(
+...
+private toast: ToastService
+...
+) { }</code></pre>
+
+  <p>Sample usage:</p>
+
+  <pre class="code-toolbar"><code class="language-javascript">
+ngOnInit() {
+  setTimeout(
+  () => this.toast.info("It works!")
+  );
+}
+              </code></pre>
+</section>
+<!--/Section: Basic example-->
+
+<hr class="my-5">
+
+<!--Section: Change opacity-->
+<section id="opacity">
+  <h2 class="section-heading">
+    Change opacity
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="fa fa-diamond ml-1"></i>
+    </a>
+  </h2>
+
+
+  <p>In some cases, you may want to change the default opacity value for each individual alert. To do this, add <code>opacity</code> parameter to the toast options.</p>
+
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <!--Info message-->
+        <a class="btn btn-info waves-light" (click)="showInfo()" mdbWavesEffect>Info message</a>
+        <!--Warning message-->
+        <a class="btn btn-warning waves-light" (click)="showWarning()" mdbWavesEffect>Warning message</a>
+        <!--Success message-->
+        <a class="btn btn-success waves-light" (click)="showSuccess()" mdbWavesEffect>Success message</a>
+        <!--Error message-->
+        <a class="btn btn-danger waves-light" (click)="showError()" mdbWavesEffect>Error message</a>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { Component } from '@angular/core';
+        import { ToastService } from 'ng-uikit-pro-standard';
+
+        @Component({
+        selector: 'toast-opacity',
+        templateUrl: 'toast-opacity.component.html',
+        })
+
+        export class ToastOpacityComponent {
+
+        constructor(private toastrService: ToastService) { }
+
+        showSuccess() {
+          const options = { opacity: 1 };
+          this.toastrService.success('Hello world!', 'Toastr success!', options);
+        }
+
+        showError() {
+          const options = { opacity: 0.8 };
+          this.toastrService.error('Error message', 'Toastr error!', options);
+        }
+
+        showInfo() {
+          const options = { opacity: 0.5 };
+          this.toastrService.info('Info message', 'Toastr info!', options);
+        }
+
+        showWarning() {
+          const options = { opacity: 0.2 };
+          this.toastrService.warning('Warnig message', 'Toastr warning!', options);
+        }
+
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+<!--/Section: Change opacity-->
+
+<hr class="my-5">
+
+<!--Section: Server alert-->
+<section id="server-alerts">
+  <h2 class="section-heading">
+    Show alerts after server call
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md" role="button">MDB
+      Pro component
+      <i class="fa fa-diamond ml-1"></i>
+    </a>
+  </h2>
+
+  <p>If you are in contact with a server, it may be useful to display alerts to the user on whether the data has been
+    successfully downloaded or not. The following example illustrates the basic use of alerts in a server contact.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="row">
+          <div class="col-md-6 mx-auto my-5">
+            <h3 class="text-center py-2">Users: </h3>
+            <ul class="list-group" *ngFor="let user of usersArray">
+              <li class="list-group-item">{{ user }}</li>
+            </ul>
+          </div>
+        </div>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { Http } from '@angular/http';
+        import { ToastService } from 'ng-uikit-pro-standard';
+        import { Component, AfterViewInit } from '@angular/core';
+
+        @Component({
+        selector: 'server-alerts',
+        templateUrl: './server-alerts.component.html',
+        styleUrls: ['./server-alerts.component.scss'],
+        })
+        export class ServerAlertsComponent implements AfterViewInit {
+        url: string = 'https://jsonplaceholder.typicode.com/users/';
+        usersArray: Array<any> = [];
+
+          constructor(private toastrService: ToastService, private http: Http) { }
+
+          showSuccess(data: any) {
+            this.toastrService.success('User: ' + '"' + data.name + '"' + ' successfully fetched');
+          }
+
+          showError(id: number) {
+            this.toastrService.error("Error: User with ID: " + id + " doesn't exists");
+          }
+
+          connectionEnd(id: number) {
+            this.toastrService.error('Connection ended after ' + id + ' calls');
+          }
+
+          getData(id: number) {
+            return this.http.get(this.url + id);
+          }
+
+          ngAfterViewInit() {
+          let i = 1;
+
+          const getDataInterval = setInterval(() => {
+          this.getData(i).subscribe((response: any) => {
+          response = response.json();
+          this.usersArray.push(response.name);
+          this.showSuccess(response);
+          i++;
+          }, error => {
+          if (i < 15) { this.showError(i); } else { clearInterval(getDataInterval); this.connectionEnd(i); } i++; });
+            }, 2000); }
+          }
+          </code> </mdbsnippet> </section> <!--/Section: Code-->
+  </section>
+  <!--/Section: Server alert-->
+
+  <hr class="my-5">
+
+  <!--Section: Remove toast-->
+  <section id="remove-alert">
+    <h2 class="section-heading">
+      Remove single alert
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md"
+        role="button">MDB
+        Pro component
+        <i class="fa fa-diamond ml-1"></i>
+      </a>
+    </h2>
+
+    <p>Use <code>clear()</code> method to remove active alert with specific id.</p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <button mdbBtn color="primary" (click)="removeSingleAlert()">Remove single alert</button>
+        </code>
+        <code data-lang="js" data-name="TS">
+          import { Component } from '@angular/core';
+          import { ToastService } from 'ng-uikit-pro-standard';
+
+          @Component({
+          selector: 'toast-remove',
+          templateUrl: 'toast-remove.component.html',
+          })
+
+          export class ToastRemoveComponent {
+          alertId: number;
+
+          constructor(private toastrService: ToastService) {}
+
+          showSuccess() {
+            const successAlert = this.toastrService.success('Info message');
+            this.alertId = successAlert.toastId;
+          }
+
+          removeSingleAlert() {
+            this.toastrService.clear(this.alertId);
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+  </section>
+  <!--/Section: Remove toast-->
+
+  <hr class="my-5">
+
+  <!--Section: Remove all-->
+  <section id="remove-all">
+      <h2 class="section-heading">
+          Remove all alerts
+          <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md"
+            role="button">MDB
+            Pro component
+            <i class="fa fa-diamond ml-1"></i>
+          </a>
+        </h2>
+
+        <p>Use <code>clear()</code> method without parameters to remove all active alerts.</p>
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <button mdbBtn color="primary" (click)="removeAlerts()">Remove alerts</button>
+          <a class="btn btn-info waves-light" (click)="showInfo()" mdbWavesEffect>Info message</a>
+          <!--Warning message-->
+          <a class="btn btn-warning waves-light" (click)="showWarning()" mdbWavesEffect>Warning message</a>
+          <!--Success message-->
+          <a class="btn btn-success waves-light" (click)="showSuccess()" mdbWavesEffect>Success message</a>
+          <!--Error message-->
+          <a class="btn btn-danger waves-light" (click)="showError()" mdbWavesEffect>Error message</a>
+        </code>
+        <code data-lang="js" data-name="TS">
+          import { Component } from '@angular/core';
+          import { ToastService } from 'ng-uikit-pro-standard';
+
+          @Component({
+          selector: 'toast-remove',
+          templateUrl: 'toast-remove.component.html',
+          })
+
+          export class ToastRemoveComponent {
+
+          constructor(private toastrService: ToastService) {}
+
+          showSuccess() {
+            const options = { toastClass: 'opacity' };
+            this.toastrService.success('Success message description', 'Success message', options);
+          }
+
+          showError() {
+            const options = { toastClass: 'opacity' };
+            this.toastrService.error('Error message description', 'Error message', options);
+          }
+
+          showInfo() {
+            const options = { toastClass: 'opacity' };
+            this.toastrService.info('Info message description', 'Info message', options);
+          }
+
+          showWarning() {
+            const options = { toastClass: 'opacity' };
+            this.toastrService.warning('Warning message description', 'Warning message', options);
+          }
+
+          removeAlerts() {
+            this.toastrService.clear();
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+  </section>
+  <!--/Section: Remove all-->

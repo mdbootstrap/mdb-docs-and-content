@@ -1,0 +1,183 @@
+<div class="vue-tutorial tutorial">
+
+<p>Since we know how to dynamically render <mark>Events</mark> from an array, let's give some shape to our app.</p>
+
+<h2>1. Style Event component</h2>
+
+<ol>
+	<li>Let's import Badges and Icons from the <code>mdbvue</code> library in <code>Event.vue</code></li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (script)">
+ <script>
+import { mdbBadge, mdbIcon } from "mdbvue";
+
+export default {
+  name: "Event",
+  components: {
+    mdbBadge,
+    mdbIcon
+  },
+  props: {
+    index: {
+      type: Number
+    },
+    time: {
+      type: String
+    },
+    title: {
+      type: String
+    },
+    location: {
+      type: String
+    },
+    description: {
+      type: String
+    }
+  },
+  methods: {
+    onDelete() {
+      this.$emit('delete', this.index);
+    }
+  }
+};
+</script>
+  </code>
+</mdbsnippet>
+
+<p>We will use them within our template.</p>
+
+<li>Update the template with the following HTML code:</li>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (template)">
+ <template>
+  <div>
+    <div class="media mt-1">
+      <h3 class="h3-responsive font-weight-bold mr-3 pt-0">{{time}}</h3>
+      <div class="media-body mb-3 mb-lg-3">
+        <mdb-badge tag="a" color="danger-color" class="ml-2 float-right">-</mdb-badge>
+        <h6 v-if="title" class="mt-0 font-weight-bold">{{title}}</h6>
+        <hr class="hr-bold my-2">
+
+        <p class="font-smaller mb-0">
+          <mdb-icon icon="location-arrow"/> {{location}}
+        </p>
+      </div>
+    </div>
+    <p class="p-2 mb-4 blue-grey lighten-5">{{description}}</p>
+  </div>
+</template> 	
+  </code>
+</mdbsnippet>
+
+<p>Now our app starts looking better.</p>
+
+   <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/6/preview.png" alt="App preview" />
+<p>However, you probably noticed that <strong>some of the <mark>Events</mark> don't have a location nor description but we still display a placeholder for them</strong>. This doesn't look nice, so in order to fix it we will use another Vue directive - <mark>v-if</mark> </p>
+
+</ol>
+
+<h2>2. v-if directive</h2>
+
+<p>One of the reasons why Vue has grown so fast recently is the fact that <strong>it comes with a variety of predefined directives</strong> like <mark>v-for</mark> which you already know. In this lesson, we will learn how to use <mark>v-if</mark>, <mark>v-else</mark> and <mark>v-else-if</mark> directives.</p>
+
+
+<p>Let's have a look at our description paragraph: </p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+<p class="p-2 mb-4 blue-grey lighten-5">{{description}}</p>
+  </code>
+</mdbsnippet>
+
+<p>We can easily define whether we want to render an entier paragraph using a simple if condition:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+ <p v-if="true">I am rendered!</p>
+ <p v-if="false">I am not :(</p>
+  </code>
+</mdbsnippet>
+
+<p>And below is an example of our description paragraph:</p>
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/6/vif.gif" alt="v-if" />
+
+<p>Of course we don't want to set it globally, instead we want to <strong>display the paragraph depending on whether a <mark>description</mark> prop exists</strong>. In order to do that we can simply provide it as an argument to the <mark>v-if</mark> function: </p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (template)">
+<p v-if="description" class="p-2 mb-4 blue-grey lighten-5">{{description}}</p>
+  </code>
+</mdbsnippet>
+
+<p>And use the same mechanism for <mark>location</mark>  </p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+<p v-if="location" class="font-smaller mb-0">
+  <mdb-icon icon="location-arrow"/> {{location}}
+</p>
+  </code>
+</mdbsnippet>
+
+<p>Which solves our issue:</p>
+   <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/6/hidden.png" alt="Hidden empty nodes" />
+
+
+<p class="note note-warning"><strong>Note:</strong><br/>
+while using <mark>v-if</mark> directive we don't use <i>Mustache</i> syntax, instead we directly provide the variable name in between double quotes ("").
+</p>
+
+<h2>3. v-else</h2>
+
+<p>Sometimes, instead of hiding empty elements you may <strong>wish to display some alternative content</strong> (i.e. if there is no image in your blog post, you may want to display a default one).</p>
+
+<p>In Vue you can easily do this using the <mark>v-else</mark> directive:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (template)">
+<template>
+  <div>
+    <p v-if="false">When v-if is true I am visible</p>
+    <p v-else>But when it's false, it's my airtime!</p>
+  </div>
+</template>
+  </code>
+</mdbsnippet>
+
+<p>Preview:</p>
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/6/velse.gif" alt="v-else" />
+
+<h2>4. v-else-if</h2>
+
+<p>You may also end up in a situation where one "if" is not enough. I.e. imagine you have a list of authors and you want to render a different avatar for each author but still, if the authour is anonymous you want to display a default Avatar.</p>
+
+<p>Again in Vue, you can very easily achieve that by using the <mark>v-else-if</mark> directive:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (template)">
+<template>
+  <div>
+    <div v-if="true">A</div>
+    <div v-else-if="false">B</div>
+    <div v-else-if="false">C</div>
+    <div v-else>Not A/B/C</div>
+  </div>
+</template>
+  </code>
+</mdbsnippet>
+
+<p>Preview:</p>
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/6/velseif.gif" alt="v-else-if" />
+
+<p class="note note-warning"><strong>Exercise:</strong><br/>
+Check yourself - which value will be rendered if <strong>all conditions</strong> are set to true? You can submit your answer while rating this lesson. Please rate it using the stars below. When you vote, you will be able to leave the note where you can give extended feedback and provide the answer.<br /> <br/>
+Your feedback is very important to us. Please help us in making our tutorials better.
+</p>
+
+
+
+</div>

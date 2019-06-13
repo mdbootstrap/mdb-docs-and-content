@@ -1,0 +1,69 @@
+<script>
+  var shortcodesGeneratorWrapper = $('#shortcodesGeneratorWrapper');
+  var form = shortcodesGeneratorWrapper.children('form');
+  var resultStart = $('code#shortcodeOutputStart');
+  var resultEnd = $('code#shortcodeOutputEnd');
+  var table = $('#tablePreview');
+  var borderedInput = $("#tableBorderedWrapper").find('input[type="checkbox"]');
+  var stripedInput = $("#tableStripedWrapper").find('input[type="checkbox"]');
+  var hoverableInput = $("#tableHoverableWrapper").find('input[type="checkbox"]');
+  var responsiveInput = $("#tableResponsiveWrapper").find('input[type="checkbox"]');
+
+  // default settings
+  var params = [];
+  params['class'] = 'table';
+  updateShortcode();
+
+  // event listener for bordered switch
+  borderedInput.on('change', function(e){
+    switchClass('tableBordered');
+  });
+
+  // event listener for striped switch
+  stripedInput.on('change', function(e){
+    switchClass('tableStriped');
+  });
+
+  // event listener for hoverable switch
+  hoverableInput.on('change', function(e){
+    switchClass('tableHoverable');
+  });
+
+  // event listener for responsive switch
+  responsiveInput.on('change', function(e){
+    if( $('input[name=tableResponsive]').prop('checked') ) {
+        table.wrap("<div class='table-responsive'></div>");
+        updateShortcode("<div class='table-responsive'>\n", "\n</div>")
+      } else {
+        table.unwrap();
+        updateShortcode();
+      }
+  });
+
+  function switchClass(name){
+    var input = $("input[name=" + name + "]");
+    var className = input[0].value;
+
+    if( input.prop('checked') ) {
+        table.addClass(className);
+        params['class'] += " " + className;
+        updateShortcode()
+      } else {
+        table.removeClass(className);
+        params['class'] = params['class'].replace((" " + className), "");
+        updateShortcode()
+      }
+  }
+
+  function updateShortcode(prefix, suffix){
+    var prefix = prefix || "";
+    var suffix = suffix || "";
+    var code = prefix + '<table';
+    code += params['class'] ? ` class="${params['class']}"` : '';
+    code = code.trim() + '>';
+    resultStart.text(code);
+    resultEnd.text(suffix);
+    Prism.highlightAll()
+  }
+</script>
+

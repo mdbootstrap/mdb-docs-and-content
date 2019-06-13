@@ -1,0 +1,287 @@
+<!--Section: Introduction-->
+<section id="e-introduction">
+  <h2 class="section-heading">Angular Autocomplete - examples & customization</h2>
+</section>
+<!--/Section: Introduction-->
+
+<hr class="my-5">
+
+<!--Section: Icons-->
+<section id="e-icons">
+  <h2 class="section-heading">
+    Autocomplete with icons
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm btn-md"
+      role="button">MDB Pro component <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="md-form">
+          <input type="text" class="completer-input form-control mdb-autocomplete mb-0"
+                 [(ngModel)]="searchText"
+                 (input)="getFilteredData()" (ngModelChange)="onChange()"
+                 [mdbAutoCompleter]="auto"
+                 placeholder="Pick person">
+          <mdb-auto-completer #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
+            <mdb-option *ngFor="let option of results | async" [value]="option.name">
+              <div class="d-flex justify-content-between align-items-center w-100">
+                <span>{{option.name}}</span>
+                <img [src]="option.icon" alt="{{option.name}} photo" class="completer-image">
+              </div>
+            </mdb-option>
+          </mdb-auto-completer>
+        </div>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import {AfterViewInit, Component, ViewChild} from '@angular/core';
+        import {of} from 'rxjs';
+        import {MdbAutoCompleterComponent} from 'ng-uikit-pro-standard';
+
+        @Component({
+          selector: 'auto-completer-with-icons',
+          templateUrl: './auto-completer-with-icon.component.html',
+          styleUrls: ['./auto-completer-with-icon.component.scss'],
+        })
+        export class AutoCompleterWithIconsComponent implements AfterViewInit {
+          @ViewChild(MdbAutoCompleterComponent) completer: MdbAutoCompleterComponent;
+          searchText = '';
+          results: any;
+          data: any = [
+            { name: 'Anthony', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-1.jpg' },
+            { name: 'Jane', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg' },
+            { name: 'John', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg' },
+            { name: 'Samantha', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-4.jpg' }
+          ];
+
+          constructor() {
+            this.results = this.searchEntries(this.searchText);
+          }
+
+          getDataItems() {
+            return this.data;
+          }
+
+          searchEntries(term: string) {
+            return of(this.getDataItems().filter((data: any) => data['name'].toString().toLowerCase().includes(term.toString().toLowerCase())));
+          }
+
+          getFilteredData() {
+            this.results = this.searchEntries(this.searchText);
+          }
+
+          onChange() {
+            this.getFilteredData();
+          }
+
+          ngAfterViewInit() {
+            this.completer.selectedItemChanged().subscribe((data: any) => {
+              this.searchText = data.text;
+              this.getFilteredData();
+            });
+          }
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+<!--/Section: Icons-->
+
+<hr class="my-5">
+
+<!--Section: No results message-->
+<section id="e-multiple">
+  <h2 class="section-heading">
+    Second dependent on the first
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm btn-md"
+      role="button">MDB Pro component <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <p class="description">The selection of values in the first auto-completer determines the options to choose in the second auto-completer.</p>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="row">
+          <div class="col-md-4 mx-auto my-5">
+            <div class="md-form">
+              <input type="text" class="completer-input form-control mdb-autocomplete mb-0" [(ngModel)]="searchText"
+                     (input)="getFilteredData()" (ngModelChange)="onChange()" placeholder="Choose your framework"
+                     [mdbAutoCompleter]="auto">
+              <mdb-auto-completer #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
+                <mdb-option *ngFor="let option of results | async" [value]="option">
+                  {{option}}
+                </mdb-option>
+              </mdb-auto-completer>
+            </div>
+          </div>
+
+          <div class="col-md-4 mx-auto my-5">
+            <div class="md-form">
+              <input type="text" class="completer-input form-control mdb-autocomplete mb-0" [(ngModel)]="searchText2"
+                     (input)="getFilteredData2()" (ngModelChange)="onChange2()" placeholder="Choose your framework version"
+                     [mdbAutoCompleter]="auto2">
+              <mdb-auto-completer #auto2="mdbAutoCompleter" textNoResults="I have found no results :(">
+                <mdb-option *ngFor="let option of results2 | async" [value]="option">
+                  {{option}}
+                </mdb-option>
+              </mdb-auto-completer>
+            </div>
+          </div>
+        </div>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import {AfterViewInit, Component, ViewChild} from '@angular/core';
+        import {of} from 'rxjs';
+        import {MdbAutoCompleterComponent} from 'ng-uikit-pro-standard';
+
+        @Component({
+          selector: 'multiple-autocompleter',
+          templateUrl: './multiple-autocompleter.component.html',
+          styleUrls: ['./multiple-autocompleter.component.scss'],
+        })
+        export class MultipleAutoCompleterComponent implements AfterViewInit {
+          @ViewChild(MdbAutoCompleterComponent) completer: MdbAutoCompleterComponent;
+
+          searchText = '';
+          searchText2 = '';
+
+          results: any = null;
+          results2: any = null;
+
+          data: Array<any> = ['Angular', 'React', 'Vue', 'jQuery'];
+          data2: Array<any> = [];
+
+            constructor() {
+              this.results = this.searchEntries(this.searchText);
+              this.results2 = this.searchEntries2(this.searchText2);
+            }
+
+            getDataItems() {
+              return {first: this.data, second: this.data2};
+            }
+
+            searchEntries(term: string) {
+              return of(this.getDataItems().first.filter((data: any) => data.toString().toLowerCase().includes(term.toString().toLowerCase())));
+            }
+
+            searchEntries2(term: string) {
+              return of(this.getDataItems().second.filter((data: any) => data.toString().toLowerCase().includes(term.toString().toLowerCase())));
+            }
+
+            getFilteredData() {
+              this.results = this.searchEntries(this.searchText);
+            }
+
+            getFilteredData2() {
+              this.results2 = this.searchEntries2(this.searchText2);
+            }
+
+            onChange() {
+              this.getFilteredData();
+            }
+
+            onChange2() {
+              this.getFilteredData();
+            }
+
+            ngAfterViewInit() {
+              this.completer.selectedItemChanged().subscribe((data: any) => {
+                this.searchText = data.text;
+                this.getFilteredData();
+
+                if (this.searchText === 'Angular') {
+                this.data2 = ['Angular 1', 'Angular 2', 'Angular 3', 'Angular 4'];
+                } else if (this.searchText === 'React') {
+                this.data2 = ['React 1', 'React 2', 'React 3', 'React 4'];
+                } else if (this.searchText === 'Vue') {
+                this.data2 = ['Vue 1', 'Vue 2', 'Vue 3', 'Vue 4'];
+                } else if (this.searchText === 'jQuery') {
+                this.data2 = ['jQuery 1', 'jQuery 2', 'jQuery 3', 'jQuery 4'];
+                }
+                this.getFilteredData2();
+              });
+            }
+          }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+<!--/Section: No results message-->
+
+<hr class="my-5">
+
+<!--Section: No results message-->
+<section id="e-call-after-input">
+  <h2 class="section-heading">
+    Remote call after input event
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm btn-md"
+       role="button">MDB Pro component <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <p class="description">The selection of values in the first auto-completer determines the options to choose in the second auto-completer.</p>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="md-form">
+          <input #inputEl type="text" class="completer-input form-control mdb-autocomplete mb-0"
+                 [(ngModel)]="searchText"
+                 [mdbAutoCompleter]="auto"
+                 placeholder="Pick the Star Wars character">
+          <mdb-auto-completer #auto="mdbAutoCompleter"  textNoResults="I have found no results :(">
+            <mdb-option *ngFor="let option of results" [value]="option.name">
+              <div class="d-flex flex-column">
+                <strong>Name: {{option.name}}</strong>
+                <small>Gender: {{option.gender}}</small>
+                <small>Hair color: {{option.hair_color}}</small>
+              </div>
+            </mdb-option>
+          </mdb-auto-completer>
+        </div>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+        import {fromEvent} from "rxjs";
+        import {HttpClient} from "@angular/common/http";
+        import {debounceTime} from "rxjs/operators";
+
+        @Component({
+          selector: 'remote-event',
+          templateUrl: './remote-event.component.html',
+          styleUrls: ['./remote-event.component.scss']
+        })
+        export class RemoteEventComponent implements AfterViewInit {
+          @ViewChild('inputEl') inputEl: ElementRef;
+          searchText = '';
+          url = 'https://swapi.co/api/people/?search=';
+          results: any = [];
+
+          constructor(private httpClient: HttpClient) {  }
+
+          ngAfterViewInit(): void {
+            fromEvent(this.inputEl.nativeElement, 'input').pipe(debounceTime(250)).subscribe(() => {
+              this.httpClient.get(this.url + this.searchText).subscribe((items: any) => {
+                this.results = items['results'];
+              });
+            });
+          }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+<!--/Section: No results message-->
+

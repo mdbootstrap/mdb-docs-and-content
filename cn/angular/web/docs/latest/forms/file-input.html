@@ -1,0 +1,209 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+    <!--Section: Intro-->
+    <section id="introduction">
+
+        <!--Title-->
+        <h1 class="main-title">Angular Bootstrap File Input</h1>
+
+        <!--Description-->
+        <p class="description">Angular Bootstrap file input is a field which user can use to upload one or more files (photos, documents or any
+            other file type) from the local storage.</p>
+
+        <p>Standard file inputs usually leave a lot to wish for in terms of design, but MDB takes care of that by enhancing
+            them with Material Design best practices.</p>
+
+        <p>Most common use examples:</p>
+
+        <ul>
+            <li>CSV upload to CRM system</li>
+            <li>Avatar picture upload</li>
+            <li>Simple GIF upload</li>
+        </ul>
+
+        <p>Below you can see a number of Bootstrap file inputs created with Material Design for Bootstrap.</p>
+
+        <!--Section: Live preview-->
+        <section>
+
+
+
+        </section>
+        <!--Section: Live preview-->
+
+    </section>
+    <!--/Section: Intro-->
+
+    <hr class="my-5">
+
+    <!--Section: -->
+    <section id="basic">
+
+        <!--Title-->
+        <h2 class="title">
+            <strong>Basic examples</strong>
+            <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank"
+                class="btn btn-danger btn-md" role="button">MDB Pro component
+                <i class="far fa-gem ml-1"></i>
+            </a>
+        </h2>
+
+        <!--Description-->
+        <p class="description">Add
+                <code>mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"</code> to the .file
+                <code>&lt;input&gt;</code> and
+                <code>[value]="showFiles()"</code> to the .file-path
+                <code>&lt;input&gt;</code>.</p>
+
+        <!--Section: Live preview-->
+        <section>
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-12 mb-4">
+
+                    <form class="md-form">
+                        <div class="file-field">
+                            <div class="btn btn-primary btn-sm float-left">
+                                <span>Choose file</span>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Upload your file">
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-md btn-primary">Start uploading</button>
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+        </section>
+        <!--Section: Live preview-->
+
+        <!--Section: Code-->
+        <section class="mt-3">
+            <mdbsnippet>
+                <code data-lang="html" data-name="HTML">
+<form>
+  <div class="file-field md-form">
+    <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
+      <span>Choose file</span>
+      <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+    </div>
+  </div>
+  <button class="btn btn-md btn-primary" (click)="startUpload()">Start uploading</button>
+</form>
+	</code>
+                <code data-lang="js" data-name="TS">import { Component, EventEmitter } from '@angular/core';
+import { UploadFile, UploadInput, UploadOutput } from 'ng-uikit-pro-standard';
+import { humanizeBytes } from 'ng-uikit-pro-standard';
+
+@Component({
+selector: 'file-input-example',
+templateUrl: 'file-input.html',
+})
+
+export class FileInputComponent  {
+  formData: FormData;
+  files: UploadFile[];
+  uploadInput: EventEmitter<UploadInput>;
+  humanizeBytes: Function;
+  dragOver: boolean;
+
+  constructor() {
+      this.files = [];
+      this.uploadInput = new EventEmitter<UploadInput>();
+      this.humanizeBytes = humanizeBytes;
+  }
+
+  showFiles() {
+      let files = '';
+      for (let i = 0; i < this.files.length; i ++) {
+        files += this.files[i].name;
+         if (!(this.files.length - 1 === i)) {
+           files += ',';
+        }
+      }
+      return files;
+   }
+
+  startUpload(): void {
+      const event: UploadInput = {
+      type: 'uploadAll',
+      url: 'your-path-to-backend-endpoint',
+      method: 'POST',
+      data: { foo: 'bar' },
+      };
+
+      this.uploadInput.emit(event);
+  }
+
+  cancelUpload(id: string): void {
+      this.uploadInput.emit({ type: 'cancel', id: id });
+  }
+
+  onUploadOutput(output: UploadOutput | any): void {
+
+      if (output.type === 'allAddedToQueue') {
+      } else if (output.type === 'addedToQueue') {
+        this.files.push(output.file); // add file to array when added
+      } else if (output.type === 'uploading') {
+        // update current data in files array for uploading file
+        const index = this.files.findIndex(file => file.id === output.file.id);
+        this.files[index] = output.file;
+      } else if (output.type === 'removed') {
+        // remove file from array when removed
+        this.files = this.files.filter((file: UploadFile) => file !== output.file);
+      } else if (output.type === 'dragOver') {
+        this.dragOver = true;
+      } else if (output.type === 'dragOut') {
+      } else if (output.type === 'drop') {
+        this.dragOver = false;
+      }
+      this.showFiles();
+  }
+}</code>
+            </mdbsnippet>
+        </section>
+        <!--/Section: Code-->
+
+    </section>
+    <!--/Section: -->
+
+    <hr class="my-5">
+
+    <!-- SECTION-->
+<section id="APIref">
+
+  <h2 class="title my-4">API Reference:</h2>
+  <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of importing
+    the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific module,
+    is bad practice, and can cause application errors.
+  </p>
+
+  <h5 class="mb-4">API Reference for MDB Angular File Input:</h5>
+  <pre><code class="language-javascript">// MDB Angular Pro
+import { InputsModule, WavesModule, ButtonsModule } from 'ng-uikit-pro-standard'</code></pre>
+  <pre><code class="language-javascript">// For File Input
+import { FileInputModule, ButtonsModule } from 'ng-uikit-pro-standard'</code></pre>
+
+  <div class="row">
+    <div class="col-md-6">
+      <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">Import example</a>
+      <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">Modules list</a>
+    </div>
+  </div>
+</section>
+
+
+</section>
+<!--Section: Doc content-->

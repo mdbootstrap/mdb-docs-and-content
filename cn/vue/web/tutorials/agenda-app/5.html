@@ -1,0 +1,169 @@
+<div class="vue-tutorial tutorial">
+  <h2>1. Initial events list</h2>
+  <p>Since the <mark>Event</mark> component receives information like the date or title from the <mark>App</mark> (parent) component,<strong> it is now the <mark>App</mark> component which will be responsible for storing and managing lists of events</strong>. Let's add an initial list of the events into the <code>App.vue</code> script part inside of the <mark>data()</mark> function:</p>
+  <mdbsnippet>
+    <code data-lang="js" data-name="Vue">
+  	<script>
+import { mdbContainer, mdbRow, mdbCol } from "mdbvue";
+import Event from "@/components/Event";
+export default {
+  name: "App",
+  components: {
+    mdbContainer,
+    mdbRow,
+    mdbCol,
+    Event
+  },
+    data() {
+    return {
+      events: [
+        {
+          time: "10:00",
+          title: "Breakfast with Simon",
+          location: "Lounge Caffe",
+          description: "Discuss Q3 targets"
+        },
+        {
+          time: "10:30",
+          title: "Daily Standup Meeting (recurring)",
+          location: "Warsaw Spire Office"
+        },
+        {
+          time: "11:00",
+          title: "Call with HRs"
+        },
+        {
+          time: "12:00",
+          title: "Lunch with Timmoty",
+          location: "Canteen",
+          description: "Project evalutation"
+        }
+      ]
+    };
+  },
+};
+</script>
+  </code>
+  </mdbsnippet>
+  <p>Now when we have our initial data, let's learn how to use for loop to dynamically generate all events from the <mark>events[]</mark> array.</p>
+  <h2>2. v-for</h2>
+  <h3>2.1 Dynamic loop</h3>
+  <p>Let's replace our static <mark>Event</mark> code:</p>
+  <mdbsnippet>
+    <code data-lang="js" data-name="Vue (template)">
+        <Event time="10:00" title="Breakfast with Simon" location="Lounge Caffe" description="Discuss Q3 targets"/>
+        <Event time="10:30" title="Daily Standup Meeting (recurring)" location="Warsaw Spire Office"/>
+   
+    </code>
+  </mdbsnippet>
+
+  <p>with a dynamic call: </p>
+  <mdbsnippet>
+    <code data-lang="js" data-name="Vue (template)">
+<Event
+  v-for="event in events"
+  :time="event.time"
+  :title="event.title"
+  :location="event.location"
+  :description="event.description"
+/>  
+ 	
+    </code>
+  </mdbsnippet>
+
+  <p>Which works like a charm:</p>
+
+   <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/5/preview.PNG" alt="App preview" />
+
+<p>The <mark>v-for</mark> is quite self-descriptive. It loops through <strong>each element within the <mark>events[]</mark> array</strong> and creates an instance of each <mark>Event</mark> component.</p>
+
+<p>In order to access attributes of a particular event we are defining its alias in the <mark>v-for</mark> declaration:</p> 
+<p> <mark>v-for="<strong>event</strong> in events"</mark></p>
+
+<p>Now we can access it, i.e. its title calling <mark>event.title</mark>.</p>
+
+<p>The alias for a single element can have any name, we could use shorter version and call it <mark>e</mark>:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+ <Event
+  v-for="e in events"
+  :time="e.time"
+  :title="e.title"
+  :location="e.location"
+  :description="e.description"
+        />  
+  </code>
+</mdbsnippet>
+
+<p>However, <strong>it's a good practice to use a descriptive name to make your code easier to understand</strong>. As you also noticed within the <mark>v-for</mark> loop we are mapping our element attributes i.e. <mark>event.time</mark> (right side) to the <mark>Event</mark> time property (left side):</p>
+
+<p> (Event component instance property) <mark>:time</mark> = <mark>"event.time"</mark> (events[] array element)</p>
+
+<h3>2.2 Unique key</h3>
+
+<p>Everything works like a charm so far. At least in a browser. However, if we look into our console we will notice the following Warning:</p>
+
+   <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/5/warning.png" alt="Warning in a console" />
+
+   <p>This warning tells us that <strong>each element should contain a unique key</strong>. This helps Vue to access each element. Let's quickly check why this is important.</p>
+
+   <p>With the help of a small Chrome extension - <a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en" rel="nofollow">Vue.js devtools</a> we can check the Virtual DOM of our application. This is how it looks now: </p>
+
+      <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/5/notunique.png" alt="Missing keys" />
+
+<p>As you can see, all <mark>Event</mark> component instances <strong>look exactly the same</strong>. If we want to update a specific one it's difficult to access a particular one. We can quickly fix this. Let's update our loop:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (template)">
+ <Event
+  v-for="(event, index) in events"
+  :index="index"
+  :time="event.time"
+  :title="event.title"
+  :location="event.location"
+  :description="event.description"
+  :key="index"
+/>  
+  </code>
+</mdbsnippet>
+
+<p>And check our code again using the same extension:</p>
+
+      <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/5/unique.png" alt="Unique keys" />
+
+<p>As you can see each Event has now a unique key (the first element has by default key=0,  therefore it is not displayed).</p>
+
+<p>Let's quickly review the new <mark>v-for</mark> code. We added the second parameter (index) parameter to our loop: </p>
+
+<p><mark>v-for="(event, <strong>index</strong>) in events"</mark></p>
+
+<p>This is an <strong>auto incremented index</strong>, which means it increases value with each iteration. We have bound it to the <mark>key</mark> property which will help Vue to quickly access a specific item without needing to loop through all the elements within the array.</p>
+
+<p>We also added an extra property <mark>index:</mark> and mapped it to the same value. This will help us within the application, to access a specific <mark>Event</mark> from the source code. </p>
+
+<p>Since we have added mapping to a new property, the last step to do is to extend a list of properties in the <code>Event.vue</code> file. Let's add a new prop to the props list:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (script)">
+   props: {
+    index: {
+      type: Number
+    }, 
+    time: {
+      type: String
+    },
+    title: {
+      type: String
+    },
+    location: {
+      type: String
+    },
+    description: {
+      type: String
+    }
+  },
+  </code>
+</mdbsnippet>
+
+</div>

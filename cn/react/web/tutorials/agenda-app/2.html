@@ -1,0 +1,380 @@
+<div>Now, as we know basic concept on how <span style="font-weight: bold;">React </span>works let's build a real App! I am going to show you the final result first and then quickly analyze it. After that, I will show you how to build
+  this app from scratch. </div>
+<div><br /></div>
+<div>Once we will finish that, we will continue with development — I am going to show you how split it to functional   components, pass data between them and much more. </div>
+<div><br /></div>
+<div>Let's no waste more time and start working. </div>
+<div><br /></div>
+<h2>1. Build the app</h2>
+
+<div><br /></div>
+<div>Open our code from the previous lesson or download the Tutorial files and open the project located in the lesson-1 folder (this is the place where we finished lesson 1). </div>
+<div><br /></div>
+<div>We will build a real agenda application that shows daily events. We will be able to add, remove and edit items. The app will count events and show us a weather forecast.</div>
+<div><br /></div>
+<div>Open the <code>index.js</code> file and paste the following code into it:</div>
+<div><br /></div>
+
+<mdbsnippet>
+    <code data-lang="javascript" data-name="JSX">
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+import { MDBBtn, MDBInput, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBIcon, MDBBadge, MDBContainer, MDBRow, MDBCol} from "mdbreact";
+import "./index.css";
+class App extends Component {
+    constructor(props) {
+    super(props);
+    this.state = {
+        modal: false,
+        events: [
+        {
+            id: 1,
+            time: "10:00",
+            title: "Breakfast with Simon",
+            location: "Lounge Caffe",
+            description: "Discuss Q3 targets"
+        },
+        {
+            id: 2,
+            time: "10:30",
+            title: "Daily Standup Meeting (recurring)",
+            location: "Warsaw Spire Office"
+        },
+        { id: 3, time: "11:00", title: "Call with HRs" },
+        {
+            id: 4,
+            time: "12:00",
+            title: "Lunch with Timmoty",
+            location: "Canteen",
+            description:
+            "Project evalutation ile declaring a variable and using an if statement is a fine way to conditionally render a component, sometimes you might want to use a"
+        }
+        ]
+    };
+    }
+    addEvent = () => {
+    var newArray = [...this.state.events];
+    newArray.push({
+        id: newArray.length ? newArray[newArray.length - 1].id + 1 : 1,
+        time: this.state.time,
+        title: this.state.title,
+        location: this.state.location,
+        description: this.state.description
+    });
+    this.setState({ events: newArray });
+    this.setState({
+        time: "",
+        title: "",
+        location: "",
+        description: ""
+    });
+    };
+    handleInputChange = inputName => value => {
+    const nextValue = value;
+    this.setState({
+        [inputName]: nextValue
+    });
+    };
+    handleDelete = eventId => {
+    const events = this.state.events.filter(e => e.id !== eventId);
+    this.setState({ events });
+    };
+    toggleModal = () => {
+    this.setState({
+        modal: !this.state.modal
+    });
+    };
+    render() {
+    return (
+        <React.Fragment>
+        <MDBContainer>
+            <MDBRow>
+            <MDBCol md="9" className="mb-r">
+                <h2 className="text-uppercase my-3">Today:</h2>
+                <div id="events">
+                {this.state.events.map(event => (
+                    <Event
+                    key={event.id}
+                    id={event.id}
+                    time={event.time}
+                    title={event.title}
+                    location={event.location}
+                    description={event.description}
+                    onDelete={this.handleDelete}
+                    />
+                ))}
+                </div>
+                <MDBRow className="mb-4">
+                <MDBCol xl="3" md="6" className="mx-auto text-center">
+                    <MDBBtn color="info" rounded onClick={this.toggleModal}>
+                    Add Event
+                    </MDBBtn>
+                </MDBCol>
+                </MDBRow>
+            </MDBCol>
+            <MDBCol md="3">
+                <h3 className="text-uppercase my-3">Schedule</h3>
+                <h6 className="my-3">
+                It is going to be busy that today. You have{" "}
+                <b>{this.state.events.length} events </b> today.
+                </h6>
+                <h1 className="my-3">
+                    <MDBRow>
+                    <MDBCol xs="3" className="text-center">
+                        <MDBIcon icon="sun" fixed />
+                    </MDBCol>
+                    <MDBCol xs="9">Sunny</MDBCol>
+                    </MDBRow>
+                    <MDBRow>
+                    <MDBCol xs="3" className="text-center">
+                    <MDBIcon icon="thermometer-three-quarters" fixed />                  
+                    </MDBCol>
+                    <MDBCol xs="9">23°C</MDBCol>
+                    </MDBRow>
+                </h1>
+                <p>
+                Don't forget your sunglasses. Today will dry and sunny, becoming
+                warm in the afternoon with temperatures of between 20 and 25
+                degrees.
+                </p>
+            </MDBCol>
+            </MDBRow>
+        </MDBContainer>
+        <MDBModal isOpen={this.state.modal} toggle={this.toggleModal}>
+            <MDBModalHeader
+            className="text-center"
+            titleClass="w-100 font-weight-bold"
+            toggle={this.toggleModal}
+            >
+            Add new event
+            </MDBModalHeader>
+            <MDBModalBody>
+                <form className="mx-3 grey-text">
+                    <MDBInput
+                      name="time"
+                      label="Time"
+                      icon="clock"
+                      hint="12:30"
+                      group
+                      type="text"
+                      getValue={this.handleInputChange("time")}
+                    />
+                    <MDBInput
+                      name="title"
+                      label="Title"
+                      icon="edit"
+                      hint="Briefing"
+                      group
+                      type="text"
+                      getValue={this.handleInputChange("title")}
+                    />
+                    <MDBInput
+                      name="location"
+                      label="Location (optional)"
+                      icon="map"
+                      group
+                      type="text"
+                      getValue={this.handleInputChange("location")}
+                    />
+                    <MDBInput
+                      name="description"
+                      label="Description (optional)"
+                      icon="sticky-note"
+                      group
+                      type="textarea"
+                      getValue={this.handleInputChange("description")}
+                    />
+                  </form>
+            </MDBModalBody>
+            <MDBModalFooter className="justify-content-center">
+            <MDBBtn
+                color="info"
+                onClick={() => {
+                this.toggleModal();
+                this.addEvent();
+                }}
+            >
+                Add
+            </MDBBtn>
+            </MDBModalFooter>
+        </MDBModal>
+        </React.Fragment>
+    );
+    }
+}
+class Event extends Component {
+    render() {
+    return (
+        <React.Fragment>
+        <div className="media mt-1">
+            <h3 className="h3-responsive font-weight-bold mr-3">
+            {this.props.time}
+            </h3>
+            <div className="media-body mb-3 mb-lg-3">
+            <MDBBadge
+                color="danger"
+                className="ml-2 float-right"
+                onClick={() => this.props.onDelete(this.props.id)}
+            >
+                -
+            </MDBBadge>
+            <h6 className="mt-0 font-weight-bold">{this.props.title} </h6>{" "}
+            <hr className="hr-bold my-2" />
+            {this.props.location && (
+                <React.Fragment>
+                <p className="font-smaller mb-0">
+                    <MDBIcon icon="location-arrow" /> {this.props.location}
+                </p>
+                </React.Fragment>
+            )}
+            </div>
+        </div>
+        {this.props.description && (
+            <p className="p-2 mb-4  blue-grey lighten-5 blue-grey lighten-5">
+            {this.props.description}
+            </p>
+        )}
+        </React.Fragment>
+    );
+    }
+}
+ReactDOM.render(<App />, document.getElementById("root"));
+
+    </code>
+</mdbsnippet>
+<div>Save the file and run the application (npm start). Voila! Our app is running.</div>
+<div><br /></div>
+<div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/2/image_1.png" alt="App preview" 
+     /><br /></div>
+<div><br /></div>
+<h2>2. Run the app</h2>
+
+<div><br /></div>
+<div>Now take some time to play with the app. Note that whenever you're adding/removing events, <span style="font-weight: bold;">the
+    counter in the right column is changing</span>.</div>
+<div><br /></div>
+<div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/2/appReview.render.gif" alt="App behavior"
+     /><br /></div>
+<div><br /></div>
+<h2>3. Responsiveness </h2>
+
+<div><span style="font-size: 14px;"><br /></span></div>
+<div>Our application is also <strong>responsive by default</strong>. Just change the size of the browser to see how does it display on
+  different screen size: </div>
+<div><br /></div>
+<div><br /></div>
+<div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/2/appResponsive.render.gif" alt="App Responsiveness" 
+    /><br /></div>
+<div><br /></div>
+<div><br /></div>
+<div> Note that the entire application has less than 230 lines of code. This is possible thanks to MDB library. We will learn more about such libraries in future lessons.</div>
+<div><br /></div>
+<h2>4. Code review</h2>
+<div><br /></div>
+<div>Since you know what we are about to build<span style="font-weight: bold;"> we will start from scratch and build it line by line</span>. I will guide you to make sure that after the tutorial you will have a good understanding of the key concepts. Before we start building it, let's quickly scan the code. I want you to have a basic understanding of
+  how our app works: </div>
+<div><br /></div>
+<h3>4.1 Imports</h3>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+import { MDBBtn, MDBInput, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBIcon, MDBBadge, MDBContainer, MDBRow, MDBCol } from "mdbreact";
+    </code>
+</mdbsnippet>
+<div>You already know that in order to use React we have to import it first. Within the app, we have added few more imports — these allow us to use predefined components like Button, Modal, Inputs, etc. from the library. We are also importing
+  external styles (MDB) and icons (Font Awesome) so that we can use them within our app. </div>
+<div><br /></div>
+<h3>4.2 App class</h3>
+<div>This is the definition of our main class. I will explain what classes are in the next lesson. For now you can <span style="font-weight: bold;">think of a class as of definition of the component</span>. In this case our App is our component. This class consists of a few elements: </div>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+class App extends Component {
+    constructor(props) { ... }
+        toggleModal = () => { ... };
+        handleInputChange = inputName => value => { ...  };
+        handleDelete = eventId => { ... };
+        addEvent = () => { ... };
+        render() {
+        return ([..);
+        }
+    }
+    </code>
+</mdbsnippet>
+<div><br /></div>
+
+
+<p>4.2.1 <mark>constructor()</mark>— without going into details I want you to remember that whenever React renders (is mounting) some class (components) it <span style="font-weight: bold;">executes a few functions in a certain order</span>. For now, just remember <span style="font-weight: bold;">that <mark>constructor()</mark> is called before the <mark>render()</mark></span> function. For that reason we have placed here the initial state of our component - status of the modal (false = not visible) as well as an array containing the initial list of the events.</p>
+
+  <blockquote class="blockquote">
+<h5>Mounting phase</h5>
+<p>These methods are called in the following order when an instance of a component is being created and inserted
+  into the DOM:</p>
+<ul class="small">
+  <li>
+    <div><mark>constructor()</mark></div>
+  </li>
+  <li>
+    <div><mark>getDerivedStateFromProps()</mark></div>
+  </li>
+  <li>
+    <div><mark>render()</mark></div>
+  </li>
+  <li>
+    <div><mark>componentDidMount()</mark></div>
+  </li>
+</ul>
+</blockquote>
+<div><br /></div>
+<div><br /></div>
+<div>4.2.2. <mark>functions()</mark> — after calling the constructor we have a few functions (toggleModal, handleInputChange, handleDelete,
+  and addEvent) that are used within the application</div>
+<div>4.2.3 <mark>render()</mark> — this function you already know. It contains JSX code that will be rendered to the browser. </div>
+<div><br /></div>
+<div>Let's scan the JSX code. Our app is split into two columns using Bootstrap grid (Container, Rows, and Columns) thanks
+  to that columns will <span style="font-weight: bold;">either be displayed next to each other</span> (large screen) or <span
+    style="font-weight: bold;">one below the other</span>.</div>
+<div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/2/image_2.png"
+    /><br /></div>
+<div><br /></div>
+<div>Within the first column, we can find a list of events. Using the <mark>map()</mark> function, React <span style="font-weight: bold;">creates one instance of the event </span>for each entry in our array that we have defined in <mark>constructor()</mark> few lines above. </div>
+<div><br /></div>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+<div id="events">
+    {this.state.events.map(event => (
+        <Event
+        key={event.id}
+        id={event.id}
+        time={event.time}
+        subject={event.subject}
+        location={event.location}
+        description={event.description}
+        onDelete={this.handleDelete}
+        />
+    ))}
+</div>
+         
+    </code>
+</mdbsnippet>
+<p>The second column contains information on how many events we have in our agenda. It also contains a hard coded weather forecast. In one of the future lessons we will learn how to call a real API and display real data. </p>
+
+  <p>The last element located outside the container is our modal. This is the small window which becomes visible once you click the "ADD EVENT" button. </p>
+
+<h2>5. Event component</h2>
+<div><br /></div>
+
+<p>The third part is a definition of our item component. I'll draw a chart to help you visualize the structure of our application:</p>
+<div><br /></div>
+<div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/2/image.png"
+    height="510" width="1117" /><br /></div>
+<div><br /></div>
+<h2>6. ReactDOM.render() </h2>
+
+<div>The last element is the execution of the function which you already know. However this time instead of providing a JSX  directly into the function, we are providing the instance of our App class. </div>

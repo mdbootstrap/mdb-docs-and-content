@@ -1,0 +1,143 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">React Bootstrap Waves effect</h2>
+
+  <h1 class="secondary-heading mb-4">React Waves - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p class="description">React Bootstrap waves effect is an impression of circular overlay movement, triggered by clicking the object, flowing from the center of the click. By default, waves are added to buttons, masks, and navbar's links as in examples below.</p>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Example
+  </h2>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="row">
+
+      <div class="col-md-3">
+        <a class="btn btn-primary btn-lg">Click me</a>
+      </div>
+
+      <div class="col-md-5">
+        <div class="view overlay">
+          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(54).jpg" class="img-fluid" alt="Sample image with waves effect.">
+          <a href="#">
+            <div class="mask waves-effect waves-light rgba-white-slight"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="JavaScript" data-name="JSX">
+        import React from "react";
+        import { MDBBtn, MDBCardImage } from "mdbreact";
+
+        const WavesPage = () => {
+          return (
+            <div>
+              <MDBBtn color="primary">Click me</MDBBtn>
+
+              <MDBCardImage
+                className="img-fluid"
+                src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(54).jpg"
+                waves
+              />
+            </div>
+          );
+        }
+
+        export default WavesPage;
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="customization">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Customization
+  </h2>
+
+  <!--Description-->
+  <p class="description">You can add waves effect to any element. The Waves component requires object with cursor's time and position. We will have to set up a function and store the cursor information in state.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="JavaScript" data-name="JSX">
+        import React from "react";
+        import { MDBWaves } from "mdbreact";
+
+        class CustomComponent extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = {
+              cursorPos: {}
+            };
+          }
+
+          handleClick = e => {
+            e.stopPropagation();
+            // Waves - Get Cursor Position
+            let cursorPos = {
+              top: e.clientY,
+              left: e.clientX,
+              time: Date.now() // time indicates particular clicks
+            };
+            this.setState({ cursorPos: cursorPos });
+          };
+
+          render() {
+
+            return (
+              <div
+                onMouseUp={this.handleClick}
+                onTouchStart={this.handleClick}
+              >
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(54).jpg" />
+                <MDBWaves
+                  cursorPos={this.state.cursorPos}
+                />
+              </div>
+            );
+          }
+        }
+
+        export default CustomComponent;
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->

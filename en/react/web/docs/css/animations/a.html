@@ -1,0 +1,249 @@
+<section class="mb-4" id="a-introduction">
+  <h2 class="section-heading">React Animations - API</h2>
+
+  <!-- Description -->
+  <p>In this section you will find advanced information about the Animation component. You will find out which modules
+    are required, what are the possibilities of configuring the component, and what events and methods you can use in
+    working with it.</p>
+  <!-- Description -->
+
+</section>
+
+<hr class="my-5">
+
+<section class="mb-4" id="a-import">
+  <!--Title-->
+  <h3 class="secondary-heading mb-3">Animation import statement</h3>
+
+  <!-- Description -->
+  <p>In order to use Animation component make sure you have imported proper module first.</p>
+  <!-- Description -->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="javascript" data-name="JS">
+          import { MDBAnimation } from "mdbreact";
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<section class="mb-4" id="a-props">
+  <!--Title-->
+  <h3 class="secondary-heading mb-3">API Reference: Animation Properties</h3>
+
+  <!-- Description -->
+  <p>The table below shows the configuration options of the MDBAnimation component.</p>
+  <!-- Description -->
+
+  <table class="table responsive table-striped table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th><strong>Name</strong></th>
+        <th><strong>Type</strong></th>
+        <th><strong>Default</strong></th>
+        <th><strong>Description</strong></th>
+        <th><strong>Example</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code class="highlighter-rouge" style="word-break: normal">className</code></td>
+        <td><i>String</i></td>
+        <td><code></code></td>
+        <td>Adds custom classes</td>
+        <td><code class="language-markup">&lt;MDBAutocomplete className="myClass" /&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code class="highlighter-rouge" style="word-break: normal">type</code></td>
+        <td><i>String</i></td>
+        <td><code></code></td>
+        <td>The props defines the kind of animation desired</td>
+        <td><code class="language-markup">&lt;MDBAnimation type="bounce" /&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code class="highlighter-rouge" style="word-break: normal">count</code></td>
+        <td><i>Number</i></td>
+        <td><code>1</code></td>
+        <td>The number of iterations the animation should have</td>
+        <td><code class="language-markup">&lt;MDBAnimation count={4} /&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code class="highlighter-rouge" style="word-break: normal">duration</code></td>
+        <td><i>String</i></td>
+        <td><code>1s</code></td>
+        <td>Defines the speed of animation, takes a string consisting of a number and a unit indicator (<code>s</code>/<code>ms</code>)</td>
+        <td><code class="language-markup">&lt;MDBAnimation duration="5s" /&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code class="highlighter-rouge" style="word-break: normal">delay</code></td>
+        <td><i>String</i></td>
+        <td>0</td>
+        <td>Sets the amount of time that should pass before <em>the initial iteration</em> of animation, takes a
+          string consisting of a number and a unit indicator (<code>s</code>/<code>ms</code>)</td>
+        <td><code class="language-markup">&lt;MDBAnimation delay="5s" /&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code class="highlighter-rouge" style="word-break: normal">infinite</code></td>
+        <td><i>Bolean</i></td>
+        <td><code>false</code></td>
+        <td>Makes an animation go for eternity. <em>Note: it overwrites the <code>count</code> prop</em></td>
+        <td><code class="language-markup">&lt;MDBAnimation infinite /&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code class="highlighter-rouge" style="word-break: normal">reveal</code></td>
+        <td><i>Bolean</i></td>
+        <td><code>false</code></td>
+        <td>Setting this option makes the component postpone the animation untill the viewport reaches it's relative
+          position</td>
+        <td><code class="language-markup">&lt;MDBAnimation reveal /&gt;</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+
+<hr class="my-5" />
+
+<section id="a-methods">
+  <!--Title-->
+  <h3 class="secondary-heading mb-3">API Reference: Animation Methods</h3>
+
+  <!-- Description -->
+  <p>We can fire events on arbitrary stages of animation. The props below take in functions that resolve whenever the
+    related stage is reached.</p>
+  <!-- Description -->
+
+  <table class="table table-responsive table-striped table-bordered">
+    <thead>
+      <tr>
+        <th class="th-sm">Name</th>
+        <th class="th-sm">Parameters</th>
+        <th class="th-sm">Description</th>
+        <th class="th-sm">Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code style="word-break: normal">onAnimationStart</code></td>
+        <td><i></i></td>
+        <td>Fires once an animation starts</td>
+        <td><code class="language-markup">&lt;MDBAnimation onAnimationStart={this.handleStart} &gt;</code></td>
+      </tr>
+      <tr>
+        <td><code style="word-break: normal">onAnimationIteration</code></td>
+        <td><i></i></td>
+        <td>Function gets executed every time an animation happens. To have things happening only on particular
+          iterations (say, every time for the first five times and then every fith one), it is enough to create a
+          variable being incremented within a function and define a simple <code>if</code> statement to see, whether
+          the ongoing iteration number fullfills the requirement (like <code>if (count < 6 || count % 5 == 0){yourFunction}</code>)</td>
+        <td><code class="language-markup">&lt;MDBAnimation onAnimationIteration={this.yourFunction} &gt;</code></td>
+      </tr>
+      <tr>
+        <td><code style="word-break: normal">onAnimationEnd</code></td>
+        <td><i></i></td>
+        <td>Function shall take place after the final iteration of an animation</td>
+        <td><code class="language-markup">&lt;MDBAnimation onAnimationStart={this.onAnimationEnd} &gt;</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+
+<hr class="my-5" />
+
+<section id="a-animations">
+  <!--Title-->
+  <h3 class="secondary-heading mb-3" id="a-carousel">Available animations</h3>
+
+  <!-- Description -->
+  <p>Using the <code>Animation</code> component means having over seventy ready-to-use animation
+    types. They are inputted as strings into the <code>type</code> prop.</p>
+  <!-- Description -->
+
+  <p id="animations-classes">Full list of animations:</p>
+
+  <ol>
+    <li><code>flash</code></li>
+    <li><code>bounce</code></li>
+    <li><code>pulse</code></li>
+    <li><code>rubberBand</code></li>
+    <li><code>shake</code></li>
+    <li><code>headShake</code></li>
+    <li><code>swing</code></li>
+    <li><code>tada</code></li>
+    <li><code>wobble</code></li>
+    <li><code>jello</code></li>
+    <li><code>bounceIn</code></li>
+    <li><code>bounceInDown</code></li>
+    <li><code>bounceInLeft</code></li>
+    <li><code>bounceInRight</code></li>
+    <li><code>bounceInUp</code></li>
+    <li><code>bounceOut</code></li>
+    <li><code>bounceOutDown</code></li>
+    <li><code>bounceOutLeft</code></li>
+    <li><code>bounceOutRight</code></li>
+    <li><code>bounceOutUp</code></li>
+    <li><code>fadeIn</code></li>
+    <li><code>fadeInDown</code></li>
+    <li><code>fadeInDownBig</code></li>
+    <li><code>fadeInLeft</code></li>
+    <li><code>fadeInLeftBig</code></li>
+    <li><code>fadeInRight</code></li>
+    <li><code>fadeInRightBig</code></li>
+    <li><code>fadeInUp</code></li>
+    <li><code>fadeInUpBig</code></li>
+    <li><code>fadeOut</code></li>
+    <li><code>fadeOutDown</code></li>
+    <li><code>fadeOutDownBig</code></li>
+    <li><code>fadeOutLeft</code></li>
+    <li><code>fadeOutLeftBig</code></li>
+    <li><code>fadeOutRight</code></li>
+    <li><code>fadeOutRightBig</code></li>
+    <li><code>fadeOutUp</code></li>
+    <li><code>fadeOutUpBig</code></li>
+    <li><code>flipInX</code></li>
+    <li><code>flipInY</code></li>
+    <li><code>flipOutX</code></li>
+    <li><code>flipOutY</code></li>
+    <li><code>lightSpeedIn</code></li>
+    <li><code>lightSpeedOut</code></li>
+    <li><code>rotateIn</code></li>
+    <li><code>rotateInDownLeft</code></li>
+    <li><code>rotateInDownRight</code></li>
+    <li><code>rotateInUpLeft</code></li>
+    <li><code>rotateInUpRight</code></li>
+    <li><code>rotateOut</code></li>
+    <li><code>rotateOutDownLeft</code></li>
+    <li><code>rotateOutDownRight</code></li>
+    <li><code>rotateOutUpLeft</code></li>
+    <li><code>rotateOutUpRight</code></li>
+    <li><code>hinge</code></li>
+    <li><code>rollIn</code></li>
+    <li><code>rollOut</code></li>
+    <li><code>zoomIn</code></li>
+    <li><code>zoomInDown</code></li>
+    <li><code>zoomInLeft</code></li>
+    <li><code>zoomInRight</code></li>
+    <li><code>zoomInUp</code></li>
+    <li><code>zoomOut</code></li>
+    <li><code>zoomOutDown</code></li>
+    <li><code>zoomOutLeft</code></li>
+    <li><code>zoomOutRight</code></li>
+    <li><code>zoomOutUp</code></li>
+    <li><code>slideInDown</code></li>
+    <li><code>slideInLeft</code></li>
+    <li><code>slideInRight</code></li>
+    <li><code>slideInUp</code></li>
+    <li><code>slideOutDown</code></li>
+    <li><code>slideOutLeft</code></li>
+    <li><code>slideOutRight</code></li>
+    <li><code>slideOutUp</code></li>
+  </ol>
+</section>

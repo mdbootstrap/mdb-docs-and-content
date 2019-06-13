@@ -1,0 +1,1165 @@
+<!-- FIRST SECTION-->
+<section id="introduction">
+  <h2 class="primary-heading">Angular Bootstrap validation</h2>
+  <h1 class="secondary-heading mb-4">Angular Validation - Bootstrap 4 & Material Design</h1>
+
+  <div class="description">
+    <p>Angular Bootstrap validation is set of validators which can be used on various form inputs to provide valuable
+      and actionable feedback to users.</p>
+  </div>
+</section>
+<!-- FIRST SECTION-->
+<hr class="my-5">
+
+<!--Section: Usage-->
+<section id="basic">
+  <h2 class="section-heading">
+    Basic example and usage
+  </h2>
+
+  <p>In order to turn on validation on specific form control, add <code>mdbValidate</code> directive to it.</p>
+
+  <p><code>mdb-error</code> and <code>mdb-success</code> components allow to display validation messages under the form element.</p>
+
+  <blockquote class="blockquote bq-warning">
+    <p class="bq-title">Warning</p>
+    <p>For the validation messages to be displayed correctly, place them together with the form control and its label inside a div element with class <code>md-form</code>.</p>
+  </blockquote>
+
+      <!-- Live preview-->
+      <section>
+
+      <div class="md-form" style="width: 20rem;">
+        <input type="text" id="form31" class="form-control validate" required>
+        <label required for="form31" data-error="Input invalid" data-success="Input valid">Required validator</label>
+      </div>
+
+    </section>
+    <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form [formGroup]="validatingForm">
+            <div class="md-form">
+              <input mdbInput mdbValidate type="text" id="form1" class="form-control" formControlName="required">
+              <label for="form1">Required validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+        <code data-lang="js" data-name="TS">
+          import { FormGroup, FormControl, Validators } from '@angular/forms';
+          import { Component, OnInit } from '@angular/core';
+
+          @Component({
+          selector: 'validators-component-example',
+          templateUrl: 'validators-example.html',
+          })
+          export class ValidatorsComponent implements OnInit {
+
+            validatingForm: FormGroup;
+
+            ngOnInit() {
+              this.validatingForm = new FormGroup({
+                required: new FormControl(null, Validators.required)
+              });
+            }
+
+            get input() { return this.validatingForm.get('required'); }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+</section>
+<!--/Section: Usage-->
+
+<hr class="my-5">
+
+<!-- SECTION-->
+<section id="reactive-forms">
+  <h2 class="section-heading">
+    Reactive forms default validators
+  </h2>
+
+  <h4 id="minlength" class="secondary-heading mt-5">
+    minLength Validator
+  </h4>
+  <p class="description">minLength validation attribute is set to 3.</p>
+
+  <!-- Live preview-->
+  <section id="minLength">
+
+    <div class="md-form" style="width: 20rem;">
+      <input type="text" id="form2" class="form-control validate" minlength="3">
+      <label required for="form1" data-error="Input invalid" data-success="Input valid">minLength validator</label>
+    </div>
+
+  </section>
+  <!-- /.Live preview-->
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form [formGroup]="validatingForm">
+          <div class="md-form">
+            <input mdbInput mdbValidate type="text" id="form2" class="form-control" formControlName="minLength">
+            <label for="form2">minLength validator</label>
+            <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+          </div>
+        </form>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { FormGroup, FormControl, Validators } from '@angular/forms';
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'validators-component-example',
+        templateUrl: 'validators-example.html',
+        })
+        export class ValidatorsComponent implements OnInit {
+
+        validatingForm: FormGroup;
+
+        ngOnInit() {
+          this.validatingForm = new FormGroup({
+            minLength: new FormControl(null, [Validators.required, Validators.minLength(3)])
+          });
+        }
+
+        get input() { return this.validatingForm.get('minLength'); }
+
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+
+
+  <h4 id="maxlength" class="secondary-heading mt-5">
+    maxLength Validator
+  </h4>
+  <p class="description">maxLength validation attribute is set to 5.</p>
+
+  <!-- Live preview-->
+  <section id="maxLength">
+
+    <div class="md-form" style="width: 20rem;">
+      <input type="text" id="form3" class="form-control validate" maxlength="5">
+      <label required for="form1" data-error="Input invalid" data-success="Input valid">maxLength validator</label>
+    </div>
+  </section>
+  <!-- /.Live preview-->
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form [formGroup]="validatingForm">
+          <div class="md-form">
+            <input mdbInput mdbValidate type="text" id="form3" class="form-control" formControlName="maxLength">
+            <label for="form3">maxLength validator</label>
+            <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+          </div>
+        </form>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { FormGroup, FormControl, Validators } from '@angular/forms';
+        import { Component } from '@angular/core';
+
+        @Component({
+        selector: 'validators-component-example',
+        templateUrl: 'validators-example.html',
+        })
+
+        export class ValidatorsComponent implements OnInit {
+
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              maxLength: new FormControl(null, [Validators.required, Validators.maxLength(5)])
+            });
+          }
+
+          get input() { return this.validatingForm.get('maxLength'); }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+
+
+  <h4 id="minvalue" class="secondary-heading mt-5">
+    Min value Validator
+  </h4>
+  <p class="description">Min value is set to 10.</p>
+
+  <!-- Live preview-->
+  <section id="minValue">
+
+    <div class="md-form" style="width: 20rem;">
+      <input type="number" id="form4" class="form-control validate" min="10">
+      <label required for="form4" data-error="Input invalid" data-success="Input valid" class="">min value validator</label>
+    </div>
+  </section>
+  <!-- /.Live preview-->
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form [formGroup]="validatingForm">
+          <div class="md-form">
+            <input mdbInput mdbValidate type="number" id="form4" class="form-control" formControlName="min">
+            <label for="form4">min value validator</label>
+            <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+          </div>
+        </form>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { FormGroup, FormControl, Validators } from '@angular/forms';
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'validators-component-example',
+        templateUrl: 'validators-example.html',
+        })
+
+        export class ValidatorsComponent implements OnInit {
+
+        validatingForm: FormGroup;
+
+        ngOnInit() {
+          this.validatingForm = new FormGroup({
+            min: new FormControl(null, Validators.min(10))
+          });
+        }
+
+        get input() { return this.validatingForm.get('min'); }
+
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+
+
+  <h4 id="" class="secondary-heading mt-5">
+    Max value Validator
+  </h4>
+  <p class="description">Max value is set to 10.</p>
+
+  <!-- Live preview-->
+  <section id="maxValue">
+
+    <div class="md-form" style="width: 20rem;">
+      <input type="number" id="form5" class="form-control validate" max="10">
+      <label required for="form5" data-error="Input invalid" data-success="Input valid" class="">max value validator</label>
+    </div>
+  </section>
+  <!-- /.Live preview-->
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form [formGroup]="validatingForm">
+          <div class="md-form">
+            <input mdbInput mdbValidate type="number" id="form5" class="form-control" formControlName="max">
+            <label for="form5">max value validator</label>
+            <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+          </div>
+        </form>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { FormGroup, FormContorl, Validators } from '@angular/forms';
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'validators-component-example',
+        templateUrl: 'validators-example.html',
+        })
+
+        export class ValidatorsComponent implements OnInit {
+
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              max: new FormControl(null, Validators.max(10))
+            });
+          }
+
+          get input() { return this.validatingForm.get('max'); }
+
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+
+  <h4 id="" class="secondary-heading mt-5">
+    Email Validator
+  </h4>
+
+  <!-- Live preview-->
+  <section id="email-validator">
+
+    <div class="md-form" style="width: 20rem;">
+      <input type="email" id="form6" class="form-control validate">
+      <label required for="form6" data-error="Input invalid" data-success="Input valid" class="">email validator</label>
+    </div>
+  </section>
+  <!-- /.Live preview-->
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form [formGroup]="validatingForm">
+          <div class="md-form">
+            <input mdbInput mdbValidate type="email" id="form8" class="form-control" formControlName="email">
+            <label for="form8">Email validator</label>
+            <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+          </div>
+        </form>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { FormGroup, FormControl, Validators } from '@angular/forms';
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'validators-component-example',
+        templateUrl: 'validators-example.html',
+        })
+
+        export class ValidatorsComponent implements OnInit {
+
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              email: new FormControl(null, [Validators.required, Validators.email])
+            });
+          }
+
+          get input() { return this.validatingForm.get('email'); }
+
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+
+  <h4 id="" class="secondary-heading mt-5">
+    Pattern Validator
+  </h4>
+  <p class="description">Pattern Validator should contains RegEx. With it, pattern is able to validate through regular
+    expressions. In this example,
+    RegEx allows to put only english letters into input.</p>
+
+  <!-- Live preview-->
+  <section id="pattern">
+
+    <div class="md-form" style="width: 20rem;">
+      <input type="text" id="form15" class="form-control validate">
+      <label required for="form15" data-error="Input invalid" data-success="Input valid" class="">pattern validator</label>
+    </div>
+  </section>
+  <!-- /.Live preview-->
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form [formGroup]="validatingForm">
+          <div class="md-form">
+            <input mdbInput mdbValidate type="text" id="form7" class="form-control" formControlName="pattern">
+            <label for="form7">only letters (pattern) validator</label>
+            <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+          </div>
+        </form>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { FormGroup, FormControl, Validators } from '@angular/forms';
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'validators-component-example',
+        templateUrl: 'validators-example.html',
+        })
+
+        export class ValidatorsComponent implements OnInit {
+
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              pattern: new FormControl(null, Validators.pattern(/A-Za-z/))
+            });
+          }
+
+          get input() { return this.validatingForm.get('max'); }
+
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+
+  <h4 id="" class="secondary-heading mt-5">
+    Required Validator
+  </h4>
+
+  <!-- Live preview-->
+  <section id="required">
+
+    <div class="md-form" style="width: 20rem;">
+      <input type="text" id="form1" class="form-control validate" required>
+      <label required for="form1" data-error="Input invalid" data-success="Input valid">Required validator</label>
+    </div>
+
+  </section>
+  <!-- /.Live preview-->
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form [formGroup]="validatingForm">
+          <div class="md-form">
+            <input mdbInput mdbValidate type="text" id="form1" class="form-control" formControlName="required">
+            <label for="form1">Required validator</label>
+            <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+          </div>
+        </form>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { FormGroup, FormControl, Validators } from '@angular/forms';
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'validators-component-example',
+        templateUrl: 'validators-example.html',
+        })
+        export class ValidatorsComponent implements OnInit {
+
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              required: new FormControl(null, Validators.required)
+            });
+          }
+
+          get input() { return this.validatingForm.get('required'); }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+  <h4 id="reactive-on-submit" class="secondary-heading mt-5">
+    Update on submit
+  </h4>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form [formGroup]="validatingForm">
+          <div class="md-form">
+            <input mdbInput mdbValidate type="text" id="form1" class="form-control" formControlName="onSubmit">
+            <label for="form1">Required validator</label>
+            <mdb-error *ngIf="onSubmit.invalid && (onSubmit.dirty || onSubmit.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="onSubmit.valid && (onSubmit.dirty || onSubmit.touched)">Input valid</mdb-success>
+          </div>
+        </form>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { FormGroup, FormControl, Validators } from '@angular/forms';
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'validators-component-example',
+        templateUrl: 'validators-example.html',
+        })
+        export class ValidatorsComponent implements OnInit {
+
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              onSubmit: new FormControl(null, Validators.required)
+            }, { updateOn: 'submit' });
+          }
+
+          get onSubmit() { return this.validatingForm.get('onSubmit'); }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+  <h4 id="reactive-on-blur" class="secondary-heading mt-5">
+    Update on blur
+  </h4>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <form [formGroup]="validatingForm">
+          <div class="md-form">
+            <input mdbInput mdbValidate type="text" id="form1" class="form-control" formControlName="onBlur">
+            <label for="form1">Required validator</label>
+            <mdb-error *ngIf="onBlur.invalid && (onBlur.dirty || onBlur.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="onBlur.valid && (onBlur.dirty || onBlur.touched)">Input valid</mdb-success>
+          </div>
+        </form>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { FormGroup, FormControl, Validators } from '@angular/forms';
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'validators-component-example',
+        templateUrl: 'validators-example.html',
+        })
+        export class ValidatorsComponent implements OnInit {
+
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              onBlur: new FormControl(null, Validators.required)
+            }, { updateOn: 'blur' });
+          }
+
+          get onBlur() { return this.validatingForm.get('onBlur'); }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+  </section>
+  <!--/SECTION-->
+
+  <hr class="my-5">
+
+  <!-- SECTION-->
+<section id="template-driven-forms">
+    <h2 class="section-heading">
+      Template-driven forms default validators
+    </h2>
+
+    <h4 id="template-minlength" class="secondary-heading mt-5">
+      minLength Validator
+    </h4>
+    <p class="description">minLength validation attribute is set to 3.</p>
+
+    <!-- Live preview-->
+    <section id="minLength">
+
+      <div class="md-form" style="width: 20rem;">
+        <input type="text" id="form21" class="form-control validate" minlength="3">
+        <label required for="form21" data-error="Input invalid" data-success="Input valid">minLength validator</label>
+      </div>
+
+    </section>
+    <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form>
+            <div class="md-form">
+              <input mdbInput mdbValidate name="input" type="text" id="form2" class="form-control" [(ngModel)]="minLength" #input="ngModel" required minlength="3">
+              <label for="form2">minLength validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+
+
+    <h4 id="template-maxlength" class="secondary-heading mt-5">
+      maxLength Validator
+    </h4>
+    <p class="description">maxLength validation attribute is set to 5.</p>
+
+    <!-- Live preview-->
+    <section id="maxLength">
+
+      <div class="md-form" style="width: 20rem;">
+        <input type="text" id="form22" class="form-control validate" maxlength="5">
+        <label required for="form22" data-error="Input invalid" data-success="Input valid">maxLength validator</label>
+      </div>
+    </section>
+    <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form>
+            <div class="md-form">
+              <input mdbInput mdbValidate name="input" type="text" id="form3" class="form-control" [(ngModel)]="maxLength" #input="ngModel" required maxlength="5">
+              <label for="form3">maxLength validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+
+
+    <h4 id="template-minvalue" class="secondary-heading mt-5">
+      Min value Validator
+    </h4>
+    <p class="description">Min value is set to 10.</p>
+
+    <!-- Live preview-->
+    <section id="minValue">
+
+      <div class="md-form" style="width: 20rem;">
+        <input type="number" id="form23" class="form-control validate" min="10">
+        <label required for="form23" data-error="Input invalid" data-success="Input valid" class="">min value validator</label>
+      </div>
+    </section>
+    <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form>
+            <div class="md-form">
+              <input mdbInput mdbValidate name="input" type="number" id="form4" class="form-control" [(ngModel)]="min" #input="ngModel" min="10">
+              <label for="form4">min value validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+
+
+    <h4 id="template-maxvalue" class="secondary-heading mt-5">
+      Max value Validator
+    </h4>
+    <p class="description">Max value is set to 10.</p>
+
+    <!-- Live preview-->
+    <section>
+
+      <div class="md-form" style="width: 20rem;">
+        <input type="number" id="form24" class="form-control validate" max="10">
+        <label required for="form24" data-error="Input invalid" data-success="Input valid" class="">max value validator</label>
+      </div>
+    </section>
+    <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form>
+            <div class="md-form">
+              <input mdbInput mdbValidate name="input" type="number" id="form5" class="form-control" [(ngModel)]="max" #input="ngModel" max="10">
+              <label for="form5">max value validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+
+    <h4 id="" class="secondary-heading mt-5">
+      Email Validator
+    </h4>
+
+    <!-- Live preview-->
+    <section id="template-email-validator">
+
+      <div class="md-form" style="width: 20rem;">
+        <input type="email" id="form25" class="form-control validate" required pattern="[^ @]*@[^ @]*">
+        <label required for="form25" data-error="Input invalid" data-success="Input valid" class="">email validator</label>
+      </div>
+    </section>
+    <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form>
+            <div class="md-form">
+              <input mdbInput mdbValidate name="input" type="email" id="form8" class="form-control" [(ngModel)]="email" #input="ngModel" required pattern="[^ @]*@[^ @]*">
+              <label for="form8">Email validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+
+    <h4 id="" class="secondary-heading mt-5">
+      Pattern Validator
+    </h4>
+    <p class="description">Pattern Validator should contains RegEx. With it, pattern is able to validate through regular
+      expressions. In this example,
+      RegEx allows to put only english letters into input.</p>
+
+    <!-- Live preview-->
+    <section id="template-pattern">
+
+      <div class="md-form" style="width: 20rem;">
+        <input type="text" id="form26" class="form-control validate" required pattern="/A-Za-z/">
+        <label required for="form26" data-error="Input invalid" data-success="Input valid" class="">pattern validator</label>
+      </div>
+    </section>
+    <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form>
+            <div class="md-form">
+              <input mdbInput mdbValidate name="input" type="text" id="form7" class="form-control" [(ngModel)]="pattern" #input="ngModel" required [pattern]="'[A-Za-z]*'">
+              <label for="form7">only letters (pattern) validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+
+    <h4 id="" class="secondary-heading mt-5">
+      Required Validator
+    </h4>
+
+    <!-- Live preview-->
+    <section id="template-required">
+
+      <div class="md-form" style="width: 20rem;">
+        <input type="text" id="form27" class="form-control validate" required>
+        <label required for="form27" data-error="Input invalid" data-success="Input valid">Required validator</label>
+      </div>
+
+    </section>
+    <!-- /.Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form>
+            <div class="md-form">
+              <input mdbInput mdbValidate name="input" type="text" id="form1" class="form-control" [(ngModel)]="required" #input="ngModel" required>
+              <label for="form1">Required validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+    <h4 id="template-on-submit" class="secondary-heading mt-5">
+      Update on submit
+    </h4>
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form [ngFormOptions]="{updateOn: 'submit'}">
+            <div class="md-form">
+              <input mdbInput mdbValidate name="input" type="text" id="form1" class="form-control" [(ngModel)]="submit" #input="ngModel" required>
+              <label for="form1">Required validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+    <h4 id="template-on-blur" class="secondary-heading mt-5">
+      Update on blur
+    </h4>
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form [ngFormOptions]="{updateOn: 'blur'}">
+            <div class="md-form">
+              <input mdbInput mdbValidate name="input" type="text" id="form1" class="form-control" [(ngModel)]="blur" #input="ngModel" required>
+              <label for="form1">Required validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+    </section>
+    <!--/SECTION-->
+
+    <hr class="my-5">
+
+    <!--Section: Other Component-->
+    <section id="other-components">
+      <h2 class="section-heading">Validating other components</h2>
+
+      <p>You can use the <code>mdbValidate</code> directive to validate other form components as well.</p>
+
+      <!--Section: Code-->
+      <section>
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <!-- Material form contact -->
+<div class="row">
+  <div class="col-md-6">
+    <mdb-card>
+      <mdb-card-header class="info-color text-center white-text py-4">
+        <h5><strong>Register</strong></h5>
+      </mdb-card-header>
+
+      <!-- Card content -->
+      <mdb-card-body class="px-lg-5 pt-0">
+        <!-- Form -->
+        <form [formGroup]="registerForm">
+          <!-- Name -->
+          <div class="md-form mt-3">
+            <input type="text" id="materialContactFormName" class="form-control" mdbInput mdbValidate
+              formControlName="nameInput" />
+            <label for="materialContactFormName">Name</label>
+            <mdb-error *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="nameInput.valid && (nameInput.dirty || nameInput.touched)">Input valid</mdb-success>
+          </div>
+
+          <!-- E-mail -->
+          <div class="md-form">
+            <input type="email" id="materialContactFormEmail" class="form-control" mdbInput mdbValidate
+              formControlName="emailInput" />
+            <label for="materialContactFormEmail">E-mail</label>
+            <mdb-error *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="emailInput.valid && (emailInput.dirty || emailInput.touched)">Input valid</mdb-success>
+          </div>
+
+          <!-- Subject -->
+          <div class="md-form">
+            <mdb-select [options]="optionsSelect" label="Eyes color" mdbValidate formControlName="select"
+              [allowClear]="true"></mdb-select>
+            <mdb-error *ngIf="select.invalid && (select.dirty || select.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="select.valid && (select.dirty || select.touched)">Input valid</mdb-success>
+          </div>
+
+          <div class="md-form">
+            <mdb-autocomplete mdbValidate [label]="'Choose your country'" name="autocomplete" [datasource]="dataService"
+              formControlName="autocomplete" [minSearchLength]="0">
+            </mdb-autocomplete>
+            <mdb-error *ngIf="autocomplete.invalid && (autocomplete.dirty || autocomplete.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="autocomplete.valid && (autocomplete.dirty || autocomplete.touched)">Input valid</mdb-success>
+          </div>
+
+          <div class="md-form">
+            <mdb-date-picker mdbValidate name="mydate" [options]="myDatePickerOptions" formControlName="datepicker"
+              placeholder="Birth date">
+              formControlName="datepicker"></mdb-date-picker>
+            <mdb-error *ngIf="datepicker.invalid && (datepicker.dirty || datepicker.touched)">Date invalid</mdb-error>
+            <mdb-success *ngIf="datepicker.valid && (datepicker.dirty || datepicker.touched)">Date valid</mdb-success>
+          </div>
+
+          <!-- Message -->
+          <div class="md-form">
+            <textarea type="text" id="materialContactFormMessage" class="form-control md-textarea" mdbInput mdbValidate
+              formControlName="address"></textarea>
+            <label for="materialContactFormMessage">Address</label>
+            <mdb-error *ngIf="address.invalid && (address.dirty || address.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="address.valid && (address.dirty || address.touched)">Input valid</mdb-success>
+          </div>
+
+          <div class="md-form">
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" id="materialInline1" name="radio" formControlName="radio"
+                value="pro">
+              <label class="form-check-label" for="materialInline1">Pro user</label>
+            </div>
+
+            <!-- Material inline 2 -->
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" id="materialInline2" name="radio" formControlName="radio"
+                value="free">
+              <label class="form-check-label" for="materialInline2">Free user</label>
+            </div>
+
+            <mdb-error *ngIf="radio.invalid && (radio.dirty || radio.touched)">Please choose user role</mdb-error>
+            <mdb-success *ngIf="radio.valid && (radio.dirty || radio.touched)">User role valid</mdb-success>
+          </div>
+
+
+          <div class="md-form mb-5">
+            <mdb-checkbox mdbValidate formControlName="terms" value="agree">I agree to Terms Of Service</mdb-checkbox>
+            <mdb-error *ngIf="terms.invalid && (terms.dirty || terms.touched)">Please accept the terms</mdb-error>
+            <mdb-success *ngIf="terms.valid && (terms.dirty || terms.touched)">Terms accepted</mdb-success>
+          </div>
+
+          <!-- Send button -->
+          <button mdbBtn class="pt-5" color="info" outline="true" rounded="true" block="true" class="z-depth-0 my-4 waves-effect"
+            mdbWavesEffect type="submit">
+            Send
+          </button>
+        </form>
+        <!-- Form -->
+      </mdb-card-body>
+    </mdb-card>
+    <!-- Material form contact -->
+  </div>
+</div>
+          </code>
+          <code data-lang="javascript" data-name="TS">
+            import { FormGroup, FormControl, Validators } from '@angular/forms';
+        import { Component, OnInit } from '@angular/core';
+        import { CompleterService, CompleterData } from 'ng-uikit-pro-standard';
+        import { IMyOptions } from 'ng-uikit-pro-standard';
+
+        @Component({
+        selector: 'validators-component-example',
+        templateUrl: 'validators-example.html',
+        })
+
+        export class ValidatorsComponent implements OnInit {
+
+        registerForm: FormGroup;
+
+        optionsSelect = [
+          { value: 'Green', label: 'Green' },
+          { value: 'Blue', label: 'Blue' },
+          { value: 'Brown', label: 'Brown' },
+        ];
+
+        public myDatePickerOptions: IMyOptions = {
+          // Your options
+          };
+
+        protected searchStr: string;
+        protected dataService: CompleterData;
+        protected searchData = [
+          { country: 'United States of America' },
+          { country: 'Germany' },
+          { country: 'Spain' },
+          { country: 'France' },
+          { country: 'Poland' }
+        ];
+
+        constructor(private completerService: CompleterService) {
+          this.dataService = completerService.local(this.searchData, 'country', 'country');
+        }
+
+        ngOnInit() {
+          this.registerForm = new FormGroup({
+            nameInput: new FormControl(null, Validators.required),
+            emailInput: new FormControl(null, [Validators.required, Validators.email]),
+            select: new FormControl(null, Validators.required),
+            autocomplete: new FormControl(null, Validators.required),
+            datepicker: new FormControl(null, Validators.required),
+            address: new FormControl(null, Validators.required),
+            radio: new FormControl(null, Validators.required),
+            terms: new FormControl(null, Validators.requiredTrue)
+          });
+        }
+
+        get nameInput() { return this.registerForm.get('nameInput'); }
+        get emailInput() { return this.registerForm.get('emailInput'); }
+        get select() { return this.registerForm.get('select'); }
+        get autocomplete() { return this.registerForm.get('autocomplete'); }
+        get datepicker() { return this.registerForm.get('datepicker'); }
+        get address() { return this.registerForm.get('address'); }
+        get radio() { return this.registerForm.get('radio'); }
+        get terms() { return this.registerForm.get('terms'); }
+            }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--/Section: Code-->
+    </section>
+    <!--/Section: Other Components-->
+
+    <hr class="my-5">
+
+  <!--Section: Resetting validation status-->
+  <section id="reset">
+
+    <h2 class="section-heading">
+      Resetting a validation status
+    </h2>
+
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <!-- Login form -->
+          <form [formGroup]="loginForm">
+            <p class="h5 text-center mb-4">Sign in</p>
+
+            <div class="md-form">
+              <i class="fas fa-envelope prefix grey-text"></i>
+              <input mdbInput mdbValidate type="text" formControlName="defaultFormEmail" id="defaultForm-email" class="form-control">
+              <label for="defaultForm-email">Your email</label>
+              <mdb-error *ngIf="defaultFormEmail.invalid && (defaultFormEmail.dirty || defaultFormEmail.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="defaultFormEmail.valid && (defaultFormEmail.dirty || defaultFormEmail.touched)">Input valid</mdb-success>
+            </div>
+
+            <div class="md-form">
+              <i class="fas fa-lock prefix grey-text"></i>
+              <input mdbInput mdbValidate type="password" formControlName="defaultFormPass" id="defaultForm-pass" class="form-control">
+              <label for="defaultForm-pass">Your password</label>
+              <mdb-error *ngIf="defaultFormPass.invalid && (defaultFormPass.dirty || defaultFormPass.touched)">Input invalid</mdb-error>
+              <mdb-success *ngIf="defaultFormPass.valid && (defaultFormPass.dirty || defaultFormPass.touched)">Input valid</mdb-success>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" mdbBtn color="default" class="waves-light" mdbWavesEffect value="Login" (click)="submit(loginForm)">
+            </div>
+          </form>
+          <!-- Login form -->
+        </code>
+        <code data-lang="js" data-name="TS">
+          import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+          import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+          @Component({
+          selector: 'validation-reset',
+          templateUrl: './validation-reset.component.html',
+          styleUrls: ['./validation-reset.component.scss'],
+          })
+          export class ValidationResetComponent implements OnInit {
+            loginForm: FormGroup;
+
+            ngOnInit() {
+              this.loginForm = new FormGroup({
+                defaultFormEmail: new FormControl(null, Validators.required);
+                defaultFormPass: new FormControl(null, [Validators.required, Validators.minLength(8)])
+              });
+            }
+
+            get defaultFormEmail() { return this.loginForm.get('defaultFormEmail'); }
+            get defaultFormPass() { return this.loginForm.get('defaultFormPass'); }
+
+            submit(form: any) {
+              form.reset();
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+  </section>
+  <!--/Section: Resetting validation status-->
+
+  <hr class="my-5">
+
+  <!--Section: Custom messages-->
+  <section id="dynamic-messages">
+
+    <h2 class="section-heading">
+      Dynamic validation messages
+    </h2>
+
+    <p>
+      In orderd to display validation messages under the validated element you need to add <code>mdb-error</code> and <code>mdb-success</code> components.
+    </p>
+
+    <p>Sometimes one form control has several validators and it is neccessary to display different validation messages depending on user input. The following example shows how to do that:</p>
+
+    <!--Section: Code-->
+    <section class="my-4">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form [formGroup]="validatingForm">
+            <div class="md-form">
+              <input mdbInput mdbValidate type="email" id="form8" class="form-control" formControlName="email">
+              <label for="form8">Email validator</label>
+              <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">
+                <span *ngIf="input.errors.required">Email is required</span>
+                <span *ngIf="input.errors.email">This email address is not valid</span>
+              </mdb-error>
+              <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
+            </div>
+          </form>
+        </code>
+        <code data-lang="js" data-name="TS">
+          import { FormGroup, FormControl, Validators } from '@angular/forms';
+          import { Component, OnInit } from '@angular/core';
+
+          @Component({
+          selector: 'validators-component-example',
+          templateUrl: 'validators-example.html',
+          })
+
+          export class ValidatorsComponent implements OnInit {
+
+            validatingForm: FormGroup;
+
+            ngOnInit() {
+              this.validatingForm = new FormGroup({
+                email: new FormControl(null, [Validators.required, Validators.email])
+              });
+            }
+
+            get input() { return this.validatingForm.get('max'); }
+
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Custom messages-->

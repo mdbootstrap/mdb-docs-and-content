@@ -1,0 +1,477 @@
+<div class="documentation">
+
+    <div id="introducion">
+        <h2 class="doc-first">Short instruction <small>example usage by creating Line Chart</small></h2>
+        <hr>
+        <h5>1. Use &lt;canvas&gt; element in your html file and set it an ID.</h5>
+
+        <pre><code class="language-markup">
+&lt;canvas id=&quot;myChart&quot;&gt;&lt;/canvas&gt;
+       </code></pre>
+       <br>
+
+        <h5>2. Declare a new Chart in the javascript section of your project.</h5>
+        <pre><code class="language-javascript">
+// Get the context of the canvas element we want to select
+var ctx = document.getElementById(&quot;myChart&quot;).getContext(&#39;2d&#39;);
+var myLineChart = new Chart(ctx).Line(data, option); //'Line' defines type of the chart.
+       </code></pre>
+       <br>
+
+       <h5>3. Make a chart responsive</h5>
+        <pre><code class="language-javascript">
+var option = {
+    responsive: true,
+};
+       </code></pre>
+       <br>
+
+       <h5>4. Declare a data for chart</h5>
+        <pre><code class="language-javascript">
+    var data = {
+    labels: [&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;],
+    datasets: [
+        {
+            label: &quot;My First dataset&quot;,
+            fillColor: &quot;rgba(220,220,220,0.2)&quot;,
+            strokeColor: &quot;rgba(220,220,220,1)&quot;,
+            pointColor: &quot;rgba(220,220,220,1)&quot;,
+            pointStrokeColor: &quot;#fff&quot;,
+            pointHighlightFill: &quot;#fff&quot;,
+            pointHighlightStroke: &quot;rgba(220,220,220,1)&quot;,
+            data: [65, 59, 80, 81, 56, 55, 40]
+        },
+        {
+            label: &quot;My Second dataset&quot;,
+            fillColor: &quot;rgba(151,187,205,0.2)&quot;,
+            strokeColor: &quot;rgba(151,187,205,1)&quot;,
+            pointColor: &quot;rgba(151,187,205,1)&quot;,
+            pointStrokeColor: &quot;#fff&quot;,
+            pointHighlightFill: &quot;#fff&quot;,
+            pointHighlightStroke: &quot;rgba(151,187,205,1)&quot;,
+            data: [28, 48, 40, 19, 86, 27, 90]
+        }
+    ]
+};
+       </code></pre>
+       <br>
+
+       <h5>5. (Optional) Change global chart configuration</h5>
+        <pre><code class="language-javascript">
+Chart.defaults.global = {
+    // Boolean - Whether to animate the chart
+    animation: true,
+
+    // Number - Number of animation steps
+    animationSteps: 60,
+
+    // String - Animation easing effect
+    // Possible effects are:
+    // [easeInOutQuart, linear, easeOutBounce, easeInBack, easeInOutQuad,
+    //  easeOutQuart, easeOutQuad, easeInOutBounce, easeOutSine, easeInOutCubic,
+    //  easeInExpo, easeInOutBack, easeInCirc, easeInOutElastic, easeOutBack,
+    //  easeInQuad, easeInOutExpo, easeInQuart, easeOutQuint, easeInOutCirc,
+    //  easeInSine, easeOutExpo, easeOutCirc, easeOutCubic, easeInQuint,
+    //  easeInElastic, easeInOutSine, easeInOutQuint, easeInBounce,
+    //  easeOutElastic, easeInCubic]
+    animationEasing: &quot;easeOutQuart&quot;,
+
+    // Boolean - If we should show the scale at all
+    showScale: true,
+
+    // Boolean - If we want to override with a hard coded scale
+    scaleOverride: false,
+
+    // ** Required if scaleOverride is true **
+    // Number - The number of steps in a hard coded scale
+    scaleSteps: null,
+    // Number - The value jump in the hard coded scale
+    scaleStepWidth: null,
+    // Number - The scale starting value
+    scaleStartValue: null,
+
+    // String - Colour of the scale line
+    scaleLineColor: &quot;rgba(0,0,0,.1)&quot;,
+
+    // Number - Pixel width of the scale line
+    scaleLineWidth: 1,
+
+    // Boolean - Whether to show labels on the scale
+    scaleShowLabels: true,
+
+    // Interpolated JS string - can access value
+    scaleLabel: &quot;&lt;%=value%&gt;&quot;,
+
+    // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
+    scaleIntegersOnly: true,
+
+    // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+    scaleBeginAtZero: false,
+
+    // String - Scale label font declaration for the scale label
+    scaleFontFamily: &quot;&#39;Helvetica Neue&#39;, &#39;Helvetica&#39;, &#39;Arial&#39;, sans-serif&quot;,
+
+    // Number - Scale label font size in pixels
+    scaleFontSize: 12,
+
+    // String - Scale label font weight style
+    scaleFontStyle: &quot;normal&quot;,
+
+    // String - Scale label font colour
+    scaleFontColor: &quot;#666&quot;,
+
+    // Boolean - whether or not the chart should be responsive and resize when the browser does.
+    responsive: false,
+
+    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+    maintainAspectRatio: true,
+
+    // Boolean - Determines whether to draw tooltips on the canvas or not
+    showTooltips: true,
+
+    // Function - Determines whether to execute the customTooltips function instead of drawing the built in tooltips (See [Advanced - External Tooltips](#advanced-usage-custom-tooltips))
+    customTooltips: false,
+
+    // Array - Array of string names to attach tooltip events
+    tooltipEvents: [&quot;mousemove&quot;, &quot;touchstart&quot;, &quot;touchmove&quot;],
+
+    // String - Tooltip background colour
+    tooltipFillColor: &quot;rgba(0,0,0,0.8)&quot;,
+
+    // String - Tooltip label font declaration for the scale label
+    tooltipFontFamily: &quot;&#39;Helvetica Neue&#39;, &#39;Helvetica&#39;, &#39;Arial&#39;, sans-serif&quot;,
+
+    // Number - Tooltip label font size in pixels
+    tooltipFontSize: 14,
+
+    // String - Tooltip font weight style
+    tooltipFontStyle: &quot;normal&quot;,
+
+    // String - Tooltip label font colour
+    tooltipFontColor: &quot;#fff&quot;,
+
+    // String - Tooltip title font declaration for the scale label
+    tooltipTitleFontFamily: &quot;&#39;Helvetica Neue&#39;, &#39;Helvetica&#39;, &#39;Arial&#39;, sans-serif&quot;,
+
+    // Number - Tooltip title font size in pixels
+    tooltipTitleFontSize: 14,
+
+    // String - Tooltip title font weight style
+    tooltipTitleFontStyle: &quot;bold&quot;,
+
+    // String - Tooltip title font colour
+    tooltipTitleFontColor: &quot;#fff&quot;,
+
+    // Number - pixel width of padding around tooltip text
+    tooltipYPadding: 6,
+
+    // Number - pixel width of padding around tooltip text
+    tooltipXPadding: 6,
+
+    // Number - Size of the caret on the tooltip
+    tooltipCaretSize: 8,
+
+    // Number - Pixel radius of the tooltip border
+    tooltipCornerRadius: 6,
+
+    // Number - Pixel offset from point x to tooltip edge
+    tooltipXOffset: 10,
+
+    // String - Template string for single tooltips
+    tooltipTemplate: &quot;&lt;%if (label){%&gt;&lt;%=label%&gt;: &lt;%}%&gt;&lt;%= value %&gt;&quot;,
+
+    // String - Template string for multiple tooltips
+    multiTooltipTemplate: &quot;&lt;%= value %&gt;&quot;,
+
+    // Function - Will fire on animation progression.
+    onAnimationProgress: function(){},
+
+    // Function - Will fire on animation completion.
+    onAnimationComplete: function(){}
+}
+       </code></pre>
+
+
+    </div>
+
+
+    <div class="col-md-8">
+        <!--Line Chart-->
+        <div id="line-chart">
+            <h2>Line Chart</h2>
+
+            <canvas id="lineChart"></canvas>
+
+            <br>
+            <br>
+            <h5>Example usage</h5>
+        <pre><code class="language-javascript">
+var myLineChart = new Chart(ctx).Line(data, option);
+       </code></pre>
+
+       <br>
+           <h5>Data structure</h5>
+        <pre><code class="language-javascript">
+var data = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [65, 59, 80, 81, 56, 55, 40]
+        },
+        {
+            label: "My Second dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [28, 48, 40, 19, 86, 27, 90]
+        }
+    ]
+};
+       </code></pre>
+
+
+        </div>
+        <!--/.Line Chart-->
+
+
+        <!--Bar Chart-->
+        <div id="bar-chart">
+            <h2>Bar Chart</h2>
+
+            <canvas id="barChart"></canvas>
+            <br>
+            <br>
+            <h5>Example usage</h5>
+        <pre><code class="language-javascript">
+var myBarChart = new Chart(ctx).Bar(data, option);
+       </code></pre>
+
+       <br>
+           <h5>Data structure</h5>
+        <pre><code class="language-javascript">
+var data = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.5)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: [65, 59, 80, 81, 56, 55, 40]
+        },
+        {
+            label: "My Second dataset",
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,0.8)",
+            highlightFill: "rgba(151,187,205,0.75)",
+            highlightStroke: "rgba(151,187,205,1)",
+            data: [28, 48, 40, 19, 86, 27, 90]
+        }
+    ]
+};
+       </code></pre>
+
+        </div>
+        <!--/.Bar Chart-->
+
+
+        <!--Radar Chart-->
+        <div id="radar-chart">
+            <h2>Radar Chart</h2>
+
+            <canvas id="radarChart"></canvas>
+            <br>
+            <br>
+            <h5>Example usage</h5>
+        <pre><code class="language-javascript">
+var myRadarChart = new Chart(ctx).Radar(data, option);
+       </code></pre>
+
+       <br>
+           <h5>Data structure</h5>
+        <pre><code class="language-javascript">
+var data = {
+    labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [65, 59, 90, 81, 56, 55, 40]
+        },
+        {
+            label: "My Second dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [28, 48, 40, 19, 96, 27, 100]
+        }
+    ]
+};
+       </code></pre>
+
+        </div>
+        <!--/.Radar Chart-->
+
+
+        <!--Polar Area Chart-->
+        <div id="polar-area-chart">
+            <h2>Polar Area Chart</h2>
+
+            <canvas id="myPolarChart"></canvas>
+            <br>
+            <br>
+            <h5>Example usage</h5>
+        <pre><code class="language-javascript">
+var myPolarAreaChart = new Chart(ctx).PolarArea(data, options);
+       </code></pre>
+
+       <br>
+           <h5>Data structure</h5>
+        <pre><code class="language-javascript">
+var data = [
+    {
+        value: 300,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Red"
+    },
+    {
+        value: 50,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Green"
+    },
+    {
+        value: 100,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Yellow"
+    },
+    {
+        value: 40,
+        color: "#949FB1",
+        highlight: "#A8B3C5",
+        label: "Grey"
+    },
+    {
+        value: 120,
+        color: "#4D5360",
+        highlight: "#616774",
+        label: "Dark Grey"
+    }
+
+];
+       </code></pre>
+
+        </div>
+        <!--/.Polar Area Chart-->
+
+
+        <!--Pie Chart-->
+        <div id="pie-chart">
+            <h2>Pie Chart</h2>
+
+            <canvas id="myPieChart"></canvas>
+<br>
+            <br>
+            <h5>Example usage</h5>
+        <pre><code class="language-javascript">
+var myPieChart = new Chart(ctx[0]).Pie(data,options);
+       </code></pre>
+
+       <br>
+           <h5>Data structure</h5>
+        <pre><code class="language-javascript">
+var data = [
+    {
+        value: 300,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Red"
+    },
+    {
+        value: 50,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Green"
+    },
+    {
+        value: 100,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Yellow"
+    }
+]
+       </code></pre>
+
+        </div>
+        <!--/.Pie Chart-->
+
+        <!--Doughnut Chart-->
+        <div id="doughnut-chart">
+            <h2>Doughnut Chart</h2>
+
+            <canvas id="myDoughnutChart"></canvas>
+<br>
+            <br>
+            <h5>Example usage</h5>
+        <pre><code class="language-javascript">
+var myDoughnutChart = new Chart(ctx[1]).Doughnut(data,options);
+       </code></pre>
+
+       <br>
+           <h5>Data structure</h5>
+        <pre><code class="language-javascript">
+var data = [
+    {
+        value: 300,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Red"
+    },
+    {
+        value: 50,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Green"
+    },
+    {
+        value: 100,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Yellow"
+    }
+]
+       </code></pre>
+
+        </div>
+        <!--/.Doughnut Chart-->
+    </div>
+    <div class="row"></div>
+    <div class="row">
+    <hr>
+    <h5>Read <a href="http://www.chartjs.org/docs/#getting-started">detailed documentation</a></h5>
+    <h5>Created by <a href="http://www.chartjs.org/">Chart.js</a></h5>
+</div>
+</div>
+
+

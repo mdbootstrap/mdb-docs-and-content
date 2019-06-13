@@ -1,0 +1,148 @@
+
+  <div>Now when we know what we want to build, let's get down to work. </div>
+  <div><br /></div>
+<h2>1. Application frame</h2>
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <div>Replace the content of the index.js file with the following code: </div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+class App extends Component {
+    state = {};
+    render() {
+    return <React.Fragment>Schedule app </React.Fragment>;
+    }
+}
+ReactDOM.render(<App />, document.getElementById("root"));
+     </code>
+ </mdbsnippet>
+  <div>Let's build a frame for our application — using the Bootstrap grid. First let's define two columns. To do this we update our <mark>render()</mark> functions
+    with the following code:</div>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+render() {
+    return (
+        <React.Fragment>
+        <MDBContainer>
+            <MDBRow>
+            <MDBCol lg="6">Left column</MDBCol>
+            <MDBCol lg="6">Right column</MDBCol>
+            </MDBRow>
+        </MDBContainer>
+        </React.Fragment>
+    );
+}
+    </code>
+</mdbsnippet>
+  <div>Now we have two columns, however... frankly speaking — <span style="font-weight: bold;">they are barely visible</span>. Let's add a border to the columns so we can actually
+    see how wide they are. There are a few ways to style our component in React, we will focus on the most common ones.</div>
+  <div><br /></div>
+  <h2>2. Inside index.js file (inline)</h2>
+  <div><br /></div>
+<h3>2.1 Inline (bad idea)</h3>
+  <div>If you want to quickly adjust a style you can add it directly to each component as below:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+<MDBCol style={{ border: "1px solid green" }} lg="6">Left column</MDBCol>
+<MDBCol style={{ border: "1px solid blue" }} lg="6">Right column</MDBCol>            
+      </code>
+  </mdbsnippet>
+  <div>Preview:</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/3/image_1.png" /><br /></div>
+  <div><br /></div>
+
+  <div><h3>2.2 You can use variables:</h3></div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+style = {
+    color: "red",
+    fontSize: 10,
+    border: "1px solid green"
+    };
+[...]
+<MDBCol style={this.style} lg="6">Left column</MDBCol>
+<MDBCol style={this.style} lg="6">Right column</MDBCol>
+          
+      </code>
+  </mdbsnippet>
+  <div>Preview:</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/3/image_2.png" /><br /></div>
+  <div>Or even mix both: </div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+spacing = "3";
+ [...]
+<MDBCol
+  style={{
+    fontSize: this.spacing + "em",
+    border: "1px solid blue"
+  }}
+  lg="6"
+>
+  Left column
+</MDBCol>
+      </code>
+  </mdbsnippet>
+  <div>Keep in mind that in most of the cases this is NOT a good idea unless you really know what you are doing.
+    Instead, you should use the second option:</div>
+  <div><br /></div>
+<h2>3. External Stylesheet files</h2>
+  <div><span>    </span>3.1 Open an <code>index.css</code> file (if it doesn't exist, create it under <code>src/</code> folder)</div>
+  <div><span>    </span>3.2<span>  </span>Add the following styles:</div>
+<mdbsnippet>
+    <code data-lang="php" data-name="CSS">
+div[class^="col"],
+div[class*=" col"] {
+    border: 1px dotted black;
+}           
+    </code>
+</mdbsnippet>  
+<div><span>    </span>3.3 Import index.css file in index.js file:</div>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+import "./index.css";
+    </code>
+</mdbsnippet>
+  <div><span>    </span>3.4 Remove all previous styles</div>
+  <div><br /></div>
+  <div>Final code of <code>index.js</code></div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import "./index.css";
+class App extends Component {
+    state = {};
+    render() {
+    return (
+        <React.Fragment>
+        <MDBContainer>
+            <MDBRow>
+            <MDBCol lg="6">Left column</MDBCol>
+            <MDBCol lg="6">Right column</MDBCol>
+            </MDBRow>
+        </MDBContainer>
+        </React.Fragment>
+    );
+    }
+}
+ReactDOM.render(<App />, document.getElementById("root"));
+      </code>
+  </mdbsnippet> 
+  <div>Preview:</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/3/image.png" /><br /></div>
+  <!-- <div>// [TODO] Classes </div> -->
+  <div>Now you know how to style components in a proper way, let's build a frame for our app.</div>
+  <div><br /></div>

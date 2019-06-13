@@ -1,0 +1,298 @@
+<!--Section: Intro-->
+<section id="e-introduction">
+
+  <!--Title-->
+  <h2 class="section-heading">Charts examples & customization</h2>
+
+</section>
+<!--/Section: Intro-->
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="example-legend">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Exmaples of using legends
+  </h2>
+
+  <!-- Description -->
+  <p>Examples bellow have a difrent legends. </p>
+  <p>First chart has a legend bellow chart with color and font size. Second chart has
+    legend set to <code>false</code> so nothig is showing.</p>
+
+  <p>Legend can has a different options for where it can be display, like:</p>
+
+  <ul>
+    <li><code>top</code></li>
+    <li><code>left</code></li>
+    <li><code>bottom</code></li>
+    <li><code>right</code></li>
+  </ul>
+
+  <section>
+
+    <div class="row">
+      <div class="col-md-6">
+        <canvas id="barLegend"></canvas>
+      </div>
+
+      <div class="col-md-6">
+        <canvas id="barLegend-1"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <canvas id="barLegend"></canvas>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          <script>
+            var ctxBl = document.getElementById('barLegend').getContext('2d');
+            var dataBl = {
+              labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+              datasets: [{
+                label: '% of Votes',
+                data: [2, 4, 8, 16, 32, 64],
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            }
+            var chart = new Chart(ctxBl, {
+              type: 'bar',
+              data: dataBl,
+              options: {
+                legend: {
+                  display: false,
+                  labels: {
+                    fontColor: 'rgb(2, 111, 22)',
+                    fontSize: 16
+                  }
+                }
+              }
+            });
+
+          </script>
+        </code>
+
+      </mdbsnippet>
+
+    </div>
+
+    <div class="col-md-6">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <canvas id="barLegend-1"></canvas>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          <script>
+            var ctxBl1 = document.getElementById('barLegend-1').getContext('2d');
+            var dataBl1 = {
+              labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+              datasets: [{
+                label: '% of Votes',
+                data: [2, 4, 8, 16, 32, 64],
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            }
+            var chart = new Chart(ctxBl1, {
+              type: 'bar',
+              data: dataBl1,
+              options: {
+                legend: {
+                  display: false,
+                  labels: {
+                    fontColor: 'rgb(2, 111, 22)'
+                  }
+                }
+              }
+            });
+
+          </script>
+        </code>
+
+      </mdbsnippet>
+
+    </div>
+
+  </div>
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="example-animation">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Exmaple of using animation
+  </h2>
+
+  <section>
+
+    <div class="row">
+      <div class="col-md-6">
+        <canvas id="animationChart"></canvas>
+        <progress id="animationProgress" max="1" value="0" style="width: 100%"></progress>
+      </div>
+
+      <div class="col-md-6">
+        <canvas id="animationChart-1"></canvas>
+        <progress id="animationProgress-1" max="1" value="0" style="width: 100%"></progress>
+      </div>
+    </div>
+  </section>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+
+          <canvas id="animationChart"></canvas>
+          <progress id="animationProgress" max="1" value="0" style="width: 100%"></progress>
+
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          <script>
+            var progress = document.getElementById('animationProgress');
+            var ctxA = document.getElementById("animationChart").getContext('2d');
+
+            var config = new Chart(ctxA, {
+              type: 'line',
+              data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                  label: 'My First dataset',
+                  borderColor: 'rgba(235,22,21, .2)',
+                  backgroundColor: 'rgba(235,22,21, .5)',
+                  data: [3, 22, 3, 46, 12, 72],
+                }, {
+                  label: 'My Second dataset ',
+                  borderColor: 'rgba(99,0,125, .2)',
+                  backgroundColor: 'rgba(99,0,125, .5)',
+                  data: [33, 16, 10, 16, 24, 3],
+                }]
+              },
+              options: {
+                title: {
+                  display: true,
+                  text: 'First example of animation'
+                },
+                animation: {
+                  duration: 5000,
+                  onProgress: function (animation) {
+                    progress.value = animation.currentStep / animation.numSteps;
+                  },
+                  onComplete: function () {
+                    window.setTimeout(function () {
+                      progress.value = 0;
+                    }, 2000);
+                  }
+                }
+              }
+            });
+
+          </script>
+        </code>
+
+      </mdbsnippet>
+
+    </div>
+
+    <div class="col-md-6">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+
+          <canvas id="animationChart-1"></canvas>
+          <progress id="animationProgress-1" max="1" value="0" style="width: 100%"></progress>
+
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          <script>
+            var progress1 = document.getElementById('animationProgress-1');
+            var ctxA1 = document.getElementById("animationChart-1").getContext('2d');
+
+            var config1 = new Chart(ctxA1, {
+              type: 'line',
+              data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                  label: 'My First dataset',
+                  borderColor: 'rgba(235,22,21, .2)',
+                  backgroundColor: 'rgba(235,22,21, .5)',
+                  data: [33, 16, 10, 16, 24, 3],
+                }, {
+                  label: 'My Second dataset ',
+                  borderColor: 'rgba(99,0,125, .2)',
+                  backgroundColor: 'rgba(99,0,125, .5)',
+                  data: [3, 22, 3, 46, 12, 72],
+                }]
+              },
+              options: {
+                title: {
+                  display: true,
+                  text: 'First example of animation'
+                },
+                animation: {
+                  duration: 2000,
+                  onProgress: function (animation1) {
+                    progress1.value = animation1.currentStep / animation1.numSteps;
+                  },
+                  onComplete: function () {
+                    window.setTimeout(function () {
+                      progress1.value = 0;
+                    }, 1000);
+                  }
+                }
+              }
+            });
+
+          </script>
+        </code>
+
+      </mdbsnippet>
+
+    </div>
+
+  </div>
+
+</section>
+<!--/Section: -->

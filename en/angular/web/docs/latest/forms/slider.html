@@ -1,0 +1,600 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+  <style>
+    input[type=range].no-border {
+      border: none;
+    }
+
+  </style>
+
+  <!--Section: Intro-->
+  <section id="introduction">
+
+    <!--Title-->
+    <h1 class="main-title">Angular Bootstrap Slider</h1>
+
+    <!--Description-->
+    <p class="description">Angular Bootstrap slider is an interactive component that lets the user swiftly slide through possible values spread
+      on the desired range.</p>
+
+    <p>Its basic implementation is quite simple and does not require big blocks of code.</p>
+
+    <p>Examples of Bootstrap slider use:</p>
+
+    <ul>
+      <li>Video progress bar</li>
+      <li>Volume increase/decrease</li>
+      <li>Enthusiasm-o-meter</li>
+    </ul>
+
+    <p class="mb-5">See the following Bootstrap slider examples:</p>
+
+    <blockquote class="blockquote bq-primary mt-5">
+      <p class="bq-title">Info notification</p>
+      <p>If you were looking for a slider and you meant a carousel component, click
+        <a href="https://mdbootstrap.com/docs/angular/advanced/carousel/"
+          target="_blank">here</a> to see all the possibilities.</p>
+    </blockquote>
+
+  </section>
+  <!--/Section: Intro-->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="basic">
+
+    <!--Title-->
+    <h2 class="title">
+      <strong>Basic slider</strong>
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank"
+        class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <!--Description-->
+    <p class="description"></p>
+
+    <!--Section: Live preview-->
+    <section>
+
+      <form class="range-field">
+        <input type="range" min="0" max="100" />
+      </form>
+
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+<form class="range-field mt-5">
+    <div class="track">
+        <div #rangeCloud class="range-cloud" title="range" [ngClass]="{'visible': this.visibility, 'hidden': !this.visibility}">
+
+            <span class="text-transform">{{range}}</span>
+        </div>
+    </div>
+    <input #input name="range" type="range" min="0" max="100" (focus)="visibility = true" (blur)="visibility = false" [(ngModel)]="range"
+        (change)="coverage()">
+</form>
+        </code>
+        <code data-lang="ts" data-name="TS">
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+
+@Component({
+  selector: 'range-example',
+  templateUrl: 'range.html',
+})
+
+export class RangeComponent {
+    @ViewChild('input') input: ElementRef;
+    @ViewChild('rangeCloud') rangeCloud: ElementRef;
+    range: any = 50;
+
+    constructor(private renderer: Renderer2) { }
+
+    coverage() {
+    if (typeof this.range === "string" && this.range.length !== 0) {
+
+      return this.range;
+    }
+    const maxValue = this.input.nativeElement.getAttribute('max');
+    const cloudRange = (this.range / maxValue) * 100;
+    this.renderer.setStyle(this.rangeCloud.nativeElement, 'left', cloudRange + '%')
+  }
+
+}</code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="pricing">
+
+    <!--Title-->
+    <h2 class="title">
+      <strong>Slider with price counter</strong>
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank"
+        class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <!--Description-->
+    <p class="description"></p>
+
+    <!--Section: Live preview-->
+    <section>
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-10 col-lg-8 col-xl-5">
+
+          <div class="card">
+            <div class="card-body">
+
+              <h3 class="text-center font-weight-bold blue-text mt-3 mb-4 pb-4">
+                <strong>Slide to see the pricing change</strong>
+              </h3>
+              <hr>
+
+              <form class="range-field my-5">
+                <input id="calculatorSlider" class="no-border" type="range" value="0" min="0" max="30" />
+              </form>
+
+              <!-- Grid row -->
+              <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-6 text-center pb-5">
+
+                  <h2>
+                    <span class="badge blue lighten-2 mb-4">You earn</span>
+                  </h2>
+                  <h2 class="display-4" style="color:#0d47a1">
+                    <strong id="resellerEarnings">75$</strong>
+                  </h2>
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-6 text-center pb-5">
+
+                  <h2>
+                    <span class="badge blue lighten-2 mb-4">Client pays</span>
+                  </h2>
+                  <h2 class="display-4" style="color:#0d47a1">
+                    <strong id="clientPrice">319$</strong>
+                  </h2>
+
+                </div>
+                <!-- Grid column -->
+
+              </div>
+              <!-- Grid row -->
+
+            </div>
+          </div>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section class="my-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+<mdb-card>
+  <mdb-card-body>
+
+    <h3 class="text-center font-weight-bold blue-text mt-3 mb-4 pb-4">
+      <strong>Slide to see the pricing change</strong>
+    </h3>
+    <hr>
+
+    <form class="range-field mt-5">
+      <div class="track">
+        <div #rangeCloud class="range-cloud" title="range" [ngClass]="{'visible': this.visibility, 'hidden': !this.visibility}">
+
+          <span class="text-transform">{{range}}</span>
+        </div>
+      </div>
+      <input #input name="range" type="range" min="0" max="100" (focus)="visibility = true" (blur)="visibility = false" [(ngModel)]="range"
+        (change)="coverage()">
+    </form>
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-6 text-center pb-5">
+
+        <h2>
+          <span class="badge blue lighten-2 mb-4">You earn</span>
+        </h2>
+        <h2 class="display-4" style="color:#0d47a1">
+          <strong id="resellerEarnings">{{100 - range }} $</strong>
+        </h2>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-6 text-center pb-5">
+
+        <h2>
+          <span class="badge blue lighten-2 mb-4">Client pays</span>
+        </h2>
+        <h2 class="display-4" style="color:#0d47a1">
+          <strong id="clientPrice">{{319 - range}} $</strong>
+        </h2>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </mdb-card-body>
+</mdb-card>
+        </code>
+        <code data-lang="ts" data-name="TS">
+import { Component, ViewChild, Renderer2 } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent {
+  @ViewChild('input') input: ElementRef;
+  @ViewChild('rangeCloud') rangeCloud: ElementRef;
+  range: any = 50;
+
+  constructor(private renderer: Renderer2) { }
+
+  coverage() {
+    if (typeof this.range === "string" && this.range.length !== 0) {
+
+      return this.range;
+    }
+    const maxValue = this.input.nativeElement.getAttribute('max');
+    const cloudRange = (this.range / maxValue) * 100;
+    this.renderer.setStyle(this.rangeCloud.nativeElement, 'left', cloudRange + '%')
+  }
+
+}</code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="width">
+
+    <!--Title-->
+    <h2 class="title">
+      <strong>Slider with different width</strong>
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank"
+        class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <!--Description-->
+    <p class="description"></p>
+
+    <!--Section: Live preview-->
+    <section>
+
+      <form class="range-field my-4 w-25">
+        <input type="range" min="0" max="100" />
+      </form>
+
+      <form class="range-field my-4 w-50">
+        <input type="range" min="0" max="100" />
+      </form>
+
+      <form class="range-field my-4 w-75">
+        <input type="range" min="0" max="100" />
+      </form>
+
+      <form class="range-field my-4 w-100">
+        <input type="range" min="0" max="100" />
+      </form>
+
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+<form class="range-field mt-5 w-25">
+  <div class="track">
+    <div #rangeCloud class="range-cloud" title="range" [ngClass]="{'visible': this.visibility, 'hidden': !this.visibility}">
+
+      <span class="text-transform">{{range}}</span>
+    </div>
+  </div>
+  <input #input name="range" type="range" min="0" max="100" (focus)="visibility = true" (blur)="visibility = false" [(ngModel)]="range"
+    (change)="coverage()">
+</form>
+
+<form class="range-field mt-5 w-50">
+  <div class="track">
+    <div #rangeCloud class="range-cloud" title="range" [ngClass]="{'visible': this.visibility, 'hidden': !this.visibility}">
+
+      <span class="text-transform">{{range}}</span>
+    </div>
+  </div>
+  <input #input name="range" type="range" min="0" max="100" (focus)="visibility = true" (blur)="visibility = false" [(ngModel)]="range"
+    (change)="coverage()">
+</form>
+
+<form class="range-field mt-5 w-75">
+  <div class="track">
+    <div #rangeCloud class="range-cloud" title="range" [ngClass]="{'visible': this.visibility, 'hidden': !this.visibility}">
+
+      <span class="text-transform">{{range}}</span>
+    </div>
+  </div>
+  <input #input name="range" type="range" min="0" max="100" (focus)="visibility = true" (blur)="visibility = false" [(ngModel)]="range"
+    (change)="coverage()">
+</form>
+
+<form class="range-field mt-5 w-100">
+  <div class="track">
+    <div #rangeCloud class="range-cloud" title="range" [ngClass]="{'visible': this.visibility, 'hidden': !this.visibility}">
+
+      <span class="text-transform">{{range}}</span>
+    </div>
+  </div>
+  <input #input name="range" type="range" min="0" max="100" (focus)="visibility = true" (blur)="visibility = false" [(ngModel)]="range"
+    (change)="coverage()">
+</form>
+    </code>
+	<code data-lang="js" data-name="TS">
+import { Component, ViewChild, Renderer2 } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent {
+  @ViewChild('input') input: ElementRef;
+  @ViewChild('rangeCloud') rangeCloud: ElementRef;
+  range: any = 50;
+
+  constructor(private renderer: Renderer2) { }
+
+  coverage() {
+    if (typeof this.range === "string" && this.range.length !== 0) {
+
+      return this.range;
+    }
+    const maxValue = this.input.nativeElement.getAttribute('max');
+    const cloudRange = (this.range / maxValue) * 100;
+    this.renderer.setStyle(this.rangeCloud.nativeElement, 'left', cloudRange + '%')
+  }
+
+}
+	</code>
+</mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="values">
+
+    <!--Title-->
+    <h2 class="title">
+      <strong>Slider with first and last value</strong>
+      <a href="https://mdbootstrap.com/products/angular-ui-kit/"
+        target="_blank" class="btn btn-danger btn-md" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h2>
+
+    <!--Description-->
+    <p class="description"></p>
+
+    <!--Section: Live preview-->
+    <section>
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-12">
+
+          <div class="card indigo lighten-5">
+            <div class="card-body">
+
+              <div class="d-flex justify-content-center my-4">
+                <span class="font-weight-bold indigo-text mr-2">0</span>
+                <form class="range-field w-25">
+                  <input class="no-border" type="range" min="0" max="100" />
+                </form>
+                <span class="font-weight-bold indigo-text ml-2">100</span>
+              </div>
+
+              <div class="d-flex justify-content-center my-4">
+                <span class="font-weight-bold blue-text mr-2">0</span>
+                <form class="range-field w-50">
+                  <input class="no-border" type="range" min="0" max="100" />
+                </form>
+                <span class="font-weight-bold blue-text ml-2">100</span>
+              </div>
+
+              <div class="d-flex justify-content-center my-4">
+                <span class="font-weight-bold purple-text mr-2">0</span>
+                <form class="range-field w-75">
+                  <input class="no-border" type="range" min="0" max="100" />
+                </form>
+                <span class="font-weight-bold purple-text ml-2">100</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section class="my-3">
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+<mdb-card class="indigo lighten-5">
+  <mdb-card-body>
+
+    <div class="d-flex justify-content-center my-4">
+      <span class="font-weight-bold indigo-text mr-2">{{min}}</span>
+      <form class="range-field mt-5 w-25">
+        <div class="track">
+          <div #rangeCloud class="range-cloud" title="range" [ngClass]="{'visible': this.visibility, 'hidden': !this.visibility}">
+
+            <span class="text-transform">{{range}}</span>
+          </div>
+        </div>
+        <input #input name="range" type="range" min="0" max="100" (focus)="visibility = true" (blur)="visibility = false" [(ngModel)]="range"
+          (change)="coverage()">
+      </form>
+      <span class="font-weight-bold indigo-text ml-2">{{max}}</span>
+    </div>
+
+    <div class="d-flex justify-content-center my-4">
+      <span class="font-weight-bold blue-text mr-2">{{min}}</span>
+      <form class="range-field mt-5 w-50">
+        <div class="track">
+          <div #rangeCloud class="range-cloud" title="range" [ngClass]="{'visible': this.visibility, 'hidden': !this.visibility}">
+
+            <span class="text-transform">{{range}}</span>
+          </div>
+        </div>
+        <input #input name="range" type="range" min="0" max="100" (focus)="visibility = true" (blur)="visibility = false" [(ngModel)]="range"
+          (change)="coverage()">
+      </form>
+      <span class="font-weight-bold blue-text ml-2">{{max}}</span>
+    </div>
+
+    <div class="d-flex justify-content-center my-4">
+      <span class="font-weight-bold purple-text mr-2">{{min}}</span>
+      <form class="range-field mt-5 w-75">
+        <div class="track">
+          <div #rangeCloud class="range-cloud" title="range" [ngClass]="{'visible': this.visibility, 'hidden': !this.visibility}">
+
+            <span class="text-transform">{{range}}</span>
+          </div>
+        </div>
+        <input #input name="range" type="range" min="0" max="100" (focus)="visibility = true" (blur)="visibility = false" [(ngModel)]="range"
+          (change)="coverage()">
+      </form>
+      <span class="font-weight-bold purple-text ml-2">{{max}}</span>
+    </div>
+
+  </mdb-card-body>
+</mdb-card>
+    </code>
+	<code data-lang="js" data-name="TS">
+import { Component, ViewChild, Renderer2, OnInit, ElementRef } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent implements OnInit {
+  @ViewChild('input') input: ElementRef;
+  @ViewChild('rangeCloud') rangeCloud: ElementRef;
+  range: any = 50;
+  min: number = null;
+  max: number = null;
+
+  constructor(private renderer: Renderer2) { }
+
+  coverage() {
+    console.log(this.input.nativeElement.min);
+    console.log(this.input.nativeElement.max);
+    if (typeof this.range === "string" && this.range.length !== 0) {
+
+      return this.range;
+    }
+    const maxValue = this.input.nativeElement.getAttribute('max');
+    const cloudRange = (this.range / maxValue) * 100;
+    this.renderer.setStyle(this.rangeCloud.nativeElement, 'left', cloudRange + '%')
+  }
+
+  ngOnInit() {
+    this.min = this.input.nativeElement.min;
+    this.max = this.input.nativeElement.max;
+  }
+
+}
+	</code>
+</mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+  </section>
+  <!--/Section: -->
+
+  <hr class="my-5">
+
+  <!-- SECTION-->
+  <section id="APIref">
+
+    <h2 class="title my-4">API Reference:</h2>
+    <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of importing
+      the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific
+      module, is bad practice, and can cause application errors.
+    </p>
+
+    <h5 class="mb-4">API Reference for MDB Angular Slider:</h5>
+    <pre><code class="language-javascript">// CardsFreeModule
+import { CardsFreeModule } from 'ng-uikit-pro-standard'</code></pre>
+<pre><code class="language-javascript">// Forms Module - for ngModel
+import { FormsModule } from '@angular/forms'</code></pre>
+    <div class="row">
+      <div class="col-md-6">
+        <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">Import example</a>
+        <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">Modules list</a>
+      </div>
+    </div>
+  </section>
+
+  </section>
+  <!--/Section: Doc content-->

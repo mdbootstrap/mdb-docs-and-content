@@ -1,0 +1,494 @@
+<!--Section: Doc content-->
+<section class="documentation">
+  <section id="basics">
+    <h2 class="title mb-4"><strong>Basics</strong></h2>
+    <p class="discription">The alert consists of two elements: <code>toast</code>, which is a method used to programmatically trigger an alert, and a <code>ToastContainer</code> that is required to host the toast. To use either make sure you have probably imported them first:</p>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JS">
+        import { toast, ToastContainer } from 'mdbreact';
+      </code>
+    </mdbsnippet>
+  </section>
+    <!--Section: -->
+    <section id="options">
+      <!--Title-->
+        <h2 class="title my-4"><strong>Options</strong></h2>
+        <p class="description">Each of the aforementioned indgredients for an alert serves as an entry-point for its customization. <code>toast()</code> method accepts two arguments, first one being our message (or a JSX component to be rendered in its place), while the second is an option object. The object's properties below.</p>
+        <!--Subheading-->
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>position</td>
+              <td>string</td>
+              <td>top-right</td>
+              <td>One of top-right, top-center, top-left, bottom-right, bottom-center, bottom-left</td>
+            </tr>
+            <tr>
+              <td>autoClose</td>
+              <td>false or int</td>
+              <td>5000</td>
+              <td>Delay in ms to close the toast. If set to false, the notification need to be closed manualy</td>
+            </tr>
+            <tr>
+              <td>closeButton</td>
+              <td>React Element or false</td>
+              <td>-</td>
+              <td>A React Component to replace the default close button or <code>false</code> to hide the button</td>
+            </tr>
+            <tr>
+              <td>transition</td>
+              <td>function</td>
+              <td>-</td>
+              <td>A reference to a valid react-transition-group/Transition component</td>
+            </tr>
+            <tr>
+              <td>hideProgressBar</td>
+              <td>bolean</td>
+              <td>false</td>
+              <td>Display or not the progress bar below the toast(remaining time)</td>
+            </tr>
+            <tr>
+              <td>pauseOnHover</td>
+              <td>bolean</td>
+              <td>true</td>
+              <td>Keep the timer running or not on hover</td>
+            </tr>
+            <tr>
+              <td>closeOnClick</td>
+              <td>bolean</td>
+              <td>true</td>
+              <td>Dismiss toast on click</td>
+            </tr>
+            <tr>
+              <td>newestOnTop</td>
+              <td>bolean</td>
+              <td>false</td>
+              <td>Display newest toast on top</td>
+            </tr>
+            <tr>
+              <td>className</td>
+              <td>string</td>
+              <td>-</td>
+              <td>Add optional classes to the container</td>
+            </tr>
+            <tr>
+              <td>style</td>
+              <td>object</td>
+              <td>-</td>
+              <td>Add optional inline style to the container</td>
+            </tr>
+            <tr>
+              <td>toastClassName</td>
+              <td>string</td>
+              <td>-</td>
+              <td>Add optional classes to the toast</td>
+            </tr>
+            <tr>
+              <td>bodyClassName</td>
+              <td>string</td>
+              <td>-</td>
+              <td>Add optional classes to the toast body</td>
+            </tr>
+            <tr>
+              <td>progressClassName</td>
+              <td>string</td>
+              <td>-</td>
+              <td>Add optional classes to the progress bar</td>
+            </tr>
+              <tr>
+                <td>dragabble</td>
+                <td>string/object</td>
+                <td>-</td>
+                <td>Allow toast to be draggable</td>
+            </tr>
+            <tr>
+              <td>draggablePercent</td>
+              <td>number</td>
+              <td>80</td>
+              <td>The percentage of the toast's width it takes for a drag to dismiss a toast(value between 0 and 100)</td>
+          </tr></tbody></table>
+            <p class="discription my-4">
+              There is also the second way to apply options to the toast alerts. The keys of the option object discussed above represent consecutive props of the <code>ToastContainer</code> component, that in turn accept values specified in the table. Beside being able to define toast alert customization otherwise than on a toast-to-toast basis, this option input offers few features unavailable to the <code>toast()</code> method.
+            </p>
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Props</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>newestOnTop</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>Changes the order of incoming toasts</td>
+                  </tr>
+                  <tr>
+                    <td>Right to left layout</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>Changes layout inside the toasts to properly render content in languages with right-to-left writing system</td>
+                  </tr></tbody></table>
+
+          <blockquote class="blockquote bq-warning mb-4">
+            <p class="bq-title">
+              Toast options supersede ToastContainer props.
+            </p>
+          </blockquote>
+          <hr class="my-5"/>
+
+          </section>
+          <!--/Section: -->
+          <section id="component">
+            <h2 class="title mb-4"><strong>Rendering a component</strong></h2>
+            <p class="discription">The alerts obviously support content that is of <code>string</code> type, but in fact they go far beyond that: they allow you to render your own components! It is enough to just past them as the first argument of the <code>toast()</code> function. Remember: when rendering a component, a <code>closeToast</code> function is passed as a props. It is used to trigger closing the alert on user interaction.</p>
+            <mdbsnippet><code data-lang="javascript" data-name="JSX">import React from 'react';
+import { ToastContainer, toast } from "mdbreact";
+
+const Msg = ({ closeToast }) => (
+    <div>
+      Lorem ipsum dolor
+      <button>Retry</button>
+      <button onClick={closeToast}>Close</button>
+    </div>
+)
+
+const App = () => (
+    <div>
+      <button onClick={() => toast(<Msg />)}>Hello 😀</button>
+      <ToastContainer />
+    </div>
+);</code></mdbsnippet>
+          </section>
+          <hr class="my-5"/>
+
+          <section id="removal">
+            <h2 class="title mb-4"><strong>Programmatic removal</strong></h2>
+            <p class="discription">Every time a toast is displayed, an <code>id</code> is returned. Calling <code>toast.dissmiss(id)</code> removes a toast; calling the function with no arguments dissmisses all the toasts.</p>
+            <mdbsnippet><code data-lang="javascript" data-name="JS">import React, { Component } from 'react';
+import { toast } from 'react-toastify';
+
+class Example extends Component {
+  toastId = null;
+
+  notify = () => this.toastId = toast("Lorem ipsum dolor");
+
+  dismiss = () => toast.dismiss(this.toastId);
+
+  dismissAll = () => toast.dismiss();
+
+  render(){
+    return (
+      <React.Fragment>
+        <button onClick={this.notify}>Notify</button>
+        <button onClick={this.dismiss}>Dismiss</button>
+        <button onClick={this.dismissAll}>Dismiss All</button>
+      </React.Fragment>
+    );
+  }
+}</code></mdbsnippet>
+          </section>
+
+          <hr class="my-5"/>
+
+<section id="update">
+    <h2 class="title mb-4"><strong>Updating a toast</strong></h2>
+
+  <p class="discription">Alert's options are inherited at render, but there is an easy way to update it using... the <code>update()</code> function. Take a look:</p>
+  <mdbsnippet>
+    <code data-lang="javascript" data-name="JS">
+import React, { Component } from 'react';
+import { toast } from 'react-toastify';
+
+class Update extends Component {
+    toastId = null;
+
+  notify = () => this.toastId = toast("Hello", { autoClose: false });
+
+  update = () => toast.update(this.toastId, { type: "info", autoClose: 5000 });
+
+  render(){
+        return (
+          <React.Fragment>
+            <button onClick={this.notify}>Notify</button>
+            <button onClick={this.update}>Update</button>
+          </React.Fragment>
+      )
+  }
+}</code></mdbsnippet>
+<p>
+Among the alert's features open for alteration is its content. You can access is under the <code>render</code> key inside the <code>update()</code> function.
+</p>
+<mdbsnippet>
+    <code data-lang="javascript" data-name="JS">
+// With a string
+toast.update(this.toastId, {
+  render: "New content"
+  type: "info",
+  autoClose: 5000
+});
+
+// Or with a component
+toast.update(this.toastId, {
+  render: <MyComponent />
+  type: "info",
+  autoClose: 5000
+});</code></mdbsnippet>
+</section>
+
+          <hr class="my-5"/>
+
+          <section id="prevent-duplicate">
+            <h2 class="title mb-4"><strong>Prevent duplicates</strong></h2>
+
+              <p class="discription">
+                  To prevent duplicates, you can check if a given toast is active by calling toast.isActive(id) like the snippet below. With this approach, you can decide with more precision whether or not you want to display a toast.
+              </p>
+              <mdbsnippet>
+                  <code data-lang="javascript" data-name="JS">
+import React, { Component } from 'react';
+import { toast } from 'mdbreact';
+
+class Example extends Component {
+  toastId = null;
+
+  notify = () => {
+    if (! toast.isActive(this.toastId)) {
+      this.toastId = toast("I cannot be duplicated !");
+    }
+  }
+
+  render(){
+    return (
+      <div>
+        <button onClick={this.notify}>Notify</button>
+      </div>
+    );
+  }
+}</code></mdbsnippet>
+            </section>
+            <hr class="my-5"/>
+
+          <section id="transition">
+              <h2 class="title mb-4"><strong>Transition</strong></h2>
+              <p class="description">There is 4 built-in transition provided:
+                <ul>
+                  <li><code>Bounce</code></li>
+                  <li><code>Slide</code></li>
+                  <li><code>Zoom</code></li>
+                  <li><code>Flip</code></li>
+                </ul>
+                <code>Bounce</code> is applied by default, but you can apply any of them:</p>
+                <mdbsnippet>
+                    <code data-lang="javascript" data-name="JSX">
+import { Slide, Zoom, Flip, Bounce } from 'mdbreact';
+
+  <ToastContainer
+    transition={Slide}
+  />
+//...
+  <ToastContainer
+    transition={YourCustomTransition}
+  />
+                      </code>
+                </mdbsnippet>
+<p class="my-4">...But you can define your own transition! The toast relies on <code>react-transition-group</code> for the enter and exit transition, therefore any transition built with it is fine! Let's take a look at how an animation is defined is, using <code>zoom</code> animation from <a hfer="https://daneden.github.io/animate.css/" target="_blank" rel="nofollow">animate.css</a> as an example.</p>
+
+<mdbsnippet>
+    <code data-lang="css" data-name="CSS">
+/* style.css*/
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.zoomIn {
+  animation-name: zoomIn;
+}
+
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.zoomOut {
+  animation-name: zoomOut;
+}
+
+/* Not needed with the cssTransition helper */
+
+.animate {
+  animation-duration: 800ms;
+}
+</code>
+</mdbsnippet>
+<p class="discription my-4">
+    The easiest way to roll your own transition is by using the <code>cssTransition</code> helper, which allows us to skip ahead all the <code>react-transition-group</code>-related hussle. Only thing needed here are the  <code>enter</code> and <code>exit</code> class names. The transition duration is set to 750ms by default but it can be overridden:
+</p>
+<mdbsnippet>
+    <code data-lang="javascript" data-name="JS">
+import React, { Component } from 'react';
+import { toast, cssTransition } from 'mdbreact';
+import './style.css';
+
+const Zoom = cssTransition({
+  enter: 'zoomIn',
+  exit: 'zoomOut',
+  // default to 750ms, can be omitted
+  duration = 750,
+  // to have different times of exit / entry, pass in an Array
+});
+
+class App extends Component {
+  notify = () => {
+    toast("ZoomIn and ZoomOut", {
+      transition: Zoom,
+      autoClose: 5000
+    });
+  };
+
+  render(){
+      return <button onClick={this.notify}>Notify</button>;
+  }
+}</code></mdbsnippet>
+
+<p class="discription my-4">
+  Some transitions are based on the toast position. If you pass <code>appendPosition</code> to the <code>cssTransition</code> helper as shown below, the current position will be appended to the <code>enter</code> and <code>exit</code> class name:
+</p>
+<mdbsnippet>
+  <code data-lang="javascript" data-name="JS">
+import React, { Component } from 'react';
+import { toast, cssTransition } from 'mdbreact';
+import './style.css';
+
+const Zoom = cssTransition({
+    // zoomIn will become zoomIn--top-right or zoomIn--top-left and so on
+    enter: 'zoomIn',
+    // zoomIn will become zoomOut--top-right or zoomOut--top-left and so on
+    exit: 'zoomOut',
+    // default to false
+    appendPosition: true
+});
+
+class App extends Component {
+    notify = () => {
+      toast("ZoomIn and ZoomOut", {
+        transition: Zoom,
+        autoClose: 5000
+      });
+    };
+
+  render(){
+      return <button onClick={this.notify}>Notify</button>;
+  }
+}</code></mdbsnippet>
+<p class="discription my-4">Ultimately, you may want to define transition yourself, from scratch. Note: in that case you will need the <code><a href="https://github.com/reactjs/react-transition-group" target="_blank" rel="nofollow">react-transition-group</a></code>.</p>
+
+<mdbsnippet>
+  <code data-lang="javascript" data-name="JS">
+import React, { Component } from 'react';
+import { toast } from 'mdbreact';
+import Transition from 'react-transition-group/Transition';
+import './style.css';
+
+const ZoomInAndOut = ({ children, position, ...props }) => (
+    <Transition
+    {...props}
+    {/* Same as the animation duration */}
+    timeout={800}
+    onEnter={ node => node.classList.add('zoomIn', 'animate')}
+    onExit={node => {
+      node.classList.remove('zoomIn', 'animate');
+      node.classList.add('zoomOut', 'animate');
+    }}
+  >
+    {children}
+  </Transition>
+);
+
+class App extends Component {
+  notify = () => {
+    toast("ZoomIn and ZoomOut", {
+      transition: ZoomInAndOut,
+      autoClose: 5000
+    });
+  };
+
+  render(){
+    return <button onClick={this.notify}>Notify</button>;
+  }
+}
+    </code></mdbsnippet>
+    <table class="table table-striped table-bordered mt-4">
+        <thead>
+        <tr>
+        <th>Parameter</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Default</th>
+        <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>enter</td>
+        <td>string</td>
+        <td>✓</td>
+        <td>-</td>
+        <td>The class name that will be used when the toast enter</td>
+        </tr>
+        <tr>
+        <td>exit</td>
+        <td>string</td>
+        <td>✓</td>
+        <td>-</td>
+        <td>The class name that will be used when the toast exit</td>
+        </tr>
+        <tr>
+        <td>duration</td>
+        <td>number| Array</td>
+        <td>✘</td>
+        <td>750</td>
+        <td>The transition duration in ms.</td>
+        </tr>
+        <tr>
+        <td>appendPosition</td>
+        <td>bool</td>
+        <td>✘</td>
+        <td>false</td>
+        <td>Append or not the position  to the class name: <code>yourClassName--top-right</code>, <code>yourClassName--bottom-left</code>...</td>
+        </tr></tbody></table>
+      </section>
+        <!--/Section: -->
+</section>
+<!--/Section: Doc content-->
+
+

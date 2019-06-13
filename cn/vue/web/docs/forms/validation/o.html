@@ -1,0 +1,1632 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+    <!--Title-->
+    <h2 class="primary-heading">Vue Bootstrap Validation</h2>
+
+    <h1 class="secondary-heading mb-4">Vue Validation - Bootstrap 4 & Material Design</h1>
+
+    <!--Description-->
+    <p class="description mb-4">Provide valuable, actionable feedback to your users with HTML5 form validation – <a href="https://caniuse.com/#feat=form-validation" target="_blank">available in all our supported browsers</a>. Choose from the browser default validation feedback, or implement custom messages with our built-in classes and starter JavaScript.</p>
+
+    <blockquote class="blockquote bq-warning">
+      <p class="bq-title">Warning</p>
+      <p>We currently recommend using custom validation styles, as native browser default validation messages are not consistently exposed to assistive technologies in all browsers (most notably, Chrome on desktop and mobile).</p>
+    </blockquote>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="how-it-works">
+
+    <!--Title-->
+    <h2 class="title mb-4"><strong>How it works</strong></h2>
+
+    <!--Description-->
+    <p class="description mb-4">Here’s how form validation works with Bootstrap:</p>
+
+    <ul>
+      <li>HTML form validation is applied via CSS’s two pseudo-classes, <code>:invalid</code> and <code>:valid</code>. It applies to <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, and <code>&lt;textarea&gt;</code> elements.</li>
+      <li>Bootstrap scopes the <code>:invalid</code> and <code>:valid</code> styles to parent <code>.was-validated</code> class, usually applied to the <code>&lt;form&gt;</code>. Otherwise, any required field without a value shows up as invalid on page load. This way, you may choose when to activate them (typically after form submission is attempted).</li>
+      <li>To reset the appearance of the form (for instance, in the case of dynamic form submissions using AJAX), remove the <code>.was-validated</code> class from the <code>&lt;form&gt;</code> again after submission.</li>
+      <li>As a fallback, <code>.is-invalid</code> and <code>.is-valid</code> classes may be used instead of the pseudo-classes for <a href="#server-side">server side validation</a>. They do not require a <code>.was-validated</code> parent class.</li>
+      <li>Due to constraints in how CSS works, we cannot (at present) apply styles to a <code>&lt;label&gt;</code> that comes before a form control in the DOM without the help of custom JavaScript.</li>
+      <li>All modern browsers support the <a href="https://www.w3.org/TR/html5/sec-forms.html#the-constraint-validation-api" target="_blank">constraint validation API</a>, a series of JavaScript methods for validating form controls.</li>
+      <li>Feedback messages may utilize the <a href="#browser-defaults">browser defaults</a> (different for each browser, and unstylable via CSS) or our custom feedback styles with additional HTML and CSS.</li>
+      <li>You may provide custom validity messages with <code>setCustomValidity</code> in JavaScript.</li>
+    </ul>
+
+    <p class="description mb-4">With that in mind, consider the following demos for our custom form validation styles, optional server side classes, and browser defaults.</p>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="custom-styles">
+
+    <!--Title-->
+    <h2 class="title mb-4"><strong>Custom styles</strong></h2>
+
+    <!--Description-->
+    <p class="description mb-4">For custom Bootstrap form validation messages, you’ll need to add the <code>novalidate</code> boolean attribute to your <code>&lt;form&gt;</code>. This disables the browser default feedback tooltips, but still provides access to the form validation APIs in JavaScript. Try to submit the form below; our JavaScript will intercept the submit button and relay feedback to you.</p>
+
+    <p class="description mb-4">When attempting to submit, you’ll see the <code>:invalid</code> and <code>:valid</code> styles applied to your form controls.</p>
+
+    <div class="row">
+      <div class="col-md-6 mb-4">
+
+        <!--Title-->
+        <h2 class="secondary-heading mb-3">
+          Default styles
+        </h2>
+
+        <!--Section: Live preview-->
+        <section class="section-preview">
+
+          <form class="needs-validation" novalidate>
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationCustom01">First name</label>
+                <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark"
+                  required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationCustom02">Last name</label>
+                <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto"
+                  required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationCustomUsername">Username</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                  </div>
+                  <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username"
+                    aria-describedby="inputGroupPrepend" required>
+                  <div class="invalid-feedback">
+                    Please choose a username.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="validationCustom03">City</label>
+                <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationCustom04">State</label>
+                <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+                <div class="invalid-feedback">
+                  Please provide a valid state.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationCustom05">Zip</label>
+                <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+                <div class="invalid-feedback">
+                  Please provide a valid zip.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                <label class="form-check-label" for="invalidCheck">
+                  Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" type="submit">Submit form</button>
+          </form>
+
+        </section>
+        <!--Section: Live preview-->
+
+        <!--Section: Code-->
+        <section>
+          <mdbsnippet>
+            <code data-lang="html" data-name="template">
+              <template>
+                <mdb-container class="mt-5">
+                  <h1 class="my-5">Form Validation</h1>
+                  <!-- Custom styles -->
+                  <h2 class="my-5">Custom styles</h2>
+                  <form class="needs-validation" novalidate @submit="checkForm">
+                    <div class="form-row">
+                      <div class="col-md-4 mb-3">
+                        <label for="validationCustom01">First name</label>
+                        <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                        <div class="valid-feedback">
+                          Looks good!
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="validationCustom02">Last name</label>
+                        <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                        <div class="valid-feedback">
+                          Looks good!
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="validationCustomUsername">Username</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                          </div>
+                          <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+                          <div class="invalid-feedback">
+                            Please choose a username.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-6 mb-3">
+                        <label for="validationCustom03">City</label>
+                        <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+                        <div class="invalid-feedback">
+                          Please provide a valid city.
+                        </div>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <label for="validationCustom04">State</label>
+                        <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+                        <div class="invalid-feedback">
+                          Please provide a valid state.
+                        </div>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <label for="validationCustom05">Zip</label>
+                        <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+                        <div class="invalid-feedback">
+                          Please provide a valid zip.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-check pl-0">
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                        <label class="form-check-label" for="invalidCheck">
+                          Agree to terms and conditions
+                        </label>
+                        <div class="invalid-feedback">
+                          You must agree before submitting.
+                        </div>
+                      </div>
+                    </div>
+                    <mdb-btn type="submit">Submit form</mdb-btn>
+                  </form>
+                </mdb-container>
+              </template>
+            </code>
+            <code data-lang="html" data-name="script">
+              <script>
+                import { mdbContainer, mdbBtn } from "mdbvue";
+                export default {
+                  name: "InputsPage",
+                  components: {
+                    mdbContainer,
+                    mdbBtn
+                  },
+                  methods: {
+                    checkForm(event) {
+                      event.preventDefault();
+                      event.target.classList.add('was-validated');
+                    }
+                  }
+                }
+              </script>                
+            </code>
+          </mdbsnippet>
+        </section>
+        <!--/Section: Code-->
+
+      </div>
+      <div class="col-md-6 mb-4">
+  
+        <!--Title-->
+        <h2 class="secondary-heading mb-3">
+          Material styles <a href="https://mdbootstrap.com/products/vue-ui-kit/" target="_blank" class="btn btn-danger btn-sm"
+            role="button">MDB Pro component
+            <i class="far fa-gem ml-1"></i>
+          </a>
+        </h2>
+
+              <!--Section: Live preview-->
+      <section class="section-preview">
+
+          <form class="needs-validation" novalidate>
+            <div class="form-row">
+              <div class="col-md-4 mb-3 md-form">
+                <label for="validationCustom012">First name</label>
+                <input type="text" class="form-control" id="validationCustom012" placeholder="First name" value="Mark"
+                  required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-3 md-form">
+                <label for="validationCustom022">Last name</label>
+                <input type="text" class="form-control" id="validationCustom022" value="Otto" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-3 md-form">
+                <label for="validationCustomUsername2">Username</label>
+                <input type="text" class="form-control" id="validationCustomUsername2" aria-describedby="inputGroupPrepend2"
+                  required>
+                <div class="invalid-feedback">
+                  Please choose a username.
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3 md-form">
+                <label for="validationCustom032">City</label>
+                <input type="text" class="form-control" id="validationCustom032" required>
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3 md-form">
+                <label for="validationCustom042">State</label>
+                <input type="text" class="form-control" id="validationCustom042" required>
+                <div class="invalid-feedback">
+                  Please provide a valid state.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3 md-form">
+                <label for="validationCustom052">Zip</label>
+                <input type="text" class="form-control" id="validationCustom052" required>
+                <div class="invalid-feedback">
+                  Please provide a valid zip.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check pl-0">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                <label class="form-check-label" for="invalidCheck2">
+                  Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm btn-rounded" type="submit">Submit form</button>
+          </form>
+        </section>
+        <!--Section: Live preview-->
+  
+        <!--Section: Code-->
+        <section>
+          <mdbsnippet>
+  
+            <code data-lang="html" data-name="template">
+  
+              <template>
+                <form novalidate @submit.prevent="checkForm">
+                  <div class="form-row">
+                    <div class="col-md-4">
+                      <mdb-input type="text" id="validationCustom10" placeholder="First name" label="First name" value="Mark" required validFeedback="Look's good." />
+                    </div>
+                    <div class="col-md-4">
+                      <mdb-input type="text" id="validationCustom11" placeholder="Last name" label="Last name" value="Otto" required validFeedback="Look's good." />
+                    </div>
+                    <div class="col-md-4">
+                      <mdb-input type="text" id="validationCustom12" placeholder="Username" label="Username" required invalidFeedback="Please choose a username." />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <mdb-input type="text" id="validationCustom13" placeholder="City" label="City" required invalidFeedback="Please provide a valid city." />
+                    </div>
+                    <div class="col-md-3">
+                      <mdb-input type="text" id="validationCustom14" placeholder="State" label="State" required invalidFeedback="Please provide a valid state." />
+                    </div>
+                    <div class="col-md-3">
+                      <mdb-input type="text" id="validationCustom15" placeholder="Zip" label="Zip" required invalidFeedback="Please provide a valid zip." />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <mdb-input type="checkbox" class="pl-0" id="invalidCheck" label="Agree to terms and conditions" required invalidFeedback="You must agree before submitting." />
+                  </div>
+                  <mdb-btn type="submit">Submit form</mdb-btn>
+                </form>
+              </template>
+
+            </code>
+  
+            <code data-lang="html" data-name="script">
+
+              <script>
+                import { mdbContainer, mdbBtn, mdbIcon, mdbRow, mdbCol, mdbInput } from "mdbvue";
+                
+                export default {
+                  name: "ValidationPagePro",
+                  components: {
+                    mdbContainer,
+                    mdbBtn,
+                    mdbIcon,
+                    mdbRow,
+                    mdbCol,
+                    mdbInput
+                  },
+                  methods: {
+                    checkForm(event) {
+                      event.target.classList.add('was-validated');
+                    }
+                  }
+                };
+                  
+              </script>
+  
+            </code>
+          </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+
+      </div>
+  </div>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="browser-defaults">
+
+    <!--Title-->
+    <h2 class="title mb-4"><strong>Browser defaults</strong></h2>
+
+    <!--Description-->
+    <p class="description mb-4">Not interested in custom validation feedback messages or writing JavaScript to change form behaviors? All good, you can use the browser defaults. Try submitting the form below. Depending on your browser and OS, you’ll see a slightly different style of feedback.</p>
+
+    <p class="description mb-4">While these feedback styles cannot be styled with CSS, you can still customize the feedback text through JavaScript.</p>
+   
+    <div class="row">
+      <div class="col-md-6">
+          <h2 class="secondary-heading mb-3">Default styles</h2>
+          <!--Section: Live preview-->
+          <section class="section-preview">
+    
+            <form>
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="validationDefault01">First name</label>
+                  <input type="text" class="form-control" id="validationDefault01" placeholder="First name" value="Mark"
+                    required>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationDefault02">Last name</label>
+                  <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto"
+                    required>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationDefaultUsername">Username</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                    </div>
+                    <input type="text" class="form-control" id="validationDefaultUsername" placeholder="Username"
+                      aria-describedby="inputGroupPrepend2" required>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="validationDefault03">City</label>
+                  <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="validationDefault04">State</label>
+                  <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="validationDefault05">Zip</label>
+                  <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                  <label class="form-check-label" for="invalidCheck2">
+                    Agree to terms and conditions
+                  </label>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm" type="submit">Submit form</button>
+            </form>
+    
+          </section>
+          <!--Section: Live preview-->
+
+          <!--Section: Code-->
+          <section>
+            <mdbsnippet>
+              <code data-lang="html" data-name="template">
+                <template>
+                  <mdb-container class="mt-5">
+                    <form>
+                      <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                          <label for="validationCustom01">First name</label>
+                          <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="validationCustom02">Last name</label>
+                          <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="validationCustomUsername">Username</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroupPrepend">@</span>
+                            </div>
+                            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                          <label for="validationCustom03">City</label>
+                          <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                          <label for="validationCustom04">State</label>
+                          <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                          <label for="validationCustom05">Zip</label>
+                          <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="form-check pl-0">
+                          <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                          <label class="form-check-label" for="invalidCheck">
+                            Agree to terms and conditions
+                          </label>
+                        </div>
+                      </div>
+                      <mdb-btn type="submit">Submit form</mdb-btn>
+                    </form>
+                  </mdb-container>
+                </template>
+              </code>
+              <code data-lang="html" data-name="script">
+                <script>
+                  import { mdbContainer, mdbBtn } from "mdbvue";
+                  export default {
+                    name: "InputsPage",
+                    components: {
+                      mdbContainer,
+                      mdbBtn
+                    }
+                  }
+                </script>
+              </code>
+            </mdbsnippet>
+          </section>
+          <!--/Section: Code-->
+
+        </div>
+
+
+        <div class="col-md-6">
+            <h2 class="secondary-heading mb-3">Material styles<a href="https://mdbootstrap.com/products/vue-ui-kit/"
+                target="_blank" class="btn btn-danger btn-sm" role="button">MDB Pro component
+                <i class="far fa-gem ml-1"></i>
+              </a></h2>
+            <!--Section: Live preview-->
+            <section class="section-preview">
+      
+              <form>
+                <div class="form-row">
+                  <div class="col-md-4 mb-3 md-form">
+                    <label for="validationDefault22">First name</label>
+                    <input type="text" class="form-control" id="validationDefault22" value="Mark" required>
+                  </div>
+                  <div class="col-md-4 mb-3 md-form">
+                    <label for="validationDefault22">Last name</label>
+                    <input type="text" class="form-control" id="validationDefault22" value="Otto" required>
+                  </div>
+                  <div class="col-md-4 mb-3 md-form">
+                    <label for="validationDefaultUsername22">Username</label>
+                    <input type="text" class="form-control" id="validationDefaultUsername22" aria-describedby="inputGroupPrepend23"
+                      required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3 md-form">
+                    <label for="validationDefault22">City</label>
+                    <input type="text" class="form-control" id="validationDefault22" required>
+                  </div>
+                  <div class="col-md-3 mb-3 md-form">
+                    <label for="validationDefault22">State</label>
+                    <input type="text" class="form-control" id="validationDefault22" required>
+                  </div>
+                  <div class="col-md-3 mb-3 md-form">
+                    <label for="validationDefault22">Zip</label>
+                    <input type="text" class="form-control" id="validationDefault22" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-check pl-0">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck222" required>
+                    <label class="form-check-label" for="invalidCheck222">
+                      Agree to terms and conditions
+                    </label>
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-sm btn-rounded" type="submit">Submit form</button>
+              </form>
+      
+            </section>
+            <!--Section: Live preview-->
+      
+            <!--Section: Code-->
+            <section>
+              <mdbsnippet>
+      
+                <code data-lang="html" data-name="template">
+                  <template>
+                    <form>
+                      <div class="form-row">
+                        <div class="col-md-4">
+                          <mdb-input type="text" id="validationCustom1" placeholder="First name" label="First name" value="Mark" required validFeedback="Look's good." />
+                        </div>
+                        <div class="col-md-4">
+                          <mdb-input type="text" id="validationCustom2" placeholder="Last name" label="Last name" value="Otto" required validFeedback="Look's good." />
+                        </div>
+                        <div class="col-md-4">
+                          <mdb-input type="text" id="validationCustom3" placeholder="Username" label="Username" required invalidFeedback="Please choose a username." />
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col-md-6">
+                          <mdb-input type="text" id="validationCustom4" placeholder="City" label="City" required invalidFeedback="Please provide a valid city." />
+                        </div>
+                        <div class="col-md-3">
+                          <mdb-input type="text" id="validationCustom5" placeholder="State" label="State" required invalidFeedback="Please provide a valid state." />
+                        </div>
+                        <div class="col-md-3">
+                          <mdb-input type="text" id="validationCustom6" placeholder="Zip" label="Zip" required invalidFeedback="Please provide a valid zip." />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <mdb-input type="checkbox" class="pl-0" id="invalidCheck2" label="Agree to terms and conditions" required invalidFeedback="You must agree before submitting." />
+                      </div>
+                      <mdb-btn type="submit">Submit form</mdb-btn>
+                    </form>
+                  </template>
+                </code>
+      
+                <code data-lang="html" data-name="script">
+                  <script>
+                    import { mdbContainer, mdbBtn, mdbIcon, mdbRow, mdbCol, mdbInput } from "mdbvue";
+                    
+                    export default {
+                      name: "ValidationPagePro",
+                      components: {
+                        mdbContainer,
+                        mdbBtn,
+                        mdbIcon,
+                        mdbRow,
+                        mdbCol,
+                        mdbInput
+                      }
+                    };
+                  </script>
+                </code>
+      
+              </mdbsnippet>
+            </section>
+            <!--Section: Code-->
+
+      </div>
+    </div>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="server-side">
+
+    <!--Title-->
+    <h2 class="title mb-4"><strong>Server side</strong></h2>
+
+    <!--Description-->
+    <p class="description mb-4">We recommend using client side validation, but in case you require server side, you can indicate invalid and valid form fields with <code>.is-invalid</code> and <code>.is-valid</code>. Note that <code>.invalid-feedback</code> is also supported with these classes.</p>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="secondary-heading mb-3">Default styles</h2>
+        <!--Section: Live preview-->
+        <section class="section-preview">
+  
+          <form>
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationServer013">First name</label>
+                <input type="text" class="form-control is-valid" id="validationServer013" placeholder="First name" value="Mark"
+                  required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationServer023">Last name</label>
+                <input type="text" class="form-control is-valid" id="validationServer023" placeholder="Last name" value="Otto"
+                  required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationServerUsername33">Username</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend33">@</span>
+                  </div>
+                  <input type="text" class="form-control is-invalid" id="validationServerUsername33" placeholder="Username"
+                    aria-describedby="inputGroupPrepend33" required>
+                  <div class="invalid-feedback">
+                    Please choose a username.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="validationServer033">City</label>
+                <input type="text" class="form-control is-invalid" id="validationServer033" placeholder="City" required>
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationServer043">State</label>
+                <input type="text" class="form-control is-invalid" id="validationServer043" placeholder="State" required>
+                <div class="invalid-feedback">
+                  Please provide a valid state.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationServer053">Zip</label>
+                <input type="text" class="form-control is-invalid" id="validationServer053" placeholder="Zip" required>
+                <div class="invalid-feedback">
+                  Please provide a valid zip.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input is-invalid" id="invalidCheck33" required>
+                <label class="custom-control-label" for="invalidCheck33">Agree to terms and conditions</label>
+                <div class="invalid-feedback">
+                  You must agree before submitting.
+                </div>
+              </div>
+              <div class="invalid-feedback">
+                You must agree before submitting.
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" type="submit">Submit form</button>
+          </form>
+  
+        </section>
+        <!--Section: Live preview-->
+          
+        <!--Section: Code-->
+        <section>
+          <mdbsnippet>
+            <code data-lang="html" data-name="template">
+              <template>
+                <mdb-container class="mt-5">
+                  <form class="needs-validation" novalidate @submit="checkForm">
+                    <div class="form-row">
+                      <div class="col-md-4 mb-3">
+                        <label for="validationCustom01">First name</label>
+                        <input type="text" class="form-control is-valid" id="validationCustom01" placeholder="First name" value="Mark" required>
+                        <div class="valid-feedback">
+                          Looks good!
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="validationCustom02">Last name</label>
+                        <input type="text" class="form-control is-valid" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                        <div class="valid-feedback">
+                          Looks good!
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="validationCustomUsername">Username</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                          </div>
+                          <input type="text" class="form-control is-invalid" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+                          <div class="invalid-feedback">
+                            Please choose a username.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-6 mb-3">
+                        <label for="validationCustom03">City</label>
+                        <input type="text" class="form-control is-invalid" id="validationCustom03" placeholder="City" required>
+                        <div class="invalid-feedback">
+                          Please provide a valid city.
+                        </div>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <label for="validationCustom04">State</label>
+                        <input type="text" class="form-control is-invalid" id="validationCustom04" placeholder="State" required>
+                        <div class="invalid-feedback">
+                          Please provide a valid state.
+                        </div>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <label for="validationCustom05">Zip</label>
+                        <input type="text" class="form-control is-invalid" id="validationCustom05" placeholder="Zip" required>
+                        <div class="invalid-feedback">
+                          Please provide a valid zip.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-check pl-0">
+                        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck" required>
+                        <label class="form-check-label" for="invalidCheck">
+                          Agree to terms and conditions
+                        </label>
+                        <div class="invalid-feedback">
+                          You must agree before submitting.
+                        </div>
+                      </div>
+                    </div>
+                    <mdb-btn type="submit">Submit form</mdb-btn>
+                  </form>
+                </mdb-container>
+              </template>
+            </code>
+            <code data-lang="html" data-name="script">
+              <script>
+                import { mdbContainer, mdbBtn } from "mdbvue";
+                export default {
+                  name: "InputsPage",
+                  components: {
+                    mdbContainer,
+                    mdbBtn
+                  },
+                  methods: {
+                    checkForm(event) {
+                      event.preventDefault();
+                      event.target.classList.add('was-validated');
+                    }
+                  }
+                }
+              </script>
+            </code>
+          </mdbsnippet>
+        </section>
+        <!--/Section: Code-->
+
+
+      </div>
+      <div class="col-md-6">
+        <h2 class="secondary-heading mb-3">Material styles</h2>
+        <!--Section: Live preview-->
+        <section class="section-preview">
+  
+          <form>
+            <div class="form-row">
+              <div class="col-md-4 mb-3 md-form">
+                <label for="validationServer015">First name</label>
+                <input type="text" class="form-control is-valid" id="validationServer015" value="Mark" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-3 md-form">
+                <label for="validationServer025">Last name</label>
+                <input type="text" class="form-control is-valid" id="validationServer025" value="Otto" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-3 md-form">
+                <label for="validationServerUsername55">Username</label>
+                <input type="text" class="form-control is-invalid" id="validationServerUsername55" required>
+                <div class="invalid-feedback">
+                  Please choose a username.
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3 md-form">
+                <label for="validationServer035">City</label>
+                <input type="text" class="form-control is-invalid" id="validationServer035" required>
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3 md-form">
+                <label for="validationServer045">State</label>
+                <input type="text" class="form-control is-invalid" id="validationServer045" required>
+                <div class="invalid-feedback">
+                  Please provide a valid state.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3 md-form">
+                <label for="validationServer055">Zip</label>
+                <input type="text" class="form-control is-invalid" id="validationServer055" required>
+                <div class="invalid-feedback">
+                  Please provide a valid zip.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check pl-0 md-form m-0">
+                <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck35" required>
+                <label class="form-check-label" for="invalidCheck35">
+                  Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback mt-3 ml-4">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm btn-rounded" type="submit">Submit form</button>
+          </form>
+        </section>
+        <!--Section: Live preview-->
+  
+        <!--Section: Code-->
+        <section>
+          <mdbsnippet>
+  
+            <code data-lang="html" data-name="template">
+              <template>
+                <form class="was-validated" novalidate>
+                  <div class="form-row">
+                    <div class="col-md-4">
+                      <mdb-input type="text" id="validationCustom21" placeholder="First name" label="First name" value="Mark" required
+                        validFeedback="Look's good." />
+                    </div>
+                    <div class="col-md-4">
+                      <mdb-input type="text" id="validationCustom22" placeholder="Last name" label="Last name" value="Otto" required
+                        validFeedback="Look's good." />
+                    </div>
+                    <div class="col-md-4">
+                      <mdb-input type="text" id="validationCustom23" placeholder="Username" label="Username" required
+                        invalidFeedback="Please choose a username." />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <mdb-input type="text" id="validationCustom24" placeholder="City" label="City" required
+                        invalidFeedback="Please provide a valid city." />
+                    </div>
+                    <div class="col-md-3">
+                      <mdb-input type="text" id="validationCustom25" placeholder="State" label="State" required
+                        invalidFeedback="Please provide a valid state." />
+                    </div>
+                    <div class="col-md-3">
+                      <mdb-input type="text" id="validationCustom26" placeholder="Zip" label="Zip" required
+                        invalidFeedback="Please provide a valid zip." />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <mdb-input type="checkbox" class="pl-0" id="invalidCheck22" label="Agree to terms and conditions" required
+                      invalidFeedback="You must agree before submitting." />
+                  </div>
+                  <mdb-btn type="submit">Submit form</mdb-btn>
+                </form>
+              </template>
+            </code>
+  
+            <code data-lang="html" data-name="script">
+              <script>
+                import { mdbContainer, mdbBtn, mdbIcon, mdbRow, mdbCol, mdbInput } from "mdbvue";
+
+                export default {
+                  name: "ValidationPagePro",
+                  components: {
+                    mdbContainer,
+                    mdbBtn,
+                    mdbIcon,
+                    mdbRow,
+                    mdbCol,
+                    mdbInput
+                  }
+                };
+              </script>
+            </code>
+  
+          </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+  
+      </div>
+    </div>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="supported-elements">
+
+    <!--Title-->
+    <h2 class="title mb-4"><strong>Supported elements</strong></h2>
+
+    <!--Description-->
+    <p class="description mb-4">Our example forms show native textual <code>&lt;input&gt;</code>s above, but form validation styles are available for our custom form controls, too.</p>
+
+    <div class="row">
+      <div class="col-md-6">
+          <h2 class="secondary-heading">
+            Default styles
+          </h2>
+          <!--Section: Live preview-->
+          <section class="section-preview">
+    
+            <form class="was-validated">
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+                <label class="custom-control-label" for="customControlValidation1">Check this custom checkbox</label>
+                <div class="invalid-feedback">Example invalid feedback text</div>
+              </div>
+    
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked"
+                  required>
+                <label class="custom-control-label" for="customControlValidation2">Toggle this custom radio</label>
+              </div>
+              <div class="custom-control custom-radio mb-3">
+                <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked"
+                  required>
+                <label class="custom-control-label" for="customControlValidation3">Or toggle this other custom radio</label>
+                <div class="invalid-feedback">More example invalid feedback text</div>
+              </div>
+    
+              <div class="form-group">
+                <select class="custom-select browser-default" required>
+                  <option value="">Open this select menu</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+                <div class="invalid-feedback">Example invalid custom select feedback</div>
+              </div>
+    
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+              </div>
+            </form>
+    
+    
+          </section>
+          <!--Section: Live preview-->
+
+          <!--Section: Code-->
+          <section>
+            <mdbsnippet>
+              <code data-lang="html" data-name="template">
+                <template>
+                  <mdb-container class="mt-5">
+                    <!-- Supported elements -->
+                    <hr class="my-5">
+                    <h2 class="my-5">Supported elements</h2>
+                    <form class="was-validated">
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+                        <label class="custom-control-label" for="customControlValidation1">Check this custom checkbox</label>
+                        <div class="invalid-feedback">Example invalid feedback text</div>
+                      </div>
+
+                      <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required>
+                        <label class="custom-control-label" for="customControlValidation2">Toggle this custom radio</label>
+                      </div>
+                      <div class="custom-control custom-radio mb-3">
+                        <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked" required>
+                        <label class="custom-control-label" for="customControlValidation3">Or toggle this other custom radio</label>
+                        <div class="invalid-feedback">More example invalid feedback text</div>
+                      </div>
+
+                      <div class="form-group">
+                        <select class="custom-select browser-default" required>
+                          <option value="">Open this select menu</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                        <div class="invalid-feedback">Example invalid custom select feedback</div>
+                      </div>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                      </div>
+                    </form>
+                  </mdb-container>
+                </template>
+              </code>
+              <code data-lang="html" data-name="script">
+                <script>
+                  import { mdbContainer } from "mdbvue";
+                  export default {
+                    name: "InputsPage",
+                    components: {
+                      mdbContainer
+                    },
+                    methods: {
+                      checkForm(event) {
+                        event.preventDefault();
+                        event.target.classList.add('was-validated');
+                      }
+                    }
+                  }
+                </script>
+              </code>
+            </mdbsnippet>
+          </section>
+          <!--/Section: Code-->
+          
+        </div>
+        <div class="col-md-6">
+
+          <!--Title-->
+          <h3 class="secondary-heading mb-3">
+            Material styles
+            <a href="https://mdbootstrap.com/products/vue-ui-kit/" target="_blank" class="btn btn-danger btn-sm" role="button">MDB
+              Pro component
+              <i class="far fa-gem ml-1"></i>
+            </a>
+          </h3>
+          <!--Section: Live preview-->
+          <section class="section-preview">
+
+            <form class="was-validated">
+              <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="customControlValidation11" required>
+                <label class="form-check-label" for="customControlValidation11">Check this material checkbox</label>
+                <div class="invalid-feedback">Example invalid feedback text</div>
+              </div>
+
+              <div class="form-check">
+                <input type="radio" class="form-check-input" id="customControlValidation21" name="radio-stacked" required>
+                <label class="form-check-label" for="customControlValidation21">Toggle this material radio</label>
+              </div>
+              <div class="form-check mb-3">
+                <input type="radio" class="form-check-input" id="customControlValidation31" name="radio-stacked" required>
+                <label class="form-check-label" for="customControlValidation31">Or toggle this other material radio</label>
+                <div class="invalid-feedback">More example invalid feedback text</div>
+              </div>
+
+              <div class="file-field md-form">
+                <div class="btn btn-primary btn-sm btn-sm float-left">
+                  <span>Choose file</span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" id="validatedCustomFile11" type="text" placeholder="Upload your file"
+                    required>
+                  <div class="invalid-feedback">Example invalid custom file feedback</div>
+                </div>
+              </div>
+
+            </form>
+
+          </section>
+          <!--Section: Live preview-->
+
+          <!--Section: Code-->
+          <section>
+            <mdbsnippet>
+
+              <code data-lang="html" data-name="template">
+                <template>
+                  <form class="was-validated">
+                    <mdb-input type="checkbox" id="customControlValidation31" required label="Check this custom checkbox"
+                      invalidFeedback="Example invalid feedback text" />
+                    <mdb-input type="radio" class="mt-3" id="option1-1" name="option1" label="Toggle this material radio" required />
+                    <mdb-input type="radio" id="option1-2" name="option1" label="Or toggle this other material radio" required
+                      invalidFeedback="Example invalid feedback text" />
+                    <mdb-file-input btnColor="primary" />
+                  </form>
+                </template>
+              </code>
+
+              <code data-lang="html" data-name="script">
+                <script>
+                import { mdbInput, mdbFileInput } from "mdbvue";
+
+                export default {
+                  name: "ValidationPagePro",
+                  components: {
+                    mdbInput,
+                    mdbFileInput
+                  }
+                };
+                </script>
+              </code>
+
+            </mdbsnippet>
+          </section>
+          <!--Section: Code-->
+
+    </div>
+  </div>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="tooltips">
+
+    <!--Title-->
+    <h2 class="title mb-4"><strong>Tooltips</strong></h2>
+
+    <!--Description-->
+    <p class="description mb-4">If your form layout allows it, you can swap the <code>.{valid|invalid}-feedback</code> classes for <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a styled tooltip. Be sure to have a parent with <code>position: relative</code> on it for tooltip positioning. In the example below, our column classes have this already, but your project may require an alternative setup.</p>
+
+    <!--Section: Live preview-->
+    <section class="mb-5">
+
+      <form class="needs-validation" novalidate>
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="validationTooltip01">First name</label>
+            <input type="text" class="form-control" id="validationTooltip01" placeholder="First name" value="Mark" required>
+            <div class="valid-tooltip">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="validationTooltip02">Last name</label>
+            <input type="text" class="form-control" id="validationTooltip02" placeholder="Last name" value="Otto" required>
+            <div class="valid-tooltip">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="validationTooltipUsername">Username</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+              </div>
+              <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" aria-describedby="validationTooltipUsernamePrepend" required>
+              <div class="invalid-tooltip">
+                Please choose a unique and valid username.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationTooltip03">City</label>
+            <input type="text" class="form-control" id="validationTooltip03" placeholder="City" required>
+            <div class="invalid-tooltip">
+              Please provide a valid city.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="validationTooltip04">State</label>
+            <input type="text" class="form-control" id="validationTooltip04" placeholder="State" required>
+            <div class="invalid-tooltip">
+              Please provide a valid state.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="validationTooltip05">Zip</label>
+            <input type="text" class="form-control" id="validationTooltip05" placeholder="Zip" required>
+            <div class="invalid-tooltip">
+              Please provide a valid zip.
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit form</button>
+      </form>
+
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-container class="mt-5">
+              <!-- Tooltips -->
+              <hr class="my-5">
+              <h2 class="my-5">Tooltips</h2>
+              <form class="needs-validation" novalidate @submit="checkForm">
+                <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationTooltip01">First name</label>
+                    <input type="text" class="form-control" id="validationTooltip01" placeholder="First name" value="Mark" required>
+                    <div class="valid-tooltip">
+                      Looks good!
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationTooltip02">Last name</label>
+                    <input type="text" class="form-control" id="validationTooltip02" placeholder="Last name" value="Otto" required>
+                    <div class="valid-tooltip">
+                      Looks good!
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationTooltipUsername">Username</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+                      </div>
+                      <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" aria-describedby="validationTooltipUsernamePrepend" required>
+                      <div class="invalid-tooltip">
+                        Please choose a unique and valid username.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <label for="validationTooltip03">City</label>
+                    <input type="text" class="form-control" id="validationTooltip03" placeholder="City" required>
+                    <div class="invalid-tooltip">
+                      Please provide a valid city.
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationTooltip04">State</label>
+                    <input type="text" class="form-control" id="validationTooltip04" placeholder="State" required>
+                    <div class="invalid-tooltip">
+                      Please provide a valid state.
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationTooltip05">Zip</label>
+                    <input type="text" class="form-control" id="validationTooltip05" placeholder="Zip" required>
+                    <div class="invalid-tooltip">
+                      Please provide a valid zip.
+                    </div>
+                  </div>
+                </div>
+                <mdb-btn type="submit">Submit form</mdb-btn>
+              </form>
+            </mdb-container>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+          import { mdbContainer, mdbBtn } from "mdbvue";
+          export default {
+            name: "InputsPage",
+            components: {
+              mdbContainer,
+              mdbBtn
+            },
+            methods: {
+              checkForm(event) {
+                event.preventDefault();
+                event.target.classList.add('was-validated');
+              }
+            }
+          }
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="select">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Material Select Validation <a href="https://mdbootstrap.com/products/vue-ui-kit/" target="_blank" class="btn btn-danger btn-sm"
+      role="button">MDB Pro component"<i class="fas fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!-- Description -->
+  <p>
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <form class="needs-validation container" novalidate>
+      <div class="form-row">
+        <div class="mb-3 md-form">
+          <select class="mdb-select" required>
+            <option value="1">USA</option>
+            <option value="2">Germany</option>
+            <option value="3">Poland</option>
+          </select>
+          <div class="invalid-feedback">Please select a country.</div>
+        </div>
+      </div>
+      <div class="form-row mb-4">
+        <div class="form-check pl-0">
+          <input class="form-check-input" type="checkbox" value="" id="invalidCheck29" required>
+          <label class="form-check-label" for="invalidCheck29">Agree to terms and conditions</label>
+          <div class="invalid-feedback">You shall not pass!</div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-sm btn-rounded" type="submit">Submit form</button>
+    </form>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-row>
+            <mdb-col sm="6">
+              <mdb-select v-model="validateOptions" validation ref="validationSelect" />
+              <mdb-btn size="sm" color="danger" @click.native="$refs.validationSelect.reset()">Reset</mdb-btn>
+              <mdb-btn size="sm" color="primary" @click.native="$refs.validationSelect.validate()">Validate</mdb-btn>
+            </mdb-col>
+          </mdb-row>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbBtn, mdbRow, mdbCol, mdbSelect } from "mdbvue";
+          
+          export default {
+            name: "ValidationPagePro",
+            components: {
+              mdbBtn,
+              mdbRow,
+              mdbCol,
+              mdbSelect
+            },
+            data() {
+              return {
+                validateOptions: [
+                  { text: 'Choose your option', value: null, disabled: true, selected: true },
+                  { text: 'Option nr 1', value: 'Option 1' }, 
+                  { text: 'Option nr 2', value: 'Option 2' }, 
+                  { text: 'Option nr 3', value: 'Option 3' }, 
+                  { text: 'Option nr 4', value: 'Option 4' }, 
+                  { text: 'Option nr 5', value: 'Option 5' }
+                ]
+              };
+            }
+          };
+        </script>
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="custom-validation">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Custom validation <a href="https://mdbootstrap.com/products/vue-ui-kit/" target="_blank" class="btn btn-danger btn-sm"
+      role="button">MDB Pro component<i class="fas fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!-- Description -->
+  <p>
+    Here's an example code of custom validation. It could be helpful if You want to apply multiple conditions to Your form inputs.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="template">
+        <template>
+          <form @submit.prevent="validateForm" novalidate>
+            <mdb-input type="text" id="customInput1" label="First name" v-model="customValues.name" :customValidation="validation.name.validated" :isValid="validation.name.valid" @change="validate('name')" required validFeedback="Look's good." invalidFeedback="Please correct." />
+            <mdb-input type="text" id="customInput2" label="Last name" v-model="customValues.lastname" :customValidation="validation.lastname.validated" :isValid="validation.lastname.valid" @change="validate('lastname')" required validFeedback="Look's good." invalidFeedback="Please correct." />
+            <mdb-input type="text" id="customInput3" label="Country" v-model="customValues.country" :customValidation="validation.country.validated" :isValid="validation.country.valid" @change="validate('country')" required validFeedback="Look's good." invalidFeedback="Country should be one of those: USA, France, Poland" />
+            <mdb-row>
+              <mdb-col>
+                <mdb-select v-model="city" :customValidation="validation.city.validated" :isValid="validation.city.valid" @change="validate('city', $event)" ref="select" validFeedback="Look's good." invalidFeedback="Please choose Your city." />
+                <label>City</label>
+              </mdb-col>
+            </mdb-row>
+            <mdb-input type="password" id="customInput4" label="Password" v-model="customValues.password" :customValidation="validation.password.validated" :isValid="validation.password.valid" @change="validate('password')" required validFeedback="Look's good." :invalidFeedback="validation.password.invalidFeedback" />
+            <mdb-input class="pl-0 mb-3" type="checkbox" id="customInput5" v-model="customValues.checkbox" :customValidation="validation.checkbox.validated" :isValid="validation.checkbox.valid" @change="validate('checkbox')" required label="Check this custom checkbox" validFeedback="Correct" invalidFeedback="Please check me" />
+            <mdb-btn type="Submit" size="sm" color="danger">Submit</mdb-btn>
+          </form>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbBtn, mdbRow, mdbCol, mdbInput, mdbSelect } from "mdbvue";
+
+          export default {
+            name: "ValidationPagePro",
+            components: {
+              mdbBtn,
+              mdbRow,
+              mdbCol,
+              mdbInput,
+              mdbSelect
+            },
+            data() {
+              return {
+                customValues: {
+                  name: 'Matt',
+                  lastname: 'Doe',
+                  country: '',
+                  city: '',
+                  password: '',
+                  checkbox: false
+                },
+                validation: {
+                  name: {
+                    valid: false,
+                    validated: false
+                  },
+                  lastname: {
+                    valid: false,
+                    validated: false
+                  },
+                  country: {
+                    valid: false,
+                    validated: false
+                  },
+                  city: {
+                    valid: false,
+                    validated: false
+                  },
+                  password: {
+                    valid: false,
+                    validated: false,
+                    invalidFeedback: ''
+                  },
+                  checkbox: {
+                    valid: false,
+                    validated: false
+                  }
+                }
+              };
+            },
+            computed: {
+              city() {
+                if (this.customValues.country === 'USA') {
+                  return [
+                    { text: 'Choose your city', value: null, disabled: true, selected: true },
+                    { text: 'Boston', value: 'boston' },      
+                    { text: 'Chicago', value: 'chicago' },      
+                    { text: 'New York', value: 'newYork' } 
+                  ];
+                } else if (this.customValues.country === 'France') {
+                  return [
+                    { text: 'Choose your city', value: null, disabled: true, selected: true },
+                    { text: 'Paris', value: 'paris' },
+                    { text: 'Nantes', value: 'nantes' },
+                    { text: 'Lyon', value: 'lyon' }
+                  ];
+                } else if (this.customValues.country === 'Poland') {
+                  return [
+                    { text: 'Choose your city', value: null, disabled: true, selected: true },
+                    { text: 'Warszawa', value: 'warszawa' },
+                    { text: 'Kraków', value: 'krakow' },
+                    { text: 'Gdańsk', value: 'gdansk' },
+                  ];
+                } 
+                return [
+                  { text: 'Type country first', value: null, disabled: true, selected: true }
+                ];
+              }
+            },
+            methods: {
+              validate(key, value) {
+                if (key === 'name' || key === 'lastname' || key === 'checkbox') {
+                  if (this.customValues[key]) {
+                    this.validation[key].valid = true;
+                  } else {
+                    this.validation[key].valid = false;
+                  }
+                  this.validation[key].validated = true;
+                }
+                if (key === 'country') {
+                  if (['USA', 'France', 'Poland'].includes(this.customValues[key])) {
+                    this.validation[key].valid = true;
+                  } else {
+                    this.validation[key].valid = false;
+                  }
+                  this.validation[key].validated = true;
+                }
+                if (key === 'password') {
+                  // check length
+                  if (this.customValues[key].length > 5) {
+                    // check uppercase
+                    for (let character of this.customValues[key].split('')) {
+                      if (character === character.toUpperCase()) {
+                        this.validation[key].valid = true;
+                        break;
+                      }
+                      this.validation[key].valid = false;
+                      this.validation[key].invalidFeedback = 'Password should contain at least one uppercase character.';
+                    }
+                  } else {
+                    this.validation[key].valid = false;
+                    this.validation[key].invalidFeedback = 'Password too short. Type at least 6 letters.';
+                  }
+                  this.validation[key].validated = true;
+                }
+                if (key === 'city') {
+                  if (value) {
+                    this.validation[key].valid = true;
+                  } else {
+                    this.validation[key].valid = false;
+                  }
+                  this.validation[key].validated = true;
+                }
+              },
+              validateForm() {
+                let city = this.$refs.select.getValues();
+                Object.keys(this.customValues).forEach(key => {
+                  this.validate(key, ...city);
+                });
+              }
+            }
+          };
+        </script>
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->

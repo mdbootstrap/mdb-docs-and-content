@@ -1,0 +1,85 @@
+<!--Section: Tutorial content-->
+<section class="tutorial" id="adding-pwa">
+  <h2 class="title mb-4">
+    <strong>HTTPS & Service workers</strong>
+  </h2>
+
+  <p class="description">
+    Let's talk about the last two requirements that we need to meet before our app becomes installable - https and
+    service workers. As you will see, those two elements are tightly connected.</p>
+
+  <div class="text-center mt-5"> <img class="img-fluid" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/react/tutorials/react-pwa/4/banner.png"
+      alt="Install baner"></div>
+
+
+  <h4 class="mt-5"><strong>What is a service worker?</strong> </h4>
+
+  <p class="description">A service worker is a type of web worker, an exciting concept which has opened modern browsers
+    to the world of offline experiences. In shorts, it is a script that runs on a separate thread, independently from
+    the website. What does it mean?</p>
+
+  <p class="description">When you took your first steps into the world of javascript, you probably saw how infinite
+    loops in your code affected the UI - they blocked the main thread and then the UI freezed.</p>
+
+  <p>Service workers or in general, Javascript workers run in a thread separate to the browser thread. They work
+    independently. You can think of it as <strong>additional computing power</strong>, to which you can delegate some
+    heavy-lifting operations (which otherwise would reduce your website's performance) or tasks which should continue
+    to run even when a user closes the browser.</p>
+
+  <p>Well, it is unlikely you would like to run some infinite loops there, but it's a perfect place for scripts which
+    take care of things such as push notifications or offline access.</p>
+
+  <p>A service worker is a specific type of Javascript worker, which sits between the browser and the network and act
+    as a proxy server. It can intercept requests made by the website and <strong>redirect them to the cache</strong>r.
+    That enables us to use assets previously saved in the browser memory, so <strong>no internet connection is needed</strong>.</p>
+
+  <p>However, before we get too excited, let's talk about their drawbacks.</p>
+
+  <p>As it has been mentioned before, this is a new technology, so it's only supported by modern browsers. Also, the
+    power of service workers comes with a risk, that they can be used for evil purposes. That's why they are restricted
+    to running across HTTPS.</p>
+
+  <p>During development, you'll be able to use service worker through localhost
+    (we can assume, you don't want to hack yourself, do you?). That said, to deploy it on a site you'll need to have
+    <strong>HTTPS setup on your server, for security reasons</strong>.</p>
+
+
+  <h4 class="mt-5"><strong>Service Workers & CRA</strong> </h4>
+
+  <p>Enough talk, let's get to work! Open you project directory and ... wait, we already have there a file called <code>serviceWorker.js</code>.
+    It's provided by the <code>creacte-react-app</code> boilerplate.</p>
+
+  <p>All we have to do is to open src/index.js file and change one line. Change serviceWorker.unregister() to </p>
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="src/index.js">
+            serviceWorker.register();
+          </code>
+  </mdbsnippet>
+
+  <p>We have already deployed our applications to Firebase Hosting, so we also don't need to worry about HTTPS - our
+    domain is already HTTPS-certified. So let's update our hosted app: </p>
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="CLI">
+            npm run deploy
+          </code>
+  </mdbsnippet>
+
+  <p>Now, let's test it. If you open your website, after a few seconds you should see an install banner. Install the
+    app.</p>
+
+  <div class="text-center"> <img class="img-fluid" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/react/tutorials/react-pwa/4/save.png"
+      alt="Install baner"></div>
+
+  <p>Do you see this? Our nice app icon is staring at us from the smartphone's home screen!</p>
+
+  <div class="text-center"> <img class="img-fluid" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/react/tutorials/react-pwa/4/homescreen.png"
+      alt="Homescren View"><br></div>
+
+
+  <p>In the next lesson, we will make our application work offline </p>
+
+  <p class="description">Something doesn't work for you? Then check the code for this lesson in our <a href="https://github.com/mdbootstrap/React-Tutorial-PWA/archive/master.zip">repository</a></p>
+</section>
+<!--Section: Tutorial content

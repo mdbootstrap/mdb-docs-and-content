@@ -1,0 +1,1262 @@
+<!--Section: Intro-->
+<section id="e-introduction">
+
+  <!--Title-->
+  <h2 class="section-heading">React Search - examples & customization</h2>
+
+  <p>Quickly get a project started with any of our examples.</p>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<section id="e-usage-ex">
+  <!--Title-->
+  <h2 id="e-live" class="section-heading mb-4">
+    Example usage of search
+  </h2>
+
+  <p>Example above presents simple implementation of searchable list of elements inside modal.</p>
+
+  <!--Section: Live preview-->
+  <section>
+    <!-- Button trigger modal -->
+    <button id="modalActivate" type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalPreview">
+      Search for country example
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade right" id="exampleModalPreview" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false"
+      aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+      <div class="modal-dialog modal-side modal-sm modal-top-right" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalPreviewLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="md-form mt-0">
+              <input class="form-control" id="searchCountry" type="text" placeholder="Search for country" aria-label="Search">
+            </div>
+            <ul id="countryList" class="list-group">
+
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="js" data-name="JSX">
+
+          import React from "react";
+          import { MDBInput, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBBtn, MDBListGroup, MDBListGroupItem } from "mdbreact";
+          import countries from "./countries";
+
+          class SearchPage extends React.Component {
+            state = {
+              dataSet: countries,
+              filteredSet: countries,
+              searchValue: "",
+              modalOpen: false
+            }
+
+            handleSearch = event => this.setState({ searchValue: event.target.value }, () => this.searchForCountry());
+
+            searchForCountry = () => {
+              this.setState(prevState => {
+                const filteredSet = prevState.dataSet.filter(item => item.toLowerCase().match(this.state.searchValue.toLowerCase()));
+                return { filteredSet };
+              });
+            }
+
+            toggleModal = () => this.setState({ modalOpen: !this.state.modalOpen });
+
+            render() {
+              return (
+                <div>
+                  <MDBBtn onClick={this.toggleModal}>Click to open search modal</MDBBtn>
+
+                  <MDBModal isOpen={this.state.modalOpen} toggle={this.toggleModal} backdrop={false} size="sm" side position="top-right">
+                    <MDBModalHeader toggle={this.toggleModal}>Modal title</MDBModalHeader>
+                    <MDBModalBody>
+                      <MDBInput value={this.state.searchValue} onChange={this.handleSearch} hint="Search for country" type="text" containerClass="mt-0" />
+                      <MDBListGroup>
+                        {
+                          this.state.filteredSet.map(item => (
+                            <MDBListGroupItem key={item}>{item}</MDBListGroupItem>
+                          ))
+                        }
+                      </MDBListGroup>
+                    </MDBModalBody>
+                    <MDBModalFooter>
+                      <MDBBtn color="secondary" onClick={this.toggleModal}>Close</MDBBtn>
+                    </MDBModalFooter>
+                  </MDBModal>
+                </div>
+              );
+            }
+          }
+
+          export default SearchPage;
+      </code>
+
+      <code data-lang="js" data-name="Countries">
+        const countries = [
+          "Afghanistan",
+          "Albania",
+          "Algeria",
+          "Andorra",
+          "Angola",
+          "Antigua and Barbuda",
+          "Argentina",
+          "Armenia",
+          "Australia",
+          "Austria",
+          "Azerbaijan",
+          "Bahamas",
+          "Bahrain",
+          "Bangladesh",
+          "Barbados",
+          "Belarus",
+          "Belgium",
+          "Belize",
+          "Benin",
+          "Bhutan",
+          "Bolivia",
+          "Bosnia and Herzegovina",
+          "Botswana",
+          "Brazil",
+          "Brunei",
+          "Bulgaria",
+          "Burkina Faso",
+          "Burundi",
+          "Cabo Verde",
+          "Cambodia",
+          "Cameroon",
+          "Canada",
+          "Central African Republic (CAR)",
+          "Chad",
+          "Chile",
+          "China",
+          "Colombia",
+          "Comoros",
+          "Costa Rica",
+          "Cote d'Ivoire",
+          "Croatia",
+          "Cuba",
+          "Cyprus",
+          "Czech Republic",
+          "Denmark",
+          "Djibouti",
+          "Dominica",
+          "Dominican Republic",
+          "Ecuador",
+          "Egypt",
+          "El Salvador",
+          "Equatorial Guinea",
+          "Eritrea",
+          "Estonia",
+          "Ethiopia",
+          "Fiji",
+          "Finland",
+          "France",
+          "Gabon",
+          "Gambia",
+          "Georgia",
+          "Germany",
+          "Ghana",
+          "Greece",
+          "Grenada",
+          "Guatemala",
+          "Guinea",
+          "Guinea-Bissau",
+          "Guyana",
+          "Haiti",
+          "Honduras",
+          "Hungary",
+          "Iceland",
+          "India",
+          "Indonesia",
+          "Iran",
+          "Iraq",
+          "Ireland",
+          "Israel",
+          "Italy",
+          "Jamaica",
+          "Japan",
+          "Jordan",
+          "Kazakhstan",
+          "Kenya",
+          "Kiribati",
+          "Kosovo",
+          "Kuwait",
+          "Kyrgyzstan",
+          "Laos",
+          "Latvia",
+          "Lebanon",
+          "Lesotho",
+          "Liberia",
+          "Libya",
+          "Liechtenstein",
+          "Lithuania",
+          "Luxembourg",
+          "Macedonia (FYROM)",
+          "Madagascar",
+          "Malawi",
+          "Malaysia",
+          "Maldives",
+          "Mali",
+          "Malta",
+          "Marshall Islands",
+          "Mauritania",
+          "Mauritius",
+          "Mexico",
+          "Micronesia",
+          "Moldova",
+          "Monaco",
+          "Mongolia",
+          "Montenegro",
+          "Morocco",
+          "Mozambique",
+          "Myanmar (Burma)",
+          "Namibia",
+          "Nauru",
+          "Nepal",
+          "Netherlands",
+          "New Zealand",
+          "Nicaragua",
+          "Niger",
+          "Nigeria",
+          "North Korea",
+          "Norway",
+          "Oman",
+          "Pakistan",
+          "Palau",
+          "Palestine",
+          "Panama",
+          "Papua New Guinea",
+          "Paraguay",
+          "Peru",
+          "Philippines",
+          "Poland",
+          "Portugal",
+          "Qatar",
+          "Romania",
+          "Russia",
+          "Rwanda",
+          "Saint Kitts and Nevis",
+          "Saint Lucia",
+          "Saint Vincent and the Grenadines",
+          "Samoa",
+          "San Marino",
+          "Sao Tome and Principe",
+          "Saudi Arabia",
+          "Senegal",
+          "Serbia",
+          "Seychelles",
+          "Sierra Leone",
+          "Singapore",
+          "Slovakia",
+          "Slovenia",
+          "Solomon Islands",
+          "Somalia",
+          "South Africa",
+          "South Korea",
+          "South Sudan",
+          "Spain",
+          "Sri Lanka",
+          "Sudan",
+          "Suriname",
+          "Swaziland",
+          "Sweden",
+          "Switzerland",
+          "Syria",
+          "Taiwan",
+          "Tajikistan",
+          "Tanzania",
+          "Thailand",
+          "Timor-Leste",
+          "Togo",
+          "Tonga",
+          "Trinidad and Tobago",
+          "Tunisia",
+          "Turkey",
+          "Turkmenistan",
+          "Tuvalu",
+          "Uganda",
+          "Ukraine",
+          "United Arab Emirates (UAE)",
+          "United Kingdom (UK)",
+          "United States of America (USA)",
+          "Uruguay",
+          "Uzbekistan",
+          "Vanuatu",
+          "Vatican City (Holy See)",
+          "Venezuela",
+          "Vietnam",
+          "Yemen",
+          "Zambia",
+          "Zimbabwe"
+        ];
+
+        export default countries;
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <hr class="my-5">
+
+  <!--Title-->
+  <h2 id="e-animation" class="section-heading mb-4">
+    Search with colorful border
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+    <!-- Search form -->
+    <div class="md-form active-purple active-purple-2 mb-3">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+    <!-- Search form -->
+    <div class="md-form active-cyan active-cyan-2 mb-3">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+
+    <!-- Search form -->
+    <div class="md-form active-pink-2 mb-3">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+    <!-- Search form -->
+    <div class="md-form active-purple-2 mb-3">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+    <!-- Search form -->
+    <div class="md-form active-cyan-2 mb-3">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+
+    <!-- Search form -->
+    <div class="active-pink-3 active-pink-4 mb-4">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+    <!-- Search form -->
+    <div class="active-purple-3 active-purple-4 mb-4">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+    <!-- Search form -->
+    <div class="active-cyan-3 active-cyan-4 mb-4">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+
+    <!-- Search form -->
+    <div class="active-pink-4 mb-4">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+    <!-- Search form -->
+    <div class="active-purple-4 mb-4">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+    <!-- Search form -->
+    <div class="active-cyan-4 mb-4">
+      <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="JSX">
+            import React from "react";
+            import { MDBInput, MDBContainer } from "mdbreact";
+            import "./index.css"
+
+            const SearchPage = () => {
+              return (
+                <MDBContainer>
+                  <MDBInput hint="Search" type="text" containerClass="active-pink active-pink-2 mt-0 mb-3" />
+                  <MDBInput hint="Search" type="text" containerClass="active-purple active-purple-2 mt-0 mb-3" />
+                  <MDBInput hint="Search" type="text" containerClass="active-cyan active-cyan-2 mt-0 mb-3" />
+                  <MDBInput hint="Search" type="text" containerClass="active-pink-2 mt-0 mb-3" />
+                  <MDBInput hint="Search" type="text" containerClass="active-purple-2 mt-0 mb-3" />
+                  <MDBInput hint="Search" type="text" containerClass="active-cyan-2 active-purple-2 mt-0 mb-3" />
+                  <div className="active-pink-3 active-pink-4 mb-3">
+                    <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
+                  </div>
+                  <div className="active-purple-3 active-purple-4 mb-3">
+                    <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
+                  </div>
+                  <div className="active-cyan-3 active-cyan-4 mb-3">
+                    <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
+                  </div>
+                  <div className="active-pink-4 mb-3">
+                    <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
+                  </div>
+                  <div className="active-purple-4 mb-3">
+                    <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
+                  </div>
+                  <div className="active-cyan-4 mb-3">
+                    <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
+                  </div>
+                </MDBContainer>
+              );
+            }
+
+            export default SearchPage;
+        </code>
+      <code data-lang="css" data-name="CSS">
+          .active-pink input[type=text] {
+              border-bottom: 1px solid #f48fb1;
+              box-shadow: 0 1px 0 0 #f48fb1;
+          }
+          .active-purple-2 input[type=text]:focus:not([readonly]) {
+              border-bottom: 1px solid #ce93d8;
+              box-shadow: 0 1px 0 0 #ce93d8;
+          }
+          .active-purple input[type=text] {
+              border-bottom: 1px solid #ce93d8;
+              box-shadow: 0 1px 0 0 #ce93d8;
+          }
+          .active-cyan-2 input[type=text]:focus:not([readonly]) {
+              border-bottom: 1px solid #4dd0e1;
+              box-shadow: 0 1px 0 0 #4dd0e1;
+          }
+          .active-cyan input[type=text] {
+              border-bottom: 1px solid #4dd0e1;
+              box-shadow: 0 1px 0 0 #4dd0e1;
+          }
+          .active-pink-4 input[type=text]:focus:not([readonly]) {
+              border: 1px solid #f48fb1;
+              box-shadow: 0 0 0 1px #f48fb1;
+          }
+          .active-pink-3 input[type=text] {
+              border: 1px solid #f48fb1;
+              box-shadow: 0 0 0 1px #f48fb1;
+          }
+          .active-purple-4 input[type=text]:focus:not([readonly]) {
+              border: 1px solid #ce93d8;
+              box-shadow: 0 0 0 1px #ce93d8;
+          }
+          .active-purple-3 input[type=text] {
+              border: 1px solid #ce93d8;
+              box-shadow: 0 0 0 1px #ce93d8;
+          }
+          .active-cyan-4 input[type=text]:focus:not([readonly]) {
+              border: 1px solid #4dd0e1;
+              box-shadow: 0 0 0 1px #4dd0e1;
+          }
+          .active-cyan-3 input[type=text] {
+              border: 1px solid #4dd0e1;
+              box-shadow: 0 0 0 1px #4dd0e1;
+          }
+        </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+
+<hr class="my-5">
+
+<section id="e-with-icon">
+
+  <!--Title-->
+  <h2 id="e-animation" class="section-heading mb-4">
+    Search with icon
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <!-- Search form -->
+    <form class="form-inline md-form form-sm active-pink active-pink-2 mt-2" style="flex-flow: row;">
+      <i class="fa fa-search" aria-hidden="true"></i>
+      <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline md-form form-sm active-purple active-purple-2 mt-2" style="flex-flow: row;">
+      <i class="fa fa-search" aria-hidden="true"></i>
+      <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline md-form form-sm active-cyan active-cyan-2 mt-2" style="flex-flow: row;">
+      <i class="fa fa-search" aria-hidden="true"></i>
+      <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline md-form form-sm" style="flex-flow: row;">
+      <input class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search" aria-label="Search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline md-form form-sm active-pink-2 mt-2" style="flex-flow: row;">
+      <input class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search" aria-label="Search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline md-form form-sm active-purple-2 mt-2" style="flex-flow: row;">
+      <input class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search" aria-label="Search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline md-form form-sm active-cyan-2 mt-2" style="flex-flow: row;">
+      <input class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search" aria-label="Search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline mb-4 active-pink-3 active-pink-4" style="flex-flow: row;">
+      <i class="fa fa-search" aria-hidden="true"></i>
+      <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline mb-4 active-purple-3 active-purple-4" style="flex-flow: row;">
+      <i class="fa fa-search" aria-hidden="true"></i>
+      <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline mb-4 active-cyan-3 active-cyan-4" style="flex-flow: row;">
+      <i class="fa fa-search" aria-hidden="true"></i>
+      <input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search">
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline mb-4" style="flex-flow: row;">
+      <input class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search" aria-label="Search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline mb-4 active-pink-4" style="flex-flow: row;">
+      <input class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search" aria-label="Search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline mb-4 active-purple-4" style="flex-flow: row;">
+      <input class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search" aria-label="Search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </form>
+
+    <!-- Search form -->
+    <form class="form-inline mb-4 active-cyan-4" style="flex-flow: row;">
+      <input class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search" aria-label="Search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </form>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="JSX">
+          import React from "react";
+          import { MDBContainer, MDBFormInline, MDBIcon } from "mdbreact";
+          import "./index.css"
+
+          const SearchPage = () => {
+            return (
+              <MDBContainer>
+                <MDBFormInline className="md-form">
+                  <MDBIcon icon="search" />
+                  <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                </MDBFormInline>
+                <MDBFormInline className="md-form active-pink active-pink-2">
+                  <MDBIcon icon="search" />
+                  <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                </MDBFormInline>
+                <MDBFormInline className="md-form active-purple active-purple-2">
+                  <MDBIcon icon="search" />
+                  <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                </MDBFormInline>
+                <MDBFormInline className="md-form active-cyan active-cyan-2 ">
+                  <MDBIcon icon="search" />
+                  <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                </MDBFormInline>
+                <MDBFormInline className="md-form active-pink-2">
+                  <input className="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                  <MDBIcon icon="search" />
+                </MDBFormInline>
+                <MDBFormInline className="md-form active-purple-2">
+                  <input className="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                  <MDBIcon icon="search" />
+                </MDBFormInline>
+                <MDBFormInline className="md-form active-cyan-2 ">
+                  <input className="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                  <MDBIcon icon="search" />
+                </MDBFormInline>
+                <form className="form-inline mt-4 mb-4">
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                  <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                </form>
+                <form className="form-inline active-pink-3 active-pink-4 mb-4">
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                  <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                </form>
+                <form className="form-inline active-purple-3 active-purple-4 mb-4">
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                  <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                </form>
+                <form className="form-inline active-cyan-3 active-cyan-4 mb-4">
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                  <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                </form>
+                <form className="form-inline mb-4">
+                  <input className="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                </form>
+                <form className="form-inline active-pink-4 mb-4">
+                  <input className="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                </form>
+                <form className="form-inline active-purple-4 mb-4">
+                  <input className="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                </form>
+                <form className="form-inline active-cyan-4 mb-4">
+                  <input className="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                </form>
+              </MDBContainer>
+            );
+          }
+
+          export default SearchPage;
+
+      </code>
+      <code data-lang="css" data-name="CSS">
+        .active-pink-2 input[type=text]:focus:not([readonly]) {
+          border-bottom: 1px solid #f48fb1;
+          box-shadow: 0 1px 0 0 #f48fb1;
+        }
+        .active-pink input[type=text] {
+            border-bottom: 1px solid #f48fb1;
+            box-shadow: 0 1px 0 0 #f48fb1;
+        }
+        .active-purple-2 input[type=text]:focus:not([readonly]) {
+            border-bottom: 1px solid #ce93d8;
+            box-shadow: 0 1px 0 0 #ce93d8;
+        }
+        .active-purple input[type=text] {
+            border-bottom: 1px solid #ce93d8;
+            box-shadow: 0 1px 0 0 #ce93d8;
+        }
+        .active-cyan-2 input[type=text]:focus:not([readonly]) {
+            border-bottom: 1px solid #4dd0e1;
+            box-shadow: 0 1px 0 0 #4dd0e1;
+        }
+        .active-cyan input[type=text] {
+            border-bottom: 1px solid #4dd0e1;
+            box-shadow: 0 1px 0 0 #4dd0e1;
+        }
+        .active-cyan .fa, .active-cyan-2 .fa {
+            color: #4dd0e1;
+        }
+        .active-purple .fa, .active-purple-2 .fa {
+            color: #ce93d8;
+        }
+        .active-pink .fa, .active-pink-2 .fa {
+            color: #f48fb1;
+        }
+        .active-pink-4 input[type=text]:focus:not([readonly]) {
+            border: 1px solid #f48fb1;
+            box-shadow: 0 0 0 1px #f48fb1;
+        }
+        .active-pink-3 input[type=text] {
+            border: 1px solid #f48fb1;
+            box-shadow: 0 0 0 1px #f48fb1;
+        }
+        .active-purple-4 input[type=text]:focus:not([readonly]) {
+            border: 1px solid #ce93d8;
+            box-shadow: 0 0 0 1px #ce93d8;
+        }
+        .active-purple-3 input[type=text] {
+            border: 1px solid #ce93d8;
+            box-shadow: 0 0 0 1px #ce93d8;
+        }
+        .active-cyan-4 input[type=text]:focus:not([readonly]) {
+            border: 1px solid #4dd0e1;
+            box-shadow: 0 0 0 1px #4dd0e1;
+        }
+        .active-cyan-3 input[type=text] {
+            border: 1px solid #4dd0e1;
+            box-shadow: 0 0 0 1px #4dd0e1;
+        }
+        .active-cyan-3 .fa, .active-cyan-4 .fa {
+            color: #4dd0e1;
+        }
+        .active-purple-3 .fa, .active-purple-4 .fa {
+            color: #ce93d8;
+        }
+        .active-pink-3 .fa, .active-pink-4 .fa {
+            color: #f48fb1;
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+
+<hr class="my-5">
+
+<section id="e-input-group">
+
+  <!--Title-->
+  <h2 id="e-animation" class="section-heading mb-4">
+    Search with input group
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="input-group md-form form-sm form-1 pl-0">
+      <div class="input-group-prepend">
+        <span class="input-group-text purple lighten-3" id="basic-text1"><i class="fa fa-search text-white" aria-hidden="true"></i></span>
+      </div>
+      <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
+    </div>
+
+    <div class="input-group md-form form-sm form-1 pl-0">
+      <div class="input-group-prepend">
+        <span class="input-group-text cyan lighten-2" id="basic-text1"><i class="fa fa-search text-white" aria-hidden="true"></i></span>
+      </div>
+      <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
+    </div>
+
+    <div class="input-group md-form form-sm form-1 pl-0">
+      <div class="input-group-prepend">
+        <span class="input-group-text pink lighten-3" id="basic-text1"><i class="fa fa-search text-white" aria-hidden="true"></i></span>
+      </div>
+      <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
+    </div>
+
+    <div class="input-group md-form form-sm form-2 pl-0">
+      <input class="form-control my-0 py-1 amber-border" type="text" placeholder="Search" aria-label="Search">
+      <div class="input-group-append">
+        <span class="input-group-text amber lighten-3" id="basic-text1"><i class="fa fa-search text-grey" aria-hidden="true"></i></span>
+      </div>
+    </div>
+
+    <div class="input-group md-form form-sm form-2 pl-0">
+      <input class="form-control my-0 py-1 lime-border" type="text" placeholder="Search" aria-label="Search">
+      <div class="input-group-append">
+        <span class="input-group-text lime lighten-2" id="basic-text1"><i class="fa fa-search text-grey" aria-hidden="true"></i></span>
+      </div>
+    </div>
+
+    <div class="input-group md-form form-sm form-2 pl-0">
+      <input class="form-control my-0 py-1 red-border" type="text" placeholder="Search" aria-label="Search">
+      <div class="input-group-append">
+        <span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search text-grey" aria-hidden="true"></i></span>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBIcon } from "mdbreact";
+        import "./index.css"
+
+        const SearchPage = () => {
+          return (
+            <MDBContainer>
+              <div className="input-group md-form form-sm form-1 pl-0">
+                <div className="input-group-prepend">
+                  <span className="input-group-text purple lighten-3" id="basic-text1">
+                    <MDBIcon icon="search" className="text-grey" />
+                  </span>
+                </div>
+                <input className="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" />
+              </div>
+              <div className="input-group md-form form-sm form-1 pl-0">
+                <div className="input-group-prepend">
+                  <span className="input-group-text cyan lighten-2" id="basic-text1">
+                    <MDBIcon icon="search" className="text-grey" />
+                  </span>
+                </div>
+                <input className="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" />
+              </div>
+              <div className="input-group md-form form-sm form-1 pl-0">
+                <div className="input-group-prepend">
+                  <span className="input-group-text pink lighten-3" id="basic-text1">
+                    <MDBIcon icon="search" className="text-grey" />
+                  </span>
+                </div>
+                <input className="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" />
+              </div>
+              <div className="input-group md-form form-sm form-2 pl-0">
+                <input className="form-control my-0 py-1 amber-border" type="text" placeholder="Search" aria-label="Search" />
+                <div className="input-group-append">
+                  <span className="input-group-text amber lighten-3" id="basic-text1">
+                    <MDBIcon icon="search" className="text-grey" />
+                  </span>
+                </div>
+              </div>
+              <div className="input-group md-form form-sm form-2 pl-0">
+                <input className="form-control my-0 py-1 lime-border" type="text" placeholder="Search" aria-label="Search" />
+                <div className="input-group-append">
+                  <span className="input-group-text lime lighten-2" id="basic-text1">
+                    <MDBIcon icon="search" className="text-grey" />
+                  </span>
+                </div>
+              </div>
+              <div className="input-group md-form form-sm form-2 pl-0">
+                <input className="form-control my-0 py-1 red-border" type="text" placeholder="Search" aria-label="Search" />
+                <div className="input-group-append">
+                  <span className="input-group-text red lighten-3" id="basic-text1">
+                    <MDBIcon icon="search" className="text-grey" />
+                  </span>
+                </div>
+              </div>
+            </MDBContainer>
+          );
+        }
+
+        export default SearchPage;
+      </code>
+      <code data-lang="css" data-name="CSS">
+
+        .input-group.md-form.form-sm.form-1 input{
+          border: 1px solid #bdbdbd;
+          border-top-right-radius: 0.25rem;
+          border-bottom-right-radius: 0.25rem;
+        }
+        .input-group.md-form.form-sm.form-2 input {
+          border: 1px solid #bdbdbd;
+          border-top-left-radius: 0.25rem;
+          border-bottom-left-radius: 0.25rem;
+        }
+        .input-group.md-form.form-sm.form-2 input.red-border  {
+          border: 1px solid #ef9a9a;
+        }
+        .input-group.md-form.form-sm.form-2 input.lime-border  {
+          border: 1px solid #cddc39;
+        }
+        .input-group.md-form.form-sm.form-2 input.amber-border  {
+          border: 1px solid #ffca28;
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+
+<hr class="my-5">
+
+<section id="e-with-buttons">
+
+  <!--Title-->
+  <h2 id="e-animation" class="section-heading mb-4">
+    Search with buttons
+    <a href="https://mdbootstrap.com/product/react-bootstrap-pro/" target="_blank" class="btn btn-danger btn-sm" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-lg-4">
+
+        <form class="form-inline md-form mr-auto">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn blue-gradient btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+        <form class="form-inline md-form mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn aqua-gradient btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+        <form class="form-inline mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn purple-gradient btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+        <form class="form-inline mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn peach-gradient btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-lg-4">
+
+        <form class="form-inline md-form mr-auto">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+        <form class="form-inline md-form mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-warning btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+        <form class="form-inline mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-danger btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+        <form class="form-inline mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-primary btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-lg-4">
+
+        <form class="form-inline md-form mr-auto">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-unique btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+        <form class="form-inline md-form mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-elegant btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+        <form class="form-inline mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-indigo btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+        <form class="form-inline mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-mdb-color btn-rounded btn-sm my-0" type="submit">Search</button>
+        </form>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="JSX">
+        import React from "react";
+        import { MDBContainer, MDBBtn, MDBFormInline } from "mdbreact";
+        import "./index.css"
+
+        const SearchPage = () => {
+          return (
+            <MDBContainer>
+              <MDBFormInline className="md-form mr-auto mb-4">
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn gradient="blue" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn outline color="success" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn color="unique" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+              </MDBFormInline>
+              <MDBFormInline className="md-form mr-auto mb-4">
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn gradient="aqua" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn outline color="warning" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn color="elegant" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+              </MDBFormInline>
+              <MDBFormInline className="mr-auto mb-4">
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn gradient="purple" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn outline color="danger" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn outline color="indigo" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+              </MDBFormInline>
+              <MDBFormInline className="mr-auto mb-4">
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn gradient="peach" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn outline color="primary" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <MDBBtn color="mdb-color" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+              </MDBFormInline>
+            </MDBContainer>
+          );
+        }
+
+        export default SearchPage;
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+
+<hr class="my-5">
+
+<section id="e-within-navbar">
+
+  <!--Title-->
+  <h2 id="e-animation" class="section-heading mb-4">
+    Search within navbar
+    <a href="https://mdbootstrap.com/product/react-bootstrap-pro/" target="_blank" class="btn btn-danger btn-sm" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light blue-grey lighten-5 mb-4">
+
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="#">Navbar</a>
+
+      <!-- Collapse button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link waves-effect waves-light" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light" href="#">Pricing</a>
+          </li>
+
+          <!-- Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item waves-effect waves-light" href="#">Action</a>
+              <a class="dropdown-item waves-effect waves-light" href="#">Another action</a>
+              <a class="dropdown-item waves-effect waves-light" href="#">Something else here</a>
+            </div>
+          </li>
+
+        </ul>
+        <!-- Links -->
+
+        <!-- Search form -->
+        <form class="form-inline">
+          <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+        </form>
+      </div>
+      <!-- Collapsible content -->
+
+    </nav>
+    <!--/.Navbar-->
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark teal lighten-2 mb-4">
+
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="#">Navbar</a>
+
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Search form -->
+        <form class="form-inline ml-auto m-0">
+          <div class="md-form m-0">
+            <input class="form-control mr-sm-2 m-0" type="text" placeholder="Search" aria-label="Search">
+          </div>
+        </form>
+      </div>
+      <!-- Collapsible content -->
+
+    </nav>
+    <!--/.Navbar-->
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark pink lighten-3 mb-4">
+
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Search form -->
+        <form class="form-inline mr-auto my-0">
+          <div class="md-form  m-0">
+            <input class="form-control m-0" type="text" placeholder="Search" aria-label="Search">
+            <i class="fa fa-search text-white ml-3 active" aria-hidden="true"></i>
+          </div>
+        </form>
+
+      </div>
+      <!-- Collapsible content -->
+
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="#">Navbar</a>
+
+    </nav>
+    <!--/.Navbar-->
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark blue lighten-2 mb-4">
+
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <form class="form-inline mr-auto m-0">
+          <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2 waves-effect waves-light" type="submit">Search</button>
+        </form>
+
+      </div>
+      <!-- Collapsible content -->
+
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="#">Navbar</a>
+
+    </nav>
+    <!--/.Navbar-->
+
+  </section>
+
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JSX">
+          import React, { Component } from "react";
+          import { BrowserRouter as Router } from "react-router-dom";
+          import { MDBContainer, MDBNavbar, MDBNavbarToggler, MDBNavbarBrand, MDBCollapse, MDBNavbarNav, MDBNavItem, MDBNavLink,
+          MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownItem, MDBDropdownMenu, MDBIcon, MDBBtn } from "mdbreact";
+
+          class App extends Component {
+          state = {
+            collapsed: false
+          };
+
+          handleTogglerClick = () => {
+            this.setState({
+              collapsed: !this.state.collapsed
+            });
+          };
+
+          handleNavbarClick = () => {
+            this.setState({
+              collapsed: false
+            });
+          };
+
+          render() {
+              return (
+                <Router>
+                  <MDBContainer>
+                    <MDBNavbar color="grey" light className="lighten-5" expand="md">
+                      <MDBNavbarBrand>Navbar</MDBNavbarBrand>
+                      <MDBNavbarToggler onClick={this.handleTogglerClick} />
+                      <MDBCollapse isOpen={this.state.collapsed} navbar>
+                        <MDBNavbarNav left onClick={this.handleNavbarClick}>
+                          <MDBNavItem active>
+                            <MDBNavLink to="#!">Home</MDBNavLink>
+                          </MDBNavItem>
+                          <MDBNavItem>
+                            <MDBNavLink to="#!">Features</MDBNavLink>
+                          </MDBNavItem>
+                          <MDBNavItem>
+                            <MDBNavLink to="#!">Pricing</MDBNavLink>
+                          </MDBNavItem>
+                          <MDBNavItem>
+                            <MDBDropdown>
+                              <MDBDropdownToggle nav caret>
+                                <div className="d-none d-md-inline">MDBDropdown</div>
+                              </MDBDropdownToggle>
+                              <MDBDropdownMenu right>
+                                <MDBDropdownItem href="#!">Action</MDBDropdownItem>
+                                <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
+                                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+                                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+                              </MDBDropdownMenu>
+                            </MDBDropdown>
+                          </MDBNavItem>
+                        </MDBNavbarNav>
+                        <MDBNavbarNav right onClick={this.handleNavbarClick}>
+                          <MDBFormInline className="mr-auto m-0">
+                            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                          </MDBFormInline>
+                        </MDBNavbarNav>
+                      </MDBCollapse>
+                    </MDBNavbar>
+
+                    <MDBNavbar color="teal lighten-2" light className="lighten-5" expand="md">
+                      <MDBNavbarBrand>Navbar</MDBNavbarBrand>
+                      <MDBNavbarNav right onClick={this.handleNavbarClick}>
+                        <MDBFormInline className="md-form mr-auto m-0">
+                          <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                        </MDBFormInline>
+                      </MDBNavbarNav>
+                    </MDBNavbar>
+                    <MDBNavbar color="pink lighten-3" dark className="lighten-5 mt-4" expand="md">
+                      <MDBNavbarNav left onClick={this.handleNavbarClick}>
+                        <MDBFormInline className="md-form m-0">
+                          <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />
+                          <MDBIcon icon="search" />
+                        </MDBFormInline>
+                      </MDBNavbarNav>
+                      <MDBNavbarBrand>Navbar</MDBNavbarBrand>
+                    </MDBNavbar>
+                    <MDBNavbar color="blue lighten-2" dark className="lighten-5" expand="md">
+                      <MDBNavbarNav left onClick={this.handleNavbarClick}>
+                        <MDBFormInline className="mr-auto">
+                          <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                          <MDBBtn color="mdb-color" rounded size="sm" type="submit" className="mr-auto">Search</MDBBtn>
+                        </MDBFormInline>
+                      </MDBNavbarNav>
+                      <MDBNavbarBrand>Navbar</MDBNavbarBrand>
+                    </MDBNavbar>
+                  </MDBContainer>
+                </Router>
+              );
+            }
+          }
+
+          export default App;
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>

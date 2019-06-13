@@ -1,0 +1,153 @@
+<!--Section: Tutorial content-->
+<section class="tutorial" id="databases">
+
+  <section id="firebase">
+    <h2 class="title mb-4">
+      <strong>The App Shell Model</strong>
+    </h2>
+
+    <p class="description">
+      Our app looks great, but there is always room for improvement. If we want to compete with native apps, we have to
+      work on our app <strong>load time</strong>.</p>
+
+    <p>If you test your website on a fast internet connection, you may have not noticed the blank screen - yes, it's
+      there, when the user with the lousy internet connection downloads our monolithic javascript file.</p>
+
+    <figure class="figure">
+      <img class="img-fluid my-2"
+        src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/react/tutorials/react-pwa/6/throttling.png"
+        alt="Throttling settings">
+      <figcaption class="figure-caption text-center">You can emulate slow network connections from the Network
+        Throttling menu in the Chrome browser.</figcaption>
+    </figure>
+
+    <p>It's because of how modern single page apps work - at the first load, we serve the <code>index.html</code> file,
+      which for now is just a blank page with <code>div#root</code>. Next, the JS bundle is downloaded and then it has
+      to boot up our React application. This approach lets us make our website dynamic, immersive and interactive, but
+      the downside is that it significantly increases the load time. </p>
+
+    <p>As a developer, we have to think about every potential user, who may live in the areas where the network speed
+      is not so impressive. We want to ensure that all users have the best possible experience.</p>
+
+    <p>In today's lesson, I want to introduce you to the concept of the App Shell.</p>
+
+
+    <h4 class="mt-5"><strong>The App Shell</strong></h4>
+
+    <p>The application shell architecture is a concept of separating the content of your app from the UI shared across
+      different views. In other words - the app shell is a part of the app which doesn't change often.
+      In our example - we want to cash the minimum HTML and CSS to display something meaningful to the user as soon as
+      possible when he visits our app. The first load should be extremely quick and then immediately be cashed.</p>
+
+
+    <p>1. let's remove our stylesheets import in the <code>src/index.js</code> file and replace them with link tags in
+      the <code>public/index.html</code> page</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="public/index.html">
+          <!-- Fontawsome -->
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+          <!-- Bootstrap core CSS -->
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+          <!-- Material Design Bootstrap -->
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/css/mdb.min.css" rel="stylesheet">
+        </code>
+    </mdbsnippet>
+
+    <p>2. Using browser dev tools, copy the HTML code of our app. Paste it inside <code>div#root</code> in the
+      <code>public/index.html</code>
+      file.</p>
+
+    <div class="text-center"> <img class="img-fluid"
+        src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/react/tutorials/react-pwa/6/copy.png"
+        alt="Copy HTML"></div>
+
+    <p>Inside <code>schedule-items#div</code> place this code for a bootstrap loader. It will give our users a sense of
+      progress, during the initial app load. </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="JSON">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </code>
+    </mdbsnippet>
+
+
+    That's it. Right now our complete <code>public/index.html</code> page should look like this:
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="public/index.html">
+        <!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1, shrink-to-fit=no"
+              />
+              <meta name="theme-color" content="#000000" />
+              <meta name="description" content="Progressive Web App tutorial" />
+
+              <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+              <link rel="shortcut icon" href="%PUBLIC_URL%/icons/icon-72x72.png" />
+              <!-- Font Awesome -->
+              <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+              <!-- Bootstrap core CSS -->
+              <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+              <!-- Material Design Bootstrap -->
+              <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/css/mdb.min.css" rel="stylesheet">
+
+              <title>React App</title>
+            </head>
+            <body>
+              <noscript> You need to enable JavaScript to run this app. </noscript>
+              <div id="root">
+                  <div class="container">
+                      <div class="row">
+                        <div class="col-md-9 mb-r">
+                            <h2 class="text-uppercase my-3">Today:</h2>
+                            <div id="schedule-items">
+                              <div class="d-flex justify-content-center">
+                                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                  <span class="sr-only">Loading...</span>
+                                </div>
+                              </div>
+                            </div>
+                          <div class="col-md-3">
+                            <h3 class="text-uppercase my-3">Schedule</h3>
+                            <h6 class="my-3">It's going to be busy that today. You have<b> </b> today.</h6>
+                            <h1 class="my-3">
+                              <div class="row">
+                                  <div class="col-xs-3 text-center"><i class="fa fa-sun fa-fw"></i></div>
+                                  <div class="col-xs-9">Sunny</div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-xs-3 text-center"><i class="fa fa-thermometer-three-quarters fa-fw"></i></div>
+                                  <div class="col-xs-9">23°C</div>
+                              </div>
+                            </h1>
+                            <p>Don't forget your sunglasses. Today will dry and sunny, becoming warm in the afternoon with temperatures of between 20 and 25 degrees.</p>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </body>
+          </html>
+      </code>
+    </mdbsnippet>
+
+    <p> Now, if you refresh the page, you should see for a brief moment, our app frame with a loader.</p>
+    <p>
+      When JavaScript finishes the downloading and initialisation process the content generated by React will replace
+      the content which we just hardcoded in the <code>public/index.html</code> file.
+    </p>
+
+    <p>In the next lesson, we will audit our app performance using Lightbox.</p>
+
+    <p class="description">Something doesn't work for you? Check the code for this lesson on our <a
+        href="https://github.com/mdbootstrap/React-Tutorial-PWA/archive/master.zip">repository</a></p>
+  </section>
+  <!--Section: Tutorial content

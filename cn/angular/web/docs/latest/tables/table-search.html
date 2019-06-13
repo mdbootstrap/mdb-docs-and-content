@@ -1,0 +1,271 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+  <style type="text/css">
+    .input-group.md-form.form-sm.form-2 input {
+      border: 1px solid #bdbdbd;
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    .input-group.md-form.form-sm.form-2 input.grey-border {
+      border: 1px solid #e9ecef;
+    }
+
+    .input-group input[type=text]:focus:not([readonly]) {
+      box-shadow: none;
+    }
+
+    .form-2 .input-group-text {
+      border: 1px solid #e9ecef;
+    }
+
+  </style>
+
+  <!--Section: Intro-->
+  <section id="introduction">
+
+    <!--Title-->
+    <h1 class="main-title">Angular Bootstrap table search</h1>
+
+    <!--Description-->
+    <p class="description">Filter/Search feature lets you find desired information in table data. Use the search input field to type name, number
+      value or that word you're looking for and the searching feature will filter the results for you.</p>
+
+  </section>
+  <!--/Section: Intro-->
+
+  <hr class="my-5">
+
+  <!--Section: -->
+  <section id="firstEx">
+
+    <!--Title-->
+    <h2 class="title">
+      <strong>Basic example</strong>
+      <a href="https://ng-demo.mdbootstrap.com/tables/search/" target="_blank" class="btn btn-danger btn-md"
+      role="button">Live Example
+    </a>
+    </h2>
+
+    <!--Description-->
+    <p class="description"></p>
+
+    <!--Section: Live preview-->
+    <section>
+
+      <div class="card mb-5">
+        <div class="card-body">
+
+          <!-- Grid row -->
+          <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-12">
+
+              <div class="input-group md-form form-sm form-2 pl-0 mb-4">
+                <input class="form-control my-0 py-1 grey-border" type="text" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                  <span class="input-group-text waves-effect grey lighten-3" id="basic-addon1">
+                    <a>
+                      <i class="fas fa-search text-grey" aria-hidden="true"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+            <!-- Grid column -->
+
+          </div>
+          <!-- Grid row -->
+
+          <!--Table-->
+          <table class="table table-striped">
+
+            <!--Table head-->
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+              </tr>
+            </thead>
+            <!--Table head-->
+
+            <!--Table body-->
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+            </tbody>
+            <!--Table body-->
+          </table>
+          <!--Table-->
+
+        </div>
+      </div>
+
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section class="mt-3">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+<div class="card">
+  <div class="card-body">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-12">
+
+        <div class="md-form">
+          <input type="search" [(ngModel)]="searchText" id="search" class="form-control" mdbInputDirective [mdbValidation]="false">
+          <label for="search">Search data</label>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+    <!--Table-->
+    <table class="table table-striped">
+
+      <!--Table head-->
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <!--Table head-->
+
+      <!--Table body-->
+      <tbody>
+        <tr *ngFor="let data of search()">
+          <th scope="row">{{data.id}}</th>
+          <td>{{data.firstName}}</td>
+          <td>{{data.lastName}}</td>
+          <td>{{data.username}}</td>
+        </tr>
+      </tbody>
+      <!--Table body-->
+    </table>
+    <!--Table-->
+
+  </div>
+</div>
+        </code>
+        <code data-lang="js" data-name="TS">
+import { Component, OnInit, HostListener } from '@angular/core';
+
+@Component({
+  selector: 'table-search',
+  templateUrl: './table-search.component.html',
+  styleUrls: ['./table-search.component.css']
+})
+export class TableSearchComponent {
+
+  searchText: string;
+  tableData = [
+    { id: '1', firstName: 'Mark', lastName: 'Otto', username: '@mdo' },
+    { id: '2', firstName: 'Jacob', lastName: 'Thornton', username: '@jcox' },
+    { id: '3', firstName: 'Larry', lastName: 'Last', username: '@larry' },
+    { id: '4', firstName: 'John', lastName: 'Doe', username: '@johny' },
+    { id: '5', firstName: 'Zigi', lastName: 'Kiwi', username: '@zk' },
+    { id: '6', firstName: 'Beatrice', lastName: 'Selphie', username: '@bsl' },
+  ];
+
+  filterIt(arr, searchKey) {
+    return arr.filter((obj) => {
+      return Object.keys(obj).some((key) => {
+        return obj[key].includes(searchKey);
+      });
+    });
+  }
+
+  search() {
+    if (!this.searchText) {
+      return this.tableData;
+    }
+    if (this.searchText) {
+      return this.filterIt(this.tableData, this.searchText);
+    }
+  }
+}
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+  </section>
+  <!--/Section: -->
+  <hr class="my-5">
+  <!-- SECTION-->
+  <section id="APIref">
+
+    <h2 class="title my-4">API Reference:</h2>
+    <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of importing
+      the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific module,
+      is bad practice, and can cause application errors.
+    </p>
+
+    <h5 class="mb-4">API Reference for MDB Angular Tables:</h5>
+    <pre><code class="language-javascript">// MDB Angular Pro
+import { InputsModule, WavesModule } from 'ng-uikit-pro-standard'</code></pre>
+    <pre><code class="language-javascript">// MDB Angular Free
+import { InputsModule, WavesModule  } from 'angular-bootstrap-md'</code></pre>
+    <pre><code class="language-javascript">// Forms Module
+import { FormsModule } from '@angular/forms'</code></pre>
+    <div class="row">
+      <div class="col-md-6">
+        <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">Import example</a>
+        <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">Modules list</a>
+      </div>
+    </div>
+  </section>
+  <!-- ******-->
+
+</section>
+<!--/Section: Doc content-->

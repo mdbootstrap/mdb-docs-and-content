@@ -1,0 +1,1176 @@
+<style>
+.pickr {
+    position: relative;
+    overflow: visible
+}
+
+.pickr * {
+    box-sizing: border-box
+}
+
+.pickr .pcr-button {
+    position: relative;
+    height: 2em;
+    width: 2em;
+    padding: .5em;
+    border-radius: .15em;
+    cursor: pointer;
+    background: transparent;
+    transition: background-color .3s;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif
+}
+
+.pickr .pcr-button:before {
+    background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    background-size: .5em;
+    border-radius: .15em;
+    z-index: -1
+}
+
+.pickr .pcr-button:after,
+.pickr .pcr-button:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.pickr .pcr-button:after {
+    background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" stroke="%2342445A" stroke-width="5px" stroke-linecap="round"><path d="M45,45L5,5"></path><path d="M45,5L5,45"></path></svg>') no-repeat 50%;
+    background-size: 70%;
+    opacity: 0
+}
+
+.pickr .pcr-button.clear:after {
+    opacity: 1
+}
+
+.pickr .pcr-button.disabled {
+    cursor: not-allowed
+}
+
+.pcr-app {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    z-index: 10000;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+    box-shadow: 0 .2em 1.5em 0 rgba(0, 0, 0, .1), 0 0 1em 0 rgba(0, 0, 0, .02);
+    top: 5px;
+    height: 15em;
+    width: 28em;
+    max-width: 95vw;
+    padding: .8em;
+    border-radius: .1em;
+    background: #fff;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s
+}
+
+.pcr-app.visible {
+    visibility: visible;
+    opacity: 1
+}
+
+.pcr-app .pcr-interaction {
+    display: flex;
+    align-items: center;
+    margin: 1em -.2em 0
+}
+
+.pcr-app .pcr-interaction>* {
+    margin: 0 .2em
+}
+
+.pcr-app .pcr-interaction input {
+    padding: .5em .6em;
+    border: none;
+    outline: none;
+    letter-spacing: .07em;
+    font-size: .75em;
+    text-align: center;
+    cursor: pointer;
+    color: #c4c4c4;
+    background: #f8f8f8;
+    border-radius: .15em;
+    transition: all .15s
+}
+
+.pcr-app .pcr-interaction input:hover {
+    color: grey
+}
+
+.pcr-app .pcr-interaction .pcr-result {
+    color: grey;
+    text-align: left;
+    flex-grow: 1;
+    min-width: 1em;
+    transition: all .2s;
+    border-radius: .15em;
+    background: #f8f8f8;
+    cursor: text;
+    padding-left: .8em
+}
+
+.pcr-app .pcr-interaction .pcr-result:focus {
+    color: #4285f4
+}
+
+.pcr-app .pcr-interaction .pcr-result::selection {
+    background: #4285f4;
+    color: #fff
+}
+
+.pcr-app .pcr-interaction .pcr-type.active {
+    color: #fff;
+    background: #4285f4
+}
+
+.pcr-app .pcr-interaction .pcr-clear,
+.pcr-app .pcr-interaction .pcr-save {
+    color: #fff;
+    width: auto
+}
+
+.pcr-app .pcr-interaction .pcr-save {
+    background: #4285f4
+}
+
+.pcr-app .pcr-interaction .pcr-save:hover {
+    background: #4370f4;
+    color: #fff
+}
+
+.pcr-app .pcr-interaction .pcr-clear {
+    background: #f44250
+}
+
+.pcr-app .pcr-interaction .pcr-clear:hover {
+    background: #db3d49;
+    color: #fff
+}
+
+.pcr-app .pcr-selection {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1
+}
+
+.pcr-app .pcr-selection .pcr-picker {
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    user-select: none;
+    cursor: -moz-grab;
+    cursor: -webkit-grabbing
+}
+
+.pcr-app .pcr-selection .pcr-color-preview {
+    position: relative;
+    z-index: 1;
+    width: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
+}
+
+.pcr-app .pcr-selection .pcr-color-preview:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    background-size: .5em;
+    border-radius: .15em;
+    z-index: -1
+}
+
+.pcr-app .pcr-selection .pcr-color-preview .pcr-last-color {
+    cursor: pointer;
+    transition: background-color .3s;
+    border-radius: .15em .15em 0 0
+}
+
+.pcr-app .pcr-selection .pcr-color-preview .pcr-current-color {
+    border-radius: 0 0 .15em .15em
+}
+
+.pcr-app .pcr-selection .pcr-color-preview .pcr-current-color,
+.pcr-app .pcr-selection .pcr-color-preview .pcr-last-color {
+    background: transparent;
+    width: 100%;
+    height: 50%
+}
+
+.pcr-app .pcr-selection .pcr-color-chooser,
+.pcr-app .pcr-selection .pcr-color-opacity,
+.pcr-app .pcr-selection .pcr-color-palette {
+    position: relative;
+    user-select: none;
+    display: flex;
+    flex-direction: column
+}
+
+.pcr-app .pcr-selection .pcr-color-palette {
+    width: 80%;
+    z-index: 1
+}
+
+.pcr-app .pcr-selection .pcr-color-palette .pcr-palette {
+    height: 100%;
+    border-radius: .15em
+}
+
+.pcr-app .pcr-selection .pcr-color-palette .pcr-palette:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    background-size: .5em;
+    border-radius: .15em;
+    z-index: -1
+}
+
+.pcr-app .pcr-selection .pcr-color-chooser .pcr-picker,
+.pcr-app .pcr-selection .pcr-color-opacity .pcr-picker {
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.pcr-app .pcr-selection .pcr-color-chooser .pcr-slider,
+.pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {
+    width: 8px;
+    height: 100%;
+    border-radius: 50em
+}
+
+.pcr-app .pcr-selection .pcr-color-chooser .pcr-slider {
+    background: linear-gradient(180deg, red, #ff0, #0f0, #0ff, #00f, #f0f, red)
+}
+
+.pcr-app .pcr-selection .pcr-color-opacity .pcr-slider {
+    background: linear-gradient(180deg, transparent, #000), url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    background-size: 100%, 50%
+}
+</style>
+
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Color Picker</h2>
+
+  <h1 class="secondary-heading mb-4">Bootstrap color picker plugin</h1>
+
+  <!--Description-->
+  <p>Bootstrap Color Picker plugin allows you to select different colors. You can successfully use it in various product wizards,
+    clothing sales, or other situations where you need to be able to choose a color.</p>
+
+  <blockquote class="blockquote bq-primary">
+    <p class="bq-title">To start working with Color Picker plugin see <strong>"Getting Started"</strong> tab on this page.</p>
+  </blockquote>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic Example
+  </h2>
+
+  <!-- Description -->
+  <p>Click the dark square to activate the Color Picker. This is the basic variation of it.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>Click the dark square to activate the Color Picker</p>
+            <div id="color-picker-1" class="mx-auto"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>Click the dark square to activate the Color Picker</p>
+            <div id="color-picker-1" class="mx-auto"></div>
+          </div>
+        </div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+        const pickr1 = new Pickr({
+          el: '#color-picker-1',
+          default: "303030",
+          components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+
+            interaction: {
+              hex: true,
+              rgba: true,
+              hsla: true,
+              hsva: true,
+              cmyk: true,
+              input: true,
+              clear: true,
+              save: true
+            }
+          }
+        });
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="button">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Using as button
+  </h2>
+
+  <!-- Description -->
+  <p>Use Color Picker as a button.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>Click the below button to activate the Color Picker</p>
+            <button class="btn btn-primary btn-sm" id="color-picker-2">Open Picker</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>Click the below button to activate the Color Picker</p>
+            <button class="btn btn-primary btn-sm" id="color-picker-2">Open Picker</button>
+          </div>
+        </div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+        const pickr2 = new Pickr({
+          el: '#color-picker-2',
+          useAsButton: true,
+          default: "123456",
+
+          components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+
+            interaction: {
+              hex: true,
+              rgba: true,
+              hsla: true,
+              hsva: true,
+              cmyk: true,
+              input: true,
+              clear: true,
+              save: true
+            }
+          }
+        });
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="changing-color">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Change color of the other elements
+  </h2>
+
+  <!-- Description -->
+  <p>With Color Picker, it's easy to manipulate colors of the certain elements.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card bg-color">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>My background color will be changed</p>
+            <button id="color-picker-3" class="btn btn-outline-primary btn-sm">Color Picker</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p class="text-color">My text color will be changed</p>
+            <button id="color-picker-4" class="btn btn-outline-primary btn-sm">Color Picker</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="card bg-color">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>My background color will be changed</p>
+            <button id="color-picker-3" class="btn btn-outline-primary btn-sm">Color Picker</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p class="text-color">My text color will be changed</p>
+            <button id="color-picker-4" class="btn btn-outline-primary btn-sm">Color Picker</button>
+          </div>
+        </div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+        const pickr3 = new Pickr({
+          el: '#color-picker-3',
+          useAsButton: true,
+          default: "303030",
+          components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+
+            interaction: {
+              hex: true,
+              rgba: true,
+              hsla: true,
+              hsva: true,
+              cmyk: true,
+              input: true,
+              clear: true,
+              save: true
+            }
+          },
+
+          onChange(hsva, instance) {
+            $('.bg-color').css('background-color', hsva.toRGBA().toString());
+          }
+        });
+
+        const pickr4 = new Pickr({
+          el: '#color-picker-4',
+          default: "303030",
+          useAsButton: true,
+          components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+
+            interaction: {
+              hex: true,
+              rgba: true,
+              hsla: true,
+              hsva: true,
+              cmyk: true,
+              input: true,
+              clear: true,
+              save: true
+            }
+          },
+
+          onChange(hsva, instance) {
+            $('.text-color').css('color', hsva.toRGBA().toString());
+          }
+        });
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="copy-to-clipboard">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Copy saved colors to clipboard
+  </h2>
+
+  <!-- Description -->
+  <p>Copy the picked color to the clipboard and use it everywhere!</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>Click the "Save" button and check the results by pasting the clipboard in some place.</p>
+            <button id="color-picker-5" class="btn btn-primary btn-sm">Color Picker</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>Click the "Save" button and check the results by pasting the clipboard in some place.</p>
+            <button id="color-picker-5" class="btn btn-primary btn-sm">Color Picker</button>
+          </div>
+        </div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+    let colorArray = [];
+    const pickr5 = new Pickr({
+      el: '#color-picker-5',
+      default: "030303",
+      useAsButton: true,
+      components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+
+        interaction: {
+          hex: true,
+          rgba: true,
+          hsla: true,
+          hsva: true,
+          cmyk: true,
+          input: true,
+          clear: true,
+          save: true
+        }
+      },
+
+      onSave(hsva, instance) {
+        colorArray.push({
+          hex: hsva.toHEX().toString(),
+          rgba: hsva.toRGBA().toString(),
+          hsla: hsva.toHSLA().toString(),
+          hsva: hsva.toHSVA().toString(),
+          cmyk: hsva.toCMYK().toString()
+        });
+        copyToClipboard();
+      }
+    });
+
+    function copyToClipboard() {
+
+      const el = document.createElement('textarea');
+      colorArray.forEach(function (elem) {
+        el.value += '{';
+        el.value += 'hex: ' + "'" + elem.hex + "'" + ', ';
+        el.value += 'rgba: ' + "'" + elem.rgba + "'" + ', ';
+        el.value += 'hsla: ' + "'" + elem.hsla + "'" + ', ';
+        el.value += 'hsva: ' + "'" + elem.hsva + "'" + ', ';
+        el.value += 'cmyk: ' + "'" + elem.cmyk + "'";
+        el.value += '}, ';
+      });
+      $(el).attr('readonly', '');
+      $(el).css('position', 'absolute');
+      $(el).css('left', '-9999px');
+      $(el).appendTo(document.body);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="color-representation">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    The color representation
+  </h2>
+
+  <!-- Description -->
+  <p>Color Picker plugin has option to pick a color in five color representations: HEX, RGBA, HSLA, HSVA and CMYK.</p>
+  
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>Change actual color and check how every color representation is described in the list</p>
+            <button id="color-picker-6" class="btn btn-primary btn-sm">Color Picker</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <ul class="list-group list-group-flush w-100">
+              <li class="list-group-item" id="hex"></li>
+              <li class="list-group-item" id="rgba"></li>
+              <li class="list-group-item" id="hsla"></li>
+              <li class="list-group-item" id="hsva"></li>
+              <li class="list-group-item" id="cmyk"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>Change actual color and check how every color representation is described in the list</p>
+            <button id="color-picker-6" class="btn btn-primary btn-sm">Color Picker</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <ul class="list-group list-group-flush w-100">
+              <li class="list-group-item" id="hex"></li>
+              <li class="list-group-item" id="rgba"></li>
+              <li class="list-group-item" id="hsla"></li>
+              <li class="list-group-item" id="hsva"></li>
+              <li class="list-group-item" id="cmyk"></li>
+            </ul>
+          </div>
+        </div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+        const pickr6 = new Pickr({
+          el: '#color-picker-6',
+          useAsButton: true,
+
+          components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+
+            interaction: {
+              hex: true,
+              rgba: true,
+              hsla: true,
+              hsva: true,
+              cmyk: true,
+              input: true,
+              clear: true,
+              save: true
+            }
+          },
+
+          onChange(hsva) {
+            let colorObject = {
+              hex: hsva.toHEX().toString(),
+              rgba: hsva.toRGBA().toString(),
+              hsla: hsva.toHSLA().toString(),
+              hsva: hsva.toHSVA().toString(),
+              cmyk: hsva.toCMYK().toString()
+            };
+            for (let col in colorObject) {
+              $('#' + col).text(col + ': ' + colorObject[col]);
+            }
+          }
+        });
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="background-color">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Change the site background color
+  </h2>
+
+  <!-- Description -->
+  <p>Change the site's background color by choosing a color from Color Picker.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>Change the background color if this site dynamically by changing the color in Color Picker</p>
+            <button id="color-picker-7" class="btn btn-primary btn-sm">Color Picker</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="card">
+          <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+            <p>Change the background color if this site dynamically by changing the color in Color Picker</p>
+            <button id="color-picker-7" class="btn btn-primary btn-sm">Color Picker</button>
+          </div>
+        </div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+        const pickr7 = new Pickr({
+          el: '#color-picker-7',
+          useAsButton: true,
+
+          components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+
+            interaction: {
+              hex: true,
+              rgba: true,
+              hsla: true,
+              hsva: true,
+              cmyk: true,
+              input: true,
+              clear: true,
+              save: true
+            }
+          },
+
+          onChange(hsva) {
+            $(document.body).css('background-color', hsva.toHEX().toString());
+          }
+        });
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="options">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Color Picker options list
+  </h2>
+
+  <!-- Description -->
+  <p>Below options are available to use in Color Picker instance.</p>
+
+  <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>el</i></code></td>
+          <td>string</td>
+          <td>' '</td>
+          <td>Selector or element which will be replaced with the actual color-picker.</td>
+          <td><code>el: '#color-picker'</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>useAsButton</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Using the 'el' Element as button, won't replace it with the pickr-button. If true, appendToBody will also be automatically true.</td>
+          <td><code>useAsButton: true</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>disabled</i></code></td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Start state. If true 'disabled' will be added to the button's classlist.</td>
+          <td><code>disabled: false</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>comparison</i></code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>If set to false it would directly apply the selected color on the button and preview.</td>
+          <td><code>comparison: true</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>default</i></code></td>
+          <td>string</td>
+          <td>' '</td>
+          <td>Default color.</td>
+          <td><code>default: '#303030'</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>defaultRepresentation</i></code></td>
+          <td>string</td>
+          <td>' '</td>
+          <td>Default color representation. Valid options are `HEX`, `RGBA`, `HSVA`, `HSLA` and `CMYK`.</td>
+          <td><code>defaultRepresentation: 'HEX'</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>parent</i></code></td>
+          <td>any</td>
+          <td>null</td>
+          <td>Defines a parent for pickr, if useAsButton is true and a parent is NOT defined 'body' will be used as fallback.</td>
+          <td><code>parent: null</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>closeWithKey</i></code></td>
+          <td>string</td>
+          <td>'Escape'</td>
+          <td>Close pickr with this specific key. Can be the event key or code.</td>
+          <td><code>closeWithKey: 'Escape'</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>position</i></code></td>
+          <td>string</td>
+          <td>'middle'</td>
+          <td>Defines the position of the color-picker. Available options are top, left and middle relativ to the picker button. If clipping occurs, the color picker will automatically choose his position.</td>
+          <td><code>position: 'middle'</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>adjustableNumbers</i></code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Enables the ability to change numbers in an input field with the scroll-wheel. To use it set the cursor on a position where a number is and scroll, use ctrl to make steps of five</td>
+          <td><code>position: 'middle'</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>components</i></code></td>
+          <td>Object&lt;boolean&gt;</td>
+          <td>-</td>
+          <td>Show or hide specific components. By default only the palette (and the save button) is visible. Available options are `preview`, `opacity`, `hue`, `interaction: {`hex`, `rgba`, `hsla`, `hsva`, `cmyk`, `input`, `clear`, `save` }`</td>
+          <td><code>components: {preview: true, interaction: {hex: true, rgba: true}}</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>strings</i></code></td>
+          <td>Object&lt;string&gt;</td>
+          <td>strings: {save: 'Save', clear: 'Clear'}</td>
+          <td>Button strings, brings the possibility to use a language other than English.</td>
+          <td><code>position: 'middle'</code></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  <p>Below events are available to use in Color Picker instance.</p>
+
+  <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>onChange</i></code></td>
+          <td>any</td>
+          <td>The event is fired when user has changed the color.</td>
+          <td><code>onChange(hsva, instance) { } </code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>onSave</i></code></td>
+          <td>any</td>
+          <td>The event is fired when user has saved the color.</td>
+          <td><code>onSave(hsva, instance) { } </code></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <p>As default color representation is hsva (hue, saturation, value and alpha) used, but you can also convert it to other formats as listed below.</p>
+
+  <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>toHSVA</i></code></td>
+          <td>Converts the object to a hsva array.</td>
+          <td><code>hsva.toHSVA() </code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>toHSLA</i></code></td>
+          <td>Converts the object to a hsla array.</td>
+          <td><code>hsva.toHSLA() </code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>toRGBA</i></code></td>
+          <td>Converts the object to a rgba array.</td>
+          <td><code>hsva.toRGBA() </code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>toHEX</i></code></td>
+          <td>Converts the object to a hex array.</td>
+          <td><code>hsva.toHEX() </code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>toCMYK</i></code></td>
+          <td>Converts the object to a cmyk array.</td>
+          <td><code>hsva.toCMYK() </code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>clone</i></code></td>
+          <td>Clones the color object.</td>
+          <td><code>hsva.clone() </code></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <p>Below methods are available to use with Color Picker instance.</p>
+
+  <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>setHSVA</i></code></td>
+          <td> Set an color, returns true if the color has been accepted.</td>
+          <td><code>pickr.setHSVA(h:Number, s:Number, v:Number, a:Float, silent:Boolean)</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>setColor</i></code></td>
+          <td>Parses a string which represents a color (e.g. #fff, rgb(10, 156, 23)), returns true if the color has been accepted. null will clear the color. If silent is true (Default is false), the button won't change the current color.</td>
+          <td><code>pickr.setColor(string: String, silent: Boolean)</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>show</i></code></td>
+          <td>Shows the color-picker, returns instance.</td>
+          <td><code>pickr.show()</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>hide</i></code></td>
+          <td>Hides the color-picker, returns instance.</td>
+          <td><code>pickr.hide()</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>disable</i></code></td>
+          <td>Disables pickr and adds the disabled class to the button, returns instance.</td>
+          <td><code>pickr.disable()</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>enable</i></code></td>
+          <td>Enables pickr and removes the disabled class from the button, returns instance.</td>
+          <td><code>pickr.enable()</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>isOpen</i></code></td>
+          <td>Returns true if the color picker is currently open.</td>
+          <td><code>pickr.isOpen()</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>getRoot</i></code></td>
+          <td>Returns the root DOM-Element of the color-picker.</td>
+          <td><code>pickr.getRoot()</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>getColor</i></code></td>
+          <td>Returns the current HSVaColor object.</td>
+          <td><code>pickr.getColor()</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>destroy</i></code></td>
+          <td>Destroy's all functionality.</td>
+          <td><code>pickr.destroy()</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>destroyAndRemove</i></code></td>
+          <td>Destroy's all functionality, moreover it removes the pickr element including the button.</td>
+          <td><code>pickr.destroyAndRemove()</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>setColorRepresentation</i></code></td>
+          <td>Change the current color-representation. Valid options are HEX, RGBA, HSVA, HSLA and CMYK, returns false if type was invalid.</td>
+          <td><code>pickr.setColorRepresentation(type: string)</code></td>
+        </tr>
+
+      </tbody>
+    </table>
+</section>
+<!--/Section: -->

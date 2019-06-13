@@ -1,0 +1,210 @@
+<div class="react-tutorial tutorial">
+
+<p>Among other advantages, Angular gained incredible momentum within last year thanks to reactive and composable components. Components are reusable Angular instances with a name. We can use this component as a custom element inside a root.</p>
+
+<p>In this lesson, we will learn how to create, use and organize components.</p>
+
+<h2>1. Create and export component</h2>
+
+
+<ol>
+  <li>Create a new folder and call it <code>components</code> inside the <code>src</code> folder:</li>
+  	<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/getting-started/3/components.gif" alt="Create components folder" />
+  <li>Create a new folder and call it <code>hello-world</code> inside the <code>components</code> folder:</li>
+  	<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/getting-started/3/hello-world.gif" alt="Create hello-world folder" />
+
+  <li>Create a new file called <code>hello-world.component.html</code> inside <code>hello-world/</code> folder:</li>
+  	<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/getting-started/3/hello-world-html.gif" alt="Create hello-world.component.html file" />
+
+<li>Open <code>hello-world.component.html</code> file and add the following code:</li>
+<mdbsnippet>
+  <code data-lang="js" data-name="hello-world.component.html">
+ <h1>Hello Angular World</h1>
+  </code>
+</mdbsnippet>
+
+  <li>Create a new file called <code>hello-world.component.ts</code> inside <code>hello-world/</code> folder.</li>
+
+<li>Add following code to the <code>hello-world.component.ts</code> file:</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="hello-world.component.ts">
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'hello-world',
+  templateUrl: './hello-world.component.html',
+})
+export class HelloWorld {
+}
+  </code>
+</mdbsnippet>
+
+<p>As you already know from a previous lesson, within the <code>metadata</code> (<mark>@Component{...}</mark> we have defined a component selector and below, we have exported a <mark>HelloWorld</mark> component. </p>
+
+ <p class="note note-danger"><strong>Important:</strong><br>
+   Instead of providing the path to the external file with HTML template like w just did: <br/><br/>
+<mark>templateUrl: './hello-world.component.html'</mark> <br/> <br/>
+ we could use <code>template:</code> atribute (instead of <code>templateUrl:</code>) and write and HTML code directly inside the <code>.component.ts</code> file like below: <br/><br/>
+ <mark>template: '&lt;h1&gt; Hello World &lt;/h1&gt;'</mark> <br/><br/><br/>
+
+ It is important for you to remember that <strong><code>component.ts</code> file is the only file required to create a component</strong>. However, when you create more complex components it's <strong>highly recommended</strong> to use separate files for template, styles and tests.
+    </p>
+
+<p>Now when our component is already exported we are ready to import it withiin the <mark>App</mark> component.</p>
+
+<h2>2. Import component into module</h2>
+
+<p>In order to import component within our <code>App</code> component we have to: </p>
+
+<ol>
+	<li>Import new component within the <code>app.module.ts</code> file:</li>
+
+	<ol>
+		<li>Add following import line:</li>
+		<mdbsnippet>
+		  <code data-lang="js" data-name="app.module.ts">
+import { HelloWorld } from './components/hello-world/hello-world.component'  	
+		  </code>
+		</mdbsnippet>
+		<li>Add <mark>HelloWorld</mark> into <mark>declarations[]</mark> array.</li>
+
+	</ol>
+  	<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/getting-started/3/app-module.png" alt="Import into AppModule" />
+
+
+</ol>
+
+
+
+
+<h2>3. Use component</h2>
+
+<p>Now we are ready to use our component. Open <code>app.component.html</code> and paste <mark>&lt;hello-world&gt;&lt;/hello-world&gt;</mark>.  </p>
+
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/getting-started/3/template.png" alt="Use component in template file" />
+
+
+<p>Save the file and run the project.</p>
+
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/getting-started/3/preview.png" alt="Use component in template file" />
+
+
+
+<p>Now you know how to create, export and import components. Before we start building real application I want to show you one more important thing. </p>
+
+<h1>4. Import component into another component</h1>
+
+<p>In our previous example our <code>HelloWorld</code> component contained only a HTML markup, without any logic. Let's add some logic to our <code>HelloWorld</code> component. </p>
+
+<ol>
+	<li>Update <code>hello-world.component.ts</code> and <code>hello-world.component.html</code> with following code:</li>
+
+ <p class="note note-warning"><strong>Note:</strong><br>
+   Below code markup contains 2 tabs (<code>component.html</code> and <code>component.ts</code>). You can switch between them. In some components you find different tabs i.e. including styles for given component.
+    </p>
+
+  <mdbsnippet>
+      <code data-lang="js" data-name="hello-world.component.html">
+<h1>Hello World Component</h1>
+<p>Hello World counter = {{counter}}</p>
+<p><button (click)="increaseCounter()" >Increase Hello World counter</button></p>
+      </code>
+      <code data-lang="js" data-name="hello-world.component.ts">
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'hello-world',
+  templateUrl: './hello-world.component.html',
+})
+export class HelloWorld {
+  counter = 0;
+ 
+  private increaseCounter(this) { 
+    this.counter++;
+  }
+
+  public getCounter(){
+    return this.counter;
+  }
+}
+
+      </code>
+  </mdbsnippet>
+
+
+	<li>Update <code>app.component.ts</code> and <code>app.component.html</code> with following code:</li>
+
+  <mdbsnippet>
+      <code data-lang="js" data-name="app.component.html">
+<hello-world></hello-world>
+
+<hr>
+<h1>This is AppComponent</h1>
+<p>App component counter = {{counter}}</p>
+<p><button (click)="increaseCounter()" >Increase App Component counter</button></p>
+<button (click)="getHelloWorldCounterValue()">Get Hello World Counter </button>
+
+
+      </code>
+      <code data-lang="js" data-name="app.component.ts">
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HelloWorld } from './components/hello-world/hello-world.component'
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+
+export class AppComponent implements OnInit {
+  @ViewChild(HelloWorld ) child: HelloWorld ; 
+
+  ngOnInit() { 
+  } 
+  counter = 0;
+ 
+  private increaseCounter(this) { 
+    this.counter++;
+  }
+  private getHelloWorldCounterValue(){
+ this.counter = this.child.getCounter();
+}
+}
+
+      </code>
+  </mdbsnippet>
+
+<p>We have created two counters, one within each component. Each component has also a button which increase counter by one. Each counter works impedently - doesn't affect the other counter. Let's check it:</p>
+
+<li>Run the app.</li>
+
+  	<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/getting-started/3/counters.gif" alt="Counters" />
+
+<p>What is important, is that our <code>HelloWorld</code> component has a logic now. Except for <mark>increaseCounter()</mark> function which allows us to increase the counter, it has also another function called <mark>getCounter()</mark>. This functions returns the current value of the <code>HelloWorld</code> counter.  </p>
+
+
+<p>Now when our <code>HelloWorld</code> component has not only template but also a logic, it's not sufficient to import it only in <code>app.module.ts</code> file. In order to use it's function within <code>App</code> we have to import it within the  <code>app.component.ts</code> file as it shown below:</p>
+
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/getting-started/3/import.png" alt="Import component" />
+
+
+<p>We used some new functions here like <mark>@ViewChild</mark>, <mark>ngOnInit()</mark> and others. We will learn about them in next lessons. For now I want you to rember one thing:</p>
+
+ <p class="note note-warning"><strong>Remember:</strong><br>
+   Whenever you want to use component without logic it's sufficient to import it into your module file (step 2). <br/> <br/>
+   If you want to use functions exposed in other component you have to also import it within the <code>component.ts</code> file (step 4). 
+    </p>
+
+
+<p>Thanks to that, when we press the second button (<i>Get Hello World Counter</i>) we can call <mark>getCounter</mark> from <code>App</code> component, and align <code>App</code> counter with <code>HelloWorld</code> counter value.</p>
+
+  	<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/getting-started/3/align.gif" alt="Counters" />
+
+
+<p>Now when we know how to create, export and import components it's a high time to build some real application!</p>
+
+</ol>
+
+
+</div>

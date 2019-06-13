@@ -1,0 +1,1887 @@
+<style>
+  /*!
+ * FullCalendar v3.9.0
+ * Docs & License: https://fullcalendar.io/
+ * (c) 2018 Adam Shaw
+ */
+  .fc button,
+  .fc table,
+  body .fc {
+    font-size: 1em
+  }
+
+  .fc-bg,
+  .fc-row .fc-bgevent-skeleton,
+  .fc-row .fc-highlight-skeleton {
+    bottom: 0
+  }
+
+  .fc-icon,
+  .fc-unselectable {
+    -webkit-touch-callout: none;
+    -khtml-user-select: none
+  }
+
+  .fc {
+    direction: ltr;
+    text-align: left
+  }
+
+  .fc-rtl {
+    text-align: right
+  }
+
+  .fc th,
+  .fc-basic-view td.fc-week-number,
+  .fc-icon,
+  .fc-toolbar {
+    text-align: center
+  }
+
+  .fc-highlight {
+    background: #bce8f1;
+    opacity: .3
+  }
+
+  .fc-bgevent {
+    background: #8fdf82;
+    opacity: .3
+  }
+
+  .fc-nonbusiness {
+    background: #d7d7d7
+  }
+
+  .fc button {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    height: 2.1em;
+    padding: 0 .6em;
+    white-space: nowrap;
+    cursor: pointer
+  }
+
+  .fc button::-moz-focus-inner {
+    margin: 0;
+    padding: 0
+  }
+
+  .fc-state-default {
+    border: 1px solid;
+    background-color: #f5f5f5;
+    background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
+    background-image: -o-linear-gradient(top, #fff, #e6e6e6);
+    background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+    background-repeat: repeat-x;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0, 0, 0, .1) rgba(0, 0, 0, .1) rgba(0, 0, 0, .25);
+    color: #333;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, .75);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05)
+  }
+
+  .fc-state-default.fc-corner-left {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px
+  }
+
+  .fc-state-default.fc-corner-right {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px
+  }
+
+  .fc button .fc-icon {
+    position: relative;
+    top: -.05em;
+    margin: 0 .2em;
+    vertical-align: middle
+  }
+
+  .fc-state-active,
+  .fc-state-disabled,
+  .fc-state-down,
+  .fc-state-hover {
+    color: #333;
+    background-color: #e6e6e6
+  }
+
+  .fc-state-hover {
+    color: #333;
+    text-decoration: none;
+    background-position: 0 -15px;
+    -webkit-transition: background-position .1s linear;
+    -moz-transition: background-position .1s linear;
+    -o-transition: background-position .1s linear;
+    transition: background-position .1s linear
+  }
+
+  .fc-state-active,
+  .fc-state-down {
+    background-color: #ccc;
+    background-image: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, .15), 0 1px 2px rgba(0, 0, 0, .05)
+  }
+
+  .fc-state-disabled {
+    cursor: default;
+    background-image: none;
+    opacity: .65;
+    box-shadow: none
+  }
+
+  .fc-event.fc-draggable,
+  .fc-event[href],
+  .fc-popover .fc-header .fc-close,
+  a[data-goto] {
+    cursor: pointer
+  }
+
+  .fc-button-group {
+    display: inline-block
+  }
+
+  .fc .fc-button-group>* {
+    float: left;
+    margin: 0 0 0 -1px
+  }
+
+  .fc .fc-button-group>:first-child {
+    margin-left: 0
+  }
+
+  .fc-popover {
+    position: absolute;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .15)
+  }
+
+  .fc-popover .fc-header {
+    padding: 2px 4px
+  }
+
+  .fc-popover .fc-header .fc-title {
+    margin: 0 2px
+  }
+
+  .fc-ltr .fc-popover .fc-header .fc-title,
+  .fc-rtl .fc-popover .fc-header .fc-close {
+    float: left
+  }
+
+  .fc-ltr .fc-popover .fc-header .fc-close,
+  .fc-rtl .fc-popover .fc-header .fc-title {
+    float: right
+  }
+
+  .fc-divider {
+    border-style: solid;
+    border-width: 1px
+  }
+
+  hr.fc-divider {
+    height: 0;
+    margin: 0;
+    padding: 0 0 2px;
+    border-width: 1px 0
+  }
+
+  .fc-bg table,
+  .fc-row .fc-bgevent-skeleton table,
+  .fc-row .fc-highlight-skeleton table {
+    height: 100%
+  }
+
+  .fc-clear {
+    clear: both
+  }
+
+  .fc-bg,
+  .fc-bgevent-skeleton,
+  .fc-helper-skeleton,
+  .fc-highlight-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0
+  }
+
+  .fc table {
+    width: 100%;
+    box-sizing: border-box;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0
+  }
+
+  .fc td,
+  .fc th {
+    border-style: solid;
+    border-width: 1px;
+    padding: 0;
+    vertical-align: top
+  }
+
+  .fc td.fc-today {
+    border-style: double
+  }
+
+  a[data-goto]:hover {
+    text-decoration: underline
+  }
+
+  .fc .fc-row {
+    border-style: solid;
+    border-width: 0
+  }
+
+  .fc-row table {
+    border-left: 0 hidden transparent;
+    border-right: 0 hidden transparent;
+    border-bottom: 0 hidden transparent
+  }
+
+  .fc-row:first-child table {
+    border-top: 0 hidden transparent
+  }
+
+  .fc-row {
+    position: relative
+  }
+
+  .fc-row .fc-bg {
+    z-index: 1
+  }
+
+  .fc-row .fc-bgevent-skeleton td,
+  .fc-row .fc-highlight-skeleton td {
+    border-color: transparent
+  }
+
+  .fc-row .fc-bgevent-skeleton {
+    z-index: 2
+  }
+
+  .fc-row .fc-highlight-skeleton {
+    z-index: 3
+  }
+
+  .fc-row .fc-content-skeleton {
+    position: relative;
+    z-index: 4;
+    padding-bottom: 2px
+  }
+
+  .fc-row .fc-helper-skeleton {
+    z-index: 5
+  }
+
+  .fc .fc-row .fc-content-skeleton table,
+  .fc .fc-row .fc-content-skeleton td,
+  .fc .fc-row .fc-helper-skeleton td {
+    background: 0 0;
+    border-color: transparent
+  }
+
+  .fc-row .fc-content-skeleton td,
+  .fc-row .fc-helper-skeleton td {
+    border-bottom: 0
+  }
+
+  .fc-row .fc-content-skeleton tbody td,
+  .fc-row .fc-helper-skeleton tbody td {
+    border-top: 0
+  }
+
+  .fc-scroller {
+    -webkit-overflow-scrolling: touch
+  }
+
+  .fc-icon,
+  .fc-row.fc-rigid,
+  .fc-time-grid-event {
+    overflow: hidden
+  }
+
+  .fc-scroller>.fc-day-grid,
+  .fc-scroller>.fc-time-grid {
+    position: relative;
+    width: 100%
+  }
+
+  .fc-event {
+    position: relative;
+    display: block;
+    font-size: .85em;
+    line-height: 1.3;
+    border-radius: 3px;
+    border: 1px solid #3a87ad
+  }
+
+  .fc-event,
+  .fc-event-dot {
+    background-color: #3a87ad
+  }
+
+  .fc-event,
+  .fc-event:hover {
+    color: #fff;
+    text-decoration: none
+  }
+
+  .fc-not-allowed,
+  .fc-not-allowed .fc-event {
+    cursor: not-allowed
+  }
+
+  .fc-event .fc-bg {
+    z-index: 1;
+    background: #fff;
+    opacity: .25
+  }
+
+  .fc-event .fc-content {
+    position: relative;
+    z-index: 2
+  }
+
+  .fc-event .fc-resizer {
+    position: absolute;
+    z-index: 4;
+    display: none
+  }
+
+  .fc-event.fc-allow-mouse-resize .fc-resizer,
+  .fc-event.fc-selected .fc-resizer {
+    display: block
+  }
+
+  .fc-event.fc-selected .fc-resizer:before {
+    content: "";
+    position: absolute;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    margin-top: -20px
+  }
+
+  .fc-event.fc-selected {
+    z-index: 9999 !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2)
+  }
+
+  .fc-event.fc-selected.fc-dragging {
+    box-shadow: 0 2px 7px rgba(0, 0, 0, .3)
+  }
+
+  .fc-h-event.fc-selected:before {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    top: -10px;
+    bottom: -10px;
+    left: 0;
+    right: 0
+  }
+
+  .fc-ltr .fc-h-event.fc-not-start,
+  .fc-rtl .fc-h-event.fc-not-end {
+    margin-left: 0;
+    border-left-width: 0;
+    padding-left: 1px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0
+  }
+
+  .fc-ltr .fc-h-event.fc-not-end,
+  .fc-rtl .fc-h-event.fc-not-start {
+    margin-right: 0;
+    border-right-width: 0;
+    padding-right: 1px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0
+  }
+
+  .fc-ltr .fc-h-event .fc-start-resizer,
+  .fc-rtl .fc-h-event .fc-end-resizer {
+    cursor: w-resize;
+    left: -1px
+  }
+
+  .fc-ltr .fc-h-event .fc-end-resizer,
+  .fc-rtl .fc-h-event .fc-start-resizer {
+    cursor: e-resize;
+    right: -1px
+  }
+
+  .fc-h-event.fc-allow-mouse-resize .fc-resizer {
+    width: 7px;
+    top: -1px;
+    bottom: -1px
+  }
+
+  .fc-h-event.fc-selected .fc-resizer {
+    border-radius: 4px;
+    border-width: 1px;
+    width: 6px;
+    height: 6px;
+    border-style: solid;
+    border-color: inherit;
+    background: #fff;
+    top: 50%;
+    margin-top: -4px
+  }
+
+  .fc-ltr .fc-h-event.fc-selected .fc-start-resizer,
+  .fc-rtl .fc-h-event.fc-selected .fc-end-resizer {
+    margin-left: -4px
+  }
+
+  .fc-ltr .fc-h-event.fc-selected .fc-end-resizer,
+  .fc-rtl .fc-h-event.fc-selected .fc-start-resizer {
+    margin-right: -4px
+  }
+
+  .fc-day-grid-event {
+    margin: 1px 2px 0;
+    padding: 0 1px
+  }
+
+  tr:first-child>td>.fc-day-grid-event {
+    margin-top: 2px
+  }
+
+  .fc-day-grid-event.fc-selected:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    background: #000;
+    opacity: .25
+  }
+
+  .fc-day-grid-event .fc-content {
+    white-space: nowrap;
+    overflow: hidden
+  }
+
+  .fc-day-grid-event .fc-time {
+    font-weight: 700
+  }
+
+  .fc-ltr .fc-day-grid-event.fc-allow-mouse-resize .fc-start-resizer,
+  .fc-rtl .fc-day-grid-event.fc-allow-mouse-resize .fc-end-resizer {
+    margin-left: -2px
+  }
+
+  .fc-ltr .fc-day-grid-event.fc-allow-mouse-resize .fc-end-resizer,
+  .fc-rtl .fc-day-grid-event.fc-allow-mouse-resize .fc-start-resizer {
+    margin-right: -2px
+  }
+
+  a.fc-more {
+    margin: 1px 3px;
+    font-size: .85em;
+    cursor: pointer;
+    text-decoration: none
+  }
+
+  a.fc-more:hover {
+    text-decoration: underline
+  }
+
+  .fc.fc-bootstrap3 a,
+  .ui-widget .fc-event {
+    text-decoration: none
+  }
+
+  .fc-limited {
+    display: none
+  }
+
+  .fc-icon,
+  .fc-toolbar .fc-center {
+    display: inline-block
+  }
+
+  .fc-day-grid .fc-row {
+    z-index: 1
+  }
+
+  .fc-more-popover {
+    z-index: 2;
+    width: 220px
+  }
+
+  .fc-more-popover .fc-event-container {
+    padding: 10px
+  }
+
+  .fc-bootstrap3 .fc-popover .panel-body,
+  .fc-bootstrap4 .fc-popover .card-body {
+    padding: 0
+  }
+
+  .fc-now-indicator {
+    position: absolute;
+    border: 0 solid red
+  }
+
+  .fc-bootstrap3 .fc-today.alert,
+  .fc-bootstrap4 .fc-today.alert {
+    border-radius: 0
+  }
+
+  .fc-unselectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent
+  }
+
+  .fc-unthemed .fc-content,
+  .fc-unthemed .fc-divider,
+  .fc-unthemed .fc-list-heading td,
+  .fc-unthemed .fc-list-view,
+  .fc-unthemed .fc-popover,
+  .fc-unthemed .fc-row,
+  .fc-unthemed tbody,
+  .fc-unthemed td,
+  .fc-unthemed th,
+  .fc-unthemed thead {
+    border-color: #ddd
+  }
+
+  .fc-unthemed .fc-popover {
+    background-color: #fff;
+    border-width: 1px;
+    border-style: solid
+  }
+
+  .fc-unthemed .fc-divider,
+  .fc-unthemed .fc-list-heading td,
+  .fc-unthemed .fc-popover .fc-header {
+    background: #eee
+  }
+
+  .fc-unthemed td.fc-today {
+    background: #fcf8e3
+  }
+
+  .fc-unthemed .fc-disabled-day {
+    background: #d7d7d7;
+    opacity: .3
+  }
+
+  .fc-icon {
+    height: 1em;
+    line-height: 1em;
+    font-size: 1em;
+    font-family: "Courier New", Courier, monospace;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+  }
+
+  .fc-icon:after {
+    position: relative
+  }
+
+  .fc-icon-left-single-arrow:after {
+    content: "\2039";
+    font-weight: 700;
+    font-size: 200%;
+    top: -7%
+  }
+
+  .fc-icon-right-single-arrow:after {
+    content: "\203A";
+    font-weight: 700;
+    font-size: 200%;
+    top: -7%
+  }
+
+  .fc-icon-left-double-arrow:after {
+    content: "\AB";
+    font-size: 160%;
+    top: -7%
+  }
+
+  .fc-icon-right-double-arrow:after {
+    content: "\BB";
+    font-size: 160%;
+    top: -7%
+  }
+
+  .fc-icon-left-triangle:after {
+    content: "\25C4";
+    font-size: 125%;
+    top: 3%
+  }
+
+  .fc-icon-right-triangle:after {
+    content: "\25BA";
+    font-size: 125%;
+    top: 3%
+  }
+
+  .fc-icon-down-triangle:after {
+    content: "\25BC";
+    font-size: 125%;
+    top: 2%
+  }
+
+  .fc-icon-x:after {
+    content: "\D7";
+    font-size: 200%;
+    top: 6%
+  }
+
+  .fc-unthemed .fc-popover .fc-header .fc-close {
+    color: #666;
+    font-size: .9em;
+    margin-top: 2px
+  }
+
+  .fc-unthemed .fc-list-item:hover td {
+    background-color: #f5f5f5
+  }
+
+  .ui-widget .fc-disabled-day {
+    background-image: none
+  }
+
+  .fc-bootstrap3 .fc-time-grid .fc-slats table,
+  .fc-bootstrap4 .fc-time-grid .fc-slats table,
+  .fc-time-grid .fc-slats .ui-widget-content {
+    background: 0 0
+  }
+
+  .fc-popover>.ui-widget-header+.ui-widget-content {
+    border-top: 0
+  }
+
+  .fc-bootstrap3 hr.fc-divider,
+  .fc-bootstrap4 hr.fc-divider {
+    border-color: inherit
+  }
+
+  .ui-widget .fc-event {
+    color: #fff;
+    font-weight: 400
+  }
+
+  .ui-widget td.fc-axis {
+    font-weight: 400
+  }
+
+  .fc.fc-bootstrap3 a[data-goto]:hover {
+    text-decoration: underline
+  }
+
+  .fc.fc-bootstrap4 a {
+    text-decoration: none
+  }
+
+  .fc.fc-bootstrap4 a[data-goto]:hover {
+    text-decoration: underline
+  }
+
+  .fc-bootstrap4 a.fc-event:not([href]):not([tabindex]) {
+    color: #fff
+  }
+
+  .fc-bootstrap4 .fc-popover.card {
+    position: absolute
+  }
+
+  .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1em
+  }
+
+  .fc-toolbar.fc-footer-toolbar {
+    margin-top: 1em
+  }
+
+  .fc-toolbar .fc-left {
+    float: left
+  }
+
+  .fc-toolbar .fc-right {
+    float: right
+  }
+
+  .fc .fc-toolbar>*>* {
+    float: left;
+    margin-left: .75em
+  }
+
+  .fc .fc-toolbar>*>:first-child {
+    margin-left: 0
+  }
+
+  .fc-toolbar h2 {
+    margin: 0
+  }
+
+  .fc-toolbar button {
+    position: relative
+  }
+
+  .fc-toolbar .fc-state-hover,
+  .fc-toolbar .ui-state-hover {
+    z-index: 2
+  }
+
+  .fc-toolbar .fc-state-down {
+    z-index: 3
+  }
+
+  .fc-toolbar .fc-state-active,
+  .fc-toolbar .ui-state-active {
+    z-index: 4
+  }
+
+  .fc-toolbar button:focus {
+    z-index: 5
+  }
+
+  .fc-view-container *,
+  .fc-view-container :after,
+  .fc-view-container :before {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box
+  }
+
+  .fc-view,
+  .fc-view>table {
+    position: relative;
+    z-index: 1
+  }
+
+  .fc-basicDay-view .fc-content-skeleton,
+  .fc-basicWeek-view .fc-content-skeleton {
+    padding-bottom: 1em
+  }
+
+  .fc-basic-view .fc-body .fc-row {
+    min-height: 4em
+  }
+
+  .fc-row.fc-rigid .fc-content-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0
+  }
+
+  .fc-day-top.fc-other-month {
+    opacity: .3
+  }
+
+  .fc-basic-view .fc-day-number,
+  .fc-basic-view .fc-week-number {
+    padding: 2px
+  }
+
+  .fc-basic-view th.fc-day-number,
+  .fc-basic-view th.fc-week-number {
+    padding: 0 2px
+  }
+
+  .fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+    float: right
+  }
+
+  .fc-rtl .fc-basic-view .fc-day-top .fc-day-number {
+    float: left
+  }
+
+  .fc-ltr .fc-basic-view .fc-day-top .fc-week-number {
+    float: left;
+    border-radius: 0 0 3px
+  }
+
+  .fc-rtl .fc-basic-view .fc-day-top .fc-week-number {
+    float: right;
+    border-radius: 0 0 0 3px
+  }
+
+  .fc-basic-view .fc-day-top .fc-week-number {
+    min-width: 1.5em;
+    text-align: center;
+    background-color: #f2f2f2;
+    color: grey
+  }
+
+  .fc-basic-view td.fc-week-number>* {
+    display: inline-block;
+    min-width: 1.25em
+  }
+
+  .fc-agenda-view .fc-day-grid {
+    position: relative;
+    z-index: 2
+  }
+
+  .fc-agenda-view .fc-day-grid .fc-row {
+    min-height: 3em
+  }
+
+  .fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
+    padding-bottom: 1em
+  }
+
+  .fc .fc-axis {
+    vertical-align: middle;
+    padding: 0 4px;
+    white-space: nowrap
+  }
+
+  .fc-ltr .fc-axis {
+    text-align: right
+  }
+
+  .fc-rtl .fc-axis {
+    text-align: left
+  }
+
+  .fc-time-grid,
+  .fc-time-grid-container {
+    position: relative;
+    z-index: 1
+  }
+
+  .fc-time-grid {
+    min-height: 100%
+  }
+
+  .fc-time-grid table {
+    border: 0 hidden transparent
+  }
+
+  .fc-time-grid>.fc-bg {
+    z-index: 1
+  }
+
+  .fc-time-grid .fc-slats,
+  .fc-time-grid>hr {
+    position: relative;
+    z-index: 2
+  }
+
+  .fc-time-grid .fc-content-col {
+    position: relative
+  }
+
+  .fc-time-grid .fc-content-skeleton {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    right: 0
+  }
+
+  .fc-time-grid .fc-business-container {
+    position: relative;
+    z-index: 1
+  }
+
+  .fc-time-grid .fc-bgevent-container {
+    position: relative;
+    z-index: 2
+  }
+
+  .fc-time-grid .fc-highlight-container {
+    z-index: 3;
+    position: relative
+  }
+
+  .fc-time-grid .fc-event-container {
+    position: relative;
+    z-index: 4
+  }
+
+  .fc-time-grid .fc-now-indicator-line {
+    z-index: 5
+  }
+
+  .fc-time-grid .fc-helper-container {
+    position: relative;
+    z-index: 6
+  }
+
+  .fc-time-grid .fc-slats td {
+    height: 1.5em;
+    border-bottom: 0
+  }
+
+  .fc-time-grid .fc-slats .fc-minor td {
+    border-top-style: dotted
+  }
+
+  .fc-time-grid .fc-highlight {
+    position: absolute;
+    left: 0;
+    right: 0
+  }
+
+  .fc-ltr .fc-time-grid .fc-event-container {
+    margin: 0 2.5% 0 2px
+  }
+
+  .fc-rtl .fc-time-grid .fc-event-container {
+    margin: 0 2px 0 2.5%
+  }
+
+  .fc-time-grid .fc-bgevent,
+  .fc-time-grid .fc-event {
+    position: absolute;
+    z-index: 1
+  }
+
+  .fc-time-grid .fc-bgevent {
+    left: 0;
+    right: 0
+  }
+
+  .fc-v-event.fc-not-start {
+    border-top-width: 0;
+    padding-top: 1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0
+  }
+
+  .fc-v-event.fc-not-end {
+    border-bottom-width: 0;
+    padding-bottom: 1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0
+  }
+
+  .fc-time-grid-event.fc-selected {
+    overflow: visible
+  }
+
+  .fc-time-grid-event.fc-selected .fc-bg {
+    display: none
+  }
+
+  .fc-time-grid-event .fc-content {
+    overflow: hidden
+  }
+
+  .fc-time-grid-event .fc-time,
+  .fc-time-grid-event .fc-title {
+    padding: 0 1px
+  }
+
+  .fc-time-grid-event .fc-time {
+    font-size: .85em;
+    white-space: nowrap
+  }
+
+  .fc-time-grid-event.fc-short .fc-content {
+    white-space: nowrap
+  }
+
+  .fc-time-grid-event.fc-short .fc-time,
+  .fc-time-grid-event.fc-short .fc-title {
+    display: inline-block;
+    vertical-align: top
+  }
+
+  .fc-time-grid-event.fc-short .fc-time span {
+    display: none
+  }
+
+  .fc-time-grid-event.fc-short .fc-time:before {
+    content: attr(data-start)
+  }
+
+  .fc-time-grid-event.fc-short .fc-time:after {
+    content: "\A0-\A0"
+  }
+
+  .fc-time-grid-event.fc-short .fc-title {
+    font-size: .85em;
+    padding: 0
+  }
+
+  .fc-time-grid-event.fc-allow-mouse-resize .fc-resizer {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 8px;
+    overflow: hidden;
+    line-height: 8px;
+    font-size: 11px;
+    font-family: monospace;
+    text-align: center;
+    cursor: s-resize
+  }
+
+  .fc-time-grid-event.fc-allow-mouse-resize .fc-resizer:after {
+    content: "="
+  }
+
+  .fc-time-grid-event.fc-selected .fc-resizer {
+    border-radius: 5px;
+    border-width: 1px;
+    width: 8px;
+    height: 8px;
+    border-style: solid;
+    border-color: inherit;
+    background: #fff;
+    left: 50%;
+    margin-left: -5px;
+    bottom: -5px
+  }
+
+  .fc-time-grid .fc-now-indicator-line {
+    border-top-width: 1px;
+    left: 0;
+    right: 0
+  }
+
+  .fc-time-grid .fc-now-indicator-arrow {
+    margin-top: -5px
+  }
+
+  .fc-ltr .fc-time-grid .fc-now-indicator-arrow {
+    left: 0;
+    border-width: 5px 0 5px 6px;
+    border-top-color: transparent;
+    border-bottom-color: transparent
+  }
+
+  .fc-rtl .fc-time-grid .fc-now-indicator-arrow {
+    right: 0;
+    border-width: 5px 6px 5px 0;
+    border-top-color: transparent;
+    border-bottom-color: transparent
+  }
+
+  .fc-event-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px
+  }
+
+  .fc-rtl .fc-list-view {
+    direction: rtl
+  }
+
+  .fc-list-view {
+    border-width: 1px;
+    border-style: solid
+  }
+
+  .fc .fc-list-table {
+    table-layout: auto
+  }
+
+  .fc-list-table td {
+    border-width: 1px 0 0;
+    padding: 8px 14px
+  }
+
+  .fc-list-table tr:first-child td {
+    border-top-width: 0
+  }
+
+  .fc-list-heading {
+    border-bottom-width: 1px
+  }
+
+  .fc-list-heading td {
+    font-weight: 700
+  }
+
+  .fc-ltr .fc-list-heading-main {
+    float: left
+  }
+
+  .fc-ltr .fc-list-heading-alt,
+  .fc-rtl .fc-list-heading-main {
+    float: right
+  }
+
+  .fc-rtl .fc-list-heading-alt {
+    float: left
+  }
+
+  .fc-list-item.fc-has-url {
+    cursor: pointer
+  }
+
+  .fc-list-item-marker,
+  .fc-list-item-time {
+    white-space: nowrap;
+    width: 1px
+  }
+
+  .fc-ltr .fc-list-item-marker {
+    padding-right: 0
+  }
+
+  .fc-rtl .fc-list-item-marker {
+    padding-left: 0
+  }
+
+  .fc-list-item-title a {
+    text-decoration: none;
+    color: inherit
+  }
+
+  .fc-list-item-title a[href]:hover {
+    text-decoration: underline
+  }
+
+  .fc-list-empty-wrap2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0
+  }
+
+  .fc-list-empty-wrap1 {
+    width: 100%;
+    height: 100%;
+    display: table
+  }
+
+  .fc-list-empty {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center
+  }
+
+  .fc-unthemed .fc-list-empty {
+    background-color: #eee
+  }
+
+</style>
+<style>
+  .fc {
+    background: #fff;
+  }
+
+  .fc .fc-toolbar {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .fc td.fc-today {
+    background: #f2f2f2 !important;
+  }
+
+  .fc .fc-event {
+    background-color: transparent;
+    border: 0;
+  }
+
+  .fc .fc-content {
+    background-color: #4fc3f7;
+    padding: 2px;
+    color: #fff;
+  }
+
+  .fc .fc-state-default {
+    border-color: #4fc3f7;
+    color: #4fc3f7;
+  }
+
+  .fc .fc-state-active {
+    background-color: #4fc3f7;
+    background-image: none;
+    outline: 0;
+    color: #fff;
+    box-shadow: none;
+    text-shadow: none;
+  }
+
+  .fc button {
+    background: transparent;
+  }
+
+</style>
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Full Calendar</h2>
+
+  <h1 class="secondary-heading mb-4">Bootstrap full calendar plugin</h1>
+
+  <!--Description-->
+  <p>Bootstrap full calendar plugin is an extension that allows you to create calendar functionality.
+  </p>
+  <p>Thanks to this plugin you will be able to easily create new events, manage current events, move existing events
+    between other
+    days, and integrate with your Google Calendar.</p>
+
+  <blockquote class="blockquote bq-primary">
+    <p class="bq-title">To start working with full calendar plugin see <strong>"Getting Started"</strong> tab on this
+      page.</p>
+  </blockquote>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic Example
+  </h2>
+
+  <!-- Description -->
+  <p>A few predefined events allowing you to see how the plugin looks like.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="calendar-1"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div id="calendar"></div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+          $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            defaultDate: '2018-11-16',
+            navLinks: true,
+            eventLimit: true,
+            events: [{
+                    title: 'Front-End Conference',
+                    start: '2018-11-16',
+                    end: '2018-11-18'
+                },
+                {
+                    title: 'Hair stylist with Mike',
+                    start: '2018-11-20',
+                    allDay: true
+                },
+                {
+                    title: 'Car mechanic',
+                    start: '2018-11-14T09:00:00',
+                    end: '2018-11-14T11:00:00'
+                },
+                {
+                    title: 'Dinner with Mike',
+                    start: '2018-11-21T19:00:00',
+                    end: '2018-11-21T22:00:00'
+                },
+                {
+                    title: 'Chillout',
+                    start: '2018-11-15',
+                    allDay: true
+                },
+                {
+                    title: 'Vacation',
+                    start: '2018-11-23',
+                    end: '2018-11-29'
+                },
+            ]
+        });
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="dynamic-events">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Dynamically added events
+  </h2>
+
+  <!-- Description -->
+  <p>Find out how easy it is to add new events with the Full Calendar plugin! One button, and the event is already in
+    your calendar.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="calendar-2"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div id="calendar"></div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+        $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'addEventButton',
+            right: 'month,agendaWeek,agendaDay,listWeek'
+          },
+          defaultDate: '2018-11-16',
+          navLinks: true,
+          editable: true,
+          eventLimit: true,
+          events: [{
+              title: 'Simple static event',
+              start: '2018-11-16',
+              description: 'Super cool event'
+            },
+  
+          ],
+          customButtons: {
+            addEventButton: {
+              text: 'Add new event',
+              click: function () {
+                var dateStr = prompt('Enter date in YYYY-MM-DD format');
+                var date = moment(dateStr);
+  
+                if (date.isValid()) {
+                  $('#calendar').fullCalendar('renderEvent', {
+                    title: 'Dynamic event',
+                    start: date,
+                    allDay: true
+                  });
+                } else {
+                  alert('Invalid Date');
+                }
+  
+              }
+            }
+          },
+          dayClick: function (date, jsEvent, view) {
+            var date = moment(date);
+  
+            if (date.isValid()) {
+              $('#calendar').fullCalendar('renderEvent', {
+                title: 'Dynamic event from date click',
+                start: date,
+                allDay: true
+              });
+            } else {
+              alert('Invalid');
+            }
+          },
+        });
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="event-tooltip">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Events with tooltips
+  </h2>
+
+  <!-- Description -->
+  <p>You can easily add tooltip to an event in the calendar. This way you can easily remember what this event is all about.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="calendar-3"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div id="calendar"></div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+          $('#calendar').fullCalendar({
+            defaultView: 'month',
+            defaultDate: '2018-11-12',
+
+            eventRender: function (eventObj, $el) {
+                $el.popover({
+                    title: eventObj.title,
+                    content: eventObj.description,
+                    trigger: 'hover',
+                    placement: 'top',
+                    container: 'body'
+                });
+            },
+
+            events: [{
+                    title: 'All Day Event',
+                    description: 'description for All Day Event',
+                    start: '2018-11-01'
+                },
+                {
+                    title: 'Long Event',
+                    description: 'description for Long Event',
+                    start: '2018-10-07',
+                    end: '2018-11-10'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    description: 'description for Repeating Event',
+                    start: '2018-11-09T16:00:00'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    description: 'description for Repeating Event',
+                    start: '2018-11-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    description: 'description for Conference',
+                    start: '2018-11-11',
+                    end: '2018-11-13'
+                },
+                {
+                    title: 'Meeting',
+                    description: 'description for Meeting',
+                    start: '2018-11-12T10:30:00',
+                    end: '2018-11-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    description: 'description for Lunch',
+                    start: '2018-11-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    description: 'description for Meeting',
+                    start: '2018-11-12T14:30:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    description: 'description for Birthday Party',
+                    start: '2018-11-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    description: 'description for Click for Google',
+                    url: 'http://google.com/',
+                    start: '2018-11-28'
+                }
+            ]
+        });
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="movable-event">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Movable events
+  </h2>
+
+  <!-- Description -->
+  <p>Didn't you do something today? Set it aside for tomorrow! Full Calendar allows you to move events between other days.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="calendar-4"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div id="calendar"></div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+          $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            defaultDate: '2018-11-16',
+            navLinks: true,
+            editable: true,
+            eventLimit: true,
+            events: [{
+                    title: 'All Day Event',
+                    start: '2018-11-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2018-11-07',
+                    end: '2018-11-10'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2018-11-09T16:00:00'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2018-11-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2018-11-11',
+                    end: '2018-11-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2018-11-12T10:30:00',
+                    end: '2018-11-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2018-11-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2018-11-12T14:30:00'
+                },
+                {
+                    title: 'Happy Hour',
+                    start: '2018-11-12T17:30:00'
+                },
+                {
+                    title: 'Dinner',
+                    start: '2018-11-12T20:00:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2018-11-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'https://google.com/',
+                    start: '2018-11-28'
+                }
+            ]
+        });
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<!--Section: -->
+<section id="long-dynamic-events">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Long dynamic events
+  </h2>
+
+  <!-- Description -->
+  <p>Select few days and create an event with one click! Just like in Google Calendar.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="calendar-5"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+
+      <code data-lang="html" data-name="HTML">
+
+        <div id="calendar"></div>
+
+      </code>
+
+      <code data-lang="js" data-name="JS">
+
+        $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'addEventButton',
+            right: 'month,agendaWeek,agendaDay,listWeek'
+          },
+          defaultDate: '2018-11-16',
+          navLinks: true,
+          editable: true,
+          eventLimit: true,
+          events: [{
+              title: 'Simple static event',
+              start: '2018-11-16',
+              description: 'Super cool event'
+            },
+  
+          ],
+          customButtons: {
+            addEventButton: {
+              text: 'Add new event',
+              click: function () {
+                var dateStr = prompt('Enter date in YYYY-MM-DD format');
+                var date = moment(dateStr);
+  
+                if (date.isValid()) {
+                  $('#calendar').fullCalendar('renderEvent', {
+                    title: 'Dynamic event',
+                    start: date,
+                    allDay: true
+                  });
+                } else {
+                  alert('Invalid Date');
+                }
+  
+              }
+            }
+          },
+          dayClick: function (date, jsEvent, view) {
+            var date = moment(date);
+  
+            if (date.isValid()) {
+              $('#calendar').fullCalendar('renderEvent', {
+                title: 'Dynamic event from date click',
+                start: date,
+                allDay: true
+              });
+            } else {
+              alert('Invalid');
+            }
+          },
+        });
+
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+<!--Section: -->
+<section id="options">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Full Calendar options list
+  </h2>
+
+  <!-- Description -->
+  <p>Below options are available to use in Full Calendar.</p>
+
+  <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+          <th>Available values</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>header</i></code></td>
+          <td>object</td>
+          <td>left: 'title', center: ' ', right: 'today prev, next'</td>
+          <td>Defines the buttons and title at the top of the calendar.</td>
+          <td><code>title, prev, next, prevYear, nextYear, today</code></td>
+          <td><code>header: {left: 'title', center: ' ', right: 'today prev, next' }</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>footer</i></code></td>
+          <td>object</td>
+          <td>false</td>
+          <td>Defines the controls at the bottom of the calendar.</td>
+          <td><code>title, prev, next, prevYear, nextYear, today</code></td>
+          <td><code>footer: {left: 'title', center: ' ', right: 'today prev, next' }</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>titleFormat</i></code></td>
+          <td>object</td>
+          <td>-</td>
+          <td>Determines the text that will be displayed in the header’s title.</td>
+          <td><code>-</code></td>
+          <td><code>titleFormat: 'MM/YYYY'</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>buttonText</i></code></td>
+          <td>object</td>
+          <td>buttonText: {today: 'today', month: 'month, week: 'week', day: 'day', list: 'list'}</td>
+          <td>Defines the buttons and title at the top of the calendar.</td>
+          <td><code>-</code></td>
+          <td><code>buttonText: {today: 'today', month: 'month, week: 'week', day: 'day', list: 'list'}</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>buttonIcons</i></code></td>
+          <td>object</td>
+          <td>prev: 'left-single-arrow', next: 'right-single-arrow', prevYear: 'left-double-arrow', nextYear: 'right-double-arrow'</td>
+          <td>Icons that will be displayed in buttons of the header/footer.</td>
+          <td><code>'left-single-arrow', 'right-single-arrow', 'left-double-arrow', 'right-double-arrow'</code></td>
+          <td><code>buttonIcons: {next: 'right-single-arrow', prevYear: 'left-double-arrow', nextYear: 'right-double-arrow'}</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>customButtons</i></code></td>
+          <td>object</td>
+          <td>-</td>
+          <td>Defines custom buttons that can be used in the header/footer. Specify a hash of custom buttons. Then reference them from the header setting.</td>
+          <td><code>text, click, icon, themeIcon, bootstrapGlyphicon</code></td>
+          <td><code>customButtons: { myCustomButton: { text: 'Custom', click: function() { alert('Clicked the custom button'); } } }, header: {left: 'myCustomButton', center: ' ', right: ' ' } </code></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <p>Below events are available to use in Full Calendar.</p>
+
+  <table class="table table-bordered table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="word-break: normal"><i>eventClick</i></code></td>
+          <td>any</td>
+          <td>The event is fired when user has clicked the event.</td>
+          <td><code>eventClick: function(calEvent, jsEvent, view) { console.log('click', calEvent.title); }</code></td>
+        </tr>
+
+        <tr>
+          <td><code style="word-break: normal"><i>eventMouseover</i></code></td>
+          <td>any</td>
+          <td>The event is fired when user has mouseover the event.</td>
+          <td><code>eventMouseover: function(calEvent, jsEvent, view) { console.log('mouseover', calEvent); }</code></td>
+        </tr>
+
+        <tr>
+            <td><code style="word-break: normal"><i>eventMouseout</i></code></td>
+            <td>any</td>
+            <td>The event is fired when user has mouseout the event.</td>
+            <td><code>eventMouseout: function(calEvent, jsEvent, view) { console.log('mouseout', calEvent); }</code></td>
+          </tr>
+
+      </tbody>
+    </table>
+</section>
+<!--/Section: -->

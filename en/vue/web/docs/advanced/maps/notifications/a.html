@@ -1,0 +1,206 @@
+<!--Section: Intro-->
+<section id="a-introduction">
+
+        <!--Title-->
+        <h2 class="section-heading">Vue Bootstrap Notifications - API</h2>
+
+        <p>In this section you will find information about how exactly to use notifications.</p>
+
+      </section>
+      <!--/Section: Intro-->
+
+      <hr class="my-5">
+
+      <!--Section: -->
+      <section id="a-basic">
+          <h2 class="title mb-4">
+              Basic usage
+            </h2>
+        <p class="description">
+          Toastr-like Notify feature is rather special among the general components population, as it is rather a funtionality (a plugin, if you may), rather than the template markup.
+        </p>
+        <p>
+          It means that to display a notification you do not have to import and position it yourself. Rather, it works as a plugin, meaning that all Vue instances have the ability to call a notification. Let's start off by adding this ability to their arsenal. To make notification available to the all (aka. to add it as a plugin), import it into your root Vue instance and make Vue <code>.use()</code> <code>Notify</code>. If you are using <code>vue-cli</code>, the root Vue instance is accessible in the <code>/src/main.js</code> file. Make sure it looks something like this:
+
+        </p>
+            <code><pre class="pl-3">import Vue from 'vue';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbvue/build/css/mdb.css';
+import App from './App.vue'
+import Notify from 'mdbvue';
+
+Vue.use(Notify);</pre></code>
+
+        <p><i>Voilà!</i> Now, notifications are available everywhere!</p>
+      </section>
+
+      <hr class="my-5">
+
+      <!--Section: -->
+      <section id="a-calling">
+
+        <!--Title-->
+        <h2 class="title mb-4">
+          Calling a notification
+        </h2>
+        <p class="description">
+          Generally, a notification pops up once we call one of the <code>$notify</code> global property methods, namely
+          <mdbsnippet>
+              <code data-lang="javascript" data-name="&lt;script&gt;">
+          this.$notify.success(); // or
+          this.$notify.info(); // or
+          this.$notify.wargning(); // or
+          this.$notify.danger();
+        </code></mdbsnippet>
+        With no parameters, calling it will show a basic notification of designated color and with no content in its default position, being top center.
+        </p>
+
+      </section>
+
+      <hr class="my-5">
+
+      <!--Section: -->
+      <section id="a-customization">
+
+        <!--Title-->
+        <h2 class="title mb-4">
+          Customization
+        </h2>
+        <p class="description">
+          To give a notification some character, pass in a configuration object as the function parameter. Below are it's available properties:
+        </p>
+
+        <table class="table table-bordered table-striped table-responsive-md">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+                <tbody>
+                    <tr>
+                    <td><code style="word-break: normal"><i>title</i></code></td>
+                    <td>String</td>
+                    <td>''</td>
+                    <td>Title, if any</td>
+                    </tr>
+
+                    <tr>
+                    <td><code style="word-break: normal"><i>message</i></code></td>
+                    <td>String</td>
+                    <td>''</td>
+                    <td>Text within the notification's "paragraph"</td>
+                    </tr>
+
+                    <tr>
+                    <td><code style="word-break: normal"><i>closeButton</i></code></td>
+                    <td>Boolean</td>
+                    <td>true</td>
+                    <td>Should the close button ("x") be there?</td>
+                    </tr>
+
+                    <tr>
+                    <td><code style="word-break: normal"><i>progressBar</i></code></td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                    <td>Sets whether a progress bar should mark notification's timeout</td>
+                    </tr>
+
+                    <tr>
+                    <td><code style="word-break: normal"><i>position</i></code></td>
+                    <td>String</td>
+                    <td>top right</td>
+                    <td>Available values: 'top right',
+                        'bottom right',
+                        'bottom left',
+                        'top left',
+                        'top center',
+                        'bottom center',
+                        'top full width',
+                        'bottom full width'</td>
+                    </tr>
+
+                    <tr>
+                    <td><code style="word-break: normal"><i>showMethod</i></code></td>
+                    <td>String</td>
+                    <td>fadeIn</td>
+                    <td><a href="https://mdbootstrap.com/docs/vue/css/animations/" target="_blank" style="margin-right: 0!important; color: #007bff;">Animations</a> class name for shown, default as <b>fadeIn</b></td>
+                    </tr>
+
+                    <tr>
+                    <td><code style="word-break: normal"><i>hideMethod</i></code></td>
+                    <td>String</td>
+                    <td>fadeOut</td>
+                    <td><a href="https://mdbootstrap.com/docs/vue/css/animations/" target="_blank" style="margin-right: 0!important; color: #007bff;">Animations</a> class name for hide, default as <b>fadeOut</b></td>
+                    </tr>
+
+                    <tr>
+                    <td><code style="word-break: normal"><i>showDuration</i></code></td>
+                    <td>Number</td>
+                    <td>1000</td>
+                    <td>Duration of show animation in <b>ms</b></td>
+                    </tr>
+
+                    <tr>
+                    <td><code style="word-break: normal"><i>hideDuration</i></code></td>
+                    <td>Number</td>
+                    <td>1000</td>
+                    <td>Duration of hide animation in <b>ms</b></td>
+                    </tr>
+
+                    <tr>
+                    <td><code style="word-break: normal"><i>delay</i></code></td>
+                    <td>Number</td>
+                    <td>0 (no dalay)</td>
+                    <td>Helps to set up a delay on when the notification should appear in <b>ms</b></td>
+                    </tr>
+
+                    <tr>
+                    <td><code style="word-break: normal"><i>timeOut</i></code></td>
+                    <td>Number</td>
+                    <td>1500</td>
+                    <td>Sets duration of time the notification is out there in <b>ms</b></td>
+                    </tr>
+                    <tr>
+                    <td><code style="word-break: normal"><i>color</i></code></td>
+                    <td>String</td>
+                    <td>successColor</td>
+                    <td>Overwrite the default color of a notification</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+  <p class="mt-5 mb-2">A full exemplification of an <code>this.$notify</code> with a configuration object inside some component's method:</p>
+  <mdbsnippet>
+    <code data-lang="javascript" data-name="&lt;script&gt;">
+      this.$notify.warn({
+                        message: 'This is a programmatic warning from within some component',
+                        position: 'top right',
+                        timeOut: 5000,
+                        closeButton: false,
+                        progressBar: true,
+                        delay: 2000
+                      });
+    </code>
+  </mdbsnippet>
+
+        </section>
+
+        <hr class="my-5">
+
+        <!--Section: -->
+        <section id="a-closing" class="mb-4">
+
+          <!--Title-->
+          <h2 class="title mb-4">
+            Closing notifications
+          </h2>
+          <p class="description">
+Notifications disappear after a time-out, which covers most use cases. To dismiss a notification, an user may click the close button, which is provided by default. Lastly, application's logic can clear all the notifications programmatically, calling
+          </p>
+          <code class="pl-2">this.$notify.removeAll()</code>
+
+        </section>
+

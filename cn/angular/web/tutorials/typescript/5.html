@@ -1,0 +1,57 @@
+<!--Section: Tutorial content-->
+<section class="tutorial">
+
+
+<p>In this lesson, we will cover a different type of variables and scopes.</p>
+
+
+
+<ol>
+  <li>Replace the content of the <code>onStartup()</code> function:</li>
+  <pre class="code-toolbar"><code class="language-typescript">onStartup(){
+  function count(){
+    for (var i = 0; i < 9; i++){
+      console.log(i);
+    }
+
+    console.log('Counted: ' , i);
+  }
+
+  count();}
+}  </code></pre>
+
+<li>And start our application, what you will see?</li>
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/typescript/3/img/01.png" alt="Function output.">
+
+<p>Note that although our <code>i</code> variable was declared inside a <code>for</code> loop, it is accessible to the <code>console.log()</code> function which is outside of <code>our</code> code block. Why?</p>
+
+<p>This is because we have declared our variable as <code>var</code>. In JavaScript, all variables declared like that have scope to the nearest function, which in our case is <code>count()</code>.</p>
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/typescript/3/img/02.png" alt="var variable scope.">
+<li>Let's change <code>var</code>, to <code>let</code>:</li>
+<pre class="code-toolbar"><code class="language-typescript">for (let i = 0; i < 10; i++){
+</code></pre>
+
+<p>Now the scope of our variable is changed to local:</p>
+
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/typescript/3/img/03.png" alt="let variable scope.">
+
+
+<li>Let's have a look at the error which occurred in line 22 after we change the scope of our variable:</li>
+    <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/typescript/3/img/04.png" alt="Error.">
+
+<p>and if we save the file, we will see an error in the console during compilation:</p>
+
+<pre class="code-toolbar"><code class="language-typescript">ERROR in src/app/app.component.ts(22,31): error TS2304: Cannot find name 'i'.
+</code></pre>
+
+<p>Remember when we talked about compile-time errors? This is a beautiful example, the compiler spots this error and informs us that we are trying to access a variable which isn't accessible within the current scope <strong>before we even tried to run our code in a browser</strong>. Actually, thanks to Visual Studio <strong>we can see an error even before we request the CLI to compile our project</strong>. The editor shows us errors in real-time. That's a really awesome feature which will save you a lot of time.</p>
+
+
+</ol>
+
+
+
+
+
+</section>
+<!--Section: Tutorial content-->

@@ -1,0 +1,210 @@
+<div class="react-tutorial">
+
+    <h2>1. Download project files</h2>
+    <p>Once we have our environment ready (i.e. npm installed). Let's download the working files. We can do it in two ways:</p>
+  
+  <h3>1.1 GIT repository </h3>
+  
+  <p>In order to download the working files, open a console and type:</p>
+  
+  <mdbsnippet>
+    <code data-lang="php" data-name="shell">
+        git clone https://github.com/mdbootstrap/React-Tutorial-Agenda-App.git
+    </code>
+  </mdbsnippet>
+  
+  <h2>1.2 ZIP file</h2>
+  
+  <p>If for some reason you don't want to use Git directly, you can simply download this <a href="https://github.com/mdbootstrap/React-Tutorial-Agenda-App/archive/master.zip">zip file</a> and extract it.</p>
+  
+  <p class="note note-primary"><strong>Info:</strong><br> 
+  Working folder contains multiple folders called lesson-1 to lesson-12. Each of the folders contains the final version of the code from each lesson. In case of problems you can always refer to the corresponding lesson folder, check the final code and compare it with yours to spot the difference. </p>
+  
+  <h3>2. Files structure and content</h3>
+
+  <p>Open the <code>start-here</code> folder in your editor. I use and recommend Visual Studio Code</p>
+
+  <p>Our application consists of different files, we will go through them in turn. For now, let's focus on the ones
+    which are important for us to start development. </p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/image_5.png" /><br /></div>
+  <div><br /></div>
+  <div>This file is called <code>/src/index.js</code> file. Once you open it you will notice that it has a lot of import statements and more...  </div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/image_3.png" /><br /></div>
+  <span class="small">(the content of the file may look different depending on the version of the React which you are using)</span>
+  <div><br /></div>
+  <p>Each of the lines has its purpose, however we don't need all of them to start using React, therefore, remove the entire content from the file. We will write all the required statements ourselves. </p>
+    <h2>3. Hello World in React</h2>
+    <div>Paste following code into the <code>index.js</code> file:</div>
+    <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+        import React from "react";
+        import ReactDOM from "react-dom";
+        //JSX
+        ReactDOM.render(<h1>Hello World</h1>, document.getElementById("root"));
+
+      </code>
+    </mdbsnippet>
+
+    <p>
+      Save the file.</p>
+    <p>Start the project (<code>npm start</code> in a console). </p>
+
+    <p class="note note-warning"><strong>Note:</strong> <br>
+      If you haven't use npm before you have to execute the following steps:  
+    <ol>
+      <li>Open a command line</li>
+      <li>Navigate to the project location (i.e <code>cd c:\React-Tutorial-Agenda-App\start-here</code></li>
+      <li>Type <code>npm install</code> to install all dependencies</li>
+      <li>Type <code>npm start</code> to start our project</li>
+      <li>Open the address <a href="http://localhost:3000" rel="nofollow">http://localhost:3000</a> in a web browser.</li>
+    </ol></p>
+
+
+    <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/npm-start.gif" /><br /></div>
+    <div><br /></div>
+    <div>The result in a browser, should be like this below:</div>
+    <div><br /></div>
+    <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/image_1.png" /><br /></div>
+    <div><br /></div>
+    <div>Let's stop here and analyze what is actually going on. </div>
+    <div><br /></div>
+    <div>We have <span style="font-weight: bold;">React </span>and <span style="font-weight: bold;">ReactDOM </span>dependencies
+      included in this project. </div>
+    <div><br /></div>
+    <div>I'll get to why we import <span style="font-weight: bold;">React </span>in a second. Firstly let's talk
+      about
+      <span style="font-weight: bold;">ReactDOM </span>- we have to import it so that we could use our<span style="font-weight: bold;">
+        <mark>ReactDOM.render(</mark>)</span> method.</div>
+    <div><br /></div>
+    <div>In a nutshell, we are telling React <span style="font-weight: bold;">what do we want to render </span>(first
+      argument), and <span style="font-weight: bold;">where do we want this to be rendered </span>(second argument).
+      Let's start with the first one. </div>
+    <div><br /></div>
+
+    <p class="note note-primary">Info: Visual Studio Code makes it easy to remember which parameter is responsible
+            for what, simply start typing given function and you will see the description:</p>
+          <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/reactDOM.render.gif" /> </p>
+
+ 
+
+    <div><br /></div>
+    <div>It may look surprising for you that we provide an <span style="font-weight: bold;">HTML tag directly as an
+        argument of the function</span>. Probably you wonder why are you putting an HTML element in the middle of your
+      JavaScript parameter? That's an obvious syntax error! JavaScript is going to think that that is a less than
+      symbol
+      (&lt;)  and that this is a greater than symbol (&gt;) and not know that this is an HTML element. </div>
+    <div><br /></div>
+    <div>Fortunately, React creators created a <span style="font-weight: bold;">language called JSX</span>.  JSX
+      (JavaScript XML) is an extension to the JavaScript language syntax. It is very
+      much like a<span style="font-weight: bold;"> JavaScript rendition or version of HTML</span>, in fact we're going
+      to
+      see that <span style="font-weight: bold;">most of JSX looks almost identical to HTML</span> with those few slight
+      differences that we'll talk about along the way.</div>
+    <div><br /></div>
+    <div>So<span style="font-weight: bold;"> this is a reason why do we have to import React in the first line</span>. 
+      The React library is the one that will enable JSX to work the way it's supposed to work. </div>
+    <div><br /></div>
+    <div>In fact you can see that if I remove or comment out the import React line and try to save it and refresh the browser, it tells me that React is not defined even though I'm not explicitly using React anywhere in my code:</div>
+    <div><br /></div>
+    <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/image_8.png"
+        height="298" width="717" /><br /></div>
+        <p>Let's bring the first line back.</p>
+    <div><br /></div>
+
+
+  <p class="note note-primary">Remember: React uses JSX.</p>
+    <div><br /></div>
+    <h2>4. index.html </h2>
+    <div><br /></div>
+    <div>Let's open a <code>public/index.html</code> file to have a quick look. </div>
+    <div><br /></div>
+    <div>This auto-generated file contains a lot of code. For the sake of that lesson let's remove everything and leave only the following line:</div>
+
+    <mdbsnippet>
+            <code data-lang="php" data-name="JSX">
+                    <div id="root"></div>            </code>
+          </mdbsnippet>
+
+    <div>Obviously, that <span style="font-weight: bold;">isn't a valid HTML file</span> however I want to show you that <mark>ReactDOM.render()</mark> is actually
+      attaching React code to the container. Save the file, run the browser and inspect our website</div>
+    <div><br /></div>
+    <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/image_2.png"
+        height="318" width="948" /><br /></div>
+    <div><br /></div>
+    <div>As you can see, although the initial div is empty, <span style="font-weight: bold;">our</span> <span style="font-weight: bold;">heading
+        was dynamically attached to it by React</span>. Obviously, we do not have to attach it to root. <span style="font-weight: bold;">We
+        can attach it to any other valid DOM element</span>:</div>
+    <div><br /></div>
+    <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/image_6.png"
+        height="371" width="740" /><br /></div>
+    <div><br /></div>
+    <div>We are almost done with our introduction. Let's test one last thing before we finish it. </div>
+    <div><br /></div>
+
+    <h2>5. React.Fragment</h2>
+
+    <div><span style="font-size: 14px;"><br /></span></div>
+    <div>You already know that you can pass JSX tags like headings directly to the function. What is important to
+      know is that you <span style="font-weight: bold;">cannot render two JSX objects next to each other! </span></div>
+
+    <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+        ReactDOM.render(<h1>Hello World</h1><h2>Sub heading</h2>, document.getElementById("root"));
+      </code>
+    </mdbsnippet>
+
+    <div>This will cause an error:</div>
+    <div><br /></div>
+    <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/image.png"
+        height="300" width="895" /><br /></div>
+    <div><br /></div>
+    <div>It tells that you can't have two adjacent JSX elements but instead<span style="font-weight: bold;"> they have to be wrapped in something so that they count as just one element</span> with two elements inside for example: </div>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+            ReactDOM.render(
+                <div>
+                  <h1>Hello World</h1>
+                  <h2>Sub heading</h2>
+                </div>,
+                document.getElementById("root")
+              );
+              
+    </code>
+</mdbsnippet>
+    <div>Which works as follows:</div>
+    <div><br /></div>
+    <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/image_7.png"
+        height="132" width="860" /><br /></div>
+    <div><br /></div>
+    <div>If you don't want to wrap it with an extra div, there is a way to do that as well. Instead of div, simply use the special container - &lt;React.Fragment&gt;. </div>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+            ReactDOM.render(
+                <React.Fragment>
+                  <h1>Hello World</h1>
+                  <h2>Sub heading</h2>
+                </React.Fragment>,
+                document.getElementById("root")
+              );
+              
+    </code>
+</mdbsnippet>
+    <div>This will generate the same output without an extra &lt;div&gt;</div>
+    <div><br /></div>
+    <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/1/image_4.png"
+        " /><br /></div>
+    <div><br /></div>
+<!-- 
+
+Questions: 
+    <div><br /></div>
+    <div>What are the 2 parameters of ReactDOM.render() function and what they are responsible for?</div>
+    <div>What type of the parameter the first paramter is? </div>
+    <div>Is this a valid function call?</div>
+
+            ReactDOM.render(<h1>Hello</h1><h2>World</h2>, document.getElementById("root"));
+
+    <div>How to fix it/make it running?</div> -->
+</div>
+

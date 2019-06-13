@@ -1,0 +1,76 @@
+<div class="vue-tutorial tutorial">
+
+<p>Earlier, we learned how to create the Event component. The problem is, that this <strong>component won’t be useful unless you can pass data to it</strong>, such as the time, title, location and description of the specific event we want to display. <strong>That's where props come into the picture</strong>. </p>
+
+<h2>Passing Data to Child Components with Props</h2>
+
+<p>Props are custom attributes that which we can register on a component. When a value is passed to a prop attribute, it becomes a property of that particular component instance. Let's define some props:</p>
+
+
+<ol>
+	<li>Add <mark>time</mark>, <mark>title</mark>, <mark>location</mark> and <mark>description</mark> props to the <mark>&lt;script&gt;</mark> part of an Event: </li>
+
+
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue (script)">
+export default {
+  name: "Event",
+    props: {
+    time: {
+      type: String
+    },
+    title: {
+      type: String
+    },
+    location: {
+      type: String
+    },
+    description: {
+      type: String
+    }
+  },
+};
+    </code>
+</mdbsnippet>
+
+<p>Now when our props are defined we can update our template. To display props we will use the <i>Mustache</i> syntax (double curly braces) <mark>{{}}</mark></p>
+
+<li>Update an <mark>Event</mark> template: </li>
+<mdbsnippet>
+    <code data-lang="js" data-name="Vue (template)">
+<template>
+  <div>
+    <h3>{{time}} - {{title}}</h3>
+    <p>{{location}}</p>
+    <p>{{description}}</p>
+  </div>
+</template>
+    </code>
+</mdbsnippet>
+
+
+<p>	The last thing we have to do is to pass a value to the App component.</p>
+
+
+<li>Update the <mark>App.vue</mark> <mark>template</mark> part:</li>
+
+<mdbsnippet>
+    <code data-lang="vue" data-name="Vue (template)">
+<template>
+  <mdb-container>
+    <mdb-row>
+      <mdb-col col="9">
+        <Event time="10:00" title="Breakfast with Simon" location="Lounge Caffe" description="Discuss Q3 targets"/>
+        <Event time="10:30" title="Daily Standup Meeting (recurring)" location="Warsaw Spire Office"/>
+      </mdb-col>
+      <mdb-col col="3"></mdb-col>
+    </mdb-row>
+  </mdb-container>
+</template>
+    </code>
+</mdbsnippet>
+
+<p>Now we are able to dynamically generate unique instances of these events.</p>
+ <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/4/preview.PNG" alt="App preview" />
+</ol>
+</div>

@@ -1,0 +1,194 @@
+<!--Section: Tutorial content-->
+<section class="tutorial" id="databases">
+
+  <section id="working-with-databases">
+    <h2 class="title mb-4">
+      <strong>Support for iOS devices</strong>
+    </h2>
+
+    <p class="description">
+      As I've mentioned before, the PWA concept was first introduced a few years ago by Google, and now Google is still
+      the biggest proponent of PWA.</p>
+
+    <p class="description">
+      But let's face it, not everyone is so enthusiastic about this solution. Unfortunately, support for PWA features
+      on iOS is still not perfect. There are many theories out there, regarding why Apple is so reluctant to the
+      concept of PWA, but the fact is that it's still a experimental technology for the company, and so <strong>PWA
+        features are not fully supported on iOS</strong>.
+    </p>
+
+    <p class="description">
+      Still, Apple users are a significant part of the market, so in today's lesson, we will try to bypass those
+      obstacles and make our app native-like for iOS users too.
+    </p>
+
+    <p class="description">
+      Most of the steps we are going to take come down to adding special apple-specific meta tags and links to our page
+      head section (group all of your meta tags above link tags)
+    </p>
+
+
+    <h4 class="mt-5"><strong>Shortcut Icon</strong> </h4>
+
+    <p class="description">
+      Unfortunately, while installing your app, iOS does not use the icons from the manifest file. To add your custom
+      shortcut icon on the iPhone/iPad devices, you have to use apple-specific link tags. The best option is to prepare
+      a set of icons in different sizes - to make sure that that looks good on every device. You can use icon
+      generators available on the internet, to make your work easier - they will prepare the icon in all formats
+      needed.
+    </p>
+
+    <p class="description">
+      I've already added a set of icons to the public folder. Now, lets add following lines in the <code>public/index.html</code>
+      file
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="public/index.html">
+          <link rel="apple-touch-icon" href="icons/apple-touch-icon-iphone-60x60.png">
+          <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-touch-icon-ipad-76x76.png">
+          <link rel="apple-touch-icon" sizes="114x114" href="icons/apple-touch-icon-iphone-retina-120x120.png">
+          <link rel="apple-touch-icon" sizes="144x144" href="icons/apple-touch-icon-ipad-retina-152x152.png">
+      </code>
+    </mdbsnippet>
+
+    <h4 class="mt-5"><strong>Adding a Launch Icon Title</strong> </h4>
+
+    <p class="description">
+      To define an app title - similar to the name and short name properties defined in the <code>manifest.json</code>
+      file, let's add an <code>apple-mobile-web-app-title</code> element:
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="public/index.html">
+          <meta name="apple-mobile-web-app-title" content="Agenda App">
+      </code>
+    </mdbsnippet>
+
+    <p>Now, when the user click 'add to the homescreen" button, he will see popup as shown below:</p>
+
+    <div class="text-center"> <img class="img-fluid" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/react/tutorials/react-pwa/7/iOsbanner.png"
+        alt="Copy HTML"></div>
+
+
+    <h4 class="mt-5"><strong>Standalone mode</strong> </h4>
+
+    <p class="description">
+      To mimic the standalone look of the native application we have to tell the browser, that we don't want to launch
+      it in the browser, but rather as a web app. We also want to hide a status bar, by default black, that is visible
+      across the top of the screen. We can achieve this by adding these two lines:
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="public/index.html">
+          <meta name="apple-mobile-web-app-capable" content="yes">
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        </code>
+    </mdbsnippet>
+
+    <h4 class="mt-5"><strong>Splash Screen</strong> </h4>
+
+    <p class="description">
+      The last thing we have to take care of is a launch screen - right now, iOS doesn't generate splash screens from
+      the manifest.json - as it works in Android.
+      Instead, we have to provide images for each screen size - again, I advise to use online tools for that.
+    </p>
+
+    <p>In the end our <code>public/index.html</code> file will look like this:</p>
+
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="public/index.html">
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          />
+          <meta name="theme-color" content="#000000" />
+          <meta name="description" content="Progressive Web App tutorial" />
+          <meta name="apple-mobile-web-app-capable" content="yes">
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+          <meta name="apple-mobile-web-app-title" content="Agenda App">
+
+          <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+          <link rel="shortcut icon" href="%PUBLIC_URL%/icons/icon-72x72.png" />
+          <!-- Font Awesome -->
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+          <!-- Bootstrap core CSS -->
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+          <!-- Material Design Bootstrap -->
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/css/mdb.min.css" rel="stylesheet">
+
+
+          <link rel="apple-touch-icon" href="icons/apple-touch-icon-iphone-60x60.png">
+          <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-touch-icon-ipad-76x76.png">
+          <link rel="apple-touch-icon" sizes="114x114" href="icons/apple-touch-icon-iphone-retina-120x120.png">
+          <link rel="apple-touch-icon" sizes="144x144" href="icons/apple-touch-icon-ipad-retina-152x152.png">
+
+
+          <link href="splashscreens/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+          <link href="splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+          <link href="splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+          <link href="splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+          <link href="splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+          <link href="splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+          <link href="splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+          <link href="splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+          <link href="splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+          <link href="splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+
+          <title>React App</title>
+        </head>
+        <body>
+          <noscript> You need to enable JavaScript to run this app. </noscript>
+          <div id="root">
+              <div class="container">
+                  <div class="row">
+                     <div class="col-md-9 mb-r">
+                        <h2 class="text-uppercase my-3">Today:</h2>
+                        <div id="schedule-items">
+                          <div class="d-flex justify-content-center">
+                            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                          </div>
+                        </div>
+                       <div class="col-md-3">
+                        <h3 class="text-uppercase my-3">Schedule</h3>
+                        <h6 class="my-3">It's going to be busy that today. You have<b> </b> today.</h6>
+                        <h1 class="my-3">
+                           <div class="row">
+                              <div class="col-xs-3 text-center"><i class="fa fa-sun fa-fw"></i></div>
+                              <div class="col-xs-9">Sunny</div>
+                           </div>
+                           <div class="row">
+                              <div class="col-xs-3 text-center"><i class="fa fa-thermometer-three-quarters fa-fw"></i></div>
+                              <div class="col-xs-9">23°C</div>
+                           </div>
+                        </h1>
+                        <p>Don't forget your sunglasses. Today will dry and sunny, becoming warm in the afternoon with temperatures of between 20 and 25 degrees.</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+        </body>
+      </html>
+
+        </code>
+    </mdbsnippet>
+
+    <p> Now, our app behaves in a similar way to the app on Android devices!</p>
+
+    <div class="text-center"> <img class="img-fluid" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/react/tutorials/react-pwa/7/iphone.png"
+        alt="Copy HTML"></div>
+
+    <p class="description">Something doesn't work for you? Check the code for this lesson on our <a href="https://github.com/mdbootstrap/React-Tutorial-PWA/archive/master.zip">repository</a></p>
+
+  </section>
+
+
+</section>
+<!--Section: Tutorial content -->

@@ -1,0 +1,240 @@
+<!--Section: Tutorial content-->
+<section class="tutorial" id="databases">
+
+  <section id="working-with-databases">
+    <h2 class="title mb-4">
+      <strong>Working with Firebase & IndexedDB databases</strong>
+    </h2>
+
+    <p class="description">
+      It is time to take advantage of the benefits of databases. In this lesson, we will focus on using two databases —
+      Firebase and IndexedDB. At the end of this lesson your application will use the Firebase database to get data into
+      the application, and in offline mode, it will use a data caching mechanism and IndexedDB.
+    </p>
+
+    <p class="description">In the <code>app.component.html</code> file, we have to change the <code>*ngFor</code> loop
+      that generates the <code>schedule-item</code>
+      components. In this line, we have to add an <code>| async</code> pipe. To do this, open this file and change the line below to the following one.</p>
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="Before">
+        <div *ngFor="let item of items">
+          <app-schedule-item [value]="item"></app-schedule-item>
+        </div>
+      </code>
+
+      <code data-lang="html" data-name="After">
+        <div *ngFor="let item of items | async">
+          <app-schedule-item [value]="item"></app-schedule-item>
+        </div>
+      </code>
+    </mdbsnippet>
+
+    <p class="description">The file <code>app.component.ts</code> we have to rebuild in its entirety. To do this, paste the
+      code below
+      into this file:</p>
+
+    <mdbsnippet>
+      <code data-lang="ts" data-name="TS">
+        import {Component, OnInit, ViewChild} from '@angular/core';
+        import {ModalDirective} from 'angular-bootstrap-md';
+        import {FormControl} from '@angular/forms';
+        import {IdbService} from './services/idb.service';
+        import {FirebaseService} from './services/firebase.service';
+        import {AngularFirestore} from '@angular/fire/firestore';
+        import {Observable, of} from 'rxjs';
+        import {map} from 'rxjs/operators';
+
+        export interface Schedule {
+          id?: string;
+          time: string;
+          subject: string;
+          location?: string;
+          description?: string;
+        }
+
+        @Component({
+          selector: 'app-root',
+          templateUrl: './app.component.html',
+          styleUrls: ['./app.component.scss']
+        })
+        export class AppComponent implements OnInit {
+          @ViewChild(ModalDirective) modal: ModalDirective;
+
+          timeInput = new FormControl();
+          subjectInput = new FormControl();
+          locationInput = new FormControl();
+          descriptionInput = new FormControl();
+
+          networkMode = 'online';
+          items: Observable<Schedule>;
+
+            constructor(
+            private idbService: IdbService,
+            private firebase: FirebaseService,
+            private db: AngularFirestore) {
+              navigator.onLine === true ? this.networkMode = 'online' : this.networkMode = 'offline';
+
+              this.idbService.connectToIDB();
+              let onlineDataLength;
+
+              this.idbService.getAllData('Items').then((items: any) => {
+                onlineDataLength = items.length;
+                if (this.networkMode === 'online' && onlineDataLength === 0) {
+                  this.items = this.db.collection<Schedule>('Items', item => item.orderBy('time', 'asc'))
+                    .snapshotChanges().pipe(map((actions: any) => {
+                      return actions.map(a => {
+                      const data = a.payload.doc.data() as any;
+                      this.idbService.addItems('Items', data);
+                      return {...data};
+                    });
+                    }));
+                    } else {
+                    this.items = of(items);
+                  }
+
+                  this.idbService.dataChanged().subscribe((data: any) => {
+                    this.items = of(data);
+                  });
+                });
+              }
+
+              addNewItem() {
+                const value: Schedule = {
+                  id: null,
+                  time: this.timeInput.value,
+                  subject: this.subjectInput.value,
+                  location: this.locationInput.value,
+                  description: this.descriptionInput.value
+              };
+
+              if (this.networkMode === 'offline') {
+                this.idbService.addItems('Sync-Items', value);
+                this.idbService.addItems('Items', value);
+              } else if (this.networkMode === 'online') {
+                this.idbService.addItems('Items', value);
+                this.idbService.getAllData('Items').then((data: any) => {
+                  this.firebase.addItem({
+                    id: data.length,
+                    time: value.time,
+                    subject: value.subject,
+                    location: value.location,
+                    description: value.description
+                });
+              });
+              }
+
+              this.timeInput.setValue('');
+              this.subjectInput.setValue('');
+              this.locationInput.setValue('');
+              this.descriptionInput.setValue('');
+
+              this.modal.hide();
+              }
+
+              getOnlineData() {
+                return this.idbService.getAllData('Items');
+              }
+
+              getOfflineData() {
+                return this.idbService.getAllData('Sync-Items');
+              }
+
+              mergeDatabases() {
+                let offline;
+                let online;
+
+                this.getOfflineData().then((data: any) => {
+                  offline = data;
+                });
+                this.getOnlineData().then((data: any) => {
+                  online = data;
+                offline.forEach((el: any, index: number) => {
+                  if (el == offline[index]) {
+                    this.firebase.addItem(el);
+                    this.idbService.addItems('Items', el);
+                    this.idbService.deleteItems('Sync-Items', el.id);
+                  }
+                });
+              });
+              }
+
+              ngOnInit() {
+                if (this.networkMode === 'online') {
+                  this.mergeDatabases();
+                }
+              }
+
+            }
+      </code>
+    </mdbsnippet>
+
+    <p class="description">Let's describe the changes that have occurred in this file:</p>
+
+    <p class="description">In the <code>items</code> variable we changed the type to <code>Observable&lt;Schedule&gt;</code>,
+      so we can use as async pipe while generating the schedules list.
+    </p>
+
+    <p class="description">In the constructor we injected three services: <code>IdbService</code>,
+      <code>FirebaseService</code>, and <code>AngularFirestore</code>.</p>
+
+    <p class="description">Then in the constructor we used the <code>this.idbService.connectToIDB()</code> method to
+      connect to the IndexedDB
+      database, and then we used the <code>this.idbService.getAllData()</code> method to retrieve data from the
+      IndexedDB database.</p>
+
+    <p class="description">In the <code>this.idbService.getAllData()</code> Promise we check if the application is
+      running online, then we retrieve data
+      from the Firebase database and assign it to the <code>items</code> variable. Otherwise, we use the <code>of</code>
+       operator from the RxJS library
+      to create observable data from the IndexedDB database and assign it to the <code>items</code> variable.</p>
+
+    <p class="description">The last step in the constructor is to subscribe to the
+      <code>this.idbService.dataChanged()</code> method in order to
+      assign new data to the <code>items</code> variable each time.</p>
+
+    <p class="description">
+      In the <code>addNewItem()</code> method we added some code that checks if the application is running offline or
+      online, and based
+      on this check adds data to the offline (indexedDB) or online (Firebase) database.</p>
+
+    <p class="description">In the <code>ngOnInit</code> hook we use the <code>mergeDatabases()</code> method to transfer
+      the data added offline (IndexedDB) to the online database (Firebase).</p>
+
+    <p class="description">Now you can build your application using the <code>npm run pwa</code> command, then open your
+      browser at <code>localhost:8080</code> and see how it works.</p>
+
+    <p class="description">Your application should display one test schedule, and should look like in the picture
+      below:</p>
+
+    <img class="img-fluid"
+         src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/new-angular-pwa/imgs/angular-pwa-7.png"
+         style="max-width: 300px"
+         alt="PWA Application">
+
+    <p class="description">However, if your application reads old or incorrect data, clear the Cache data and IndexedDB
+      data in your browser. Open Developer Tools (F12), then open the <strong>Application</strong> menu, click on
+      the <strong>Clear storage</strong>
+      button and then click the <strong>Clear site data</strong> button. The picture below shows how to do it in Google
+      Chrome.</p>
+
+    <img class="img-fluid"
+         src="<?php echo get_template_directory_uri() ?>/content/angular/tutorials/new-angular-pwa/imgs/angular-pwa-7-1.png"
+         alt="Clear data storage">
+
+    <p class="description">We then need to check the operation of the application! Run it with the <code>npm
+      run pwa</code>
+      command, and see how it works in online and offline modes.</p>
+
+    <p class="description">Switch the application to offline mode, add a new schedule, then switch it back to offline
+      mode and refresh. You'll see that the data added offline is online!</p>
+
+    <br>
+
+    <p class="description">Is it working for you? If not, you can check the code for this lesson on our <a href="https://github.com/mdbootstrap/MDB-Angular-PWA/tree/7-working-with-databases">repository</a></p>
+
+  </section>
+
+
+</section>
+<!--Section: Tutorial content-->

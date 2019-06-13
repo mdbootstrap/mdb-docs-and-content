@@ -1,0 +1,300 @@
+<script src="<?php echo get_template_directory_uri() ?>/js/plugins/pickr.min.js"></script>
+
+<script type="text/javascript">
+    const pickr1 = new Pickr({
+      el: '#color-picker-1',
+      default: "303030",
+      components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+
+        interaction: {
+          hex: true,
+          rgba: true,
+          hsla: true,
+          hsva: true,
+          cmyk: true,
+          input: true,
+          clear: true,
+          save: true
+        }
+      }
+    });
+  </script>
+
+  <script type="text/javascript">
+    const pickr2 = new Pickr({
+      el: '#color-picker-2',
+      useAsButton: true,
+      default: "123456",
+
+      components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+
+        interaction: {
+          hex: true,
+          rgba: true,
+          hsla: true,
+          hsva: true,
+          cmyk: true,
+          input: true,
+          clear: true,
+          save: true
+        }
+      }
+    });
+  </script>
+
+  <script type="text/javascript">
+    const pickr3 = new Pickr({
+      el: '#color-picker-3',
+      useAsButton: true,
+      default: "303030",
+      components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+
+        interaction: {
+          hex: true,
+          rgba: true,
+          hsla: true,
+          hsva: true,
+          cmyk: true,
+          input: true,
+          clear: true,
+          save: true
+        }
+      },
+
+      onChange(hsva, instance) {
+        $('.bg-color').css('background-color', hsva.toRGBA().toString());
+      }
+    });
+
+    const pickr4 = new Pickr({
+      el: '#color-picker-4',
+      default: "303030",
+      useAsButton: true,
+      components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+
+        interaction: {
+          hex: true,
+          rgba: true,
+          hsla: true,
+          hsva: true,
+          cmyk: true,
+          input: true,
+          clear: true,
+          save: true
+        }
+      },
+
+      onChange(hsva, instance) {
+        $('.text-color').css('color', hsva.toRGBA().toString());
+      }
+    });
+  </script>
+
+  <script type="text/javascript">
+    let colorArray = [];
+    const pickr5 = new Pickr({
+      el: '#color-picker-5',
+      default: "030303",
+      useAsButton: true,
+      components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+
+        interaction: {
+          hex: true,
+          rgba: true,
+          hsla: true,
+          hsva: true,
+          cmyk: true,
+          input: true,
+          clear: true,
+          save: true
+        }
+      },
+
+      onSave(hsva, instance) {
+        colorArray.push({
+          hex: hsva.toHEX().toString(),
+          rgba: hsva.toRGBA().toString(),
+          hsla: hsva.toHSLA().toString(),
+          hsva: hsva.toHSVA().toString(),
+          cmyk: hsva.toCMYK().toString()
+        });
+        copyToClipboard();
+      }
+    });
+
+    function copyToClipboard() {
+
+      const el = document.createElement('textarea');
+      colorArray.forEach(function (elem) {
+        el.value += '{';
+        el.value += 'hex: ' + "'" + elem.hex + "'" + ', ';
+        el.value += 'rgba: ' + "'" + elem.rgba + "'" + ', ';
+        el.value += 'hsla: ' + "'" + elem.hsla + "'" + ', ';
+        el.value += 'hsva: ' + "'" + elem.hsva + "'" + ', ';
+        el.value += 'cmyk: ' + "'" + elem.cmyk + "'";
+        el.value += '}, ';
+      });
+      $(el).attr('readonly', '');
+      $(el).css('position', 'absolute');
+      $(el).css('left', '-9999px');
+      $(el).appendTo(document.body);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
+  </script>
+
+  <script type="text/javascript">
+    const pickr6 = new Pickr({
+      el: '#color-picker-6',
+      useAsButton: true,
+
+      components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+
+        interaction: {
+          hex: true,
+          rgba: true,
+          hsla: true,
+          hsva: true,
+          cmyk: true,
+          input: true,
+          clear: true,
+          save: true
+        }
+      },
+
+      onChange(hsva) {
+        let colorObject = {
+          hex: hsva.toHEX().toString(),
+          rgba: hsva.toRGBA().toString(),
+          hsla: hsva.toHSLA().toString(),
+          hsva: hsva.toHSVA().toString(),
+          cmyk: hsva.toCMYK().toString()
+        };
+        for (let col in colorObject) {
+          $('#' + col).text(col + ': ' + colorObject[col]);
+        }
+      }
+    });
+  </script>
+
+  <script type="text/javascript">
+    const pickr7 = new Pickr({
+      el: '#color-picker-7',
+      useAsButton: true,
+
+      components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+
+        interaction: {
+          hex: true,
+          rgba: true,
+          hsla: true,
+          hsva: true,
+          cmyk: true,
+          input: true,
+          clear: true,
+          save: true
+        }
+      },
+
+      onChange(hsva) {
+        $(document.body).css('background-color', hsva.toHEX().toString());
+      }
+    });
+  </script>
+
+<!-- Structured data: Breadcrumbs -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "https://mdbootstrap.com/",
+        "name": "MDBootstrap",
+        "image": "https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg"
+      }
+    }, {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@id": "https://mdbootstrap.com/plugins/",
+        "name": "MDBootstrap jQuery",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2018/11/mdb-jquery-free.jpg"
+      }
+    }, {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@id": "https://mdbootstrap.com/plugins/jquery/",
+        "name": "Plugins",
+        "image": "https://mdbootstrap.com/img/Marketing/docs/social/main-addons.jpg"
+      }
+    }, {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@id": "https://mdbootstrap.com/plugins/jquery/color-picker/",
+        "name": "Color Picker",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2018/11/plugin-color-picker-jquery.jpg"
+      }
+    }]
+  }
+
+</script>
+
+
+<!-- Structured data: Article -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://mdbootstrap.com/plugins/jquery/color-picker/"
+    },
+    "headline": "Bootstrap color picker plugin - examples & tutorial. Basic & advanced usage",
+    "image": [
+      "https://mdbootstrap.com/wp-content/uploads/2018/11/plugin-color-picker-jquery.jpg"
+    ],
+    "datePublished": "2018-06-25T08:00:00+08:00",
+    "dateModified": "2018-06-25T09:20:00+08:00",
+    "author": {
+      "@type": "Organization",
+      "name": "MDBootstrap"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MDBootstrap",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+      }
+    },
+    "description": "Bootstrap Color Picker plugin allows you to select different colors. You can successfully use it in various product wizards, clothing sales, or other situations where you need to be able to choose a color."
+  }
+
+</script>

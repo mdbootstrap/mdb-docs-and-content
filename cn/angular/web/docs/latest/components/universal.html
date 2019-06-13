@@ -1,0 +1,432 @@
+<!--Section: Doc content-->
+<section class="documentation">
+
+    <!--Section: Intro-->
+    <section id="introduction">
+
+        <!--Title-->
+        <h1 class="main-title">Angular Universal</h1>
+
+        <!--Description-->
+        <div class="description">
+            <p>Angular Universal also known as server-side rendering is tool which allows server to pre-render Angular application while user hits your website for first time.</p>
+
+            <p>Server-side rendering has bunch of benefits for SEO, performance, and accesibility of your web-app!</p>
+
+            <p>In this guide we'll show you, how to implement Angular Universal working with MDB Angular and Express.js server! </p>
+        </div>
+
+    </section>
+
+    <section>
+
+        <h4><b>Step 1:</b> Install server dependencies</h4>
+        <p class="description">
+            We have to install few additional dependencies for use Angular Universal. In your console type:
+<pre class="code-toolbar"><code class="language-javascript">npm install @angular/platform-server express --save
+npm install ts-loader webpack-node-externals npm-run-all --save-dev</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 2:</b> Create ServerModule file</h4>
+        <p class="description">
+            We have to create app.server.module.ts file in this path: src/app/app.server.module.ts, and paste there code:
+<pre class="code-toolbar"><code class="language-javascript">
+import { NgModule } from '@angular/core';
+import { ServerModule } from '@angular/platform-server';
+
+import { AppModule } from './app.module';
+import { AppComponent } from './app.component';
+
+@NgModule({
+    imports: [
+        AppModule,
+        ServerModule
+    ],
+    bootstrap: [AppComponent],
+})
+export class AppServerModule { }
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 3:</b> Update app.module.file</h4>
+        <p class="description">
+            Head into src/app/app.module.ts file, and add to imports table below code:
+<pre class="code-toolbar"><code class="language-javascript">
+imports: [
+    ...
+    BrowserModule.withServerTransition({ appId: 'place-here-your-app-name' }),
+    ...
+  ],
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 4:</b> Create main.server.ts file</h4>
+        <p class="description">
+            In src directory create new file called main.server.ts and put there below code:
+<pre class="code-toolbar"><code class="language-javascript">
+export { AppServerModule } from './app/app.server.module';
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 5:</b> Update your angular-cli.json file</h4>
+        <p class="description">
+            In src directory create new file called main.server.ts and put there below code:
+<pre class="code-toolbar"><code class="language-javascript">
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "pro523"
+  },
+  "apps": [{
+      "root": "src",
+      "outDir": "dist/browser",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+
+      "styles": [
+        "../node_modules/font-awesome/scss/font-awesome.scss",
+        "../node_modules/ng-mdb-pro/assets/scss/bootstrap/bootstrap.scss",
+        "../node_modules/ng-mdb-pro/assets/scss/mdb.scss",
+        "./styles.scss"
+      ],
+
+      "scripts": [
+        "../node_modules/chart.js/dist/Chart.js",
+        "../node_modules/easy-pie-chart/dist/easypiechart.js",
+        "../node_modules/screenfull/dist/screenfull.js",
+        "../node_modules/hammerjs/hammer.min.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    },
+    {
+      "platform": "server",
+      "root": "src",
+      "outDir": "dist/server",
+      "assets": [],
+      "index": "index.html",
+      "main": "main.server.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.server.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "../node_modules/font-awesome/scss/font-awesome.scss",
+        "../node_modules/ng-mdb-pro/assets/scss/bootstrap/bootstrap.scss",
+        "../node_modules/ng-mdb-pro/assets/scss/mdb.scss",
+        "./styles.scss"
+      ],
+
+      "scripts": [
+        "../node_modules/chart.js/dist/Chart.js",
+        "../node_modules/easy-pie-chart/dist/easypiechart.js",
+        "../node_modules/screenfull/dist/screenfull.js",
+        "../node_modules/hammerjs/hammer.min.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [{
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "component": {}
+  }
+}
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 6:</b> Create tsconfig.server.json file</h4>
+        <p class="description">
+            In src directory create new file called tsconfig.server.json and put there below code:
+<pre class="code-toolbar"><code class="language-javascript">
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "module": "commonjs",
+    "types": []
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts",
+    "server.ts"
+  ],
+  "include": ["node_modules/ng-mdb-pro/**/*.ts",  "/**/*.ts"],
+  "angularCompilerOptions": {
+    "entryModule": "app/app.server.module#AppServerModule"
+  }
+}
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 7:</b> Update tsconfig.app.json file</h4>
+        <p class="description">
+            Head into your src/tsconfig.app.json file, and update it with code below:
+<pre class="code-toolbar"><code class="language-javascript">
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "module": "es2015",
+    "types": []
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts",
+    "server.ts"
+  ]
+}
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 8:</b> Check if application build correctly</h4>
+        <p class="description">
+            Type below commands into your terminal to check if your application builds correctly
+<pre class="code-toolbar"><code class="language-javascript">
+ng build -prod --build-optimizer --app 0
+ng build --aot --app 1
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 9:</b> Create server.ts file to use Express.js</h4>
+        <p class="description">
+            Head into src directory, and create there server.ts file, and fill it with code below:
+<pre class="code-toolbar"><code class="language-javascript">
+import 'reflect-metadata';
+import 'zone.js/dist/zone-node';
+import { renderModuleFactory } from '@angular/platform-server';
+import { enableProdMode } from '@angular/core';
+import * as express from 'express';
+import { join } from 'path';
+import { readFileSync } from 'fs';
+
+enableProdMode();
+const domino = require('domino');
+const DIST_FOLDER = join(process.cwd(), 'dist');
+const templatee = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
+const win = domino.createWindow(templatee);
+global['window'] = win;
+global['document'] = win.document;
+
+const PORT = process.env.PORT || 4200;
+
+const app = express();
+
+const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
+const { AppServerModuleNgFactory } = require('main.server');
+
+app.engine('html', (_, options, callback) => {
+    const opts = { document: template, url: options.req.url };
+
+    renderModuleFactory(AppServerModuleNgFactory, opts)
+        .then(html => callback(null, html));
+});
+
+app.set('view engine', 'html');
+app.set('views', 'src');
+
+app.get('*.*', express.static(join(DIST_FOLDER, 'browser')));
+
+app.get('*', (req, res) => {
+    res.render('index', { req });
+});
+
+app.listen(PORT, () => {
+    console.log(`listening on http://localhost:${PORT}!`);
+});
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 10:</b> Create webpack.config.js file</h4>
+        <p class="description">
+            In root (main) directory of your application create file called webpack.config.js, and fill it with code below:
+<pre class="code-toolbar"><code class="language-javascript">
+const path = require('path');
+var nodeExternals = require('webpack-node-externals');
+
+module.exports = {
+  entry: {
+    server: './src/server.ts'
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+    alias: {
+      'main.server': path.join(__dirname, 'dist', 'server', 'main.bundle.js')
+    }
+  },
+  target: 'node',
+  externals: [nodeExternals({
+    whitelist: [
+        /^@agm\/core/,
+        /^hammerjs/
+      ]
+  })],
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].js'
+  },
+  module: {
+    rules: [
+      { test: /\.ts$/, loader: 'ts-loader' }
+    ]
+  }
+}
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 11:</b> Add build scripts to package.json file</h4>
+        <p class="description">
+            Head into your package.json file, and put there build scripts:
+<pre class="code-toolbar"><code class="language-javascript">
+{
+  "name": "pro523",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "run-s build:client build:aot build:server",
+    "build:client": "ng build -prod --build-optimizer --app 0",
+    "build:aot": "ng build --aot --app 1",
+    "build:server": "webpack -p",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^5.2.0",
+    "@angular/common": "^5.2.0",
+    "@angular/compiler": "^5.2.0",
+    "@angular/core": "^5.2.0",
+    "@angular/forms": "^5.2.0",
+    "@angular/http": "^5.2.0",
+    "@angular/platform-browser": "^5.2.0",
+    "@angular/platform-browser-dynamic": "^5.2.0",
+    "@angular/platform-server": "^5.2.9",
+    "@angular/router": "^5.2.0",
+    "chart.js": "^2.5.0",
+    "core-js": "^2.4.1",
+    "easy-pie-chart": "^2.1.7",
+    "express": "^4.16.3",
+    "font-awesome": "^4.7.0",
+    "hammerjs": "^2.0.8",
+    "ng-mdb-pro": "git+https://&lt;your-token&gt;@git.mdbootstrap.com/mdb/angular/ng-pro.git",
+    "rxjs": "^5.5.6",
+    "screenfull": "^3.3.0",
+    "zone.js": "^0.8.19"
+  },
+  "devDependencies": {
+    "@angular/cli": "1.6.5",
+    "@angular/compiler-cli": "^5.2.0",
+    "@angular/language-service": "^5.2.0",
+    "@types/jasmine": "~2.8.3",
+    "@types/jasminewd2": "~2.0.2",
+    "@types/node": "~6.0.60",
+    "codelyzer": "^4.0.1",
+    "jasmine-core": "~2.8.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~2.0.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "^1.2.1",
+    "karma-jasmine": "~1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "npm-run-all": "^4.1.2",
+    "protractor": "~5.1.2",
+    "ts-loader": "^3.5.0",
+    "ts-node": "~4.1.0",
+    "tslint": "~5.9.1",
+    "typescript": "~2.5.3",
+    "webpack-node-externals": "^1.6.0"
+  }
+}
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 12:</b> Update your src/main.ts file</h4>
+        <p class="description">
+            Head into src directory, and update main.ts file:
+<pre class="code-toolbar"><code class="language-javascript">
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
+
+if (environment.production) {
+  enableProdMode();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  platformBrowserDynamic().bootstrapModule(AppModule)
+    .catch(err => console.log(err));
+});
+</code></pre>
+        </p>
+        <br>
+
+        <h4><b>Step 13:</b> Explore your application!</h4>
+        <p class="description">
+            Into your terminal put last commands, and explore your Angular Universal application!
+<pre class="code-toolbar"><code class="language-javascript">
+npm run build && node dist/server.js
+</code></pre>
+        </p>
+        <br>
+
+    </section>
+
+</section>
+<!--/Section: Doc content-->

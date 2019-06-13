@@ -1,0 +1,242 @@
+<p class="note note-warning"><strong>Disclaimer:</strong> In this lesson, we will quickly go through loops in React. I assume that you already know how to code loops in JS - if you
+    don't then check <a href="https://mdbootstrap.com/education/javascript/">this tutorial</a> first.</p>
+
+  <div><br /></div>
+  <h2>1. For loop</h2>
+  <div><br /></div>
+  <div>Currently, we have our main App Component </div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            class App extends Component {
+                state = {};
+                render() {
+                  return (
+                    <React.Fragment>
+                      <MDBContainer>
+                        <MDBRow>
+                          <MDBCol md="9">
+                            <Event title="Meeting with John" time="10:00" />
+                          </MDBCol>
+                          <MDBCol md="3" />
+                        </MDBRow>
+                      </MDBContainer>
+                    </React.Fragment>
+                  );
+                }
+              }              
+     </code>
+ </mdbsnippet>
+  <div>and the child component:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            class Event extends Component {
+                render() {
+                  return (
+                    <React.Fragment>
+                      <h3>
+                        {this.props.time} - {this.props.title}
+                      </h3>
+                    </React.Fragment>
+                  );
+                }
+              }              
+     </code>
+ </mdbsnippet>
+  <div>A typical JS for loop looks like this one below:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            for (i = 0; i < 5; i++) {
+                text += "The number is " + i + " ";
+              }
+                           
+     </code>
+ </mdbsnippet>
+  <div>Let's try to use it within our App component:</div>
+<mdbsnippet>
+    <code data-lang="php" data-name="JSX">
+            <MDBCol md="9">
+                for (i = 0; i < 5; i++) {
+                    text += "The number is " + i + " ";
+                }
+            </MDBCol>
+                    
+    </code>
+</mdbsnippet>
+  <div>As soon as we save the file, the <span style="font-weight: bold;">compiler will raise an Unexpected token error:</span></div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/8/image_1.png"  alt="Compiler error" /><br /></div>
+  <div><br /></div>
+  <div><span style="font-weight: bold;">Apparently, React does not like for loops in its <mark>render()</mark></span> method! How do
+    we solve this?</div>
+  <div><br /></div>
+  <div>What we need to do is to use a loop in a separate function outside <mark>render()</mark>, but still inside the class. Then we can call the creating function inside render to get the result.</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            myFunction() {
+                var text = " ";
+                var i;
+                for (i = 0; i < 5; i++) {
+                  text += " The number is " + i;
+                }
+                return text;
+              }            
+      </code>
+  </mdbsnippet>
+  <div>and call it within the <mark>render()</mark> method:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            <MDBCol md="9"> {this.myFunction()} </MDBCol>
+      </code>
+  </mdbsnippet>
+<p>Preview:</p>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/8/image_4.png"   alt="For Loop" /><br /></div>
+  <div><br /></div>
+
+  <h2>2. Looping through components</h2>
+ 
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <div>Let's create an array containing some events in our App component:</div>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            class App extends Component {
+                constructor(props) {
+                  super(props);
+                  this.state = {
+                    events: [
+                      { time: "10:00", title: "Breakfast with Simon" },
+                      { time: "10:30", title: "Daily Standup Meeting (recurring)" },
+                      { time: "11:00", title: "Call with HRs" }
+                    ]
+                  };
+                }              
+      </code>
+  </mdbsnippet>
+  <div>Since we cannot use a for loop directly in our <mark>render()</mark> method, let's modify our
+     <mark> myLoopFunction()</mark> to work with our components:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            myLoopFunction() {
+                var myArray = [];
+                var i;
+                for (i = 0; i < this.state.events.length; i++) {
+                  myArray[i] = (
+                    <Event
+                      time={this.state.events[i].time}
+                      title={this.state.events[i].title}
+                    />
+                  );
+                }
+                return myArray;
+              }            
+     </code>
+ </mdbsnippet>
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <div>As you might notice we made a few changes: </div>
+  <ul>
+    <li>
+      <div>we <span style="font-weight: bold;">used an array</span> instead of a string variable to collect loop output</div>
+    </li>
+    <li>
+      <div><span style="font-weight: bold;">instead of hard-coded values</span>, we are looping until we reach the length of
+        our events array (<mark>events.length</mark>)</div>
+    </li>
+    <li>
+      <div>we refer to corresponding events in a table <span style="font-weight: bold;">using an iterator</span> (i)
+        (<mark>this.state.events[i]</mark>)</div>
+    </li>
+  </ul>
+  <div><br /></div>
+  <div>Preview:</div>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/8/image_3.png" alt="Loop preview" /><br /></div>
+  <div>It works, however, there is a much better and easy way to loop within the <mark>render()</mark> method without using extra function. </div>
+  <div><br /></div>
+  <h2>3. Using map()</h2>
+  <div><br /></div>
+  <div>Instead of typical loop we can use <mark>map()</mark> function: </div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            {this.state.events.map(event => (
+                <Event time={event.time} title={event.title} />
+              ))}              
+     </code>
+ </mdbsnippet>
+  <div>The result is the same and it's much shorter. Furthermore<span style="font-weight: bold;"> we can use it
+      directly inside the <mark>render()</mark></span> method. </div>
+  <div><br /></div>
+  <div>We can now delete our <mark>myLoopFunction()</mark> since we don't need it anymore. </div>
+  <div><br /></div>
+  <h2>4. "key" attribute</h2>
+
+  <div><br /></div>
+  <div>The <mark>map()</mark> function makes it easier to iterate through arrays, however, <span style="font-weight: bold; ">there
+      is one important thing to remember while using <mark>map()</mark></span> in React. When you open a console, you will see that
+    <span style="font-weight: bold;">React complains about missing key attribute</span>:</div>
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/8/image_2.png" alt="Missing key error" /><br /></div>
+  <div><span style="font-size: 14px;"><br /></span></div>
+  <div><span style=" font-weight: bold;">It is important for React to maintain the key for each element </span>generated by the <mark>map()</mark> function. This way React can
+    handle the minimal DOM change. Let's add a few more items to our events array: </div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+            events: [
+            {
+              id: 1,
+              time: "10:00",
+              title: "Breakfast with Simon",
+              location: "Lounge Caffe",
+              description: "Discuss Q3 targets"
+            },
+            {
+              id: 2,
+              time: "10:30",
+              title: "Daily Standup Meeting (recurring)",
+              location: "Warsaw Spire Office"
+            },
+            { id: 3, time: "11:00", title: "Call with HRs" },
+            {
+              id: 4,
+              time: "11:00",
+              title: "Lunch with Timothy",
+              location: "Canteen",
+              description:
+                "Project evaluation ile declaring a variable and using an if statement is a fine way to conditionally render a component, sometimes you might want to use a"
+            }
+          ]
+          
+     </code>
+ </mdbsnippet>
+
+  <p>Now each element has its own id, which we will use as a key. We also extended some of our events with a location as well as a description.  </p> <p> Let's update our map correspondingly: </p>
+  <mdbsnippet>
+      <code data-lang="php" data-name="JSX">
+            {this.state.events.map(event => (
+                <Event
+                  key={event.id}
+                  id={event.id}
+                  time={event.time}
+                  title={event.title}
+                  location={event.location}
+                  description={event.description}
+                />
+              ))}          
+      </code>
+  </mdbsnippet>
+  <div>The last step is to update our Event component to render our new metadata:</div>
+ <mdbsnippet>
+     <code data-lang="php" data-name="JSX">
+<h3>
+  {this.props.time} - {this.props.title}
+</h3>
+<h6>Location: {this.props.location}</h6>
+<p>Desc: {this.props.description}</p>
+
+     </code>
+ </mdbsnippet>
+  <p>Preview:</dipv>
+  <div><br /></div>
+  <div> <img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/react/tutorials/agenda-app/8/image.png" alt="Output of the map() function" /><br /></div>
+  <div><br /></div>
+  <div>Some of the values are empty and looks odd, that's why we will learn more about
+      conditional rendering in the next lesson.</div>
+  <div><br /></div>

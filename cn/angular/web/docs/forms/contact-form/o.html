@@ -1,0 +1,704 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Angular Bootstrap contact form</h2>
+  <h1 class="secondary-heading mb-4">Angular Contact Form - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p class="description">Angular Bootstrap Contact Form - a step-by-step guide on how to create a contact form for
+    sending messages
+    using the NodeJS environment and Express server. Validation of client-side and server-side messages.</p>
+
+  <p>Requirements:</p>
+
+  <ul>
+    <li>Angular 6 with Angular CLI,</li>
+    <li>NodeJS environment,</li>
+    <li>The Express package from the npm repository,</li>
+    <li>The nodemailer package from the npm repository,</li>
+    <li>The body-parser package from the npm repository.</li>
+  </ul>
+
+  <p>If you need a ready to download code, you will find it <a href="https://github.com/mdbootstrap/mdb-angular-contact-form" target="blank">here</a>.</p>
+
+</section>
+
+<hr class="my-5">
+
+<section id="start">
+  <h2 class="section-heading">
+    Creating the application and the necessary service
+  </h2>
+
+  <p>Let's start from scratch, - let's create a new application and generate a service responsible for contact with
+    our NodeJS server. In order to do this, execute the commands below in your application terminal:</p>
+
+  <pre class="code-toolbar">
+      <code class="language-javascript">
+        ng new mdb-contact-form --style=scss
+      </code>
+    </pre>
+
+  <pre class="code-toolbar">
+      <code class="language-javascript">
+        ng generate service connection
+      </code>
+    </pre>
+
+  <p>Then add the newly generated <code>ConnectionService</code> to the providers array in the <code>app.module.ts</code>
+    file.</p>
+</section>
+
+<hr class="my-5">
+
+<blockquote class="blockquote bq-danger">
+  <p class="bq-title">Note!</p>
+  <p>Within this tutorial we are using the Material Design for Bootstrap library, you can download it for free from <a
+      href="https://mdbootstrap.com/docs/angular/getting-started/download/">here</a>. Without the library the form
+    will still work however it may look and behave differently. It's recommended to use this library along with the
+    tutorial.</p>
+</blockquote>
+
+
+<section id="creating-form" class="mt-5">
+
+  <h2 class="section-heading">
+    Creating the form
+  </h2>
+
+  <p>If you are using MDB Angular Free version, use the code of the first form. If you are using MDB Angular Pro, copy
+    the second form into your application.</p>
+
+  <!--Section: Live preview-->
+  <section>
+    <!--Grid row-->
+    <div class="row">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <!--Title-->
+        <h3 class="secondary-heading mb-3">
+          Default form contact
+        </h3>
+
+        <!--Section: Live preview-->
+        <section>
+
+          <!-- Default form contact -->
+          <form class="text-center border border-light p-5">
+
+            <p class="h4 mb-4">Contact us</p>
+
+            <!-- Name -->
+            <input type="text" id="defaultContactFormName" class="form-control mb-4" placeholder="Name">
+
+            <!-- Email -->
+            <input type="email" id="defaultContactFormEmail" class="form-control mb-4" placeholder="E-mail">
+
+            <!-- Subject -->
+            <label>Subject</label>
+            <select class="browser-default custom-select mb-4">
+              <option value="" disabled>Choose option</option>
+              <option value="1" selected>Feedback</option>
+              <option value="2">Report a bug</option>
+              <option value="3">Feature request</option>
+              <option value="4">Feature request</option>
+            </select>
+
+            <!-- Message -->
+            <div class="form-group">
+              <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Message"></textarea>
+            </div>
+
+            <!-- Copy -->
+            <div class="custom-control custom-checkbox mb-4">
+              <input type="checkbox" class="custom-control-input" id="defaultContactFormCopy">
+              <label class="custom-control-label" for="defaultContactFormCopy">Send me a copy of this message</label>
+            </div>
+
+            <!-- Send button -->
+            <button class="btn btn-info btn-block" type="submit">Send</button>
+
+          </form>
+          <!-- Default form contact -->
+
+        </section>
+        <!--Section: Live preview-->
+
+        <!--Section: Code-->
+        <section>
+          <mdbsnippet>
+
+            <code data-lang="html" data-name="HTML">
+
+              <!-- Default form contact -->
+              <form class="text-center border border-light p-5" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+
+                <p class="h4 mb-4">Contact us</p>
+
+                <!-- Name -->
+                <input type="text" formControlName="contactFormName" id="defaultContactFormName" mdbInput
+                  class="form-control mb-4" placeholder="Name">
+
+                <!-- Email -->
+                <input type="email" formControlName="contactFormEmail" id="defaultContactFormEmail" mdbInput
+                  class="form-control mb-4" placeholder="E-mail">
+
+                <!-- Subject -->
+                <label>Subject</label>
+                <select formControlName="contactFormSubjects" class="browser-default custom-select mb-4">
+                  <option value="" disabled>Choose option</option>
+                  <option value="1" selected>Feedback</option>
+                  <option value="2">Report a bug</option>
+                  <option value="3">Feature request</option>
+                  <option value="4">Feature request</option>
+                </select>
+
+                <!-- Message -->
+                <div class="form-group">
+                  <textarea formControlName="contactFormMessage" class="form-control rounded-0" mdbInput id="exampleFormControlTextarea2"
+                    rows="3" placeholder="Message"></textarea>
+                </div>
+
+                <!-- Copy -->
+                <div class="custom-control custom-checkbox mb-4">
+                  <input formControlName="contactFormCopy" type="checkbox" class="custom-control-input" id="defaultContactFormCopy">
+                  <label class="custom-control-label" for="defaultContactFormCopy">Send me a copy of this message</label>
+                </div>
+
+                <!-- Send button -->
+                <button mdbBtn color="info" outline="true" block="true" class="z-depth-0 my-4 waves-effect"
+                  mdbWavesEffect type="submit" [disabled]="disabledSubmitButton">Send</button>
+
+              </form>
+              <!-- Default form contact -->
+
+
+            </code>
+
+            <code data-lang="js" data-name="TS">
+              import { ConnectionService } from './connection.service';
+              import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+              import { Component, HostListener } from '@angular/core';
+
+              @Component({
+                selector: 'app-root',
+                templateUrl: './app.component.html',
+                styleUrls: ['./app.component.scss'],
+              })
+              export class AppComponent {
+
+              contactForm: FormGroup;
+              disabledSubmitButton: boolean = true;
+              optionsSelect: Array<any>;
+
+                @HostListener('input') oninput() {
+
+                if (this.contactForm.valid) {
+                  this.disabledSubmitButton = false;
+                  }
+                }
+
+                constructor(private fb: FormBuilder, private connectionService: ConnectionService) {
+
+                this.contactForm = fb.group({
+                  'contactFormName': ['', Validators.required],
+                  'contactFormEmail': ['', Validators.compose([Validators.required, Validators.email])],
+                  'contactFormSubjects': ['', Validators.required],
+                  'contactFormMessage': ['', Validators.required],
+                  'contactFormCopy': [''],
+                  });
+                }
+
+                onSubmit() {
+                  this.connectionService.sendMessage(this.contactForm.value).subscribe(() => {
+                    alert('Your message has been sent.');
+                    this.contactForm.reset();
+                    this.disabledSubmitButton = true;
+                  }, error => {
+                    console.log('Error', error);
+                  });
+                }
+
+                }
+            </code>
+
+          </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <!--Title-->
+        <h3 class="secondary-heading">
+          Material form contact
+          <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm"
+            role="button">MDB Pro component
+            <i class="far fa-gem ml-1"></i>
+          </a>
+        </h3>
+
+        <!--Section: Live preview-->
+        <section class="pr-1">
+
+          <!-- Material form contact -->
+          <div class="card">
+
+            <h5 class="card-header info-color white-text text-center py-4">
+              <strong>Contact us</strong>
+            </h5>
+
+            <!--Card content-->
+            <div class="card-body px-lg-5 pt-0">
+
+              <!-- Form -->
+              <form class="text-center" style="color: #757575;">
+
+                <!-- Name -->
+                <div class="md-form mt-3">
+                  <input type="text" id="materialContactFormName" class="form-control">
+                  <label for="materialContactFormName">Name</label>
+                </div>
+
+                <!-- E-mail -->
+                <div class="md-form">
+                  <input type="email" id="materialContactFormEmail" class="form-control">
+                  <label for="materialContactFormEmail">E-mail</label>
+                </div>
+
+                <!-- Subject -->
+                <span>Subject</span>
+                <select class="mdb-select">
+                  <option value="" disabled>Choose option</option>
+                  <option value="1" selected>Feedback</option>
+                  <option value="2">Report a bug</option>
+                  <option value="3">Feature request</option>
+                  <option value="4">Feature request</option>
+                </select>
+
+                <!--Message-->
+                <div class="md-form">
+                  <textarea type="text" id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
+                  <label for="materialContactFormMessage">Message</label>
+                </div>
+
+                <!-- Copy -->
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="materialContactFormCopy">
+                  <label class="form-check-label" for="materialContactFormCopy">Send me a copy of this message</label>
+                </div>
+
+                <!-- Send button -->
+                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Send</button>
+
+              </form>
+              <!-- Form -->
+
+            </div>
+
+          </div>
+          <!-- Material form contact -->
+
+        </section>
+        <!--Section: Live preview-->
+
+        <!--Section: Code-->
+        <section>
+          <mdbsnippet>
+
+            <code data-lang="html" data-name="HTML">
+
+              <mdb-card>
+
+                <mdb-card-header class="info-color white-text text-center py-4">
+                  <h5>
+                    <strong>Contact us</strong>
+                  </h5>
+                </mdb-card-header>
+
+                <mdb-card-body class="px-lg-5 pt-0">
+
+                  <form class="text-center" style="color: #757575;" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+
+                    <div class="md-form mt-3">
+                      <input type="text" formControlName="contactFormName" id="materialContactFormName" class="form-control"
+                        mdbInput>
+                      <label for="materialContactFormName">Name</label>
+                    </div>
+
+                    <div class="md-form">
+                      <input type="email" formControlName="contactFormEmail" id="materialContactFormEmail" class="form-control"
+                        mdbInput>
+                      <label for="materialContactFormEmail">E-mail</label>
+                    </div>
+
+                    <span>Subject</span>
+                    <div class="row">
+                      <div class="col-md-12 mx-auto">
+                        <mdb-select formControlName="contactFormSubjects" [options]="optionsSelect" placeholder="Choose your option"></mdb-select>
+                      </div>
+                    </div>
+
+                    <div class="md-form">
+                      <textarea type="text" formControlName="contactFormMessage" id="materialContactFormMessage" class="form-control md-textarea"
+                        mdbInput></textarea>
+                      <label for="materialContactFormMessage">Message</label>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 mx-auto d-flex justify-content-center">
+                        <mdb-checkbox formControlName="contactFormCopy">Send me a copy of this message</mdb-checkbox>
+                      </div>
+                    </div>
+
+                    <button mdbBtn color="info" outline="true" rounded="true" block="true" class="z-depth-0 my-4 waves-effect"
+                      mdbWavesEffect type="submit" [disabled]="disabledSubmitButton">Send</button>
+
+                  </form>
+
+                </mdb-card-body>
+
+              </mdb-card>
+
+            </code>
+
+            <code data-lang="js" data-name="TS">
+              import { ConnectionService } from './connection.service';
+              import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+              import { Component, OnInit, HostListener } from '@angular/core';
+
+              @Component({
+                selector: 'app-root',
+                templateUrl: './app.component.html',
+                styleUrls: ['./app.component.scss'],
+              })
+              export class AppComponent implements OnInit {
+
+              contactForm: FormGroup;
+              disabledSubmitButton: boolean = true;
+              optionsSelect: Array<any>;
+
+                @HostListener('input') oninput() {
+
+                  if (this.contactForm.valid) {
+                    this.disabledSubmitButton = false;
+                  }
+                }
+
+                constructor(private fb: FormBuilder, private connectionService: ConnectionService) {
+
+                this.contactForm = fb.group({
+                  'contactFormName': ['', Validators.required],
+                  'contactFormEmail': ['', Validators.compose([Validators.required, Validators.email])],
+                  'contactFormSubjects': ['', Validators.required],
+                  'contactFormMessage': ['', Validators.required],
+                  'contactFormCopy': [''],
+                  });
+                }
+
+                ngOnInit() {
+
+                this.optionsSelect = [
+                  { value: 'Feedback', label: 'Feedback' },
+                  { value: 'Report a bug', label: 'Report a bug' },
+                  { value: 'Feature request', label: 'Feature request' },
+                  { value: 'Other stuff', label: 'Other stuff' },
+                  ];
+                }
+
+                onSubmit() {
+                  this.connectionService.sendMessage(this.contactForm.value).subscribe(() => {
+                    alert('Your message has been sent.');
+                    this.contactForm.reset();
+                    this.disabledSubmitButton = true;
+                  }, error => {
+                    console.log('Error', error);
+                  });
+                }
+
+                }
+            </code>
+
+          </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+  </section>
+
+  <p>After copying the above code to your application you will see a ready to use form.
+    Let me briefly describe what exactly the above component code does.</p>
+
+  <p>In the constructor we define all fields of the form. All fields except <code>contactFormCopy</code> are marked as
+    required,
+    which means that without filling in these fields, we will not be able to send the form. This is the client-side
+    validation.</p>
+
+  <p>In the <code>ngOnInit</code> lifecycle we populate the <code>optionsSelect</code> variable with values that will
+    serve us as message
+    subjects that the user will be able to select in the form.</p>
+
+  <p>The <code>onSubmit()</code> method is responsible for calling the <code>sendMessage()</code> method defined in the
+    <code>ConnectionService</code>
+    service. This method is responsible for sending our form to the backend.</p>
+</section>
+
+<hr class="my-5">
+
+<section id="creating-service">
+
+  <h2 class="section-heading">
+    Building the ConnectionService logic
+  </h2>
+
+  <p>The <code>ConnectionService</code> is responsible for contact with our backend written in NodeJS. It is not yet
+    created, but we
+    will do it in the next step. Let's now fill in the <code>ConnectionService</code> with the appropriate code, which
+    will allow
+    you to send the form to the backend.</p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="TS">
+        import { HttpClient, HttpHeaders } from '@angular/common/http';
+        import { Injectable } from '@angular/core';
+
+        @Injectable({
+        providedIn: 'root'
+        })
+        export class ConnectionService {
+        url: string = 'http://localhost:3000/send';
+        constructor(private http: HttpClient) { }
+
+        sendMessage(messageContent: any) {
+          return this.http.post(this.url,
+          JSON.stringify(messageContent),
+          { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), responseType: 'text' });
+        }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <p>The <code>sendMessage()</code> method is responsible for hitting the <code>http://localhost:3000/send</code>
+    address, which is the router defined in the
+    Express server that we will immediately create. Thanks to this, our application knows how to send data between the
+    frontend and backend layers.</p>
+
+  <p>
+    The <code>post()</code> method of the <code>HttpClient</code> class takes three parameters. </p>
+  <p>The first parameter is the address of the endpoint to be hit by the front layer. </p>
+  <p>The second parameter is the data that the front has to send to the address
+    from the first parameter. </p>
+  <p>The third parameter are the options, which we can pass to the request. In them we pass
+    the Http header with the defined Content-Type parameter.
+  </p>
+</section>
+
+<hr class="my-5">
+
+<section id="creating-backend">
+
+  <h2 class="section-heading">
+    Creating the NodeJS backend server file
+  </h2>
+
+  <p>Create a new file in your application's root directory, and name it <code>server.js</code>, then paste the code
+    you will find
+    below. Without any worries, I'll immediately describe what the code you copy is doing.</p>
+
+  <p>If you haven't installed the <code>express</code>, <code>nodemailer</code> and <code>body-parser</code> packages
+    from the npm repository so far, do so
+    immediately using the following command in your application terminal:</p>
+
+  <pre class="code-toolbar">
+    <code class="language-javascript">
+      npm install express nodemailer body-parser --save
+    </code>
+  </pre>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="TS">
+        const express = require('express');
+        const nodemailer = require('nodemailer');
+        const app = express();
+        const port = 3000;
+        const bodyParser = require('body-parser');
+
+        const transporter = nodemailer.createTransport({
+
+          host: 'smtp.gmail.com',
+          provider: 'gmail',
+          port: 465,
+          secure: true,
+          auth: {
+            user: ' ', // Enter here email address from which you want to send emails
+            pass: ' ' // Enter here password for email account from which you want to send emails
+          },
+          tls: {
+          rejectUnauthorized: false
+          }
+        });
+
+        app.use(bodyParser.json());
+
+        app.use(function (req, res, next) {
+
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+          next();
+        });
+
+        app.post('/send', function (req, res) {
+
+          let senderName = req.body.contactFormName;
+          let senderEmail = req.body.contactFormEmail;
+          let messageSubject = req.body.contactFormSubjects;
+          let messageText = req.body.contactFormMessage;
+          let copyToSender = req.body.contactFormCopy;
+
+          let mailOptions = {
+            to: [' '], // Enter here the email address on which you want to send emails from your customers
+            from: senderName,
+            subject: messageSubject,
+            text: messageText,
+            replyTo: senderEmail
+          };
+
+          if (senderName === '') {
+            res.status(400);
+            res.send({
+            message: 'Bad request'
+            });
+            return;
+          }
+
+          if (senderEmail === '') {
+            res.status(400);
+            res.send({
+            message: 'Bad request'
+            });
+            return;
+          }
+
+          if (messageSubject === '') {
+            res.status(400);
+            res.send({
+            message: 'Bad request'
+            });
+            return;
+          }
+
+          if (messageText === '') {
+            res.status(400);
+            res.send({
+            message: 'Bad request'
+            });
+            return;
+          }
+
+          if (copyToSender) {
+            mailOptions.to.push(senderEmail);
+          }
+
+          transporter.sendMail(mailOptions, function (error, response) {
+            if (error) {
+              console.log(error);
+              res.end('error');
+            } else {
+              console.log('Message sent: ', response);
+              res.end('sent');
+            }
+          });
+        });
+
+        app.listen(port, function () {
+          console.log('Express started on port: ', port);
+        });
+
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <p>I will start the description of the above code from the top.</p>
+  <p>
+    Line 7 - <code>const transporter = nodemailer.createTransport({ })</code> is used to create a function that takes
+    the object containing the configuration of the transporter as a parameter.
+    It is in this configuration that you define the host from which emails are sent, provider (if it is gmail), port,
+    authorization and many other things are to be sent.
+    To make it easier, you can send emails from gmail account. To do this, enter your username and password to your
+    mailbox in <code>user</code> and <code>pass</code> keys.
+  </p>
+
+  <p>Line 22 - <code>app.use(bodyParser.json());</code> launches body-parser, thanks to which we can intercept data
+    sent in the requests from the frontend layer.</p>
+
+  <p>Lines 24 - 29 are only used in development environments. It is not recommended to use them in a production
+    environment unless you know exactly what you are doing.</p>
+
+  <p>In line 31 we define route <code>/post</code>, after which the frontend layer sends data to the backend layer.
+    This is where the actual email is sent to the mailbox.</p>
+
+  <p>Lines 33 - 37 create helper variables, thanks to which we can more easily refer to the individual components of
+    our request.</p>
+
+  <p>line 39 defines the <code>mailOptions</code> object that is sent to the <code>sendMail()</code> method. It is in
+    this object that we
+    define, to who the email is to be sent, from who, what is its subject, text, and to who the response in the
+    email is to be addressed. In this object there are many more options that you can use. You will find them all on
+    <a href="https://nodemailer.com/message/" target="blank">this page</a>.</p>
+
+  <p>Lines 47 - 77 are responsible for server-side validation. This is a very simple validation, which only checks if
+    all required fields are given. If any of them is not given, the backend returns the message to the front layer that
+    the request is incorrect. </p>
+
+  <p>
+    Lines 79 - 81 correspond to whether a copy of the message should be sent to the user. In the form this is
+    determined by the checkbox.
+  </p>
+
+  <p>Lines 83 - 89 are responsible for mail sending. This is where the <code>sendMail()</code> function with the
+    parameters defined above
+    is called. If an error occurs, the server console will register the log. If the shipment is successful, the whole
+    message will be returned to the server console.</p>
+
+  <p>Lines 92 - 94 run our Express server on the port 3000, which we defined at the beginning of the file.</p>
+</section>
+
+<hr class="my-5">
+
+<section id="conclusion">
+
+  <h2 class="section-heading">
+    Tutorial conclusion
+  </h2>
+
+  <p>In this tutorial I presented a very simple way to send messages from the contact form on the front, through the
+    use of a very popular backend stack NodeJS + Express. Example application, which you wrote together with me, can be
+    easily extended by e.g. more advanced validation on the server side, and other, interesting things on the front
+    side. </p>
+
+  <p>If you have any problems while working with this tutorial, please look at our <a href="https://mdbootstrap.com/support/">support
+      forum</a> and see if anyone has
+    already had a similar problem.</p>
+
+  <p>If you encountered a problem with Google blocking your application while sending an email from @gmail, try
+    changing permissions for less secure applications. You can achieve this by visiting <a href="https://myaccount.google.com/lesssecureapps">this page</a>.</p>
+
+
+</section>

@@ -1,0 +1,230 @@
+<div class="vue-tutorial tutorial">
+
+<p>In this lesson, we will learn how to use modals in our projects. </p>
+
+<p class="note note-primary"><strong>Note:</strong> <br/> Modals are small pop up windows which are really handy when you want to display to user extra content, configuration or consent request.</p>
+
+
+  <p>To use modals, follow the steps below.</p>
+
+<ol>
+
+	<li>1. Import the modal elements in <code>App.vue</code></li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue (script)">
+import {
+  ...
+  mdbModal,
+  mdbModalHeader,
+  mdbModalTitle,
+  mdbModalBody,
+  mdbModalFooter
+} from "mdbvue";
+
+[...]
+export default {
+  name: "App",
+	components: {
+	...
+	mdbModal,
+	mdbModalHeader,
+	mdbModalTitle,
+	mdbModalBody,
+	mdbModalFooter,
+	...
+	},
+  </code>
+</mdbsnippet>
+
+<li>Add the new variable <mark>modal: false</mark> within <mark>data()</mark> function:</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+   data() {
+    return {
+      events: [
+		...
+      ],
+      modal: false,
+    };
+  },	
+  </code>
+</mdbsnippet>
+
+<li>Add the modal body to the template before <mark>&lt;/mdb-container&gt;</mark></li>
+
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+<mdb-modal v-if="modal" @close="modal = false">
+  <mdb-modal-header>
+    <mdb-modal-title tag="h4" class="w-100 text-center font-weight-bold">Add new event</mdb-modal-title>
+  </mdb-modal-header>
+  <mdb-modal-body>Modal body</mdb-modal-body>
+  <mdb-modal-footer class="justify-content-center">
+    <mdb-btn color="info">Add</mdb-btn>
+  </mdb-modal-footer>
+</mdb-modal>
+  </code>
+</mdbsnippet>
+
+<li>Update the Add Event button to display modal on click (update <mark>modal</mark> value to true)</li>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+<mdb-btn color="info" @click.native="modal = true">Add Event</mdb-btn>
+  </code>
+</mdbsnippet>
+
+<p>The final content of the file will be:</p>
+
+<mdbsnippet>
+  <code data-lang="js" data-name="Vue">
+<template>
+  <mdb-container>
+    <mdb-row>
+      <mdb-col col="9">
+        <h2 class="text-uppercase my-3">Today:</h2>
+        <Event
+          v-for="(event, index) in events"
+          :index="index"
+          :time="event.time"
+          :title="event.title"
+          :location="event.location"
+          :description="event.description"
+          :key="index"
+          @delete="handleDelete"
+        />
+        <mdb-row>
+          <mdb-col xl="3" md="6" class="mx-auto text-center">
+            <mdb-btn color="info" @click.native="modal = true">Add Event</mdb-btn>
+          </mdb-col>
+        </mdb-row>
+      </mdb-col>
+      <mdb-col col="3">
+        <h3 class="text-uppercase my-3">Schedule</h3>
+        <h6 class="my-3">
+          It's going to be busy that today. You have
+          <b>{{events.length}} events</b> today.
+        </h6>
+        <h1 class="my-3">
+          <mdb-row>
+            <mdb-col col="3" class="text-center">
+              <mdb-icon far icon="sun"/>
+            </mdb-col>
+            <mdb-col col="9">Sunny</mdb-col>
+          </mdb-row>
+          <mdb-row>
+            <mdb-col col="3" class="text-center">
+              <mdb-icon icon="thermometer-three-quarters"/>
+            </mdb-col>
+            <mdb-col col="9">23°C</mdb-col>
+          </mdb-row>
+        </h1>
+        <p>
+          Don't forget your sunglasses. Today will dry and sunny, becoming
+          warm in the afternoon with temperatures of between 20 and 25
+          degrees.
+        </p>
+      </mdb-col>
+    </mdb-row>
+
+    <mdb-modal v-if="modal" @close="modal = false">
+      <mdb-modal-header>
+        <mdb-modal-title tag="h4" class="w-100 text-center font-weight-bold">Add new event</mdb-modal-title>
+      </mdb-modal-header>
+      <mdb-modal-body>Modal body</mdb-modal-body>
+      <mdb-modal-footer class="justify-content-center">
+        <mdb-btn color="info">Add</mdb-btn>
+      </mdb-modal-footer>
+    </mdb-modal>
+  </mdb-container>
+</template>
+
+<script>
+import {
+  mdbContainer,
+  mdbRow,
+  mdbCol,
+  mdbIcon,
+  mdbBtn,
+  mdbModal,
+  mdbModalHeader,
+  mdbModalTitle,
+  mdbModalBody,
+  mdbModalFooter
+} from "mdbvue";
+import Event from "@/components/Event";
+export default {
+  name: "App",
+  components: {
+    mdbContainer,
+    mdbRow,
+    mdbCol,
+    mdbIcon,
+    mdbBtn,
+    mdbModal,
+    mdbModalHeader,
+    mdbModalTitle,
+    mdbModalBody,
+    mdbModalFooter,
+    Event
+  },
+  data() {
+    return {
+      events: [
+        {
+          time: "10:00",
+          title: "Breakfast with Simon",
+          location: "Lounge Caffe",
+          description: "Discuss Q3 targets"
+        },
+        {
+          time: "10:30",
+          title: "Daily Standup Meeting (recurring)",
+          location: "Warsaw Spire Office"
+        },
+        {
+          time: "11:00",
+          title: "Call with HRs"
+        },
+        {
+          time: "12:00",
+          title: "Lunch with Timmoty",
+          location: "Canteen",
+          description: "Project evalutation "
+        }
+      ],
+      modal: false
+    };
+  },
+  methods: {
+    handleDelete(eventIndex) {
+      this.events.splice(eventIndex, 1);
+    }
+  }
+};
+</script>
+
+<style>
+</style>
+  </code>
+</mdbsnippet>
+<li>Save the file and run the app: </li>
+
+
+<img class="img-fluid" src="<?php echo get_template_directory_uri() ?>/content/vue/tutorials/agenda-app/8/preview.gif" alt="Modal Demo" />
+
+<p>As you can see we can close that modal either by clicking on the X sign in the top right corner or by simply clicking anywhere outside the modal.</p>
+
+<p class="note note-primary"><strong>Note:</strong> <br />
+Modals are great tools and they can be customized in various ways. Most probably you will use them to get user consent for using cookies or to accept a privacy policy on a website, display a registration/login form or some extra details like map and/or contact form. 
+<br /><br />
+You can find dozens of predefined modal templates in our <a href="https://mdbootstrap.com/docs/vue/modals/additional/">docs</a>. <br />
+You may also wish to check out our <a href="https://mdbootstrap.com/docs/vue/modals/generator/">modal generator</a>. 
+</p>
+
+</ol>
+
+</div>

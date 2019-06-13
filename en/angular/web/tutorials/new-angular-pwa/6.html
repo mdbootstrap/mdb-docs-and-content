@@ -1,0 +1,149 @@
+<!--Section: Tutorial content-->
+<section class="tutorial" id="databases">
+
+  <section id="indexedDB">
+    <h2 class="title mb-4">
+      <strong>Creating the databases — IndexedDB</strong>
+    </h2>
+
+    <p class="description">
+      IndexedDB is a low-level API for the client-side storage of significant amounts of structured data, including
+      files/blobs. This API uses indexes to enable high-performance searches of this data.
+    </p>
+
+    <h4>Installing the IndexedDB package:</h4>
+
+    <p class="description">To interact with Indexed DB, we use a small but convenient tool called <code>idb</code>.
+      It is a
+      wrapper for the IndexedDB API which provides a more convenient way to use this database.
+      In order to install idb in your application, run the following command in the application terminal:</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="npm">
+        npm install idb --save
+      </code>
+    </mdbsnippet>
+
+    <p class="description">After installing the <code>idb</code> library, we have to create a service that will
+      allow us to
+      operate on the Indexed DB database. To do this, run the following command in the application terminal and
+      then open the <code>IdbService</code> file.</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="ng">
+        ng generate service services/idb
+      </code>
+    </mdbsnippet>
+
+    <p class="description">After creating the IdbService, please copy the code below there:</p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="IdbService">
+        import {Injectable} from '@angular/core';
+        import idb from 'idb';
+        import {Observable, Subject} from 'rxjs';
+        import {Schedule} from '../app.component';
+
+        @Injectable({
+          providedIn: 'root'
+        })
+        export class IdbService {
+        private _dataChange: Subject<Schedule> = new Subject<Schedule>();
+        private _dbPromise;
+
+        constructor() {
+        }
+
+        connectToIDB() {
+          this._dbPromise = idb.open('pwa-database', 1, UpgradeDB => {
+            if (!UpgradeDB.objectStoreNames.contains('Items')) {
+              UpgradeDB.createObjectStore('Items', {keyPath: 'id', autoIncrement: true});
+            }
+            if (!UpgradeDB.objectStoreNames.contains('Sync-Items')) {
+              UpgradeDB.createObjectStore('Sync-Items', {keyPath: 'id', autoIncrement: true});
+            }
+          });
+        }
+
+        addItems(target: string, value: Schedule) {
+          this._dbPromise.then((db: any) => {
+            const tx = db.transaction(target, 'readwrite');
+            tx.objectStore(target).put({
+            time: value.time,
+            subject: value.subject,
+            location: value.location,
+            description: value.description
+          });
+          this.getAllData('Items').then((items: Schedule) => {
+            this._dataChange.next(items);
+          });
+            return tx.complete;
+          });
+        }
+
+        deleteItems(target: string, value: Schedule) {
+          this._dbPromise.then((db: any) => {
+            const tx = db.transaction(target, 'readwrite');
+            const store = tx.objectStore(target);
+            store.delete(value);
+            this.getAllData(target).then((items: Schedule) => {
+              this._dataChange.next(items);
+            });
+          return tx.complete;
+          });
+        }
+
+        getAllData(target: string) {
+          return this._dbPromise.then((db: any) => {
+            const tx = db.transaction(target, 'readonly');
+            const store = tx.objectStore(target);
+            return store.getAll();
+          });
+        }
+
+        dataChanged(): Observable<Schedule> {
+            return this._dataChange;
+          }
+          }
+
+
+      </code>
+    </mdbsnippet>
+
+    <p class="description">How does Indexed DB and idb work?
+      Originally, the Indexed DB API is based on events. This solution is uncomfortable and non-intuitive,
+      resulting in a tool such as idb, which is a wrapper for the original Indexed DB API. The main construction
+      of idb is the Promise, through which the resolve we have access to the specific data.
+    </p>
+
+    <p class="description">A <code>Promise</code> is an object representing the eventual completion or failure of an asynchronous operation.</p>
+    <p class="description">A <code>Promise.resolve()</code> is shortcut to manually create an already resolved promise respectively.</p>
+
+    <p class="description">How does IdbService work? The <code>connectToIDB()</code> method creates a new database
+      with two
+      stores. One store will store data acquired from the online mode, while the second one serves as a buffer for
+      offline mode.
+      When we add events offline and then go online, the buffer will be cleared and the data it has stored will then be
+      sent to the Firebase database.</p>
+
+    <p class="description">The <code>addItems()</code> method uses <code>target</code> and <code>value</code> as
+      arguments. After resolving the promise, we
+      create a new transaction for a specific store (target), then we put data from the value argument in it, and
+      then we emit a data change through <code>this._dataChange</code> which is defined as a Subject.</p>
+
+    <p class="description">The <code>deleteItems()</code> method works similarly to the <code>addItems()</code>
+      method, but it removes objects
+      from the Indexed DB database.</p>
+
+    <p class="description">The <code>getAllData()</code> method returns the whole store from the IndexedDB which is
+      determined by the <code>target</code> parameter.</p>
+
+    <p class="description">The <code>dataChanged()</code> method returns the <code>this._dataChange</code> subject.
+      This allows us to subscribe to the data change.</p>
+
+    <p class="description">Is it working for you? If not, check the code for this lesson in our <a href="https://github.com/mdbootstrap/MDB-Angular-PWA/tree/6-indexedDB-integration">repository</a></p>
+  </section>
+
+
+</section>
+<!--Section: Tutorial content-->
