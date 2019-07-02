@@ -60,19 +60,21 @@
             import { MDBNotification } from "mdbreact";
 
             class Notification extends Component {
-
-              return (
-                <MDBNotification
-                  show
-                  fade
-                  title="Bootstrap"
-                  message="Hello, world! This is a toast message."
-                  text="11 mins ago"
-                />
-              );
-            };
+              render() {
+                return (
+                  <MDBNotification
+                    show
+                    fade
+                    title="Bootstrap"
+                    message="Hello, world! This is a toast message."
+                    text="11 mins ago"
+                  />
+                );
+              }
+            }
 
             export default Notification;
+
 
           </code>
 
@@ -113,70 +115,68 @@
         <mdbsnippet>
 
           <code data-lang="JavaScript" data-name="JSX">
-
-            import React, { Component } from "react";
-            import { toast, ToastContainer, MDBContainer, MDBBtn } from "mdbreact";
-
-            class Notification extends Component {
-              const notify = type => {
-                return () => {
-                  switch (type) {
-                    case "info":
-                      toast.info("Info message", {
-                        closeButton: false
-                      });
-                      break;
-                    case "success":
-                      toast.success("Success message", {
-                        closeButton: false
-                      });
-                      break;
-                    case "warning":
-                      toast.warn("Warning message"{
-                        closeButton: false
-                      });
-                      break;
-                    case "error":
-                      toast.error("Error message"{
-                        closeButton: false
-                      });
-                      break;
-                    default:
-                      toast.error("Error message"{
-                        closeButton: false
-                      });
-                  }
+              import React from "react";
+              import { toast, ToastContainer, MDBContainer, MDBBtn } from "mdbreact";
+              
+              const Notification = () => {
+                const notify = type => {
+                  return () => {
+                    switch (type) {
+                      case "info":
+                        toast.info("Info message", {
+                          closeButton: false
+                        });
+                        break;
+                      case "success":
+                        toast.success("Success message", {
+                          closeButton: false
+                        });
+                        break;
+                      case "warning":
+                        toast.warn("Warning message", {
+                          closeButton: false
+                        });
+                        break;
+                      case "error":
+                        toast.error("Error message", {
+                          closeButton: false
+                        });
+                        break;
+                      default:
+                        toast.error("Error message", {
+                          closeButton: false
+                        });
+                    }
+                  };
                 };
+              
+                return (
+                    <MDBContainer>
+                      <MDBBtn color="info" onClick={notify("info")}>
+                        Info
+                      </MDBBtn>
+                      <hr />
+                      <MDBBtn color="success" onClick={notify("success")}>
+                        Success
+                      </MDBBtn>
+                      <hr />
+                      <MDBBtn color="warning" onClick={notify("warning")}>
+                        Warning
+                      </MDBBtn>
+                      <hr />
+                      <MDBBtn color="danger" onClick={notify("error")}>
+                        Error
+                      </MDBBtn>
+                      <ToastContainer
+                        hideProgressBar={true}
+                        newestOnTop={true}
+                        autoClose={5000}
+                      />
+                    </MDBContainer>
+                );
               };
-
-              return (
-                <MDBContainer>
-                  <div>
-                    <MDBBtn color="info" onClick={notify("info")}>
-                      Info
-                    </MDBBtn>
-                    <hr />
-                    <MDBBtn color="success" onClick={notify("success")}>
-                      Success
-                    </MDBBtn>
-                    <hr />
-                    <MDBBtn color="warning" onClick={notify("warning")}>
-                      Warning
-                    </MDBBtn>
-                    <hr />
-                    <MDBBtn color="danger" onClick={notify("error")}>
-                      Error
-                    </MDBBtn>
-                    <ToastContainer
-                      hideProgressBar={true}
-                      newestOnTop={true}
-                      autoClose={5000}
-                    />
-                  </div>
-              );
-            };
-
-            export default Notification;
+              
+              export default Notification;
           </code>
 
         </mdbsnippet>
@@ -236,16 +236,19 @@
         import { MDBNotification } from "mdbreact";
 
         class Notification extends Component {
-
-          return (
-            <MDBNotification
-              show
-              fade
-              title="Bootstrap"
-              message="Hello, world! This is a toast message."
-              text="11 mins ago"
-            />
-          );
+          render() {
+            return (
+              <div className="section-preview grey darken-3 p-5">
+                <MDBNotification
+                  show
+                  fade
+                  title="Bootstrap"
+                  message="Hello, world! This is a toast message."
+                  text="11 mins ago"
+                />
+              </div>
+            );
+          }
         };
 
         export default Notification;
@@ -323,25 +326,26 @@
         import { MDBNotification, MDBContainer } from "mdbreact";
 
         class Notification extends Component {
-
-          return (
-            <MDBContainer>
+          render() {
+            return (
+              <MDBContainer>
+                <MDBNotification
+                show
+                fade
+                title="Bootstrap"
+                message="See? Just like this."
+                text="just now"
+              />
               <MDBNotification
-              show
-              fade
-              title="Bootstrap"
-              message="See? Just like this."
-              text="just now"
-            />
-            <MDBNotification
-              show
-              fade
-              title="Bootstrap"
-              message="Heads up, toasts will stack automatically"
-              text="2 seconds ago"
-            />
-          </MDBContainer>
-          );
+                show
+                fade
+                title="Bootstrap"
+                message="Heads up, toasts will stack automatically"
+                text="2 seconds ago"
+              />
+            </MDBContainer>
+            )
+          }
         };
 
         export default Notification;
@@ -404,21 +408,22 @@
         import { MDBNotification } from "mdbreact";
 
         class Notification extends Component {
-
-          return (
-            <MDBNotification
-              show
-              fade
-              title="Bootstrap"
-              message="Hello, world! This is a toast message."
-              text="11 mins ago"
-              style={{
-                position: "absolute",
-                top: 0,
-                right: 0
-              }}
-            />
-          );
+          render() {
+            return (
+              <MDBNotification
+                show
+                fade
+                title="Bootstrap"
+                message="Hello, world! This is a toast message."
+                text="11 mins ago"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0
+                }}
+              />
+            )
+          }
         };
 
         export default Notification;
@@ -483,32 +488,34 @@
         import { MDBNotification, MDBContainer } from "mdbreact";
 
         class Notification extends Component {
-
-          return (
-            <MDBContainer 
-              style={{
-                position: "absolute",
-                top: 0,
-                right: 0
-              }}
-            >
-              <MDBNotification
-                show
-                fade
-                labelColor="red"
-                title="Bootstrap"
-                message="See? Just like this."
-                text="just now"
-              />
-              <MDBNotification
-                show
-                fade
-                title="Bootstrap"
-                message="Heads up, toasts will stack automatically"
-                text="2 seconds ago"
-              />
-            </MDBContainer>
-          );
+          render() {
+            return (
+              <MDBContainer>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0
+                  }}
+                  >
+                  <MDBNotification
+                    show
+                    fade
+                    title="Bootstrap"
+                    message="See? Just like this."
+                    text="just now"
+                  />
+                  <MDBNotification
+                    show
+                    fade
+                    title="Bootstrap"
+                    message="Heads up, toasts will stack automatically"
+                    text="2 seconds ago"
+                  />
+                </div>
+              </MDBContainer>
+            );
+          }
         };
 
         export default Notification;
@@ -569,22 +576,23 @@
         import { MDBNotification } from "mdbreact";
 
         class Notification extends Component {
-
-          return (
-            <MDBNotification
-              show
-              fade
-              labelColor="#59698d"
-              title="Bootstrap"
-              titleClassName="elegant-color-dark white-text"
-              closeClassName="blue-grey-text"
-              message="Hello, world! This is a toast message."
-              bodyClassName="p-5 font-weight-bold white-text"
-              text="11 mins ago"
-              autohide={3000} // by default = ∞ ms
-              className="stylish-color-dark"
-            />
-          );
+          render() {
+            return (
+              <MDBNotification
+                show
+                fade
+                labelColor="#59698d"
+                title="Bootstrap"
+                titleClassName="elegant-color-dark white-text"
+                closeClassName="blue-grey-text"
+                message="Hello, world! This is a toast message."
+                bodyClassName="p-5 font-weight-bold white-text"
+                text="11 mins ago"
+                autohide={3000} // by default = ∞ ms
+                className="stylish-color-dark"
+              />
+            )
+          } 
         };
 
         export default Notification;
