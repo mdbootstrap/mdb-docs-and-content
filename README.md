@@ -1,2 +1,2 @@
-# mdbootstrap.com-documentation-and-content
+# mdbootstrap.com-docs-and-content
 Content of the mdbootstrap.com website
