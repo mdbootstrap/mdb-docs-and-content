@@ -901,9 +901,14 @@
           </div>
 
           <div class="md-form">
-            <mdb-autocomplete mdbValidate [label]="'Choose your country'" name="autocomplete" [datasource]="dataService"
-              formControlName="autocomplete" [minSearchLength]="0">
-            </mdb-autocomplete>
+            <input mdbValidate formControlName="autocomplete" type="text" class="completer-input form-control mdb-autocomplete mb-0"
+                  [mdbAutoCompleter]="auto"
+                  placeholder="Choose your color">
+            <mdb-auto-completer #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
+              <mdb-option *ngFor="let option of results | async" [value]="option">
+                {{option}}
+              </mdb-option>
+            </mdb-auto-completer>
             <mdb-error *ngIf="autocomplete.invalid && (autocomplete.dirty || autocomplete.touched)">Input invalid</mdb-error>
             <mdb-success *ngIf="autocomplete.valid && (autocomplete.dirty || autocomplete.touched)">Input valid</mdb-success>
           </div>
@@ -966,7 +971,8 @@
           <code data-lang="javascript" data-name="TS">
             import { FormGroup, FormControl, Validators } from '@angular/forms';
         import { Component, OnInit } from '@angular/core';
-        import { CompleterService, CompleterData } from 'ng-uikit-pro-standard';
+        import { Observable } from 'rxjs';
+        import { startWith, map } from 'rxjs/operators';
         import { IMyOptions } from 'ng-uikit-pro-standard';
 
         @Component({
@@ -975,7 +981,8 @@
         })
 
         export class ValidatorsComponent implements OnInit {
-
+        results: Observable<string[]>;
+        data: any = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'black'];
         registerForm: FormGroup;
 
         optionsSelect = [
@@ -988,20 +995,6 @@
           // Your options
           };
 
-        protected searchStr: string;
-        protected dataService: CompleterData;
-        protected searchData = [
-          { country: 'United States of America' },
-          { country: 'Germany' },
-          { country: 'Spain' },
-          { country: 'France' },
-          { country: 'Poland' }
-        ];
-
-        constructor(private completerService: CompleterService) {
-          this.dataService = completerService.local(this.searchData, 'country', 'country');
-        }
-
         ngOnInit() {
           this.registerForm = new FormGroup({
             nameInput: new FormControl(null, Validators.required),
@@ -1013,6 +1006,17 @@
             radio: new FormControl(null, Validators.required),
             terms: new FormControl(null, Validators.requiredTrue)
           });
+
+          this.results = this.registerForm.controls.autocomplete.valueChanges
+          .pipe(
+            startWith(''),
+            map((value: string) => this.filter(value))
+          );
+        }
+
+        filter(value: string): string[] {
+          const filterValue = value.toLowerCase();
+          return this.data.filter((item: any) => item.toLowerCase().includes(filterValue));
         }
 
         get nameInput() { return this.registerForm.get('nameInput'); }

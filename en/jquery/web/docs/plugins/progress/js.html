@@ -1,0 +1,103 @@
+<script>
+(function ($) {
+  $.fn.progressBar = function (givenValue) {
+    const $this = $(this);
+
+    function init(selector) {
+      const progressValue = selector.children().attr('aria-valuenow');
+      selector.children().width(progressValue + "%");
+      selector.children().html('<span></span>');
+      $this.hasClass('md-progress') ? selector.children().children().addClass('md-progress-bar-text') : selector.children().children().addClass('progress-bar-text');
+      (progressValue != 100) ? selector.children().children().text(progressValue + "%") : selector.children().children().html('<i class="fas fa-check"></i>');
+    }
+
+    function set(selector, value) {
+      selector.children().removeClass('success fail active');
+      selector.children().attr('aria-valuenow', value);
+      init(selector);
+      if (value > 100) {
+        console.log('value over 100');
+      } else if (value == 100) {
+        selector.children().addClass('success');
+      } else if (value < 30) {
+        selector.children().addClass('fail');
+      } else {
+        selector.children().addClass('active');
+      }
+    }
+
+    set($this, givenValue);
+  }
+}(jQuery));
+
+$('#bar1').progressBar(10);
+$('#bar2').progressBar(29);
+$('#bar3').progressBar(30);
+$('#bar4').progressBar(100);
+$('#bar5').progressBar(10);
+$('#bar6').progressBar(29);
+$('#bar7').progressBar(30);
+$('#bar8').progressBar(100);
+
+//testing with buttons functionality
+$('#btn1').on("click", function () {
+  $('#bar4').progressBar(10);
+});
+$('#btn2').on("click", function () {
+  $('#bar4').progressBar(20);
+});
+$('#btn3').on("click", function () {
+  $('#bar4').progressBar(30);
+});
+$('#btn4').on("click", function () {
+  $('#bar4').progressBar(40);
+});
+$('#btn5').on("click", function () {
+  $('#bar4').progressBar(50);
+});
+$('#btn6').on("click", function () {
+  $('#bar4').progressBar(60);
+});
+$('#btn7').on("click", function () {
+  $('#bar4').progressBar(70);
+});
+$('#btn8').on("click", function () {
+  $('#bar4').progressBar(80);
+});
+$('#btn9').on("click", function () {
+  $('#bar4').progressBar(90);
+});
+$('#btn10').on("click", function () {
+  $('#bar4').progressBar(100);
+});
+$('#btn11').on("click", function () {
+  $('#bar8').progressBar(10);
+});
+$('#btn12').on("click", function () {
+  $('#bar8').progressBar(20);
+});
+$('#btn13').on("click", function () {
+  $('#bar8').progressBar(30);
+});
+$('#btn14').on("click", function () {
+  $('#bar8').progressBar(40);
+});
+$('#btn15').on("click", function () {
+  $('#bar8').progressBar(50);
+});
+$('#btn16').on("click", function () {
+  $('#bar8').progressBar(60);
+});
+$('#btn17').on("click", function () {
+  $('#bar8').progressBar(70);
+});
+$('#btn18').on("click", function () {
+  $('#bar8').progressBar(80);
+});
+$('#btn19').on("click", function () {
+  $('#bar8').progressBar(90);
+});
+$('#btn20').on("click", function () {
+  $('#bar8').progressBar(100);
+});
+</script>
