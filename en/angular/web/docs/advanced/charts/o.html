@@ -1027,6 +1027,93 @@
 
 </section>
 <!--/Section: -->
+
+<!--/Section: -->
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="get-chart-data">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Getting point data on click
+  </h2>
+
+  <p class="description">Use the <code>getPointDataAtEvent</code> method from the <code>mdbChart</code> directive to retrieve the value of the clicked point.
+    It is required to use the - <code>hover: {mode: 'nearest', intersec: true}</code> option.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <canvas mdbChart #chart
+                [chartType]="chartType"
+                [datasets]="chartDatasets"
+                [labels]="chartLabels"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="true"
+                (chartClick)="onChartClick($event)">
+        </canvas>
+
+      </code>
+
+      <code data-lang="js" data-name="TS">
+
+        import { Component } from '@angular/core';
+        import {BaseChartDirective} from 'PATH/TO/MDB/ANGULAR';
+
+        @Component({
+        selector: 'bar-chart',
+        templateUrl: './bar-chart.component.html',
+        styleUrls: ['./bar-chart.component.scss'],
+        })
+        export class BarChart {
+        @ViewChild(BaseChartDirective, {static: true}) chart: BaseChartDirective;
+          public chartType: string = 'bar';
+
+          public chartDatasets: Array&lt;any&gt; = [
+            { data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' },
+            { data: [28, 48, 40, 19, 86, 27, 90], label: 'My Second dataset' }
+          ];
+
+          public chartLabels: Array&lt;any&gt; = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+            public chartColors: Array&lt;any&gt; = [
+              {
+                backgroundColor: 'rgba(105, 0, 132, .2)',
+                borderColor: 'rgba(200, 99, 132, .7)',
+                borderWidth: 2,
+              },
+              {
+                backgroundColor: 'rgba(0, 137, 132, .2)',
+                borderColor: 'rgba(0, 10, 130, .7)',
+                borderWidth: 2,
+              }
+              ];
+
+              public chartOptions: any = {
+                responsive: true,
+                hover: {
+                  mode: 'nearest',
+                  intersec: true,
+                },
+              };
+
+              onChartClick(event: any) {
+                console.log(this.chart.getPointDataAtEvent(event));
+              }
+            }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
 <hr class="mt-4 mb-5">
 
 <!--Section: -->
