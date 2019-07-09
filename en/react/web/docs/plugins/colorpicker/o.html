@@ -1,0 +1,614 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">React Bootstrap - Color Picker</h2>
+
+  <h1 class="secondary-heading mb-4">React Color Picker - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p>React Bootstrap Color Picker plugin allows you to select different colors. You can successfully use it in various product wizards, clothing sales, or other situations where you need to be able to choose a color.</p>
+
+
+  <blockquote class="blockquote bq-primary">
+    <p class="bq-title">To see the list of all properties and methods of the plugin see <strong>"API"</strong> tab on this
+      page.</p>
+  </blockquote>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="basic-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic Example
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="basic"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+
+        import React, { Component } from "react";
+        import MDBColorPicker from "mdb-react-color-picker";
+        import { MDBCard, MDBCardBody } from "mdbreact";
+        import "./index.css"; //Import necessary styles for this example
+        
+        class App extends Component {
+          state = {
+            colorPicker1: false,
+            colorPickerValue1: "rgba(48, 48, 48, 1)"
+          };
+        
+          close = () => {
+            this.setState({ colorPicker1: false });
+          };
+        
+          toggle = () => {
+            this.setState({ colorPicker1: !this.state.colorPicker1 });
+          };
+        
+          saveColorValue = value => {
+            this.setState({ colorPickerValue1: value.rgba });
+          };
+
+          render() {
+            return (
+              <MDBCard>
+                <MDBCardBody>
+                  <p className="text-center">
+                    Click the dark square to activate the Color Picker
+                  </p>
+                  <MDBColorPicker
+                    transitionType="linear"
+                    isOpen={this.state.colorPicker1}
+                    close={this.close}
+                    getValue={this.saveColorValue}
+                    colorSpace="hex"
+                  >
+                    <div
+                      style={{ backgroundColor: this.state.colorPickerValue1 }}
+                      className="pickr mx-auto"
+                      onClick={this.toggle}
+                    />
+                  </MDBColorPicker>
+                </MDBCardBody>
+              </MDBCard>
+            );
+          }
+        }
+        
+        export default App;
+        
+
+      </code>
+      <code data-lang="CSS" data-name="CSS">
+        .pickr {
+          position: relative;
+          height: 2em;
+          width: 2em;
+          padding: .5em;
+          border-radius: .15em;
+          cursor: pointer;
+          background: transparent;
+          transition: background-color .3s;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+          box-sizing: border-box;
+        }
+      </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="button-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Using as button
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="button"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+        import React, { Component } from "react";
+        import MDBColorPicker from "mdb-react-color-picker";
+        import { MDBCard, MDBCardBody, MDBBtn } from "mdbreact";
+        
+        class App extends Component {
+          state = {
+            colorPicker2: false,
+          };
+        
+          close = () => {
+            this.setState({ colorPicker2: false });
+          };
+        
+          toggle = () => {
+            this.setState({ colorPicker2: !this.state.colorPicker2 });
+          };
+        
+          render() {
+            return (
+              <MDBCard>
+                <MDBCardBody className="text-center d-flex justify-content-center align-items-center flex-column">
+                  <p className="pt-2">
+                    Click the below button to activate the Color Picker
+                  </p>
+        
+                  <MDBColorPicker
+                    isOpen={this.state.colorPicker2}
+                    close={this.close}
+                    rgbaColor="rgba(18, 52, 86, 0.3)"
+                  >
+                    <MDBBtn size="sm" color="primary" onClick={this.toggle}>
+                      Open picker
+                    </MDBBtn>
+                  </MDBColorPicker>
+                </MDBCardBody>
+              </MDBCard>
+            );
+          }
+        }
+        
+        export default App;
+        
+
+
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="box-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Change color of the other elements
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="box"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+        import React, { Component } from "react";
+        import MDBColorPicker from "mdb-react-color-picker";
+        import { MDBCard, MDBCardBody, MDBBtn, MDBRow, MDBCol } from "mdbreact";
+
+        class App extends Component {
+          state = {
+            colorPicker3: false,
+            colorPicker4: false,
+            colorPickerValue3: "rgba(252, 253, 255, 1)",
+            colorPickerValue4: "rgba(48, 48, 48, 1)",
+            colorValue: ""
+          };
+
+          close = id => () => {
+            const colorPickerId = `colorPicker${id}`;
+            this.setState({ [colorPickerId]: false });
+          };
+
+          toggle = id => () => {
+            const colorPickerId = `colorPicker${id}`;
+            this.setState({ [colorPickerId]: !this.state[colorPickerId] });
+          };
+
+          saveColorValue = id => value => {
+            const colorPickerValueId = `colorPickerValue${id}`;
+            this.setState({ [colorPickerValueId]: value.rgba });
+          };
+
+          render() {
+            return (
+              <MDBRow>
+                <MDBCol md="6" className="mx-auto">
+                  <MDBCard style={{ backgroundColor: this.state.colorPickerValue3 }}>
+                    <MDBCardBody className="text-center d-flex justify-content-center align-items-center flex-column">
+                      <p>My background color will be changed</p>
+
+                      <MDBColorPicker
+                        isOpen={this.state.colorPicker3}
+                        close={this.close(3)}
+                        toggle={this.toggleColorPicker}
+                        getValue={this.saveColorValue(3)}
+                      >
+                        <MDBBtn
+                          outline
+                          size="sm"
+                          color="primary"
+                          onClick={this.toggle(3)}
+                        >
+                          Open picker
+                        </MDBBtn>
+                      </MDBColorPicker>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol md="6" className="mx-auto">
+                  <MDBCard>
+                    <MDBCardBody className="text-center d-flex justify-content-center align-items-center flex-column">
+                      <p style={{ color: this.state.colorPickerValue4 }}>
+                        My text color will be changed
+                      </p>
+
+                      <MDBColorPicker
+                        isOpen={this.state.colorPicker4}
+                        close={this.close(4)}
+                        toggle={this.toggleColorPicker}
+                        getValue={this.saveColorValue(4)}
+                      >
+                        <MDBBtn
+                          outline
+                          size="sm"
+                          color="primary"
+                          onClick={this.toggle(4)}
+                        >
+                          Open picker
+                        </MDBBtn>
+                      </MDBColorPicker>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+              </MDBRow>
+            );
+          }
+        }
+
+        export default App;
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="clipboard-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Copy saved colors to clipboard
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="clipboard"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+        import React, { Component } from "react";
+        import MDBColorPicker from "mdb-react-color-picker";
+        import { MDBCard, MDBCardBody, MDBBtn } from "mdbreact";
+
+        class App extends Component {
+          state = {
+            colorPicker: false
+          };
+
+          close = () => {
+            this.setState({ colorPicker: false });
+          };
+
+          toggle = () => {
+            this.setState({ colorPicker: !this.state.colorPicker });
+          };
+
+          render() {
+            return (
+              <MDBCard>
+                <MDBCardBody className="text-center d-flex justify-content-center align-items-center flex-column">
+                  <p>
+                    Click the "Save" button and check the results by pasting the
+                    clipboard in some place.
+                  </p>
+
+                  <MDBColorPicker
+                    isOpen={this.state.colorPicker}
+                    close={this.close}
+                    rgbaColor="rgba(201, 175, 211, 1.0)"
+                  >
+                    <MDBBtn color="primary" size="sm" onClick={this.toggle}>
+                      Open picker
+                    </MDBBtn>
+                  </MDBColorPicker>
+                </MDBCardBody>
+              </MDBCard>
+            );
+          }
+        }
+
+        export default App;
+
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="representation-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    The color representation
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="representation"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+        import React, { Component } from "react";
+        import MDBColorPicker from "mdb-react-color-picker";
+        import {
+          MDBCard,
+          MDBCardBody,
+          MDBBtn,
+          MDBRow,
+          MDBCol,
+          ListGroup,
+          ListGroupItem
+        } from "mdbreact";
+
+        class App extends Component {
+          state = {
+            colorPicker6: false,
+            colorPickerValue6: {
+              hex: "#fffe00",
+              cmyk: "cmyk( 0%, 0%, 100%, 0%)",
+              hsla: "hsla( 60, 100%, 50%, 1)",
+              hsva: "hsva( 15240, 100%, 100%, 1)",
+              rgba: "rgba(255, 254, 0, 1)"
+            }
+          };
+
+          close = () => {
+            this.setState({ colorPicker6: false });
+          };
+
+          toggle = () => {
+            this.setState({ colorPicker6: !this.state.colorPicker6 });
+          };
+
+          saveColorAllValues = value => {
+            this.setState({ colorPickerValue6: value });
+          };
+
+          render() {
+            return (
+              <MDBRow>
+                <MDBCol md="6" className="mx-auto">
+                  <MDBCard style={{ backgroundColor: this.state.colorPickerValue6 }}>
+                    <MDBCardBody className="text-center d-flex justify-content-center align-items-center flex-column">
+                      <p>
+                        Change actual color and check how every color representation is
+                        described in the list
+                      </p>
+                      <MDBColorPicker
+                        isOpen={this.state.colorPicker6}
+                        close={this.close}
+                        toggle={this.toggleColorPicker}
+                        rgbaColor="rgba(255, 254, 0, 1)"
+                        getValue={this.saveColorAllValues}
+                      >
+                        <MDBBtn outline size="sm" color="primary" onClick={this.toggle}>
+                          Open picker
+                        </MDBBtn>
+                      </MDBColorPicker>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol md="6" className="mx-auto">
+                  <MDBCard>
+                    <MDBCardBody className="text-center d-flex justify-content-center align-items-center flex-column">
+                      <ListGroup>
+                        <ListGroupItem>
+                          hex: {this.state.colorPickerValue6.hex}
+                        </ListGroupItem>
+                        <ListGroupItem>
+                          rgba: {this.state.colorPickerValue6.rgba}
+                        </ListGroupItem>
+                        <ListGroupItem>
+                          hsla: {this.state.colorPickerValue6.hsla}
+                        </ListGroupItem>
+                        <ListGroupItem>
+                          hsva: {this.state.colorPickerValue6.hsva}
+                        </ListGroupItem>
+                        <ListGroupItem>
+                          cmyk: {this.state.colorPickerValue6.cmyk}
+                        </ListGroupItem>
+                      </ListGroup>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+              </MDBRow>
+            );
+          }
+        }
+
+        export default App;
+
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="background-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Change the site background color
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="background"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+        import React, { Component } from "react";
+        import MDBColorPicker from "mdb-react-color-picker";
+        import { MDBCard, MDBCardBody, MDBBtn } from "mdbreact";
+
+        class App extends Component {
+          state = {
+            colorPicker7: false,
+          };
+
+          close = () => {
+            this.setState({ colorPicker7: false });
+          };
+
+          toggle = () => {
+            this.setState({ colorPicker7: !this.state.colorPicker7 });
+          };
+
+          changeWebsiteBackgroundColor = value => {
+            document.body.style.background = `${value.rgba}`;
+          };
+
+          render() {
+            return (
+              <MDBCard>
+                <MDBCardBody className="text-center d-flex justify-content-center align-items-center flex-column">
+                  <p>
+                    Change the background color if this site dynamically by changing the
+                    color in Color Picker
+                  </p>
+
+                  <MDBColorPicker
+                    isOpen={this.state.colorPicker7}
+                    close={this.close}
+                    rgbaColor="rgba(255, 255, 255, 1.0)"
+                    getValue={this.changeWebsiteBackgroundColor}
+                  >
+                    <MDBBtn color="primary" size="sm" onClick={this.toggle}>
+                      Open picker
+                    </MDBBtn>
+                  </MDBColorPicker>
+                </MDBCardBody>
+              </MDBCard>
+            );
+          }
+        }
+
+        export default App;
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
