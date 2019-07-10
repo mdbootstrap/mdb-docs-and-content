@@ -487,11 +487,19 @@
       <code data-lang="html" data-name="HTML">
         <form [formGroup]="validatingForm">
           <div class="md-form">
-            <input mdbInput mdbValidate type="text" id="form1" class="form-control" formControlName="onSubmit">
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="form1"
+              class="form-control"
+              formControlName="input"
+            />
             <label for="form1">Required validator</label>
-            <mdb-error *ngIf="onSubmit.invalid && (onSubmit.dirty || onSubmit.touched)">Input invalid</mdb-error>
-            <mdb-success *ngIf="onSubmit.valid && (onSubmit.dirty || onSubmit.touched)">Input valid</mdb-success>
+            <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
           </div>
+          <button type="submit" mdbBtn color="primary" (click)="onSubmit()">Submit form</button>
         </form>
       </code>
       <code data-lang="js" data-name="TS">
@@ -503,16 +511,19 @@
         templateUrl: 'validators-example.html',
         })
         export class ValidatorsComponent implements OnInit {
-
           validatingForm: FormGroup;
 
           ngOnInit() {
             this.validatingForm = new FormGroup({
-              onSubmit: new FormControl(null, Validators.required)
+              input: new FormControl(null, Validators.required)
             }, { updateOn: 'submit' });
           }
-
-          get onSubmit() { return this.validatingForm.get('onSubmit'); }
+        
+          get input() { return this.validatingForm.get('input'); }
+        
+          onSubmit() {
+            this.validatingForm.controls.input.markAsTouched();
+          }
         }
       </code>
     </mdbsnippet>
@@ -816,11 +827,12 @@
         <code data-lang="html" data-name="HTML">
           <form [ngFormOptions]="{updateOn: 'submit'}">
             <div class="md-form">
-              <input mdbInput mdbValidate name="input" type="text" id="form1" class="form-control" [(ngModel)]="submit" #input="ngModel" required>
+              <input mdbInput mdbValidate name="input" type="text" id="form1" class="form-control" [(ngModel)]="inputControl" #input="ngModel" required>
               <label for="form1">Required validator</label>
               <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
               <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
             </div>
+            <button type="submit" mdbBtn color="primary" (click)="input.control.markAsTouched()">Submit form</button>
           </form>
         </code>
       </mdbsnippet>
