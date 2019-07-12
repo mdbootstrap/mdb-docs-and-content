@@ -476,7 +476,7 @@
 
   <!--Title-->
   <h2 class="section-heading mb-4">
-    Select with s search box <a href="https://mdbootstrap.com/products/jquery-ui-kit/" target="_blank"
+    Select with a search box <a href="https://mdbootstrap.com/products/jquery-ui-kit/" target="_blank"
       class="btn btn-danger btn-sm" role="button">MDB Pro component
       <i class="far fa-gem ml-1"></i>
     </a>
@@ -604,7 +604,7 @@
     <div class="row">
       <div class="col-md-6">
 
-        <select class="mdb-select md-form">
+        <select class="mdb-select md-form" multiple>
           <option value="" disabled selected>Choose your option</option>
           <option value="1">Option 1</option>
           <option value="2">Option 2</option>
@@ -795,8 +795,7 @@
   </h2>
 
   <!--Description-->
-  <p class="description">By adding adisabled select
-    <code>disabled</code> attribute to the select (or a particular option), you can make it unselectable.</p>
+  <p class="description">By adding a <code>disabled</code> attribute to the select (or a particular option), you can make it unselectable.</p>
 
   <!--Section: Live preview-->
   <section class="section-preview">
@@ -878,7 +877,6 @@
 
   <p class="note note-warning"><strong>Note warning:</strong> For now, an outline styling works correct only for
     Material Select (not Multiselect) with primary dropdown menu and with <a href="https://mdbootstrap.com/docs/jquery/css/skins/">skins</a> colors.</p>
-
 
   <!--Section: Live preview-->
   <section class="section-preview mt-4">
@@ -995,6 +993,169 @@
 <!--/Section: -->
 
 <hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="new-options">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Adding new options <a href="https://mdbootstrap.com/products/jquery-ui-kit/" target="_blank"
+      class="btn btn-danger btn-sm" role="button">MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Description-->
+  <p class="description">By adding an <code>editable="true"</code> attribute to the select, you can easily extend the options list.</p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview mt-4">
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <select class="mdb-select md-form" editable="true" searchable="Search and add here...">
+          <option value="" disabled selected>Choose your option</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+        <label class="mdb-main-label">Example label</label>
+
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <style>
+    .select-wrapper .select-add-option {
+      display: none;
+      position: absolute;
+      right: 1rem;
+      top: 2rem;
+      cursor: pointer;
+      color: #4285f4;
+    }
+  </style>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <select class="mdb-select md-form" editable="true" searchable="Search and add here...">
+          <option value="" disabled selected>Choose your option</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+        <label class="mdb-main-label">Example label</label>
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="validation">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Validation <a href="https://mdbootstrap.com/products/jquery-ui-kit/" target="_blank"
+      class="btn btn-danger btn-sm" role="button">MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Description-->
+  <p class="description"></p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview mt-4">
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <form class="needs-validation" novalidate>
+          <select class="mdb-select validate md-form" searchable="Search here..">
+            <option value="" disabled selected>Choose your country</option>
+            <option value="1">USA</option>
+            <option value="2">Germany</option>
+            <option value="3">France</option>
+            <option value="4">Poland</option>
+            <option value="5">Japan</option>
+          </select>
+          <button class="btn btn-default btn-sm">Submit</button>
+        </form>
+
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <style>
+    .select-wrapper ~ .invalid-feedback, 
+    .select-wrapper ~ .valid-feedback {
+      margin-top: -1rem;
+    }
+  </style>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <form class="needs-validation" novalidate>
+          <select class="mdb-select validate md-form" searchable="Search here..">
+            <option value="" disabled selected>Choose your country</option>
+            <option value="1">USA</option>
+            <option value="2">Germany</option>
+            <option value="3">France</option>
+            <option value="4">Poland</option>
+            <option value="5">Japan</option>
+          </select>
+          <button class="btn btn-default btn-sm">Submit</button>
+        </form>
+
+      </code>
+
+      <code data-lang="js" data-name="JavaScript">
+        $(document).ready(function() {
+          $('.mdb-select.validate').materialSelect({
+            validate: true,
+            validFeedback: 'Correct choice',
+            invalidFeedback: 'Wrong choice'
+          });
+          function validateSelect(e) {
+            e.preventDefault();
+            $('.needs-validation').addClass('was-validated');
+            if ($('.needs-validation select').val() === null) {
+              $('.needs-validation').find('.valid-feedback').hide();
+              $('.needs-validation').find('.invalid-feedback').show();
+              $('.needs-validation').find('.select-dropdown').val('').prop('placeholder', 'No countries selected')
+            } else {
+              $('.needs-validation').find('.valid-feedback').show();
+              $('.needs-validation').find('.invalid-feedback').hide();
+            }
+          }
+          $('.needs-validation select').on('change', e => validateSelect(e))
+          $('.needs-validation').on('submit', e => validateSelect(e))
+        });
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
 
 </section>
 <!--/Section: -->
