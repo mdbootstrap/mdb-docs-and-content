@@ -17,9 +17,9 @@
     Basic example and usage
   </h2>
 
-  <p>In order to turn on validation on specific form control, add <code>mdbValidate</code> directive to it.</p>
+  <p>In order to turn on validation for a specific form control, add the <code>mdbValidate</code> directive to it.</p>
 
-  <p><code>mdb-error</code> and <code>mdb-success</code> components allow to display validation messages under the form element.</p>
+  <p>The <code>mdb-error</code> and <code>mdb-success</code> components allow us to display validation messages under the form element.</p>
 
   <blockquote class="blockquote bq-warning">
     <p class="bq-title">Warning</p>
@@ -369,9 +369,9 @@
   <h4 id="" class="secondary-heading mt-5">
     Pattern Validator
   </h4>
-  <p class="description">Pattern Validator should contains RegEx. With it, pattern is able to validate through regular
+  <p class="description">Pattern Validator should contain a RegEx. With it, the pattern is able to validate using regular
     expressions. In this example,
-    RegEx allows to put only english letters into input.</p>
+    RegEx allows us to put only English letters into the input.</p>
 
   <!-- Live preview-->
   <section id="pattern">
@@ -487,11 +487,19 @@
       <code data-lang="html" data-name="HTML">
         <form [formGroup]="validatingForm">
           <div class="md-form">
-            <input mdbInput mdbValidate type="text" id="form1" class="form-control" formControlName="onSubmit">
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="form1"
+              class="form-control"
+              formControlName="input"
+            />
             <label for="form1">Required validator</label>
-            <mdb-error *ngIf="onSubmit.invalid && (onSubmit.dirty || onSubmit.touched)">Input invalid</mdb-error>
-            <mdb-success *ngIf="onSubmit.valid && (onSubmit.dirty || onSubmit.touched)">Input valid</mdb-success>
+            <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
           </div>
+          <button type="submit" mdbBtn color="primary" (click)="onSubmit()">Submit form</button>
         </form>
       </code>
       <code data-lang="js" data-name="TS">
@@ -503,16 +511,19 @@
         templateUrl: 'validators-example.html',
         })
         export class ValidatorsComponent implements OnInit {
-
           validatingForm: FormGroup;
 
           ngOnInit() {
             this.validatingForm = new FormGroup({
-              onSubmit: new FormControl(null, Validators.required)
+              input: new FormControl(null, Validators.required)
             }, { updateOn: 'submit' });
           }
-
-          get onSubmit() { return this.validatingForm.get('onSubmit'); }
+        
+          get input() { return this.validatingForm.get('input'); }
+        
+          onSubmit() {
+            this.validatingForm.controls.input.markAsTouched();
+          }
         }
       </code>
     </mdbsnippet>
@@ -742,9 +753,9 @@
     <h4 id="" class="secondary-heading mt-5">
       Pattern Validator
     </h4>
-    <p class="description">Pattern Validator should contains RegEx. With it, pattern is able to validate through regular
+    <p class="description">Pattern Validator should contain RegEx. With it, the pattern is able to validate using regular
       expressions. In this example,
-      RegEx allows to put only english letters into input.</p>
+      RegEx allows us to put only English letters into the input.</p>
 
     <!-- Live preview-->
     <section id="template-pattern">
@@ -816,11 +827,12 @@
         <code data-lang="html" data-name="HTML">
           <form [ngFormOptions]="{updateOn: 'submit'}">
             <div class="md-form">
-              <input mdbInput mdbValidate name="input" type="text" id="form1" class="form-control" [(ngModel)]="submit" #input="ngModel" required>
+              <input mdbInput mdbValidate name="input" type="text" id="form1" class="form-control" [(ngModel)]="inputControl" #input="ngModel" required>
               <label for="form1">Required validator</label>
               <mdb-error *ngIf="input.invalid && (input.dirty || input.touched)">Input invalid</mdb-error>
               <mdb-success *ngIf="input.valid && (input.dirty || input.touched)">Input valid</mdb-success>
             </div>
+            <button type="submit" mdbBtn color="primary" (click)="input.control.markAsTouched()">Submit form</button>
           </form>
         </code>
       </mdbsnippet>
@@ -1118,10 +1130,10 @@
     </h2>
 
     <p>
-      In orderd to display validation messages under the validated element you need to add <code>mdb-error</code> and <code>mdb-success</code> components.
+      In order to display validation messages under the validated element, you need to add the <code>mdb-error</code> and <code>mdb-success</code> components.
     </p>
 
-    <p>Sometimes one form control has several validators and it is neccessary to display different validation messages depending on user input. The following example shows how to do that:</p>
+    <p>Sometimes one form control has several validators and it is necessary to display different validation messages depending on the user input. The following example demonstrates how to do that:</p>
 
     <!--Section: Code-->
     <section class="my-4">

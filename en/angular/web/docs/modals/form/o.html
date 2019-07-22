@@ -252,7 +252,7 @@
           (click)="frame.show()" mdbWavesEffect>Launch Modal</button>
 
         <div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
-          aria-labelledby="myModalLabel" aria-hidden="true">
+             aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header text-center">
@@ -264,16 +264,32 @@
               <div class="modal-body mx-3">
                 <div class="md-form mb-5">
                   <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
-                  <input type="email" id="defaultForm-email" [formControl]="loginFormModalEmail" class="form-control validate"
-                    mdbInput>
-                  <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+                  <input type="email" id="defaultForm-email" [formControl]="loginFormModalEmail" class="form-control"
+                         mdbInput mdbValidate>
+                  <label for="defaultForm-email">Your email</label>
+                  <mdb-error
+                    *ngIf="loginFormModalEmail.invalid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="loginFormModalEmail.valid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">Input
+                    valid
+                  </mdb-success>
                 </div>
 
                 <div class="md-form mb-4">
                   <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
-                  <input type="password" id="defaultForm-pass" [formControl]="loginFormModalPassword" class="form-control validate"
-                    mdbInput>
-                  <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                  <input type="password" id="defaultForm-pass" [formControl]="loginFormModalPassword" class="form-control"
+                         mdbInput mdbValidate>
+                  <label for="defaultForm-pass">Your password</label>
+                  <mdb-error
+                    *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="loginFormModalPassword.valid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+                    Input valid
+                  </mdb-success>
                 </div>
 
               </div>
@@ -286,16 +302,30 @@
       </code>
       <code data-lang="js" data-name="TS">
         import { Component } from '@angular/core';
-        import { FormControl, Validators } from '@angular/forms';
+        import {FormControl, FormGroup, Validators} from "@angular/forms";
 
         @Component({
-        selector: 'modal-form',
-        templateUrl: './modal-form.component.html',
-        styleUrls: ['./modal-form.component.css']
+          selector: 'modal-form',
+          templateUrl: './modal-form.component.html',
+          styleUrls: ['./modal-form.component.css']
         })
         export class ModalFormComponent {
-        loginFormModalEmail = new FormControl('', Validators.email);
-        loginFormModalPassword = new FormControl('', Validators.required);
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              loginFormModalEmail: new FormControl('', Validators.email),
+              loginFormModalPassword: new FormControl('', Validators.required)
+            });
+          }
+
+          get loginFormModalEmail() {
+            return this.validatingForm.get('loginFormModalEmail');
+          }
+
+          get loginFormModalPassword() {
+            return this.validatingForm.get('loginFormModalPassword');
+          }
         }
       </code>
     </mdbsnippet>
@@ -415,10 +445,11 @@
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
-          (click)="frame.show()" mdbWavesEffect>Launch Modal</button>
+                (click)="frame.show()" mdbWavesEffect>Launch Modal
+        </button>
 
         <div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
-          aria-labelledby="myModalLabel" aria-hidden="true">
+             aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header text-center">
@@ -430,22 +461,44 @@
               <div class="modal-body mx-3">
                 <div class="md-form mb-5">
                   <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
-                  <input type="text" id="orangeForm-name" class="form-control validate" [formControl]="signupFormModalName"
-                    mdbInput>
-                  <label data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
+                  <input type="text" id="orangeForm-name" class="form-control" [formControl]="signupFormModalName"
+                         mdbInput mdbValidate>
+                  <label for="orangeForm-name">Your name</label>
+                  <mdb-error *ngIf="signupFormModalName.invalid && (signupFormModalName.dirty || signupFormModalName.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success *ngIf="signupFormModalName.valid && (signupFormModalName.dirty || signupFormModalName.touched)">
+                    Input valid
+                  </mdb-success>
                 </div>
                 <div class="md-form mb-5">
                   <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
-                  <input type="email" id="orangeForm-email" class="form-control validate" [formControl]="signupFormModalEmail"
-                    mdbInput>
-                  <label data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+                  <input type="email" id="orangeForm-email" class="form-control" [formControl]="signupFormModalEmail"
+                         mdbInput mdbValidate>
+                  <label for="orangeForm-email">Your email</label>
+                  <mdb-error
+                    *ngIf="signupFormModalEmail.invalid && (signupFormModalEmail.dirty || signupFormModalEmail.touched)">Input
+                    invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="signupFormModalEmail.valid && (signupFormModalEmail.dirty || signupFormModalEmail.touched)">Input
+                    valid
+                  </mdb-success>
                 </div>
 
                 <div class="md-form mb-4">
                   <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
-                  <input type="password" id="orangeForm-pass" class="form-control validate" [formControl]="signupFormModalPassword"
-                    mdbInput>
-                  <label data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+                  <input type="password" id="orangeForm-pass" class="form-control" [formControl]="signupFormModalPassword"
+                         mdbInput mdbValidate>
+                  <label for="orangeForm-pass">Your password</label>
+                  <mdb-error
+                    *ngIf="signupFormModalPassword.invalid && (signupFormModalPassword.dirty || signupFormModalPassword.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="signupFormModalPassword.valid && (signupFormModalPassword.dirty || signupFormModalPassword.touched)">
+                    Input valid
+                  </mdb-success>
                 </div>
 
               </div>
@@ -455,20 +508,39 @@
             </div>
           </div>
         </div>
+
       </code>
       <code data-lang="js" data-name="TS">
         import { Component } from '@angular/core';
-        import { FormControl, Validators } from '@angular/forms';
+        import {FormControl, FormGroup, Validators} from "@angular/forms";
 
         @Component({
-        selector: 'modal-form',
-        templateUrl: './modal-form.component.html',
-        styleUrls: ['./modal-form.component.css']
+          selector: 'modal-form',
+          templateUrl: './modal-form.component.html',
+          styleUrls: ['./modal-form.component.css']
         })
         export class ModalFormComponent {
-        signupFormModalName = new FormControl('', Validators.required);
-        signupFormModalEmail = new FormControl('', Validators.email);
-        signupFormModalPassword = new FormControl('', Validators.required);
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              signupFormModalName: new FormControl('', Validators.required),
+              signupFormModalEmail: new FormControl('', Validators.email),
+              signupFormModalPassword: new FormControl('', Validators.required),
+            });
+          }
+
+          get signupFormModalName() {
+            return this.validatingForm.get('signupFormModalName');
+          }
+
+          get signupFormModalEmail() {
+            return this.validatingForm.get('signupFormModalEmail');
+          }
+
+          get signupFormModalPassword() {
+            return this.validatingForm.get('signupFormModalPassword');
+          }
         }
       </code>
     </mdbsnippet>
@@ -579,10 +651,11 @@
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
-          (click)="frame.show()" mdbWavesEffect>Launch Modal</button>
+                (click)="frame.show()" mdbWavesEffect>Launch Modal
+        </button>
 
         <div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
-          aria-labelledby="myModalLabel" aria-hidden="true">
+             aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header text-center">
@@ -594,16 +667,32 @@
               <div class="modal-body mx-3">
                 <div class="md-form mb-5">
                   <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
-                  <input type="text" id="form3" class="form-control validate" [formControl]="subscriptionFormModalName"
-                    mdbInput>
-                  <label data-error="wrong" data-success="right" for="form3">Your name</label>
+                  <input type="text" id="form3" class="form-control" [formControl]="subscriptionFormModalName"
+                         mdbInput mdbValidate>
+                  <label for="form3">Your name</label>
+                  <mdb-error
+                    *ngIf="subscriptionFormModalName.invalid && (subscriptionFormModalName.dirty || subscriptionFormModalName.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="subscriptionFormModalName.valid && (subscriptionFormModalName.dirty || subscriptionFormModalName.touched)">
+                    Input valid
+                  </mdb-success>
                 </div>
 
                 <div class="md-form mb-4">
                   <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
-                  <input type="email" id="form2" class="form-control validate" [formControl]="subscriptionFormModalEmail"
-                    mdbInput>
-                  <label data-error="wrong" data-success="right" for="form2">Your email</label>
+                  <input type="email" id="form2" class="form-control" [formControl]="subscriptionFormModalEmail"
+                         mdbInput mdbValidate>
+                  <label for="form2">Your email</label>
+                  <mdb-error
+                    *ngIf="subscriptionFormModalEmail.invalid && (subscriptionFormModalEmail.dirty || subscriptionFormModalEmail.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="subscriptionFormModalEmail.valid && (subscriptionFormModalEmail.dirty || subscriptionFormModalEmail.touched)">
+                    Input valid
+                  </mdb-success>
                 </div>
 
               </div>
@@ -615,10 +704,11 @@
             </div>
           </div>
         </div>
+
       </code>
       <code data-lang="js" data-name="TS">
         import { Component } from '@angular/core';
-        import { FormControl, Validators } from '@angular/forms';
+        import {FormControl, FormGroup, Validators} from "@angular/forms";
 
         @Component({
         selector: 'modal-form',
@@ -626,8 +716,22 @@
         styleUrls: ['./modal-form.component.css']
         })
         export class ModalFormComponent {
-        subscriptionFormModalName = new FormControl('', Validators.required);
-        subscriptionFormModalEmail = new FormControl('', Validators.email);
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              subscriptionFormModalName: new FormControl('', Validators.required),
+              subscriptionFormModalEmail: new FormControl('', Validators.email)
+            });
+          }
+
+          get subscriptionFormModalName() {
+            return this.validatingForm.get('subscriptionFormModalName');
+          }
+
+          get subscriptionFormModalEmail() {
+            return this.validatingForm.get('subscriptionFormModalEmail');
+          }
         }
       </code>
     </mdbsnippet>
@@ -762,10 +866,11 @@
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
-          (click)="frame.show()" mdbWavesEffect>Launch Modal</button>
+                (click)="frame.show()" mdbWavesEffect>Launch Modal
+        </button>
 
         <div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
-          aria-labelledby="myModalLabel" aria-hidden="true">
+             aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header text-center">
@@ -777,27 +882,61 @@
               <div class="modal-body mx-3">
                 <div class="md-form mb-5">
                   <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
-                  <input type="text" id="form34" class="form-control validate" mdbInput [formControl]="contactFormModalName">
-                  <label data-error="wrong" data-success="right" for="form34">Your name</label>
+                  <input type="text" id="form34" class="form-control" mdbInput mdbValidate [formControl]="contactFormModalName">
+                  <label for="form34">Your name</label>
+                  <mdb-error
+                    *ngIf="contactFormModalName.invalid && (contactFormModalName.dirty || contactFormModalName.touched)">Input
+                    invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="contactFormModalName.valid && (contactFormModalName.dirty || contactFormModalName.touched)">Input
+                    valid
+                  </mdb-success>
                 </div>
 
                 <div class="md-form mb-5">
                   <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
-                  <input type="email" id="form29" class="form-control validate" mdbInput [formControl]="contactFormModalEmail">
-                  <label data-error="wrong" data-success="right" for="form29">Your email</label>
+                  <input type="email" id="form29" class="form-control" mdbInput mdbValidate
+                         [formControl]="contactFormModalEmail">
+                  <label for="form29">Your email</label>
+                  <mdb-error
+                    *ngIf="contactFormModalEmail.invalid && (contactFormModalEmail.dirty || contactFormModalEmail.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="contactFormModalEmail.valid && (contactFormModalEmail.dirty || contactFormModalEmail.touched)">Input
+                    valid
+                  </mdb-success>
                 </div>
 
                 <div class="md-form mb-5">
                   <mdb-icon fas icon="tag" class="prefix grey-text"></mdb-icon>
-                  <input type="text" id="form32" class="form-control validate" mdbInput [formControl]="contactFormModalSubject">
-                  <label data-error="wrong" data-success="right" for="form32">Subject</label>
+                  <input type="text" id="form32" class="form-control" mdbInput mdbValidate
+                         [formControl]="contactFormModalSubject">
+                  <label for="form32">Subject</label>
+                  <mdb-error
+                    *ngIf="contactFormModalSubject.invalid && (contactFormModalSubject.dirty || contactFormModalSubject.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="contactFormModalSubject.valid && (contactFormModalSubject.dirty || contactFormModalSubject.touched)">
+                    Input valid
+                  </mdb-success>
                 </div>
 
                 <div class="md-form">
                   <mdb-icon fas icon="pencil-alt" class="prefix grey-text"></mdb-icon>
-                  <textarea type="text" id="form8" class="md-textarea form-control" rows="1" mdbInput
-                    [formControl]="contactFormModalMessage"></textarea>
-                  <label data-error="wrong" data-success="right" for="form8">Your message</label>
+                  <textarea type="text" id="form8" class="md-textarea form-control" rows="1" mdbInput mdbValidate
+                            [formControl]="contactFormModalMessage"></textarea>
+                  <label for="form8">Your message</label>
+                  <mdb-error
+                    *ngIf="contactFormModalMessage.invalid && (contactFormModalMessage.dirty || contactFormModalMessage.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="contactFormModalMessage.valid && (contactFormModalMessage.dirty || contactFormModalMessage.touched)">
+                    Input valid
+                  </mdb-success>
                 </div>
 
               </div>
@@ -809,21 +948,44 @@
             </div>
           </div>
         </div>
+
       </code>
       <code data-lang="js" data-name="TS">
         import { Component } from '@angular/core';
-        import { FormControl, Validators } from '@angular/forms';
+        import { FormControl, Validators, FormGroup } from '@angular/forms';
 
         @Component({
-        selector: 'modal-form',
-        templateUrl: './modal-form.component.html',
-        styleUrls: ['./modal-form.component.css']
+          selector: 'modal-form',
+          templateUrl: './modal-form.component.html',
+          styleUrls: ['./modal-form.component.css']
         })
         export class ModalFormComponent {
-        contactFormModalName = new FormControl('', Validators.required);
-        contactFormModalEmail = new FormControl('', Validators.email);
-        contactFormModalSubject = new FormControl('', Validators.required);
-        contactFormModalMessage = new FormControl('', Validators.required);
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              contactFormModalName: new FormControl('', Validators.required),
+              contactFormModalEmail: new FormControl('', Validators.email),
+              contactFormModalSubject: new FormControl('', Validators.required),
+              contactFormModalMessage: new FormControl('', Validators.required)
+            });
+          }
+
+          get contactFormModalName() {
+            return this.validatingForm.get('contactFormModalName');
+          }
+
+          get contactFormModalEmail() {
+            return this.validatingForm.get('contactFormModalEmail');
+          }
+
+          get contactFormModalSubject() {
+            return this.validatingForm.get('contactFormModalSubject');
+          }
+
+          get contactFormModalMessage() {
+            return this.validatingForm.get('contactFormModalMessage');
+          }
         }
       </code>
     </mdbsnippet>
@@ -1095,10 +1257,11 @@
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
-          (click)="frame.show()" mdbWavesEffect>Launch Modal</button>
+                (click)="frame.show()" mdbWavesEffect>Launch Modal
+        </button>
 
         <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
-          aria-labelledby="myModalLabel" aria-hidden="true">
+             aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog cascading-modal" role="document">
             <!--Content-->
             <div class="modal-content">
@@ -1108,22 +1271,41 @@
 
                 <!-- Tab panels -->
                 <mdb-tabset #staticTabs [buttonClass]="'nav md-tabs tabs-2 light-blue darken-3'" [contentClass]="''"
-                  class="tab-content">
+                            class="tab-content">
                   <!--Panel 7-->
-                  <mdb-tab class="tab-pane fade in show active" id="panel7" role="tabpanel" heading="<mdb-icon fas icon='user' class='mr-1'></mdb-icon> Login">
+                  <mdb-tab class="tab-pane fade in show active" id="panel7" role="tabpanel"
+                           heading="<mdb-icon fas icon='user' class='mr-1'></mdb-icon> Login">
 
                     <!--Body-->
                     <div class="modal-body mb-1">
                       <div class="md-form form-sm">
                         <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
-                        <input mdbInput type="text" id="form22" class="form-control" [formControl]="modalFormLoginEmail">
+                        <input mdbInput mdbValidate type="text" id="form22" class="form-control"
+                               [formControl]="modalFormLoginEmail">
                         <label for="form22">Your email</label>
+                        <mdb-error
+                          *ngIf="modalFormLoginEmail.invalid && (modalFormLoginEmail.dirty || modalFormLoginEmail.touched)">
+                          Input invalid
+                        </mdb-error>
+                        <mdb-success
+                          *ngIf="modalFormLoginEmail.valid && (modalFormLoginEmail.dirty || modalFormLoginEmail.touched)">Input
+                          valid
+                        </mdb-success>
                       </div>
 
                       <div class="md-form form-sm">
                         <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
-                        <input mdbInput type="password" id="form23" class="form-control" [formControl]="modalFormLoginPassword">
+                        <input mdbInput mdbValidate type="password" id="form23" class="form-control"
+                               [formControl]="modalFormLoginPassword">
                         <label for="form23">Your password</label>
+                        <mdb-error
+                          *ngIf="modalFormLoginPassword.invalid && (modalFormLoginPassword.dirty || modalFormLoginPassword.touched)">
+                          Input invalid
+                        </mdb-error>
+                        <mdb-success
+                          *ngIf="modalFormLoginPassword.valid && (modalFormLoginPassword.dirty || modalFormLoginPassword.touched)">
+                          Input valid
+                        </mdb-success>
                       </div>
                       <div class="text-center mt-2">
                         <button mdbBtn color="info" class="waves-light" mdbWavesEffect>Log in
@@ -1142,33 +1324,62 @@
                         </p>
                       </div>
                       <button type="button" mdbBtn color="info" outline="true" class="ml-auto" data-dismiss="modal"
-                        (click)="frame.hide()" mdbWavesEffect>Close</button>
+                              (click)="frame.hide()" mdbWavesEffect>Close
+                      </button>
                     </div>
 
                   </mdb-tab>
                   <!--/.Panel 7-->
 
                   <!--Panel 8-->
-                  <mdb-tab class="tab-pane fade" id="panel8" role="tabpanel" heading="<mdb-icon fas icon='user-plus' class='mr-1'></mdb-icon> Register">
+                  <mdb-tab class="tab-pane fade" id="panel8" role="tabpanel"
+                           heading="<mdb-icon fas icon='user-plus' class='mr-1'></mdb-icon> Register">
 
                     <!--Body-->
                     <div class="modal-body">
                       <div class="md-form form-sm">
                         <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
-                        <input mdbInput type="text" id="form24" class="form-control" [formControl]="modalFormRegisterEmail">
+                        <input mdbInput mdbValidate type="text" id="form24" class="form-control"
+                               [formControl]="modalFormRegisterEmail">
                         <label for="form24">Your email</label>
+                        <mdb-error
+                          *ngIf="modalFormRegisterEmail.invalid && (modalFormRegisterEmail.dirty || modalFormRegisterEmail.touched)">
+                          Input invalid
+                        </mdb-error>
+                        <mdb-success
+                          *ngIf="modalFormRegisterEmail.valid && (modalFormRegisterEmail.dirty || modalFormRegisterEmail.touched)">
+                          Input valid
+                        </mdb-success>
                       </div>
 
                       <div class="md-form form-sm">
                         <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
-                        <input mdbInput type="password" id="form25" class="form-control" [formControl]="modalFormRegisterPassword">
+                        <input mdbInput mdbValidate type="password" id="form25" class="form-control"
+                               [formControl]="modalFormRegisterPassword">
                         <label for="form25">Your password</label>
+                        <mdb-error
+                          *ngIf="modalFormRegisterPassword.invalid && (modalFormRegisterPassword.dirty || modalFormRegisterPassword.touched)">
+                          Input invalid
+                        </mdb-error>
+                        <mdb-success
+                          *ngIf="modalFormRegisterPassword.valid && (modalFormRegisterPassword.dirty || modalFormRegisterPassword.touched)">
+                          Input valid
+                        </mdb-success>
                       </div>
 
                       <div class="md-form form-sm">
                         <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
-                        <input mdbInput type="password" id="form26" class="form-control" [formControl]="modalFormRegisterRepeatPassword">
+                        <input mdbInput mdbValidate type="password" id="form26" class="form-control"
+                               [formControl]="modalFormRegisterRepeatPassword">
                         <label for="form26">Repeat password</label>
+                        <mdb-error
+                          *ngIf="modalFormRegisterRepeatPassword.invalid && (modalFormRegisterRepeatPassword.dirty || modalFormRegisterRepeatPassword.touched)">
+                          Input invalid
+                        </mdb-error>
+                        <mdb-success
+                          *ngIf="modalFormRegisterRepeatPassword.valid && (modalFormRegisterRepeatPassword.dirty || modalFormRegisterRepeatPassword.touched)">
+                          Input valid
+                        </mdb-success>
                       </div>
 
                       <div class="text-center form-sm mt-2">
@@ -1186,7 +1397,8 @@
                         </p>
                       </div>
                       <button type="button" mdbBtn color="info" outline="true" class="ml-auto" data-dismiss="modal"
-                        (click)="frame.hide()" mdbWavesEffect>Close</button>
+                              (click)="frame.hide()" mdbWavesEffect>Close
+                      </button>
                     </div>
                   </mdb-tab>
                   <!--/.Panel 8-->
@@ -1197,22 +1409,50 @@
             <!--/.Content-->
           </div>
         </div>
+
+
       </code>
       <code data-lang="js" data-name="TS">
         import { Component } from '@angular/core';
-        import { FormControl, Validators } from '@angular/forms';
+        import { FormControl, Validators, FormGroup } from '@angular/forms';
 
         @Component({
-        selector: 'modal-form',
-        templateUrl: './modal-form.component.html',
-        styleUrls: ['./modal-form.component.css']
+          selector: 'modal-form',
+          templateUrl: './modal-form.component.html',
+          styleUrls: ['./modal-form.component.css']
         })
         export class ModalFormComponent {
-        modalFormLoginEmail = new FormControl('', Validators.email);
-        modalFormLoginPassword = new FormControl('', Validators.required);
-        modalFormRegisterEmail = new FormControl('', Validators.email);
-        modalFormRegisterPassword = new FormControl('', Validators.required);
-        modalFormRegisterRepeatPassword = new FormControl('', Validators.required);
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              modalFormLoginEmail: new FormControl('', Validators.email),
+              modalFormLoginPassword: new FormControl('', Validators.required),
+              modalFormRegisterEmail: new FormControl('', Validators.email),
+              modalFormRegisterPassword: new FormControl('', Validators.required),
+              modalFormRegisterRepeatPassword: new FormControl('', Validators.required)
+            });
+          }
+
+          get modalFormLoginEmail() {
+            return this.validatingForm.get('modalFormLoginEmail');
+          }
+
+          get modalFormLoginPassword() {
+            return this.validatingForm.get('modalFormLoginPassword');
+          }
+
+          get modalFormRegisterEmail() {
+            return this.validatingForm.get('modalFormRegisterEmail');
+          }
+
+          get modalFormRegisterPassword() {
+            return this.validatingForm.get('modalFormRegisterPassword');
+          }
+
+          get modalFormRegisterRepeatPassword() {
+            return this.validatingForm.get('modalFormRegisterRepeatPassword');
+          }
         }
       </code>
     </mdbsnippet>
@@ -1324,17 +1564,19 @@
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
-          (click)="frame.show()" mdbWavesEffect>Launch Modal</button>
+                (click)="frame.show()" mdbWavesEffect>Launch Modal
+        </button>
 
         <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
-          aria-labelledby="myModalLabel" aria-hidden="true">
+             aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
             <!--Content-->
             <div class="modal-content">
 
               <!--Header-->
               <div class="modal-header">
-                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
+                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar"
+                     class="rounded-circle img-responsive">
               </div>
               <!--Body-->
               <div class="modal-body mb-1">
@@ -1343,8 +1585,16 @@
 
                 <div class="md-form ml-0 mr-0">
                   <input type="password" type="text" id="form29" class="form-control form-control-sm ml-0"
-                    mdbInput [formControl]="modalFormAvatarPassword">
-                  <label data-error="wrong" data-success="right" for="form29" class="ml-0">Enter password</label>
+                         mdbInput mdbValidate [formControl]="modalFormAvatarPassword">
+                  <label for="form29" class="ml-0">Enter password</label>
+                  <mdb-error
+                    *ngIf="modalFormAvatarPassword.invalid && (modalFormAvatarPassword.dirty || modalFormAvatarPassword.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="modalFormAvatarPassword.valid && (modalFormAvatarPassword.dirty || modalFormAvatarPassword.touched)">
+                    Input valid
+                  </mdb-success>
                 </div>
 
                 <div class="text-center mt-4">
@@ -1358,18 +1608,29 @@
             <!--/.Content-->
           </div>
         </div>
+
       </code>
       <code data-lang="js" data-name="TS">
         import { Component } from '@angular/core';
-        import { FormControl, Validators } from '@angular/forms';
+        import {FormControl, FormGroup, Validators} from "@angular/forms";
 
         @Component({
-        selector: 'modal-form',
-        templateUrl: './modal-form.component.html',
-        styleUrls: ['./modal-form.component.css']
+          selector: 'modal-form',
+          templateUrl: './modal-form.component.html',
+          styleUrls: ['./modal-form.component.css']
         })
         export class ModalFormComponent {
-        modalFormAvatarPassword = new FormControl('', Validators.required);
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              modalFormAvatarPassword: new FormControl('', Validators.required)
+            });
+          }
+
+          get modalFormAvatarPassword() {
+            return this.validatingForm.get('modalFormAvatarPassword');
+          }
         }
       </code>
     </mdbsnippet>
@@ -1492,10 +1753,11 @@
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
-          (click)="frame.show()" mdbWavesEffect>Launch Modal</button>
+                (click)="frame.show()" mdbWavesEffect>Launch Modal
+        </button>
 
         <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
-          aria-labelledby="myModalLabel" aria-hidden="true">
+             aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-notify modal-warning" role="document">
             <!--Content-->
             <div class="modal-content">
@@ -1511,14 +1773,32 @@
               <div class="modal-body">
                 <div class="md-form mb-5">
                   <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
-                  <input type="text" id="form3" class="form-control" mdbInput [formControl]="modalFormSubscriptionName">
-                  <label data-error="wrong" data-success="right" for="form3">Your name</label>
+                  <input type="text" id="form3" class="form-control" mdbInput mdbValidate
+                         [formControl]="modalFormSubscriptionName">
+                  <label for="form3">Your name</label>
+                  <mdb-error
+                    *ngIf="modalFormSubscriptionName.invalid && (modalFormSubscriptionName.dirty || modalFormSubscriptionName.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="modalFormSubscriptionName.valid && (modalFormSubscriptionName.dirty || modalFormSubscriptionName.touched)">
+                    Input valid
+                  </mdb-success>
                 </div>
 
                 <div class="md-form">
                   <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
-                  <input type="email" id="form2" class="form-control" mdbInput [formControl]="modalFormSubscriptionEmail">
-                  <label data-error="wrong" data-success="right" for="form2">Your email</label>
+                  <input type="email" id="form2" class="form-control" mdbInput mdbValidate
+                         [formControl]="modalFormSubscriptionEmail">
+                  <label for="form2">Your email</label>
+                  <mdb-error
+                    *ngIf="modalFormSubscriptionEmail.invalid && (modalFormSubscriptionEmail.dirty || modalFormSubscriptionEmail.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="modalFormSubscriptionEmail.valid && (modalFormSubscriptionEmail.dirty || modalFormSubscriptionEmail.touched)">
+                    Input valid
+                  </mdb-success>
                 </div>
               </div>
 
@@ -1532,19 +1812,34 @@
             <!--/.Content-->
           </div>
         </div>
+
       </code>
       <code data-lang="js" data-name="TS">
         import { Component } from '@angular/core';
-        import { FormControl, Validators } from '@angular/forms';
+        import { FormControl, FormGroup, Validators } from '@angular/forms';
 
         @Component({
-        selector: 'modal-form',
-        templateUrl: './modal-form.component.html',
-        styleUrls: ['./modal-form.component.css']
+          selector: 'modal-form',
+          templateUrl: './modal-form.component.html',
+          styleUrls: ['./modal-form.component.css']
         })
         export class ModalFormComponent {
-        modalFormSubscriptionName = new FormControl('', Validators.required);
-        modalFormSubscriptionEmail = new FormControl('', Validators.email);
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              modalFormSubscriptionName: new FormControl('', Validators.required),
+              modalFormSubscriptionEmail: new FormControl('', Validators.email)
+            });
+          }
+
+          get modalFormSubscriptionName() {
+            return this.validatingForm.get('modalFormSubscriptionName');
+          }
+
+          get modalFormSubscriptionEmail() {
+            return this.validatingForm.get('modalFormSubscriptionEmail');
+          }
         }
       </code>
       <code data-lang="css" data-name="SCSS">
@@ -1729,10 +2024,11 @@
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
-          (click)="frame.show()" mdbWavesEffect>Launch Modal</button>
+                (click)="frame.show()" mdbWavesEffect>Launch Modal
+        </button>
 
         <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
-          aria-labelledby="myModalLabel" aria-hidden="true">
+             aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <!--Content-->
             <div class="modal-content form-elegant">
@@ -1749,13 +2045,31 @@
               <div class="modal-body mx-4">
                 <!--Body-->
                 <div class="md-form mb-5">
-                  <input type="email" id="Form-email1" class="form-control" mdbInput [formControl]="modalFormElegantEmail">
-                  <label data-error="wrong" data-success="right" for="Form-email1">Your email</label>
+                  <input type="email" id="Form-email1" class="form-control" mdbInput mdbValidate
+                         [formControl]="modalFormElegantEmail">
+                  <label for="Form-email1">Your email</label>
+                  <mdb-error
+                    *ngIf="modalFormElegantEmail.invalid && (modalFormElegantEmail.dirty || modalFormElegantEmail.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="modalFormElegantEmail.valid && (modalFormElegantEmail.dirty || modalFormElegantEmail.touched)">Input
+                    valid
+                  </mdb-success>
                 </div>
 
                 <div class="md-form pb-3">
-                  <input type="password" id="Form-pass1" class="form-control" mdbInput [formControl]="modalFormElegantPassword">
-                  <label data-error="wrong" data-success="right" for="Form-pass1">Your password</label>
+                  <input type="password" id="Form-pass1" class="form-control" mdbInput mdbValidate
+                         [formControl]="modalFormElegantPassword">
+                  <label for="Form-pass1">Your password</label>
+                  <mdb-error
+                    *ngIf="modalFormElegantPassword.invalid && (modalFormElegantPassword.dirty || modalFormElegantPassword.touched)">
+                    Input invalid
+                  </mdb-error>
+                  <mdb-success
+                    *ngIf="modalFormElegantPassword.valid && (modalFormElegantPassword.dirty || modalFormElegantPassword.touched)">
+                    Input valid
+                  </mdb-success>
                   <p class="font-small blue-text d-flex justify-content-end">Forgot
                     <a href="#" class="blue-text ml-1"> Password?</a>
                   </p>
@@ -1763,7 +2077,8 @@
 
                 <div class="text-center mb-3">
                   <button type="button" mdbBtn gradient="blue" block="true" rounded="true" class="z-depth-1a waves-light"
-                    mdbWavesEffect>Sign in</button>
+                          mdbWavesEffect>Sign in
+                  </button>
                 </div>
                 <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in
                   with:</p>
@@ -1771,17 +2086,17 @@
                 <div class="row my-3 d-flex justify-content-center">
                   <!--Facebook-->
                   <button type="button" mdbBtn color="white" rounded="true" class="mr-md-3 z-depth-1a waves-light"
-                    mdbWavesEffect>
+                          mdbWavesEffect>
                     <mdb-icon fab icon="facebook-f" class="text-center"></mdb-icon>
                   </button>
                   <!--Twitter-->
                   <button type="button" mdbBtn color="white" rounded="true" class="mr-md-3 z-depth-1a waves-light"
-                    mdbWavesEffect>
+                          mdbWavesEffect>
                     <mdb-icon fab icon="twitter"></mdb-icon>
                   </button>
                   <!--Google +-->
                   <button type="button" mdbBtn color="white" rounded="true" class="z-depth-1a waves-light"
-                    mdbWavesEffect>
+                          mdbWavesEffect>
                     <mdb-icon fab icon="google-plus"></mdb-icon>
                   </button>
                 </div>
@@ -1796,19 +2111,34 @@
             <!--/.Content-->
           </div>
         </div>
+
       </code>
       <code data-lang="js" data-name="TS">
         import { Component } from '@angular/core';
-        import { FormControl, Validators } from '@angular/forms';
+        import { FormControl, Validators, FormGroup } from '@angular/forms';
 
         @Component({
-        selector: 'modal-form',
-        templateUrl: './modal-form.component.html',
-        styleUrls: ['./modal-form.component.css']
+          selector: 'modal-form',
+          templateUrl: './modal-form.component.html',
+          styleUrls: ['./modal-form.component.css']
         })
         export class ModalFormComponent {
-          modalFormElegantEmail = new FormControl('', Validators.email);
-          modalFormElegantPassword = new FormControl('', Validators.required);
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              modalFormElegantEmail: new FormControl('', Validators.email),
+              modalFormElegantPassword: new FormControl('', Validators.required)
+            });
+          }
+
+          get modalFormElegantEmail() {
+            return this.validatingForm.get('modalFormElegantEmail');
+          }
+
+          get modalFormElegantPassword() {
+            return this.validatingForm.get('modalFormElegantPassword');
+          }
         }
       </code>
       <code data-lang="css" data-name="SCSS">
@@ -2021,13 +2351,15 @@
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
-          (click)="frame.show()" mdbWavesEffect>Launch Modal</button>
+                (click)="frame.show()" mdbWavesEffect>Launch Modal
+        </button>
 
         <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
-          aria-labelledby="myModalLabel" aria-hidden="true">
+             aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog form-dark" role="document">
             <!--Content-->
-            <mdb-card imageBackground="url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(7).jpg')" class="modal-content">
+            <mdb-card imageBackground="url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(7).jpg')"
+                      class="modal-content">
               <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
                 <!--Header-->
                 <div class="modal-header text-center pb-4">
@@ -2045,15 +2377,29 @@
                 <div class="modal-body">
                   <!--Body-->
                   <div class="md-form mb-5">
-                    <input type="email" id="Form-email5" class="form-control white-text" mdbInput
-                      [formControl]="modalFormDarkEmail">
-                    <label data-error="wrong" data-success="right" for="Form-email5">Your email</label>
+                    <input type="email" id="Form-email5" class="form-control white-text" mdbValidate mdbInput
+                           [formControl]="modalFormDarkEmail">
+                    <label for="Form-email5">Your email</label>
+                    <mdb-error *ngIf="modalFormDarkEmail.invalid && (modalFormDarkEmail.dirty || modalFormDarkEmail.touched)">
+                      Input invalid
+                    </mdb-error>
+                    <mdb-success *ngIf="modalFormDarkEmail.valid && (modalFormDarkEmail.dirty || modalFormDarkEmail.touched)">
+                      Input valid
+                    </mdb-success>
                   </div>
 
                   <div class="md-form pb-3">
-                    <input type="password" id="Form-pass5" class="form-control white-text" mdbInput
-                      [formControl]="modalFormDarkPassword">
-                    <label data-error="wrong" data-success="right" for="Form-pass5">Your password</label>
+                    <input type="password" id="Form-pass5" class="form-control white-text" mdbValidate mdbInput
+                           [formControl]="modalFormDarkPassword">
+                    <label for="Form-pass5">Your password</label>
+                    <mdb-error
+                      *ngIf="modalFormDarkPassword.invalid && (modalFormDarkPassword.dirty || modalFormDarkPassword.touched)">
+                      Input invalid
+                    </mdb-error>
+                    <mdb-success
+                      *ngIf="modalFormDarkPassword.valid && (modalFormDarkPassword.dirty || modalFormDarkPassword.touched)">
+                      Input valid
+                    </mdb-success>
                     <div class="form-group mt-4">
                       <mdb-checkbox>Accept the
                         <a href="#" class="green-text font-weight-bold"> Terms and Conditions</a></mdb-checkbox>
@@ -2067,7 +2413,8 @@
                     <!--Grid column-->
                     <div class="text-center mb-3 col-md-12">
                       <button type="button" mdbBtn color="success" block="true" rounded="true" class="z-depth-1 waves-light"
-                        mdbWavesEffect>Sign up</button>
+                              mdbWavesEffect>Sign up
+                      </button>
                     </div>
                     <!--Grid column-->
 
@@ -2094,10 +2441,11 @@
             <!--/.Content-->
           </div>
         </div>
+
       </code>
       <code data-lang="js" data-name="TS">
         import { Component } from '@angular/core';
-        import { FormControl, Validators } from '@angular/forms';
+        import { FormControl, Validators, FormGroup } from '@angular/forms';
 
         @Component({
           selector: 'modal-form',
@@ -2105,8 +2453,22 @@
           styleUrls: ['./modal-form.component.css']
         })
         export class ModalFormComponent {
-          modalFormDarkEmail = new FormControl('', Validators.email);
-          modalFormDarkPassword = new FormControl('', Validators.required);
+          validatingForm: FormGroup;
+
+          ngOnInit() {
+            this.validatingForm = new FormGroup({
+              modalFormDarkEmail: new FormControl('', Validators.email),
+              modalFormDarkPassword: new FormControl('', Validators.required)
+            });
+          }
+
+          get modalFormDarkEmail() {
+            return this.validatingForm.get('modalFormDarkEmail');
+          }
+
+          get modalFormDarkPassword() {
+            return this.validatingForm.get('modalFormDarkPassword');
+          }
         }
       </code>
       <code data-lang="css" data-name="SCSS">
