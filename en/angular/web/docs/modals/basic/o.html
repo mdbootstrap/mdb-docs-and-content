@@ -1342,6 +1342,87 @@ export class AppComponent {
 }
         </code>
     </mdbsnippet>
+
+    <h4 class="secondary-heading mt-5 mb-2" id="listen-to-events">Listen to events</h4>
+    <p>You can listen to events of dynamic modal:</p>
+
+    <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="modalRef.hide()" mdbWavesEffect>Close</button>
+                    <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save!</button>
+                </div>
+            </div>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+import { Component } from '@angular/core';
+import { MDBModalRef } from 'ng-uikit-pro-standard';
+
+@Component({
+  selector: 'app-modal',
+  templateUrl: './modal.component.html',
+})
+export class ModalComponent {
+
+  constructor(public modalRef: MDBModalRef) {}
+
+}
+        </code>
+    </mdbsnippet>
+
+    <p>Here is an example showing how to listen to events available in <code>modalService</code>:</p>
+
+    <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+            <button mdbBtn color="primary" (click)="openModal()">Open modal</button>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+import { Component, OnInit } from '@angular/core';
+import { ModalComponent } from 'your-path-to-modal-component';
+import { MDBModalRef, MDBModalService } from 'ng-uikit-pro-standard';
+
+@Component({
+  selector: 'create-dynamic-modal',
+  templateUrl: './create-dynamic-modal.component.html',
+})
+export class AppComponent implements OnInit {
+  modalRef: MDBModalRef;
+
+  constructor(private modalService: MDBModalService) {}
+
+  openModal() {
+    this.modalRef = this.modalService.show(ModalComponent, {
+        backdrop: true,
+        keyboard: true,
+        focus: true,
+        show: false,
+        ignoreBackdropClick: false,
+        class: ''
+        containerClass: ''.
+        animated: true
+    });
+
+    ngOnInit() {
+      this.modalService.open.subscribe(() => console.log('open'));
+      this.modalService.opened.subscribe(() => console.log('opened'));
+      this.modalService.close.subscribe(() => console.log('close'));
+      this.modalService.closed.subscribe(() => console.log('closed'));
+    }
+
+  }
+}
+        </code>
+    </mdbsnippet>
 </section>
 <!--/Section: Dynamic Modal-->
 
