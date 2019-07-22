@@ -1,3 +1,52 @@
+<style>
+  .dropdown-submenu {
+    position: relative;
+  }
+
+  .dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: 1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+  }
+
+  .dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+  }
+
+  .dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+  }
+
+  .dropdown-submenu.pull-left {
+    float: none;
+  }
+
+  .dropdown-submenu.pull-left>.dropdown-menu {
+    left: 100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+  }
+</style>
 <!--Section: Intro-->
 <section id="introduction">
   <!--Title-->
@@ -826,6 +875,131 @@
 <!--/Section: -->
 
 <hr class="my-5">
+
+<!--Section: -->
+<section id="multi-level-dropdown">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Multi-level dropdown
+  </h2>
+
+  <!-- Description -->
+
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+    <ul style="list-style-type:none" class="mb-0" >
+
+      <li>
+        <button href="#" type="button" id="dropdown" data-toggle="dropdown"
+          class=" btn btn-primary dropdown-toggle multi-level-dropdown" aria-haspopup="true"
+          aria-expanded="false">Multi-level dropdown</button>
+        <ul style="list-style-type:none" class="dropdown-menu mt-2 rounded-0 white border-0 z-depth-1">
+          <li class="dropdown-item dropdown-submenu p-0">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle dropdown-item w-100">Click Me! </a>
+            <ul class="dropdown-menu  rounded-0 white border-0 z-depth-1">
+              <li class="dropdown-item p-0">
+                <a href="#" class="dropdown-item w-100">Hey</a>
+              </li>
+              <li class="dropdown-item p-0">
+                <a href="#" class="dropdown-item w-100">Hi</a>
+              </li>
+              <li class="dropdown-item p-0">
+                <a href="#" class="dropdown-item w-100">Hello</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown-item dropdown-submenu p-0">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle dropdown-item w-100">Click Me Too! </a>
+            <ul class="dropdown-menu mr-2 rounded-0  white border-0 z-depth-1 r-100">
+              <li class="dropdown-item p-0">
+                <a href="#" class="dropdown-item w-100">How</a>
+              </li>
+              <li class="dropdown-item p-0">
+                <a href="#" class="dropdown-item w-100">are</a>
+              </li>
+              <li class="dropdown-item dropdown-submenu p-0">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle dropdown-item w-100">Click Me Too! </a>
+                <ul style="list-style-type:none" class="dropdown-menu mr-2 rounded-0 white border-0 z-depth-1 r-100 ">
+                  <li class="dropdown-item p-0">
+                    <a href="#" class="dropdown-item w-100">How</a>
+                  </li>
+                  <li class="dropdown-item p-0">
+                    <a href="#" class="dropdown-item w-100">are</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+    </ul>
+    </ul>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-dropdown multiLevel>
+            <mdb-dropdown-toggle slot="toggle" color="mdb-color">Click me</mdb-dropdown-toggle>
+            <mdb-dropdown-menu>
+              <mdb-dropdown-item tag="div" class="p-0" submenu>
+                <mdb-dropdown class="w-100">
+                  <mdb-dropdown-item slot="toggle" submenuIcon="caret-right">Click me</mdb-dropdown-item>
+                  <mdb-dropdown-menu class="ml-2 rounded-0 border-0 z-depth-1">
+                    <mdb-dropdown-item href="#">Item 1</mdb-dropdown-item>
+                    <mdb-dropdown-item href="#">Item 2</mdb-dropdown-item>
+                    <mdb-dropdown-item href="#">Item 3</mdb-dropdown-item>
+                  </mdb-dropdown-menu>
+                </mdb-dropdown>
+              </mdb-dropdown-item>
+              <mdb-dropdown-item class="p-0" submenu>
+                <mdb-dropdown class="w-100">
+                  <mdb-dropdown-item slot="toggle" submenuIcon="caret-right">Click me</mdb-dropdown-item>
+                  <mdb-dropdown-menu class="ml-2 rounded-0 border-0 z-depth-1">
+                    <mdb-dropdown-item href="#">Item 1</mdb-dropdown-item>
+                    <mdb-dropdown-item href="#">Item 2</mdb-dropdown-item>
+                    <mdb-dropdown-item href="#">Item 3</mdb-dropdown-item>
+                  </mdb-dropdown-menu>
+                </mdb-dropdown>
+              </mdb-dropdown-item>
+            </mdb-dropdown-menu>
+          </mdb-dropdown>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import {
+            mdbDropdown,
+            mdbDropdownToggle,
+            mdbDropdownMenu,
+            mdbDropdownItem,
+          } from "mdbvue";
+
+          export default {
+            name: "DropdownPage",
+            components: {
+              mdbDropdown,
+              mdbDropdownToggle,
+              mdbDropdownMenu,
+              mdbDropdownItem,
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+  
+<hr class="my-5">
+
 <!--Section: -->
 <section id="dropright">
   <!--Title-->
