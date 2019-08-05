@@ -962,3 +962,137 @@
 
 </section>
 <!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="validation">
+
+  <!--Title-->
+  <h2 class="section-heading"><strong>Stepper form with validation</strong> <a href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank" class="btn btn-danger btn-md" role="button">MDB Pro component <i class="far fa-gem ml-1"></i></a></h2>
+
+  <!--Description-->
+  <p class="description"></p>
+
+  <!--Section: Live preview-->
+  <section>
+
+
+
+  </section>
+  <!--Section: Live preview-->
+      <div id="stepper-form">
+        <mdb-stepper-form></mdb-stepper-form>
+      </div>
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-card class="indigo lighten-5 pb-5">
+            <mdb-card-body>
+              <mdb-stepper
+                class="pt-5"
+                buttons
+                validation
+                :validatedSteps="validatedSteps"
+                @validate="validate"
+              >
+                <mdb-step name="Personal Information" slot="content" icon="user" :number="1">
+                  <h3 class="font-weight-bold pt-3 pl-0 my-4">
+                    <mdb-card-title>Personal Information</mdb-card-title>
+                  </h3>
+                  <mdb-input required label="First Name" v-model="form[0].name" />
+                  <mdb-input required label="Second Name" v-model="form[0].surname" />
+                  <mdb-input required label="Address" v-model="form[0].address" />
+                </mdb-step>
+                <mdb-step name="Company Information" slot="content" icon="pen" :number="2">
+                  <h3 class="font-weight-bold pt-3 pl-0 my-4">
+                    <mdb-card-title>Company Information</mdb-card-title>
+                  </h3>
+                  <mdb-input required label="Company Name" v-model="form[1].company" />
+                  <mdb-input required label="Company Address" v-model="form[1].address" />
+                </mdb-step>
+                <mdb-step name="Terms and conditions" slot="content" icon="check" :number="3">
+                  <h3 class="font-weight-bold pt-3 pl-0 my-4">
+                    <mdb-card-title>Terms and conditions</mdb-card-title>
+                  </h3>
+                  <mdb-input
+                    type="checkbox"
+                    id="checkbox3"
+                    required
+                    v-model="form[2].condition"
+                    label="I agree to the terms and conditions"
+                  />
+                  <mdb-input type="checkbox" id="checkbox4" label="I want to receive newsletter" />
+                </mdb-step>
+              </mdb-stepper>
+            </mdb-card-body>
+          </mdb-card>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import {
+            mdbStepper,
+            mdbStep,
+            mdbInput,
+            mdbCard,
+            mdbCardBody,
+            mdbCardTitle
+          } from "mdbvue";
+          
+          export default {
+            components: {
+              mdbStepper,
+              mdbStep,
+              mdbInput,
+              mdbCard,
+              mdbCardBody,
+              mdbCardTitle
+            },
+            data() {
+              return {
+                validatedSteps: {},
+                form: [{
+                  name: '',
+                  surname: '',
+                  address: ''
+                },
+                {
+                  company: '',
+                  address: ''
+                },
+                {
+                  condition: false
+                }
+                ]
+              };
+            },
+            methods: {
+              checkForm(form) {
+                return Object.keys(form).length === Object.keys(form)
+                  .filter(key => form[key].length > 0).length;
+              },
+              validate(e) {
+                if (e === 3) {
+                  this.validatedSteps[e] = this.form[e - 1].condition;
+                }
+                else if (this.checkForm(this.form[e - 1])) {
+                  this.validatedSteps[e] = true;
+                }
+                else {
+                  this.validatedSteps[e] = false;
+                }
+              }
+            }
+          };
+          </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
