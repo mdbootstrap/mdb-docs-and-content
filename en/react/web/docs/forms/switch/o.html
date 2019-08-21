@@ -52,24 +52,40 @@
         <mdbsnippet>
 
           <code data-lang="javascript" data-name="JSX">
-              import React from "react";
+            import React from 'react';
 
-              const App = () => {
-                return (
-                  <>
-                    <label className="bs-switch">
-                      <input checked type="checkbox" readOnly />
-                      <span className="slider round" />
+            const App = () => {
+              return (
+                <>
+                  <div className='custom-control custom-switch'>
+                    <input
+                      type='checkbox'
+                      className='custom-control-input'
+                      id='customSwitches'
+                      readOnly
+                    />
+                    <label className='custom-control-label' htmlFor='customSwitches'>
+                      Toggle this switch element
                     </label>
-                    <label className="bs-switch">
-                      <input type="checkbox" />
-                      <span className="slider round" />
+                  </div>
+            
+                  <div className='custom-control custom-switch'>
+                    <input
+                      type='checkbox'
+                      className='custom-control-input'
+                      id='customSwitchesChecked'
+                      defaultChecked
+                    />
+                    <label className='custom-control-label' htmlFor='customSwitchesChecked'>
+                      Toggle this switch element
                     </label>
-                  </>
-                );
-              }
-
-              export default App;
+                  </div>
+                </>
+              );
+            };
+            
+            export default App;
+            
           </code>
 
         </mdbsnippet>
@@ -202,21 +218,40 @@
         <mdbsnippet>
 
           <code data-lang="javascript" data-name="JSX">
-            import React, { Component } from "react";
+            import React, { Component } from 'react';
 
             class App extends Component {
-
-            render() {
-              return (
-                  <label className="bs-switch">
-                    <input checked type="checkbox" onChange={()=> false} />
-                    <span className="slider round" />
-                  </label>
+              state = {
+                switch1: true,
+              }
+              handleSwitchChange = nr => () => {
+                let switchNumber = `switch${nr}`;
+                this.setState({
+                  [switchNumber]: !this.state[switchNumber]
+                });
+              }
+              
+              render() {
+                return (
+                  <div className='custom-control custom-switch'>
+                    <input
+                      type='checkbox'
+                      className='custom-control-input'
+                      id='customSwitches'
+                      checked={this.state.switch1}
+                      onChange={this.handleSwitchChange(1)}
+                      readOnly
+                    />
+                    <label className='custom-control-label' htmlFor='customSwitches'>
+                      Toggle this switch element
+                    </label>
+                  </div>
                 );
               }
             }
 
             export default App;
+
           </code>
 
         </mdbsnippet>
@@ -333,18 +368,26 @@
         <mdbsnippet>
 
           <code data-lang="javascript" data-name="JSX">
-              import React from "react";
+            import React from 'react';
 
-              const App = () => {
-                return (
-                  <label className="bs-switch">
-                    <input type="checkbox" disabled />
-                    <span className="slider round" />
+            const App = () => {
+              return (
+                <div className='custom-control custom-switch'>
+                  <input
+                    type='checkbox'
+                    className='custom-control-input'
+                    id='customSwitches'
+                    disabled
+                  />
+                  <label className='custom-control-label' htmlFor='customSwitches'>
+                    Toggle this switch element
                   </label>
-                );
-              }
-
-              export default App;
+                </div>
+              );
+            };
+            
+            export default App;
+            
           </code>
 
         </mdbsnippet>
