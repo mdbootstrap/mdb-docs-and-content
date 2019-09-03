@@ -416,3 +416,149 @@
 
 </section>
 <!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="e-dynamic-modal-edit">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+   Master Detail Table
+  </h2>
+
+  <a href="https://ng-demo.mdbootstrap.com/tables/data-tables/" target="_blank" class="btn btn-primary waves-effect waves-light" role="button">
+    Live example
+    <i class="far fa-eye ml-2"></i>
+  </a>
+
+  <p class="description mt-4">Create and additional row and use the ngIf directive to display it when the certain condition is met.</p>
+
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+        <div class="container">
+          <div class="row">
+            <table mdbTable striped="true">
+              <thead>
+                <tr>
+                  <th *ngFor="let head of headElements" scope="col">{{ head }}</th>
+                </tr>
+              </thead>
+              <tbody mdbTableCol *ngFor="let el of elements">
+                <tr>
+                  <td scope="row">
+                    <button
+                      type="button"
+                      mdbBtn
+                      color="danger"
+                      class="master-button"
+                      mdbWavesEffect
+                      *ngIf="el.collapsed"
+                      (click)="el.collapsed = !el.collapsed"
+                    >
+                      <mdb-icon fas icon="angle-down"></mdb-icon>
+                    </button>
+                    <button
+                      type="button"
+                      mdbBtn
+                      color="success"
+                      class="master-button"
+                      mdbWavesEffect
+                      *ngIf="!el.collapsed"
+                      (click)="el.collapsed = !el.collapsed"
+                    >
+                      <mdb-icon fas icon="angle-right"></mdb-icon>
+                    </button>
+                    <span class="ml-1">{{ el.id }}</span>
+                  </td>
+                  <td>{{ el.first }}</td>
+                  <td>{{ el.last }}</td>
+                  <td>{{ el.handle }}</td>
+                </tr>
+                <tr
+                  *ngIf="el.collapsed"
+                  style="text-align: center; background-color: rgba(0, 0, 0,  0.015)"
+                >
+                  <td colspan="100%" style="border: 0 !important">
+                    <table mdbTable>
+                      <thead class="black white-text">
+                        <tr>
+                          <th *ngFor="let head of masterHeadElements" scope="col">{{ head }}</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngFor="let detail of el.masterDetail">
+                        <tr>
+                          <td>{{ detail.orderId }}</td>
+                          <td>{{ detail.orderDate }}</td>
+                          <td>{{ detail.adress }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+      
+          </div>
+        </div>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import { Component } from '@angular/core';
+        @Component({
+          selector: 'app-root',
+          templateUrl: './app.component.html',
+          styleUrls: ['./app.component.scss'],
+        })
+        export class AppComponent {
+          elements: any = [
+            {
+              id: 1,
+              first: 'Mark',
+              last: 'Otto',
+              handle: '@mdo',
+              collapsed: true,
+              masterDetail: [{ orderId: 1, orderDate: '24-07-1996', adress: '35 King George' }],
+            },
+            {
+              id: 2,
+              first: 'Jacob',
+              last: 'Thornton',
+              handle: '@fat',
+              collapsed: false,
+              masterDetail: [{ orderId: 2, orderDate: '04-01-1992', adress: 'Obere Str. 57' }],
+            },
+            {
+              id: 3,
+              first: 'Larry',
+              last: 'the Bird',
+              handle: '@twitter',
+              collapsed: false,
+              masterDetail: [{ orderId: 3, orderDate: '15-01-1994', adress: 'Kirchgasse 6' }],
+            },
+          ];
+        
+          headElements = ['ID', 'First', 'Last', 'Handle'];
+          masterHeadElements = ['Order Id', 'Order Date', 'Adress'];
+        }
+        
+      </code>
+      <code data-lang="scss" data-name="SCSS">
+          .master-button {
+            padding: 0.25rem 0.7rem !important;
+            font-size: 0.9rem !important;
+          }
+          
+      </code>
+    </mdbsnippet>
+
+    
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
