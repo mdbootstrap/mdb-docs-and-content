@@ -355,7 +355,7 @@
 
 <hr class="my-5">
 
-<!--Section: Reactive forms-->
+<!--Section: Append to body-->
 <section id="append-to-body">
   <h2 class="section-heading">
     Append to body
@@ -428,4 +428,83 @@
   <!--/Section: Code-->
 
 </section>
-<!--/Section: Reactive forms-->
+<!--/Section: Append to body-->
+<hr class="my-5">
+
+<!--Section: Visible Options -->
+<section id="append-to-body">
+  <h2 class="section-heading">
+    Visible Options
+    <a target="_blank" href="https://mdbootstrap.com/products/angular-ui-kit/" class="btn btn-danger btn-sm" role="button">MDB
+      Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <p>In this section, you will find information on how to set <code>visibleOptions</code> and <code>optionHeight</code> options to the autocomplete component.</p>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+          <div class="md-form">
+              <input
+                type="text"
+                class="completer-input form-control mdb-autocomplete"
+                [ngModel]="searchText | async"
+                (ngModelChange)="searchText.next($event)"
+                [mdbAutoCompleter]="auto"
+                placeholder="Choose your color"
+              />
+              <mdb-auto-completer 
+              [visibleOptions]="5"
+              [optionHeight]="40"
+              #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
+                <mdb-option *ngFor="let option of results | async" [value]="option">
+                  {{ option }}
+                </mdb-option>
+              </mdb-auto-completer>
+            </div>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { Component, OnInit } from '@angular/core';
+        import { Observable, Subject } from 'rxjs';
+        import { startWith, map } from 'rxjs/operators';
+
+        @Component({
+          selector: 'body-auto-completer',
+          templateUrl: './body-auto-completer.component.html',
+          styleUrls: ['./body-auto-completer.component.scss'],
+        })
+        export class BodyAutoCompleterComponent implements OnInit {
+          searchText = new Subject();
+          results: Observable<string[]>;
+          data: any = [
+            'red',
+            'green',
+            'blue',
+            'cyan',
+            'magenta',
+            'yellow',
+            'black',
+          ];
+
+          ngOnInit() {
+            this.results = this.searchText.pipe(
+              startWith(''),
+              map((value: string) => this.filter(value))
+            );
+          }
+
+          filter(value: string): string[] {
+            const filterValue = value.toLowerCase();
+            return this.data.filter((item: string) => item.toLowerCase().includes(filterValue));
+          }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+</section>
+<!--/Section: Visible Options -->
