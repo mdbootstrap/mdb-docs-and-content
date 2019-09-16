@@ -204,6 +204,69 @@
 <hr class="my-5">
 
 <!-- SECTION-->
+<section id="global-options">
+  <h2 class="section-heading">
+    Global options
+    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm btn-md"
+      role="button">MDB Pro component <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <p>You can set global options in <code>MDB_DATE_OPTIONS</code> provider. Global options will be overwritten by local options (passed to <code>options</code> input of specific <code>mdb-date-picker</code> component).</p>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <mdb-date-picker name="mydate" [options]="myDatePickerOptions" [placeholder]="'Selected date'"></mdb-date-picker>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { Component } from '@angular/core';
+        import { IMyOptions } from 'ng-uikit-pro-standard';
+
+        @Component({
+        selector: 'date-picker-component-example',
+        templateUrl: 'date-picker.component.html'
+        })
+
+        export class DatePickerComponentExample {
+          public myDatePickerOptions: IMyOptions = {
+            // options defined locally, will be used only by this specific date picker
+            // and will overwrite global options
+          };
+        }
+      </code>
+      <code data-lang="js" data-name="app.module">
+        import { BrowserModule } from '@angular/platform-browser';
+
+        import { NgModule } from '@angular/core';
+        
+        import { AppComponent } from './app.component';
+        import { MDBBootstrapModulesPro, MDB_DATE_OPTIONS } from 'ng-uikit-pro-standard';
+        
+        @NgModule({
+          declarations: [AppComponent],
+          imports: [
+            BrowserModule,
+            MDBBootstrapModulesPro.forRoot(),
+          ],
+          providers: [
+          // options defined globally, will be used by all date pickers in application
+          { provide: MDB_DATE_OPTIONS, useValue: { showTodayBtn: false } }],
+          bootstrap: [AppComponent],
+        })
+        export class AppModule {}
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+</section>
+<!-- SECTION-->
+
+<hr class="my-5">
+
+<!-- SECTION-->
 <section id="variations">
   <h2 class="section-heading">
     Variations
@@ -772,7 +835,7 @@ export class DatePickerComponentExample implements OnInit {
         </section>
         <!--/Section: Code-->
 
-  <p><strong>Using JavaScript <code>Date</code> object:</strong></p>
+  <p><strong>Using JavaScript <code>ISO string</code>:</strong></p>
 
   <!--Section: Code-->
   <section class="mt-3">
@@ -793,6 +856,33 @@ export class DatePickerComponentExample implements OnInit {
           public myDatePickerOptions: IMyOptions = {
             startDate: new Date().toISOString()
           };
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+
+  <p><strong>Using JavaScript <code>Date</code> object:</strong></p>
+
+  <!--Section: Code-->
+  <section class="mt-3">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <mdb-date-picker name="mydate" [options]="myDatePickerOptions" [placeholder]="'Selected date'" [(ngModel)]="date"
+  required></mdb-date-picker>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import { Component } from '@angular/core';
+        import { IMyOptions } from 'ng-uikit-pro-standard';
+
+        @Component({
+          selector: 'date-picker-component-example',
+          templateUrl: 'date-picker.component.html'
+        })
+
+        export class DatePickerComponentExample {
+          public myDatePickerOptions: IMyOptions = {};
+          date = new Date();
         }
       </code>
     </mdbsnippet>
