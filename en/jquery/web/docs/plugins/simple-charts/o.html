@@ -1,0 +1,368 @@
+<style>
+  .min-chart {
+    position: relative;
+    display: inline-block;
+    width: 110px;
+    height: 110px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  .min-chart canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .min-chart .percent {
+    z-index: 2;
+    display: inline-block;
+    line-height: 110px;
+  }
+
+  .min-chart .percent::after {
+    margin-left: 0.1em;
+    font-size: 0.8rem;
+    content: "%";
+  }
+</style>
+
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Simple Charts</h2>
+
+  <h1 class="secondary-heading mb-4">Bootstrap Simple Charts</h1>
+
+  <!--Description-->
+  <p>Lightweight plugin to render simple, animated and retina optimized pie charts with customization option.</p>
+  
+  <blockquote class="blockquote bq-primary">
+    <p class="bq-title">To start working with Simple Charts, please see
+      <strong>"Getting Started"</strong> tab on this page.</p>
+
+    <p>
+      <strong>Note:</strong> Simple Charts addon integration is available from version
+      <strong>4.8.10</strong> (released 16.09.2019).</p>
+  
+  </blockquote>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="basic-usage">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Simple charts <a href="https://mdbootstrap.com/products/jquery-ui-kit/" target="_blank" class="btn btn-danger btn-sm"
+      role="button">MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!-- Description -->
+  <p>Easy to implement component.</p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <div class="row text-center">
+
+      <div class="col-md-4">
+        <span class="min-chart" id="chart-sales" data-percent="56">
+          <span class="percent"></span>
+        </span>
+        <h5>
+          <span class="badge green">Sales
+            <i class="fas fa-arrow-circle-up"></i>
+          </span>
+        </h5>
+      </div>
+
+      <div class="col-md-4">
+        <span class="min-chart" id="chart-roi" data-percent="76">
+          <span class="percent"></span>
+        </span>
+        <h5>
+          <span class="badge red">ROI
+            <i class="fas fa-arrow-circle-down"></i>
+          </span>
+        </h5>
+      </div>
+
+      <div class="col-md-4">
+        <span class="min-chart" id="chart-conversion" data-percent="100">
+          <span class="percent"></span>
+        </span>
+        <h5>
+          <span class="badge grey">Conversion
+            <i class="fas fa-minus-square"></i>
+          </span>
+        </h5>
+      </div>
+
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <p class="mt-4">
+    <strong>Step 1: </strong>Create a basic markup for the chart with a class
+    <code>.min-chart</code>, plus 
+    <code>id</code> and 
+    <code>percentage</code>.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <span class="min-chart" id="chart-sales" data-percent="56">
+          <span class="percent"></span>
+        </span>
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p><strong>Step 2: </strong> (Optional) Create a label. </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <span class="min-chart" id="chart-sales" data-percent="56">
+          <span class="percent"></span>
+        </span>
+        <h5><span class="label green badge">Sales <i class="fas fa-arrow-circle-up"></i></span></h5>
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 3: </strong>Initialize it.</p>
+
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="js" data-name="JavaScript">
+
+          $(function () {
+            $('.min-chart#chart-sales').easyPieChart({
+              barColor: "#4caf50",
+              onStep: function (from, to, percent) {
+                $(this.el).find('.percent').text(Math.round(percent));
+              }
+            });
+          });
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 4: </strong> Use the 
+    <code>.text-center</code> class to center the content.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="text-center">
+          <span class="min-chart" id="chart-sales" data-percent="56"><span class="percent"></span></span>
+          <h5><span class="label green badge">Sales <i class="fas fa-arrow-circle-up"></i></span></h5>
+        </div>
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+
+<!--Section; -->
+<section id="plugin-api">
+  <h2 class="section-heading mb-4">Plugin api</h2>
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="js" data-name="JavaScript">
+
+        $(function() {
+          // instantiate the plugin
+          ...
+          // update
+          $('.chart').data('easyPieChart').update(40);
+          ...
+          // disable animation
+          $('.chart').data('easyPieChart').disableAnimation();
+          ...
+          // enable animation
+          $('.chart').data('easyPieChart').enableAnimation();
+        });
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+<!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<!--Section: -->
+<section id="options">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Options
+  </h2>
+
+  <!-- Description -->
+  <p>You can pass these options to the initialize function to set a custom look and feel for the plugin.</p>
+
+  <p>Defaults options are following :</p>
+  <div class="table-responsive" style="border-top:1px solid #dee2e6;">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 200px;">Name</th>
+          <th style="width: 200px;">Type</th>
+          <th style="width: 100px;">Custom Value</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>barColor</code></td>
+          <td>color</td>
+          <td>#ef1e25</td>
+          <td>The color of the curcular bar. You can either pass a valid css color string, or a function that takes the current percentage as a value and returns a valid css color string.</td>
+        </tr>
+        <tr>
+          <td><code>trackColor</code></td>
+          <td>color</td>
+          <td>#f2f2f2</td>
+          <td>The color of the track, or false to disable rendering.</td>
+        </tr>
+        <tr>
+          <td><code>scaleColor</code></td>
+          <td>Color</td>
+          <td>#dfe0e0</td>
+          <td>The color of the scale lines, false to disable rendering.</td>
+        </tr>
+        <tr>
+          <td><code>scaleLength</code></td>
+          <td>Number</td>
+          <td>5</td>
+          <td>Length of the scale lines (reduces the radius of the chart).</td>
+        </tr>
+        <tr>
+          <td><code>lineCap</code></td>
+          <td>Predefined string</td>
+          <td>round</td>
+          <td>Defines how the ending of the bar line looks like. Possible values are: butt, round and square.</td>
+        </tr>
+        <tr>
+          <td><code>lineWidth</code></td>
+          <td>Number</td>
+          <td>3</td>
+          <td>Width of the chart line in px.</td>
+        </tr>
+        <tr>
+          <td><code>size</code></td>
+          <td>Number</td>
+          <td>110	</td>
+          <td>Size of the pie chart in px. It will always be a square.</td>
+        </tr>
+        <tr>
+          <td><code>rotate</code></td>
+          <td>Number</td>
+          <td>0</td>
+          <td>Rotation of the complete chart in degrees.</td>
+        </tr>
+        <tr>
+          <td><code>animate</code></td>
+          <td>object</td>
+          <td>{}</td>
+          <td>Object with time in milliseconds and boolean for an animation of the bar growing <code>({ duration: 1000, enabled: true })</code>, or false to deactivate animations.</td>
+        </tr>
+        <tr>
+          <td><code>easing</code></td>
+          <td>function</td>
+          <td>defaultEasing</td>
+          <td>Easing function or string with the name of a jQuery easing function</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+</section>
+<!--/Section: -->
+
+<hr>
+
+<!--Section: -->
+<section id="callbacks">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Callbacks
+  </h2>
+
+  <!-- Description -->
+  <p>All callbacks will only be called if animate is not false.</p>
+
+  <p>Defaults options are following :</p>
+  <div class="table-responsive" style="border-top:1px solid #dee2e6;">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 200px;">Callback(params, ...)</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>onStart(from, to)</code></td>
+          <td>Is called at the start of any animation.</td>
+        </tr>
+        <tr>
+          <td><code>onStep(from, to, currentValue)</code></td>
+          <td>Is called during animations providing the current value (the method is scoped to the context of th eplugin, so you can access the DOM element via <code>this.el</code>).</td>
+        </tr>
+        <tr>
+          <td><code>onStop(from, to)	</code></td>
+          <td>Is called at the end of any animation.</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+</section>
+<!--/Section: -->
