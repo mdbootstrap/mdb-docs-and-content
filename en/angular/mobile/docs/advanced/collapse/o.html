@@ -1,0 +1,198 @@
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">Angular Mobile Collapse</h2>
+
+  <h1 class="secondary-heading mb-4">
+    Angular Mobile Collapse - Bootstrap 4 & Material Design
+  </h1>
+
+  <!--Description-->
+  <p>
+    Collapse allows you to create sliders that show or hide content.
+  </p>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5"/>
+
+<!--Section: -->
+<section id="basic-example">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic example
+  </h2>
+
+  <!-- Description -->
+  <p>
+    Every collapse element should have his own private wrapper - e.g <code>StackLayout</code>
+  </p>
+
+  <!--Section: Live preview-->
+  <section>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <span><i class="fab fa-android pr-1"></i><strong>Android</strong></span>
+        <section class="section-preview">
+          <img src="https://mdbootstrap.com/img/Angular/mobile/advanced/collapse/collapse-basic-android.gif" alt="Android collapse" class="img-fluid" />
+        </section>
+      </div>
+      <div class="col-md-6 mb-4">
+        <span><i class="fab fa-apple pr-1"></i><strong>iOS</strong></span>
+        <section class="section-preview">
+          <img src="https://mdbootstrap.com/img/Angular/mobile/advanced/collapse/collapse-basic-ios.gif" alt="iOS collapse" class="img-fluid" />
+        </section>
+      </div>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <StackLayout>
+          <Button (tap)="first.toggle(firstCollapseToggle = !firstCollapseToggle)" text="Toggle collapse"></Button>
+          <Label text="First collapse" mdbCollapse #first="mdbCollapse" class="p-5"></Label>
+        </StackLayout>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import {Component} from '@angular/core';
+
+        @Component({
+          selector: 'App',
+          moduleId: module.id,
+          templateUrl: './app.component.html',
+        })
+        export class AppComponent {
+          firstCollapseToggle = false;
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5"/>
+
+<!--Section: -->
+<section id="manual-methods">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Show & Hide manually
+  </h2>
+
+  <!-- Description -->
+  <p>
+   Collapse has public <code>show()</code> and <code>hide()</code> methods with which you're able to show or hide collapse manually.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <StackLayout>
+          <StackLayout>
+            <Button (tap)="first.toggle(firstCollapseToggle = !firstCollapseToggle)" text="Toggle collapse"></Button>
+            <Label class="p-5" text="First collapse" mdbCollapse #first="mdbCollapse"></Label>
+          </StackLayout>
+
+          <Button mdbBtn theme="primary" (tap)="show()" text="Show collapse"></Button>
+          <Button mdbBtn theme="danger" (tap)="hide()" text="Hide collapse"></Button>
+        </StackLayout>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import {Component} from '@angular/core';
+
+        @Component({
+          selector: 'App',
+          moduleId: module.id,
+          templateUrl: './app.component.html',
+        })
+        export class AppComponent {
+          @ViewChild('first', {static: true}) firstCollapse: MdbCollapseDirective;
+          firstCollapseToggle = false;
+
+          show() {
+            this.firstCollapse.show();
+          }
+
+          hide() {
+            this.firstCollapse.hide();
+          }
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5"/>
+
+<!--Section: -->
+<section id="events">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Using events
+  </h2>
+
+  <!-- Description -->
+  <p>
+    Collapse has four public events, which can be used to determine actual collapse state
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <StackLayout>
+          <StackLayout>
+            <Button (tap)="first.toggle(firstCollapseToggle = !firstCollapseToggle)" text="Toggle collapse"></Button>
+            <Label text="First collapse" mdbCollapse #first="mdbCollapse" class="p-5"
+                   (collapseShow)="onShow($event)"
+                   (collapseShown)="onShown($event)"
+                   (collapseHide)="onHide($event)"
+                   (collapseHidden)="onHidden($event)"></Label>
+          </StackLayout>
+        </StackLayout>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import {Component} from '@angular/core';
+
+        @Component({
+          selector: 'App',
+          moduleId: module.id,
+          templateUrl: './app.component.html',
+        })
+        export class AppComponent {
+          firstCollapseToggle = false;
+
+          onShow(value: boolean) {
+            console.log(`show: ${value}`);
+          }
+
+          onShown(value: boolean) {
+            console.log(`shown: ${value}`);
+          }
+
+          onHide(value: boolean) {
+            console.log(`hide: ${value}`);
+          }
+
+          onHidden(value: boolean) {
+            console.log(`hidden: ${value}`);
+          }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->

@@ -1,0 +1,203 @@
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">Angular Mobile radio buttons</h2>
+
+  <h1 class="secondary-heading mb-4">
+    Angular Mobile Radio Button - Bootstrap 4 & Material Design
+  </h1>
+
+  <!--Description-->
+  <p>
+    The Angular Mobile Radio button is a component used to allow a user to make
+    a single choice among many options, while
+    <a href="https://mdbootstrap.com/docs/angular/forms/checkbox/">
+      <strong>Checkboxes</strong>
+    </a>
+    are for selecting multiple options.
+  </p>
+
+  <hr class="mt-4 mb-5" />
+
+  <!--Section: -->
+  <section id="basic">
+    <!--Title-->
+    <h2 class="section-heading">
+      Basic example
+    </h2>
+
+    <!-- Description -->
+    <p>
+      Add <code>checked</code> input to checkbox component to change its checked
+      state
+    </p>
+
+    <!--Section: Live preview-->
+    <section>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <span><i class="fab fa-android pr-1"></i><strong>Android</strong></span>
+          <section class="section-preview">
+            <img src="https://mdbootstrap.com/img/Angular/mobile/forms/radio/radio-basic-android.png" alt="Android radio" class="img-fluid" />
+          </section>
+        </div>
+        <div class="col-md-6 mb-4">
+          <span><i class="fab fa-apple pr-1"></i><strong>iOS</strong></span>
+          <section class="section-preview">
+            <img src="https://mdbootstrap.com/img/Angular/mobile/forms/radio/radio-basic-ios.png" alt="iOS radio" class="img-fluid" />
+          </section>
+        </div>
+      </div>
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <StackLayout>
+            <StackLayout
+              orientation="horizontal"
+              verticalAlignment="center"
+              *ngFor="let option of radioOptions"
+            >
+              <CheckBox
+                #elem
+                [checked]="option.selected"
+                (checkedChange)="
+                  elem.checked !== option.selected && changeCheckedRadio(option)
+                "
+                class="checkbox"
+                boxType="circle"
+              ></CheckBox>
+              <StackLayout verticalAlignment="center">
+                <Label
+                  [text]="option.text"
+                  textWrap="true"
+                  (tap)="changeCheckedRadio(option)"
+                ></Label>
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
+        </code>
+
+        <code data-lang="javascript" data-name="TS">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-radio',
+  moduleId: module.id,
+  templateUrl: './radio.component.html',
+})
+
+export class RadioComponent {
+  radioOptions: any[] = [
+    { text: 'Radio Option 1', selected: false },
+    { text: 'Radio Option 2', selected: false },
+    { text: 'Radio Option 3', selected: false }
+  ]
+
+  changeCheckedRadio(radioOption: any): void {
+    radioOption.selected = !radioOption.selected;
+
+    if (!radioOption.selected) {
+      return;
+    }
+
+    // uncheck all other options
+    this.radioOptions.forEach(option => {
+      if (option.text !== radioOption.text) {
+        option.selected = false;
+      }
+    });
+  }
+}
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+  </section>
+  <!--/Section: -->
+
+  <hr class="mt-4 mb-5" />
+
+  <!--Section: -->
+  <section id="disabled-state">
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      Disabled state
+    </h2>
+
+    <!-- Description -->
+    <p>
+      Use <code>isEnabled</code> input to change disabled state of the radio button.
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <StackLayout>
+            <StackLayout
+              orientation="horizontal"
+              verticalAlignment="center"
+              *ngFor="let option of radioOptions"
+            >
+              <CheckBox
+                #elem
+                [checked]="option.selected"
+                (checkedChange)="
+                  elem.checked !== option.selected && changeCheckedRadio(option)
+                "
+                class="checkbox"
+                boxType="circle"
+              ></CheckBox>
+              <StackLayout verticalAlignment="center">
+                <Label
+                  [text]="option.text"
+                  textWrap="true"
+                  (tap)="changeCheckedRadio(option)"
+                ></Label>
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
+        </code>
+
+        <code data-lang="javascript" data-name="TS">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-radio',
+  moduleId: module.id,
+  templateUrl: './radio.component.html',
+})
+
+export class RadioComponent {
+  radioOptions: any[] = [
+    { text: 'Radio Option 1', selected: false },
+    { text: 'Radio Option 2', selected: false },
+    { text: 'Radio Option 3', selected: false }
+  ]
+
+  changeCheckedRadio(radioOption: any): void {
+    radioOption.selected = !radioOption.selected;
+
+    if (!radioOption.selected) {
+      return;
+    }
+
+    // uncheck all other options
+    this.radioOptions.forEach(option => {
+      if (option.text !== radioOption.text) {
+        option.selected = false;
+      }
+    });
+  }
+}
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+
+  </section>
+  <!--/Section: -->
