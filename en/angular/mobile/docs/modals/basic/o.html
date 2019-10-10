@@ -1,0 +1,599 @@
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">
+    Angular Mobile Modals / Angular Mobile Popup
+  </h2>
+
+  <h1 class="secondary-heading mb-4">
+    Angular Mobile Modals - Bootstrap 4 & Material Design
+  </h1>
+
+  <!--Description-->
+  <p>
+    Angular Bootstrap modal is a dialog box/popup window which can be used for
+    lightboxes, user notifications, UI enhancements, e-commerce components and
+    many other cases.
+  </p>
+</section>
+
+<hr class="my=5">
+
+<!--Section: Dynamic Modal-->
+<section id="create-modal">
+    <h2 class="section-heading">
+        Create modal
+    </h2>
+
+<p>You can create modals dynamically from any component using built-in service. To achieve this, follow these steps:</p>
+
+<p><strong>1. Create new component with Angular CLI and add HTML code to the template.</strong></p>
+
+<code>ng generate component modal</code>
+
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+<StackLayout class="mdb-modal-body">
+  <Image
+    src="https://mdbootstrap.com/img/Marketing/other/logo/logo-mdb-angular-small.png"
+    stretch="none"
+    horizontalAlignment="center"
+    margin="10 0"
+  ></Image>
+  <Label
+    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    textWrap="true"
+    class="mdb-modal-content"
+    style="text-align: center"
+  ></Label>
+
+  <Button mdbBtn theme="primary" text="Close" (tap)="close()"></Button>
+</StackLayout>
+</div>
+    </code>
+    <code data-lang="javascript" data-name="TS">
+import { Component, OnInit } from '@angular/core';
+import { ModalDialogParams } from 'nativescript-angular';
+
+@Component({
+selector: 'app-modal',
+templateUrl: './modal.component.html',
+})
+export class ModalComponent {
+
+  constructor(private params: ModalDialogParams) {}
+
+  close() {
+    this.params.closeCallback();
+  }
+
+}
+    </code>
+</mdbsnippet>
+
+<p><strong>2. Add the modal component to <code>entryComponents</code> in your <code>app.module</code> file</strong></p>
+
+<mdbsnippet>
+    <code data-lang="javascript" data-name="TS">
+import { MdbAngularNativeModule } from 'mdb-angular-mobile';
+
+import { ModalComponent } from 'your-path-to-modal-component';
+
+import { NgModule } from '@angular/core';
+
+...
+
+imports: [
+...
+MdbAngularNativeModule,
+...
+],
+entryComponents: [ ModalComponent ]
+    </code>
+</mdbsnippet>
+
+<p><strong>3. Inject <code>ModalDialogService</code> to the component from which you want to open the modal and use <code>showModal</code> method.</strong></p>
+
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+<StackLayout>
+  <Button text="Open Modal" (tap)="openModal()" class="btn btn-primary"></Button>
+</StackLayout>
+    </code>
+    <code data-lang="javascript" data-name="TS">
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { ModalDialogService, ModalDialogOptions } from 'nativescript-angular';
+import { ModalComponent } from '../modal/modal.component';
+
+@Component({
+  selector: 'Home',
+  moduleId: module.id,
+  templateUrl: './home.component.html',
+})
+export class HomeComponent implements OnInit {
+  constructor(private modalService: ModalDialogService, private vcr: ViewContainerRef) {
+  }
+
+  ngOnInit(): void {}
+
+  openModal() {
+    const options: ModalDialogOptions = {
+      viewContainerRef: this.vcr,
+    };
+    this.modalService.showModal(ModalComponent, options);
+  }
+}
+    </code>
+</mdbsnippet>
+
+<h4 class="secondary-heading mt-5 mb-2" id="customize-modal">Customize modal</h4>
+<p>You can customize the dynamic modal by changing its options and passing them to <code>showModal</code> method of <code>ModalDialogService</code>.</p>
+
+
+<mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+<StackLayout>
+  <Button text="Open Modal" (tap)="openModal()" class="btn btn-primary"></Button>
+</StackLayout>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { ModalDialogService, ModalDialogOptions } from 'nativescript-angular';
+import { ModalComponent } from '../modal/modal.component';
+
+@Component({
+  selector: 'Home',
+  moduleId: module.id,
+  templateUrl: './home.component.html',
+})
+export class HomeComponent implements OnInit {
+  constructor(private modalService: ModalDialogService, private vcr: ViewContainerRef) {
+  }
+
+  ngOnInit(): void {}
+
+  openModal() {
+    const options: ModalDialogOptions = {
+      viewContainerRef: this.vcr,
+      fullscreen: false,
+      animated: true,
+      stretched: false,
+    };
+    this.modalService.showModal(ModalComponent, options);
+  }
+}
+        </code>
+    </mdbsnippet>
+
+<h4 class="secondary-heading mt-5 mb-2" id="inject-data">Inject data to the modal</h4>
+<p>You can inject data to the dynamic modal by passing it to the <code>context</code> parameter in the modal options.</p>
+
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+        <button mdbBtn color="primary" (click)="openModal()">Open modal</button>
+    </code>
+    <code data-lang="javascript" data-name="TS">
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { ModalDialogService, ModalDialogOptions } from 'nativescript-angular';
+import { ModalComponent } from '../modal/modal.component';
+
+@Component({
+  selector: 'Home',
+  moduleId: module.id,
+  templateUrl: './home.component.html',
+})
+export class HomeComponent implements OnInit {
+  constructor(private modalService: ModalDialogService, private vcr: ViewContainerRef) {
+  }
+
+  ngOnInit(): void {}
+
+  openModal() {
+    const options: ModalDialogOptions = {
+      viewContainerRef: this.vcr,
+      context: {
+          title: 'Custom modal title'
+      }
+    };
+    this.modalService.showModal(ModalComponent, options);
+  }
+}
+    </code>
+</mdbsnippet>
+
+<p>Here is an example showing how to use injected data in the modal component:</p>
+
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+<StackLayout class="mdb-modal-body">
+  <Image
+    src="https://mdbootstrap.com/img/Marketing/other/logo/logo-mdb-angular-small.png"
+    stretch="none"
+    horizontalAlignment="center"
+    margin="10 0"
+  ></Image>
+  <Label
+    [text]="title"
+    textWrap="true"
+    class="mdb-modal-content"
+    style="text-align: center"
+  ></Label>
+
+  <Button mdbBtn theme="primary" text="Close" (tap)="close()"></Button>
+</StackLayout>
+    </code>
+    <code data-lang="javascript" data-name="TS">
+import { Component, OnInit } from '@angular/core';
+import { MDBModalRef } from 'ng-uikit-pro-standard';
+
+@Component({
+selector: 'app-modal',
+templateUrl: './modal.component.html',
+})
+export class ModalComponent implements OnInit {
+  title: string;
+
+  constructor(private params: ModalDialogParams) {}
+
+  ngOnInit() {
+      this.title = this.params.context.title;
+  }
+
+  close() {
+    this.params.closeCallback();
+  }
+
+}
+    </code>
+</mdbsnippet>
+
+<h4 class="secondary-heading mt-5 mb-2" id="receive-data">Receive data from the modal</h4>
+<p>You can receive data from the modal to use it in other component:</p>
+
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+<StackLayout class="mdb-modal-notify mdb-modal-danger">
+  <StackLayout orientation="vertical" class="mdb-modal-header">
+    <Label text="Are you sure?"></Label>
+  </StackLayout>
+  <StackLayout horizontalAlign="center" width="100%" class="mdb-modal-body">
+    <MDBIcon class="fas text-info" name="times" style="text-align: center"></MDBIcon>
+  </StackLayout>
+  <StackLayout orientation="horizontal" horizontalAlignment="center">
+    <Button mdbBtn theme="danger" text="Yes" outline="true" (tap)="close('Yes')"></Button>
+    <Button mdbBtn theme="danger" text="No" (tap)="close('No')"></Button>
+  </StackLayout>
+</StackLayout>
+    </code>
+    <code data-lang="javascript" data-name="TS">
+import { Component } from '@angular/core';
+import { MDBModalRef } from 'ng-uikit-pro-standard';
+import { Subject } from 'rxjs';
+
+@Component({
+selector: 'app-modal',
+templateUrl: './modal.component.html',
+})
+export class ModalComponent {
+  constructor(private params: ModalDialogParams) {}
+
+
+  close(result: string) {
+    this.params.closeCallback(result);
+  }
+
+}
+    </code>
+</mdbsnippet>
+
+<p>Here is an example showing how to use data received from modal in other component</p>
+
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+        <button mdbBtn color="primary" (click)="openModal()">Open modal</button>
+    </code>
+    <code data-lang="javascript" data-name="TS">
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { ModalDialogService, ModalDialogOptions } from 'nativescript-angular';
+import { ModalComponent } from '../modal/modal.component';
+
+@Component({
+  selector: 'Home',
+  moduleId: module.id,
+  templateUrl: './home.component.html',
+})
+export class HomeComponent implements OnInit {
+  constructor(private modalService: ModalDialogService, private vcr: ViewContainerRef) {
+  }
+
+  ngOnInit(): void {}
+
+  openModal() {
+    const options: ModalDialogOptions = {
+      viewContainerRef: this.vcr,
+    };
+    const modalRef = this.modalService.showModal(ModalComponent, options);
+
+    modalRef.then(result => {
+        console.log(result);
+    })
+  }
+    </code>
+</mdbsnippet>
+
+<h4 class="secondary-heading mt-5 mb-2" id="listen-to-events">Listen to events</h4>
+<p>You can listen to events of dynamic modal:</p>
+
+<mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="modalRef.hide()" mdbWavesEffect>Close</button>
+                <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save!</button>
+            </div>
+        </div>
+    </code>
+    <code data-lang="javascript" data-name="TS">
+import { Component } from '@angular/core';
+import { MDBModalRef } from 'ng-uikit-pro-standard';
+
+@Component({
+selector: 'app-modal',
+templateUrl: './modal.component.html',
+})
+export class ModalComponent {
+
+constructor(public modalRef: MDBModalRef) {}
+
+}
+    </code>
+</mdbsnippet>
+
+
+</section>
+<!--/Section: Dynamic Modal-->
+
+<hr class="my-5">
+
+<!--Section: Basic example-->
+<section id="basic-example">
+    <h2 class="section-heading">Basic example</h2>
+
+    <p>Follow the steps in <a href="#create-modal">create modal section</a>, then copy following code to your modal html file to change the modal template:</p>
+
+  <!--Section: Live preview-->
+  <section>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <span><i class="fab fa-android pr-1"></i><strong>Android</strong></span>
+        <section class="section-preview">
+          <img src="https://mdbootstrap.com/img/Angular/mobile/modals/basic/basic-modal-android.gif" alt="Android modal" class="img-fluid" />
+        </section>
+      </div>
+      <div class="col-md-6 mb-4">
+        <span><i class="fab fa-apple pr-1"></i><strong>iOS</strong></span>
+        <section class="section-preview">
+          <img src="https://mdbootstrap.com/img/Angular/mobile/modals/basic/basic-modal-ios.gif" alt="iOS switch" class="img-fluid" />
+        </section>
+      </div>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+<StackLayout class="mdb-modal-body">
+  <Image
+    src="https://mdbootstrap.com/img/Marketing/other/logo/logo-mdb-angular-small.png"
+    stretch="none"
+    horizontalAlignment="center"
+    margin="10 0"
+  ></Image>
+  <Label
+    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    textWrap="true"
+    class="mdb-modal-content"
+    style="text-align: center"
+  ></Label>
+
+  <Button mdbBtn theme="primary" text="Close" (tap)="close()"></Button>
+</StackLayout>
+            </code>
+        </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+</section>
+<!--/Section: Basic Example-->
+
+<hr class="my-5">
+
+<!--Section: Cart modal-->
+<section id="cart-modal">
+    <h2 class="section-heading">Cart modal</h2>
+
+    <p>Follow the steps in <a href="#create-modal">create modal section</a>, then copy following code to your modal html file to change the modal template:</p>
+
+  <!--Section: Live preview-->
+  <section>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <span><i class="fab fa-android pr-1"></i><strong>Android</strong></span>
+        <section class="section-preview">
+          <img src="https://mdbootstrap.com/img/Angular/mobile/modals/basic/cart-modal-android.gif" alt="Android modal" class="img-fluid" />
+        </section>
+      </div>
+      <div class="col-md-6 mb-4">
+        <span><i class="fab fa-apple pr-1"></i><strong>iOS</strong></span>
+        <section class="section-preview">
+          <img src="https://mdbootstrap.com/img/Angular/mobile/modals/basic/cart-modal-ios.gif" alt="iOS switch" class="img-fluid" />
+        </section>
+      </div>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+<StackLayout class="mdb-modal-notify mdb-modal-info">
+  <StackLayout orientation="vertical" class="mdb-modal-header">
+    <Label text="Discount offer: 10% off">Product in the cart</Label>
+  </StackLayout>
+  <StackLayout orientation="horizontal" class="mdb-modal-body">
+    <MDBIcon class="fas text-info" name="shopping-cart"></MDBIcon>
+    <StackLayout>
+      <Label
+        textWrap="true"
+        text="Do you need more time to make a purchase decision?"
+        class="mdb-modal-content"
+      ></Label>
+      <Label
+        textWrap="true"
+        text="Do you need more time to make a purchase decision?"
+        class="mdb-modal-content"
+      ></Label>
+    </StackLayout>
+  </StackLayout>
+  <StackLayout orientation="horizontal" horizontalAlignment="center">
+    <Button mdbBtn theme="info" text="Go to cart" (tap)="close()"></Button>
+    <Button mdbBtn theme="info" text="Cancel" outline="true" (tap)="close()"></Button>
+  </StackLayout>
+</StackLayout>
+            </code>
+        </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+</section>
+<!--/Section: Cart modal-->
+
+<hr class="my-5">
+
+<!--Section: Confirm modal-->
+<section id="confirm-modal">
+    <h2 class="section-heading">Confirm modal</h2>
+
+    <p>Follow the steps in <a href="#create-modal">create modal section</a>, then copy following code to your modal html file to change the modal template:</p>
+
+  <!--Section: Live preview-->
+  <section>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <span><i class="fab fa-android pr-1"></i><strong>Android</strong></span>
+        <section class="section-preview">
+          <img src="https://mdbootstrap.com/img/Angular/mobile/modals/basic/confirm-modal-android.gif" alt="Android modal" class="img-fluid" />
+        </section>
+      </div>
+      <div class="col-md-6 mb-4">
+        <span><i class="fab fa-apple pr-1"></i><strong>iOS</strong></span>
+        <section class="section-preview">
+          <img src="https://mdbootstrap.com/img/Angular/mobile/modals/basic/confirm-modal-ios.gif" alt="iOS switch" class="img-fluid" />
+        </section>
+      </div>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+<StackLayout class="mdb-modal-notify mdb-modal-danger">
+  <StackLayout orientation="vertical" class="mdb-modal-header">
+    <Label text="Are you sure?"></Label>
+  </StackLayout>
+  <StackLayout horizontalAlign="center" width="100%" class="mdb-modal-body">
+    <MDBIcon class="fas text-info" name="times" style="text-align: center"></MDBIcon>
+  </StackLayout>
+  <StackLayout orientation="horizontal" horizontalAlignment="center">
+    <Button mdbBtn theme="danger" text="Yes" outline="true" (tap)="close()"></Button>
+    <Button mdbBtn theme="danger" text="No" (tap)="close()"></Button>
+  </StackLayout>
+</StackLayout>
+            </code>
+        </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+</section>
+<!--/Section: Cart modal-->
+
+<hr class="my-5">
+
+<!--Section: Sign in modal-->
+<section id="sign-in-modal">
+    <h2 class="section-heading">Sign In modal</h2>
+
+    <p>Follow the steps in <a href="#create-modal">create modal section</a>, then copy following code to your modal html file to change the modal template:</p>
+
+  <!--Section: Live preview-->
+  <section>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <span><i class="fab fa-android pr-1"></i><strong>Android</strong></span>
+        <section class="section-preview">
+          <img src="https://mdbootstrap.com/img/Angular/mobile/modals/basic/register-modal-android.gif" alt="Android modal" class="img-fluid" />
+        </section>
+      </div>
+      <div class="col-md-6 mb-4">
+        <span><i class="fab fa-apple pr-1"></i><strong>iOS</strong></span>
+        <section class="section-preview">
+          <img src="https://mdbootstrap.com/img/Angular/mobile/modals/basic/register-modal-ios.gif" alt="iOS switch" class="img-fluid" />
+        </section>
+      </div>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+<StackLayout class="mdb-modal-body">
+  <Label text="Sign in" class="mdb-modal-title"></Label>
+  <StackLayout width="100%">
+    <MDBError [input]="field" text="error"></MDBError>
+    <Label mdbInputIcon text="&#xf0e0;" class="fas"></Label>
+    <TextField
+      validate="true"
+      #field="mdbValidate"
+      mdbValidate
+      mdbInput
+      label="Your email"
+      minlength="5"
+    ></TextField>
+  </StackLayout>
+
+  <StackLayout width="100%">
+    <MDBError [input]="field" text="error"></MDBError>
+    <Label mdbInputIcon text="&#xf023;	
+    " class="fas"></Label>
+    <TextField
+      validate="true"
+      #field="mdbValidate"
+      mdbValidate
+      mdbInput
+      label="Your password"
+      minlength="5"
+    ></TextField>
+  </StackLayout>
+      <Button mdbBtn theme="default" text="Login" (tap)="close()"></Button>
+</StackLayout>
+            </code>
+        </mdbsnippet>
+    </section>
+    <!--/Section: Code-->
+</section>
+<!--/Section: Sign in modal-->
+
+
