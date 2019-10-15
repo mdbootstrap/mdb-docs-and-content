@@ -21,3 +21,37 @@ Each folder contains multiple files:
 - a.html (Content of the API TAB)  
 - a-ss.html ((Content of the scrollspy for API TAB)  
 - js.html (Specific JavaScript code imported at the bottom if needed for demo)  
+
+
+So how YOU can contribute to ever growing MDB repo? It is easier than you may think.
+
+ First you have to click “Edit these docs” button placed on top of MDB component’s page of your choosing. 
+
+(http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%201.jpg)
+
+Thanks to modern day magic known as a link you will jump to GitHub repository that contains designated documentation.
+
+
+Now you have to click “Fork” button to copy it to your GitHub account.  
+
+(http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%202.jpg)
+
+After a few seconds, you should have your own version of the source file to play with. So click on the filename of documentation and then click on the pencil icon on the right. 
+
+(http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%203.jpg)
+
+Here it is where all the fun begins. You can freely input your insight and code snippets.
+
+(http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%204.jpg)
+
+
+To finish your adjustments you must provide commit name and description. Make sure that you also provide the name of a new branch containing your changes.
+
+(http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%205.jpg)
+
+Press “Propose file change” button, and then “Create pull request” button, finally allowing us to admire your genius and after positive verification letting you to bask in well deserved glory as a top tier programmer and code visionary. 
+
+(http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%206.jpg)
+
+(http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%207.jpg)
+
