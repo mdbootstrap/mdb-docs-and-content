@@ -21,3 +21,5 @@ Each folder contains multiple files:
 - a.html (Content of the API TAB)  
 - a-ss.html ((Content of the scrollspy for API TAB)  
 - js.html (Specific JavaScript code imported at the bottom if needed for demo)  
+
+#edit to win ;-)
