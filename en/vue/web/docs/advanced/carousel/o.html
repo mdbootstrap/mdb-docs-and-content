@@ -40,6 +40,8 @@
   <p>Please be aware that nested carousels are not supported, and carousels are generally not compliant with
     accessibility standards.</p>
 
+    <p class="note note-primary">This documentation is for <strong>MDB Vue 6.0.0</strong> and is not compatible with previous versions. See legacy docs.</p>
+
 </section>
 <!--/Section: -->
 
@@ -92,21 +94,34 @@
     <mdbsnippet>
       <code data-lang="html" data-name="template">
         <template>
-          <mdb-carousel :interval="8000">
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide" />
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" alt="Second slide" />
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" alt="Third slide" />
-          </mdb-carousel>
+          <mdb-carousel :interval="8000" slide :items="items"></mdb-carousel>
         </template>
       </code>
       <code data-lang="html" data-name="script">
         <script>
-          import { mdbCarousel, mdbCarouselItem } from 'mdbvue';
+          import { mdbCarousel } from 'mdbvue';
           export default {
             name: 'CarouselPage',
             components: {
-              mdbCarousel,
-              mdbCarouselItem
+              mdbCarousel
+            },
+            data() {
+              return {
+                items: [
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(35).jpg"
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(33).jpg"
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(31).jpg"
+                  }
+                ]
+              }
             }
           }
         </script>
@@ -158,21 +173,34 @@
     <mdbsnippet>
       <code data-lang="html" data-name="template">
         <template>
-          <mdb-carousel :interval="8000" showControls>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide" />
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" alt="Second slide" />
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" alt="Third slide" />
-          </mdb-carousel>
+          <mdb-carousel :interval="8000" slide :items="items" controlls></mdb-carousel>
         </template>
       </code>
       <code data-lang="html" data-name="script">
         <script>
-          import { mdbCarousel, mdbCarouselItem } from 'mdbvue';
+          import { mdbCarousel } from 'mdbvue';
           export default {
             name: 'CarouselPage',
             components: {
-              mdbCarousel,
-              mdbCarouselItem
+              mdbCarousel
+            },
+            data() {
+              return {
+                items: [
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(45).jpg"
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg"
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(47).jpg"
+                  }
+                ]
+              }
             }
           }
         </script>
@@ -243,21 +271,34 @@
     <mdbsnippet>
       <code data-lang="html" data-name="template">
         <template>
-          <mdb-carousel :interval="8000" showControls showIndicators>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide" />
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" alt="Second slide" />
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" alt="Third slide" />
-          </mdb-carousel>
+          <mdb-carousel :interval="8000" slide :items="items" indicators></mdb-carousel>
         </template>
       </code>
       <code data-lang="html" data-name="script">
         <script>
-          import { mdbCarousel, mdbCarouselItem } from 'mdbvue';
+          import { mdbCarousel } from 'mdbvue';
           export default {
             name: 'CarouselPage',
             components: {
-              mdbCarousel,
-              mdbCarouselItem
+              mdbCarousel
+            },
+            data() {
+              return {
+                items: [
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg"
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg"
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg"
+                  }
+                ]
+              }
             }
           }
         </script>
@@ -273,8 +314,7 @@
   <h3 id="with-captions" class="mt-5 secondary-heading"><strong>With captions</strong></h3>
 
   <!--Description-->
-  <p class="description">Add captions to your slides easily with the <code>mdb-carousel-caption</code> component within any
-    <code>mdb-carousel-item</code>.</p>
+  <p class="description">To add captions to your carousel add <code>caption</code> object to each items which you pass to <code>items</code> array. All available options are listed in the <code>API</code> tab.</p>
 
   <!--Section: Live preview-->
   <section>
@@ -346,28 +386,48 @@
     <mdbsnippet>
       <code data-lang="html" data-name="template">
         <template>
-          <mdb-carousel :interval="8000" showControls showIndicators>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" mask="black-light" alt="First slide">
-              <mdb-carousel-caption title="Light mask" text="First text"></mdb-carousel-caption>
-            </mdb-carousel-item>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" mask="black-strong" alt="Second slide">
-              <mdb-carousel-caption title="Strong mask" text="Second text"></mdb-carousel-caption>
-            </mdb-carousel-item>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" mask="black-slight" alt="Third slide">
-              <mdb-carousel-caption title="Super light mask" text="Third text"></mdb-carousel-caption>
-            </mdb-carousel-item>
-          </mdb-carousel>
+          <mdb-carousel :items="basicCarousel" v-model="carousel" indicators></mdb-carousel>
         </template>
       </code>
       <code data-lang="html" data-name="script">
         <script>
-          import { mdbCarousel, mdbCarouselItem, mdbCarouselCaption } from 'mdbvue';
+          import { mdbCarousel } from 'mdbvue';
           export default {
             name: 'CarouselPage',
             components: {
-              mdbCarousel,
-              mdbCarouselItem,
-              mdbCarouselCaption
+              mdbCarousel
+            },
+            data() {
+              return {
+                carousel: 2,
+                basicCarousel: [
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg",
+                    mask: "black-light",
+                    alt: "First Slide",
+                    caption: {
+                      title: "First slide"
+                    }
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg",
+                    mask: "black-strong",
+                    caption: {
+                      title: "Second slide"
+                    }
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg",
+                    mask: "black-slight",
+                    caption: {
+                      title: "Third slide"
+                    }
+                  }
+                ]
+              } 
             }
           }
         </script>
@@ -418,25 +478,37 @@
     <mdbsnippet>
       <code data-lang="html" data-name="template">
         <template>
-          <mdb-carousel :interval="8000" showControls showIndicators>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" mask="black-light" alt="First slide">
-            </mdb-carousel-item>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" mask="black-strong" alt="Second slide">
-            </mdb-carousel-item>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" mask="black-slight" alt="Third slide">
-            </mdb-carousel-item>
-          </mdb-carousel>
+          <mdb-carousel :items="items" :interval="5000" controlls></mdb-carousel>
         </template>
       </code>
       <code data-lang="html" data-name="script">
         <script>
-          import { mdbCarousel, mdbCarouselItem, mdbCarouselCaption } from 'mdbvue';
+          import { mdbCarousel } from 'mdbvue';
           export default {
             name: 'CarouselPage',
             components: {
-              mdbCarousel,
-              mdbCarouselItem,
-              mdbCarouselCaption
+              mdbCarousel
+            },
+            data() {
+              return {
+                items: [
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg",
+                    
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(16).jpg",
+                    
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(17).jpg",
+                    
+                  }
+                ]
+              } 
             }
           }
         </script>
@@ -463,7 +535,31 @@
     </a>
   </h3>
   <!--Description-->
-  <p class="description">Multi-item carousel component consists of two template tags - one with 'v-slot:mobile' for a mobile view layout, and the second for a desktop view.  </p>
+  <p class="description">To use multi-item carousel add <code>multi</code> property to the component. This type of carousel doesn't support array of items - instead you need to pass to the <code>items</code> property number of items you wish to have in your carousel. Given that, our component will render neccesary amount of named slots (slots' names are simple indexes starting at 1). Each of your item should be wrapped in <code>template</code> tag with the reference to the corresponding slot.</p>
+  <p>Example:</p>
+
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-carousel :items="3" multi>
+            <template #1>
+              ...
+            </template>
+            <template #2>
+              ...
+            </template>
+            <template #3>
+              ...
+            </template>
+          </mdb-carousel>
+        </template>
+      </code>
+    </mdbsnippet>
+
+    <p class="note note-primary">Note that you can use <code>v-slot:1</code> or <code>#1</code> interchangeably</p>
+
+    <p class="note note-primary">You can easily construct an array containg all data for each item and use the <code>v-for</code> iteration for better readability. Remember to add the <code>key</code> to the component inside the <code>template</code> tags, not template itself.</p>
 
   <!--Section: Live preview-->
   
@@ -478,237 +574,48 @@
   <section>
     <mdbsnippet>
       <code data-lang="html" data-name="template">
-<template>
-  <mdb-container class="mt-5">
-    <mdb-multi-carousel :interval="8000" showControls showIndicators slide>
-      <template>
-        <mdb-carousel-item>
-          <mdb-row class="carousel__item">
-            <mdb-col md="4">
-              <mdb-card class="mb-2">
-                <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" alt="Card image cap" waves></mdb-card-image>
+        <template>
+          <mdb-carousel :items="9" multi indicators controlls slide :interval="8000">
+            <template #[i+1] v-for="(img, i) in basic">
+              <mdb-card :key="i">
+                <mdb-card-image :src="img" alt="Card image cap"></mdb-card-image>
                 <mdb-card-body>
-                  <mdb-card-title>Card title</mdb-card-title>
+                  <mdb-card-title>{{i + 1}}</mdb-card-title>
                   <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-                  <mdb-btn color="primary">Button</mdb-btn>
+                  <mdb-btn color="primary" size="md">Button</mdb-btn>
                 </mdb-card-body>
               </mdb-card>
-            </mdb-col>
-            <mdb-col md="4" class="clearfix d-none d-md-block">
-              <mdb-card class="mb-2">
-                <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" alt="Card image cap" waves></mdb-card-image>
-                <mdb-card-body>
-                  <mdb-card-title>Card title</mdb-card-title>
-                  <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-                  <mdb-btn color="primary">Button</mdb-btn>
-                </mdb-card-body>
-              </mdb-card>
-            </mdb-col>
-            <mdb-col md="4" class="clearfix d-none d-md-block">
-              <mdb-card class="mb-2">
-                <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg" alt="Card image cap" waves></mdb-card-image>
-                <mdb-card-body>
-                  <mdb-card-title>Card title</mdb-card-title>
-                  <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-                  <mdb-btn color="primary">Button</mdb-btn>
-                </mdb-card-body>
-              </mdb-card>
-            </mdb-col>
-          </mdb-row>
-        </mdb-carousel-item>
-        <mdb-carousel-item>
-          <mdb-row class="carousel__item">
-            <mdb-col md="4">
-              <mdb-card class="mb-2">
-                <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(60).jpg" alt="Card image cap" waves></mdb-card-image>
-                <mdb-card-body>
-                  <mdb-card-title>Card title</mdb-card-title>
-                  <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-                  <mdb-btn color="primary">Button</mdb-btn>
-                </mdb-card-body>
-              </mdb-card>
-            </mdb-col>
-            <mdb-col md="4" class="clearfix d-none d-md-block">
-              <mdb-card class="mb-2">
-                <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(47).jpg" alt="Card image cap" waves></mdb-card-image>
-                <mdb-card-body>
-                  <mdb-card-title>Card title</mdb-card-title>
-                  <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-                  <mdb-btn color="primary">Button</mdb-btn>
-                </mdb-card-body>
-              </mdb-card>
-            </mdb-col>
-            <mdb-col md="4" class="clearfix d-none d-md-block">
-              <mdb-card class="mb-2">
-                <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" alt="Card image cap" waves></mdb-card-image>
-                <mdb-card-body>
-                  <mdb-card-title>Card title</mdb-card-title>
-                  <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-                  <mdb-btn color="primary">Button</mdb-btn>
-                </mdb-card-body>
-              </mdb-card>
-            </mdb-col>
-          </mdb-row>
-        </mdb-carousel-item>
-        <mdb-carousel-item>
-          <mdb-row class="carousel__item">
-            <mdb-col md="4">
-              <mdb-card class="mb-2">
-                <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" alt="Card image cap" waves></mdb-card-image>
-                <mdb-card-body>
-                  <mdb-card-title>Card title</mdb-card-title>
-                  <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-                  <mdb-btn color="primary">Button</mdb-btn>
-                </mdb-card-body>
-              </mdb-card>
-            </mdb-col>
-            <mdb-col md="4" class="clearfix d-none d-md-block">
-              <mdb-card class="mb-2">
-                <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" alt="Card image cap" waves></mdb-card-image>
-                <mdb-card-body>
-                  <mdb-card-title>Card title</mdb-card-title>
-                  <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-                  <mdb-btn color="primary">Button</mdb-btn>
-                </mdb-card-body>
-              </mdb-card>
-            </mdb-col>
-            <mdb-col md="4" class="clearfix d-none d-md-block">
-              <mdb-card class="mb-2">
-                <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(51).jpg" alt="Card image cap" waves></mdb-card-image>
-                <mdb-card-body>
-                  <mdb-card-title>Card title</mdb-card-title>
-                  <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-                  <mdb-btn color="primary">Button</mdb-btn>
-                </mdb-card-body>
-              </mdb-card>
-            </mdb-col>
-          </mdb-row>
-        </mdb-carousel-item>
-      </template>
-      <template v-slot:mobile>
-        <mdb-carousel-item class="carousel__item">
-          <mdb-card class="mb-2">
-            <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" alt="Card image cap" waves></mdb-card-image>
-            <mdb-card-body>
-              <mdb-card-title>Card title</mdb-card-title>
-              <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-              <mdb-btn color="primary">Button</mdb-btn>
-            </mdb-card-body>
-          </mdb-card>
-        </mdb-carousel-item>
-        <mdb-carousel-item class="carousel__item">
-          <mdb-card class="mb-2">
-            <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" alt="Card image cap" waves></mdb-card-image>
-            <mdb-card-body>
-              <mdb-card-title>Card title</mdb-card-title>
-              <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-              <mdb-btn color="primary">Button</mdb-btn>
-            </mdb-card-body>
-          </mdb-card>
-        </mdb-carousel-item>
-        <mdb-carousel-item class="carousel__item">
-          <mdb-card class="mb-2">
-            <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg" alt="Card image cap" waves></mdb-card-image>
-            <mdb-card-body>
-              <mdb-card-title>Card title</mdb-card-title>
-              <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-              <mdb-btn color="primary">Button</mdb-btn>
-            </mdb-card-body>
-          </mdb-card>
-        </mdb-carousel-item>
-        <mdb-carousel-item class="carousel__item">
-        <mdb-card class="mb-2">
-          <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(60).jpg" alt="Card image cap" waves></mdb-card-image>
-          <mdb-card-body>
-            <mdb-card-title>Card title</mdb-card-title>
-            <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-            <mdb-btn color="primary">Button</mdb-btn>
-          </mdb-card-body>
-        </mdb-card>
-        </mdb-carousel-item>
-        <mdb-carousel-item class="carousel__item">
-        <mdb-card class="mb-2">
-          <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(47).jpg" alt="Card image cap" waves></mdb-card-image>
-          <mdb-card-body>
-            <mdb-card-title>Card title</mdb-card-title>
-            <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-            <mdb-btn color="primary">Button</mdb-btn>
-          </mdb-card-body>
-        </mdb-card>
-        </mdb-carousel-item>
-        <mdb-carousel-item class="carousel__item">
-        <mdb-card class="mb-2">
-          <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" alt="Card image cap" waves></mdb-card-image>
-          <mdb-card-body>
-            <mdb-card-title>Card title</mdb-card-title>
-            <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-            <mdb-btn color="primary">Button</mdb-btn>
-          </mdb-card-body>
-        </mdb-card>
-        </mdb-carousel-item>
-        <mdb-carousel-item class="carousel__item">
-          <mdb-card class="mb-2">
-            <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" alt="Card image cap" waves></mdb-card-image>
-            <mdb-card-body>
-              <mdb-card-title>Card title</mdb-card-title>
-              <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-              <mdb-btn color="primary">Button</mdb-btn>
-            </mdb-card-body>
-          </mdb-card>
-        </mdb-carousel-item>
-        <mdb-carousel-item class="carousel__item">
-          <mdb-card class="mb-2">
-            <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" alt="Card image cap" waves></mdb-card-image>
-            <mdb-card-body>
-              <mdb-card-title>Card title</mdb-card-title>
-              <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-              <mdb-btn color="primary">Button</mdb-btn>
-            </mdb-card-body>
-          </mdb-card>
-        </mdb-carousel-item>
-        <mdb-carousel-item class="carousel__item">
-          <mdb-card class="mb-2">
-            <mdb-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(51).jpg" alt="Card image cap" waves></mdb-card-image>
-            <mdb-card-body>
-              <mdb-card-title>Card title</mdb-card-title>
-              <mdb-card-text>Some quick example text to build on the card title and make up the bulk of the card's content.</mdb-card-text>
-              <mdb-btn color="primary">Button</mdb-btn>
-            </mdb-card-body>
-          </mdb-card>
-        </mdb-carousel-item>
-      </template>
-    </mdb-multi-carousel>
-  </mdb-container>
-</template>
+            </template>
+          </mdb-carousel>
+        </template>
       </code>
-      <code data-lang="html" data-name="script">   
-<script>
-  import { mdbMultiCarousel, mdbCarouselItem, mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardBody, mdbCardTitle, mdbCardText, mdbBtn } from 'mdbvue';
-  export default {
-    name: 'CarouselPage',
-    components: {
-      mdbMultiCarousel,
-      mdbCarouselItem,
-      mdbContainer,
-      mdbRow,
-      mdbCol,
-      mdbCard,
-      mdbCardImage,
-      mdbCardBody,
-      mdbCardTitle,
-      mdbCardText,
-      mdbBtn
-    }
-  }
-</script>
-      </code>
-      <code data-lang="html" data-name="style">
-        <style scoped>
-          .carousel__item {
-            padding: 10px;
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbCarousel, mdbCard, mdbCardImage, mdbCardText, mdbCardBody } from 'mdbvue';
+          export default {
+            name: 'CarouselPage',
+            components: {
+              mdbCarousel, mdbCard, mdbCardImage, mdbCardText, mdbCardBody
+            },
+            data() {
+              return {
+                basic: [
+                  "https://mdbootstrap.com/img/Photos/Others/img (36).jpg",
+                  "https://mdbootstrap.com/img/Photos/Others/img (34).jpg",
+                  "https://mdbootstrap.com/img/Photos/Others/img (38).jpg",
+                  "https://mdbootstrap.com/img/Photos/Others/img (29).jpg",
+                  "https://mdbootstrap.com/img/Photos/Others/img (30).jpg",
+                  "https://mdbootstrap.com/img/Photos/Others/img (27).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(53).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(45).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(51).jpg"
+                ],
+              } 
+            }
           }
-        </style>
-      </code>
+        </script>
+      </code>   
+
     </mdbsnippet>
   </section>
   <!--Section: Code-->
@@ -736,155 +643,7 @@
 
   <!--Section: Live preview-->
   <section class="section-preview">
-
-    <!--Carousel Wrapper-->
-    <div id="carousel-with-lb" class="carousel slide carousel-multi-item" data-ride="carousel">
-
-      <!--Controls-->
-      <div class="controls-top">
-        <a class="btn-floating btn-secondary" href="#carousel-with-lb" data-slide="prev"><i class="fas fa-chevron-left"></i></a>
-        <a class="btn-floating btn-secondary" href="#carousel-with-lb" data-slide="next"><i class="fas fa-chevron-right"></i></a>
-      </div>
-      <!--/.Controls-->
-
-      <!--Indicators-->
-      <ol class="carousel-indicators">
-        <li data-target="#carousel-with-lb" data-slide-to="0" class="active secondary-color"></li>
-        <li data-target="#carousel-with-lb" data-slide-to="1" class="secondary-color"></li>
-        <li data-target="#carousel-with-lb" data-slide-to="2" class="secondary-color"></li>
-      </ol>
-      <!--/.Indicators-->
-
-
-      <!--Slides and lightbox-->
-      <div class="carousel-inner mdb-lightbox" role="listbox">
-        <div id="mdb-lightbox-ui"></div>
-
-        <!--First slide-->
-        <div class=" carousel-item active text-center">
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(4).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(4).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(6).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(6).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(10).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(10).jpg" class="img-fluid">
-            </a>
-          </figure>
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(12).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(12).jpg" class="img-fluid">
-            </a>
-          </figure>
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(14).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(14).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-        </div>
-        <!--/.First slide-->
-
-        <!--Second slide-->
-        <div class="carousel-item text-center">
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(25).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(25).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(29).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(29).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(31).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(31).jpg" class="img-fluid">
-            </a>
-          </figure>
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(32).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(32).jpg" class="img-fluid">
-            </a>
-          </figure>
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(33).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(33).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-        </div>
-        <!--/.Second slide-->
-
-        <!--Third slide-->
-        <div class="carousel-item text-center">
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(66).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(66).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" class="img-fluid">
-            </a>
-          </figure>
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(56).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(56).jpg" class="img-fluid">
-            </a>
-          </figure>
-          <figure class="col-md-4 d-md-inline-block">
-            <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg" data-size="1600x1067">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg" class="img-fluid">
-            </a>
-          </figure>
-
-        </div>
-        <!--/.Third slide-->
-
-      </div>
-      <!--/.Slides-->
-
-    </div>
-    <!--/.Carousel Wrapper-->
+    <div id="mdb-lightbox-carousel"><mdb-lightbox-carousel></mdb-lightbox-carousel></div>
   </section>
   <!--Section: Live preview-->
 
@@ -892,209 +651,87 @@
   <section>
     <mdbsnippet>
       <code data-lang="html" data-name="template">
-<template>
-  <mdb-container>
-    <mdb-carousel :interval="8000" showControls showIndicators multi slide top navClass="btn-secondary" indicatorClass="secondary-color">
-      <mdb-carousel-item>
-        <mdb-row class="mdb-lightbox px-2">
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox(0)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox(1)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(3).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox(2)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(4).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox(3)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(5).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox(4)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(6).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox(5)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(7).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-        </mdb-row>
-      </mdb-carousel-item>
-      <mdb-carousel-item>
-        <mdb-row class="mdb-lightbox px-2">
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox2(0)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(8).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox2(1)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(9).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox2(2)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(10).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox2(3)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(11).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox2(4)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(12).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox2(5)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(13).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-        </mdb-row>
-      </mdb-carousel-item>
-      <mdb-carousel-item>
-        <mdb-row class="mdb-lightbox px-2">
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox3(0)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(14).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox3(1)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(15).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox3(2)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(16).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox3(3)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(17).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox3(4)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-          <mdb-col md="4" class="d-md-inline-block" @click.native="showLightbox3(5)">
-            <figure>
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(19).jpg" class="img-fluid" alt=""/>
-            </figure>
-          </mdb-col>
-        </mdb-row>
-      </mdb-carousel-item>
-    </mdb-carousel>
-    <mdb-lightbox
-      :visible="visible"
-      :imgs="imgs"
-      :index="index"
-      @hide="handleHide"
-    ></mdb-lightbox>
-    <mdb-lightbox
-      :visible="visible2"
-      :imgs="imgs2"
-      :index="index2"
-      @hide="handleHide2"
-    ></mdb-lightbox>
-    <mdb-lightbox
-      :visible="visible3"
-      :imgs="imgs3"
-      :index="index3"
-      @hide="handleHide3"
-    ></mdb-lightbox>
-  </mdb-container>
-</template>
+        <template>
+          <mdb-carousel
+          :items="9"
+          multi
+          slide
+          controlls
+          indicators
+          indicatorsColor="secondary-color"
+          navColor="secondary"
+          :interval="8000"
+        >
+          <template v-for="(i, index) in items" #[index+1]>
+            <div :key="index" style="cursor: pointer">
+              <mdb-row md="4" class="d-md-inline-block px-2" @click.native="showLightbox(i)">
+                <figure>
+                  <img :src="imgs[i]" class="img-fluid" alt />
+                </figure>
+              </mdb-row>
+              <mdb-row md="4" class="d-md-inline-block px-2" @click.native="showLightbox(i + 1)">
+                <figure>
+                  <img :src="imgs[i+1]" class="img-fluid" alt />
+                </figure>
+              </mdb-row>
+            </div>
+          </template>
+        </mdb-carousel>
+
+        <mdb-lightbox :visible="visible" :imgs="imgs" :index="index" @hide="handleHide"></mdb-lightbox>
+        </template>
       </code>
       <code data-lang="html" data-name="script">
-<script>
-  import { mdbCarousel, mdbCarouselItem, mdbCarouselCaption, mdbRow, mdbIcon, mdbContainer, mdbCol, mdbLightbox } from 'mdbvue';
-  export default {
-    name: 'CarouselProPage',
-    components: {
-      mdbCarousel,
-      mdbCarouselItem,
-      mdbCarouselCaption,
-      mdbRow,
-      mdbIcon,
-      mdbContainer,
-      mdbCol,
-      mdbLightbox
-    },
-    data() {
-      return {
-        imgs: [
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(2).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(3).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(4).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(5).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(6).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(7).jpg'
-        ],
-        imgs2: [
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(8).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(9).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(10).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(11).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(12).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(13).jpg'
-        ],
-        imgs3: [
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(14).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(15).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(16).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(17).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(18).jpg',
-          'https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(19).jpg'
-        ],
-        visible: false,
-        visible2: false,
-        visible3: false,
-        index: 0,
-        index2: 0,
-        index3: 0,
-      };
-    },
-    methods: {
-      showLightbox(index) {
-        this.index = index;
-        this.visible = true;
-      },
-      showLightbox2(index2) {
-        this.index2 = index2;
-        this.visible2 = true;
-      },
-      showLightbox3(index3) {
-        this.index3 = index3;
-        this.visible3 = true;
-      },
-      handleHide() {
-        this.visible = false;
-      },
-      handleHide2() {
-        this.visible2 = false;
-      },
-      handleHide3() {
-        this.visible3 = false;
-      }
-    }
-  }
-</script>
-
-      </code>
+        <script>
+          import { mdbCarousel, mdbLightbox, mdbRow } from 'mdbvue';
+          export default {
+            name: 'CarouselPage',
+            components: {
+              mdbCarousel, mdbLightbox, mdbRow
+            },
+            data() {
+              return {
+                imgs: [
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(2).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(3).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(4).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(5).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(6).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(7).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(8).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(9).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(10).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(11).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(12).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(13).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(14).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(15).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(16).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(17).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(18).jpg",
+                  "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(19).jpg"
+                ],
+                visible: false,
+                index: 0
+              } 
+            },
+            methods: {
+              showLightbox(index) {
+                this.index = index;
+                this.visible = true;
+              },
+              handleHide() {
+                this.visible = false;
+              }
+            },
+            computed: {
+              items() {
+                return this.imgs.map((_, i) => i).filter((_, i) => i % 2 === 0);
+              }
+            }
+          }
+        </script>
+      </code>   
 
     </mdbsnippet>
   </section>
@@ -1163,25 +800,38 @@
     <mdbsnippet>
       <code data-lang="html" data-name="template">
         <template>
-          <mdb-carousel :interval="8000" showControls showIndicators thumbnails>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(88).jpg" thumbnail="https://mdbootstrap.com/img/Photos/Others/Carousel-thumbs/img%20(88).jpg" alt="First slide">
-            </mdb-carousel-item>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(121).jpg" thumbnail="https://mdbootstrap.com/img/Photos/Others/Carousel-thumbs/img%20(121).jpg" alt="Second slide">
-            </mdb-carousel-item>
-            <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(31).jpg" thumbnail="https://mdbootstrap.com/img/Photos/Others/Carousel-thumbs/img%20(31).jpg" alt="Third slide">
-            </mdb-carousel-item>
-          </mdb-carousel>
+          <mdb-carousel :items="thumbnailCarousel" thumbnails :interval="8000"></mdb-carousel>
         </template>
       </code>
       <code data-lang="html" data-name="script">
         <script>
-        import { mdbCarousel, mdbCarouselItem, mdbCarouselCaption } from 'mdbvue';
+        import { mdbCarousel } from 'mdbvue';
         export default {
           name: 'ThumbnailsCarouselPage',
           components: {
             mdbCarousel,
-            mdbCarouselItem,
-            mdbCarouselCaption
+          },
+          data() {
+            return {
+              thumbnailCarousel: [
+                {
+                  img: true,
+                  src: "https://mdbootstrap.com/img/Photos/Slides/img%20(88).jpg",
+                  thumbnail:
+                    "https://mdbootstrap.com/img/Photos/Others/Carousel-thumbs/img%20(88).jpg"
+                },
+                {
+                  img: true,
+                  src: "https://mdbootstrap.com/img/Photos/Slides/img%20(121).jpg",
+                  thumbnail: "https://mdbootstrap.com/img/Photos/Slides/img%20(121).jpg"
+                },
+                {
+                  img: true,
+                  src: "https://mdbootstrap.com/img/Photos/Slides/img%20(31).jpg",
+                  thumbnail: "https://mdbootstrap.com/img/Photos/Slides/img%20(31).jpg"
+                }
+              ],
+            }
           }
         }
         </script>
@@ -1260,24 +910,44 @@
     <mdbsnippet>
       <code data-lang="html" data-name="template">
         <template>
-          <mdb-carousel :interval="8000" showControls showIndicators>
-            <mdb-carousel-item video src="https://mdbootstrap.com/img/video/Tropical.mp4" alt="First slide" auto loop>
-            </mdb-carousel-item>
-            <mdb-carousel-item video src="https://mdbootstrap.com/img/video/forest.mp4" alt="Second slide" auto loop>
-            </mdb-carousel-item>
-            <mdb-carousel-item video src="https://mdbootstrap.com/img/video/Agua-natural.mp4" alt="Third slide" auto loop>
-            </mdb-carousel-item>
-          </mdb-carousel>
+          <mdb-carousel :items="videoCarousel" indicators></mdb-carousel>
         </template>
       </code>
       <code data-lang="html" data-name="script">
         <script>
-          import { mdbCarousel, mdbCarouselItem } from 'mdbvue';
+          import { mdbCarousel } from 'mdbvue';
           export default {
             name: 'VideoCarouselPage',
             components: {
-              mdbCarousel,
-              mdbCarouselItem
+              mdbCarousel
+            },
+            data() {
+              return {
+                videoCarousel: [
+                  {
+                    video: true,
+                    src: "https://mdbootstrap.com/img/video/Tropical.mp4",
+                    loop: true,
+                    auto: true,
+                    muted: true
+                  },
+                  {
+                    video: true,
+                    src: "https://mdbootstrap.com/img/video/forest.mp4",
+                    mask: "purple-strong",
+                    loop: true,
+                    auto: true,
+                    muted: true
+                  },
+                  {
+                    video: true,
+                    src: "https://mdbootstrap.com/img/video/Agua-natural.mp4",
+                    loop: true,
+                    auto: true,
+                    muted: true
+                  }
+                ]
+              }
             }
           }
         </script>
@@ -1303,7 +973,7 @@
   <!--Description-->
   <p class="description">If you want to add a caption to your carousel you will probably also need to cover it with a
     dark mask, to make your
-    caption more visible. To animate captions add <code>animation</code> property with an animation's name. The list of all available animations you can find <a href="https://mdbootstrap.com/docs/vue/css/animations/#basic-usage">here</a>.</p>
+    caption more visible. To customize caption's animation, add the <code>animation</code> key to your caption's object. The list of all available animations you can find <a href="https://mdbootstrap.com/docs/vue/css/animations/#basic-usage">here</a>.</p>
 
   <!--Section: Live preview-->
   <section class="section-preview">
@@ -1408,32 +1078,60 @@
     <mdbsnippet>
       <code data-lang="html" data-name="template">
         <template>
-          <mdb-carousel :interval="8000" showControls showIndicators>
-            <mdb-carousel-item video src="https://mdbootstrap.com/img/video/Tropical.mp4" mask="black-light" alt="First slide" auto loop>
-              <mdb-carousel-caption animation="fadeInDown" title="Carousel Caption" text="First text"></mdb-carousel-caption>
-            </mdb-carousel-item>
-            <mdb-carousel-item video src="https://mdbootstrap.com/img/video/forest.mp4" mask="black-slight" alt="Second slide" auto loop>
-              <mdb-carousel-caption animation="fadeInDown" title="Carousel Caption" text="Second text"></mdb-carousel-caption>
-            </mdb-carousel-item>
-            <mdb-carousel-item video src="https://mdbootstrap.com/img/video/Agua-natural.mp4" mask="black-strong" alt="Third slide" auto loop>
-              <mdb-carousel-caption animation="fadeInDown" title="Carousel Caption" text="Third text"></mdb-carousel-caption>
-            </mdb-carousel-item>
-          </mdb-carousel>
+          <mdb-carousel :interval="8000" :items="videoCarousel" indicators controlls></mdb-carousel>
         </template>
       </code>
       <code data-lang="html" data-name="script">
         <script>
-          import { mdbCarousel, mdbCarouselItem, mdbCarouselCaption } from 'mdbvue';
+          import { mdbCarousel } from 'mdbvue';
           export default {
             name: 'VideoCarouselPage',
             components: {
-              mdbCarousel,
-              mdbCarouselItem,
-              mdbCarouselCaption
+              mdbCarousel
+            },
+            data() {
+              return {
+                videoCarousel: [
+                {
+                    video: true,
+                    src: "https://mdbootstrap.com/img/video/Lines.mp4",
+                    loop: true,
+                    auto: true,
+                    muted: true,
+                    mask: 'rgba-indigo-light',
+                    caption: {
+                      title: 'Light mask'
+                    }
+                  },
+                  {
+                    video: true,
+                    src: "https://mdbootstrap.com/img/video/animation-intro.mp4",
+                    loop: true,
+                    auto: true,
+                    muted: true,
+                    mask: 'rgba-purple-slight',
+                    caption: {
+                      title: 'Slight mask'
+                    }
+                  },
+                  {
+                    video: true,
+                    src: "https://mdbootstrap.com/img/video/Nature-Sunset.mp4",
+                    loop: true,
+                    auto: true,
+                    muted: true,
+                    mask: 'black-strong',
+                    caption: {
+                      title: 'Strong mask'
+                    }
+                  }
+                ]
+              }
             }
           }
         </script>
       </code>
+
     </mdbsnippet>
   </section>
   <!--Section: Code-->
