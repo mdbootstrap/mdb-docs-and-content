@@ -1,0 +1,174 @@
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">Angular Mobile Tooltip</h2>
+
+  <h1 class="secondary-heading mb-4">
+    Angular Mobile Tooltip - Bootstrap 4 & Material Design
+  </h1>
+
+  <blockquote class="blockquote bq-danger">
+    <p class="bq-title">Wrapping Tooltip with layout</p>
+    <p>Every tooltip element has to be wrapped with his separated
+      <code>AbsoluteLayout</code>. Without it, tooltip may not work properly.
+    </p>
+  </blockquote>
+
+  <!--Description-->
+  <p>
+    Tooltip is great in situation, when you want to describe user some things without taking free space from the app layout. They works on both platforms!
+  </p>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5"/>
+
+<!--Section: -->
+<section id="basic-example">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic example
+  </h2>
+
+  <!-- Description -->
+  <p>
+    Very basic tooltip example - remember to wrap the tooltip activator into <code>AbsoluteLayout</code>!
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <AbsoluteLayout>
+          <Button mdbBtn theme="primary" [mdbTooltip]="'tooltip text'" class="primary" text="MDB Button"></Button>
+        </AbsoluteLayout>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5"/>
+
+<!--Section: -->
+<section id="manual-show">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+   Show and hide
+  </h2>
+
+  <!-- Description -->
+  <p>
+    Tooltip has built-in public methods to show and hide him with programmatically
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <AbsoluteLayout>
+          <Button
+            [mdbTooltip]="'tooltip text'"
+            mdbBtn theme="primary"
+            class="primary"
+            text="MDB Button"
+            #tooltip="mdbTooltip">
+          </Button>
+        </AbsoluteLayout>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import {AfterViewInit, Component, ViewChild} from '@angular/core';
+        import {MdbTooltipDirective} from "mdb-angular-mobile";
+
+        @Component({
+          selector: 'Home',
+          moduleId: module.id,
+          templateUrl: './home.component.html',
+        })
+        export class HomeComponent implements AfterViewInit {
+          @ViewChild('tooltip', {static: false}) tooltip: MdbTooltipDirective;
+
+          ngAfterViewInit(): void {
+            setTimeout(() => {
+              this.tooltip.show();
+              setTimeout(() => {
+                this.tooltip.hide();
+              }, 1500)
+            }, 2500);
+          }
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5"/>
+
+<!--Section: -->
+<section id="events">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Events
+  </h2>
+
+  <!-- Description -->
+  <p>
+    Tooltip has built-in four events which allow you to determine, in which state tooltip actual is
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <AbsoluteLayout>
+          <Button
+            [mdbTooltip]="'tooltip text'"
+            mdbBtn theme="primary"
+            class="primary"
+            text="MDB Button"
+            placement="bottom"
+            (tooltipHidden)="onTooltipHidden($event)"
+            (tooltipHide)="onTooltipHide($event)"
+            (tooltipShow)="onTooltipShow($event)"
+            (tooltipShown)="onTooltipShown($event)">
+          </Button>
+        </AbsoluteLayout>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import {Component} from '@angular/core';
+
+        @Component({
+          selector: 'App',
+          moduleId: module.id,
+          templateUrl: './App.component.html',
+        })
+        export class AppComponent {
+          onTooltipShow(event: any) {
+            console.log(`show: ${event}`);
+          }
+
+          onTooltipShown(event: any) {
+            console.log(`shown: ${event}`);
+          }
+
+          onTooltipHide(event: any) {
+            console.log(`hide: ${event}`);
+          }
+
+          onTooltipHidden(event: any) {
+            console.log(`hidden: ${event}`);
+          }
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
