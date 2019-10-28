@@ -2191,3 +2191,524 @@
 
 </section>
 <!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: custom-styles-->
+<section id="icon-styles">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Inputs with icons
+  </h2>
+
+  <!--Description-->
+  <p class="description mb-4">In input with icon, validation feedback appear for default at the beginning of the line
+      under icon. If you want to display validation exactly under input, you must add additional classes after <code>valid-feedback</code> class in your validation feedback container.</p>
+    <p class="description mb-4">In outline styles : <code>ml-3 pl-3</code>, for example:  <code>&lt;div  class="valid-feedback ml-3 pl-3"&gt;</code>
+      Valid feedback.
+      <code>&lt;div&gt;</code></p>
+      <p class="description mb-4">In material styles : <code>ml-4 pl-3</code>, for example:  <code>&lt;div  class="invalid-feedback ml-4 pl-3"&gt;</code>
+        Invalid feedback.
+        <code>&lt;div&gt;</code></p>
+
+
+  <section id="icon-custom-default">
+
+    <!--Title-->
+    <h3 class="secondary-heading mb-3">
+      Outline styles
+    </h3>
+
+    <!--Section: Live preview-->
+    <section class="section-preview">
+
+      <form class="needs-validation" novalidate>
+        <div class="form-row md-outline">
+          <div class="col-md-4 mb-3 md-form md-outline">
+              <i class="fas fa-user prefix"></i>
+            <label for="validationCustomIcons01">First name</label>
+            <input type="text" class="form-control" id="validationCustomIcons01" value="Mark"
+              required>
+            <div class="valid-feedback ml-3 pl-3">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-4 mb-3 md-form md-outline">
+              <i class="fas fa-address-card prefix"></i>
+            <label for="validationCustomIcons02">Last name</label>
+            <input type="text" class="form-control" id="validationCustomIcons02" value="Otto"
+              required>
+            <div class="valid-feedback ml-3 pl-3">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-4 mb-3 md-form md-outline">
+              <i class="fas fa-envelope-open prefix"></i>
+            <label for="validationCustomIconsUsername">Email</label>
+            <input type="email" class="form-control" id="validationCustomIconsUsername"
+              aria-describedby="inputGroupPrepend">
+            <small id="emailHelp" class="form-text text-muted">
+              We'll never share your email with anyone else.
+            </small>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-4 mb-3 md-form md-outline">
+              <i class="fas fa-city prefix"></i>
+            <label for="validationCustomIcons03">City</label>
+            <input type="text" class="form-control" id="validationCustomIcons03" required>
+            <div class="invalid-feedback ml-3 pl-3">
+              Please provide a valid city.
+            </div>
+          </div>
+          <div class="col-md-4 mb-3 md-form md-outline">
+              <i class="fas fa-map-marked-alt prefix"></i>
+            <label for="validationCustomIcons04">State</label>
+            <input type="text" class="form-control" id="validationCustomIcons04" required>
+            <div class="invalid-feedback ml-3 pl-3">
+              Please provide a valid state.
+            </div>
+          </div>
+          <div class="col-md-4 mb-3 md-form md-outline">
+              <i class="fas fa-location-arrow prefix"></i>
+            <label for="validationCustomIcons05">Zip</label>
+            <input type="text" class="form-control" id="validationCustomIcons05" required>
+            <div class="invalid-feedback ml-3 pl-3">
+              Please provide a valid zip.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="invalidIconsCheck" required>
+            <label class="custom-control-label" for="invalidIconsCheck">Agree to terms and conditions</label>
+            <div class="invalid-feedback">
+              You must agree before submitting.
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit form</button>
+      </form>
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+
+        <code data-lang="js" data-name="JSX">
+          import React from 'react';
+          import { MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+
+          class FormsPage extends React.Component {
+            state = {
+              fname: 'Mark',
+              lname: 'Otto',
+              email: '',
+              city: '',
+              state: '',
+              zip: ''
+            };
+
+            submitHandler = event => {
+              event.preventDefault();
+              event.target.className += ' was-validated';
+            };
+
+            changeHandler = event => {
+              this.setState({ [event.target.name]: event.target.value });
+            };
+
+            render() {
+              return (
+                <div>
+                  <form
+                    className='needs-validation'
+                    onSubmit={this.submitHandler}
+                    noValidate
+                  >
+                    <MDBRow>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='user'
+                          value={this.state.fname}
+                          name='fname'
+                          onChange={this.changeHandler}
+                          type='text'
+                          id='materialFormRegisterNameEx'
+                          label='First name'
+                          outline
+                          required
+                        >
+                          <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
+                        </MDBInput>
+                      </MDBCol>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='address-card'
+                          value={this.state.lname}
+                          name='lname'
+                          onChange={this.changeHandler}
+                          type='text'
+                          id='materialFormRegisterEmailEx2'
+                          label='Last name'
+                          outline
+                          required
+                        >
+                          <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
+                        </MDBInput>
+                      </MDBCol>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='envelope-open'
+                          value={this.state.email}
+                          onChange={this.changeHandler}
+                          type='email'
+                          id='materialFormRegisterConfirmEx3'
+                          name='email'
+                          label='Your Email address'
+                          outline
+                        >
+                          <small id='emailHelp' className='form-text text-muted'>
+                            We'll never share your email with anyone else.
+                          </small>
+                        </MDBInput>
+                      </MDBCol>
+                    </MDBRow>
+                    <MDBRow>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='city'
+                          value={this.state.city}
+                          onChange={this.changeHandler}
+                          type='text'
+                          id='materialFormRegisterPasswordEx4'
+                          name='city'
+                          label='City'
+                          outline
+                          required
+                        >
+                          <div className='invalid-feedback ml-3 pl-3'>
+                            Please provide a valid city.
+                          </div>
+                          <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
+                        </MDBInput>
+                      </MDBCol>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='map-marked-alt'
+                          value={this.state.state}
+                          onChange={this.changeHandler}
+                          type='text'
+                          id='materialFormRegisterPasswordEx4'
+                          name='state'
+                          label='State'
+                          outline
+                          required
+                        >
+                          <div className='invalid-feedback ml-3 pl-3'>
+                            Please provide a valid state.
+                          </div>
+                          <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
+                        </MDBInput>
+                      </MDBCol>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='location-arrow'
+                          value={this.state.zip}
+                          onChange={this.changeHandler}
+                          type='text'
+                          id='materialFormRegisterPasswordEx4'
+                          name='zip'
+                          label='Zip'
+                          outline
+                          required
+                        >
+                          <div className='invalid-feedback ml-3 pl-3'>
+                            Please provide a valid zip.
+                          </div>
+                          <div className='valid-feedback ml-3 pl-3'>Looks good!</div>
+                        </MDBInput>
+                      </MDBCol>
+                    </MDBRow>
+                    <MDBCol md='4' className='mb-3'>
+                      <div className='custom-control custom-checkbox pl-3'>
+                        <input
+                          className='custom-control-input'
+                          type='checkbox'
+                          value=''
+                          id='invalidCheck'
+                          required
+                        />
+                        <label className='custom-control-label' htmlFor='invalidCheck'>
+                          Agree to terms and conditions
+                        </label>
+                        <div className='invalid-feedback'>
+                          You must agree before submitting.
+                        </div>
+                      </div>
+                    </MDBCol>
+                    <MDBBtn color='primary' type='submit'>
+                      Submit Form
+                    </MDBBtn>
+                  </form>
+                </div>
+              );
+            }
+          }
+
+          export default FormsPage;
+
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+  <section id="icon-custom-material">
+     <!--Title-->
+    <h3 class="secondary-heading mb-3">
+      Material styles <a href="https://mdbootstrap.com/products/react-ui-kit/" target="_blank"
+        class="btn btn-danger btn-sm" role="button">MDB Pro component
+        <i class="far fa-gem ml-1"></i>
+      </a>
+    </h3>
+
+    <!--Section: Live preview-->
+    <section class="section-preview">
+
+      <form class="needs-validation" novalidate>
+        <div class="form-row">
+          <div class="col-md-4 mb-3 md-form">
+              <i class="fas fa-user prefix"></i>
+            <label for="validationCustomIcons012">First name</label>
+            <input type="text" class="form-control" id="validationCustomIcons012" placeholder="First name" value="Mark"
+              required>
+            <div class="valid-feedback ml-4 pl-3">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-4 mb-3 md-form">
+              <i class="fas fa-address-card prefix"></i>
+              <label for="validationCustomIcons022">Last name</label>
+            <input type="text" class="form-control" id="validationCustomIcons022" value="Otto" required>
+            <div class="valid-feedback ml-4 pl-3">
+              Looks good!
+            </div>
+          </div>
+          <div class="col-md-4 mb-3 md-form">
+              <i class="fas fa-envelope-open prefix"></i>
+            <label for="validationCustomIconsUsername2">Your Email address</label>
+            <input type="email" class="form-control" id="validationCustomIconsUsername2" aria-describedby="inputGroupPrepend2" />
+            <small id="emailHelp" class="form-text text-muted ml-4 pl-3">
+              We'll never share your email with anyone else.
+            </small>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-4 mb-3 md-form">
+              <i class="fas fa-city prefix"></i>
+            <label for="validationCustomIcons032">City</label>
+            <input type="text" class="form-control" id="validationCustomIcons032" required>
+            <div class="invalid-feedback ml-4 pl-3">
+              Please provide a valid city.
+            </div>
+          </div>
+          <div class="col-md-4 mb-3 md-form">
+              <i class="fas fa-map-marked-alt prefix"></i>
+            <label for="validationCustomIcons042">State</label>
+            <input type="text" class="form-control" id="validationCustomIcons042" required>
+            <div class="invalid-feedback ml-4 pl-3">
+              Please provide a valid state.
+            </div>
+          </div>
+          <div class="col-md-4 mb-3 md-form">
+              <i class="fas fa-location-arrow prefix"></i>
+            <label for="validationCustomIcons052">Zip</label>
+            <input type="text" class="form-control" id="validationCustomIcons052" required>
+            <div class="invalid-feedback ml-4 pl-3">
+              Please provide a valid zip.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-check pl-0">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCustomIconsCheck2" required>
+            <label class="form-check-label" for="invalidCustomIconsCheck2">
+              Agree to terms and conditions
+            </label>
+            <div class="invalid-feedback">
+              You must agree before submitting.
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit form</button>
+      </form>
+    </section>
+    <!--Section: Live preview-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+
+        <code data-lang="js" data-name="JSX">
+          import React from "react";
+          import { MDBRow, MDBCol, MDBInput, MDBBtn } from "mdbreact";
+
+          class FormsPage extends React.Component {
+            state = {
+              fname: "Mark",
+              lname: "Otto",
+              email: "",
+              city: "",
+              state: "",
+              zip: ""
+            };
+
+            submitHandler = event => {
+              event.preventDefault();
+              event.target.className += " was-validated";
+            };
+
+            changeHandler = event => {
+              this.setState({ [event.target.name]: event.target.value });
+            };
+
+            render() {
+              return (
+                <div>
+                    <form
+                    className='needs-validation'
+                    onSubmit={this.submitHandler}
+                    noValidate
+                  >
+                    <MDBRow>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='user'
+                          value={this.state.fname}
+                          name='fname'
+                          onChange={this.changeHandler}
+                          type='text'
+                          id='materialFormRegisterNameEx'
+                          label='First name'
+                          required
+                        >
+                          <div className='valid-feedback ml-4 pl-3'>Looks good!</div>
+                        </MDBInput>
+                      </MDBCol>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='address-card'
+                          value={this.state.lname}
+                          name='lname'
+                          onChange={this.changeHandler}
+                          type='text'
+                          id='materialFormRegisterEmailEx2'
+                          label='Last name'
+                          required
+                        >
+                          <div className='valid-feedback ml-4 pl-3'>Looks good!</div>
+                        </MDBInput>
+                      </MDBCol>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='envelope-open'
+                          value={this.state.email}
+                          onChange={this.changeHandler}
+                          type='email'
+                          id='materialFormRegisterConfirmEx3'
+                          name='email'
+                          label='Your Email address'
+                        >
+                          <small id='emailHelp' className='form-text text-muted'>
+                            We'll never share your email with anyone else.
+                          </small>
+                        </MDBInput>
+                      </MDBCol>
+                    </MDBRow>
+                    <MDBRow>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='city'
+                          value={this.state.city}
+                          onChange={this.changeHandler}
+                          type='text'
+                          id='materialFormRegisterPasswordEx4'
+                          name='city'
+                          label='City'
+                          required
+                        >
+                          <div className='invalid-feedback ml-4 pl-3'>
+                            Please provide a valid city.
+                          </div>
+                          <div className='valid-feedback ml-4 pl-3'>Looks good!</div>
+                        </MDBInput>
+                      </MDBCol>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='map-marked-alt'
+                          value={this.state.state}
+                          onChange={this.changeHandler}
+                          type='text'
+                          id='materialFormRegisterPasswordEx4'
+                          name='state'
+                          label='State'
+                          required
+                        >
+                          <div className='invalid-feedback ml-4 pl-3'>
+                            Please provide a valid state.
+                          </div>
+                          <div className='valid-feedback ml-4 pl-3'>Looks good!</div>
+                        </MDBInput>
+                      </MDBCol>
+                      <MDBCol md='4'>
+                        <MDBInput
+                          icon='location-arrow'
+                          value={this.state.zip}
+                          onChange={this.changeHandler}
+                          type='text'
+                          id='materialFormRegisterPasswordEx4'
+                          name='zip'
+                          label='Zip'
+                          required
+                        >
+                          <div className='invalid-feedback ml-4 pl-3'>
+                            Please provide a valid zip.
+                          </div>
+                          <div className='valid-feedback ml-4 pl-3'>Looks good!</div>
+                        </MDBInput>
+                      </MDBCol>
+                    </MDBRow>
+                    <MDBRow>
+                      <MDBInput
+                        type='checkbox'
+                        value='conditions'
+                        id='materialInvalidCheck'
+                        required
+                        label='Agree to terms and conditions'
+                      >
+                        <div className='invalid-feedback'>
+                          You must agree before submitting.
+                        </div>
+                      </MDBInput>
+                    </MDBRow>
+                    <MDBBtn color='primary' type='submit'>
+                      Submit Form
+                    </MDBBtn>
+                  </form>
+                </div>
+              );
+            }
+          }
+
+          export default FormsPage;
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+</section>
+<!--/Section: -->

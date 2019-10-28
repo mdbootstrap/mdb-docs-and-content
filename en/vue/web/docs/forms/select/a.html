@@ -49,19 +49,6 @@
       </thead>
       <tbody>
         <tr>
-          <td>
-            <code class="highlighter-rouge text-nowrap"
-              >btnSavePlaceholder</code
-            >
-          </td>
-          <td><i>String</i></td>
-          <td><code>'Save'</code></td>
-          <td>Allows defining save button placeholder</td>
-          <td>
-            <code>&lt;mdb-select btnSavePlaceholder="Exit" ... /&gt;</code>
-          </td>
-        </tr>
-        <tr>
           <td><code class="highlighter-rouge text-nowrap">caretClass</code></td>
           <td><i>String</i></td>
           <td><code></code></td>
@@ -309,6 +296,60 @@
             <code>&lt;mdb-select icon="..." fab ... /&gt;</code>
           </td>
         </tr>
+        <tr>
+          <td><code class="highlighter-rouge text-nowrap">scroll</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>true</code></td>
+          <td>Enables scrolling the dropdown's content</td>
+          <td>
+            <code>&lt;mdb-select scroll /&gt;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge text-nowrap">visibleOptions</code></td>
+          <td><i>Number</i></td>
+          <td><code>4</code></td>
+          <td>Indicates maximum number of options visible in the dropwdown with <code>scroll</code> enabled</td>
+          <td>
+            <code>&lt;mdb-select :visibleOptions="6" /&gt;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge text-nowrap">flipOnScroll</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>true</code></td>
+          <td>If set to true, select will adjust its position while scroll/resize events</td>
+          <td>
+            <code>&lt;mdb-select flipOnScroll /&gt;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge text-nowrap">resultText</code></td>
+          <td><i>String</i></td>
+          <td><code>no results</code></td>
+          <td>Information showed in search dropdown when nothing was found</td>
+          <td>
+            <code>&lt;mdb-select searcg resultText="Nothing to show!" /&gt;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge text-nowrap">show</code></td>
+          <td><i>Boolean</i></td>
+          <td><code></code></td>
+          <td>Prop which allow to toggle dropdown from outside</td>
+          <td>
+            <code>&lt;mdb-select :show="toggleDropdown" /&gt;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge text-nowrap">resetBtn</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>false</code></td>
+          <td>Shows button which can be used to reset select to its initial state</td>
+          <td>
+            <code>&lt;mdb-select resetBtn /&gt;</code>
+          </td>
+        </tr>
       </tbody>
     </table>
   </section>
@@ -347,18 +388,6 @@
           </td>
         </tr>
         <tr>
-          <td><code class="text-nowrap">reset</code></td>
-          <td><i></i></td>
-          <td>Resets select to default values.</td>
-          <td>
-            <code>
-              &lt;mdb-select v-model=&quot;options&quot; ref=&quot;select&quot;
-              /&gt; &lt;mdb-btn size=&quot;sm&quot; color=&quot;danger&quot;
-              @click.native=&quot;$refs.select.reset()&quot;&gt;Reset&lt;/mdb-btn&gt;
-            </code>
-          </td>
-        </tr>
-        <tr>
           <td><code class="text-nowrap">validate</code></td>
           <td><i></i></td>
           <td>Validate select.</td>
@@ -393,8 +422,50 @@
             <code>&lt;mdb-select @blur="onBlur" /&gt;</code>
           </td>
         </tr>
+        <tr>
+          <td><code class="text-nowrap">v-on:toggleSelect</code></td>
+          <td><i>Boolean</i></td>
+          <td>
+            Emitted when dropdown is toggled
+          </td>
+          <td>
+            <code>&lt;mdb-select :show="showDropdown" @toggleSelect="showDropdown = $event" /&gt;</code>
+          </td>
+        </tr>
       </tbody>
     </table>
   </section>
 </section>
 <!--/Section: methods-->
+
+  <!--Section: slots-->
+  <section id="slots">
+    <!--Title-->
+    <h2 class="section-heading mb-4">
+      API Reference: Slots
+    </h2>
+  
+    <section>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Description</th>
+            <th class="th-sm">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code class="text-nowrap">v-slot:footer</code></td>
+            <td>
+              Allows to insert a save btn in the multi select's footer
+            </td>
+            <td>
+              <code>&lt;mdb-select multiple&gt; &lt;template #footer&gt; ... &lt;/template&gt;&lt;/mdb-select&gt;</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+  <!--/Section: slots-->
