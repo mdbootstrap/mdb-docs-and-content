@@ -640,6 +640,61 @@
 
 <hr class="my-5">
 
+<!--Section: Object as option value-->
+<section id="object-as-value">
+  <h2 class="section-heading">Object as option value</h2>
+
+  <p>From version 8.4.0 it is possible to use object as option value parameters. In order to do that, it is necessary to customize the default option comparison algorithm. You can do that thanks to <code>[compareWith]</code> input. This input takes a function which has two arguments: option1 and option2. The component selects option by the return value of the function.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="row">
+          <div class="col-md-6">
+            <mdb-select
+              [options]="optionsSelect"
+              [compareWith]="compareFn"
+              placeholder="Choose your option"
+              [(ngModel)]="selectedValue"
+            ></mdb-select>
+          </div>
+        </div>        
+
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+        selector: 'basic-material-select-example',
+        templateUrl: 'basic-material-select.html',
+        })
+
+        export class BasicMaterialSelectComponent implements OnInit {
+
+        optionsSelect = [
+          { value: { value: '1', label: 'Option 1' }, label: 'Option 1' },
+          { value: { value: '2', label: 'Option 2' }, label: 'Option 2' },
+          { value: { value: '3', label: 'Option 3' }, label: 'Option 3' },
+        ];
+      
+        selectedValue = { value: '2', label: 'Option 2' };
+      
+        compareFn(o1: any, o2: any): boolean {
+          return o1 && o2 ? o1.value === o2.value : o1 === o2;
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+<!--/Section: Object as option value-->
+
+<hr class="my-5">
+
 <section id="outline">
   <h2 class="section-heading">
     Outline version
