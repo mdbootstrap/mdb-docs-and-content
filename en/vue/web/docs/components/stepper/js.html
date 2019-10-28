@@ -1,175 +1,254 @@
-<link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/js/vue/mdbStepperForm.css">
+<link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/js/vue/simpleV.css">
+<link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/js/vue/simpleVPro.css">
 <script src="https://unpkg.com/vue"></script>
-<script src="<?php echo get_template_directory_uri() ?>/js/vue/mdbStepperForm.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/simpleV.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/simpleH.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/simpleVPro.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/simpleVButtons.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/simpleVLinear.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/simpleVValidation.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/simpleHPro.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/horizontalStepper.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/validationStepper.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/colorfulStepper.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/verticalStepper.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/withinStepper.umd.min.js"></script>
 
 <script>
 
 new Vue({
   components: {
-    mdbStepperForm
+    simpleV
   }
-}).$mount('#stepper-form');
+}).$mount('#simple-v-stepper');
+
+new Vue({
+  components: {
+    simpleH
+  }
+}).$mount('#simple-h-stepper');
+
+new Vue({
+  components: {
+    simpleVPro
+  }
+}).$mount('#simple-v-pro-stepper');
+
+new Vue({
+  components: {
+    simpleVButtons
+  }
+}).$mount('#simple-v-buttons');
+
+new Vue({
+  components: {
+    simpleVLinear
+  }
+}).$mount('#simple-v-linear');
+
+new Vue({
+  components: {
+    simpleVValidation
+  }
+}).$mount('#simple-v-validation');
+
+new Vue({
+  components: {
+    simpleHPro
+  }
+}).$mount('#simple-h-pro-stepper');
+
+new Vue({
+  components: {
+    horizontalStepper
+  }
+}).$mount('#horizontal-stepper');
+
+new Vue({
+  components: {
+    validationStepper
+  }
+}).$mount('#validation-stepper');
+
+new Vue({
+  components: {
+    colorfulStepper
+  }
+}).$mount('#colorful-stepper');
+
+new Vue({
+  components: {
+    verticalStepper
+  }
+}).$mount('#vertical-stepper');
+
+new Vue({
+  components: {
+    withinStepper
+  }
+}).$mount('#within-stepper');
+
 
 </script>
 
 <script>
-    $(document).ready(function () {
-      var navListItems = $('div.setup-panel div a'),
-              allWells = $('.setup-content'),
-              allNextBtn = $('.nextBtn'),
-              allPrevBtn = $('.prevBtn');
+//     $(document).ready(function () {
+//       var navListItems = $('div.setup-panel div a'),
+//               allWells = $('.setup-content'),
+//               allNextBtn = $('.nextBtn'),
+//               allPrevBtn = $('.prevBtn');
 
-      allWells.hide();
+//       allWells.hide();
 
-      navListItems.click(function (e) {
-          e.preventDefault();
-          var $target = $($(this).attr('href')),
-                  $item = $(this);
+//       navListItems.click(function (e) {
+//           e.preventDefault();
+//           var $target = $($(this).attr('href')),
+//                   $item = $(this);
 
-          if (!$item.hasClass('disabled')) {
-              navListItems.removeClass('btn-indigo').addClass('btn-default');
-              $item.addClass('btn-indigo');
-              allWells.hide();
-              $target.show();
-              $target.find('input:eq(0)').focus();
-          }
-      });
+//           if (!$item.hasClass('disabled')) {
+//               navListItems.removeClass('btn-indigo').addClass('btn-default');
+//               $item.addClass('btn-indigo');
+//               allWells.hide();
+//               $target.show();
+//               $target.find('input:eq(0)').focus();
+//           }
+//       });
 
-      allPrevBtn.click(function(){
-          var curStep = $(this).closest(".setup-content"),
-              curStepBtn = curStep.attr("id"),
-              prevStepSteps = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+//       allPrevBtn.click(function(){
+//           var curStep = $(this).closest(".setup-content"),
+//               curStepBtn = curStep.attr("id"),
+//               prevStepSteps = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
 
-              prevStepSteps.removeAttr('disabled').trigger('click');
-      });
+//               prevStepSteps.removeAttr('disabled').trigger('click');
+//       });
 
-      allNextBtn.click(function(){
-          var curStep = $(this).closest(".setup-content"),
-              curStepBtn = curStep.attr("id"),
-              nextStepSteps = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-              curInputs = curStep.find("input[type='text'],input[type='url']"),
-              isValid = true;
+//       allNextBtn.click(function(){
+//           var curStep = $(this).closest(".setup-content"),
+//               curStepBtn = curStep.attr("id"),
+//               nextStepSteps = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+//               curInputs = curStep.find("input[type='text'],input[type='url']"),
+//               isValid = true;
 
-          $(".form-group").removeClass("has-error");
-          for(var i=0; i<curInputs.length; i++){
-              if (!curInputs[i].validity.valid){
-                  isValid = false;
-                  $(curInputs[i]).closest(".form-group").addClass("has-error");
-              }
-          }
+//           $(".form-group").removeClass("has-error");
+//           for(var i=0; i<curInputs.length; i++){
+//               if (!curInputs[i].validity.valid){
+//                   isValid = false;
+//                   $(curInputs[i]).closest(".form-group").addClass("has-error");
+//               }
+//           }
 
-          if (isValid)
-              nextStepSteps.removeAttr('disabled').trigger('click');
-      });
+//           if (isValid)
+//               nextStepSteps.removeAttr('disabled').trigger('click');
+//       });
 
-      $('div.setup-panel div a.btn-indigo').trigger('click');
-    });
-</script>
-<script>
-    $(document).ready(function () {
-      var navListItems = $('div.setup-panel-3 div a'),
-              allWells = $('.setup-content-3'),
-              allNextBtn = $('.nextBtn-3'),
-              allPrevBtn = $('.prevBtn-3');
+//       $('div.setup-panel div a.btn-indigo').trigger('click');
+//     });
+// </script>
+// <script>
+//     $(document).ready(function () {
+//       var navListItems = $('div.setup-panel-3 div a'),
+//               allWells = $('.setup-content-3'),
+//               allNextBtn = $('.nextBtn-3'),
+//               allPrevBtn = $('.prevBtn-3');
 
-      allWells.hide();
+//       allWells.hide();
 
-      navListItems.click(function (e) {
-          e.preventDefault();
-          var $target = $($(this).attr('href')),
-                  $item = $(this);
+//       navListItems.click(function (e) {
+//           e.preventDefault();
+//           var $target = $($(this).attr('href')),
+//                   $item = $(this);
 
-          if (!$item.hasClass('disabled')) {
-              navListItems.removeClass('btn-info').addClass('btn-pink');
-              $item.addClass('btn-info');
-              allWells.hide();
-              $target.show();
-              $target.find('input:eq(0)').focus();
-          }
-      });
+//           if (!$item.hasClass('disabled')) {
+//               navListItems.removeClass('btn-info').addClass('btn-pink');
+//               $item.addClass('btn-info');
+//               allWells.hide();
+//               $target.show();
+//               $target.find('input:eq(0)').focus();
+//           }
+//       });
 
-      allPrevBtn.click(function(){
-          var curStep = $(this).closest(".setup-content-3"),
-              curStepBtn = curStep.attr("id"),
-              prevStepSteps = $('div.setup-panel-3 div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+//       allPrevBtn.click(function(){
+//           var curStep = $(this).closest(".setup-content-3"),
+//               curStepBtn = curStep.attr("id"),
+//               prevStepSteps = $('div.setup-panel-3 div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
 
-              prevStepSteps.removeAttr('disabled').trigger('click');
-      });
+//               prevStepSteps.removeAttr('disabled').trigger('click');
+//       });
 
-      allNextBtn.click(function(){
-          var curStep = $(this).closest(".setup-content-3"),
-              curStepBtn = curStep.attr("id"),
-              nextStepSteps = $('div.setup-panel-3 div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-              curInputs = curStep.find("input[type='text'],input[type='url']"),
-              isValid = true;
+//       allNextBtn.click(function(){
+//           var curStep = $(this).closest(".setup-content-3"),
+//               curStepBtn = curStep.attr("id"),
+//               nextStepSteps = $('div.setup-panel-3 div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+//               curInputs = curStep.find("input[type='text'],input[type='url']"),
+//               isValid = true;
 
-          $(".form-group").removeClass("has-error");
-          for(var i=0; i<curInputs.length; i++){
-              if (!curInputs[i].validity.valid){
-                  isValid = false;
-                  $(curInputs[i]).closest(".form-group").addClass("has-error");
-              }
-          }
+//           $(".form-group").removeClass("has-error");
+//           for(var i=0; i<curInputs.length; i++){
+//               if (!curInputs[i].validity.valid){
+//                   isValid = false;
+//                   $(curInputs[i]).closest(".form-group").addClass("has-error");
+//               }
+//           }
 
-          if (isValid)
-              nextStepSteps.removeAttr('disabled').trigger('click');
-      });
+//           if (isValid)
+//               nextStepSteps.removeAttr('disabled').trigger('click');
+//       });
 
-      $('div.setup-panel-3 div a.btn-info').trigger('click');
-    });
-</script>
-<script>
-    $(document).ready(function () {
-      var navListItems = $('div.setup-panel-2 div a'),
-              allWells = $('.setup-content-2'),
-              allNextBtn = $('.nextBtn-2'),
-              allPrevBtn = $('.prevBtn-2');
+//       $('div.setup-panel-3 div a.btn-info').trigger('click');
+//     });
+// </script>
+// <script>
+//     $(document).ready(function () {
+//       var navListItems = $('div.setup-panel-2 div a'),
+//               allWells = $('.setup-content-2'),
+//               allNextBtn = $('.nextBtn-2'),
+//               allPrevBtn = $('.prevBtn-2');
 
-      allWells.hide();
+//       allWells.hide();
 
-      navListItems.click(function (e) {
-          e.preventDefault();
-          var $target = $($(this).attr('href')),
-                  $item = $(this);
+//       navListItems.click(function (e) {
+//           e.preventDefault();
+//           var $target = $($(this).attr('href')),
+//                   $item = $(this);
 
-          if (!$item.hasClass('disabled')) {
-              navListItems.removeClass('btn-amber').addClass('btn-blue-grey');
-              $item.addClass('btn-amber');
-              allWells.hide();
-              $target.show();
-              $target.find('input:eq(0)').focus();
-          }
-      });
+//           if (!$item.hasClass('disabled')) {
+//               navListItems.removeClass('btn-amber').addClass('btn-blue-grey');
+//               $item.addClass('btn-amber');
+//               allWells.hide();
+//               $target.show();
+//               $target.find('input:eq(0)').focus();
+//           }
+//       });
 
-      allPrevBtn.click(function(){
-          var curStep = $(this).closest(".setup-content-2"),
-              curStepBtn = curStep.attr("id"),
-              prevStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+//       allPrevBtn.click(function(){
+//           var curStep = $(this).closest(".setup-content-2"),
+//               curStepBtn = curStep.attr("id"),
+//               prevStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
 
-              prevStepSteps.removeAttr('disabled').trigger('click');
-      });
+//               prevStepSteps.removeAttr('disabled').trigger('click');
+//       });
 
-      allNextBtn.click(function(){
-          var curStep = $(this).closest(".setup-content-2"),
-              curStepBtn = curStep.attr("id"),
-              nextStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-              curInputs = curStep.find("input[type='text'],input[type='url']"),
-              isValid = true;
+//       allNextBtn.click(function(){
+//           var curStep = $(this).closest(".setup-content-2"),
+//               curStepBtn = curStep.attr("id"),
+//               nextStepSteps = $('div.setup-panel-2 div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+//               curInputs = curStep.find("input[type='text'],input[type='url']"),
+//               isValid = true;
 
-          $(".form-group").removeClass("has-error");
-          for(var i=0; i<curInputs.length; i++){
-              if (!curInputs[i].validity.valid){
-                  isValid = false;
-                  $(curInputs[i]).closest(".form-group").addClass("has-error");
-              }
-          }
+//           $(".form-group").removeClass("has-error");
+//           for(var i=0; i<curInputs.length; i++){
+//               if (!curInputs[i].validity.valid){
+//                   isValid = false;
+//                   $(curInputs[i]).closest(".form-group").addClass("has-error");
+//               }
+//           }
 
-          if (isValid)
-              nextStepSteps.removeAttr('disabled').trigger('click');
-      });
+//           if (isValid)
+//               nextStepSteps.removeAttr('disabled').trigger('click');
+//       });
 
-      $('div.setup-panel-2 div a.btn-amber').trigger('click');
-    });
+//       $('div.setup-panel-2 div a.btn-amber').trigger('click');
+//     });
 </script>
 
 <!-- Structured data: Breadcrumbs -->
