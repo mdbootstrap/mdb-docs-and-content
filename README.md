@@ -7,7 +7,7 @@ Next level defines technology (jQuery, Angular, React and Vue). 3rd level define
 
 4th defines documenation type (documentation/tutorial etc.), currently only docs are available at GitHub. In a future we will move also other content.
 
-Finally 5th and 6th level defines categories and specific components. Please note that the folder strcuture corresponds with URL i.e.:
+Finally 5th and 6th level defines categories and specific components. Please note that the folder structure corresponds with URL i.e.:
 
 https://mdbootstrap.com/docs/jquery/css/text-color/
 
