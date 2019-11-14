@@ -205,6 +205,110 @@
 </section>
 <!--/Section: -->
 
+
+<!--Section: -->
+<section id="advanced-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Search Data By Multiple Fields
+  </h2>
+  <p class="description">Using the 
+    <code>searchLocalDataByMultipleFields(searchText: string, keys: string[])</code> you can filter table across multiple columns simultaneously</p>
+  <a href="https://ng-demo.mdbootstrap.com/tables/search/" target="_blank" class="btn btn-primary waves-effect waves-light" role="button">
+    Live example
+    <i class="far fa-eye ml-2"></i>
+  </a>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 mx-auto">
+              <div class="md-form">
+                <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput>
+                <label for="search">Search</label>
+              </div>
+            </div>
+          </div>
+          <table mdbTable class="z-depth-1">
+            <thead>
+            <tr>
+              <th *ngFor="let head of headElements; let i = index" scope="col">{{head}}
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let el of elements; let i = index">
+              <th scope="row">{{el.id}}</th>
+              <td class="red-text">{{el.first}}</td>
+              <td>{{el.last}}</td>
+              <td>{{el.handle}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </code>
+      <code data-lang="js" data-name="TS">
+        import {Component, HostListener, ViewChild} from '@angular/core';
+        import {MdbTableDirective} from "PATH-TO-MDB-ANGULAR";
+
+        @Component({
+          selector: 'search-table',
+          templateUrl: './search-table.component.html',
+          styleUrls: ['./search-table.component.scss']
+        })
+        export class SearchTableComponent {
+          @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
+          elements: any = [];
+          headElements = ['ID', 'First', 'Last', 'Handle'];
+
+          searchText: string = '';
+          previous: string;
+
+          constructor() { }
+
+          @HostListener('input') oninput() {
+            this.searchItems();
+          }
+
+          ngOnInit() {
+            for (let i = 1; i <= 10; i++) {
+              this.elements.push({ id: i.toString(), 
+              first: 'Wpis' + (Math.floor(Math.random() * i * 10)).toString(), 
+              last: 'Last' + (Math.floor(Math.random() * i * 10)).toString(), 
+              handle: 'Handle' + (Math.floor(Math.random() * i * 10)).toString() });
+            }
+
+            this.mdbTable.setDataSource(this.elements);
+            this.previous = this.mdbTable.getDataSource();
+          }
+
+          searchItems() {
+            const prev = this.mdbTable.getDataSource();
+
+            if (!this.searchText) {
+              this.mdbTable.setDataSource(this.previous);
+              this.elements = this.mdbTable.getDataSource();
+            }
+
+            if (this.searchText) {
+              this.elements = this.mdbTable.searchLocalDataByMultipleFields(this.searchText, ['first', 'last']);
+              this.mdbTable.setDataSource(prev);
+            }
+          }
+        }
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
 <hr class="my-5">
 
 <!--Section: -->
