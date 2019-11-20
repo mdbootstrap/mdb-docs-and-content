@@ -37,6 +37,16 @@
 
   <p>MDB provides you support for most common touch gestures.</p>
 
+  <p class="note note-danger">To start using touch events, you need to add the following import statement in your <code>main.js</code> file:</p>
+
+
+  <mdbsnippet>
+    <code data-lang="js" data-name="main.js">
+      import Vue2TouchEvents from 'vue2-touch-events';
+      Vue.use(Vue2TouchEvents);
+    </code>
+  </mdbsnippet>
+
   <!--Section: Live preview-->
   <section>
 
@@ -93,23 +103,49 @@
       <code data-lang="html" data-name="template">
         <template>
           <mdb-container>
-            <mdb-carousel :interval="false" touch showIndicators>
-              <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" mask="black-light" alt="First slide" />
-              <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" mask="black-strong" alt="Second slide" />
-              <mdb-carousel-item img src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" mask="black-slight" alt="Third slide" />
-            </mdb-carousel>
+            <mdb-carousel :items="basicCarousel" indicators touch></mdb-carousel>
           </mdb-container>
         </template>
       </code>
       <code data-lang="html" data-name="script">
         <script>
-          import { mdbCarousel, mdbCarouselItem, mdbContainer } from 'mdbvue';
+          import { mdbCarousel, mdbContainer } from 'mdbvue';
           export default {
             name: 'MobilePage',
             components: {
               mdbCarousel,
-              mdbCarouselItem,
               mdbContainer
+            },
+            data() {
+              return {
+                basicCarousel: [
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg",
+                    mask: "black-light",
+                    alt: "First Slide",
+                    caption: {
+                      title: "First slide"
+                    }
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg",
+                    mask: "black-strong",
+                    caption: {
+                      title: "Second slide"
+                    }
+                  },
+                  {
+                    img: true,
+                    src: "https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg",
+                    mask: "black-slight",
+                    caption: {
+                      title: "Third slide"
+                    }
+                  }
+                ],
+              }
             }
           }
         </script>
