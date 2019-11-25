@@ -14,8 +14,6 @@
   <div class="description">
     <p>Bootstrap gallery is a great UI element perfect for introducing vistors to a number of images, videos or other media files.</p>
 
-     <p> Easy to construct in a form of a lightbox gallery, multi item carousel or slides with caption.</p>
-
      <p> Examples of Bootstrap gallery use:</p>
 
     <p>  Most popular paintings on a museum website
@@ -30,22 +28,19 @@
 <hr class="mt-4 mb-5">
 
 <!--Section: -->
-<section id="example">
+<section id="basic">
 
   <!--Title-->
   <h2 class="section-heading mb-4">
     Basic Example
   </h2>
 
-  <!-- Description -->
-  <p>A few predefined events allowing you to see how the plugin looks like.</p>
-
   <!--Section: Live preview-->
   <section>
 
     <div class="row">
       <div class="col-md-12">
-        <div id="root"></div>
+        <div id="basic"></div>
       </div>
     </div>
 
@@ -58,69 +53,810 @@
     <mdbsnippet data-editor="false">
       <code data-lang="JavaScript" data-name="JSX">
 
-      import React, { Component } from 'react';
-      import MDBFullCalendar from 'mdb-react-calendar';
-      import { addHours, addDays, addWeeks, startOfWeek } from 'date-fns';
+      import React from 'react';
+      import { MDBGallery, MDBGalleryList} from 'mdbreact';
 
-      const today = new Date();
-
-      class App extends Component {
-        state = {
-          tasks: [
-            {
-              id: 'task1',
-              title: 'Frankfurt delegation',
-              startDate: addHours(addDays(today, 0), 8),
-              endDate: addHours(addDays(today, 2), 20),
-              color: 'danger'
-            },
-            {
-              id: 'task2',
-              title: 'Front end conference',
-              startDate: addWeeks(today, 1),
-              endDate: addDays(addWeeks(today, 1), 2),
-              color: 'success'
-            },
-            {
-              id: 'task3',
-              title: 'Feedback',
-              startDate: addHours(addDays(startOfWeek(addWeeks(today, 0)), 3), 10),
-              endDate: addHours(addDays(startOfWeek(addWeeks(today, 0)), 3), 14),
-              color: 'primary'
-            },
-            {
-              id: 'task4',
-              title: 'Daily coding challenge',
-              startDate: addDays(startOfWeek(addWeeks(today, 0)), 1),
-              endDate: addDays(startOfWeek(addWeeks(today, 0)), 8),
-              color: 'warning'
-            },
-            {
-              id: 'task5',
-              title: 'Meeting',
-              startDate: addHours(addDays(startOfWeek(addWeeks(today, 1)), 1), 10),
-              endDate: addHours(addDays(startOfWeek(addWeeks(today, 1)), 1), 14),
-              color: 'info'
-            },
-            {
-              id: 'task6',
-              title: 'Vocation',
-              startDate: addDays(startOfWeek(addWeeks(today, 2)), 1),
-              endDate: addDays(startOfWeek(addWeeks(today, 2)), 6),
-              color: 'secondary'
-            }
-          ]
-        }
-
-        render() {
-          return (
-            <MDBFullCalendar tasks={this.state.tasks} />
-          )
-        }
+      function Gallery() {
+        const dataImg = [
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(72).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(71).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(74).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(75).jpg',
+            cols: 2,
+            title: 'image',
+          },
+      
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(78).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(79).jpg',
+            cols: 1,
+            title: 'image',
+          }
+        ];
+      
+        return (
+          <MDBGallery cols={4}>
+            {dataImg.map(({ cols, img, title }, i) => {
+              return (
+                <MDBGalleryList key={i} cols={cols || 1}>
+                  <img src={img} alt={title} />
+                </MDBGalleryList>
+              );
+            })}
+          </MDBGallery>
+        );
       }
+      
+      export default Gallery;
+
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="shadows">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Rounded with shadows
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="rounded-with-shadows"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+
+      import React from 'react';
+      import { MDBGallery, MDBGalleryList} from 'mdbreact';
+
+      function Gallery() {
+        const dataImg = [
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(72).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(71).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(74).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(75).jpg',
+            cols: 2,
+            title: 'image',
+          },
+      
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(78).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(79).jpg',
+            cols: 1,
+            title: 'image',
+          }
+        ];
+      
+        return (
+          <MDBGallery cols={4}>
+            {dataImg.map(({ cols, img, title }, i) => {
+              return (
+                <MDBGalleryList
+                  key={i}
+                  cols={cols || 1}
+                  titleClasses='rounded'
+                  styles={{ boxShadow: '0 0 3px rgba(0,0,0, .3)' }}
+                >
+                  <img src={img} alt={title} />
+                </MDBGalleryList>
+              );
+            })}
+          </MDBGallery>
+        );
+      }
+      
+      export default Gallery;
+
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
 
 
-      export default App;
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="perfect">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    With perfect scrollbar styles
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="perfect-scrollbar"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+
+      import React from 'react';
+      import { MDBGallery, MDBGalleryList} from 'mdbreact';
+
+      function Gallery() {
+        const dataImg = [
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(72).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(71).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(74).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(75).jpg',
+            cols: 2,
+            title: 'image',
+          },
+      
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(78).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(79).jpg',
+            cols: 1,
+            title: 'image',
+          }
+        ];
+      
+        return (
+        <MDBGallery
+          className='scrollbar'
+          cols={4}
+          style={{ width: '500px', height: '400px' }}
+          >
+          {dataImg.map(({ cols, img, title }, i) => {
+            return (
+              <MDBGalleryList
+                key={i}
+                cols={cols || 1}
+                titleClasses='rounded'
+                styles={{ boxShadow: '0 0 3px rgba(0,0,0, .3)' }}
+              >
+                <img src={img} alt={title} />
+              </MDBGalleryList>
+            );
+          })}
+        </MDBGallery>
+        );
+      }
+      
+      export default Gallery;
+
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="spacing">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    With different spacing
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="different-spacing"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+
+      import React from 'react';
+      import { MDBGallery, MDBGalleryList} from 'mdbreact';
+
+      function Gallery() {
+        const dataImg = [
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(72).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(71).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(74).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(75).jpg',
+            cols: 2,
+            title: 'image',
+          },
+      
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(78).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(79).jpg',
+            cols: 1,
+            title: 'image',
+          }
+        ];
+      
+        return (
+          <>
+          <MDBGallery cols={4} spacing={0}>
+            {dataImg.map(({ cols, img, title }, i) => {
+              return (
+                <MDBGalleryList key={i} cols={cols || 1}>
+                  <img src={img} alt={title} />
+                </MDBGalleryList>
+              );
+            })}
+          </MDBGallery>
+          <hr />
+          <MDBGallery cols={4} spacing={30}>
+            {dataImg.map(({ cols, img, title }, i) => {
+              return (
+                <MDBGalleryList key={i} cols={cols || 1}>
+                  <img src={img} alt={title} />
+                </MDBGalleryList>
+              );
+            })}
+          </MDBGallery>
+        </>
+        );
+      }
+      
+      export default Gallery;
+
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="sizes">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    With different sizes
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="different-size"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+
+      import React from 'react';
+      import { MDBGallery, MDBGalleryList} from 'mdbreact';
+
+      function Gallery() {
+        const dataImg = [
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(72).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(71).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(74).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(75).jpg',
+            cols: 2,
+            title: 'image',
+          },
+      
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(78).jpg',
+            cols: 1,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg',
+            cols: 2,
+            title: 'image',
+          },
+          {
+            img:
+              'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(79).jpg',
+            cols: 1,
+            title: 'image',
+          }
+        ];
+      
+        return (
+          <>
+          <MDBGallery cols={4} spacing={0}>
+            {dataImg.map(({ cols, img, title }, i) => {
+              return (
+                <MDBGalleryList key={i} cols={cols || 1}>
+                  <img src={img} alt={title} />
+                </MDBGalleryList>
+              );
+            })}
+          </MDBGallery>
+          <hr />
+          <MDBGallery cols={4} spacing={30}>
+            {dataImg.map(({ cols, img, title }, i) => {
+              return (
+                <MDBGalleryList key={i} cols={cols || 1}>
+                  <img src={img} alt={title} />
+                </MDBGalleryList>
+              );
+            })}
+          </MDBGallery>
+        </>
+        );
+      }
+      
+      export default Gallery;
+
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="with-masks">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    With mask
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="mask"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+
+      import React from 'react';
+      import { MDBGallery, MDBGalleryList} from 'mdbreact';
+
+      function Gallery() {
+        const dataImg = [
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg',
+          cols: 1,
+          title: 'image',
+          pattern: 1
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(72).jpg',
+          cols: 2,
+          title: 'image',
+          pattern: 2
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(71).jpg',
+          cols: 1,
+          title: 'image',
+          pattern: 3
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(74).jpg',
+          cols: 2,
+          title: 'image',
+          pattern: 4
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(75).jpg',
+          cols: 2,
+          title: 'image',
+          pattern: 5
+        },
+    
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(78).jpg',
+          cols: 1,
+          title: 'image',
+          pattern: 6
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg',
+          cols: 2,
+          title: 'image',
+          pattern: 7
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(79).jpg',
+          cols: 1,
+          title: 'image',
+          pattern: 8
+        }
+      ];
+    
+      
+        return (
+          <MDBGallery cols={4}>
+            {dataImg.map(({ cols, img, title, pattern }, i) => {
+              return (
+                <MDBGalleryList key={i} cols={cols || 1} rows={2} titleClasses='view'>
+                  <img src={img} alt={title} />
+                  <MDBMask pattern={pattern} className='flex-center'>
+                    <MDBBox
+                      tag='p'
+                      color='white'
+                      style={{
+                        position: 'absolute',
+                        top: '50%'
+                      }}
+                    >
+                      With masks pattern {i + 1}
+                    </MDBBox>
+                  </MDBMask>
+                </MDBGalleryList>
+              );
+            })}
+          </MDBGallery>
+        );
+      }
+      
+      export default Gallery;
+
+    </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: examples-->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="with-hover">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    With hover
+  </h2>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="hover"></div>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet data-editor="false">
+      <code data-lang="JavaScript" data-name="JSX">
+
+      import React from 'react';
+      import { MDBGallery, MDBGalleryList} from 'mdbreact';
+
+      function Gallery() {
+        const dataImg = [
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg',
+          cols: 1,
+          title: 'image',
+          overlay: 'blue-strong'
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(72).jpg',
+          cols: 2,
+          title: 'image',
+          overlay: 'blue-light'
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(71).jpg',
+          cols: 1,
+          title: 'image',
+          overlay: 'blue-slight'
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(74).jpg',
+          cols: 2,
+          title: 'image',
+          overlay: 'lime-strong'
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(75).jpg',
+          cols: 2,
+          title: 'image',
+          overlay: 'lime-light'
+        },
+    
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(78).jpg',
+          cols: 1,
+          title: 'image',
+          overlay: 'lime-slight'
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg',
+          cols: 2,
+          title: 'image',
+          overlay: 'teal-strong'
+        },
+        {
+          img:
+            'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(79).jpg',
+          cols: 1,
+          title: 'image',
+          overlay: 'teal-light'
+        }
+      ];
+    
+      
+        return (
+          <MDBGallery cols={4}>
+            {dataImg.map(({ cols, img, title, overlay }, i) => {
+              return (
+                <MDBGalleryList
+                  key={i}
+                  cols={cols || 1}
+                  rows={2}
+                  titleClasses='view overlay'
+                >
+                  <img src={img} alt={title} />
+                  <MDBMask className='flex-center' overlay={overlay}>
+                    <MDBBox
+                      tag='p'
+                      color='white'
+                      style={{
+                        position: 'absolute',
+                        top: '50%'
+                      }}
+                    >
+                      With {overlay}
+                    </MDBBox>
+                  </MDBMask>
+                </MDBGalleryList>
+              );
+            })}
+          </MDBGallery>
+        );
+      }
+      
+      export default Gallery;
 
     </code>
     </mdbsnippet>
