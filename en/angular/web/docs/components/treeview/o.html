@@ -1,0 +1,233 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+  <!--Title-->
+  <h2 class="primary-heading">Angular Bootstrap Treeview</h2>
+  <h1 class="secondary-heading mb-4">Angular Treeview - Bootstrap 4 & Material Design</h1>
+
+
+  <!--Description-->
+  <p>Angular treeview is used to show hierarchical information which starts from the root item and proceed to its
+    children and their respective children. Each item besides the root has a parent and can have children.</p>
+
+  <p>The parent is the node which is higher in the hierarchy and the child the one that is lower. Siblings are items
+    which have one and the same parent. Items can be expanded and collapsed.</p>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-4">
+
+<!--Section: -->
+<section id="basic-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Basic example
+  </h2>
+
+  <a href="https://ng-demo.mdbootstrap.com/components/treeview/" target="_blank"
+    class="btn btn-primary waves-effect waves-light" role="button">
+    Live example
+    <i class="far fa-eye ml-2"></i>
+  </a>
+
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <mdb-tree
+              (checked)="onCheck($event)"
+              (checkedKeys)="onCheckedKeys($event)"
+              (nodesChanged)="onNodesChanged($event)"
+              textField="name"
+              childrenField="children"
+              [nodes]="data"
+            ></mdb-tree>
+            </div>
+          </div>
+        </div>
+
+      </code>
+
+      <code data-lang="TS" data-name="TypeScript">
+          import { Component, OnInit, ViewChild } from '@angular/core';
+          import { MdbTreeComponent } from 'ng-uikit-pro-standard';
+        
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+            styleUrls: ['./app.component.scss'],
+          })
+            data = [
+              {
+                name: 'Pictures',
+                children: [
+                  {
+                    name: 'Vacation',
+                    children: [
+                      {
+                        name: 'Italy',
+                        children: [
+                          { name: 'Image 01' },
+                          { name: 'Image 02' },
+                          { name: 'Image 03' },
+                          { name: 'Image 04' },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    name: 'Video 01',
+                  },
+                  {
+                    name: 'Video 02',
+                  },
+                  {
+                    name: 'Video 03',
+                  },
+                ],
+              },
+              {
+              name: 'Music',
+              children: [
+                { name: 'song01.mp3' },
+                { name: 'song02.mp3' },
+                { name: 'song03.mp3' },
+                { name: 'song04.mp3' },
+              ],
+            },
+          ];
+
+        onCheck(e: any) {
+          console.log('%c Returned checked object ', 'background: #222; color:  #ff8080');
+          console.log(e);
+          console.log('%c ************************************ ', 'background: #222; color: #bada05');
+        }
+        onCheckedKeys(e: any) {
+          console.log('%c Returned array with checked checkboxes ', 'background: #222; color: #bada55');
+          console.log(e);
+          console.log('%c ************************************ ', 'background: #222; color: #bada05');
+        }
+        onNodesChanged(e: any) {
+          console.log('%c Returned json with marked checkboxes ', 'background: #222; color: #99ccff');
+          console.table(e);
+          console.log('%c ************************************ ', 'background: #222; color: #bada05');
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<hr class="my-5">
+<section id="advanced-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Advanced example (with checkboxes)
+  </h2>
+
+  <a href="https://ng-demo.mdbootstrap.com/components/treeview/" target="_blank"
+    class="btn btn-primary waves-effect waves-light" role="button">
+    Live example
+    <i class="far fa-eye ml-2"></i>
+  </a>
+
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <mdb-tree
+                (checked)="onCheck($event)"
+                (checkedKeys)="onCheckedKeys($event)"
+                (nodesChanged)="onNodesChanged($event)"
+                [expandAll]="expanded"
+                [checkboxes]="true"
+                textField="name"
+                childrenField="children"
+                checkboxesField="checked"
+                [toggleOnTitleClick]="true"
+                [nodes]="data"
+              ></mdb-tree>
+              </div>
+            </div>
+          </div>
+  
+        </code>
+
+      <code data-lang="TS" data-name="TypeScript">
+            import { Component, OnInit, ViewChild } from '@angular/core';
+            import { MdbTreeComponent } from 'ng-uikit-pro-standard';
+          
+            @Component({
+              selector: 'app-root',
+              templateUrl: './app.component.html',
+              styleUrls: ['./app.component.scss'],
+            })
+            this.data = [
+              {
+                name: 'Root1',
+                checked: false,
+                children: [
+                  {
+                    name: 'FolderV1.0',
+                    cheched: false,
+                    children: [
+                      {
+                        name: 'FolderV2.0',
+                        checked: true,
+                        children: [],
+                      },
+                    ],
+                  },
+                  {
+                    name: 'FolderV2.0 (empty)',
+                    checked: false,
+                  },
+                ],
+              },
+              {
+                name: 'FolderV2.0 (empty)',
+              },
+              {
+                name: 'FolderV3.0 (empty)',
+                checked: false,
+              },
+              {
+                name: 'Root2',
+                checked: true,
+              },
+            ];
+  
+          onCheck(e: any) {
+            console.log('%c Returned checked object ', 'background: #222; color:  #ff8080');
+            console.log(e);
+            console.log('%c ************************************ ', 'background: #222; color: #bada05');
+          }
+          onCheckedKeys(e: any) {
+            console.log('%c Returned array with checked checkboxes ', 'background: #222; color: #bada55');
+            console.log(e);
+            console.log('%c ************************************ ', 'background: #222; color: #bada05');
+          }
+          onNodesChanged(e: any) {
+            console.log('%c Returned json with marked checkboxes ', 'background: #222; color: #99ccff');
+            console.table(e);
+            console.log('%c ************************************ ', 'background: #222; color: #bada05');
+          }
+        </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
