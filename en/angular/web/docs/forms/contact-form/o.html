@@ -321,43 +321,116 @@
 
                 <mdb-card-body class="px-lg-5 pt-0">
 
-                  <form class="text-center" style="color: #757575;" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                <form
+                  class="text-center"
+                  style="color: #757575;"
+                  [formGroup]="contactForm"
+                  (ngSubmit)="onSubmit()"
+                >
+                  <div class="md-form mt-3">
+                    <input
+                      type="text"
+                      formControlName="contactFormName"
+                      id="materialContactFormName"
+                      class="form-control"
+                      mdbInput
+                      mdbValidate
+                    />
+                    <label for="materialContactFormName">Name</label>
+                    <mdb-error *ngIf="name.invalid && (name.dirty || name.touched)"
+                      >Input invalid</mdb-error
+                    >
+                    <mdb-success *ngIf="name.valid && (name.dirty || name.touched)"
+                      >Input valid</mdb-success
+                    >
+                  </div>
 
-                    <div class="md-form mt-3">
-                      <input type="text" formControlName="contactFormName" id="materialContactFormName" class="form-control"
-                        mdbInput>
-                      <label for="materialContactFormName">Name</label>
-                    </div>
+                  <div class="md-form">
+                    <input
+                      type="email"
+                      formControlName="contactFormEmail"
+                      id="materialContactFormEmail"
+                      class="form-control"
+                      mdbInput
+                      mdbValidate
+                    />
+                    <label for="materialContactFormEmail">E-mail</label>
+                    <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)"
+                      >Input invalid</mdb-error
+                    >
+                    <mdb-success *ngIf="email.valid && (email.dirty || email.touched)"
+                      >Input valid</mdb-success
+                    >
+                  </div>
 
-                    <div class="md-form">
-                      <input type="email" formControlName="contactFormEmail" id="materialContactFormEmail" class="form-control"
-                        mdbInput>
-                      <label for="materialContactFormEmail">E-mail</label>
-                    </div>
-
-                    <span>Subject</span>
-                    <div class="row">
-                      <div class="col-md-12 mx-auto">
-                        <mdb-select formControlName="contactFormSubjects" [options]="optionsSelect" placeholder="Choose your option"></mdb-select>
+                  <span>Subject</span>
+                  <div class="row">
+                    <div class="col-md-12 mx-auto">
+                      <div class="md-form">
+                        <mdb-select
+                          formControlName="contactFormSubjects"
+                          [options]="optionsSelect"
+                          placeholder="Choose your option"
+                          mdbValidate
+                        ></mdb-select>
+                        <mdb-error *ngIf="subjects.invalid && (subjects.dirty || subjects.touched)"
+                          >Input invalid</mdb-error
+                        >
+                        <mdb-success *ngIf="subjects.valid && (subjects.dirty || subjects.touched)"
+                          >Input valid</mdb-success
+                        >
                       </div>
                     </div>
+                  </div>
 
-                    <div class="md-form">
-                      <textarea type="text" formControlName="contactFormMessage" id="materialContactFormMessage" class="form-control md-textarea"
-                        mdbInput></textarea>
-                      <label for="materialContactFormMessage">Message</label>
-                    </div>
+                  <div class="md-form">
+                    <textarea
+                      type="text"
+                      formControlName="contactFormMessage"
+                      id="materialContactFormMessage"
+                      class="form-control md-textarea"
+                      mdbInput
+                      mdbValidate
+                    ></textarea>
+                    <label for="materialContactFormMessage">Message</label>
+                    <mdb-error *ngIf="message.invalid && (message.dirty || message.touched)"
+                      >Input invalid</mdb-error
+                    >
+                    <mdb-success *ngIf="message.valid && (message.dirty || message.touched)"
+                      >Input valid</mdb-success
+                    >
+                  </div>
 
-                    <div class="row">
-                      <div class="col-md-6 mx-auto d-flex justify-content-center">
-                        <mdb-checkbox formControlName="contactFormCopy">Send me a copy of this message</mdb-checkbox>
+                  <div class="row">
+                    <div class="col-md-6 mx-auto d-flex justify-content-center">
+                      <div class="md-form">
+                        <mdb-checkbox mdbValidate formControlName="contactFormCopy"
+                          >Send me a copy of this message</mdb-checkbox
+                        >
+                        <mdb-error *ngIf="copy.invalid && (copy.dirty || copy.touched)"
+                          >Input invalid</mdb-error
+                        >
+                        <mdb-success *ngIf="copy.valid && (copy.dirty || copy.touched)"
+                          >Input valid</mdb-success
+                        >
                       </div>
                     </div>
+                  </div>
 
-                    <button mdbBtn color="info" outline="true" rounded="true" block="true" class="z-depth-0 my-4 waves-effect"
-                      mdbWavesEffect type="submit" [disabled]="disabledSubmitButton">Send</button>
-
-                  </form>
+                  <button
+                    mdbBtn
+                    color="info"
+                    outline="true"
+                    rounded="true"
+                    block="true"
+                    class="z-depth-0 my-4 waves-effect"
+                    mdbWavesEffect
+                    type="submit"
+                    [disabled]="disabledSubmitButton"
+                  >
+                    Send
+                  </button>
+                </form>
 
                 </mdb-card-body>
 
@@ -388,14 +461,14 @@
                   }
                 }
 
-                constructor(private fb: FormBuilder, private connectionService: ConnectionService) {
+                constructor(fb: FormBuilder, private connectionService: ConnectionService) {
 
                 this.contactForm = fb.group({
                   'contactFormName': ['', Validators.required],
                   'contactFormEmail': ['', Validators.compose([Validators.required, Validators.email])],
                   'contactFormSubjects': ['', Validators.required],
                   'contactFormMessage': ['', Validators.required],
-                  'contactFormCopy': [''],
+                  'contactFormCopy': ['', Validators.requiredTrue],
                   });
                 }
 
@@ -409,12 +482,28 @@
                   ];
                 }
 
+                get name() {
+                  return this.contactForm.get('contactFormName');
+                }
+                get email() {
+                  return this.contactForm.get('contactFormEmail');
+                }
+                get subjects() {
+                  return this.contactForm.get('contactFormSubjects');
+                }
+                get message() {
+                  return this.contactForm.get('contactFormMessage');
+                }
+                get copy() {
+                  return this.contactForm.get('contactFormCopy');
+                }
+
                 onSubmit() {
                   this.connectionService.sendMessage(this.contactForm.value).subscribe(() => {
                     alert('Your message has been sent.');
                     this.contactForm.reset();
                     this.disabledSubmitButton = true;
-                  }, error => {
+                  }, (error: any) => {
                     console.log('Error', error);
                   });
                 }
