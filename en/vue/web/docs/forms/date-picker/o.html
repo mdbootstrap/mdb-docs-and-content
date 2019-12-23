@@ -46,7 +46,7 @@
       <div class="col-md-6">
 
         <div id="date-picker-basic">
-          <mdb-date-picker />
+          <mdb-date-picker v-model="date" label="basic example" />
         </div>
 
       </div>
@@ -60,7 +60,7 @@
     <mdbsnippet>
       <code data-lang="html" data-name="template">
         <template>
-          <mdb-date-picker v-model="date" />
+          <mdb-date-picker v-model="date" label="basic example" />
         </template>
       </code>
       <code data-lang="html" data-name="script">
@@ -108,7 +108,7 @@
       <div class="row">
         <div class="col-md-6">
           <div id="date-picker-outline">
-            <mdb-date-picker-outline />
+            <mdb-date-picker outline v-model="date2" label="outline" />
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@
       <mdbsnippet>
         <code data-lang="html" data-name="template">
           <template>
-            <mdb-date-picker outline label="outline" />
+            <mdb-date-picker outline label="outline" v-model="date2" />
           </template>
         </code>
         <code data-lang="html" data-name="script">
@@ -131,6 +131,11 @@
               name: 'Example',
               components: {
                 mdbDatePicker
+              },
+              data() {
+                return {
+                  date2: ''
+                };
               }
             }
           </script>
@@ -165,7 +170,7 @@
         <div class="col-md-6">
   
           <div id="date-picker-icon">
-            <mdb-date-picker-icon />
+            <mdb-date-picker v-model="date3" icon="clock" far :option="options" />
           </div>
   
         </div>
@@ -179,7 +184,7 @@
       <mdbsnippet>
         <code data-lang="html" data-name="template">
           <template>
-            <mdb-date-picker icon="clock" far :option="options" />
+            <mdb-date-picker icon="clock" far :option="options" v-model="date3" />
           </template>
         </code>
         <code data-lang="html" data-name="script">
@@ -192,10 +197,11 @@
               },
               data() {
                 return {
+                  date3: '',
                   options: {
                     placeholder: '2018-04-13',
                     label: "default date"
-                  },
+                  }
                 };
               }
             }
@@ -445,6 +451,163 @@
                     to: '2018-06-20'
                 }]
               };
+            }
+          }
+        </script>
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+  <!--Subheading-->
+  <h4 id="disabled-dates" class="mt-5"><strong>Disabled dates</strong></h4>
+
+  <!--Description-->
+  <p>Disable exact date or an array of dates like this:</p>
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-date-picker :limit="arrayLimit" />
+        </template>
+      </code>
+      <code data-lang="js" data-name="script">
+        <script>
+          import { mdbDatePicker } from 'mdbvue';
+          export default {
+            name: 'Example',
+            components: {
+              mdbDatePicker
+            },
+            data() {
+              return {
+                arrayLimit: [{
+                  type: 'exact',
+                  disabled: ['2019-12-12', '2019-12-14', '2019-12-18']
+                }]
+              }
+            }
+          }
+        </script>
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+  <!--Subheading-->
+  <h4 id="disabled-past" class="mt-5"><strong>Disabled past/future</strong></h4>
+
+  <!--Description-->
+  <p>Disable past or future dates on the picker, by using <code>disabledPast</code> or <code>disabledFuture</code> prop:</p>
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-date-picker disabledPast />
+        </template>
+      </code>
+      <code data-lang="js" data-name="script">
+        <script>
+          import { mdbDatePicker } from 'mdbvue';
+          export default {
+            name: 'Example',
+            components: {
+              mdbDatePicker
+            }
+          }
+        </script>
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+  <!--Subheading-->
+  <h4 id="disabled-range" class="mt-5"><strong>Disabled range of dates</strong></h4>
+
+  <!--Description-->
+  <p>Disable range of dates:</p>
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-date-picker :limit="rangeLimit" />
+        </template>
+      </code>
+      <code data-lang="js" data-name="script">
+        <script>
+          import { mdbDatePicker } from 'mdbvue';
+          export default {
+            name: 'Example',
+            components: {
+              mdbDatePicker
+            },
+            data() {
+              return {
+                rangeLimit: [{
+                  type: 'range',
+                  from: '2019-12-05',
+                  to: '2019-12-15'
+                }]
+              }
+            }
+          }
+        </script>
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+  <!--Subheading-->
+  <h4 id="disabled-from" class="mt-5"><strong>Disabled from or to an exact date</strong></h4>
+
+  <!--Description-->
+  <p>Disable from or to an exact date by using the following syntax:</p>
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-date-picker :limit="fromLimit" />
+        </template>
+      </code>
+      <code data-lang="js" data-name="script">
+        <script>
+          import { mdbDatePicker } from 'mdbvue';
+          export default {
+            name: 'Example',
+            components: {
+              mdbDatePicker
+            },
+            data() {
+              return {
+                fromLimit: [{
+                  type: 'from',
+                  from: `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()-3}`
+                }]
+              }
             }
           }
         </script>
