@@ -941,6 +941,98 @@
 </section>
 <!--/Section: -->
 
+</section>
+<!--/Section: -->
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="chart-labels">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Chart with labels
+  </h2>
+
+  <!-- Description -->
+  <p>
+  </p>
+
+  <!--Section: Live preview-->
+  <section>
+
+    <div class="row">
+      <div class="col-md-8">
+        <canvas id="labelChart"></canvas>
+      </div>
+    </div>
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <canvas id="labelChart"></canvas>
+
+      </code>
+      <code data-lang="js" data-name="JavaScript">
+
+        var ctxP = document.getElementById("labelChart").getContext('2d');
+        var myPieChart = new Chart(ctxP, {
+          plugins: [ChartDataLabels],
+          type: 'pie',
+          data: {
+            labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+            datasets: [{
+              data: [210, 130, 120, 160, 120],
+              backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+              hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+            }]
+          },
+          options: {
+            responsive: true,
+            legend: {
+              position: 'right',
+              labels: {
+                padding: 20,
+                boxWidth: 10
+              }
+            },
+            plugins: {
+              datalabels: {
+                formatter: (value, ctx) => {
+                  let sum = 0;
+                  let dataArr = ctx.chart.data.datasets[0].data;
+                  dataArr.map(data => {
+                    sum += data;
+                  });
+                  let percentage = (value * 100 / sum).toFixed(2) + "%";
+                  return percentage;
+                },
+                color: 'white',
+                labels: {
+                  title: {
+                    font: {
+                      size: '16'
+                    }
+                  }
+                }
+              }
+            }
+          }
+        });
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
 <hr class="mt-4 mb-5">
 
 <!--Section: -->
@@ -1564,6 +1656,15 @@
           <td>
             <p>Label style will match corresponding point style (size is based on fontSize, boxWidth is not used in
               this case).</p>
+          </td>
+        </tr>
+        <tr>
+          <td>backgroundColor	</td>
+          <td>Style/Null</td>
+          <td>Null</td>
+          <td>
+            <p>Background color of datalabels.
+              .</p>
           </td>
         </tr>
       </tbody>
