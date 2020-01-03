@@ -1,48 +1,46 @@
 <script>
-  function testAnim(x) {
-    $('#animationSandbox').removeClass().addClass(x + ' animated').one(
-      'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
-      function () {
-        $(this).removeClass();
-      });
-  };
-
   $(document).ready(function () {
+    function testAnim(x) {
+      $('#animationSandbox').removeClass().addClass(x + ' animated').one(
+        'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+        function () {
+          $(this).removeClass();
+        });
+    };
+
     $('.js--triggerAnimation').click(function (e) {
       e.preventDefault();
       var anim = $('.js--animations').val();
       testAnim(anim);
     });
 
-    $('.js--animations').change(function () {
+    $('.js--animations').change(function (e) {
+      e.stopPropagation();
       var anim = $(this).val();
       testAnim(anim);
     });
-  });
 
-  function testAnim1(x) {
-    $('#animationSandbox1').removeClass().addClass(x + ' animated' + ' bounce').one(
-      'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
-      function () {
-        $(this).removeClass();
-      });
-  };
+    function testAnim1(x) {
+      $('#animationSandbox1').removeClass().addClass(x + ' animated' + ' bounce').one(
+        'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+        function () {
+          $(this).removeClass();
+        });
+    };
 
-  $(document).ready(function () {
     $('.js--triggerAnimation').click(function (e) {
       e.preventDefault();
       var anim = $('.js--animations').val();
       testAnim1(anim);
     });
 
-    $('.js--animations').change(function () {
+    $('.js--animations').change(function (e) {
+      e.stopPropagation();
       var anim = $(this).val();
       testAnim1(anim);
     });
-  });
 
-  $(document).ready(function () {
-    $('select').material_select();
+    $('select').materialSelect();
     wow = new WOW({
       boxClass: 'wow', // default
       animateClass: 'animated', // default
@@ -52,6 +50,7 @@
     });
     wow.init();
   });
+
 </script>
 
 <!-- Structured data: Breadcrumbs -->
