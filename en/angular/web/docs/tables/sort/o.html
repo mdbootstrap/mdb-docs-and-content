@@ -343,3 +343,73 @@
 
 </section>
 <!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: Performance-->
+<section id="performance">
+  <h2 class="section-heading">Performance</h2>
+
+  <h5 class="h5 mb-3">trackBy</h5>
+
+  <p>If you use <code>ngFor</code> directive to generate table cells, Angular by default can't keep track of items in the list and doesn't know which items have been added or removed. Thanks to the <code>trackBy</code> method, it's possible to re-render only the nodes that have changed and to minimize changes in the DOM tree.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <table id="tableSortExample" mdbTable class="z-depth-1">
+          <thead>
+            <tr>
+              <th
+                *ngFor="let head of headElements; let i = index"
+                aria-controls="tableSortExample"
+                scope="col"
+                [mdbTableSort]="elements"
+                [sortBy]="headElements[i]"
+              >
+                {{ head | titlecase }}
+                <mdb-icon fas icon="sort"></mdb-icon>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let el of elements; trackBy: trackByFn; let i = index">
+              <th scope="row">{{ el.id }}</th>
+              <td>{{ el.first }}</td>
+              <td>{{ el.last }}</td>
+              <td>{{ el.handle }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </code>
+
+      <code data-lang="js" data-name="TS">
+        import { Component, OnInit } from '@angular/core';
+
+        @Component({
+          selector: 'app-root',
+          templateUrl: './app.component.html',
+          styleUrls: ['./app.component.scss']
+        })
+        export class AppComponent implements OnInit {
+
+          elements: any = [];
+          headElements = ['id', 'first', 'last', 'handle'];
+
+          ngOnInit() {
+            for (let i = 1; i <= 10000; i++) {
+              this.elements.push({ id: i, first: 'User ' + i, last: 'Name ' + i, handle: 'Handle ' + i });
+            }
+          }
+
+          trackByFn(index: number) {
+            return index;
+          }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+<!--/Section: Performance-->
