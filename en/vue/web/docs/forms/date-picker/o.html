@@ -296,6 +296,74 @@
 
 </section>
 <!--/Section: -->
+
+<hr class="mt-4 mb-5">
+
+<!--Section: -->
+<section id="date-time-picker">
+
+  <!--Subheading-->
+  <h2 class="section-heading mb-4"><strong>Date and time picker</strong></h2>
+
+  <!--Description-->
+  <p>You can use Date Picker and Time Picker components together to fill one input.</p>
+
+  <!--Section: Code-->
+  <section>
+
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="template">
+        <template>
+          <div>
+            <mdb-input :value="handlePickersValue()" @click.native="$refs.datePicker.open()" />
+            <mdb-date-picker 
+              ref="datePicker"
+              disable-input
+              v-model="datePickerValue"
+              @close="$refs.timePicker.open()" />
+            <mdb-time-picker
+              ref="timePicker"
+              disable-input
+              v-model="timePickerValue" />
+          </div>
+        </template>
+      </code>
+      <code data-lang="js" data-name="script">
+        <script>
+          import { mdbDatePicker, mdbTimePicker, mdbInput } from 'mdbvue';
+          export default {
+            name: 'DatePickerPage',
+            components: {
+              mdbDatePicker,
+              mdbTimePicker,
+              mdbInput
+            },
+            methods: {
+              handlePickersValue() {
+                let output = 'Pick date and time'
+                if (this.datePickerValue && this.timePickerValue) output = `${this.datePickerValue}, ${this.timePickerValue}`
+                else if (this.datePickerValue) output = this.datePickerValue
+                else if (this.timePickerValue) output = this.timePickerValue
+                return output
+              }
+            },
+            data() {
+              return {
+                datePickerValue: '',
+                timePickerValue: ''
+              }
+            }
+          }
+        </script>
+      </code>
+
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
   
 <hr class="mt-4 mb-5">
 
