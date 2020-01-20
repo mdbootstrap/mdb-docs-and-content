@@ -7,11 +7,232 @@
     <i class="far fa-gem ml-1"></i>
   </a></h2>
   <h1 class="secondary-heading mb-4">React Parallax - Bootstrap 4 & Material Design</h1>
+
+
   <h2 class="section-heading mb-4">Overview</h2>
 
   <hr class="my-5">
   <!--Description-->
   <p>Bootstrap parallax is a design effect visible while scrolling down - background image is moving with a different speed than the foreground content.</p>
+
+  <hr class="mt-4 mb-5">
+
+  <section id='installation'>
+  <blockquote class="blockquote bq-danger">
+    <p class="bq-title">Required external library</p>
+    <p>Since MDBReact <code>4.25.0</code> version this functionality requires the installation of an external library - <code>jarallax</code>.</p>
+  <p>To make the Parallax component easier to use after changes, we've created a special component <code>MDBParallaxWrapper</code> that you should copy into your project and use it exactly as the Parallax component before version <code>4.25.0</code>.</p>
+
+
+      <p>Install it with the following command, then configure it as follows:</p>
+
+      <ol>
+      <li>
+        <code data-lang="js" data-name="installation">
+            npm install jarallax --save
+        </code>
+      </li>
+      <li>Create <code>MDBParallaxWrapper</code> component into your project folder and paste code from below.</li>
+      <li>Add <code>MDBParallaxWrapper</code> import to page where you want to use <code>MDBParallax</code></li>
+      <li>Use exactly the same like MDBParallax component before <code>4.25.0</code> version.</li>
+    </ol>
+  </blockquote>
+
+    <h2 class="section-heading">
+      MDBParallaxWrapper component:  </h2>
+
+  <!--Subtitle-->
+  <p> Please create new component and phase to it a code below.</p>
+
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="MDBParallaxWrapper">
+        import React, { Component } from 'react';
+        import PropTypes from 'prop-types';
+        import { jarallax, jarallaxVideo, jarallaxElement } from 'jarallax';
+        import { MDBParallax } from 'mdbreact';
+
+        class MDBParallaxWrapper extends Component {
+          jarallax = React.createRef();
+
+          componentDidMount() {
+            const {
+              image,
+              video,
+              element,
+              elementOptions,
+              disableParallax,
+              disableVideo,
+              disableVideoLazyLoading,
+              disableVideoLoop,
+              disableVideoPlayOnlyVisible,
+              elementInViewport,
+              imgElement,
+              imgPosition,
+              imgRepeat,
+              imgSize,
+              imgSrc,
+              videoEndTime,
+              videoStartTime,
+              videoVolume,
+              zIndex
+            } = this.props;
+
+            const imageOptions = {
+              disableParallax,
+              elementInViewport,
+              imgElement,
+              imgPosition,
+              imgRepeat,
+              imgSize,
+              imgSrc,
+              zIndex
+            };
+
+            const videoOptions = {
+              disableVideo,
+              videoEndTime,
+              videoLazyLoading: !disableVideoLazyLoading,
+              videoLoop: !disableVideoLoop,
+              videoPlayOnlyVisible: !disableVideoPlayOnlyVisible,
+              videoStartTime,
+              videoVolume
+            };
+
+            jarallax(
+              this.jarallax.current,
+              image
+                ? imageOptions
+                : video
+                ? videoOptions
+                : element
+                ? elementOptions
+                : null
+            );
+
+            jarallaxVideo(this.jarallax.current);
+            jarallaxElement(this.jarallax.current);
+          }
+
+          componentWillUnmount() {
+            jarallax(this.jarallax.current, 'destroy');
+          }
+
+          render() {
+            const {
+              alt,
+              children,
+              className,
+              element,
+              image,
+              keepImg,
+              speed,
+              tag: Tag,
+              threshold,
+              type,
+              video,
+              height,
+              width,
+              ...attributes
+            } = this.props;
+
+            return (
+              <MDBParallax
+                alt={alt}
+                className={className}
+                element={element}
+                height={height}
+                image={image}
+                keepImg={keepImg}
+                ref={this.jarallax}
+                speed={speed}
+                tag={Tag}
+                threshold={threshold}
+                type={type}
+                video={video}
+                width={width}
+                {...attributes}
+              >
+                {children}
+              </MDBParallax>
+            );
+          }
+        }
+
+        MDBParallaxWrapper.propTypes = {
+          alt: PropTypes.string.isRequired,
+          className: PropTypes.string,
+          disableParallax: PropTypes.func,
+          disableVideo: PropTypes.func,
+          elementInViewport: PropTypes.node,
+          height: PropTypes.string,
+          image: PropTypes.string,
+          imgElement: PropTypes.string,
+          imgPosition: PropTypes.string,
+          imgRepeat: PropTypes.string,
+          imgSize: PropTypes.string,
+          keepImg: PropTypes.bool,
+          speed: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+          tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+          threshold: PropTypes.node,
+          type: PropTypes.string,
+          video: PropTypes.string,
+          videoEndTime: PropTypes.number,
+          videoLazyLoading: PropTypes.bool,
+          videoLoop: PropTypes.bool,
+          videoPlayOnlyVisible: PropTypes.bool,
+          videoStartTime: PropTypes.number,
+          videoVolume: PropTypes.number,
+          width: PropTypes.string,
+          zIndex: PropTypes.number
+        };
+
+        MDBParallaxWrapper.defaultProps = {
+          alt: 'MDBParallax image',
+          disableParallax: null,
+          disableVideo: null,
+          elementInViewport: null,
+          height: '600px',
+          imgElement: '.jarallax-img',
+          imgPosition: '50% 50%',
+          imgRepeat: 'no-repeat',
+          imgSize: 'cover',
+          keepImg: false,
+          speed: 0.5,
+          tag: 'div',
+          threshold: 'null null',
+          type: 'scroll',
+          videoEndTime: 0,
+          videoLazyLoading: true,
+          videoLoop: true,
+          videoPlayOnlyVisible: true,
+          videoStartTime: 0,
+          videoVolume: 0,
+          width: '100%',
+          zIndex: -100
+        };
+
+        export default MDBParallaxWrapper;
+
+      </code>
+    </mdbsnippet>
+
+    <h2 class="section-heading">
+      ParallaxWrapper import.</h2>
+
+        <!--Subtitle-->
+    <p> Please import <code>MDBParallaxWrapper</code> component to file where you want to use <code>MDBParallax</code>.</p>
+
+
+   <mdbsnippet>
+
+        <code data-lang="html" data-name="import">
+           import MDBParallaxWrapper from './MDBParallaxWrapper';
+        </code>
+      </mdbsnippet>
+
+
+</section>
 
 </section>
 <!--/Section: Intro-->
@@ -36,14 +257,14 @@
       <code data-lang="html" data-name="JS">
 
           import React, { Component } from 'react';
-          import { MDBParallax } from 'mdbreact';
+          import MDBParallaxWrapper from './MDBParallaxWrapper';
 
           class Parallax extends Component {
             render() {
               return (
                 <>
                   <div style={{ height: '60vh' }}></div>
-                  <MDBParallax
+                  <MDBParallaxWrapper
                     image='https://mdbootstrap.com/img/Photos/Others/img%20%2844%29.jpg'
                     speed='0.8'
                   />
@@ -86,7 +307,7 @@
       <code data-lang="html" data-name="JS">
 
           import React, { Component } from 'react';
-          import { MDBParallax } from 'mdbreact';
+          import MDBParallaxWrapper from './MDBParallaxWrapper';
 
           class Parallax extends Component {
             render() {
@@ -102,25 +323,25 @@
               </div>
             </div>
 
-            <MDBParallax
+            <MDBParallaxWrapper
               image='https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(19).jpg'
               speed={0.5}
               height='50vh'
               type='scale'
             />
-            <MDBParallax
+            <MDBParallaxWrapper
               image='https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(18).jpg'
               speed={2}
               height='50vh'
               type='opacity'
             />
-            <MDBParallax
+            <MDBParallaxWrapper
               image='https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(20).jpg'
               speed={0.2}
               height='50vh'
               type='scroll-opacity'
             />
-            <MDBParallax
+            <MDBParallaxWrapper
               image='https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(57).jpg'
               speed={0.2}
               height='50vh'
@@ -162,7 +383,7 @@
       <code data-lang="html" data-name="JS">
 
           import React, { Component } from 'react';
-          import { MDBParallax } from 'mdbreact';
+          import MDBParallaxWrapper from './MDBParallaxWrapper';
 
           class Parallax extends Component {
             render() {
@@ -208,13 +429,13 @@
                       </div>
                     </div>
                   </div>
-                  <MDBParallax
+                  <MDBParallaxWrapper
                     video='https://player.vimeo.com/video/137857207'
                     type='scroll-opacity'
                     speed='0.1'
                     disableVideoLazyLoading
                   />
-                  <MDBParallax
+                  <MDBParallaxWrapper
                     className='jarallax'
                     video='https://youtu.be/lugard7P0nw'
                     disableVideoLazyLoading
@@ -256,7 +477,6 @@
                       </div>
                     </div>
                   </div>
-                  />
                 </>
               );
             }
@@ -295,7 +515,7 @@
         <code data-lang="html" data-name="JS">
 
             import React, { Component } from 'react';
-            import { MDBParallax } from 'mdbreact';
+            import MDBParallaxWrapper from './MDBParallaxWrapper';
 
             class Parallax extends Component {
               render() {
@@ -372,55 +592,55 @@
                       <div className='row'>
                         <div className='col-md-12 text-center overflow-hidden'>
                           <h2 className='h1 font-weight-bold cyan-text my-5 py-4'>
-                            <MDBParallax tag='span' speed='0' element>
+                            <MDBParallaxWrapper tag='span' speed='0' element>
                               P
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='80' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='80' element>
                               a
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='-30' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='-30' element>
                               r
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='180' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='180' element>
                               a
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='-50' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='-50' element>
                               l
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='120' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='120' element>
                               l
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='-25' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='-25' element>
                               a
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='60' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='60' element>
                               x
-                            </MDBParallax>
+                            </MDBParallaxWrapper>
                             &nbsp;
-                            <MDBParallax tag='span' speed='-50' element>
+                            <MDBParallaxWrapper tag='span' speed='-50' element>
                               E
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='110' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='110' element>
                               l
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='-160' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='-160' element>
                               e
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='60' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='60' element>
                               m
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='-240' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='-240' element>
                               e
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='30' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='30' element>
                               n
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='-170' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='-170' element>
                               t
-                            </MDBParallax>
-                            <MDBParallax tag='span' speed='0' element>
+                            </MDBParallaxWrapper>
+                            <MDBParallaxWrapper tag='span' speed='0' element>
                               s
-                            </MDBParallax>
+                            </MDBParallaxWrapper>
                           </h2>
                         </div>
                       </div>
