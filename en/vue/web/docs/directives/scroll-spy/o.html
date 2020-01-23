@@ -25,66 +25,191 @@
     height: 200px;
   }
 </style>
-
 <!--Section: Intro-->
-
 <section id="introduction">
   <!--Title-->
-  <h2 class="primary-heading">
-    The v-scroll-spy directive
-  </h2>
+  <h2 class="primary-heading">Scroll Spy</h2>
 
-  <h1 class="secondary-heading mb-4">
-    Vue Scrollspy - Bootstrap 4 & Material Design
-  </h1>
-
-  <!--Description-->
-</section>
-<!--/Section: Intro-->
-
-<hr class="my-5" />
-
-<!--Section: How it works-->
-<section id="how-it-works">
-  <!--Title-->
-  <h2 class="title">How it works</h2>
+  <h1 class="secondary-heading mb-4">MDB Vue custom directive</h1>
 
   <!--Description-->
   <div class="description">
     <p>
-      The <code>v-scroll-spy</code> directive shows on navigation list current
-      scroll position (the default reference container is window). When
+      The <code>v-mdb-scroll-spy</code> directive shows on navigation list
+      current scroll position (the default reference container is window). When
       successfully implemented, your nav or list group will update accordingly,
       moving the <code>.active</code> class from one item to the next based on
       their associated targets - you can modify this behaviour by passing custom
       callback function.
     </p>
-    <p>The directive is collecting <code>href</code> attributes from the component it's attached to - it can be used with a variety of components such as mdbNavbar, mdbListGroup and more. It offers the following customization options: </p>
+    <p>
+      The directive is collecting <code>href</code> attributes from the
+      component it's attached to - it can be used with a variety of components
+      such as mdbNavbar, mdbListGroup and more. It offers the following
+      customization options:
+    </p>
     <ul>
-      <li><strong>container</strong> - by default its value is set to <code>window</code>. The directive selects the element with the given ID as the reference container</li>
-      <li><strong>visible</strong> - the part of the section which needs to be visible in order to activate the corresponding link. Accepts values from 0 to 1 (the default value is 0.5)</li>
-      <li><strong>callback</strong> - name of the method which will be called with the active link's index once it changes</li>
+      <li>
+        <strong>container</strong> - by default its value is set to
+        <code>window</code>. The directive selects the element with the given ID
+        as the reference container
+      </li>
+      <li>
+        <strong>visible</strong> - the part of the section which needs to be
+        visible in order to activate the corresponding link. Accepts values from
+        0 to 1 (the default value is 0.5)
+      </li>
+      <li>
+        <strong>callback</strong> - name of the method which will be called with
+        the active link's index once it changes
+      </li>
     </ul>
   </div>
-</section>
-<!--/Section: How it works-->
 
-<hr class="my-5" />
+  <a
+    href="https://vue.mdbootstrap.com/#/directives/scroll-spy"
+    target="_blank"
+    class="btn btn-info mt-4 btn-rounded"
+    role="button"
+    >Live Preview
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: Primary color-->
+<!--Section: -->
+<section id="basic-usage">
+  <!--Title-->
+  <h2 class="section-heading">
+    Basic usage
+  </h2>
+
+  <p><strong>Step 1:</strong> Import the directive from 'mdbvue'</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy } from "mdbvue";
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 2: </strong>Add mdbScrollSpy to the
+    <code>directives</code> object
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy } from "mdbvue";
+          export default {
+            directives: {
+              mdbScrollSpy
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 3: </strong>Attach the directive to the navigation container
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <ul v-mdb-scroll-spy>
+            <li><a href="...">Link 1</a></li>
+          </ul>
+        </template>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <p>
+    <strong>Step 4: </strong> If you want to use the ScrollSpy on a certain
+    container or specify the custom callback, pass an object as the directive's
+    value. The method will be called with a href's index as an argument.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div>
+            <ul
+              v-mdb-scroll-spy="{container: 'custom-container', callback: 'customCallback'}"
+            >
+              <li><a href="#section-1">Section 1</a></li>
+            </ul>
+            <div
+              id="custom-container"
+              style="max-height: 100px; overflow-y: scroll;"
+            >
+              <p id="section-1">...</p>
+            </div>
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy, mdbBtn } from "mdbvue";
+          export default {
+            directives: {
+              mdbScrollSpy
+            },
+            methods: {
+              customCallback(i) {
+                //...
+              }
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
 
 <!--Section: Basic example-->
 <section id="basic-example">
   <!--Title-->
-  <h2 class="title">Tabs example  <a
-    href="https://mdbootstrap.com/products/vue-ui-kit/"
-    target="_blank"
-    class="btn btn-danger btn-sm"
-    role="button"
-    >MDB Pro component
-    <i class="far fa-gem ml-1"></i>
-  </a></h2>
+  <h2 class="title">
+    Tabs example
+    <a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      >MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
 
   <!--Description-->
-  <p>To change the reference container from the <code>window</code>, pass the ID as the value of the <code>container</code>.</p>
+  <p>
+    To change the reference container from the <code>window</code>, pass the ID
+    as the value of the <code>container</code>.
+  </p>
   <p class="description">Scroll down to see the effect</p>
 
   <!--Section: Live preview-->
@@ -106,7 +231,8 @@
     </ul>
     <!--Spied element-->
     <div
-      style="overflow-y: scroll; max-height: 200px;" class="p-3"
+      style="overflow-y: scroll; max-height: 200px;"
+      class="p-3"
       data-spy="scroll"
       data-target="#navbar-example1"
       data-offset="0"
@@ -183,7 +309,7 @@
               justify
               color="default"
               class="mt-4 mx-4"
-              v-scroll-spy="{ container: 'scroll-container' }"
+              v-mdb-scroll-spy="{ container: 'scroll-container' }"
             >
               <mdb-tab-item
                 v-for="(section, i) in sections"
@@ -263,9 +389,13 @@
 
   <!-- Description -->
   <p class="description">
-      To modify the default behaviour, pass the name of the method you want to be called with the active link's index once the scroll position changes.
+    To modify the default behaviour, pass the name of the method you want to be
+    called with the active link's index once the scroll position changes.
   </p>
-  <p>Scroll the area below the navbar and watch the active class change. The dropdown items will be highlighted as well.</p>
+  <p>
+    Scroll the area below the navbar and watch the active class change. The
+    dropdown items will be highlighted as well.
+  </p>
 
   <!--Section: Live preview-->
   <section class="p-1">
@@ -368,11 +498,11 @@
                 nav
                 right
                 class="nav-pills"
-                v-scroll-spy="{
-                      container: 'navbar-container',
-                      visible: 0.4,
-                      callback: 'setActiveNavlink'
-                    }"
+                v-mdb-scroll-spy="{
+                        container: 'navbar-container',
+                        visible: 0.4,
+                        callback: 'setActiveNavlink'
+                      }"
               >
                 <mdb-nav-item href="#nav-example-1" :active="nav === 0"
                   >@fat</mdb-nav-item
@@ -404,7 +534,11 @@
               </mdb-navbar-nav>
             </mdb-navbar>
 
-            <div style="overflow-y: scroll; max-height: 200px;" class="p-3" id="navbar-container">
+            <div
+              style="overflow-y: scroll; max-height: 200px;"
+              class="p-3"
+              id="navbar-container"
+            >
               <h4 id="nav-example-1">@fat</h4>
               <p>
                 Ad leggings keytar, brunch id art party dolor labore. Pitchfork
@@ -645,10 +779,10 @@
                 <mdb-navbar :toggler="false" color="grey" class="lighten-4">
                   <mdb-navbar-nav
                     vertical
-                    v-scroll-spy="{
-                          container: 'nested',
-                          callback: 'setActiveLink'
-                        }"
+                    v-mdb-scroll-spy="{
+                            container: 'nested',
+                            callback: 'setActiveLink'
+                          }"
                     class="nav-pills"
                   >
                     <mdb-nav-item
@@ -940,7 +1074,7 @@
             <mdb-row>
               <mdb-col sm="4">
                 <mdb-list-group
-                  v-scroll-spy="{ container: 'container', callback: 'setActive' }"
+                  v-mdb-scroll-spy="{ container: 'container', callback: 'setActive' }"
                   class="scrollspy"
                 >
                   <mdb-list-group-item
@@ -1025,13 +1159,13 @@
   <h2 class="section-heading mb-4">
     MDB Scrollspy
     <a
-    href="https://mdbootstrap.com/products/vue-ui-kit/"
-    target="_blank"
-    class="btn btn-danger btn-sm"
-    role="button"
-    >MDB Pro component
-    <i class="far fa-gem ml-1"></i>
-  </a>
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      >MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
     <a
       href="https://mdbootstrap.com/products/jquery-ui-kit/"
       target="_blank"
@@ -1238,18 +1372,18 @@
               >
                 <mdb-navbar-nav
                   vertical
-                  v-scroll-spy="{
-                        container: 'mdb-scrollspy-container',
-                        callback: 'setActiveLink',
-                        visible: 0.2
-                      }"
+                  v-mdb-scroll-spy="{
+                          container: 'mdb-scrollspy-container',
+                          callback: 'setActiveLink',
+                          visible: 0.2
+                        }"
                   class="nav-pills default-pills"
                 >
                   <mdb-nav-item
                     href="#section-1"
                     :active="
-                          nested === 0 || nested === 1 || nested === 2 || nested === 3
-                        "
+                            nested === 0 || nested === 1 || nested === 2 || nested === 3
+                          "
                     >Section 1</mdb-nav-item
                   >
                   <mdb-navbar-nav vertical>
@@ -1276,8 +1410,8 @@
                   <mdb-nav-item
                     href="#section-2"
                     :active="
-                          nested === 4 || nested === 5 || nested === 6 || nested === 7
-                        "
+                            nested === 4 || nested === 5 || nested === 6 || nested === 7
+                          "
                     >Section 2</mdb-nav-item
                   >
                   <mdb-navbar-nav vertical>
@@ -1534,7 +1668,7 @@
             <div class="dotted-scrollspy">
               <ul
                 class="pl-0 clearfix d-none d-sm-flex flex-column"
-                v-scroll-spy="{ visible: 1 }"
+                v-mdb-scroll-spy="{ visible: 1 }"
               >
                 <li class="nav-item">
                   <a class="nav-link" href="#dot-1"><span></span></a>
