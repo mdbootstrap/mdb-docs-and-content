@@ -917,7 +917,7 @@
 <section id="pie-chart">
   <!--Title-->
   <h2 class="section-heading mb-4">
-    Pie Chart
+    Pie Chart with labels
   </h2>
 
   <!-- Description -->
@@ -940,11 +940,12 @@
         <template>
           <mdb-container>
             <mdb-pie-chart
+              datalabels
               :data="pieChartData"
               :options="pieChartOptions"
               :width="600"
               :height="300"
-            ></mdb-pie-chart>
+            />
           </mdb-container>
         </template>
       </code>
@@ -983,7 +984,22 @@
                 },
                 pieChartOptions: {
                   responsive: false,
-                  maintainAspectRatio: false
+                  maintainAspectRatio: false,
+                  plugins: {
+                    datalabels: {
+                      color: "white",
+                      align: "center",
+                      font: {
+                        size: 16
+                      },
+                      formatter: value => {
+                        const [dataset] = this.pieChartData.datasets;
+                        const setValue = dataset.data.reduce((a, b) => a + b);
+
+                        return `${Math.round((value / setValue) * 100)}%`;
+                      }
+                    }
+                  }
                 }
               };
             }
