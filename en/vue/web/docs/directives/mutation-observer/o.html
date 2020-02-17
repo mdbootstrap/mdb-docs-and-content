@@ -1,0 +1,226 @@
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">
+    Vue Bootstrap Mutation Observer
+    <a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      >MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <h1 class="secondary-heading mb-4">
+    Vue Mutation Observer - Bootstrap 4 & Material Design
+  </h1>
+
+  <!--Description-->
+  <p>
+    The <code>mdb-mutate</code> is a custom directive which detects updates of
+    an element, using
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver"
+      target="_blank"
+      nofollow
+      >Mutation Observer API</a
+    >.
+  </p>
+
+  <a
+    href="https://vue.mdbootstrap.com/#/directives/pro/mutate"
+    target="_blank"
+    class="btn btn-info mt-4 btn-rounded"
+    role="button"
+    >Live Preview
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="basic-usage">
+  <!--Title-->
+  <h2 class="section-heading">
+    Basic usage
+  </h2>
+
+  <p><strong>Step 1:</strong> Import the directive from 'mdbvue'</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMutate } from "mdbvue";
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 2: </strong>Add mdbMutate to the <code>directives</code> object
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMutate } from "mdbvue";
+          export default {
+            directives: {
+              mdbMutate
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 3: </strong> The directive uses
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver"
+      target="_blank"
+      nofollow
+      >Mutation Observer API</a
+    >
+    - you can use the same options to configure the observer. You can pass
+    separately options as modifiers and handler function as a value, or both as
+    keys of and object. For Mutation Observer to work, one of childList,
+    attributes, or characterData has to be set to <code>true</code>.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div v-mdb-mutate="mutate">...</div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMutate } from "mdbvue";
+          export default {
+            directives: {
+              mdbMutate
+            },
+            data() {
+              return {
+                mutate: {
+                  handler: () => {},
+                  options: {
+                    childList: true,
+                    attributes: true,
+                    characterData: false,
+                    subtree: false,
+                    attributeFilter: ["one", "two"],
+                    attributeOldValue: false,
+                    characterDataOldValue: false
+                  }
+                }
+              };
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div v-mdb-mutate.attributes="callback">...</div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMutate } from "mdbvue";
+          export default {
+            directives: {
+              mdbMutate
+            },
+            methods: {
+              callback(mutationList, observer) {
+                //...
+              }
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="example">
+  <!--Title-->
+  <h2 class="section-heading">
+    Basic example
+  </h2>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-select
+            v-mdb-mutate="mutate"
+            label="Mutation observer"
+            :options="options"
+          />
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbSelect, mdbMutate } from "mdbvue";
+
+          export default {
+            name: "ResizePage",
+            components: {
+              mdbSelect
+            },
+            data() {
+              return {
+                valueMutation: 0,
+                options: [
+                  { text: "Option nr 1", value: "Option 1" },
+                  { text: "Option nr 2", value: "Option 2" },
+                  { text: "Option nr 3", value: "Option 3" },
+                  { text: "Option nr 4", value: "Option 4" },
+                  { text: "Option nr 5", value: "Option 5" }
+                ],
+                mutate: {
+                  handler: () => {
+                    this.valueMutation++;
+                  },
+                  options: {
+                    attributes: true,
+                    subtree: true,
+                    attributeFilter: ["value"]
+                  }
+                }
+              };
+            },
+            directives: { mdbMutate }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
