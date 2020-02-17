@@ -243,18 +243,20 @@
             this.httpClient.get(this.url).subscribe((data: any) => {
               console.log(data);
               this.data = data;
-            });
 
-            this.results = this.searchText
-              .pipe(
+              this.results = this.searchText.pipe(
+                startWith(''),
                 map((value: string) => this.filter(value))
               );
+            });
           }
 
           filter(value: string): string[] | undefined {
             const filterValue = value.toLowerCase();
-            if (this.data) {
-              return this.data['results'].filter((item: any) => item.name.toLowerCase().includes(filterValue));
+            if (this.data && this.data['results']) {
+              return this.data['results'].filter((item: any) =>
+                item.name.toLowerCase().includes(filterValue)
+              );
             }
           }
         }
@@ -456,7 +458,7 @@
                 [mdbAutoCompleter]="auto"
                 placeholder="Choose your color"
               />
-              <mdb-auto-completer 
+              <mdb-auto-completer
               [visibleOptions]="5"
               [optionHeight]="40"
               #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
@@ -534,7 +536,7 @@
                 [mdbAutoCompleter]="auto"
                 placeholder="Choose your color"
               />
-              <mdb-auto-completer 
+              <mdb-auto-completer
               [displayValue]="onDisplayValue"
               #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
                 <mdb-option *ngFor="let option of data | async" [value]="option">
@@ -566,7 +568,7 @@
             {name: 'blue'}
           ];
           data: Observable<Color[]>;
-        
+
           ngOnInit() {
             this.data = this.myControl.valueChanges
             .pipe(
@@ -579,10 +581,10 @@
             console.log(color)
             return color ? color.name : undefined;
           }
-        
+
           filter(name: string): Color[] {
             const filterValue = name.toLowerCase();
-        
+
             return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
           }
         }
