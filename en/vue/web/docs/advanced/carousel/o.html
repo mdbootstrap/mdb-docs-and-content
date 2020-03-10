@@ -562,20 +562,32 @@
 
     <!--Section: Live preview-->
 
-    <section>
-      <div class="iframe-toolbar">
-        <a
-          href="https://tst02.mdbootstrap.com/previews/templates/vue/#/demo/pro/advanced/carousel/1"
-          target="_blank"
-          class="btn btn-flat border border-light grey-text rounded btn-sm px-2 waves-effect"
-          ><i class="fas fa-expand mr-1"></i> Fullscreen</a
-        >
-      </div>
-      <iframe
-        width="100%"
-        data-lazysrc="https://tst02.mdbootstrap.com/previews/templates/vue/#/demo/pro/advanced/carousel/1"
-        frameborder="0"
-      ></iframe>
+    <section id="multi-item-carousel-preview">
+      <mdb-carousel
+        :items="9"
+        multi
+        indicators
+        controlls
+        slide
+        :interval="8000"
+      >
+        <template #[i+1] v-for="(img, i) in basic">
+          <mdb-card :key="i">
+            <mdb-card-image
+              :src="img"
+              alt="Card image cap"
+            ></mdb-card-image>
+            <mdb-card-body>
+              <mdb-card-title>{{i + 1}}</mdb-card-title>
+              <mdb-card-text
+                >Some quick example text to build on the card title and
+                make up the bulk of the card's content.</mdb-card-text
+              >
+              <mdb-btn color="primary" size="md">Button</mdb-btn>
+            </mdb-card-body>
+          </mdb-card>
+        </template>
+      </mdb-carousel>
     </section>
     <!--Section: Live preview-->
 
@@ -615,6 +627,7 @@
           <script>
             import {
               mdbCarousel,
+              mdbBtn,
               mdbCard,
               mdbCardImage,
               mdbCardText,
@@ -624,6 +637,7 @@
               name: "CarouselPage",
               components: {
                 mdbCarousel,
+                mdbBtn,
                 mdbCard,
                 mdbCardImage,
                 mdbCardText,
@@ -656,7 +670,7 @@
   <hr class="mt-4 mb-5" />
 
   <!--Section: -->
-  <section id="one-item-carousel">
+  <section id="one-item-carousel-preview">
     <!--Title-->
     <h3 class="secondary-heading">
       Multi-item carousel - one item per time
@@ -678,20 +692,36 @@
 
     <!--Section: Live preview-->
 
-    <section>
-      <div class="iframe-toolbar">
-        <a
-          href="https://tst02.mdbootstrap.com/previews/templates/vue/#/demo/pro/advanced/carousel/2"
-          target="_blank"
-          class="btn btn-flat border border-light grey-text rounded btn-sm px-2 waves-effect"
-          ><i class="fas fa-expand mr-1"></i> Fullscreen</a
-        >
-      </div>
-      <iframe
-        width="100%"
-        data-lazysrc="https://tst02.mdbootstrap.com/previews/templates/vue/#/demo/pro/advanced/carousel/2"
-        frameborder="0"
-      ></iframe>
+    <section id="one-item-carousel">
+      <mdb-carousel
+        :items="6"
+        multi
+        one
+        indicators
+        controlls
+        left-icon="angle-double-left"
+        right-icon="angle-double-right"
+        nav-color="info"
+        indicators-color="info-color"
+        slide
+      >
+        <template #[i+1] v-for="(img, i) in items">
+          <mdb-card :key="i">
+            <mdb-card-image
+              :src="img"
+              alt="Card image cap"
+            ></mdb-card-image>
+            <mdb-card-body class="text-center">
+              <mdb-card-title>{{i+1}}</mdb-card-title>
+              <mdb-card-text
+                >Some quick example text to build on the card title and
+                make up the bulk of the card's content.</mdb-card-text
+              >
+              <mdb-btn color="pink" rounded size="md">Button</mdb-btn>
+            </mdb-card-body>
+          </mdb-card>
+        </template>
+      </mdb-carousel>
     </section>
     <!--Section: Live preview-->
 
@@ -735,6 +765,7 @@
           <script>
             import {
               mdbCarousel,
+              mdbBtn,
               mdbCard,
               mdbCardImage,
               mdbCardText,
@@ -744,6 +775,7 @@
               name: "CarouselPage",
               components: {
                 mdbCarousel,
+                mdbBtn,
                 mdbCard,
                 mdbCardImage,
                 mdbCardText,
@@ -792,19 +824,46 @@
 
     <!--Section: Live preview-->
     <section>
-      <div class="iframe-toolbar">
-        <a
-          href="https://tst02.mdbootstrap.com/previews/templates/vue/#/demo/pro/advanced/carousel/3"
-          target="_blank"
-          class="btn btn-flat border border-light grey-text rounded btn-sm px-2 waves-effect"
-          ><i class="fas fa-expand mr-1"></i> Fullscreen</a
-        >
-      </div>
-      <iframe
-        width="100%"
-        data-lazysrc="https://tst02.mdbootstrap.com/previews/templates/vue/#/demo/pro/advanced/carousel/3"
-        frameborder="0"
-      ></iframe>
+      <mdb-carousel
+        :items="9"
+        multi
+        slide
+        controlls
+        indicators
+        indicators-color="secondary-color"
+        nav-color="secondary"
+        :interval="8000"
+      >
+        <template v-for="(i, index) in items" #[index+1]>
+          <div :key="index" style="cursor: pointer">
+            <mdb-row
+              md="4"
+              class="d-md-inline-block px-2"
+              @click.native="showLightbox(i)"
+            >
+              <figure>
+                <img :src="imgs[i]" class="img-fluid" alt />
+              </figure>
+            </mdb-row>
+            <mdb-row
+              md="4"
+              class="d-md-inline-block px-2"
+              @click.native="showLightbox(i + 1)"
+            >
+              <figure>
+                <img :src="imgs[i+1]" class="img-fluid" alt />
+              </figure>
+            </mdb-row>
+          </div>
+        </template>
+      </mdb-carousel>
+
+      <mdb-lightbox
+        :visible="visible"
+        :imgs="imgs"
+        :index="index"
+        @hide="handleHide"
+      ></mdb-lightbox>
     </section>
     <!--Section: Live preview-->
 
@@ -813,46 +872,48 @@
       <mdbsnippet>
         <code data-lang="html" data-name="template">
           <template>
-            <mdb-carousel
-              :items="9"
-              multi
-              slide
-              controlls
-              indicators
-              indicatorsColor="secondary-color"
-              navColor="secondary"
-              :interval="8000"
-            >
-              <template v-for="(i, index) in items" #[index+1]>
-                <div :key="index" style="cursor: pointer">
-                  <mdb-row
-                    md="4"
-                    class="d-md-inline-block px-2"
-                    @click.native="showLightbox(i)"
-                  >
-                    <figure>
-                      <img :src="imgs[i]" class="img-fluid" alt />
-                    </figure>
-                  </mdb-row>
-                  <mdb-row
-                    md="4"
-                    class="d-md-inline-block px-2"
-                    @click.native="showLightbox(i + 1)"
-                  >
-                    <figure>
-                      <img :src="imgs[i+1]" class="img-fluid" alt />
-                    </figure>
-                  </mdb-row>
-                </div>
-              </template>
-            </mdb-carousel>
+            <div>
+              <mdb-carousel
+                :items="9"
+                multi
+                slide
+                controlls
+                indicators
+                indicatorsColor="secondary-color"
+                navColor="secondary"
+                :interval="8000"
+              >
+                <template v-for="(i, index) in items" #[index+1]>
+                  <div :key="index" style="cursor: pointer">
+                    <mdb-row
+                      md="4"
+                      class="d-md-inline-block px-2"
+                      @click.native="showLightbox(i)"
+                    >
+                      <figure>
+                        <img :src="imgs[i]" class="img-fluid" alt />
+                      </figure>
+                    </mdb-row>
+                    <mdb-row
+                      md="4"
+                      class="d-md-inline-block px-2"
+                      @click.native="showLightbox(i + 1)"
+                    >
+                      <figure>
+                        <img :src="imgs[i+1]" class="img-fluid" alt />
+                      </figure>
+                    </mdb-row>
+                  </div>
+                </template>
+              </mdb-carousel>
 
-            <mdb-lightbox
-              :visible="visible"
-              :imgs="imgs"
-              :index="index"
-              @hide="handleHide"
-            ></mdb-lightbox>
+              <mdb-lightbox
+                :visible="visible"
+                :imgs="imgs"
+                :index="index"
+                @hide="handleHide"
+              ></mdb-lightbox>
+            </div>
           </template>
         </code>
         <code data-lang="html" data-name="script">

@@ -1,5 +1,43 @@
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const lazyIframes = [].slice.call(document.querySelectorAll('iframe[data-lazysrc]'));
+    if ('IntersectionObserver' in window) {
+      let lazyIframeObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            let lazyIframe = entry.target;
+            lazyIframe.src = lazyIframe.dataset.lazysrc;
+            lazyIframe.removeAttribute('data-lazysrc');
+            lazyIframe.classList.add('lazy-loaded');
+            lazyIframeObserver.unobserve(lazyIframe);
+          }
+        });
+      });
 
+      lazyIframes.forEach(function(lazyIframe) {
+        lazyIframeObserver.observe(lazyIframe);
+        lazyIframe.onload = function() {
+          const htmlHeight = lazyIframe.contentWindow.document.documentElement.offsetHeight;
+          lazyIframe.style.height = htmlHeight + 15 + 'px';
+          lazyIframe.contentWindow.document.documentElement.style.border = '1px solid #e0e0e0';
+          lazyIframe.contentWindow.document.documentElement.style.borderTop = 'none';
+        }
+      });
+      
+      const calculateIframesHeight = function() {
+        const iframes = [].slice.call(document.querySelectorAll('iframe.lazy-loaded'));
+        iframes.forEach(function(iframe) {
+          const htmlHeight = iframe.contentWindow.document.documentElement.offsetHeight;
+          iframe.style.height = htmlHeight + 15 + 'px';
+        })
+      };
+
+      window.addEventListener('resize', calculateIframesHeight);
+
+    } else {
+      // Possibly fall back to a more compatible method here
+    }
+  });
 </script>
 
 <!-- Structured data: Breadcrumbs -->
