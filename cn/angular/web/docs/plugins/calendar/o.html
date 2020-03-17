@@ -2,15 +2,15 @@
 <section id="introduction">
 
   <!--Title-->
-  <h2 class="primary-heading">Angular Bootstrap calendar</h2>
+  <h2 class="primary-heading">Angular Bootstrap日历</h2>
 
-  <h1 class="secondary-heading mb-4">Angular Calendar - Bootstrap 4 & Material Design</h1>
+  <h1 class="secondary-heading mb-4">角日历-Bootstrap 4和材料设计</h1>
 
   <!--Description-->
-  <p>Angular Bootstrap calendar plugin is an extension that allows you to create calendar functionality. Thanks to this plugin you will be able to easily create, delete and manage events.</p>
+  <p>Angular Bootstrap日历插件是允许您创建日历功能的扩展。使用此插件，您将能够轻松创建，删除和管理事件。</p>
 
   <a href="https://ng-demo.mdbootstrap.com/plugins/calendar" target="_blank" class="btn btn-primary mt-4 waves-effect waves-light" role="button">
-    Live preview
+    实时预览
     <i class="far fa-eye ml-2"></i>
   </a>
 
@@ -20,10 +20,10 @@
 
     <!--Title-->
     <h2 class="section-heading mb-4">
-      Basic example
+      基本示例
     </h2>
 
-    <p>To update calendar events array dynamically, mdb-calendar component uses the Angular change detection mechanism. Since Angular only checks if array reference has changed, component will not detect a change when you add new event with push method. Instead, you can use spread operator like in examples below:</p>
+    <p>为了动态更新日历事件数组，mdb-calendar组件使用Angular更改检测机制。由于Angular仅检查数组引用是否已更改，因此当您使用push方法添加新事件时，组件将不会检测到更改。相反，您可以像下面的示例一样使用散布运算符：</p>
 
     <!--Live preview-->
     <section>
@@ -33,61 +33,7 @@
           <mdb-calendar [events]="events" (eventEdited)="onEventEdit($event)" (eventAdded)="onEventAdd($event)" (eventDeleted)="onEventDelete($event)"></mdb-calendar>
         </code>
         <code data-lang="javascript" data-name="TS">
-          import { Component, OnInit } from '@angular/core';
-          import { startOfDay, endOfDay } from 'date-fns';
-          import { CalendarEvent } from 'mdb-calendar';
-
-
-          @Component({
-            selector: 'calendar-example',
-            templateUrl: './calendar-example.component.html',
-            styleUrls: ['./calendar-example.component.css']
-          })
-
-          export class AppComponent implements OnInit {
-
-            events: CalendarEvent[] = [
-              {
-                id: 'mdb-calendar-event-1',
-                startDate: new Date(startOfDay(new Date())),
-                endDate: new Date(endOfDay(new Date(2019, 2, 9))),
-                name: 'Conference',
-                color: 'info',
-              },
-              {
-                id: 'mdb-calendar-event-2',
-                startDate: new Date(startOfDay(new Date())),
-                endDate: new Date(endOfDay(new Date())),
-                name: 'Meeting',
-                color: 'success'
-              },
-            ];
-
-            generateUid() {
-              const uid = Math.random().toString(36).substr(2, 9);
-              return `mdb-calendar-event-${uid}`;
-            }
-
-            ngOnInit() {
-            }
-
-            onEventEdit(event: CalendarEvent) {
-              const oldEvent = this.events.findIndex( test => test.id === event.id);
-              this.events[oldEvent] = event;
-              this.events = [...this.events];
-            }
-
-            onEventAdd(event: CalendarEvent) {
-              event.id = this.generateUid();
-              this.events = [...this.events, event];
-            }
-
-            onEventDelete(deletedEvent: CalendarEvent) {
-              const eventIndex = this.events.findIndex( event => event.id === deletedEvent.id);
-              this.events.splice(eventIndex, 1);
-              this.events = [...this.events];
-            }
-          }
+          从&amp;#39;@ angular / core&amp;#39;导入{Component，OnInit};从&amp;#39;date-fns&amp;#39;导入{startOfDay，endOfDay};从&amp;#39;mdb-calendar&amp;#39;导入{CalendarEvent}; @Component（{选择器：&amp;#39;calendar-example&amp;#39;，templateUrl：&amp;#39;./calendar-example.component.html&amp;#39;，styleUrls：[&amp;#39;./calendar-example.component.css&amp;#39;]}）导出类AppComponent实现OnInit {事件：CalendarEvent [] = [{id：&amp;#39;mdb-calendar-event-1&amp;#39;，startDate：new Date（startOfDay（new Date（））），endDate：new Date（endOfDay（new Date（2019，2，9）） ），名称：“会议”，颜色：“信息”，}，{id：“ mdb-calendar-event-2”，startDate：新Date（startOfDay（new Date（））），endDate：新Date（endOfDay（ new Date（））），名称：“会议”，颜色：“成功”}，]; generateUid（）{const uid = Math.random（）。toString（36）.substr（2，9）;返回`mdb-calendar-event-$ {uid}`; } ngOnInit（）{} onEventEdit（event：CalendarEvent）{const oldEvent = this.events.findIndex（test => test.id === event.id）; this.events [oldEvent] =事件； this.events = [... this.events]; } onEventAdd（event：CalendarEvent）{event.id = this.generateUid（）; this.events = [... this.events，事件]; } onEventDelete（deletedEvent：CalendarEvent）{const eventIndex = this.events.findIndex（event => event.id === DeletedEvent.id）; this.events.splice（eventIndex，1）; this.events = [... this.events]; }}
         </code>
 
       </mdbsnippet>
@@ -104,10 +50,10 @@
 
     <!--Title-->
     <h2 class="section-heading mb-4">
-      Add events
+      新增活动
     </h2>
 
-    <p>You can listen to <code>(eventAdded)</code> output and update your events array with new event.</p>
+    <p>你可以听<code> （事件已添加） </code>输出并使用新事件更新事件数组。</p>
 
     <!--Live preview-->
     <section>
@@ -118,49 +64,7 @@
           <mdb-calendar [events]="events" (eventAdded)="onEventAdd($event)"></mdb-calendar>
         </code>
         <code data-lang="javascript" data-name="TS">
-          import { Component, OnInit } from '@angular/core';
-          import { startOfDay, endOfDay } from 'date-fns';
-          import { CalendarEvent } from 'mdb-calendar';
-
-
-          @Component({
-            selector: 'calendar-example',
-            templateUrl: './calendar-example.component.html',
-            styleUrls: ['./calendar-example.component.css']
-          })
-
-          export class AppComponent implements OnInit {
-
-            events: CalendarEvent[] = [
-              {
-                id: 'mdb-calendar-event-1',
-                startDate: new Date(startOfDay(new Date())),
-                endDate: new Date(endOfDay(new Date(2019, 2, 9))),
-                name: 'Conference',
-                color: 'info',
-              },
-              {
-                id: 'mdb-calendar-event-2',
-                startDate: new Date(startOfDay(new Date())),
-                endDate: new Date(endOfDay(new Date())),
-                name: 'Meeting',
-                color: 'success'
-              },
-            ];
-
-            generateUid() {
-              const uid = Math.random().toString(36).substr(2, 9);
-              return `mdb-calendar-event-${uid}`;
-            }
-
-            ngOnInit() {
-            }
-
-            onEventAdd(event: CalendarEvent) {
-              event.id = this.generateUid();
-              this.events = [...this.events, event];
-            }
-          }
+          从&amp;#39;@ angular / core&amp;#39;导入{Component，OnInit};从&amp;#39;date-fns&amp;#39;导入{startOfDay，endOfDay};从&amp;#39;mdb-calendar&amp;#39;导入{CalendarEvent}; @Component（{选择器：&amp;#39;calendar-example&amp;#39;，templateUrl：&amp;#39;./calendar-example.component.html&amp;#39;，styleUrls：[&amp;#39;./calendar-example.component.css&amp;#39;]}）导出类AppComponent实现OnInit {事件：CalendarEvent [] = [{id：&amp;#39;mdb-calendar-event-1&amp;#39;，startDate：new Date（startOfDay（new Date（））），endDate：new Date（endOfDay（new Date（2019，2，9）） ），名称：“会议”，颜色：“信息”，}，{id：“ mdb-calendar-event-2”，startDate：新Date（startOfDay（new Date（））），endDate：新Date（endOfDay（ new Date（））），名称：“会议”，颜色：“成功”}，]; generateUid（）{const uid = Math.random（）。toString（36）.substr（2，9）;返回`mdb-calendar-event-$ {uid}`; } ngOnInit（）{} onEventAdd（event：CalendarEvent）{event.id = this.generateUid（）; this.events = [... this.events，事件]; }}
         </code>
 
       </mdbsnippet>
@@ -177,10 +81,10 @@
 
     <!--Title-->
     <h2 class="section-heading mb-4">
-      Edit events
+      编辑事件
     </h2>
 
-    <p>You can listen to <code>(eventEdited)</code> output and update specific events in your events array.</p>
+    <p>你可以听<code> （eventEdited） </code>在事件数组中输出和更新特定事件。</p>
 
     <!--Live preview-->
     <section>
@@ -191,45 +95,7 @@
           <mdb-calendar [events]="events" (eventEdited)="onEventEdit($event)"></mdb-calendar>
         </code>
         <code data-lang="javascript" data-name="TS">
-          import { Component, OnInit } from '@angular/core';
-          import { startOfDay, endOfDay } from 'date-fns';
-          import { CalendarEvent } from 'mdb-calendar';
-
-
-          @Component({
-            selector: 'calendar-example',
-            templateUrl: './calendar-example.component.html',
-            styleUrls: ['./calendar-example.component.css']
-          })
-
-          export class AppComponent implements OnInit {
-
-            events: CalendarEvent[] = [
-              {
-                id: 'mdb-calendar-event-1',
-                startDate: new Date(startOfDay(new Date())),
-                endDate: new Date(endOfDay(new Date(2019, 2, 9))),
-                name: 'Conference',
-                color: 'info',
-              },
-              {
-                id: 'mdb-calendar-event-2',
-                startDate: new Date(startOfDay(new Date())),
-                endDate: new Date(endOfDay(new Date())),
-                name: 'Meeting',
-                color: 'success'
-              },
-            ];
-
-            ngOnInit() {
-            }
-
-            onEventEdit(event: CalendarEvent) {
-              const oldEvent = this.events.findIndex( test => test.id === event.id);
-              this.events[oldEvent] = event;
-              this.events = [...this.events];
-            }
-          }
+          从&amp;#39;@ angular / core&amp;#39;导入{Component，OnInit};从&amp;#39;date-fns&amp;#39;导入{startOfDay，endOfDay};从&amp;#39;mdb-calendar&amp;#39;导入{CalendarEvent}; @Component（{选择器：&amp;#39;calendar-example&amp;#39;，templateUrl：&amp;#39;./calendar-example.component.html&amp;#39;，styleUrls：[&amp;#39;./calendar-example.component.css&amp;#39;]}）导出类AppComponent实现OnInit {事件：CalendarEvent [] = [{id：&amp;#39;mdb-calendar-event-1&amp;#39;，startDate：new Date（startOfDay（new Date（））），endDate：new Date（endOfDay（new Date（2019，2，9）） ），名称：“会议”，颜色：“信息”，}，{id：“ mdb-calendar-event-2”，startDate：新Date（startOfDay（new Date（））），endDate：新Date（endOfDay（ new Date（））），名称：“会议”，颜色：“成功”}，]; ngOnInit（）{} onEventEdit（event：CalendarEvent）{const oldEvent = this.events.findIndex（test => test.id === event.id）; this.events [oldEvent] =事件； this.events = [... this.events]; }}
         </code>
 
       </mdbsnippet>
@@ -246,10 +112,10 @@
 
     <!--Title-->
     <h2 class="section-heading mb-4">
-      Delete events
+      删除
     </h2>
 
-    <p>You can listen to <code>(eventDeleted)</code> output and update your events array accordingly.</p>
+    <p>你可以听<code> （已删除事件） </code>输出并相应地更新事件数组。</p>
 
     <!--Live preview-->
     <section>
@@ -260,45 +126,7 @@
           <mdb-calendar [events]="events" (eventDeleted)="onEventDelete($event)"></mdb-calendar>
         </code>
         <code data-lang="javascript" data-name="TS">
-          import { Component, OnInit } from '@angular/core';
-          import { startOfDay, endOfDay } from 'date-fns';
-          import { CalendarEvent } from 'mdb-calendar';
-
-
-          @Component({
-            selector: 'calendar-example',
-            templateUrl: './calendar-example.component.html',
-            styleUrls: ['./calendar-example.component.css']
-          })
-
-          export class AppComponent implements OnInit {
-
-            events: CalendarEvent[] = [
-              {
-                id: 'mdb-calendar-event-1',
-                startDate: new Date(startOfDay(new Date())),
-                endDate: new Date(endOfDay(new Date(2019, 2, 9))),
-                name: 'Conference',
-                color: 'info',
-              },
-              {
-                id: 'mdb-calendar-event-2',
-                startDate: new Date(startOfDay(new Date())),
-                endDate: new Date(endOfDay(new Date())),
-                name: 'Meeting',
-                color: 'success'
-              },
-            ];
-
-            ngOnInit() {
-            }
-
-            onEventDelete(deletedEvent: CalendarEvent) {
-              const eventIndex = this.events.findIndex( event => event.id === deletedEvent.id);
-              this.events.splice(eventIndex, 1);
-              this.events = [...this.events];
-            }
-          }
+          从&amp;#39;@ angular / core&amp;#39;导入{Component，OnInit};从&amp;#39;date-fns&amp;#39;导入{startOfDay，endOfDay};从&amp;#39;mdb-calendar&amp;#39;导入{CalendarEvent}; @Component（{选择器：&amp;#39;calendar-example&amp;#39;，templateUrl：&amp;#39;./calendar-example.component.html&amp;#39;，styleUrls：[&amp;#39;./calendar-example.component.css&amp;#39;]}）导出类AppComponent实现OnInit {事件：CalendarEvent [] = [{id：&amp;#39;mdb-calendar-event-1&amp;#39;，startDate：new Date（startOfDay（new Date（））），endDate：new Date（endOfDay（new Date（2019，2，9）） ），名称：“会议”，颜色：“信息”，}，{id：“ mdb-calendar-event-2”，startDate：新Date（startOfDay（new Date（））），endDate：新Date（endOfDay（ new Date（））），名称：“会议”，颜色：“成功”}，]; ngOnInit（）{} onEventDelete（deletedEvent：CalendarEvent）{const eventIndex = this.events.findIndex（event => event.id === DeletedEvent.id）; this.events.splice（eventIndex，1）; this.events = [... this.events]; }}
         </code>
 
       </mdbsnippet>
@@ -312,7 +140,7 @@
     <!--Section: Options usage-->
     <section class="mx-1" id="options-usage">
       <h2 class="section-heading mb-4">
-        Options usage
+        选项用法
       </h2>
 
       <!--Section: Code-->
@@ -323,75 +151,7 @@
           </code>
 
           <code data-lang="javascript" data-name="TS">
-              import { Component, OnInit } from '@angular/core';
-              import { startOfDay, endOfDay } from 'date-fns';
-              import { CalendarEvent, MdbCalendarOptions } from 'mdb-calendar';
-
-
-              @Component({
-                selector: 'calendar-example',
-                templateUrl: './calendar-example.component.html',
-                styleUrls: ['./calendar-example.component.css']
-              })
-
-              export class AppComponent implements OnInit {
-
-                calendarOptions: MdbCalendarOptions = {
-                  firstDayOfWeek: 'Monday',
-                  monthViewBtnTxt: 'Month view',
-                  weekViewBtnTxt: 'Week view',
-                  listViewBtnTxt: 'List view',
-                  todayBtnTxt: 'Go to today',
-                  eventAddTitle: 'Custom add modal title',
-                  eventEditTitle: 'Custom edit modal title',
-                  eventCancelBtnTxt: 'Close',
-                  eventAddBtnTxt: 'Save new event',
-                  eventEditBtnTxt: 'Update event data',
-                  eventDeleteBtnTxt: 'Delete event'
-                };
-
-                events: CalendarEvent[] = [
-                  {
-                    id: 'mdb-calendar-event-1',
-                    startDate: new Date(startOfDay(new Date())),
-                    endDate: new Date(endOfDay(new Date(2019, 2, 9))),
-                    name: 'Conference',
-                    color: 'info',
-                  },
-                  {
-                    id: 'mdb-calendar-event-2',
-                    startDate: new Date(startOfDay(new Date())),
-                    endDate: new Date(endOfDay(new Date())),
-                    name: 'Meeting',
-                    color: 'success'
-                  },
-                ];
-
-                generateUid() {
-                  const uid = Math.random().toString(36).substr(2, 9);
-                  return `mdb-calendar-event-${uid}`;
-                }
-
-                ngOnInit() {
-                }
-
-                onEventEdit(event: CalendarEvent) {
-                  const oldEvent = this.events.findIndex( test => test.id === event.id);
-                  this.events[oldEvent] = event;
-                  this.events = [...this.events];
-                }
-
-                onEventAdd(event: CalendarEvent) {
-                  event.id = this.generateUid();
-                  this.events = [...this.events, event];
-                }
-
-                onEventDelete(deletedEvent: CalendarEvent) {
-                  const eventIndex = this.events.findIndex( event => event.id === deletedEvent.id);
-                  this.events.splice(eventIndex, 1);
-                  this.events = [...this.events];
-                }
-              }
+              从&amp;#39;@ angular / core&amp;#39;导入{Component，OnInit};从&amp;#39;date-fns&amp;#39;导入{startOfDay，endOfDay};从&amp;#39;mdb-calendar&amp;#39;导入{CalendarEvent，MdbCalendarOptions}; @Component（{选择器：&amp;#39;calendar-example&amp;#39;，templateUrl：&amp;#39;./calendar-example.component.html&amp;#39;，styleUrls：[&amp;#39;./calendar-example.component.css&amp;#39;]}）导出类AppComponent实现OnInit {calendarOptions ：MdbCalendarOptions = {firstDayOfWeek：&amp;#39;星期一&amp;#39;，monthViewBtnTxt：&amp;#39;月视图&amp;#39;，weekViewBtnTxt：&amp;#39;周视图&amp;#39;，listViewBtnTxt：&amp;#39;列表视图&amp;#39;，todayBtnTxt：&amp;#39;转到今天&amp;#39;，eventAddTitle：&amp;#39;自定义添加模式标题&amp;#39;，eventEditTitle &amp;#39;自定义编辑模式标题&amp;#39;，eventCancelBtnTxt：&amp;#39;关闭&amp;#39;，eventAddBtnTxt：&amp;#39;保存新事件&amp;#39;，eventEditBtnTxt：&amp;#39;更新事件数据&amp;#39;，eventDeleteBtnTxt：&amp;#39;删除事件&amp;#39;}；事件：CalendarEvent [] = [{id：&amp;#39;mdb-calendar-event-1&amp;#39;，startDate：new Date（startOfDay（new Date（））），endDate：new Date（endOfDay（new Date（2019，2，9） ）），名称：“会议”，颜色：“信息”，}，{id：“ mdb-calendar-event-2”，startDate：新Date（startOfDay（new Date（））），endDate：新Date（endOfDay （new Date（））），名称：“会议”，颜色：“成功”}，]; generateUid（）{const uid = Math.random（）。toString（36）.substr（2，9）;返回`mdb-calendar-event-$ {uid}`; } ngOnInit（）{} onEventEdit（event：CalendarEvent）{const oldEvent = this.events.findIndex（test => test.id === event.id）; this.events [oldEvent] =事件； this.events = [... this.events]; } onEventAdd（event：CalendarEvent）{event.id = this.generateUid（）; this.events = [... this.events，事件]; } onEventDelete（deletedEvent：CalendarEvent）{const eventIndex = this.events.findIndex（event => event.id === DeletedEvent.id）; this.events.splice（eventIndex，1）; this.events = [... this.events]; }}
           </code>
         </mdbsnippet>
       </section>
@@ -407,18 +167,18 @@
 
     <!--Title-->
     <h2 class="section-heading mb-4">
-      Events colors
+      活动颜色
     </h2>
 
-    <p>Here is a list of available events colors:</p>
+    <p>以下是可用事件颜色的列表：</p>
 
     <ul>
       <li>info</li>
-      <li>success</li>
-      <li>warning</li>
-      <li>danger</li>
-      <li>primary</li>
-      <li>secondary</li>
+      <li>成功</li>
+      <li>警告</li>
+      <li>危险</li>
+      <li>首選</li>
+      <li>次</li>
     </ul>
 
 

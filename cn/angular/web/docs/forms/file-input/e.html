@@ -2,7 +2,7 @@
 <section id="e-introduction">
 
   <!--Title-->
-  <h2 class="section-heading">Angular File Input - examples & customization</h2>
+  <h2 class="section-heading">角度文件输入-示例和自定义</h2>
 
 </section>
 <!--/Section: Intro-->
@@ -14,23 +14,18 @@
 
   <!--Title-->
   <h2 class="section-heading mb-4">
-    Uploading file with File Input
-    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm" role="button">MDB
-      Pro component
-      <i class="far fa-gem ml-1"></i>
+    使用文件输入MDB <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm" role="button">Pro组件上载文件 <i class="far fa-gem ml-1"></i>
     </a>
   </h2>
 
   <!--Description-->
-  <p>In order to show how to send a file through the File Input component, you need to set up a server. We will use
-    Node + Express.js stack.</p>
+  <p>为了显示如何通过文件输入组件发送文件，您需要设置服务器。我们将使用Node + Express.js堆栈。</p>
 
-  <p>If you come across a problem, please check our <a href="https://mdbootstrap.com/support/">support forum</a> to see
-    if someone else has already had a similar problem. If not, then feel free to set up a new topic!</p>
+  <p>如果您遇到问题，请检查我们的<a href="https://mdbootstrap.com/support/">支持论坛</a>看别人是否已经有类似的问题。如果没有，请随时设置一个新主题！</p>
 
-  <p>The whole project is available at <a href="https://mdbootstrap.com/download/mdb-angular/code-examples/file-uploader-demo.zip">this address</a> as a zip archive.</p>
+  <p>整个项目位于<a href="https://mdbootstrap.com/download/mdb-angular/code-examples/file-uploader-demo.zip">这个地址</a>作为zip存档。</p>
 
-  <p>As a first step, copy the following HTML and TS code into your project.</p>
+  <p>第一步，将以下HTML和TS代码复制到您的项目中。</p>
 
   <!--Section: Code-->
   <section>
@@ -41,88 +36,20 @@
         <form>
           <div class="file-field md-form d-flex justify-content-between align-items-center">
             <div mdbBtn floating="true" size="md" color="amber" mdbWavesEffect>
-              <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+              <mdb-icon fas icon="cloud-upload-alt" aria-hidden="true"></mdb-icon>
               <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
             </div>
             <div class="file-path-wrapper mt-1">
-              <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+              <input class="file-path" type="text" placeholder="上传您的文件" [value]="showFiles()">
             </div>
-            <button mdbBtn type="button" size="sm" color="amber" rounded="true" class="darken-2 waves-light" (click)="startUpload()"
-              mdbWavesEffect>Start
-              uploading</button>
+            <button mdbBtn type="button" size="sm" color="amber" rounded="true" class="darken-2 waves-light" (click)="startUpload()" mdbWavesEffect>开始上传</button>
           </div>
         </form>
 
       </code>
 
       <code data-lang="js" data-name="TS">
-            import { Component, EventEmitter } from '@angular/core';
-            import { UploadInput, UploadOutput, UploadFile, humanizeBytes } from 'ng-uikit-pro-standard';
-
-            @Component({
-              selector: 'app-root',
-              templateUrl: './app.component.html',
-              styleUrls: ['./app.component.scss']
-            })
-            export class AppComponent {
-              formData: FormData;
-              files: UploadFile[];
-              uploadInput: EventEmitter<UploadInput>;
-              humanizeBytes: Function;
-              dragOver: boolean;
-
-              constructor() {
-                  this.files = [];
-                  this.uploadInput = new EventEmitter<UploadInput>();
-                  this.humanizeBytes = humanizeBytes;
-              }
-
-              showFiles() {
-                  let files = '';
-                  for (let i = 0; i < this.files.length; i ++) {
-                    files += this.files[i].name;
-                     if (!(this.files.length - 1 === i)) {
-                       files += ',';
-                    }
-                  }
-                  return files;
-               }
-
-              startUpload(): void {
-                  const event: UploadInput = {
-                  type: 'uploadAll',
-                  url: 'http://localhost:3001/api/upload',
-                  method: 'POST',
-                  data: { foo: 'bar' },
-                  };
-                  this.files = [];
-                  this.uploadInput.emit(event);
-              }
-
-              cancelUpload(id: string): void {
-                  this.uploadInput.emit({ type: 'cancel', id: id });
-              }
-
-              onUploadOutput(output: UploadOutput | any): void {
-                  if (output.type === 'allAddedToQueue') {
-                  } else if (output.type === 'addedToQueue') {
-                    this.files.push(output.file); // add file to array when added
-                  } else if (output.type === 'uploading') {
-                    // update current data in files array for uploading file
-                    const index = this.files.findIndex(file => file.id === output.file.id);
-                    this.files[index] = output.file;
-                  } else if (output.type === 'removed') {
-                    // remove file from array when removed
-                    this.files = this.files.filter((file: UploadFile) => file !== output.file);
-                  } else if (output.type === 'dragOver') {
-                    this.dragOver = true;
-                  } else if (output.type === 'dragOut') {
-                  } else if (output.type === 'drop') {
-                    this.dragOver = false;
-                  }
-                  this.showFiles();
-              }
-            }
+            从&amp;#39;@ angular / core&amp;#39;导入{Component，EventEmitter};从&amp;#39;ng-uikit-pro-standard&amp;#39;导入{UploadInput，UploadOutput，UploadFile，humanizeBytes}; @Component（{选择器：&amp;#39;app-root&amp;#39;，templateUrl：&amp;#39;./app.component.html&amp;#39;，styleUrls：[&amp;#39;./app.component.scss&amp;#39;]}）导出类AppComponent {formData：FormData;文件：UploadFile []; uploadInput：EventEmitter<UploadInput>; humanizeBytes：函数； dragOver：布尔值; constructor（）{this.files = []; this.uploadInput =新的EventEmitter<UploadInput>（）; this.humanizeBytes = humanizeBytes; } showFiles（）{let files =&amp;#39;&amp;#39;; for（让我= 0；我&lt;this.files.length;我++）{文件+ = this.files [i] .name;如果（！（this.files.length-1 === i））{files + =&amp;#39;，&amp;#39;;返回文件； } startUpload（）：void {常量事件：UploadInput = {类型：&amp;#39;uploadAll&amp;#39;，url：&amp;#39;http：// localhost：3001 / api / upload&amp;#39;，方法：&amp;#39;POST&amp;#39;，数据：{foo：&amp;#39;bar&amp;#39;} ，}; this.files = []; this.uploadInput.emit（event）; } cancelUpload（id：string）：void {this.uploadInput.emit（{type：&amp;#39;cancel&amp;#39;，id：id}）; } onUploadOutput（output：UploadOutput | any）：void {如果（output.type ===&amp;#39;allAddedToQueue&amp;#39;）{} else if（output.type ===&amp;#39;addedToQueue&amp;#39;）{this.files.push（output.file） ; // //添加时将文件添加到数组}否则if（output.type ===&amp;#39;uploading&amp;#39;）{//更新文件数组中的当前数据以上传文件const index = this.files.findIndex（file => file.id = == output.file.id）; this.files [index] = output.file; }否则if（output.type ===&amp;#39;removed&amp;#39;）{//删除时从数组中删除文件this.files = this.files.filter（（file：UploadFile）=> file！== output.file）; }否则if（output.type ===&amp;#39;dragOver&amp;#39;）{this.dragOver = true; } else if（output.type ===&amp;#39;dragOut&amp;#39;）{} else if（output.type ===&amp;#39;drop&amp;#39;）{this.dragOver = false; } this.showFiles（）; }}
       </code>
 
     </mdbsnippet>
@@ -139,19 +66,18 @@
 
   <!--Title-->
   <h2 class="section-heading mb-4">
-    Necessary files and folders
+    必要的文件和文件夹
   </h2>
 
-  <p>In the next step in your application's root directory, create the following folders and the files that they will
-    contain.</p>
+  <p>在应用程序根目录的下一步中，创建以下文件夹及其将包含的文件。</p>
   <ul>
-    <li>bin/www.ts,</li>
-    <li>routes/index.ts,</li>
-    <li>uploads,</li>
-    <li>app.ts.</li>
+    <li>bin / www.ts，</li>
+    <li>路线/index.ts，</li>
+    <li>上传</li>
+    <li>应用程式</li>
   </ul>
 
-  <img src="https://mdbootstrap.com/img/Angular/file-upload-project-structure.png" alt="File upload files structure">
+  <img src="https://mdbootstrap.com/img/Angular/file-upload-project-structure.png" alt="文件上传文件结构">
 
 </section>
 <!--/Section: -->
@@ -163,11 +89,10 @@
 
   <!--Title-->
   <h2 class="section-heading mb-4">
-    Necessary libraries and filling up files
+    必要的库和填充文件
   </h2>
 
-  <p>The next step is to install the following additional libraries, thanks to which we will handle the sending of the
-    file to the backend, and then complete the previously created files with the required code.</p>
+  <p>下一步是安装以下附加库，借助这些附加库，我们将处理将文件发送至后端的过程，然后使用所需代码完成先前创建的文件。</p>
 
   <mdbsnippet>
     <code data-lang="js" data-name="NPM Install">
@@ -175,175 +100,39 @@
     </code>
   </mdbsnippet>
 
-  <p>Copy the below code into <code>app.ts</code> file</p>
+  <p>将以下代码复制到<code>应用程序</code>文件</p>
 
   <mdbsnippet>
     <code data-lang="js" data-name="app.ts">
-      const express = require('express');
-      const path = require('path');
-      const bodyParser = require('body-parser');
-      const cors = require('cors');
-
-      const indexRouter = require('./routes/index');
-      const app = express();
-
-      const corsOptions = {
-        origin: '*',
-        optionsSuccessStatus: 200
-      };
-
-      app.use(cors(corsOptions));
-      app.use(bodyParser.json());
-      app.use(bodyParser.urlencoded({ extended: true }));
-
-      // create a cors middleware
-      app.use((req, res, next) => {
-        // set headers to allow cross origin request.
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-        next();
-      });
-
-      app.use('/api', indexRouter);
-
-      module.exports = app;
+      const express = require（&amp;#39;express&amp;#39;）; const path = require（&amp;#39;path&amp;#39;）; const bodyParser = require（&amp;#39;body-parser&amp;#39;）; const cors = require（&amp;#39;cors&amp;#39;）; const indexRouter = require（&amp;#39;./ routes / index&amp;#39;）; const app = express（）; const corsOptions = {origin：&amp;#39;*&amp;#39;，optionsSuccessStatus：200}; app.use（cors（corsOptions））; app.use（bodyParser.json（））; app.use（bodyParser.urlencoded（{extended：true}））; //创建一个cors中间件app.use（（req，res，next）=> {//设置标头以允许跨源请求res.header（&amp;#39;Access-Control-Allow-Origin&amp;#39;，&amp;#39;*&amp;#39;）; res .header（&amp;#39;Access-Control-Allow-Methods&amp;#39;，&amp;#39;PUT，GET，POST，DELETE，OPTIONS&amp;#39;）; res.header（&amp;#39;Access-Control-Allow-Headers&amp;#39;，&amp;#39;Origin，X-Requested-With，Content -Type，Accept&amp;#39;）; next（）;}）; app.use（&amp;#39;/ api&amp;#39;，indexRouter）; module.exports =应用程序；
 
     </code>
   </mdbsnippet>
 
-  <p>Then copy the below code into <code>routes/index.ts</code> file</p>
+  <p>然后将以下代码复制到<code>路线/index.ts </code>文件</p>
 
   <mdbsnippet>
     <code data-lang="js" data-name="routes/index.ts">
-      const exp = require('express');
-      const router = exp.Router();
-      const multer = require('multer');
-      const DIR = './uploads/';
-
-      let upload = multer({ dest: DIR }).single('file');
-
-      router.post('/upload', (req, res, next) => {
-        let path = '';
-        upload(req, res, (err) => {
-            if (err) {
-                console.log(err);
-                return res.status(422).send('An error occured');
-            }
-            path = req.file.path;
-            console.log('Uploaded');
-            return res.send('Upload completed for ' + path);
-        });
-      });
-      module.exports = router;
+      const exp = require（&amp;#39;express&amp;#39;）; const router = exp.Router（）; const multer = require（&amp;#39;multer&amp;#39;）; const DIR =&amp;#39;./uploads/&amp;#39;;让upload = multer（{dest：DIR}）。single（&amp;#39;file&amp;#39;）; router.post（&amp;#39;/ upload&amp;#39;，（req，res，next）=> {let path =&amp;#39;&amp;#39;; upload（req，res，（err）=> {if（err）{console.log（err）;返回res.status（422）.send（&amp;#39;发生错误&amp;#39;）;} path = req.file.path; console.log（&amp;#39;Uploaded&amp;#39;）;返回res.send（&amp;#39;为&amp;#39;+ path完成上传&amp;#39;;）） ;}）; module.exports =路由器;
 
     </code>
   </mdbsnippet>
 
-  <p>And the last .ts file which you have to fill up is <code>bin/www.ts</code> file.</p>
+  <p>而您最后要填写的.ts文件是<code>斌/www.ts </code>文件。</p>
 
   <mdbsnippet>
     <code data-lang="js" data-name="bin/www.ts">
-      #!/usr/bin/env node
-
-      /**
-      * Module dependencies.
-      */
-
-      const appFile = require('../app');
-      const debug = require('debug')('file-upload:server');
-      const http = require('http');
-
-      /**
-      * Get port from environment and store in Express.
-      */
-
-      const port = normalizePort(process.env.PORT || '3001');
-      appFile.set('port', port);
-
-      /**
-      * Create HTTP server.
-      */
-
-      const server = http.createServer(appFile);
-
-      /**
-      * Listen on provided port, on all network interfaces.
-      */
-
-      server.listen(port);
-      server.on('error', onError);
-      server.on('listening', onListening);
-
-      /**
-      * Normalize a port into a number, string, or false.
-      */
-
-      function normalizePort(val) {
-        const portNumber = parseInt(val, 10);
-
-        if (isNaN(portNumber)) {
-        // named pipe
-        return val;
-        }
-
-        if (portNumber >= 0) {
-        // port number
-        return portNumber;
-        }
-
-        return false;
-      }
-
-      /**
-      * Event listener for HTTP server "error" event.
-      */
-
-      function onError(error) {
-      if (error.syscall !== 'listen') {
-        throw error;
-      }
-
-      const bind = typeof port === 'string' ?
-      'Pipe ' + port :
-      'Port ' + port;
-
-      // handle specific listen errors with friendly messages
-      switch (error.code) {
-        case 'EACCES':
-        console.error(bind + ' requires elevated privileges');
-        process.exit(1);
-        break;
-        case 'EADDRINUSE':
-        console.error(bind + ' is already in use');
-        process.exit(1);
-        break;
-        default:
-        throw error;
-      }
-      }
-
-      /**
-      * Event listener for HTTP server "listening" event.
-      */
-
-      function onListening() {
-        const addr = server.address();
-        const bind = typeof addr === 'string' ?
-        'pipe ' + addr :
-        'port ' + addr.port;
-        debug('Listening on ' + bind);
-      }
+      #!/ usr / bin / env节点/ ** *模块依赖性。* / const appFile = require（&amp;#39;../ app&amp;#39;）; const debug = require（&amp;#39;debug&amp;#39;）（&amp;#39;file-upload：server&amp;#39;）; const http = require（&amp;#39;http&amp;#39;）; / ** *从环境获取端口并存储在Express中。* / const port = normalizePort（process.env.PORT ||&amp;#39;3001&amp;#39;）; appFile.set（&amp;#39;port&amp;#39;，port）; / ** *创建HTTP服务器。* / const服务器= http.createServer（appFile）; / ** *在所有网络接口上监听提供的端口。* / server.listen（port）; server.on（&amp;#39;error&amp;#39;，onError）; server.on（&amp;#39;listening&amp;#39;，onListening）; / ** *将端口标准化为数字，字符串或false。* /函数normalizePort（val）{const portNumber = parseInt（val，10）; if（isNaN（portNumber））{//命名管道return val; } if（portNumber> = 0）{//端口号返回portNumber;返回false； } / ** * HTTP服务器“错误”事件的事件侦听器。* /函数onError（error）{if（error.syscall！==&amp;#39;listen&amp;#39;）{引发错误； } const bind = typeof port ===&amp;#39;字符串&amp;#39;？&amp;#39;管道&amp;#39;+端口：&amp;#39;端口&amp;#39;+端口； //使用友好的消息开关处理特定的侦听错误（error.code）{case&amp;#39;EACCES&amp;#39;：console.error（bind +&amp;#39;需要提升的特权&amp;#39;）; process.exit（1）;打破;案例&amp;#39;EADDRINUSE&amp;#39;：console.error（bind +&amp;#39;已经在使用中&amp;#39;）; process.exit（1）;打破;默认值：抛出错误； } / ** * HTTP服务器“监听”事件的事件监听器。* /函数onListening（）{const addr = server.address（）; const bind = typeof addr ===&amp;#39;字符串&amp;#39;
+        &amp;#39;pipe&amp;#39;+ addr：&amp;#39;端口&amp;#39;+ addr.port; debug（&amp;#39;听&amp;#39;+绑定）; }
 
     </code>
   </mdbsnippet>
 
-  <p>After you have completed all required files with the above code, add a script to the <code>package.json</code>
-    file, which will run your server.</p>
+  <p>使用上述代码完成所有必需的文件后，将脚本添加到<code> package.json </code>文件，它将运行您的服务器。</p>
 
   <mdbsnippet>
     <code data-lang="js" data-name="NPM Install">
-      "server": "tsc app.ts && tsc routes/index.ts && tsc bin/www.ts && node ./bin/www.js"
+      “服务器”：“ tsc app.ts &amp;&amp; tsc route / index.ts &amp;&amp; tsc bin / www.ts &amp;&amp; node ./bin/www.js”
     </code>
   </mdbsnippet>
 
@@ -357,19 +146,13 @@
 
   <!--Title-->
   <h2 class="section-heading mb-4">
-    Running the server and testing file upload
+    运行服务器并测试文件上传
   </h2>
 
-  <p>At the very end, we have nothing left to do but to run the server and the application. To do this, open two
-    terminal windows, and run the commands npm run server and ng serve in them.</p>
+  <p>最后，除了运行服务器和应用程序外，我们别无选择。为此，请打开两个终端窗口，然后在其中运行命令npm run server和ng serve。</p>
 
   <mdbsnippet>
-    <code data-lang="js" data-name="Server">
-      npm run server
-    </code>
-    <code data-lang="js" data-name="Application">
-      ng serve
-    </code>
+    <code data-lang="js" data-name="Server"> npm运行服务器</code><code data-lang="js" data-name="Application"> ng服务</code>
   </mdbsnippet>
 
 </section>
@@ -382,20 +165,15 @@
 
   <!--Title-->
   <h2 class="section-heading mb-4">
-    Conclusion
+    结论
   </h2>
 
-  <p>The above commands will run two processes - one responsible for server operation and the other for Angular
-    application operation. Now it is enough to select a file and press the Upload button, and after a while, this file
-    will be in your project, in the uploads directory. The name of this file is hashed, so you can avoid duplicate
-    files.
-  </p>
+  <p>上面的命令将运行两个进程-一个负责服务器操作，另一个负责Angular应用程序操作。现在选择一个文件并按Upload按钮就足够了，过一会儿，该文件将在您的项目中的uploads目录中。该文件的名称被散列，因此可以避免重复文件。</p>
 
   <blockquote class="blockquote bq-warning">
-    <p class="bq-title">Important note</p>
+    <p class="bq-title">重要提示</p>
     <p>
-      Please note that a piece of CORS-enabled code is only placed in the development environment. It is not recommended
-      to use this piece of code in a production environment unless you know what you are doing.</p>
+      请注意，一段启用CORS的代码仅放置在开发环境中。除非您知道自己在做什么，否则不建议在生产环境中使用这段代码。</p>
   </blockquote>
 
 </section>
