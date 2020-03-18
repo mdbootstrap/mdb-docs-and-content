@@ -1,0 +1,508 @@
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">
+    触摸<a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      > MDB Pro组件<i class="far fa-gem ml-1"></i></a>
+  </h2>
+
+  <h1 class="secondary-heading mb-4">MDB Vue自定义指令</h1>
+
+  <!--Description-->
+  <p>
+    该指令允许您通过在以下自定义事件上调用方法来改善触摸屏上的用户体验：捏，轻扫，双击，长按和平移。</p>
+
+  <a
+    href="https://vue.mdbootstrap.com/#/directives/pro/touch"
+    target="_blank"
+    class="btn btn-info mt-4 btn-rounded"
+    role="button"
+    >实时预览
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="basic-usage">
+  <!--Title-->
+  <h2 class="section-heading">
+    基本用法
+  </h2>
+
+  <p><strong>步骤1： </strong>从&amp;#39;mdbvue&amp;#39;导入指令</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>第2步： </strong>将mdbTouch添加到<code>指令</code>宾语
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+          export default {
+            directives: {
+              mdbTouch
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>第三步： </strong>附加指令，选择一个支持的事件到一个元素并传递一个回调
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div v-mdb-touch:doubleTap="zoom" />
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+          export default {
+            directives: {
+              mdbTouch
+            },
+            methods: {
+              zoom() {
+                //...
+              }
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <p>
+    <strong>步骤4： </strong>对于滑动事件，您还可以使用修饰符（左，右，上，下）
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div v-mdb-touch:swipe.left="changeSlide" />
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+          export default {
+            directives: {
+              mdbTouch
+            },
+            methods: {
+              changeSlide() {
+                //...
+              }
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="long-tap">
+  <!--Title-->
+  <h2 class="section-heading">
+    长按
+  </h2>
+
+  <p>
+    的<code> v-mdb-touch：longTap </code>当元素上的touch事件持续超过1秒时，调用选择的方法。</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <section>
+            <mdb-view
+              src="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg"
+              imgClass="img-fluid"
+            >
+              <transition
+                enter-active-class="animated fadeIn"
+                leave-active-class="animated fadeOut"
+              >
+                <mdb-mask flex-center v-if="mask" overlay="stylish-strong" text="Hold the button to remove the mask from the image" />
+              </transition>
+            </mdb-view>
+            <mdb-btn
+              v-mdb-touch:longTap="showImage"
+              class="mx-0 mt-2"
+              color="pink"
+              >点住以显示图像</mdb-btn
+            >
+          </section>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMask, mdbView, mdbBtn, mdbTouch } from "mdbvue";
+
+          export default {
+            name: "TouchPage",
+            components: {
+              mdbMask,
+              mdbView,
+              mdbBtn
+            },
+            data() {
+              return {
+                mask: true
+              };
+            },
+            methods: {
+              showImage() {
+                this.mask = false;
+              }
+            },
+            directives: { mdbTouch }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="double-tap">
+  <!--Title-->
+  <h2 class="section-heading">
+    双击
+  </h2>
+
+  <p>
+    doubleTap事件的回调由包含以下内容的对象调用<code>起源</code>字段-用户触摸的x和y坐标。在此示例中，它允许我们通过CSS转换原点
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div
+            class="img-container"
+            v-mdb-touch:doubleTap="resizeImg"
+            ref="img"
+          >
+            <img
+              src="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg"
+              :style="imgStyle"
+              class="w-100"
+            />
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+
+          export default {
+            data() {
+              return {
+                scale: 1,
+                origin: null
+              };
+            },
+            computed: {
+              imgStyle() {
+                return {
+                  transform: `scale(${this.scale})`,
+                  transformOrigin: this.origin
+                    ? `${this.origin.x}px ${this.origin.y}px 0`
+                    : "50% 50% 0"
+                };
+              }
+            },
+            methods: {
+              resizeImg(e) {
+                const rect = this.$refs.img.getBoundingClientRect();
+                this.origin = {
+                  x: e.origin.x - rect.x,
+                  y: e.origin.y - rect.y
+                };
+
+                this.scale === 1 ? (this.scale = 2) : (this.scale = 1);
+              }
+            },
+            directives: { mdbTouch }
+          };
+        </script>
+      </code>
+      <code data-lang="html" data-name="style">
+        <style scoped>
+          .img-container {
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+          }
+
+          .img-container img {
+            transition: transform 0.4s linear;
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="pinch">
+  <!--Title-->
+  <h2 class="section-heading">
+    捏
+  </h2>
+
+  <p>
+    pinch事件使用包含两个键的对象（比率和原点）调用给定方法。第一个是用户手指之间的距离之比<code>触摸端</code>到相同的距离<code>触摸开始</code> -这对于缩放图像特别有用。与doubleTap事件类似，第二个是指示用户手指之间的中间点的一对坐标。</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="img-container" v-mdb-touch:pinch="zoom" ref="pinchImg">
+            <img
+              src="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg"
+              class="img-fluid"
+              :style="imgStyle2"
+            />
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+
+          export default {
+            data() {
+              return {
+                scale2: 1,
+                origin2: null
+              };
+            },
+            computed: {
+              imgStyle2() {
+                return {
+                  transform: `scale(${this.scale2})`,
+                  transformOrigin: this.origin2
+                    ? `${this.origin2.x}px ${this.origin2.y}px 0`
+                    : "50% 50% 0"
+                };
+              }
+            },
+            methods: {
+              zoom(e) {
+                const rect = this.$refs.pinchImg.getBoundingClientRect();
+                this.origin2 = {
+                  x: e.origin.x - rect.x,
+                  y: e.origin.y - rect.y
+                };
+                this.scale2 * e.ratio > 1
+                  ? (this.scale2 *= e.ratio)
+                  : (this.scale2 = 1);
+              }
+            },
+            directives: { mdbTouch }
+          };
+        </script>
+      </code>
+      <code data-lang="html" data-name="style">
+        <style scoped>
+          .img-container {
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+          }
+
+          .img-container img {
+            transition: transform 0.4s linear;
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="swipe">
+  <!--Title-->
+  <h2 class="section-heading">
+    刷卡
+  </h2>
+
+  <p>
+    滑动事件带有几个修饰符（左，右，上，下）-它们中的每一个都将确保仅在沿特定方向滑动时才触发该事件。如果使用该指令时不带任何修饰符，则每次滑动时都会调用回调方法，并且指示方向的字符串将作为参数传递。</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div
+            v-mdb-touch:swipe.left="swipeLeft"
+            v-mdb-touch:swipe.right="swipeRight"
+          >
+            <mdb-view
+              src="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg"
+              imgClass="img-fluid"
+            >
+              <mdb-mask :overlay="overlays[activeOverlay]" />
+            </mdb-view>
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMask, mdbView, mdbTouch } from "mdbvue";
+
+          export default {
+            components: {
+              mdbMask,
+              mdbView
+            },
+            data() {
+              return {
+                activeOverlay: 0,
+                overlays: [
+                  "indigo-light",
+                  "indigo-strong",
+                  "blue-light",
+                  "pink-light"
+                ]
+              };
+            },
+            methods: {
+              swipeRight() {
+                if (this.activeOverlay === 0)
+                  this.activeOverlay = this.overlays.length - 1;
+                else this.activeOverlay--;
+              },
+              swipeLeft() {
+                if (this.activeOverlay === this.overlays.length - 1)
+                  this.activeOverlay = 0;
+                this.activeOverlay++;
+              }
+            },
+            directives: { mdbTouch }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="pan">
+  <!--Title-->
+  <h2 class="section-heading">
+    潘
+  </h2>
+
+  <p>
+    pan事件对于拖动元素很有用-每次用户在要附加指令的元素上移动手指时，就会使用由两个键组成的参数来调用给定方法： <code> X </code>和<code> ÿ </code> （这些值对应于水平和垂直平移）。</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div v-mdb-touch:pan="pan" style="overflow: hidden; height: 400px;">
+            <img
+              :style="imgStyle3"
+              src="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(47).jpg"
+            />
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+
+          export default {
+            data() {
+              return {
+                translate: {
+                  x: 0,
+                  y: 0
+                }
+              };
+            },
+            computed: {
+              imgStyle3() {
+                return {
+                  transform: `translate(${this.translate.x}px, ${this.translate.y}px)`
+                };
+              }
+            },
+            methods: {
+              pan(e) {
+                this.translate = {
+                  x: this.translate.x + e.x,
+                  y: this.translate.y + e.y
+                };
+              }
+            },
+            directives: { mdbTouch }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
