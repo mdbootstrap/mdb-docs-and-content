@@ -1,86 +1,20 @@
+<link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/js/vue/editable.css">
+<script src="https://unpkg.com/vue"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/editable.umd.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/vue/mdbEditable.umd.min.js"></script>
+
 <script>
-  var $TABLE = $('#table');
-  var $BTN = $('#export-btn');
-  var $EXPORT = $('#export');
+new Vue({
+  components: {
+    editable
+  }
+}).$mount('#editable')
 
-  $('.table-add').click(function () {
-    var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-    $TABLE.find('table').append($clone);
-  });
-
-  $('.table-remove').click(function () {
-    $(this).parents('tr').detach();
-  });
-
-  $('.table-up').click(function () {
-    var $row = $(this).parents('tr');
-    if ($row.index() === 1) return; // Don't go above the header
-    $row.prev().before($row.get(0));
-  });
-
-  $('.table-down').click(function () {
-    var $row = $(this).parents('tr');
-    $row.next().after($row.get(0));
-  });
-
-  // A few jQuery helpers for exporting only
-  jQuery.fn.pop = [].pop;
-  jQuery.fn.shift = [].shift;
-
-  $BTN.click(function () {
-    var $rows = $TABLE.find('tr:not(:hidden)');
-    var headers = [];
-    var data = [];
-
-    // Get the headers (add special header logic here)
-    $($rows.shift()).find('th:not(:empty)').each(function () {
-      headers.push($(this).text().toLowerCase());
-    });
-
-    // Turn all existing rows into a loopable array
-    $rows.each(function () {
-      var $td = $(this).find('td');
-      var h = {};
-
-      // Use the headers from earlier to name our hash keys
-      headers.forEach(function (header, i) {
-        h[header] = $td.eq(i).text();
-      });
-
-      data.push(h);
-    });
-
-    // Output the result
-    $EXPORT.text(JSON.stringify(data));
-  });
-
-</script>
-
-<!-- Datatables initialization -->
-<script>
-// Basic example
-$(document).ready(function () {
-  $('#dtBasicExample').DataTable();
-  $('.dataTables_length').addClass('bs-select');
-});
-
-// Material Design example
-$(document).ready(function () {
-  $('#dtMaterialDesignExample').DataTable();
-  $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
-    $(this).parent().append($(this).children());
-  });
-  $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
-    $('input').attr("placeholder", "Search");
-    $('input').removeClass('form-control-sm');
-  });
-  $('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
-  $('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
-  $('#dtMaterialDesignExample_wrapper select').removeClass('custom-select custom-select-sm form-control form-control-sm');
-  $('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
-  $('#dtMaterialDesignExample_wrapper .mdb-select').material_select();
-  $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
-});
+new Vue({
+  components: {
+    mdbEditable
+  }
+}).$mount('#pagination-editable')
 </script>
 
 <!-- Structured data: Breadcrumbs -->
