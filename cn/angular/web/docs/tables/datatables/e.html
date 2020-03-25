@@ -2,8 +2,8 @@
 <section id="e-introduction">
 
   <!--Title-->
-  <h2 class="section-heading">Angular Datatables examples & customization</h2>
-  <p class="description">Here you can find a more advanced examples of Datatables component.</p>
+  <h2 class="section-heading">Angular Datatables示例和自定义</h2>
+  <p class="description">在这里，您可以找到Datatables组件的更高级示例。</p>
 </section>
 <!--/Section: Intro-->
 
@@ -14,15 +14,15 @@
 
     <!--Title-->
     <h2 class="section-heading mb-4">
-      Datatables with data from remote API
+      具有来自远程API的数据的数据表
     </h2>
 
     <a href="https://ng-demo.mdbootstrap.com/tables/data-tables/" target="_blank" class="btn btn-primary waves-effect waves-light" role="button">
-      Live example
+      实例
       <i class="far fa-eye ml-2"></i>
     </a>
 
-    <p class="description mt-4">Datatables with data fetching from real online API.</p>
+    <p class="description mt-4">从真正的在线API获取数据的数据表。</p>
 
     <!--Section: Code-->
     <section>
@@ -33,10 +33,8 @@
           <div class="row">
             <div class="col-md-6 mx-auto">
               <div class="md-form">
-                <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()"
-                       id="search-input"
-                       mdbInput>
-                <label for="search-input">Search</label>
+                <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input" mdbInput>
+                <label for="search-input">搜索</label>
               </div>
             </div>
             <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
@@ -50,8 +48,7 @@
               </tr>
               </thead>
               <tbody #row>
-              <tr mdbTableCol (rowCreated)="onRowCreate($event)" (rowRemoved)="onRowRemove($event)"
-                  *ngFor="let el of elements; let i = index">
+              <tr mdbTableCol (rowCreated)="onRowCreate($event)" (rowRemoved)="onRowRemove($event)" *ngFor="let el of elements; let i = index">
                 <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i <  mdbTablePagination.lastItemIndex"
                     scope="row">{{el.id}}
                 </th>
@@ -81,93 +78,7 @@
       </code>
 
       <code data-lang="js" data-name="TS">
-        import {
-        AfterViewInit,
-        ChangeDetectorRef,
-        Component,
-        ElementRef,
-        HostListener,
-        OnInit,
-        ViewChild} from '@angular/core';
-        import {
-        MdbTableDirective,
-        MdbTablePaginationComponent
-        } from "ng-uikit-pro-standard";
-        import {HttpClient} from "@angular/common/http";
-
-        @Component({
-        selector: 'remote-tables',
-        templateUrl: './remote-tables.component.html',
-        styleUrls: ['./remote-tables.component.scss']
-        })
-        export class RemoteTables implements OnInit, AfterViewInit {
-        @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
-        @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
-        @ViewChild('row') row: ElementRef;
-
-        elements: any = [];
-        headElements = ['id', 'first', 'last', 'handle'];
-
-        searchText: string = '';
-        previous: string;
-
-        maxVisibleItems: number = 5;
-
-        url = 'https://jsonplaceholder.typicode.com/posts';
-
-        constructor(private cdRef: ChangeDetectorRef, private http: HttpClient) { }
-
-        @HostListener('input') oninput() {
-        this.mdbTablePagination.searchText = this.searchText;
-        }
-
-        ngOnInit() {
-        this.http.get(this.url).subscribe((data: any) => {
-        data.forEach((el: any) => {
-        this.elements.push({
-        id: el.id.toString(),
-        first: el.title,
-        last: el.body,
-        handle: 'Handle ' + el.id.toString()
-        });
-        });
-        this.mdbTable.setDataSource(this.elements);
-        });
-        this.elements = this.mdbTable.getDataSource();
-        this.previous = this.mdbTable.getDataSource();
-        }
-
-        ngAfterViewInit() {
-        this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
-
-        this.mdbTablePagination.calculateFirstItemIndex();
-        this.mdbTablePagination.calculateLastItemIndex();
-
-        this.cdRef.detectChanges();
-        }
-
-        searchItems() {
-        const prev = this.mdbTable.getDataSource();
-
-        if (!this.searchText) {
-        this.mdbTable.setDataSource(this.previous);
-        this.elements = this.mdbTable.getDataSource();
-        }
-
-        if (this.searchText) {
-        this.elements = this.mdbTable.searchLocalDataBy(this.searchText);
-        this.mdbTable.setDataSource(prev);
-        }
-
-        this.mdbTablePagination.calculateFirstItemIndex();
-        this.mdbTablePagination.calculateLastItemIndex();
-
-        this.mdbTable.searchDataObservable(this.searchText).subscribe(() => {
-        this.mdbTablePagination.calculateFirstItemIndex();
-        this.mdbTablePagination.calculateLastItemIndex();
-        });
-        }
-        }
+        从“ @ angular / core”导入{AfterViewInit，ChangeDetectorRef，Component，ElementRef，HostListener，OnInit，ViewChild}；从“ ng-uikit-pro-standard”导入{MdbTableDirective，MdbTablePaginationComponent}；从“ @ angular / common / http”导入{HttpClient}； @Component（{选择器：&amp;#39;remote-tables&amp;#39;，templateUrl：&amp;#39;./remote-tables.component.html&amp;#39;，styleUrls：[&amp;#39;./remote-tables.component.scss&amp;#39;]}）导出类RemoteTables实现OnInit，AfterViewInit {@ViewChild（MdbTableDirective，{静态：true}）mdbTable：MdbTableDirective; @ViewChild（MdbTablePaginationComponent，{static：true}）mdbTablePagination：MdbTablePaginationComponent; @ViewChild（&amp;#39;row&amp;#39;，{static：true}）row：ElementRef;元素：any = []； headElements = [&amp;#39;id&amp;#39;，&amp;#39;first&amp;#39;，&amp;#39;last&amp;#39;，&amp;#39;handle&amp;#39;]; searchText：字符串=&amp;#39;&amp;#39;;以前的：字符串; maxVisibleItems：数字= 5; url =&amp;#39;https://jsonplaceholder.typicode.com/posts&amp;#39;;构造函数（私有cdRef：ChangeDetectorRef，私有http：HttpClient）{} @HostListener（&amp;#39;input&amp;#39;）oninput（）{this.mdbTablePagination.searchText = this.searchText; } ngOnInit（）{this.http.get（this.url）.subscribe（（data：any）=> {data.forEach（（el：any）=> {this.elements.push（{id：el.id .toString（），第一个：el.title，最后一个：el.body，句柄：&amp;#39;Handle&amp;#39;+ el.id.toString（）}）;}）; this.mdbTable.setDataSource（this.elements）;}）; this.elements = this.mdbTable.getDataSource（）; this.previous = this.mdbTable.getDataSource（）; } ngAfterViewInit（）{this.mdbTablePagination.setMaxVisibleItemsNumberTo（this.maxVisibleItems）; this.mdbTablePagination.calculateFirstItemIndex（）; this.mdbTablePagination.calculateLastItemIndex（）; this.cdRef.detectChanges（）; } searchItems（）{const prev = this.mdbTable.getDataSource（）;如果（！this.searchText）{this.mdbTable.setDataSource（this.previous）; this.elements = this.mdbTable.getDataSource（）; } if（this.searchText）{this.elements = this.mdbTable.searchLocalDataBy（this.searchText）; this.mdbTable.setDataSource（prev）; } this.mdbTablePagination.calculateFirstItemIndex（）; this.mdbTablePagination.calculateLastItemIndex（）; this.mdbTable.searchDataObservable（this.searchText）.subscribe（（）=> {this.mdbTablePagination.calculateFirstItemIndex（）; this.mdbTablePagination.calculateLastItemIndex（）;}）; }}
       </code>
 
     </mdbsnippet>
@@ -184,21 +95,18 @@
 
   <!--Title-->
   <h2 class="section-heading mb-4">
-    Datatable with dynamic modal edit
+    具有动态模态编辑的数据表
   </h2>
 
   <a href="https://ng-demo.mdbootstrap.com/tables/data-tables/" target="_blank" class="btn btn-primary waves-effect waves-light" role="button">
-    Live example
+    实例
     <i class="far fa-eye ml-2"></i>
   </a>
 
-  <p class="description mt-4">Combine Datatables with dynamic modal to create a table which will be able to edit rows with
-    modals.</p>
-  <p class="description">You can read more about dynamic modals <a
-    href="https://mdbootstrap.com/docs/angular/modals/basic/#dynamic">here</a>.</p>
-  <p class="description">For proper working of below example you have to import <code>FormsModule,
-    ReactiveFormsModule</code> to the <code>app.module.ts</code> file, and add there a <code>entryComponents:
-    [ModalEditComponent]</code>.</p>
+  <p class="description mt-4">将Datatables与动态模式结合起来以创建一个表，该表将能够编辑带有模式的行。</p>
+  <p class="description">您可以阅读有关动态模态的更多信息<a
+    href="https://mdbootstrap.com/docs/angular/modals/basic/#dynamic">这里</a> 。</p>
+  <p class="description">为了正常工作以下示例，您必须导入<code> FormsModule，ReactiveFormsModule </code>到<code> app.module.ts </code>文件，然后添加一个<code> entryComponents：[ModalEditComponent] </code> 。</p>
 
   <!--Section: Code-->
   <section>
@@ -232,8 +140,7 @@
                   {{el.handle}}
                 </td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-                  <button mdbBtn color="warning" size="sm" mdbWavesEffect (click)="editRow(el)">Edit</button>
-                  <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow(el)">Remove</button>
+                  <button mdbBtn color="warning" size="sm" mdbWavesEffect (click)="editRow(el)">编辑</button><button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow(el)">去掉</button>
                 </td>
               </tr>
               </tbody>
@@ -251,70 +158,7 @@
       </code>
 
       <code data-lang="js" data-name="app.component.ts">
-        import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core';
-        import {MdbTableDirective, MdbTablePaginationComponent} from "path-to-mdb-angular";
-        import {MDBModalRef, MDBModalService} from "path-to-mdb-angular";
-        import {ModalEditComponent} from "./modal-edit/modal-edit.component";
-
-        @Component({
-          selector: 'app-root',
-          templateUrl: './dynamic-modal-table.component.html',
-          styleUrls: ['./dynamic-modal-table.component.scss']
-        })
-        export class DynamicModalTableComponent {
-          @ViewChild(MdbTableDirective) mdbTable: MdbTableDirective;
-          @ViewChild(MdbTablePaginationComponent) mdbTablePagination: MdbTablePaginationComponent;
-          @ViewChild('row') row: ElementRef;
-
-          elements: any = [];
-          headElements = ['id', 'first', 'last', 'handle', 'command'];
-
-          modalRef: MDBModalRef;
-
-          constructor(
-          private cdRef: ChangeDetectorRef,
-          private modalService: MDBModalService) { }
-
-          ngOnInit() {
-            for (let i = 1; i <= 25; i++) {
-              this.elements.push({id: i.toString(), first: 'User ' + i, last: 'Last ' + i, handle: 'Handle ' + i});
-            }
-
-            this.mdbTable.setDataSource(this.elements);
-            this.elements = this.mdbTable.getDataSource();
-          }
-
-          ngAfterViewInit() {
-            this.mdbTablePagination.setMaxVisibleItemsNumberTo(8);
-
-            this.mdbTablePagination.calculateFirstItemIndex();
-            this.mdbTablePagination.calculateLastItemIndex();
-            this.cdRef.detectChanges();
-          }
-
-          editRow(el: any) {
-            const elementIndex = this.elements.findIndex((elem: any) => el === elem);
-            const modalOptions = {
-              data: {
-                editableRow: el
-              }
-            };
-            this.modalRef = this.modalService.show(ModalEditComponent, modalOptions);
-            this.modalRef.content.saveButtonClicked.subscribe((newElement: any) => {
-              this.elements[elementIndex] = newElement;
-            });
-            this.mdbTable.setDataSource(this.elements);
-          }
-
-          removeRow(el: any) {
-            const elementIndex = this.elements.findIndex((elem: any) => el === elem);
-            this.mdbTable.removeRow(elementIndex);
-            this.mdbTable.getDataSource().forEach((el: any, index: any) => {
-              el.id = (index + 1).toString();
-            });
-            this.mdbTable.setDataSource(this.elements);
-          }
-        }
+        从&amp;#39;@ angular / core&amp;#39;导入{ChangeDetectorRef，Component，ElementRef，ViewChild};从“ path-to-mdb-angular”导入{MdbTableDirective，MdbTablePaginationComponent}；从“ path-to-mdb-angular”导入{MDBModalRef，MDBModalService}；从“ ./modal-edit/modal-edit.component”导入{ModalEditComponent}； @Component（{选择器：&amp;#39;app-root&amp;#39;，templateUrl：&amp;#39;./dynamic-modal-table.component.html&amp;#39;，styleUrls：[&amp;#39;./dynamic-modal-table.component.scss&amp;#39;]}）导出类DynamicModalTableComponent {@ViewChild（MdbTableDirective，{静态：true}）mdbTable：MdbTableDirective; @ViewChild（MdbTablePaginationComponent，{static：true}）mdbTablePagination：MdbTablePaginationComponent; @ViewChild（&amp;#39;row&amp;#39;，{static：true}）row：ElementRef;元素：any = []； headElements = [&amp;#39;id&amp;#39;，&amp;#39;first&amp;#39;，&amp;#39;last&amp;#39;，&amp;#39;handle&amp;#39;，&amp;#39;command&amp;#39;]; modalRef：MDBModalRef;构造函数（私有cdRef：ChangeDetectorRef，私有modalService：MDBModalService）{} ngOnInit（）{for（let i = 1; i &lt;= 25; i ++）{this.elements.push（{id：i.toString（），first： &amp;#39;User&amp;#39;+ i，最后一个：&amp;#39;Last&amp;#39;+ i，处理：&amp;#39;Handle&amp;#39;+ i}）； } this.mdbTable.setDataSource（this.elements）; this.elements = this.mdbTable.getDataSource（）; } ngAfterViewInit（）{this.mdbTablePagination.setMaxVisibleItemsNumberTo（8）; this.mdbTablePagination.calculateFirstItemIndex（）; this.mdbTablePagination.calculateLastItemIndex（）; this.cdRef.detectChanges（）; } editRow（el：any）{const elementIndex = this.elements.findIndex（（elem：any）=> el === elem）; const modalOptions = {数据：{editableRow：el}}; this.modalRef = this.modalService.show（ModalEditComponent，modalOptions）; this.modalRef.content.saveButtonClicked.subscribe（（newElement：any）=> {this.elements [elementIndex] = newElement;}）; this.mdbTable.setDataSource（this.elements）; } removeRow（el：any）{const elementIndex = this.elements.findIndex（（elem：any）=> el === elem）; this.mdbTable.removeRow（elementIndex）; this.mdbTable.getDataSource（）。forEach（（el：any，index：any）=> {el.id =（index + 1）.toString（）;}）; this.mdbTable.setDataSource（this.elements）; }}
       </code>
 
     </mdbsnippet>
@@ -326,7 +170,7 @@
             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
               <span aria-hidden="true">×</span>
             </button>
-            <h4 class="modal-title w-100" id="myModalLabel">Edit user: {{editableRow.first}}</h4>
+            <h4 class="modal-title w-100" id="myModalLabel">修改用户： {{editableRow.first}}</h4>
           </div>
           <div class="modal-body">
             <form [formGroup]="form">
@@ -335,80 +179,30 @@
                 <label for="id">ID</label>
               </div>
               <div class="md-form">
-                <input id="first" type="text" class="form-control" formControlName="first" mdbInput mdbValidate
-                       [validateSuccess]="false">
-                <label for="first">First</label>
-                <mdb-error *ngIf="first.invalid && (first.dirty || first.touched)">Input is required</mdb-error>
+                <input id="first" type="text" class="form-control" formControlName="first" mdbInput mdbValidate [validateSuccess]="false">
+                <label for="first">第一</label>
+                <mdb-error *ngIf="first.invalid && (first.dirty || first.touched)">输入是必需的</mdb-error>
               </div>
               <div class="md-form">
-                <input id="last" type="text" class="form-control" formControlName="last" mdbInput mdbValidate
-                       [validateSuccess]="false">
-                <label for="last">Last</label>
-                <mdb-error *ngIf="last.invalid && (last.dirty || last.touched)">Input is required</mdb-error>
+                <input id="last" type="text" class="form-control" formControlName="last" mdbInput mdbValidate [validateSuccess]="false">
+                <label for="last">最后一个</label>
+                <mdb-error *ngIf="last.invalid && (last.dirty || last.touched)">输入是必需的</mdb-error>
               </div>
               <div class="md-form">
-                <input id="handle" type="text" class="form-control" formControlName="handle" mdbInput mdbValidate
-                       [validateSuccess]="false">
-                <label for="handle">Handle</label>
-                <mdb-error *ngIf="handle.invalid && (handle.dirty || handle.touched)">Input is required</mdb-error>
+                <input id="handle" type="text" class="form-control" formControlName="handle" mdbInput mdbValidate [validateSuccess]="false">
+                <label for="handle">处理</label>
+                <mdb-error *ngIf="handle.invalid && (handle.dirty || handle.touched)">输入是必需的</mdb-error>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
-                    (click)="modalRef.hide()" mdbWavesEffect>Close
-            </button>
-            <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect
-                    [disabled]="form.invalid" (click)="editRow()">Save!
-            </button>
+            <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="modalRef.hide()" mdbWavesEffect>关</button><button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect [disabled]="form.invalid" (click)="editRow()">保存！</button>
           </div>
         </div>
       </code>
 
       <code data-lang="js" data-name="modal-edit.component.ts">
-        import {Component} from '@angular/core';
-        import {MDBModalRef} from "path-to-mdb-angular";
-        import {FormControl, FormGroup, Validators} from "@angular/forms";
-        import {Subject} from "rxjs";
-
-        @Component({
-          selector: 'app-modal-edit',
-          templateUrl: './modal-edit.component.html',
-          styleUrls: ['./modal-edit.component.scss']
-        })
-        export class ModalEditComponent {
-
-          public editableRow: { id: string, first: string, last: string, handle: string };
-          public saveButtonClicked: Subject&lt;any&gt; = new Subject&lt;any&gt;();
-
-          public form: FormGroup = new FormGroup({
-              id: new FormControl({value: '', disabled: true}),
-              first: new FormControl('', Validators.required),
-              last: new FormControl('', Validators.required),
-              handle: new FormControl('', Validators.required)
-            });
-
-            constructor(public modalRef: MDBModalRef) { }
-
-            ngOnInit() {
-              this.form.controls['id'].patchValue(this.editableRow.id);
-              this.form.controls['first'].patchValue(this.editableRow.first);
-              this.form.controls['last'].patchValue(this.editableRow.last);
-              this.form.controls['handle'].patchValue(this.editableRow.handle);
-            }
-
-            editRow() {
-              this.editableRow = this.form.getRawValue();
-              this.saveButtonClicked.next(this.editableRow);
-              this.modalRef.hide();
-            }
-
-            get first() { return this.form.get('first'); }
-
-            get last() { return this.form.get('last'); }
-
-            get handle() { return this.form.get('handle'); }
-            }
+        从“ @ angular / core”导入{Component}；从“路径到mdb角度”导入{MDBModalRef}；从“ @ angular / forms”导入{FormControl，FormGroup，Validators}；从“ rxjs”导入{Subject}； @Component（{选择器：&amp;#39;app-modal-edit&amp;#39;，templateUrl：&amp;#39;./modal-edit.component.html&amp;#39;，styleUrls：[&amp;#39;./modal-edit.component.scss&amp;#39;]}）导出类ModalEditComponent {public editableRow：{id：字符串，first：字符串，last：字符串，handle：字符串}; public saveButtonClicked：主题&lt;any> =新主题&lt;any> （）;公共形式：FormGroup = new FormGroup（{id：new FormControl（{value：``，disable：true}），第一个：new FormControl（&amp;#39;&amp;#39;，Validators.required），最后一个：new FormControl（&amp;#39;&amp;#39;，Validators.required ），句柄：new FormControl（&amp;#39;&amp;#39;，Validators.required）}）;构造函数（public modalRef：MDBModalRef）{} ngOnInit（）{this.form.controls [&amp;#39;id&amp;#39;]。patchValue（this.editableRow.id）; this.form.controls [&amp;#39;first&amp;#39;]。patchValue（this.editableRow.first）; this.form.controls [&amp;#39;last&amp;#39;]。patchValue（this.editableRow.last）; this.form.controls [&amp;#39;handle&amp;#39;]。patchValue（this.editableRow.handle）; } editRow（）{this.editableRow = this.form.getRawValue（）; this.saveButtonClicked.next（this.editableRow）; this.modalRef.hide（）; } get first（）{返回this.form.get（&amp;#39;first&amp;#39;）; } get last（）{返回this.form.get（&amp;#39;last&amp;#39;）; } get handle（）{return this.form.get（&amp;#39;handle&amp;#39;）; }}
       </code>
     </mdbsnippet>
   </section>

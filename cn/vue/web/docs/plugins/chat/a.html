@@ -1,0 +1,812 @@
+<!--Title-->
+<section class="mb-4" id="introduction">
+  <h2 class="primary-heading mb-3">Chat - API</h2>
+
+  <p>In this section you will find advanced information about the Chat component. You will learn which modules are required in this component, what are the possibilities of configuring the component, and what events and methods you can use in working with it.</p>
+
+  <hr class="mt-4 mb-5">
+
+  <!--Title-->
+  <h3 class="secondary-heading mb-3">Import statement</h3>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbChatRoom, mdbChat, mdbChatList } from 'mdbvue';
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+
+<hr class="my-5">
+
+<!--Section -->
+<section id="a-chat-message">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Chat Message
+  </h2>
+
+  <p>Basic building block of mdb-chat and mdb-small-chat is <code>mdb-chat-message</code> component. You can use it independently for building your own chat layouts. </p>
+
+    <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-chat-message name="John Smith" message="Lorem ipsum!" time="2019-06-26 11:15">
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+          <script>
+            import { mdbChatMessage } from 'mdbvue';
+            export default {
+              components: {
+                mdbChatMessage
+              }
+            }
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <!--Title-->
+    <h3 class="mb-4">
+        API Reference: Properties
+    </h3>
+
+    <section>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Type</th>
+                <th class="th-sm">Default</th>
+                <th class="th-sm">Description</th>
+                <th class="th-sm">Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">name</code></td>
+                <td><i>String</i></td>
+                <td class="text-nowrap"><code>-</code></td>
+                <td>Name displayed in the header</td>
+                <td><code class="language-markup">&lt;mdb-chat-message name="Alan Turing"/&gt;</code></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">time</code></td>
+                <td><i>String</i></td>
+                <td class="text-nowrap"><code></code></td>
+                <td>Time when message was send - data should be in following format: YYYY-MM-DD HH-MM-SS</td>
+                <td><code class="language-markup">&lt;mdb-chat-message time="1993-04-13 15:00"/&gt;</code></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">message</code></td>
+                <td><i>String</i></td>
+                <td class="text-nowrap"><code>""</code></td>
+                <td>Message content</td>
+                <td><code class="language-markup">&lt;mdb-chat-message message="Lorem ipsum"/&gt;</code></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">small</code></td>
+                <td><i>Boolean</i></td>
+                <td class="text-nowrap"><code>false</code></td>
+                <td>Set to <code>true</code> changes message's layout to small version</td>
+                <td><code class="language-markup">&lt;mdb-chat-message small /&gt;</code></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">color</code></td>
+                <td><i>String</i></td>
+                <td class="text-nowrap"><code>'white'</code></td>
+                <td>Adds color class to the message</td>
+                <td><code class="language-markup">&lt;mdb-chat-message color="bg-primary"/&gt;</code></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">whiteText</code></td>
+                <td><i>Boolean</i></td>
+                <td class="text-nowrap"><code>false</code></td>
+                <td>Changes color of the inner text to white</td>
+                <td><code class="language-markup">&lt;mdb-chat-message whiteText/&gt;</code></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">blackText</code></td>
+                <td><i>Boolean</i></td>
+                <td class="text-nowrap"><code>false</code></td>
+                <td>Changes color of the inner text to black</td>
+                <td><code class="language-markup">&lt;mdb-chat-message blackText/&gt;</code></td>
+            </tr>
+        </tbody>
+    </table>
+    </section>
+    
+</section>
+<!--/Section -->
+<hr class="my-5">
+
+<!--Section -->
+<section id="a-chat">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Chat
+  </h2>
+  
+  <h3 class="mb-4" id="a-data-structure">
+      Data structure
+  </h3>
+  <p>Data passed to a <code>chat</code> property is an array of objects - each object represents one user with his/her <code>id name img</code> info as well as a <code>messages</code> array. Each message requires three keys - <code>content id date</code> - all messages in the <code>chat</code> array will be sorted and displayed in order determined by those IDs.</p> 
+
+    <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="data">
+        chat: [
+          {
+            id: 0,
+            name: "Brad Pitt",
+            img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg",
+            messages: [
+              {
+                id: 0,
+                date: "2019-04-21 15:00:09",
+                content:
+                  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+              },
+              {
+                id: 1,
+                date: "2019-06-26 11:00",
+                content:
+                  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+              },
+              {
+                id: 4,
+                date: "2019-06-26 11:20",
+                content:
+                  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+              }
+            ]
+          },
+          {
+            id: 1,
+            name: "Lara Croft",
+            img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg",
+            messages: [
+              {
+                id: 2,
+                date: "2019-06-26 11:15",
+                content:
+                  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+              },
+              {
+                id: 3,
+                date: "2019-06-26 11:16",
+                content:
+                  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+              }
+            ]
+          }
+        ]
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Title-->
+  <h3 class="mb-4">
+      API Reference: Properties
+  </h3>
+
+  <section>
+  <table class="table table-striped table-bordered">
+      <thead>
+          <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+              <th class="th-sm">Example</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">chat</code></td>
+              <td><i>Array</i></td>
+              <td class="text-nowrap"><code>-</code></td>
+              <td>Details about data structure can be found <a href="a-data-structure">here</a></td>
+              <td><code class="language-markup">&lt;mdb-chat :chat="data"/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">loggedUserId</code></td>
+              <td><i>Number</i></td>
+              <td class="text-nowrap"><code></code></td>
+              <td>Determines which user is logged in and aligns his/her messages to the right</td>
+              <td><code class="language-markup">&lt;mdb-chat :chat="data" :loggedUserId="1"/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">avatarWidth</code></td>
+              <td><i>Number</i></td>
+              <td class="text-nowrap"><code>100</code></td>
+              <td>Sets the avatar's width.</td>
+              <td><code class="language-markup">&lt;mdb-chat :avatarWidth="120"/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">color</code></td>
+              <td><i>String</i></td>
+              <td class="text-nowrap"><code></code></td>
+              <td>Changes the <code>send</code> button's color.</td>
+              <td><code class="language-markup">&lt;mdb-chat color="default" /&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">outline</code></td>
+              <td><i>String</i></td>
+              <td class="text-nowrap"><code></code></td>
+              <td>Sets the <code>send</code> button style to outline and sets its color to the passed value.</td>
+              <td><code class="language-markup">&lt;mdb-chat outline="danger"/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">scroll</code></td>
+              <td><i>Boolean</i></td>
+              <td class="text-nowrap"><code>false</code></td>
+              <td>Scrolling the long content.</td>
+              <td><code class="language-markup">&lt;mdb-chat scroll/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">scrollbarClass</code></td>
+              <td><i>String</i></td>
+              <td class="text-nowrap"><code></code></td>
+              <td>Allows to apply custom styles to a scrollbar. </td>
+              <td><code class="language-markup">&lt;mdb-chat scroll scrollbarClass="custom-scrollbar"/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">height</code></td>
+              <td><i>Number</i></td>
+              <td class="text-nowrap"><code>500</code></td>
+              <td>Sets the maximum height (in px) to a scrolling chat preview. </td>
+              <td><code class="language-markup">&lt;mdb-chat scroll :height="300" scrollbarClass="custom-scrollbar" /&gt;</code></td>
+          </tr>
+          
+      </tbody>
+  </table>
+  </section>
+
+   <!--Title-->
+   <h3 class="mb-4">
+      API Reference: Events
+  </h3>
+
+  <section>
+  <table class="table table-striped table-bordered">
+      <thead>
+          <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Description</th>
+              <th class="th-sm">Event</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@send</code></td>
+              <td>Event which handler is responsible for adding new messages.</td>
+              <td><code class="javascript">{date, content, undread: true}</code></td>
+          </tr>
+      </tbody>
+  </table>
+  </section>
+
+    
+</section>
+<!--/Section -->
+<hr class="my-5">
+
+<!--Section -->
+<section id="a-chat-list">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Chat List
+  </h2>
+  
+  <h3 class="mb-4" id="a-data-structure">
+      Data structure
+  </h3>
+  <p>Data passed to a <code>data</code> property is an array of objects - each object represents one chat and should include chat's <code>id</code>, <code>lastId</code> which is helpful for adding new messages, <code>loggedUserId</code> and <code>chat</code> array described <a href="#a-data-structure">here</a> - additonally, adding to each message additional key <code>unread</code> and setting its value to <code>true</code> will add red badge with number of unread messages to each chat. Setting <code>online: true</code> in the user object will display a green online badge. </p> 
+
+    <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="data">
+        chatList: [
+          {
+            id: 0,
+            active: true,
+            loggedUserId: 0,
+            lastId: 2,
+            chat: [
+              {
+                id: 0,
+                name: "Brad Pitt",
+                img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg",
+                messages: [
+                  {
+                    id: 0,
+                    date: "2019-04-21 15:00:09",
+                    content:
+                      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+                  }
+                ]
+              },
+              {
+                id: 1,
+                name: "Lara Croft",
+                online: true,
+                img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg",
+                messages: [
+                  {
+                    id: 2,
+                    date: "2019-06-26 11:15",
+                    content:
+                      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 1,
+            loggedUserId: 0,
+            lastId: 2,
+            chat: [
+              {
+                id: 0,
+                name: "Brad Pitt",
+                img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg",
+                messages: [
+                  {
+                    id: 0,
+                    date: "2019-04-21 15:00:09",
+                    content:
+                      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+                  },
+                ]
+              },
+              {
+                id: 1,
+                name: "Ashley Olsen",
+                img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg",
+                messages: [
+                  {
+                    id: 2,
+                    date: "2019-06-26 11:15",
+                    content: "Sed ut perspicantium.",
+                    unread: true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 2,
+            loggedUserId: 0,
+            lastId: 2,
+            chat: [
+              {
+                id: 0,
+                name: "Brad Pitt",
+                img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg",
+                messages: [
+                  {
+                    id: 0,
+                    date: "2019-06-26 11:00",
+                    content: "Sed ut doloremque laudantium."
+                  }
+                ]
+              },
+              {
+                id: 1,
+                name: "Danny Smith",
+                img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-3.jpg",
+                messages: [
+                  {
+                    id: 2,
+                    date: "2019-06-26 11:15",
+                    content: "Sed ut perspiciatis laudantium.",
+                    unread: true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 1,
+            loggedUserId: 0,
+            lastId: 2,
+            chat: [
+              {
+                id: 0,
+                name: "Brad Pitt",
+                img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg",
+                messages: [
+                  {
+                    id: 0,
+                    date: "2019-04-21 15:00:09",
+                    content:
+                      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+                  },
+                ]
+              },
+              {
+                id: 1,
+                name: "Alex Turner",
+                img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-1.jpg",
+                messages: [
+                  {
+                    id: 2,
+                    date: "2019-06-26 11:15",
+                    content: "Sed ut perspicantium.",
+                    unread: true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 2,
+            loggedUserId: 0,
+            lastId: 2,
+            chat: [
+              {
+                id: 0,
+                name: "Brad Pitt",
+                img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg",
+                messages: [
+                  {
+                    id: 0,
+                    date: "2019-04-21 15:00:09",
+                    content:
+                      "Sed ut perspiciatis unde omnis iste natus remque laudantium."
+                  },
+                ]
+              },
+              {
+                id: 1,
+                name: "Kate Moss",
+                img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-4.jpg",
+                messages: [
+                  {
+                    id: 2,
+                    date: "2019-06-26 11:15",
+                    content: "Sed ut perspiciatis laudantium.",
+                    unread: true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Title-->
+  <h3 class="mb-4">
+      API Reference: Properties
+  </h3>
+
+  <section>
+  <table class="table table-striped table-bordered">
+      <thead>
+          <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+              <th class="th-sm">Example</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">data</code></td>
+              <td><i>Array</i></td>
+              <td class="text-nowrap"><code>-</code></td>
+              <td>Details about data structure can be found above</td>
+              <td><code class="language-markup">&lt;mdb-chat-list :data="data"/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">scroll</code></td>
+              <td><i>Boolean</i></td>
+              <td class="text-nowrap"><code>false</code></td>
+              <td>Scrolling the long content</td>
+              <td><code class="language-markup">&lt;mdb-chat-list scroll/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">scrollbarClass</code></td>
+              <td><i>String</i></td>
+              <td class="text-nowrap"><code></code></td>
+              <td>Allows to apply custom styles to a scrollbar </td>
+              <td><code class="language-markup">&lt;mdb-chat-list scroll scrollbarClass="custom-scrollbar"/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">height</code></td>
+              <td><i>Number</i></td>
+              <td class="text-nowrap"><code>500</code></td>
+              <td>Sets the maximum height (in px) to a scrolling chat preview. </td>
+              <td><code class="language-markup">&lt;mdb-chat-list scroll :height="300" scrollbarClass="custom-scrollbar" /&gt;</code></td>
+          </tr>
+      </tbody>
+  </table>
+  </section>
+    
+</section>
+<!--/Section -->
+<hr class="my-5">
+
+<!--Section -->
+<section id="a-chat-room">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Chat Room
+  </h2>
+
+  <p>Wrapper component for <code>mdb-chat</code> or/and <code>mdb-chat-list</code> </p>
+
+    <!--Title-->
+    <h3 class="mb-4">
+        API Reference: Properties
+    </h3>
+
+    <section>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Type</th>
+                <th class="th-sm">Default</th>
+                <th class="th-sm">Description</th>
+                <th class="th-sm">Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">color</code></td>
+                <td><i>String</i></td>
+                <td class="text-nowrap"><code>''</code></td>
+                <td>Adds color class to the chat room.</td>
+                <td><code class="language-markup">&lt;mdb-chat-room color="grey"/&gt;</code></td>
+            </tr>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">small</code></td>
+                <td><i>Boolean</i></td>
+                <td class="text-nowrap"><code>false</code></td>
+                <td>If set to <code>true</code> changes position of the chat to <code>fixed</code> and place it in the right-bottom corner.</td>
+                <td><code class="language-markup">&lt;mdb-chat-room small/&gt;</code></td>
+            </tr>
+        </tbody>
+    </table>
+    </section>
+    
+</section>
+<!--/Section -->
+<hr class="my-5">
+
+<!--Section -->
+<section id="a-small-chat">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Small Chat
+  </h2>
+  
+  <h3 class="mb-4" id="a-small-data-structure">
+      Data structure
+  </h3>
+  <p>Data passed to a <code>chat</code> property is an array of objects - each object represents one user with his/her <code>id name img online</code> info as well as a <code>messages</code> array. Each message requires three keys - <code>content id date</code> - all messages in the <code>chat</code> array will be sorted and displayed in order determined by those IDs. </p> 
+
+    <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="data">
+        smallChat: {
+          loggedUserId: 1,
+          lastId: 4,
+          chat: [
+            {
+              id: 0,
+              name: "Brad Pitt",
+              online: true,
+              img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-6.jpg",
+              messages: [
+                {
+                  id: 0,
+                  date: "2019-04-21 15:00:09",
+                  content: "Sed ut perspi."
+                },
+                {
+                  id: 1,
+                  date: "2019-06-26 11:00",
+                  content: "Sed ut peium."
+                },
+                {
+                  id: 4,
+                  date: "2019-06-26 11:20",
+                  content:
+                    "Error sit voluptatem accusantium doloremque laudantium."
+                }
+              ]
+            },
+            {
+              id: 1,
+              name: "Lara Croft",
+              img: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg",
+              messages: [
+                {
+                  id: 2,
+                  date: "2019-06-26 11:15",
+                  content:
+                    "Sed ut or sit voluptatem accusantium doloremque laudantium."
+                },
+                {
+                  id: 3,
+                  date: "2019-06-26 11:16",
+                  content: "voluptatem accusantium doloremque laudantium."
+                }
+              ]
+            }
+          ]
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Title-->
+  <h3 class="mb-4">
+      API Reference: Properties
+  </h3>
+
+  <section>
+  <table class="table table-striped table-bordered">
+      <thead>
+          <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+              <th class="th-sm">Example</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">chat</code></td>
+              <td><i>Array</i></td>
+              <td class="text-nowrap"><code>-</code></td>
+              <td>Details about data structure can be found <a href="a-small-data-structure">here</a></td>
+              <td><code class="language-markup">&lt;mdb-small-chat :chat="data"/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">loggedUserId</code></td>
+              <td><i>Number</i></td>
+              <td class="text-nowrap"><code></code></td>
+              <td>Determines which user is logged in and aligns his/her messages to the right</td>
+              <td><code class="language-markup">&lt;mdb-small-chat :chat="data" :loggedUserId="1"/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">avatarWidth</code></td>
+              <td><i>Number</i></td>
+              <td class="text-nowrap"><code>100</code></td>
+              <td>Sets the avatar's width.</td>
+              <td><code class="language-markup">&lt;mdb-small-chat :avatarWidth="120"/&gt;</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">color</code></td>
+              <td><i>String</i></td>
+              <td class="text-nowrap"><code></code></td>
+              <td>Changes the <code>send</code> button's color.</td>
+              <td><code class="language-markup">&lt;mdb-small-chat color="default" /&gt;</code></td>
+          </tr>
+      </tbody>
+  </table>
+  </section>
+
+  <!--Title-->
+  <h3 class="mb-4">
+    API Reference: Events
+  </h3>
+
+  <section>
+  <table class="table table-striped table-bordered">
+      <thead>
+          <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Description</th>
+              <th class="th-sm">Event</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@send</code></td>
+              <td>Event which handler is responsible for adding new messages.</td>
+              <td><code class="javascript">{date, content, undread: true}</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@fileImage</code></td>
+              <td>Allows setting custom event handler for <code>click</code> event registered on corresponding icon.</td>
+              <td><code class="javascript">click</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@reaction</code></td>
+              <td>Allows setting custom event handler for <code>click</code> event registered on corresponding icon.</td>
+              <td><code class="javascript">click</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@game</code></td>
+              <td>Allows setting custom event handler for <code>click</code> event registered on corresponding icon.</td>
+              <td><code class="javascript">click</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@attach</code></td>
+              <td>Allows setting custom event handler for <code>click</code> event registered on corresponding icon.</td>
+              <td><code class="javascript">click</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@camera</code></td>
+              <td>Allows setting custom event handler for <code>click</code> event registered on corresponding icon.</td>
+              <td><code class="javascript">click</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@like</code></td>
+              <td>Allows setting custom event handler for <code>click</code> event registered on corresponding icon.</td>
+              <td><code class="javascript">click</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@video</code></td>
+              <td>Allows setting custom event handler for <code>click</code> event registered on corresponding icon.</td>
+              <td><code class="javascript">click</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@call</code></td>
+              <td>Allows setting custom event handler for <code>click</code> event registered on corresponding icon.</td>
+              <td><code class="javascript">click</code></td>
+          </tr>
+          <tr>
+              <td class="text-nowrap"><code class="highlighter-rouge">@settings</code></td>
+              <td>Allows setting custom event handler for <code>click</code> event registered on corresponding icon.</td>
+              <td><code class="javascript">click</code></td>
+          </tr>
+      </tbody>
+  </table>
+  </section>
+
+  <!--Title-->
+  <h3 class="mb-4">
+      API Reference: Slots
+    </h3>
+  
+    <section>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-nowrap"><code class="highlighter-rouge">media</code></td>
+                <td>Allows to display additional info about messages' receiver at the top of the chat.</td>
+            </tr>
+        </tbody>
+    </table>
+    </section>
+    
+</section>
+<!--/Section -->
+<hr class="my-5">

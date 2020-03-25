@@ -1,0 +1,557 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+    <!--Title-->
+    <h2 class="primary-heading">联系表格</h2>
+
+    <h1 class="secondary-heading mb-4">MDB Vue + Laravel</h1>
+
+    <!--Description-->
+    <p class="note note-primary">遵循本教程要求您完成以下所有步骤<a href="https://mdbootstrap.com/articles/vue/mdb-vue-laravel-quick-start-guide/"> MDB Vue Laravel快速入门指南</a> -我们将在上一个教程停止的地方继续学习。<br/>
+      我认为您已成功安装<code>作曲家</code>并创建简单<code>拉拉韦尔</code>与项目<code> MDB Vue </code> 。</p>
+
+    <h3 class="my-4">教程分步骤：</h3>
+
+    <ol class="mb-4">
+        <a href="#preparation">
+            <li>准备发展</li>
+        </a>
+        <a href="#form">
+            <li>创建MDB表单</li>
+        </a>
+        <a href="#axios">
+            <li>用axios提交表单</li>
+        </a>
+        <a href="#controller">
+            <li>创建一个控制器</li>
+        </a>
+        <a href="#route">
+            <li>添加新路线</li>
+        </a>
+        <a href="#env">
+            <li>设置环境变量</li>
+        </a>
+        <a href="#mail">
+            <li>发送表格</li>
+        </a>
+    </ol>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="preparation">
+    <!--Title-->
+    <h2 class="section-heading">
+      准备发展
+    </h2>
+    <section>
+      <h3 class="mb-3">1.启动服务器</h3>
+      <p>完成快速入门指南中描述的所有步骤后，请在命令行中运行以下命令：</p>
+      <p><code>PHP工匠服务</code></p>
+    <p>默认情况下，服务器将在端口8000上启动，因此在浏览器中转到<a href="http://localhost:8000/"> http：//本地主机：8000 / </a> 。</p>
+
+    <p>在单独的命令行窗口中运行<code> npm运行观察投票</code> -这样，您的所有文件都会在重新加载页面后立即更新。</p>
+    </section>
+    <hr class="my-5">
+    <section>
+      <h3 class="mb-3">2. CSRF令牌</h3>
+      <p>现在你应该看到<code> mdbBtn </code>在屏幕上呈现。在浏览器控制台中，您可能已经注意到以下警告：</p>
+      <p class="red-text">找不到CSRF令牌：https：//laravel.com/docs/csrf#csrf-x-csrf-token</p>
+    <p>通常，Laravel为每个活动的用户会话生成一个CSRF（跨站点请求伪造）令牌，并使用它来验证请求的来源。令牌可以存储在HTML文档的meta标签中。打开<code>资源/视图/welcome.blade.php </code>目录并在之间添加以下行<code>头</code>标签： </p>
+    <p>
+      <code data-lang="HTML">&lt;meta name=&quot;csrf-token&quot; content=&quot;{{ csrf_token() }}&quot;></code>
+    </p>
+
+       <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="welcome.blade.php">
+          <!DOCTYPE html>
+            <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+              <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta name="csrf-token" content="{{ csrf_token() }}">
+                <title>拉拉韦尔</title>
+              </head>
+              <body>
+                <div id="app">
+                  <example-component />
+                </div>
+                <script type="text/javascript" src="js/app.js"></script>
+              </body>
+            </html>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    </section>
+    <!--Description-->
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="form">
+    <!--Title-->
+    <h2 class="section-heading">
+      创建MDB Vue表单
+    </h2>
+
+    <!--Description-->
+    <p class="mb-4">以下是联系表格示例：</p>
+
+    <!--Section: Live preview-->
+    <section class="section-preview">
+
+      <!--Section: Contact v.2-->
+      <section class="mb-4">
+
+          <!--Section heading-->
+          <h2 class="h1-responsive font-weight-bold text-center my-4">联系我们</h2>
+          <!--Section description-->
+          <p class="text-center w-responsive mx-auto mb-5">您还有什么问题吗？请不要犹豫，直接与我们联系。我们的团队将在几个小时内与您联系，以为您提供帮助。</p>
+
+          <div class="row">
+
+              <!--Grid column-->
+              <div class="col-md-9 mb-md-0 mb-5">
+                  <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+
+                      <!--Grid row-->
+                      <div class="row">
+
+                          <!--Grid column-->
+                          <div class="col-md-6">
+                              <div class="md-form mb-0">
+                                  <input type="text" id="name" name="name" class="form-control">
+                                  <label for="name" class="">你的姓名</label>
+                              </div>
+                          </div>
+                          <!--Grid column-->
+
+                          <!--Grid column-->
+                          <div class="col-md-6">
+                              <div class="md-form mb-0">
+                                  <input type="text" id="email" name="email" class="form-control">
+                                  <label for="email" class="">您的电子邮箱</label>
+                              </div>
+                          </div>
+                          <!--Grid column-->
+
+                      </div>
+                      <!--Grid row-->
+
+                      <!--Grid row-->
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="md-form mb-0">
+                                  <input type="text" id="subject" name="subject" class="form-control">
+                                  <label for="subject" class="">主题</label>
+                              </div>
+                          </div>
+                      </div>
+                      <!--Grid row-->
+
+                      <!--Grid row-->
+                      <div class="row">
+
+                          <!--Grid column-->
+                          <div class="col-md-12">
+
+                              <div class="md-form">
+                                  <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                                  <label for="message">您的信息</label>
+                              </div>
+
+                          </div>
+                      </div>
+                      <!--Grid row-->
+
+                  </form>
+
+                  <div class="text-center text-md-left">
+                      <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">发送</a>
+                  </div>
+                  <div id="status"></div>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-3 text-center">
+                  <ul class="list-unstyled mb-0">
+                      <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                          <p>美国加利福尼亚州旧金山94126</p>
+                      </li>
+
+                      <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                          <p>+ 01234567567 89</p>
+                      </li>
+
+                      <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                          <p>contact@mdbootstrap.com</p>
+                      </li>
+                  </ul>
+              </div>
+              <!--Grid column-->
+
+          </div>
+
+      </section>
+      <!--Section: Contact v.2-->
+
+    </section>
+    <!--Section: Live preview-->
+
+    <p class="mt-4">将以下代码复制并粘贴到您的文件中<code>资源/ js /组件</code>目录（即<code> ExampleComponent.vue </code> ）：</p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-container class="mt-5">
+              <mdb-card>
+                <mdb-card-title class="mt-4 h2">联系我们</mdb-card-title>
+                <mdb-card-body>
+                  <mdb-card-text class="pr-5 pl-5" mr-4 ml-4>您还有什么问题吗？请不要犹豫，直接与我们联系。我们的团队会在几个小时内与您联系，以为您提供帮助。</mdb-card-text>
+                  <form class="needs-validation" novalidate @submit.prevent="submitForm">
+                    <mdb-row>
+                      <mdb-col md="8">
+                        <mdb-row>
+                          <mdb-col>
+                            <mdb-input label="Your name" v-model="fields.name" required />
+                          </mdb-col>
+                          <mdb-col>
+                            <mdb-input type="email" label="Your email" v-model="fields.email" required />
+                          </mdb-col>
+                        </mdb-row>
+                        <mdb-row>
+                          <mdb-col>
+                            <mdb-input label="Subject" v-model="fields.subject" required />
+                          </mdb-col>
+                        </mdb-row>
+                        <mdb-row>
+                          <mdb-col>
+                            <mdb-input type="textarea" label="Your message" v-model="fields.message" required />
+                          </mdb-col>
+                        </mdb-row>
+                      </mdb-col>
+                      <mdb-col md="4">
+                        <mdb-row>
+                          <mdb-col class="mt-4">
+                            <mdb-icon icon="map-marker-alt" size="2x" />
+                            <p>美国加利福尼亚州旧金山94126</p>
+                          </mdb-col>
+                        </mdb-row>
+                        <mdb-row>
+                          <mdb-col class="mt-4">
+                            <mdb-icon icon="phone" size="2x" />
+                            <p>+ 01234567567 89</p>
+                          </mdb-col>
+                        </mdb-row>
+                        <mdb-row>
+                          <mdb-col class="mt-4">
+                            <mdb-icon icon="envelope" size="2x" />
+                            <p>contact@mdbootstrap.com</p>
+                          </mdb-col>
+                        </mdb-row>
+                      </mdb-col>
+                    </mdb-row>
+                    <mdb-btn color="primary" type="submit" class="float-left">发送</mdb-btn>
+                  </form>
+                </mdb-card-body>
+              </mdb-card>
+            </mdb-container>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+            import {
+              mdbContainer,
+              mdbInput,
+              mdbCard,
+              mdbCardHeader,
+              mdbCardTitle,
+              mdbCardText,
+              mdbCardBody,
+              mdbIcon,
+              mdbBtn,
+              mdbRow,
+              mdbCol
+            } from "mdbvue";
+
+            export default {
+              components: {
+                mdbContainer,
+                mdbInput,
+                mdbCard,
+                mdbCardHeader,
+                mdbCardTitle,
+                mdbCardBody,
+                mdbCardText,
+                mdbIcon,
+                mdbBtn,
+                mdbRow,
+                mdbCol
+              },
+              data() {
+                return {
+                  fields: {
+                    name: "",
+                    email: "",
+                    subject: "",
+                    message: ""
+                  }
+                };
+              },
+              methods: {
+                submitForm(event) {
+                  event.target.classList.add("was-validated");
+                  // submit form
+                }
+              }
+            };
+          </script>
+        </code>
+        <code data-lang="html" data-name="style">
+          <style scoped>
+            .container {
+              text-align: center;
+            }
+          </style>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="axios">
+    <!--Title-->
+    <h2 class="section-heading">
+      用axios提交表单
+    </h2>
+
+    <!--Description-->
+    <blockquote class="blockquote bq-danger my-4">
+      <p class="mb-4"><code>轴距</code>默认情况下包含在Laravel App中，因此无需安装-只需将axios直接导入您的组件文件即可。</p>
+    </blockquote>
+
+        <!--Section: Code-->
+        <section>
+            <mdbsnippet>
+              <code data-lang="html" data-name="script">
+                <script>
+                  import axios from "axios";
+                </script>
+              </code>
+            </mdbsnippet>
+          </section>
+          <!--Section: Code-->
+
+    <p class="mt-4">下一步是创建<code> validate（） </code>防止用户提交不完整表格的方法。一旦完成，我们将使用<code>轴距</code>发送表格到<code> /提交</code>路线。</p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="script">
+          <script>
+            import axios from "axios";
+
+            import {
+              mdbContainer,
+              mdbInput,
+              mdbCard,
+              mdbCardHeader,
+              mdbCardTitle,
+              mdbCardText,
+              mdbCardBody,
+              mdbIcon,
+              mdbBtn,
+              mdbRow,
+              mdbCol
+            } from "mdbvue";
+
+            export default {
+              components: {
+                mdbContainer,
+                mdbInput,
+                mdbCard,
+                mdbCardHeader,
+                mdbCardTitle,
+                mdbCardBody,
+                mdbCardText,
+                mdbIcon,
+                mdbBtn,
+                mdbRow,
+                mdbCol
+              },
+              data() {
+                return {
+                  fields: {
+                    name: "",
+                    email: "",
+                    subject: "",
+                    message: ""
+                  }
+                };
+              },
+              methods: {
+                validate() {
+                  const form = [...arguments];
+                  const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                  for (let index in form) {
+                    let field = form[index];
+                    if (field === "email" && !emailRegexp.test(this.fields[field])) {
+                      return false;
+                    } else if (this.fields[field] === "") {
+                      return false;
+                    }
+                  }
+                  return true;
+                },
+                submitForm(event) {
+                  event.target.classList.add("was-validated");
+                  if (this.validate("email", "name", "message", "subject")) {
+                    axios
+                      .post("/submit", this.fields)
+                      .then(response => {
+                        alert("Message sent!");
+                        this.fields = {};
+                        event.target.classList.remove("was-validated");
+                      })
+                      .catch(error => {
+                        console.log(error);
+                      });
+                  }
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+  <p>邮件成功发送后，我们将提醒用户并使用清除表单输入<code> this.fields = {}; </code>线。</p>
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="controller">
+    <!--Title-->
+    <h2 class="section-heading">
+      创建一个控制器
+    </h2>
+
+    <!--Description-->
+    <p>在命令行中运行以下命令： </p>
+    <p><code>php artisan make：controller FormController</code></p>
+    <p>这将创建一个<code> FormController.php </code>归档在<code> app / Http /控制器</code>目录。</p>
+    <p>在里面<code>表单控制器</code>类创建公共<code>提交</code>运行并验证请求中的数据，如下所示：</p>
+
+    <!--Section: Code-->
+    <section>
+        <mdbsnippet>
+          <code data-lang="php" data-name="FormController">
+            &lt;?php命名空间App \ Http \ Controllers;使用Illuminate \ Http \ Request;类FormController扩展了控制器{公共功能Submit（Request $ request）{$ this-> validate（$ request，[&amp;#39;name&amp;#39;=>&amp;#39;required | string&amp;#39;，&amp;#39;email&amp;#39;=>&amp;#39;required | email&amp;#39;，&amp;#39;message&amp;#39;= >&amp;#39;required&amp;#39;，&amp;#39;subject&amp;#39;=>&amp;#39;required&amp;#39;]）; / *邮件功能* /返回response（）-> json（null，200）; }}
+              
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="route">
+  <!--Title-->
+  <h2 class="section-heading">
+    添加路线
+  </h2>
+
+  <!--Description-->
+  <p>运行一个<code>提交</code>从功能<code>表单控制器</code>上<code>发布</code>请求<code> /提交</code> ，我们需要在中定义一条新路线<code>路线/web.php </code>文件：</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="php" data-name="controller">
+        &lt;?php / * | ---------------------------------------------- ---------------------------- |网络路由| ----------------------------------------------- --------------------------- | |您可以在此处为您的应用程序注册网络路由。这些|路由由RouteServiceProvider在以下组中加载：包含“网络”中间件组。现在创造伟大的东西！| * / Route :: get（&amp;#39;/&amp;#39;，function（）{return view（&amp;#39;welcome&amp;#39;）;}）;路线:: post（&amp;#39;/ submit&amp;#39;，&amp;#39;FormController @ submit&amp;#39;）;
+          
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="env">
+    <!--Title-->
+    <h2 class="section-heading">
+      环境变量
+    </h2>
+
+    <!--Description-->
+    <p>Laravel使用SwiftMailer库发送电子邮件-如果您有兴趣探索更多选项，请参阅<a href="https://laravel.com/docs/5.8/mail">官方文件</a> 。要开始发送电子邮件，您需要将Laravel应用程序与您的Gmail帐户关联。打开<code> .env </code>文件并设置以下环境变量： </p>
+
+    <!--Section: Code-->
+    <section>
+        <mdbsnippet>
+          <code data-lang="env" data-name="environment variables">
+              MAIL_DRIVER = smtp MAIL_HOST = smtp.gmail.com MAIL_PORT = 587 MAIL_USERNAME = YOUR_GMAIL_USERNAME MAIL_PASSWORD = YOUR_GMAIL_PASSWORD MAIL_ENCRYPTION = tls
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+    <blockquote class="blockquote bq-danger my-4">
+      <p class="bq-title">注意！</p>
+      <p>默认情况下，Gmail将阻止所有尝试从不安全的应用程序发送电子邮件的尝试-解决此问题需要打开Gmail设置，并允许访问不安全的应用程序。</p>
+    </blockquote>
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="mail">
+  <!--Title-->
+  <h2 class="section-heading">
+    发送电子邮件
+  </h2>
+
+  <!--Description-->
+  <p>让我们回到我们的<code> FormController.php </code>文件并完成最后一步-定义电子邮件发送功能。</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="php" data-name="FormController">
+      &lt;?php命名空间App \ Http \ Controllers;使用Illuminate \ Http \ Request;使用邮件；使用App \ Http \ Requests;使用App \ Http \ Controllers \ Controller;类FormController扩展了控制器{公共功能Submit（Request $ request）{$ this-> validate（$ request，[&amp;#39;name&amp;#39;=>&amp;#39;required | string&amp;#39;，&amp;#39;email&amp;#39;=>&amp;#39;required | email&amp;#39;，&amp;#39;message&amp;#39;= >&amp;#39;required&amp;#39;，&amp;#39;subject&amp;#39;=>&amp;#39;required&amp;#39;]）; $ name = $ request [&amp;#39;name&amp;#39;]; $ email = $ request [&amp;#39;email&amp;#39;]; $ title = $ request [&amp;#39;subject&amp;#39;]; $ message = $ request [&amp;#39;message&amp;#39;]; $ data = array（&amp;#39;name&amp;#39;=>“ Virat Gandhi”）; Mail :: raw（$ message，function（$ message）use（$ title，$ name，$ email）{$ message-> to（YOUR_EMAIL，YOUR_NAME）-> subject（$ title）; $ message-> from（$电子邮件，$ name）;}）;回显“您的电子邮件已发送！”;返回response（）-> json（null，200）; }}
+      </code>
+    </mdbsnippet>
+  </section>
+  
+  <p>在上面的代码中替换<code>你的邮件</code>和<code>你的名字</code>与您的数据。</p>
+  <p>现在，您可以返回到您的应用程序，然后尝试发送电子邮件。根据您的需求探索和修改表格和逻辑。</p>
+  <p>编码愉快！</p>
+</section>
+<!--/Section: -->

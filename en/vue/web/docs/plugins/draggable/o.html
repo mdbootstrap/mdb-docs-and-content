@@ -1,0 +1,1063 @@
+<style>
+  .draggable-parent {
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .draggable-parent-1 {
+    height: 600px;
+  }
+
+  .draggable-parent-2 {
+    height: 700px;
+  }
+
+  .draggable-parent-3 {
+    height: 300px;
+    overflow: auto;
+  }
+
+  .draggable-element {
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .draggable-element .handle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  .draggable-element ul {
+    padding: 0;
+    list-style: none;
+  }
+  .draggable-element ul li {
+    margin: 5px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  }
+</style>
+
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">Draggable</h2>
+
+  <h1 class="secondary-heading mb-4">Vue Bootstrap Draggable</h1>
+
+  <!--Description-->
+  <p class="description">
+    MDB Vue Draggable plugin provides a custom directive which allows moving
+    objects by clicking on them and dragging them anywhere within the container.
+  </p>
+
+  <blockquote class="blockquote bq-primary">
+    <p class="bq-title">
+      To start working with the Draggable plugin, see the -
+      <strong>"API"</strong> tab on this page.
+    </p>
+  </blockquote>
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5" />
+
+<section id="basic">
+  <h2 class="section-heading">Basic example</h2>
+
+  <!--Section: Live preview-->
+  <section>
+    <div id="draggable-parent" class="draggable-parent border border-light">
+      <div id="draggable" class="draggable-element rgba-green-light"></div>
+    </div>
+  </section>
+  <!--/Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="drag-container">
+            <div v-mdb-draggable class="dragged-element green"></div>
+          </div>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbDraggable } from "mdb-draggable";
+
+          export default {
+            directives: {
+              mdbDraggable
+            }
+          };
+        </script>
+      </code>
+
+      <code data-lang="html" data-name="style">
+        <style>
+          .drag-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+          }
+
+          .dragged-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-align: center;
+            transition: all 0.4s linear;
+            transition-property: background-color;
+          }
+
+          .green {
+            background-color: rgba(76, 175, 80, 0.3);
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<section id="auto-scroll">
+  <h2 class="section-heading">Auto-scroll</h2>
+
+  <p>
+    Adding <code>.scroll</code> modifier enables auto-scrolling when element its
+    move beyond a scroll container boundaries. In the directive's value, specify
+    the scroll speed and scroll container's ID (if this value is
+    <code>undefined</code> the directive will use the parent's parentNode ).
+  </p>
+
+  <!--Section: Live preview-->
+  <section>
+    <div id="draggable-parent-8" class="draggable-parent-3 border border-light">
+      <div id="draggable-scroll" class="draggable-element rgba-red-light"></div>
+
+      <div class="row">
+        <div style="height: 300px"></div>
+      </div>
+    </div>
+  </section>
+  <!--/Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="drag-container" id="scroll-container">
+            <div :style="{ height: '900px', width: '120vw' }">
+              <div
+                v-mdb-draggable.scroll="{ scroll: { containerId: 'scroll-container', speed: 10 } }"
+                class="dragged-element green"
+              ></div>
+            </div>
+          </div>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbDraggable } from "mdb-draggable";
+
+          export default {
+            directives: {
+              mdbDraggable
+            }
+          };
+        </script>
+      </code>
+
+      <code data-lang="html" data-name="style">
+        <style>
+          .drag-container {
+            width: 100%;
+            max-height: 400px;
+            overflow: scroll;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+          }
+
+          .dragged-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-align: center;
+            transition: all 0.4s linear;
+            transition-property: background-color;
+          }
+
+          .green {
+            background-color: rgba(76, 175, 80, 0.3);
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<section id="axis">
+  <h2 class="section-heading">Axis</h2>
+
+  <p>
+    Use <code>.x</code> and <code>.y</code> modifiers to enable dragging to only
+    one axis.
+  </p>
+
+  <!--Section: Live preview-->
+  <section>
+    <div id="draggable-parent-1" class="draggable-parent border border-light">
+      <div
+        id="draggable-x"
+        class="draggable-element rgba-pink-light d-flex justify-content-center align-items-center"
+      >
+        <p class="p-0">X</p>
+      </div>
+      <div
+        id="draggable-y"
+        class="draggable-element rgba-blue-light d-flex justify-content-center align-items-center"
+      >
+        <p class="p-0">Y</p>
+      </div>
+    </div>
+  </section>
+  <!--/Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="drag-container">
+            <div
+              v-mdb-draggable.x
+              :style="{ top: '200px', left: 'calc(100% - 120px)' }"
+              class="dragged-element grey"
+            >
+              <p>X</p>
+            </div>
+            <div v-mdb-draggable.y class="dragged-element green">
+              <p>Y</p>
+            </div>
+          </div>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbDraggable } from "mdb-draggable";
+
+          export default {
+            directives: {
+              mdbDraggable
+            }
+          };
+        </script>
+      </code>
+
+      <code data-lang="html" data-name="style">
+        <style>
+          .drag-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+          }
+
+          .dragged-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-align: center;
+            transition: all 0.4s linear;
+            transition-property: background-color;
+          }
+
+          .green {
+            background-color: rgba(76, 175, 80, 0.3);
+          }
+
+          .grey {
+            background-color: rgba(96, 125, 139, 0.3);
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<section id="cursor">
+  <h2 class="section-heading">Cursor style</h2>
+
+  <p>
+    By default, the cursor style is set to <code>crosshair</code> - you can
+    change that by adding the <code>cursor</code> option in the directive's
+    value.
+  </p>
+
+  <!--Section: Live preview-->
+  <section>
+    <div
+      id="draggable-parent-2"
+      class="draggable-parent draggable-parent-1 border border-light"
+    >
+      <div
+        id="draggable-move"
+        class="draggable-element rgba-pink-light d-flex justify-content-center align-items-center"
+      >
+        <p class="p-0">Move</p>
+      </div>
+      <div
+        id="draggable-pointer"
+        class="draggable-element rgba-blue-light d-flex justify-content-center align-items-center"
+      >
+        <p class="p-0">Pointer</p>
+      </div>
+    </div>
+  </section>
+  <!--/Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="drag-container">
+            <div
+              v-mdb-draggable="{ cursor: 'move' }"
+              :style="{ top: '200px', left: 'calc(100% - 120px)' }"
+              class="dragged-element grey"
+            >
+              <p>Move</p>
+            </div>
+            <div
+              v-mdb-draggable="{ cursor: 'pointer' }"
+              class="dragged-element green"
+            >
+              <p>Pointer</p>
+            </div>
+          </div>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbDraggable } from "mdb-draggable";
+
+          export default {
+            directives: {
+              mdbDraggable
+            }
+          };
+        </script>
+      </code>
+
+      <code data-lang="html" data-name="style">
+        <style>
+          .drag-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+          }
+
+          .dragged-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-align: center;
+            transition: all 0.4s linear;
+            transition-property: background-color;
+          }
+
+          .green {
+            background-color: rgba(76, 175, 80, 0.3);
+          }
+
+          .grey {
+            background-color: rgba(96, 125, 139, 0.3);
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<section id="handles">
+  <h2 class="section-heading">Handles</h2>
+
+  <p>
+    You can enable dragging only when the cursor is over a specific part of your
+    element, by binding it's ID to the <code>handle</code> key in the
+    directive's value object.
+  </p>
+
+  <!--Section: Live preview-->
+  <section>
+    <div
+      id="draggable-parent-3"
+      class="draggable-parent draggable-parent-2 border border-light"
+    >
+      <div
+        id="draggable-handle"
+        class="draggable-element rgba-blue-light d-flex justify-content-center align-items-center"
+      >
+        <div class="handle rgba-purple-light"></div>
+      </div>
+    </div>
+  </section>
+  <!--/Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="drag-container">
+            <div
+              v-mdb-draggable="{ handle: 'drag-handle' }"
+              :style="{ top: '100px', left: '10px' }"
+              class="dragged-element grey"
+            >
+              <div
+                id="drag-handle"
+                :style="{ borderRadius: '50%', width: '40%', height: '40%' }"
+                class="green"
+              ></div>
+            </div>
+          </div>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbDraggable } from "mdb-draggable";
+
+          export default {
+            directives: {
+              mdbDraggable
+            }
+          };
+        </script>
+      </code>
+
+      <code data-lang="html" data-name="style">
+        <style>
+          .drag-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+          }
+
+          .dragged-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-align: center;
+            transition: all 0.4s linear;
+            transition-property: background-color;
+          }
+
+          .green {
+            background-color: rgba(76, 175, 80, 0.3);
+          }
+
+          .grey {
+            background-color: rgba(96, 125, 139, 0.3);
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<section id="events">
+  <h2 class="section-heading">Events</h2>
+
+  <p>
+    You can specify custom callbacks for <code>start</code>,
+    <code>drag</code> and <code>end</code> events. Additionally, the
+    <code>drag</code> callback is called with two arguments -
+    <code>top</code> and <code>left</code> values of the dragged element.
+  </p>
+  <!--Section: Live preview-->
+  <section>
+    <div
+      id="draggable-parent-4"
+      class="draggable-parent draggable-parent-2 border border-light"
+    >
+      <div
+        id="draggable-events"
+        class="draggable-element rgba-pink-light d-flex justify-content-center align-items-center"
+      >
+        <ul>
+          <li>@start: <span class="start-event">0</span></li>
+          <li>@drag: <span class="drag-event">0</span></li>
+          <li>@end <span class="stop-event">0</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!--/Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="drag-container">
+            <div
+              v-mdb-draggable="{
+                start: handleStart,
+                drag: handleDrag,
+                end: handleEnd
+              }"
+              class="dragged-element green"
+            >
+              <ul>
+                <li>
+                  @start: {{count.start}}
+                </li>
+                <li>
+                  @drag: {{count.drag}}
+                </li>
+                <li>
+                  @end: {{count.end}}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbDraggable } from "mdb-draggable";
+
+          export default {
+            directives: {
+              mdbDraggable
+            },
+            data() {
+              return {
+                count: {
+                  start: 0,
+                  drag: 0,
+                  end: 0
+                }
+              };
+            },
+            methods: {
+              handleStart() {
+                this.count.start++;
+              },
+              handleDrag() {
+                this.count.drag++;
+              },
+              handleEnd() {
+                this.count.end++;
+              }
+            }
+          };
+        </script>
+      </code>
+
+      <code data-lang="html" data-name="style">
+        <style>
+          .drag-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+          }
+
+          .dragged-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-align: center;
+            transition: all 0.4s linear;
+            transition-property: background-color;
+          }
+
+          .dragged-element ul {
+            padding: 0;
+            list-style: none;
+          }
+          .dragged-element ul li {
+            margin: 5px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+          }
+
+          .green {
+            background-color: rgba(76, 175, 80, 0.3);
+          }
+
+          .grey {
+            background-color: rgba(96, 125, 139, 0.3);
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<section id="snap-inner">
+  <h2 class="section-heading">Snap to the container (inner mode)</h2>
+
+  <p>
+    Add the <code>snap</code> options to the directive's value in order to
+    enable snapping to other elements/container. There are three options
+    available:
+  </p>
+  <ul>
+    <li><strong>tolerance</strong> (Number) - required</li>
+    <li>
+      <strong>mode</strong> (String) - required, two values acceptable:
+      <code>inner</code> and <code>outer</code>
+    </li>
+    <li>
+      <strong>referenceId</strong> (String, Array) - id of the reference
+      element/elements - if not specified, the directive will use the parent.
+    </li>
+  </ul>
+
+  <!--Section: Live preview-->
+  <section>
+    <div
+      id="draggable-parent-5"
+      class="draggable-parent draggable-parent-1 border border-light"
+    >
+      <div
+        id="draggable-snap-2"
+        class="draggable-element rgba-pink-light"
+      ></div>
+    </div>
+  </section>
+  <!--/Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="drag-container">
+            <div
+              v-mdb-draggable="{ snap: { tolerance: 80, mode: 'inner' } }"
+              class="dragged-element green"
+            ></div>
+          </div>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbDraggable } from "mdb-draggable";
+
+          export default {
+            directives: {
+              mdbDraggable
+            }
+          };
+        </script>
+      </code>
+
+      <code data-lang="html" data-name="style">
+        <style>
+          .drag-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+          }
+
+          .dragged-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-align: center;
+            transition: all 0.4s linear;
+            transition-property: background-color;
+          }
+
+          .green {
+            background-color: rgba(76, 175, 80, 0.3);
+          }
+
+          .grey {
+            background-color: rgba(96, 125, 139, 0.3);
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<section id="snap-outer">
+  <h2 class="section-heading">Snap to the other elements (outer mode)</h2>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="drag-container">
+            <div
+              id="el-1"
+              v-mdb-draggable="{
+                snap: { referenceId: ['el-2'], tolerance: 30, mode: 'outer' }
+              }"
+              class="dragged-element green"
+            ></div>
+            <div
+              id="el-2"
+              v-mdb-draggable="{
+                snap: {
+                  referenceId: 'el-1',
+                  tolerance: 30,
+                  mode: 'outer'
+                }
+              }"
+              class="dragged-element grey"
+              :style="{ top: '250px' }"
+            ></div>
+          </div>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbDraggable } from "mdb-draggable";
+
+          export default {
+            directives: {
+              mdbDraggable
+            }
+          };
+        </script>
+      </code>
+
+      <code data-lang="html" data-name="style">
+        <style>
+          .drag-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+          }
+
+          .dragged-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-align: center;
+            transition: all 0.4s linear;
+            transition-property: background-color;
+          }
+
+          .green {
+            background-color: rgba(76, 175, 80, 0.3);
+          }
+
+          .grey {
+            background-color: rgba(96, 125, 139, 0.3);
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<section id="revert">
+  <h2 class="section-heading">Revert position</h2>
+
+  <p>
+    To return the dragged object to its original position after dragging has
+    ended, use the <code>.revert</code> modifier.
+  </p>
+
+  <!--Section: Live preview -->
+  <section>
+    <div
+      id="draggable-parent-6"
+      class="draggable-parent draggable-parent-2 border border-light"
+    >
+      <div
+        id="draggable-revert"
+        class="draggable-element rgba-purple-light d-flex align-items-center"
+      >
+        <p>Element will return to its initial position</p>
+      </div>
+    </div>
+  </section>
+  <!--/Section: Live preview -->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="drag-container">
+            <div v-mdb-draggable.revert class="dragged-element green">
+              <p>Element will return to its initial position</p>
+            </div>
+          </div>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbDraggable } from "mdb-draggable";
+
+          export default {
+            directives: {
+              mdbDraggable
+            }
+          };
+        </script>
+      </code>
+
+      <code data-lang="html" data-name="style">
+        <style>
+          .drag-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+          }
+
+          .dragged-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-align: center;
+            transition: all 0.4s linear;
+            transition-property: background-color;
+          }
+
+          .green {
+            background-color: rgba(76, 175, 80, 0.3);
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--/Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<section id="offset">
+  <h2 class="section-heading">Offset</h2>
+
+  <p>
+    You can customize offset from each container's edge, by adding
+    <code>offset</code> object to the directive's value. The offset object:
+  </p>
+  <ul>
+    <li>
+      <strong>top</strong> - offset from the top edge in px (Number, default: 0)
+    </li>
+    <li>
+      <strong>bottom</strong> - offset from the bottom edge in px (Number,
+      default: 0)
+    </li>
+    <li>
+      <strong>left</strong> - offset from the left edge in px (Number, default:
+      0)
+    </li>
+    <li>
+      <strong>right</strong> - offset from the right edge in px (Number,
+      default: 0)
+    </li>
+  </ul>
+
+  <!--Section: Live preview-->
+  <section>
+    <div
+      id="draggable-parent-7"
+      class="draggable-parent draggable-parent-2 border border-light"
+    >
+      <div class="container h-100">
+        <div class="row h-100 pb-5 mt-5">
+          <div class="col-md-8 draggable-container">
+            <div">
+            <div
+              id="draggable-containment"
+              class="draggable-element rgba-blue-light"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet data-editor="false">
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="drag-container">
+            <div
+              v-mdb-draggable="{
+                offset: { top: 10, bottom: 30, left: 10, right: 60 }
+              }"
+              :style="{ left: 'calc(50% - 60px', top: '10px' }"
+              class="dragged-element green"
+            >
+              <p>Try moving the element towards the container's edges</p>
+            </div>
+          </div>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbDraggable } from "mdb-draggable";
+
+          export default {
+            directives: {
+              mdbDraggable
+            }
+          };
+        </script>
+      </code>
+
+      <code data-lang="html" data-name="style">
+        <style>
+          .drag-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+          }
+
+          .dragged-element {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-align: center;
+            transition: all 0.4s linear;
+            transition-property: background-color;
+          }
+
+          .green {
+            background-color: rgba(76, 175, 80, 0.3);
+          }
+
+          .grey {
+            background-color: rgba(96, 125, 139, 0.3);
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <!--/Section: Code-->
+</section>
