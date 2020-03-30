@@ -1,0 +1,1286 @@
+<style>
+  .scrollspy-example {
+    height: 200px;
+  }
+
+  #mdb-scrollspy-ex .nav-item {
+    width: 100%;
+  }
+
+  #mdb-scrollspy-ex a {
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1.1rem;
+    padding: 0 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: black;
+  }
+
+  #mdb-scrollspy-ex li .active {
+    font-weight: 600;
+  }
+
+  .mdb-scrollspy-ex-example {
+    height: 200px;
+  }
+</style>
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">滚动间谍</h2>
+
+  <h1 class="secondary-heading mb-4">Vue Bootstrap滚动间谍-Bootstrap 4和材料设计</h1>
+
+  <!--Description-->
+  <div class="description">
+    <p>
+      的<code> v-mdb-scroll-spy </code>指令在导航列表上显示当前滚动位置（默认参考容器是window）。成功实施后，您的导航或列表组将相应地进行更新，<code> 。活性</code>类根据其关联的目标从一个项目到另一个项目-您可以通过传递自定义回调函数来修改此行为。</p>
+    <p>
+      该指令正在收集<code> href </code>它所附加的组件的属性-可以与mdbNavbar，mdbListGroup等各种组件一起使用。它提供以下定制选项：
+    </p>
+    <ul>
+      <li>
+        <strong>容器</strong> -默认情况下，其值设置为<code>窗口</code> 。指令选择具有给定ID的元素作为参考容器
+      </li>
+      <li>
+        <strong>可见</strong> -该部分的一部分，需要可见才能激活相应的链接。接受0到1之间的值（默认值为0.5）
+      </li>
+      <li>
+        <strong>打回来</strong> -更改后将通过活动链接的索引调用的方法的名称
+      </li>
+      <li>
+        <strong>装货</strong> -选项随<code>异步的</code>修饰符-从中更改其值<code>真正</code>至<code>假</code>将触发重新计算滚动
+      </li>
+    </ul>
+    <p>添加<code> .async </code></p> 修饰符将启用基于以下命令重新计算指令的数据<code>装货</code>值。</div>
+
+  <a
+    href="https://vue.mdbootstrap.com/#/directives/scrollspy"
+    target="_blank"
+    class="btn btn-info mt-4 btn-rounded"
+    role="button"
+    >实时预览
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: Primary color-->
+<!--Section: -->
+<section id="basic-usage">
+  <!--Title-->
+  <h2 class="section-heading">
+    基本用法
+  </h2>
+
+  <p><strong>步骤1： </strong>从&amp;#39;mdbvue&amp;#39;导入指令</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy } from "mdbvue";
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>第2步： </strong>将mdbScrollSpy添加到<code>指令</code>宾语
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy } from "mdbvue";
+          export default {
+            directives: {
+              mdbScrollSpy
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>第三步： </strong>将指令附加到导航容器
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <ul v-mdb-scroll-spy>
+            <li><a href="...">链接 1</a></li>
+          </ul>
+        </template>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <p>
+    <strong>步骤4： </strong>如果要在特定容器上使用ScrollSpy或指定自定义回调，请传递一个对象作为指令的值。该方法将以href的索引作为参数来调用。</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div>
+            <ul
+              v-mdb-scroll-spy="{container: 'custom-container', callback: 'customCallback'}"
+            >
+              <li><a href="#section-1">区块一</a></li>
+            </ul>
+            <div
+              id="custom-container"
+              style="max-height: 100px; overflow-y: scroll;"
+            >
+              <p id="section-1">...</p>
+            </div>
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy, mdbBtn } from "mdbvue";
+          export default {
+            directives: {
+              mdbScrollSpy
+            },
+            methods: {
+              customCallback(i) {
+                //...
+              }
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: Basic example-->
+<section id="basic-example">
+  <!--Title-->
+  <h2 class="title">
+    标签示例<a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      > MDB Pro组件<i class="far fa-gem ml-1"></i></a>
+  </h2>
+
+  <!--Description-->
+  <p>
+    要从<code>窗口</code> ，将ID传递为<code>容器</code> 。</p>
+  <p class="description">向下滚动以查看效果</p>
+
+  <!--Section: Live preview-->
+  <section>
+    <!-- Nav tabs -->
+    <ul
+      id="navbar-example1"
+      class="nav nav-tabs md-tabs nav-justified indigo mb-4 mx-0"
+    >
+      <li class="nav-item">
+        <a class="nav-link active" href="#panel1">个人资料</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#panel2">跟随</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#panel3">联系方式</a>
+      </li>
+    </ul>
+    <!--Spied element-->
+    <div
+      style="overflow-y: scroll; max-height: 200px;"
+      class="p-3"
+      data-spy="scroll"
+      data-target="#navbar-example1"
+      data-offset="0"
+    >
+      <h4 class="pt-4" id="panel1" class="font-weight-bold">第 1 节</h4>
+      <p>
+        广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+      <p>
+        广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+      <h4 class="pt-4" id="panel2" class="font-weight-bold">第 2 节</h4>
+      <p>
+        Veniam marfa小胡子滑板，贴布fugiat velit干草叉胡须。Freegan胡子aliqua cupidatat mcsweeney的vero。Cupidatat四个loko nisi，一个helvetica nulla carles。刺青的cosby毛衣食品卡车，mcsweeney的quis非freegan乙烯基。Lo-fi wes Anderson +1服装。卡尔将非审美的运动归于绅士化。布鲁克林精酿精酿啤酒副主演。</p>
+      <p>
+        广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+      <h4 class="pt-4" id="panel3" class="font-weight-bold">第 3 节</h4>
+      <p>
+        Occaecat commodo aliqua delectus。Fap工艺啤酒Deserunt滑板EA。Lomo自行车权利使Banh mi，velit ea和magna veniam的下一个locavore单一来源咖啡成为可能。高寿命ID乙烯基，回声公园结果Quis Aliquip Banh Mi干草叉。Vero VHS最佳专家。Consectetur nisi DIY迷你斜挎包。Cred ex in，可持续的delectus consectetur fanny pack iPhone。</p>
+      <p>
+        广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+    </div>
+    <!--/.Spied element-->
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <section>
+            <mdb-tab tabs card justify color="default" class="mt-4 mx-4" v-mdb-scroll-spy="{ container: 'scroll-container' }">
+              <mdb-tab-item
+                v-for="(section, i) in sections"
+                :key="i"
+                :href="`#${section.id}`"
+                :active="tabs === i"
+                @click.native="tabs = i"
+                >{{ section.topic }}</mdb-tab-item
+              >
+            </mdb-tab>
+            <div
+              id="scroll-container"
+              class="mt-5 mx-4"
+              style="max-height: 300px; overflow-y: scroll;"
+            >
+              <div v-for="(section, i) in sections" :key="i" :id="section.id">
+                <h3>{{ section.topic }}</h3>
+                <p>{{ section.text }}</p>
+              </div>
+            </div>
+          </section>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTab, mdbTabItem, mdbScrollSpy } from "mdbvue";
+
+          export default {
+            name: "ScrollSpyProPage",
+            components: {
+              mdbTab,
+              mdbTabItem
+            },
+            data() {
+              return {
+                tabs: 0,
+                sections: [
+                  {
+                    id: "section1",
+                    topic: "section 1",
+                    text:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  },
+                  {
+                    id: "section2",
+                    topic: "section 2",
+                    text:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  },
+                  {
+                    id: "section3",
+                    topic: "section 3",
+                    text:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  }
+                ]
+              };
+            },
+
+            directives: { mdbScrollSpy }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: Basic example-->
+
+<hr class="mt-4 mb-5" />
+<!--Section: -->
+<section id="navbar-example">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    带有自定义回调的Nav示例
+  </h2>
+
+  <!-- Description -->
+  <p class="description">
+    若要修改默认行为，请在滚动位置更改后通过活动链接的索引传递要调用的方法的名称。</p>
+  <p>
+    滚动导航栏下方的区域，并查看活动的班级更改。下拉项也会突出显示。</p>
+
+  <!--Section: Live preview-->
+  <section class="p-1">
+    <nav id="navbar-example2" class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">标题导航栏项目</a>
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" href="#navbar-example2-fat">胖</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#navbar-example2-mdo">mdo</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >下降</a
+          >
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#navbar-example2-one">一</a><a class="dropdown-item" href="#navbar-example2-two">二</a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#navbar-example2-three">三</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <div
+      data-spy="scroll"
+      data-target="#navbar-example2"
+      class="scrollspy-example z-depth-1 mt-4"
+      data-offset="0"
+    >
+      <h4 id="navbar-example2-fat">胖</h4>
+      <p>
+        广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+      <h4 id="navbar-example2-mdo">mdo</h4>
+      <p>
+        广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+      <h4 id="navbar-example2-one">1</h4>
+      <p>
+        广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+      <h4 id="navbar-example2-two">二</h4>
+      <p>
+        广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+      <h4 id="navbar-example2-three">三</h4>
+      <p>
+        广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <section>
+            <mdb-navbar color="grey" class="lighten-4">
+              <mdb-navbar-nav nav right class="nav-pills" v-mdb-scroll-spy="{
+                        container: 'navbar-container',
+                        visible: 0.4,
+                        callback: 'setActiveNavlink'
+                      }">
+                <mdb-nav-item href="#nav-example-1" :active="nav === 0"
+                  >胖</mdb-nav-item
+                >
+                <mdb-nav-item href="#nav-example-2" :active="nav === 1"
+                  >mdo</mdb-nav-item
+                >
+                <mdb-dropdown tag="li" class="nav-item text-primary">
+                  <mdb-dropdown-toggle tag="a" :active="nav === 2 || nav === 3 || nav === 4" navLink slot="toggle" waves-fixed>下降</mdb-dropdown-toggle
+                  >
+                  <mdb-dropdown-menu>
+                    <mdb-dropdown-item href="#one" :active="nav === 2"
+                      >1</mdb-dropdown-item
+                    >
+                    <mdb-dropdown-item href="#two" :active="nav === 3"
+                      >二</mdb-dropdown-item
+                    >
+                    <mdb-dropdown-item href="#three" :active="nav === 4"
+                      >三</mdb-dropdown-item
+                    >
+                  </mdb-dropdown-menu>
+                </mdb-dropdown>
+              </mdb-navbar-nav>
+            </mdb-navbar>
+
+            <div
+              style="overflow-y: scroll; max-height: 200px;"
+              class="p-3"
+              id="navbar-container"
+            >
+              <h4 id="nav-example-1">胖</h4>
+              <p>
+                广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+              <h4 id="nav-example-2">mdo</h4>
+              <p>
+                广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+              <h4 id="one">1</h4>
+              <p>
+                广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+              <h4 id="two">二</h4>
+              <p>
+                广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+              <h4 id="three">三</h4>
+              <p>
+                广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+            </div>
+          </section>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import {
+            mdbNavbar,
+            mdbNavbarNav,
+            mdbNavItem,
+            mdbDropdown,
+            mdbDropdownToggle,
+            mdbDropdownMenu,
+            mdbDropdownItem,
+            mdbScrollSpy
+          } from "mdbvue";
+
+          export default {
+            name: "ScrollSpyPage",
+            components: {
+              mdbNavbar,
+              mdbNavbarNav,
+              mdbNavItem,
+              mdbDropdown,
+              mdbDropdownToggle,
+              mdbDropdownMenu,
+              mdbDropdownItem
+            },
+            data() {
+              return {
+                nav: 0
+              };
+            },
+            methods: {
+              setActiveNavlink(i) {
+                this.nav = i;
+              }
+            },
+            directives: { mdbScrollSpy }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="nested-nav-example">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    嵌套导航的示例
+  </h2>
+
+  <!--Description-->
+  <!--Section: Live preview-->
+  <section class="p-1">
+    <div class="row">
+      <div class="col-sm-4 col-lg-3">
+        <nav
+          id="navbar-example3"
+          class="navbar navbar-light bg-light flex-column mt-4"
+        >
+          <a class="navbar-brand" href="#">标题导航栏项目</a>
+          <nav class="nav nav-pills flex-column">
+            <a class="nav-link active" href="#item-1">Item 1</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ml-3 my-1" href="#item-1-1">项目1-1 </a><a class="nav-link ml-3 my-1" href="#item-1-2">项目1-2 </a>
+            </nav>
+            <a class="nav-link" href="#item-2">项目2 </a><a class="nav-link" href="#item-3">项目3 </a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ml-3 my-1" href="#item-3-1">项目3-1 </a><a class="nav-link ml-3 my-1" href="#item-3-2">项目3-2 </a>
+            </nav>
+          </nav>
+        </nav>
+      </div>
+
+      <div class="col-sm-8 col-lg-9">
+        <div
+          data-spy="scroll"
+          class="scrollspy-example z-depth-1 mt-4"
+          data-target="#navbar-example3"
+          data-offset="0"
+          style="height: 360px"
+        >
+          <h4 id="item-1">Item 1</h4>
+          <p>
+            广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+          <h5 id="item-1-1">项目1-1</h5>
+          <p>
+            广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+          <h5 id="item-1-2">项目2-2</h5>
+          <p>
+            广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+          <h4 id="item-2">项目2</h4>
+          <p>
+            广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+          <h4 id="item-3">Item 3</h4>
+          <p>
+            广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+          <h5 id="item-3-1">项目3-1</h5>
+          <p>
+            广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+          <h5 id="item-3-2">项目3-2</h5>
+          <p>
+            广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <mdb-col sm="4" lg="3">
+                <mdb-navbar :toggler="false" color="grey" class="lighten-4">
+                  <mdb-navbar-nav vertical v-mdb-scroll-spy="{
+                            container: 'nested',
+                            callback: 'setActiveLink'
+                          }" class="nav-pills">
+                    <mdb-nav-item
+                      href="#item-1"
+                      :active="nested === 0 || nested === 1 || nested === 2"
+                      >Item 1</mdb-nav-item
+                    >
+                    <mdb-navbar-nav vertical>
+                      <mdb-nav-item
+                        :active="nested === 1"
+                        class="ml-3 my-1"
+                        href="#item-1-1"
+                        >项目1-1</mdb-nav-item
+                      >
+                      <mdb-nav-item
+                        :active="nested === 2"
+                        class="ml-3 my-1"
+                        href="#item-1-2"
+                        >项目1-2</mdb-nav-item
+                      >
+                    </mdb-navbar-nav>
+                    <mdb-nav-item href="#item-2" :active="nested === 3"
+                      >项目2</mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      href="#item-3"
+                      :active="nested === 4 || nested === 5 || nested === 6"
+                      >Item 3</mdb-nav-item
+                    >
+                    <mdb-navbar-nav vertical>
+                      <mdb-nav-item
+                        :active="nested === 5"
+                        class="ml-3 my-1"
+                        href="#item-3-1"
+                        >项目3-1</mdb-nav-item
+                      >
+                      <mdb-nav-item
+                        :active="nested === 6"
+                        class="ml-3 my-1"
+                        href="#item-3-2"
+                        >项目3-2</mdb-nav-item
+                      >
+                    </mdb-navbar-nav>
+                  </mdb-navbar-nav>
+                </mdb-navbar>
+              </mdb-col>
+
+              <mdb-col sm="8" lg="9">
+                <div
+                  class="z-depth-1 p-3"
+                  style="max-height: 325px; overflow-y: scroll;"
+                  id="nested"
+                >
+                  <div id="item-1">
+                    <h4>Item 1</h4>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                  <div id="item-1-1">
+                    <h5>项目1-1</h5>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                  <div id="item-1-2">
+                    <h5>项目1-2</h5>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                  <div id="item-2">
+                    <h4>项目2</h4>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                  <div id="item-3">
+                    <h4>Item 3</h4>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                  <div id="item-3-1">
+                    <h5>项目3-1</h5>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                  <div id="item-3-2">
+                    <h5>项目3-2</h5>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                </div>
+              </mdb-col>
+            </mdb-row>
+          </mdb-container>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import {
+            mdbContainer,
+            mdbNavbar,
+            mdbNavbarNav,
+            mdbNavItem,
+            mdbRow,
+            mdbCol,
+            mdbScrollSpy
+          } from "mdbvue";
+
+          export default {
+            name: "ScrollSpyPage",
+            components: {
+              mdbContainer,
+              mdbNavbar,
+              mdbNavbarNav,
+              mdbNavItem,
+              mdbRow,
+              mdbCol
+            },
+            data() {
+              return {
+                nested: 0
+              };
+            },
+            methods: {
+              setActiveLink(i) {
+                this.nested = i;
+              }
+            },
+            directives: { mdbScrollSpy }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="list-group-example">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    列表组示例
+  </h2>
+
+  <!--Section: Live preview-->
+  <section class="p-1">
+    <div class="row">
+      <div class="col-4">
+        <div id="list-example" class="list-group">
+          <a
+            class="list-group-item list-group-item-action active"
+            href="#list-item-1"
+            >项目1 </a
+          ><a class="list-group-item list-group-item-action" href="#list-item-2"
+            >项目2 </a
+          ><a class="list-group-item list-group-item-action" href="#list-item-3"
+            >项目3 </a
+          ><a class="list-group-item list-group-item-action" href="#list-item-4"
+            >项目4 </a
+          >
+        </div>
+      </div>
+      <div class="col-8">
+        <div
+          data-spy="scroll"
+          data-target="#list-example"
+          data-offset="0"
+          class="scrollspy-example z-depth-1"
+        >
+          <h4 id="list-item-1">Item 1</h4>
+          <p>
+            前结果是科莫多人进行运动锻炼，例外是occaecat ullamco duis aliqua id magna ullamco欧盟。ipsum ipsum ipsum ullamco cillum consectetur ut和aute consectetur labour。结果表明，临时工可能会造成临时性后果。Qui Laborum do nonexcepteur nulla magna eiusmod consectetur in。Alici et alquafifi quis quis et indicidunt变态的非动画表示贴花美元，继而废除法定货币。Aliimp nulla enim veniam non fugiat id cupidatat null elit cupidatat commodo velit ut eiusmod cupidatat elit dolore。</p>
+          <h4 id="list-item-2">项目2</h4>
+          <p>
+            Quis magna Lorem anim ipsum do mollit sit cillum volatet ex nulla tempor。Laborum等同于非精英enim activ cillum aliqua等同于aliqua。Esse ex consectetur mollittate est du du labus is ad ipsum anim Lorem。Incididunt veniam velit elit elit veniam Lorem aliqua quis ullamco deserunt坐在enim elit aliqua esse irure。劳动者在临时劳动者办公室中的劳动者非劳动者非居民或非商业性劳动者。Ipsum fugiat事例突然发生。</p>
+          <h4 id="list-item-3">Item 3</h4>
+          <p>
+            可以坐在沙发上，也可以坐在椅子上。Nostrud aliqua ipsum fugiat miniproident occaecatexcepteur aliquip culpa aute tempor reprehenderit。离开后的临时政府将继续进行联邦政府的债务保护。</p>
+          <h4 id="list-item-4">Item 4</h4>
+          <p>
+            可以坐在沙发上，也可以坐在椅子上。Nostrud aliqua ipsum fugiat miniproident occaecatexcepteur aliquip culpa aute tempor reprehenderit。离开后的临时政府将继续进行联邦政府的债务保护。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <mdb-col sm="4">
+                <mdb-list-group
+                  v-mdb-scroll-spy="{ container: 'container', callback: 'setActive' }"
+                  class="scrollspy"
+                >
+                  <mdb-list-group-item action :active="i === active" tag="a" :href="`#${section.id}`" v-for="(section, i) in scrollSections" :key="section.id">
+                    {{ section.title }}
+                  </mdb-list-group-item>
+                </mdb-list-group>
+              </mdb-col>
+              <mdb-col>
+                <div
+                  class="z-depth-1 p-5"
+                  id="container"
+                  style="height: 500px; overflow-y: scroll"
+                >
+                  <div
+                    v-for="section in scrollSections"
+                    :id="section.id"
+                    :key="section.id"
+                  >
+                    <h5>{{ section.title }}</h5>
+                    <p>{{ section.content }}</p>
+                  </div>
+                </div>
+              </mdb-col>
+            </mdb-row>
+          </mdb-container>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import {
+            mdbContainer,
+            mdbRow,
+            mdbCol,
+            mdbListGroup,
+            mdbListGroupItem,
+            mdbScrollSpy
+          } from "mdbvue";
+
+          export default {
+            name: "ScrollSpyPage",
+            components: {
+              mdbContainer,
+              mdbRow,
+              mdbCol,
+              mdbListGroup,
+              mdbListGroupItem
+            },
+            data() {
+              return {
+                active: 0,
+                nav: 0,
+                scrollSections: [
+                  {
+                    id: "section1",
+                    title: "First title",
+                    content:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  },
+                  {
+                    id: "section2",
+                    title: "Second title",
+                    content:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  },
+                  {
+                    id: "section3",
+                    title: "Third title",
+                    content:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  }
+                ]
+              };
+            },
+            methods: {
+              setActive(i) {
+                this.active = i;
+              }
+            },
+            directives: { mdbScrollSpy }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="mdb-scrollspy">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    MDB Scrollspy <a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      > MDB Pro组件<i class="far fa-gem ml-1"></i></a>
+  </h2>
+
+  <!-- Description -->
+  <p></p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-md-8">
+        <!--Spied element-->
+        <div
+          class="scrollspy-example z-depth-1 text-center p-0"
+          data-spy="scroll"
+          data-target="#mdb-scrollspy-ex"
+          data-offset="0"
+        >
+          <section id="section1" class="blue lighten-4">
+            <h3>
+              <strong>区块一</strong>
+            </h3>
+
+            <p>
+              Lorem ipsum dolor坐着，自学成才。Dolorem ipsa at Provident qui doloremque libero quoer non pariatur quaerat iure，nostrum，possimus vitae sequi officiis准dolores asperiores earum quis！</p>
+
+            <hr />
+
+            <section id="subsection1A" class=" m-4 red lighten-4">
+              <h4>
+                分部
+              </h4>
+
+              <p>
+                Lorem ipsum dolor坐着，自学成才。Dolorem ipsa at Provident qui doloremque libero quoer non pariatur quaerat iure，nostrum，possimus vitae sequi officiis准dolores asperiores earum quis！</p>
+            </section>
+
+            <hr />
+
+            <section id="subsection1B" class=" m-4 green lighten-4">
+              <h4>
+                分部
+              </h4>
+
+              <p>
+                Lorem ipsum dolor坐着，自学成才。Dolorem ipsa at Provident qui doloremque libero quoer non pariatur quaerat iure，nostrum，possimus vitae sequi officiis准dolores asperiores earum quis！</p>
+            </section>
+
+            <hr />
+
+            <section id="subsection1C" class=" m-4 indigo lighten-4">
+              <h4>
+                分部
+              </h4>
+
+              <p>
+                Lorem ipsum dolor坐着，自学成才。Dolorem ipsa at Provident qui doloremque libero quoer non pariatur quaerat iure，nostrum，possimus vitae sequi officiis准dolores asperiores earum quis！</p>
+            </section>
+          </section>
+
+          <section id="section2" class="blue lighten-4">
+            <h3>
+              <strong>项目二</strong>
+            </h3>
+
+            <p>
+              Lorem ipsum dolor坐着，自学成才。Dolorem ipsa at Provident qui doloremque libero quoer non pariatur quaerat iure，nostrum，possimus vitae sequi officiis准dolores asperiores earum quis！</p>
+
+            <hr />
+
+            <section id="subsection2A" class=" m-4 red lighten-4">
+              <h4>
+                分部
+              </h4>
+
+              <p>
+                Lorem ipsum dolor坐着，自学成才。Dolorem ipsa at Provident qui doloremque libero quoer non pariatur quaerat iure，nostrum，possimus vitae sequi officiis准dolores asperiores earum quis！</p>
+            </section>
+
+            <hr />
+
+            <section id="subsection2B" class=" m-4 green lighten-4">
+              <h4>
+                分部
+              </h4>
+
+              <p>
+                Lorem ipsum dolor坐着，自学成才。Dolorem ipsa at Provident qui doloremque libero quoer non pariatur quaerat iure，nostrum，possimus vitae sequi officiis准dolores asperiores earum quis！</p>
+            </section>
+
+            <hr />
+
+            <section id="subsection2C" class=" m-4 indigo lighten-4">
+              <h4>
+                分部
+              </h4>
+
+              <p>
+                Lorem ipsum dolor坐着，自学成才。Dolorem ipsa at Provident qui doloremque libero quoon non pariatur quaerat iure，nostrum，possimus vitae sequi officiis准dolores asperiores earum quis！</p>
+            </section>
+          </section>
+        </div>
+        <!--/.Spied element-->
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-3 mb-4">
+        <!--Scrollspy-->
+        <div id="mdb-scrollspy-ex">
+          <!-- Links -->
+          <ul class="nav nav-pills default-pills smooth-scroll">
+            <li class="nav-item">
+              <a class="nav-link" href="#section1">区块一</a>
+              <ul class="nav ml-3">
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection1A">分部</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection1B">分部</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection1C">分部</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#section1">项目二</a>
+              <ul class="nav ml-3">
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection2A">分部</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection2B">分部</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection2C">分部</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <!-- Links -->
+        </div>
+        <!--Scrollspy-->
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </section>
+</section>
+
+<!--Section: Code-->
+<section>
+  <mdbsnippet>
+    <code data-lang="html" data-name="template">
+      <template>
+        <mdb-container>
+          <mdb-row>
+            <mdb-col sm="4" lg="3">
+              <mdb-navbar
+                :toggler="false"
+                class="z-depth-0"
+                id="mdb-scrollspy-ex"
+              >
+                <mdb-navbar-nav vertical v-mdb-scroll-spy="{
+                          container: 'mdb-scrollspy-container',
+                          callback: 'setActiveLink',
+                          visible: 0.2
+                        }" class="nav-pills default-pills">
+                  <mdb-nav-item
+                    href="#section-1"
+                    :active="
+                            nested === 0 || nested === 1 || nested === 2 || nested === 3
+                          "
+                    >区块一</mdb-nav-item
+                  >
+                  <mdb-navbar-nav vertical>
+                    <mdb-nav-item
+                      :active="nested === 1"
+                      class="ml-3 my-1"
+                      href="#subsection-1a"
+                      >分部</mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      :active="nested === 2"
+                      class="ml-3 my-1"
+                      href="#subsection-1b"
+                      >分部</mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      :active="nested === 3"
+                      class="ml-3 my-1"
+                      href="#subsection-1c"
+                      >分部</mdb-nav-item
+                    >
+                  </mdb-navbar-nav>
+
+                  <mdb-nav-item
+                    href="#section-2"
+                    :active="
+                            nested === 4 || nested === 5 || nested === 6 || nested === 7
+                          "
+                    >项目二</mdb-nav-item
+                  >
+                  <mdb-navbar-nav vertical>
+                    <mdb-nav-item
+                      :active="nested === 5"
+                      class="ml-3 my-1"
+                      href="#subsection-2a"
+                      >分部</mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      :active="nested === 6"
+                      class="ml-3 my-1"
+                      href="#subsection-2b"
+                      >分部</mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      :active="nested === 7"
+                      class="ml-3 my-1"
+                      href="#subsection-2c"
+                      >分部</mdb-nav-item
+                    >
+                  </mdb-navbar-nav>
+                </mdb-navbar-nav>
+              </mdb-navbar>
+            </mdb-col>
+
+            <mdb-col sm="8" lg="9">
+              <div
+                class="z-depth-1"
+                style="max-height: 325px; overflow-y: scroll;"
+                id="mdb-scrollspy-container"
+              >
+                <div class="blue lighten-4 p-3">
+                  <h4 id="section-1">区块一</h4>
+                  <p>
+                    广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+
+                  <div id="subsection-1a" class="red lighten-4 p-3 mt-3">
+                    <h5>分部</h5>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                  <div id="subsection-1b" class="green lighten-4 p-3 mt-3">
+                    <h5>分部</h5>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                  <div id="subsection-1c" class="indigo lighten-4 p-3 mt-3">
+                    <h4>分部</h4>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                </div>
+                <div class="blue lighten-4 p-3">
+                  <h4 id="section-1">项目二</h4>
+                  <p>
+                    广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+
+                  <div id="subsection-2a" class="red lighten-4 p-3 mt-3">
+                    <h5>分部</h5>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                  <div id="subsection-2b" class="green lighten-4 p-3 mt-3">
+                    <h5>分部</h5>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                  <div id="subsection-2c" class="indigo lighten-4 p-3 mt-3">
+                    <h4>分部</h4>
+                    <p>
+                      广告绑腿基塔尔，早午餐艺术派对多罗·劳伯。在干草叉卖出qui之前，干草叉和罐头都是低调的。Tumblr从农场到餐桌的自行车使用任何权利。Anim keffiyeh Carles开衫。Velit seitan mcsweeney的摄影棚3 Wolf Moon Irure。Cosby毛衣，您可能还没有听说过羊毛衫和开衫信托基金culpa biodiesel wes anderson的美感。尼尔（Nihil）纹身了Accusamus，讽刺了生物柴油keffiyeh工匠ullamco的后果。</p>
+                  </div>
+                </div>
+              </div>
+            </mdb-col>
+          </mdb-row>
+        </mdb-container>
+      </template>
+    </code>
+    <code data-lang="html" data-name="script">
+      <script>
+        import {
+          mdbContainer,
+          mdbRow,
+          mdbCol,
+          mdbNavbar,
+          mdbNavbarNav,
+          mdbNavItem,
+          mdbScrollSpy
+        } from "mdbvue";
+
+        export default {
+          name: "ScrollSpyProPage",
+          components: {
+            mdbContainer,
+            mdbRow,
+            mdbCol,
+            mdbNavbar,
+            mdbNavbarNav,
+            mdbNavItem
+          },
+          data() {
+            return {
+              nested: 1
+            };
+          },
+          methods: {
+            setActiveLink(i) {
+              this.nested = i;
+            }
+          },
+          directives: { mdbScrollSpy }
+        };
+      </script>
+    </code>
+    <code data-lang="html" data-name="style">
+      <style>
+        #mdb-scrollspy-ex .nav-item {
+          width: 100%;
+        }
+
+        #mdb-scrollspy-ex a {
+          font-size: 0.8rem;
+          font-weight: 400;
+          line-height: 1.1rem;
+          padding: 0 5px;
+          margin-top: 3px;
+          margin-bottom: 3px;
+          color: black;
+        }
+
+        #mdb-scrollspy-ex li .active {
+          font-weight: 600;
+        }
+
+        .mdb-scrollspy-ex-example {
+          height: 200px;
+        }
+      </style>
+    </code>
+  </mdbsnippet>
+</section>
+<!--Section: Code-->
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="dotted-scrollspy">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    虚线卷轴<a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      > MDB Pro组件<i class="far fa-gem ml-1"></i></a>
+  </h2>
+
+  <!--Description-->
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+    <a
+      href="https://vue.mdbootstrap.com/#/directives/pro/scrollspy"
+      class="btn btn-primary"
+      target="_blank"
+      >实例
+      <i class="fas fa-eye ml-1"></i>
+    </a>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <section>
+            <div class="dotted-scrollspy">
+              <ul
+                class="pl-0 clearfix d-none d-sm-flex flex-column"
+                v-mdb-scroll-spy="{ visible: 1 }"
+              >
+                <li class="nav-item">
+                  <a class="nav-link" href="#dot-1"><span></span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#dot-2"><span></span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#dot-3"><span></span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#dot-4"><span></span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#dot-5"><span></span></a>
+                </li>
+              </ul>
+            </div>
+            <div id="dot-1" class="blue" style="height: 40vh;"></div>
+            <div id="dot-2" class="blue lighten-1" style="height: 40vh;"></div>
+            <div id="dot-3" class="blue lighten-2" style="height: 40vh;"></div>
+            <div id="dot-4" class="blue lighten-3" style="height: 40vh;"></div>
+            <div id="dot-5" class="blue lighten-4" style="height: 40vh;"></div>
+          </section>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy } from "mdbvue";
+
+          export default {
+            directives: { mdbScrollSpy }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
