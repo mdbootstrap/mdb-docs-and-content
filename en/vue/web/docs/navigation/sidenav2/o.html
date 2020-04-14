@@ -1,0 +1,1935 @@
+<style></style>
+
+<!-- FIRST SECTION-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">
+    Vue Bootstrap Sidenav 2
+    <a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      >MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <h1 class="secondary-heading mb-4">
+    Vue Sidenav 2 - Bootstrap 4 & Material Design
+  </h1>
+
+  <p>
+    The mdbSideNav2 component is the new take on the side navigation - it's more
+    flexible and simpler to use than its previous version. In the following
+    steps, you'll learn how to use it for creating responsive layouts, rendering
+    data from API and displaying entirely custom content.
+  </p>
+
+  <p class="note note-danger">This documentation may contain syntax introduced in the <strong>MDB Vue 6.7.0</strong> and can be incompatible with previous versions. For old side nav documentation please follow the <a href="https://mdbootstrap.com/docs/vue/tables/sidenav-1/">link</a>.</p>
+
+  <div class="flex-center my-4">
+      <a
+        href="https://vue.mdbootstrap.com/#/navigation/pro/sidenav-playground"
+        target="_blank"
+        class="btn btn-outline-primary btn-lg"
+        role="button"
+      >
+        Open Playground
+      </a>
+    </div>
+
+</section>
+<!-- FIRST SECTION-->
+
+<hr class="my-5" />
+
+<!-- Positioning-->
+<section id="positioning">
+  <h2 class="section-heading">Positioning</h2>
+
+  <p>
+    There are three ways of positioning your side navigation:
+  </p>
+  <ul>
+    <li>
+      <strong>side</strong> - default version, it shrinks the
+      remaining area
+    </li>
+    <li><strong>over</strong> - opens over the page's content</li>
+    <li>
+      <strong>push</strong> - pushes the content of its way by adding negative
+      margins to the content's wrapper
+    </li>
+  </ul>
+
+  <p>
+    You can combine those styles easily by changing the value of properties, for
+    example, depending on the user's screen width.
+  </p>
+  <p>
+    By default all of this options can be toggled by user - f.e. by pressing the
+    <code>esc</code> key. You can always change that behaviour by replacing
+    <code>v-model</code> directive with a <code>value</code> property.
+  </p>
+  <br />
+  <section id="responsive-layout">
+    <h3>Creating responsive layouts</h3>
+    <p>
+      The side and push versions requires adding additional offsets to some
+      elements on your webpage - typically <code>nav</code>,
+      <code>main</code> and <code>footer</code>. There are two ways of
+      controlling it - the first, simpler one, is to wrap the sidenav around
+      you app and place nav, main and footer elements inside the dedicated slots:
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-side-nav-2>
+              <nav slot="nav">
+                <!-- Your navigation here -->
+              </nav>
+              <main slot="main">
+                <!-- Your main content (router, f.e) here -->
+              </main>
+              <footer slot="footer">
+                <!-- Your footer here -->
+              </footer>
+            </mdb-side-nav-2>
+          </template>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>
+      This way the component takes care of adding those offsets when neccessary.
+      Sometimes you need to customize the default behaviour or structure your
+      app diferentely. In this case, you can use <code>@setOffsets</code> event emitted by
+      the component every time the side navigation is being toggled or enters
+      slim mode.
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-side-nav-2 :data="..." @setOffset="setOffset" />
+          </template>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p class="note note-info">
+      The event's payload is the number of pixels which is needed for the sidenav
+      to fit beside the page's content
+    </p>
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="side">
+    <h3>
+      Side
+      <a
+        href="https://vue.mdbootstrap.com/#/navigation/pro/double-navigation-v6"
+        target="_blank"
+        class="btn btn-primary btn-sm"
+        role="button"
+      >
+        View demo
+        <i class="far fa-eye ml-1"></i>
+      </a>
+    </h3>
+    <p>
+      The default position - recommended especially for larger screens. The
+      content can get a little squized on smaller screens, so in the example
+      below we've used the mdb-resize directive to change the position to push
+      on smaller devices:
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div v-mdb-resize:start="checkWidth">
+              <mdb-side-nav-2
+                v-model="show"
+                :data="navigation"
+                color="white"
+                :over="over"
+                :sidenav-class="['grey', 'darken-3']"
+              >
+                <div slot="header" class="mt-5">
+                  <div class="p-5">
+                    <img
+                      src="https://mdbootstrap.com/img/logo/mdb-transparent.png"
+                      class="img-fluid"
+                    />
+                  </div>
+                  <hr />
+                  <ul class="list-unstyled d-flex justify-content-center">
+                    <li>
+                      <a href="#" class="px-3 icons-sm fb-ic">
+                        <mdb-icon color="white" fab icon="facebook-f" />
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="px-3 icons-sm pin-ic">
+                        <mdb-icon color="white" fab icon="pinterest-p" />
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="px-3 icons-sm gplus-ic">
+                        <mdb-icon color="white" fab icon="google-plus-g" />
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="px-3 icons-sm tw-ic">
+                        <mdb-icon color="white" fab icon="twitter" />
+                      </a>
+                    </li>
+                  </ul>
+                  <hr />
+                </div>
+
+                <mdb-navbar
+                  slot="nav"
+                  tag="div"
+                  position="top"
+                  color="teal"
+                  class="darken-4"
+                  dark
+                  :toggler="false"
+                  :style="{ zIndex: '1061' }"
+                >
+                  <mdb-navbar-nav left>
+                    <mdb-icon
+                      icon="bars"
+                      class="white-text"
+                      size="lg"
+                      @click.native="show = !show"
+                    />
+                  </mdb-navbar-nav>
+                  <mdb-navbar-nav class="nav-flex-icons" right>
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v1"
+                      waves-fixed
+                      icon="code-branch"
+                      ><span class="ml-1">v.1</span></mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v2"
+                      waves-fixed
+                      icon="eye"
+                      ><span class="ml-1">v.2</span></mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v3"
+                      waves-fixed
+                      icon="file-code"
+                      far
+                      ><span class="ml-1">v.3</span></mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v4"
+                      waves-fixed
+                      icon="terminal"
+                      ><span class="ml-1">v.4</span></mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v5"
+                      waves-fixed
+                      icon="smile"
+                      far
+                      ><span class="ml-1">v.5</span></mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v6"
+                      waves-fixed
+                      icon="user"
+                      far
+                      active
+                      ><span class="ml-1">v.6</span></mdb-nav-item
+                    >
+                  </mdb-navbar-nav>
+                </mdb-navbar>
+
+                <div style="height: 100vh" slot="main">
+                  <div class="view intro-2">
+                    <div class="full-bg-img">
+                      <div class="mask rgba-white-strong flex-center">
+                        <div class="container">
+                          <div class="dark-grey-text ">
+                            <h2 class="font-weight-bold">
+                              Double navigation v.6
+                            </h2>
+                            <hr />
+                            <h3>
+                              <strong>Navbar:</strong> <u>Fixed</u>, positioned
+                              over the Sidenav
+                            </h3>
+                            <h3>
+                              <strong>Sidenav:</strong> <u>Side</u> (changing to
+                              <u>Over</u> below 900px breakpoint)
+                            </h3>
+                            <mdb-btn rounded color="grey" class="mt-5"
+                              ><router-link to="/navigation" class="white-text"
+                                >Go back to the navigation menu</router-link
+                              ></mdb-btn
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mdb-side-nav-2>
+            </div>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+            import {
+              mdbNavbar,
+              mdbNavItem,
+              mdbNavbarNav,
+              mdbSideNav2,
+              mdbBtn,
+              mdbIcon,
+              mdbResize
+            } from "mdbvue";
+
+            export default {
+              name: "DoubleNavigationPagev1",
+              components: {
+                mdbNavbar,
+                mdbNavItem,
+                mdbNavbarNav,
+                mdbSideNav2,
+                mdbBtn,
+                mdbIcon
+              },
+              data() {
+                return {
+                  show: false,
+                  over: false,
+                  navigation: [
+                    {
+                      name: "Double navigation",
+                      icon: "bars",
+                      children: [
+                        {
+                          name: "Version 1",
+                          to: "/navigation/pro/double-navigation-v1"
+                        },
+                        {
+                          name: "Version 2",
+                          to: "/navigation/pro/double-navigation-v2"
+                        },
+                        {
+                          name: "Version 3",
+                          to: "/navigation/pro/double-navigation-v3"
+                        },
+                        {
+                          name: "Version 4",
+                          to: "/navigation/pro/double-navigation-v4"
+                        },
+                        {
+                          name: "Version 5",
+                          to: "/navigation/pro/double-navigation-v5"
+                        },
+                        {
+                          name: "Version 6",
+                          to: "/navigation/pro/double-navigation-v6"
+                        }
+                      ]
+                    },
+                    {
+                      name: "Getting started",
+                      icon: "mdb",
+                      fab: true,
+                      children: [
+                        {
+                          name: "Quick start",
+                          href:
+                            "https://mdbootstrap.com/docs/vue/getting-started/quick-start/"
+                        },
+                        {
+                          name: "Technical Support",
+                          href: "https://mdbootstrap.com/support/"
+                        }
+                      ]
+                    },
+                    {
+                      name: "Documentation",
+                      icon: "graduation-cap",
+                      href: "https://mdbootstrap.com/docs/vue/"
+                    }
+                  ]
+                };
+              },
+              methods: {
+                checkWidth() {
+                  this.over = window.innerWidth < 900;
+                }
+              },
+              directives: {
+                mdbResize
+              }
+            };
+          </script>
+        </code>
+        <code data-lang="html" data-name="style">
+        <style scoped>
+          .view {
+            background: url("https://mdbootstrap.com/img/Photos/Others/img (52).jpg")
+              no-repeat center center;
+            background-size: cover;
+            height: 100%;
+          }
+          .navbar i {
+            cursor: pointer;
+            color: white;
+          }
+          </style>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="push">
+    <h3>
+      Push
+      <a
+        href="https://vue.mdbootstrap.com/#/navigation/pro/double-navigation-v5"
+        target="_blank"
+        class="btn btn-primary btn-sm"
+        role="button"
+      >
+        View demo
+        <i class="far fa-eye ml-1"></i>
+      </a>
+    </h3>
+    <p>
+      This options pushes the content out of its way by adding negative margin's
+      value.
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div>
+              <!--/.Navbar-->
+
+              <mdb-side-nav-2
+                :value="true"
+                :data="navigation"
+                push
+                slim
+                :slim-collapsed="collapsed"
+                @toggleSlim="collapsed = $event"
+                sidenav-class="unique-color-dark"
+                color="white"
+              >
+                <div slot="header">
+                  <div
+                    class="d-flex align-items-center my-4"
+                    :class="
+                      collapsed ? 'justify-content-center' : 'justify-content-start'
+                    "
+                  >
+                    <mdb-avatar :width="40" style="flex: 0 0 auto">
+                      <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/avatar-7.jpg"
+                        class="img-fluid rounded-circle z-depth-1"
+                      />
+                    </mdb-avatar>
+                    <p
+                      class="m-t mb-0 ml-4 p-0"
+                      style="flex: 0 2 auto"
+                      v-show="!collapsed"
+                    >
+                      <strong
+                        >John Smith
+                        <mdb-icon
+                          color="success"
+                          icon="circle"
+                          class="ml-2"
+                          size="sm"
+                      /></strong>
+                    </p>
+                  </div>
+                  <hr class="w-100" />
+                </div>
+                <div slot="content" class="mt-5 d-flex justify-content-center">
+                  <mdb-btn
+                    tag="a"
+                    class="mx-0"
+                    size="sm"
+                    transparent
+                    floating
+                    :icon="collapsed ? 'chevron-right' : 'chevron-left'"
+                    icon-class="white-text"
+                    @click="collapsed = !collapsed"
+                  ></mdb-btn>
+                </div>
+                <mdb-navbar
+                  slot="nav"
+                  tag="div"
+                  :toggler="false"
+                  position="top"
+                  dark
+                  color="unique-color-dark"
+                >
+                  <mdb-navbar-nav class="nav-flex-icons" right>
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v1"
+                      waves-fixed
+                      icon="code-branch"
+                      ><span class="ml-1">v.1</span></mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v2"
+                      waves-fixed
+                      icon="eye"
+                      ><span class="ml-1">v.2</span></mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v3"
+                      waves-fixed
+                      icon="file-code"
+                      far
+                      ><span class="ml-1">v.3</span></mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v4"
+                      waves-fixed
+                      icon="terminal"
+                      ><span class="ml-1">v.4</span></mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      active
+                      to="/navigation/pro/double-navigation-v5"
+                      waves-fixed
+                      icon="smile"
+                      far
+                      ><span class="ml-1">v.5</span></mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      to="/navigation/pro/double-navigation-v6"
+                      waves-fixed
+                      icon="user"
+                      far
+                      ><span class="ml-1">v.6</span></mdb-nav-item
+                    >
+                  </mdb-navbar-nav>
+                </mdb-navbar>
+
+                <div slot="main" style="height: 100vh">
+                  <div class="view intro-2">
+                    <div class="full-bg-img">
+                      <div class="mask rgba-blue-grey-strong flex-center">
+                        <div class="container">
+                          <div class="white-text text-center">
+                            <h2 class="font-weight-bold">
+                              Double navigation v.5
+                            </h2>
+                            <hr />
+                            <h3><strong>Navbar:</strong> <u>Fixed</u></h3>
+                            <h3><strong>Sidenav:</strong> <u>Push</u></h3>
+                            <mdb-btn rounded color="white" class="mt-5"
+                              ><router-link
+                                to="/navigation"
+                                class="dark-grey-text"
+                                >Go back to the navigation menu</router-link
+                              ></mdb-btn
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mdb-side-nav-2>
+            </div>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+            import {
+              mdbNavbar,
+              mdbNavItem,
+              mdbNavbarNav,
+              mdbSideNav2,
+              mdbAvatar,
+              mdbBtn,
+              mdbIcon
+            } from "mdbvue";
+
+            export default {
+              name: "DoubleNavigationPagev1",
+              components: {
+                mdbNavbar,
+                mdbNavItem,
+                mdbNavbarNav,
+                mdbSideNav2,
+                mdbAvatar,
+                mdbBtn,
+                mdbIcon
+              },
+              data() {
+                return {
+                  show: true,
+                  collapsed: false,
+                  navigation: [
+                    {
+                      name: "Double navigation",
+                      icon: "bars",
+                      children: [
+                        {
+                          name: "Version 1",
+                          to: "/navigation/pro/double-navigation-v1"
+                        },
+                        {
+                          name: "Version 2",
+                          to: "/navigation/pro/double-navigation-v2"
+                        },
+                        {
+                          name: "Version 3",
+                          to: "/navigation/pro/double-navigation-v3"
+                        },
+                        {
+                          name: "Version 4",
+                          to: "/navigation/pro/double-navigation-v4"
+                        },
+                        {
+                          name: "Version 5",
+                          to: "/navigation/pro/double-navigation-v5"
+                        },
+                        {
+                          name: "Version 6",
+                          to: "/navigation/pro/double-navigation-v6"
+                        }
+                      ]
+                    },
+                    {
+                      name: "Getting started",
+                      icon: "mdb",
+                      fab: true,
+                      children: [
+                        {
+                          name: "Quick start",
+                          href:
+                            "https://mdbootstrap.com/docs/vue/getting-started/quick-start/"
+                        },
+                        {
+                          name: "Technical Support",
+                          href: "https://mdbootstrap.com/support/"
+                        }
+                      ]
+                    },
+                    {
+                      name: "Documentation",
+                      icon: "graduation-cap",
+                      href: "https://mdbootstrap.com/docs/vue/"
+                    }
+                  ]
+                };
+              }
+            };
+          </script>
+        </code>
+        <code data-lang="html" data-name="style">
+          <style scoped>
+            .view {
+              background: url("https://mdbootstrap.com/img/Photos/Others/img (55).jpg")
+                no-repeat center center;
+              background-size: cover;
+              height: 100%;
+            }
+
+            .navbar i {
+              cursor: pointer;
+              color: white;
+            }
+          </style>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="over">
+    <h3>
+      Over
+      <a
+        href="https://vue.mdbootstrap.com/#/navigation/pro/double-navigation-v1"
+        target="_blank"
+        class="btn btn-primary btn-sm"
+        role="button"
+      >
+        View demo
+        <i class="far fa-eye ml-1"></i>
+      </a>
+    </h3>
+    <p>
+      The simplest version - it opens over the content, by default covering it
+      with a backdrop - you can remove it by setting the
+      <code>backdrop</code> property to <code>false</code>
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div>
+              <mdb-navbar position="top" :toggler="false" color="white">
+                <mdb-navbar-nav left>
+                  <mdb-icon
+                    icon="bars"
+                    class="dark-grey-text"
+                    size="2x"
+                    @click.native="show = !show"
+                  />
+                </mdb-navbar-nav>
+                <mdb-navbar-nav class="nav-flex-icons" right>
+                  <mdb-nav-item
+                    to="/navigation/pro/double-navigation-v1"
+                    waves-fixed
+                    active
+                    icon="code-branch"
+                    ><span class="ml-1">v.1</span></mdb-nav-item
+                  >
+                  <mdb-nav-item
+                    anchor-class="dark-grey-text"
+                    to="/navigation/pro/double-navigation-v2"
+                    waves-fixed
+                    icon="eye"
+                    ><span class="ml-1">v.2</span></mdb-nav-item
+                  >
+                  <mdb-nav-item
+                    anchor-class="dark-grey-text"
+                    to="/navigation/pro/double-navigation-v3"
+                    waves-fixed
+                    icon="file-code"
+                    far
+                    ><span class="ml-1">v.3</span></mdb-nav-item
+                  >
+                  <mdb-nav-item
+                    anchor-class="dark-grey-text"
+                    to="/navigation/pro/double-navigation-v4"
+                    waves-fixed
+                    icon="terminal"
+                    ><span class="ml-1">v.4</span></mdb-nav-item
+                  >
+                  <mdb-nav-item
+                    anchor-class="dark-grey-text"
+                    to="/navigation/pro/double-navigation-v5"
+                    waves-fixed
+                    icon="smile"
+                    far
+                    ><span class="ml-1">v.5</span></mdb-nav-item
+                  >
+                  <mdb-nav-item
+                    anchor-class="dark-grey-text"
+                    to="/navigation/pro/double-navigation-v6"
+                    waves-fixed
+                    icon="user"
+                    far
+                    ><span class="ml-1">v.6</span></mdb-nav-item
+                  >
+                </mdb-navbar-nav>
+              </mdb-navbar>
+              <!--/.Navbar-->
+              <mdb-side-nav-2
+                v-model="show"
+                over
+                :data="navigation"
+                color="success"
+              >
+                <div slot="header">
+                  <div class="p-5">
+                    <img
+                      src="https://mdbootstrap.com/img/logo/mdb-transparent.png"
+                      class="img-fluid"
+                    />
+                  </div>
+                  <hr />
+                  <ul class="list-unstyled d-flex justify-content-center">
+                    <li>
+                      <a href="#" tabindex="0" class="px-3 icons-sm fb-ic">
+                        <mdb-icon color="grey" fab icon="facebook-f" />
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" tabindex="0" class="px-3 icons-sm pin-ic">
+                        <mdb-icon color="grey" fab icon="pinterest-p" />
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" tabindex="0" class="px-3 icons-sm gplus-ic">
+                        <mdb-icon color="grey" fab icon="google-plus-g" />
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" tabindex="0" class="px-3 icons-sm tw-ic">
+                        <mdb-icon color="grey" fab icon="twitter" />
+                      </a>
+                    </li>
+                  </ul>
+                  <hr />
+                </div>
+              </mdb-side-nav-2>
+              <div style="height: 100vh;">
+                <div class="view intro-2">
+                  <div class="full-bg-img">
+                    <div class="mask rgba-grey-strong flex-center">
+                      <div class="container">
+                        <div class="white-text text-center">
+                          <h2 class="font-weight-bold">
+                            Double navigation v.1
+                          </h2>
+                          <hr />
+                          <h3><strong>Navbar:</strong> <u>Fixed</u></h3>
+                          <h3><strong>Sidenav:</strong> <u>Over</u></h3>
+                          <mdb-btn rounded color="white" class="mt-5"
+                            ><router-link
+                              to="/navigation"
+                              class="dark-grey-text"
+                              >Go back to the navigation menu</router-link
+                            ></mdb-btn
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+            import {
+              mdbNavbar,
+              mdbNavItem,
+              mdbNavbarNav,
+              mdbSideNav2,
+              mdbBtn,
+              mdbIcon
+            } from "mdbvue";
+
+            export default {
+              components: {
+                mdbNavbar,
+                mdbNavItem,
+                mdbNavbarNav,
+                mdbSideNav2,
+                mdbBtn,
+                mdbIcon
+              },
+              data() {
+                return {
+                  show: false,
+                  navigation: [
+                    {
+                      name: "Double navigation",
+                      icon: "bars",
+                      children: [
+                        {
+                          name: "Version 1",
+                          to: "/navigation/pro/double-navigation-v1"
+                        },
+                        {
+                          name: "Version 2",
+                          to: "/navigation/pro/double-navigation-v2"
+                        },
+                        {
+                          name: "Version 3",
+                          to: "/navigation/pro/double-navigation-v3"
+                        },
+                        {
+                          name: "Version 4",
+                          to: "/navigation/pro/double-navigation-v4"
+                        },
+                        {
+                          name: "Version 5",
+                          to: "/navigation/pro/double-navigation-v5"
+                        },
+                        {
+                          name: "Version 6",
+                          to: "/navigation/pro/double-navigation-v6"
+                        }
+                      ]
+                    },
+                    {
+                      name: "Getting started",
+                      icon: "mdb",
+                      fab: true,
+                      children: [
+                        {
+                          name: "Quick start",
+                          href:
+                            "https://mdbootstrap.com/docs/vue/getting-started/quick-start/"
+                        },
+                        {
+                          name: "Technical Support",
+                          href: "https://mdbootstrap.com/support/"
+                        }
+                      ]
+                    },
+                    {
+                      name: "Documentation",
+                      icon: "graduation-cap",
+                      href: "https://mdbootstrap.com/docs/vue/"
+                    }
+                  ]
+                };
+              }
+            };
+          </script>
+        </code>
+        <code data-lang="html" data-name="style">
+          <style scoped>
+            .view {
+              background: url("https://mdbootstrap.com/img/Photos/Others/img (52).jpg")
+                no-repeat center center;
+              background-size: cover;
+              height: 100%;
+            }
+            .navbar i {
+              cursor: pointer;
+              color: white;
+            }
+          </style>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+</section>
+<!-- Positioning-->
+
+<hr class="my-5" />
+
+<!--Rendering content-->
+<section id="rendering-content">
+  <h2 class="section-heading">Rendering content</h2>
+  <p></p>
+  <br />
+  <section id="data-structure">
+    <h3>Data structure</h3>
+    <p>
+      Pass to the <code>data</code> property an array of your links - each link
+      should be represented as object. You can learn more about available
+      options and grouping links into categories in the API tab.
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="script">
+          <script>
+            const data = [
+              {
+                name: "Double navigation",
+                icon: "bars",
+                children: [
+                  {
+                    name: "Version 1",
+                    to: "/navigation/pro/double-navigation-v1"
+                  },
+                  {
+                    name: "Version 2",
+                    to: "/navigation/pro/double-navigation-v2"
+                  },
+                  {
+                    name: "Version 3",
+                    to: "/navigation/pro/double-navigation-v3"
+                  },
+                  {
+                    name: "Version 4",
+                    to: "/navigation/pro/double-navigation-v4"
+                  },
+                  {
+                    name: "Version 5",
+                    to: "/navigation/pro/double-navigation-v5"
+                  },
+                  {
+                    name: "Version 6",
+                    to: "/navigation/pro/double-navigation-v6"
+                  }
+                ]
+              },
+              {
+                name: "Getting started",
+                icon: "mdb",
+                fab: true,
+                children: [
+                  {
+                    name: "Quick start",
+                    href:
+                      "https://mdbootstrap.com/docs/vue/getting-started/quick-start/"
+                  },
+                  {
+                    name: "Technical Support",
+                    href: "https://mdbootstrap.com/support/"
+                  }
+                ]
+              },
+              {
+                name: "Documentation",
+                icon: "graduation-cap",
+                href: "https://mdbootstrap.com/docs/vue/"
+              }
+            ];
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="headers">
+    <h3>Headers</h3>
+    <p>
+      Use one of two custom slots to create a fully cutomized header for your
+      side nav:
+    </p>
+    <ul>
+      <li>
+        <strong>header</strong> - can be fixed on the top by setting
+        <code>:fixed-header="true"</code>
+      </li>
+      <li><strong>content-header</strong> - allways scrollable</li>
+    </ul>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-side-nav-2 :data="[...]">
+              <div slot="header">...</div>
+              <div slot="content-header">...</div>
+            </mdb-side-nav-2>
+          </template>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="content-slot">
+    <h3>Content slot</h3>
+    <p>
+      You can use slot="content" to render your content - you don't need to use
+      the data structures at all if you prefer more customized navigation:
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-side-nav-2 :data="[...]">
+              <div slot="content">...</div>
+            </mdb-side-nav-2>
+          </template>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+</section>
+<!--Rendering content-->
+
+<hr class="my-5" />
+
+<!--Examples-->
+<section id="examples">
+  <h2 class="section-heading">Examples</h2>
+  <p>
+    List of all the properties which you can use to customize your side nav can
+    be found in the API tab.
+  </p>
+  <br />
+  <section id="basic">
+    <h3>
+      Basic
+      <a
+        href="https://vue.mdbootstrap.com/#/navigation/pro/sidenav2/"
+        target="_blank"
+        class="btn btn-primary btn-sm"
+        role="button"
+      >
+        View demo (Basic example)
+        <i class="far fa-eye ml-1"></i>
+      </a>
+    </h3>
+    <p></p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-side-nav-2 :data="navigation" v-model="show" over>
+              <div
+                slot="header"
+                class="d-flex flex-column align-items-center mt-4"
+              >
+                <img
+                  src="https://z9t4u9f6.stackpathcdn.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+                  class="img-fluid mb-3"
+                />
+                <hr class="w-100" />
+              </div>
+            </mdb-side-nav-2>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+            import { mdbSideNav2 } from "mdbvue";
+
+            export default {
+              components: {
+                mdbSideNav2
+              },
+              data() {
+                return {
+                  show: false,
+                  navigation: [
+                    {
+                      name: "Home",
+                      to: "/",
+                      icon: "home"
+                    },
+                    {
+                      name: "CSS",
+                      to: "/css",
+                      icon: "css3",
+                      fab: true
+                    },
+                    {
+                      name: "Components",
+                      to: "/components",
+                      icon: "cubes"
+                    },
+                    {
+                      name: "Advanced",
+                      to: "/advanced",
+                      icon: "code"
+                    },
+                    {
+                      name: "Navigation",
+                      icon: "bars",
+                      children: [
+                        {
+                          name: "Footer",
+                          to: "/navigation/pro/footer"
+                        },
+                        {
+                          name: "Hamburger Menu",
+                          to: "/navigation/pro/hamburger"
+                        },
+                        {
+                          name: "Mega Menu",
+                          to: "/navigation/pro/megamenu"
+                        },
+                        {
+                          name: "Navbar",
+                          to: "/navigation/pro/navbar"
+                        },
+                        {
+                          name: "Sidenav",
+                          to: "/navigation/pro/sidenav2"
+                        }
+                      ]
+                    },
+                    {
+                      name: "Forms",
+                      to: "/forms",
+                      icon: "edit"
+                    },
+                    {
+                      name: "Tables",
+                      to: "/tables",
+                      icon: "table"
+                    },
+                    {
+                      name: "Modals",
+                      to: "/modals",
+                      icon: "window-restore"
+                    },
+                    {
+                      name: "Plugins",
+                      to: "/plugins",
+                      icon: "plus-square"
+                    },
+                    {
+                      name: "Sections",
+                      to: "/sections",
+                      icon: "th-large"
+                    },
+                    {
+                      name: "Mixins",
+                      to: "/mixins",
+                      icon: "user-cog"
+                    },
+                    {
+                      name: "Directives",
+                      to: "/directives",
+                      icon: "asterisk"
+                    }
+                  ]
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="slim">
+    <h3>
+      Slim
+      <a
+        href="https://vue.mdbootstrap.com/#/navigation/pro/sidenav2/"
+        target="_blank"
+        class="btn btn-primary btn-sm"
+        role="button"
+      >
+        View demo (Slim)
+        <i class="far fa-eye ml-1"></i>
+      </a>
+    </h3>
+    <p>
+      The slim state can be controlled from outside by using
+      <code>slim-collapsed</code> property and <code>@toggleSlim</code> event.
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-side-nav-2
+              :data="navigation"
+              v-model="show"
+              over
+              :slim-collapsed="slimCollapsed"
+              expand-on-hover
+              slim
+              @toggleSlim="slimCollapsed = $event"
+            >
+              <div slot="header">
+                <div
+                  class="d-flex align-items-center my-4"
+                  :class="
+                    slimCollapsed
+                      ? 'justify-content-center'
+                      : 'justify-content-start'
+                  "
+                >
+                  <mdb-avatar :width="40" style="flex: 0 0 auto">
+                    <img
+                      src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"
+                      class="img-fluid rounded-circle z-depth-1"
+                    />
+                  </mdb-avatar>
+                  <p
+                    class="m-t mb-0 ml-4 p-0"
+                    style="flex: 0 2 auto"
+                    v-show="!slimCollapsed"
+                  >
+                    <strong
+                      >Ann Smith
+                      <mdb-icon
+                        color="success"
+                        icon="circle"
+                        class="ml-2"
+                        size="sm"
+                    /></strong>
+                  </p>
+                </div>
+                <hr class="w-100" />
+              </div>
+            </mdb-side-nav-2>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+            import { mdbSideNav2, mdbIcon, mdbAvatar } from "mdbvue";
+
+            export default {
+              components: {
+                mdbIcon,
+                mdbAvatar,
+                mdbSideNav2
+              },
+              data() {
+                return {
+                  show: false,
+                  slimCollapsed: true,
+                  navigation: [
+                    {
+                      name: "Home",
+                      to: "/",
+                      icon: "home"
+                    },
+                    {
+                      name: "CSS",
+                      to: "/css",
+                      icon: "css3",
+                      fab: true
+                    },
+                    {
+                      name: "Components",
+                      to: "/components",
+                      icon: "cubes"
+                    },
+                    {
+                      name: "Advanced",
+                      to: "/advanced",
+                      icon: "code"
+                    },
+                    {
+                      name: "Navigation",
+                      icon: "bars",
+                      children: [
+                        {
+                          name: "Footer",
+                          to: "/navigation/pro/footer"
+                        },
+                        {
+                          name: "Hamburger Menu",
+                          to: "/navigation/pro/hamburger"
+                        },
+                        {
+                          name: "Mega Menu",
+                          to: "/navigation/pro/megamenu"
+                        },
+                        {
+                          name: "Navbar",
+                          to: "/navigation/pro/navbar"
+                        },
+                        {
+                          name: "Sidenav",
+                          to: "/navigation/pro/sidenav2"
+                        }
+                      ]
+                    },
+                    {
+                      name: "Forms",
+                      to: "/forms",
+                      icon: "edit"
+                    },
+                    {
+                      name: "Tables",
+                      to: "/tables",
+                      icon: "table"
+                    },
+                    {
+                      name: "Modals",
+                      to: "/modals",
+                      icon: "window-restore"
+                    },
+                    {
+                      name: "Plugins",
+                      to: "/plugins",
+                      icon: "plus-square"
+                    },
+                    {
+                      name: "Sections",
+                      to: "/sections",
+                      icon: "th-large"
+                    },
+                    {
+                      name: "Mixins",
+                      to: "/mixins",
+                      icon: "user-cog"
+                    },
+                    {
+                      name: "Directives",
+                      to: "/directives",
+                      icon: "asterisk"
+                    }
+                  ]
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="group">
+    <h3>
+      Group
+      <a
+        href="https://vue.mdbootstrap.com/#/navigation/pro/sidenav2/"
+        target="_blank"
+        class="btn btn-primary btn-sm"
+        role="button"
+      >
+        View demo (Group links)
+        <i class="far fa-eye ml-1"></i>
+      </a>
+    </h3>
+    <p>
+      Group your naviagtion into categories by adding the
+      <code>group</code> property:
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-side-nav-2
+              :data="groupsContent"
+              v-model="show"
+              over
+              groups
+              fixed-header
+              color="secondary"
+            >
+              <div slot="header" class="mt-3 grey-text">
+                <mdb-avatar :width="48" class="ml-3">
+                  <img
+                    src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+                    class="img-fluid rounded-circle z-depth-1"
+                  />
+                </mdb-avatar>
+                <h5 class="mt-4 ml-3"><strong>Ann Smith</strong></h5>
+                <p class="ml-3">ann12345@mdbootstrap.com</p>
+                <hr class="mb-0" />
+              </div>
+            </mdb-side-nav-2>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+            import { mdbSideNav2, mdbAvatar } from "mdbvue";
+
+            export default {
+              components: {
+                mdbAvatar,
+                mdbSideNav2
+              },
+              data() {
+                return {
+                  show: false,
+                  groupsContent: [
+                    {
+                      data: [
+                        {
+                          name: "Inbox",
+                          to: "/",
+                          icon: "envelope"
+                        },
+                        {
+                          name: "Outbox",
+                          to: "/",
+                          icon: "paper-plane"
+                        },
+                        {
+                          name: "Favorites",
+                          to: "/",
+                          icon: "heart"
+                        },
+                        {
+                          name: "Starred",
+                          icon: "star"
+                        }
+                      ]
+                    },
+                    {
+                      data: [
+                        {
+                          name: "Recent",
+                          to: "/",
+                          icon: "clock"
+                        },
+                        {
+                          name: "Uploads",
+                          to: "/",
+                          icon: "upload"
+                        },
+                        {
+                          name: "Backups",
+                          to: "/",
+                          icon: "cloud-upload-alt"
+                        },
+                        {
+                          name: "Trash",
+                          icon: "trash"
+                        }
+                      ]
+                    },
+                    {
+                      name: "Settings",
+                      data: [
+                        {
+                          name: "Account",
+                          to: "/",
+                          icon: "user"
+                        },
+                        {
+                          name: "Privacy",
+                          to: "/",
+                          icon: "lock"
+                        }
+                      ]
+                    },
+                    {
+                      data: [
+                        {
+                          name: "Log out",
+                          to: "/"
+                        }
+                      ]
+                    }
+                  ]
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="right">
+    <h3>
+      Right<a
+        href="https://vue.mdbootstrap.com/#/navigation/pro/sidenav2/"
+        target="_blank"
+        class="btn btn-primary btn-sm"
+        role="button"
+      >
+        View demo (Dark mode)
+        <i class="far fa-eye ml-1"></i>
+      </a>
+    </h3>
+    <p>
+      You can position your side nav on the right side as well - simple set
+      <code>right</code> property to <code>true</code>
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-side-nav-2
+              :data="navigation"
+              v-model="show"
+              color="white"
+              right
+              over
+              expand-on-hover
+              :sidenav-class="['mdb-color', 'darken-4']"
+              slim
+            >
+              <div
+                slot="header"
+                class="d-flex flex-column align-items-center mt-4"
+              >
+                <img
+                  src="https://z9t4u9f6.stackpathcdn.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+                  class="img-fluid mb-3"
+                />
+                <hr class="w-100" />
+              </div>
+            </mdb-side-nav-2>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+            import { mdbSideNav2 } from "mdbvue";
+
+            export default {
+              components: {
+                mdbSideNav2
+              },
+              data() {
+                return {
+                  show: false,
+                  navigation: [
+                    {
+                      name: "Home",
+                      to: "/",
+                      icon: "home"
+                    },
+                    {
+                      name: "CSS",
+                      to: "/css",
+                      icon: "css3",
+                      fab: true
+                    },
+                    {
+                      name: "Components",
+                      to: "/components",
+                      icon: "cubes"
+                    },
+                    {
+                      name: "Advanced",
+                      to: "/advanced",
+                      icon: "code"
+                    },
+                    {
+                      name: "Navigation",
+                      icon: "bars",
+                      children: [
+                        {
+                          name: "Footer",
+                          to: "/navigation/pro/footer"
+                        },
+                        {
+                          name: "Hamburger Menu",
+                          to: "/navigation/pro/hamburger"
+                        },
+                        {
+                          name: "Mega Menu",
+                          to: "/navigation/pro/megamenu"
+                        },
+                        {
+                          name: "Navbar",
+                          to: "/navigation/pro/navbar"
+                        },
+                        {
+                          name: "Sidenav",
+                          to: "/navigation/pro/sidenav2"
+                        }
+                      ]
+                    },
+                    {
+                      name: "Forms",
+                      to: "/forms",
+                      icon: "edit"
+                    },
+                    {
+                      name: "Tables",
+                      to: "/tables",
+                      icon: "table"
+                    },
+                    {
+                      name: "Modals",
+                      to: "/modals",
+                      icon: "window-restore"
+                    },
+                    {
+                      name: "Plugins",
+                      to: "/plugins",
+                      icon: "plus-square"
+                    },
+                    {
+                      name: "Sections",
+                      to: "/sections",
+                      icon: "th-large"
+                    },
+                    {
+                      name: "Mixins",
+                      to: "/mixins",
+                      icon: "user-cog"
+                    },
+                    {
+                      name: "Directives",
+                      to: "/directives",
+                      icon: "asterisk"
+                    }
+                  ]
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="custom">
+    <h3>
+      Custom content
+      <a
+        href="https://vue.mdbootstrap.com/#/navigation/pro/sidenav2/"
+        target="_blank"
+        class="btn btn-primary btn-sm"
+        role="button"
+      >
+        View demo (Custom slim with tooltips)
+        <i class="far fa-eye ml-1"></i>
+      </a>
+    </h3>
+    <p>Create entirely custom side navigation, by placing your navigation inaide <code>content</code> slot instead of the default data object.</p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-side-nav-2
+              v-model="show"
+              color="white"
+              over
+              :sidenav-class="['unique-color-dark', 'darken-4']"
+              :slim-width="80"
+              slim
+            >
+              <ul
+                slot="content"
+                class="custom-content list-unstyled mt-5 d-flex flex-column align-items-center"
+              >
+                <li
+                  :class="{ active: i === active }"
+                  v-for="(item, i) in custom"
+                  :key="i"
+                >
+                  <mdb-tooltip
+                    v-if="show6"
+                    append-to-body
+                    trigger="hover"
+                    :options="{
+                      placement: 'right',
+                      modifiers: {
+                        preventOverflow: {
+                          enabled: false
+                        },
+                        hide: {
+                          enabled: false
+                        },
+                        offset: {
+                          offset: '0,20'
+                        }
+                      }
+                    }"
+                    ><mdb-btn
+                      slot="reference"
+                      @click="active = i"
+                      :icon-class="active === i ? 'white-text fa-2x' : 'fa-2x'"
+                      flat
+                      :icon="item.icon"
+                      class="px-3 py-4 m-0"
+                    />
+                    <span slot="tip" class="p-2 my-2"
+                      >{{ item.text }}</span
+                    ></mdb-tooltip
+                  >
+                </li>
+              </ul>
+            </mdb-side-nav-2>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+            import { mdbSideNav2, mdbBtn, mdbTooltip } from "mdbvue";
+
+            export default {
+              components: {
+                mdbBtn,
+                mdbTooltip,
+                mdbSideNav2
+              },
+              data() {
+                return {
+                  show: false,
+                  active: 0,
+                  custom: [
+                    {
+                      icon: "share-alt",
+                      text: "Share"
+                    },
+                    {
+                      icon: "heart",
+                      text: "Favourites"
+                    },
+                    {
+                      icon: "address-book",
+                      text: "Contacts"
+                    },
+                    {
+                      icon: "envelope",
+                      text: "Send a message"
+                    },
+                    {
+                      icon: "sliders-h",
+                      text: "Settings"
+                    }
+                  ]
+                };
+              }
+            };
+          </script>
+        </code>
+        <code data-lang="html" data-name="style">
+          <style scoped>
+            .custom-content {
+              width: 100%;
+            }
+
+            .custom-content li {
+              width: 100%;
+            }
+
+            .custom-content li button {
+              transition: all 0.3s ease-in;
+              width: 100%;
+            }
+
+            .custom-content li button:hover {
+              background-color: rgba(255, 255, 255, 0.05);
+            }
+
+            .custom-content li button:focus {
+              outline: none !important;
+              background-color: rgba(255, 255, 255, 0.05);
+            }
+            .custom-content .active {
+              background-color: rgba(255, 255, 255, 0.1);
+            }
+          </style>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="api">
+    <h3>
+      Data from API
+      <a
+        href="https://vue.mdbootstrap.com/#/navigation/pro/sidenav2/"
+        target="_blank"
+        class="btn btn-primary btn-sm"
+        role="button"
+      >
+        View demo (Data from API)
+        <i class="far fa-eye ml-1"></i>
+      </a>
+    </h3>
+    <p></p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <mdb-side-nav-2
+              v-model="show"
+              color="white"
+              over
+              :sidenav-class="['special-color']"
+              :data="content"
+              @itemClick="selectItem"
+            >
+              <div
+                slot="header"
+                class="mb-2  rgba-white-slight sidenav-content"
+              >
+                <h4>Chat</h4>
+              </div>
+              <div slot="content" class="rgba-white-slight sidenav-content">
+                <p>Selected user:</p>
+                <p v-if="selected">
+                  <strong><u>{{ selected }}</u></strong>
+                  <mdb-icon class="ml-2" far icon="envelope" />
+                </p>
+              </div>
+            </mdb-side-nav-2>
+          </template>
+        </code>
+        <code data-lang="html" data-name="script">
+          <script>
+            import axios from "axios";
+            import { mdbSideNav2, mdbIcon } from "mdbvue";
+
+            export default {
+              components: {
+                mdbIcon,
+                mdbSideNav2
+              },
+              data() {
+                return {
+                  show: false,
+                  content: [],
+                  selected: null
+                };
+              },
+              mounted() {
+                axios
+                  .get("https://jsonplaceholder.typicode.com/users")
+                  .then(response => {
+                    this.content = response.data.map(user => {
+                      const far = Math.random() < 0.5;
+                      return {
+                        name: user.name,
+                        icon: "circle",
+                        far
+                      };
+                    });
+                  });
+              },
+              methods: {
+                selectItem(e) {
+                  this.selected = this.content[e].name;
+                }
+              }
+            };
+          </script>
+        </code>
+        <code data-lang="html" data-name="style">
+          <style scoped>
+            .sidenav-content {
+              padding: 20px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;
+              border-radius: 5px;
+            }
+          </style>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+</section>
+<!--Examples-->
