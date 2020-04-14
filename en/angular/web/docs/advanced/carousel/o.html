@@ -5,7 +5,8 @@
   .carousel-card-decks-example.active, 
   .carousel-card-decks-example.carousel-item-right, 
   .carousel-card-decks-example.carousel-item-next {
-    display: flex !important
+    display: flex !important;
+    flex-wrap: wrap !important;
   }
 </style>
 <!--Section: Intro-->
@@ -563,25 +564,23 @@
     <mdbsnippet>
 
       <code data-lang="html" data-name="HTML">
-
         <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
-        [animation]="'slide'">
-        <mdb-carousel-item *ngFor="let item of slides; let i = index">
-          <div class="col-md-4" [ngClass]="{'d-none d-md-block': cardIndex !== 0}" *ngFor="let card of item; let cardIndex = index">
-            <mdb-card class="my-1">
-              <mdb-card-img [src]="card.img" alt="Card image cap"></mdb-card-img>
-              <mdb-card-body>
-                <mdb-card-title>
-                  <h4>{{card.title}}</h4>
-                </mdb-card-title>
-                <p>{{card.description}}</p>
-                <a href="#" mdbBtn color="primary" class="waves-light" mdbWavesEffect>{{card.buttonText}}</a>
-              </mdb-card-body>
-            </mdb-card>
-          </div>
-        </mdb-carousel-item>
-      </mdb-carousel>
-
+                      [animation]="'slide'">
+          <mdb-carousel-item *ngFor="let item of slides; let i = index">
+            <div class="col-md-4" *ngFor="let card of item; let cardIndex = index">
+              <mdb-card class="my-1">
+                <mdb-card-img [src]="card.img" alt="Card image cap"></mdb-card-img>
+                <mdb-card-body>
+                  <mdb-card-title>
+                    <h4>{{card.title}}</h4>
+                  </mdb-card-title>
+                  <p>{{card.description}}</p>
+                  <a href="#" mdbBtn color="primary" class="waves-light" mdbWavesEffect>{{card.buttonText}}</a>
+                </mdb-card-body>
+              </mdb-card>
+            </div>
+          </mdb-carousel-item>
+        </mdb-carousel>
       </code>
 
       <code data-lang="js" data-name="TS">
@@ -825,9 +824,10 @@
 
       <code data-lang="html" data-name="HTML">
 
-        <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'" [animation]="'slide'">
+        <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
+                      [animation]="'slide'">
           <mdb-carousel-item *ngFor="let item of slides; let i = index">
-            <div class="col-md-4 pb-2" [ngClass]="{'d-none d-md-block': cardIndex !== 0}" *ngFor="let card of item; let cardIndex = index">
+            <div class="col-md-4 pb-2" *ngFor="let card of item; let cardIndex = index">
               <mdb-card class="my-1 h-100">
                 <mdb-card-img [src]="card.img" alt="Card image cap"></mdb-card-img>
                 <mdb-card-body>
@@ -845,14 +845,17 @@
         </mdb-carousel>
 
 
+
       </code>
 
       <code data-lang="scss" data-name="SCSS">
         .carousel-item {
           &.active, &.carousel-item-right, &.carousel-item-next {
             display: flex !important;
+            flex-wrap: wrap
           }
-        }        
+        }
+
       </code>
 
       <code data-lang="js" data-name="TS">
