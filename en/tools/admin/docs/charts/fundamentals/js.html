@@ -1,0 +1,294 @@
+<script>
+    // Line chart
+    var ctxL = document.getElementById("lineChart").getContext('2d');
+    var myLineChart = new Chart(ctxL, {
+        type: 'line',
+        data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+                {
+                    label: "Traffic",
+                    data: [30, 15, 62, 65, 61, 65, 40],
+                    backgroundColor: 'rgba(66, 133, 244, 0.0)',
+                    borderColor: '#4285F4',
+                    borderWidth: 2,
+                    pointBorderColor: '#4285F4',
+                    pointBackgroundColor: '#4285F4',
+                    lineTension: 0.00,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: true,
+            },
+            tooltips: {
+                intersect: false,
+                mode: 'index'
+            },
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        display: false,
+                    },
+
+                    ticks: {
+                        fontColor: 'rgba(0,0,0, 0.5)',
+                    }
+                }],
+                yAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        borderDash: [2],
+                        drawBorder: false,
+                        zeroLineColor: "rgba(0,0,0,0)",
+                        zeroLineBorderDash: [2],
+                        zeroLineBorderDashOffset: [2]
+                    },
+                    ticks: {
+                        fontColor: 'rgba(0,0,0, 0.5)'
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+<script>
+    // Bar chart
+    var ctxL = document.getElementById("barChart").getContext('2d');
+    var myLineChart = new Chart(ctxL, {
+        type: 'bar',
+        data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+                {
+                    label: "Traffic",
+                    data: [30, 15, 62, 65, 61, 65, 40],
+                    backgroundColor: '#4285F4',
+                    borderWidth: 0,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: true,
+            },
+            tooltips: {
+                intersect: false,
+                mode: 'index'
+            },
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        display: false,
+                    },
+
+                    ticks: {
+                        fontColor: 'rgba(0,0,0, 0.5)',
+                    }
+                }],
+                yAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        borderDash: [2],
+                        drawBorder: false,
+                        zeroLineColor: "rgba(0,0,0,0)",
+                        zeroLineBorderDash: [2],
+                        zeroLineBorderDashOffset: [2]
+                    },
+                    ticks: {
+                        fontColor: 'rgba(0,0,0, 0.5)'
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+<script>
+    // Bar chart horizontal
+    var ctxL = document.getElementById("barChartHorizontal").getContext('2d');
+    var myLineChart = new Chart(ctxL, {
+        type: 'horizontalBar',
+        data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+                {
+                    label: "Traffic",
+                    data: [30, 15, 62, 65, 61, 65, 40],
+                    backgroundColor: '#4285F4',
+                    borderWidth: 0,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: true,
+            },
+            tooltips: {
+                intersect: false,
+                mode: 'index'
+            },
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        display: true,
+                    },
+
+                    ticks: {
+                        fontColor: 'rgba(0,0,0, 0.5)',
+                    }
+                }],
+                yAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        display: false,
+                        borderDash: [2],
+                        drawBorder: false,
+                        zeroLineColor: "rgba(0,0,0,0)",
+                        zeroLineBorderDash: [2],
+                        zeroLineBorderDashOffset: [2]
+                    },
+                    ticks: {
+                        fontColor: 'rgba(0,0,0, 0.5)'
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+<script>
+    // Pie chart 
+    var ctxL = document.getElementById("pieChart").getContext('2d');
+    var myLineChart = new Chart(ctxL, {
+        plugins: [ChartDataLabels],
+        type: 'pie',
+        data: {
+            labels: ["January", "February", "March", "April", "May"],
+            datasets: [
+                {
+                    label: "Traffic",
+                    data: [30, 45, 62, 65, 61],
+                    backgroundColor: [
+                        "rgba(63, 81, 181, 0.5)", "rgba(77, 182, 172, 0.5)", "rgba(66, 133, 244, 0.5)", "rgba(156, 39, 176, 0.5)", "rgba(233, 30, 99, 0.5)"
+                    ],
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: true,
+            },
+            plugins: {
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value * 100 / sum).toFixed(2) + "%";
+                        return percentage;
+                    },
+                    color: 'white',
+                    labels: {
+                        title: {
+                            font: {
+                                size: '14'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<script>
+    // Doughnut chart 
+    var ctxL = document.getElementById("doughnutChart").getContext('2d');
+    var myLineChart = new Chart(ctxL, {
+        type: 'doughnut',
+        data: {
+            labels: ["January", "February", "March", "April", "May"],
+            datasets: [
+                {
+                    label: "Traffic",
+                    data: [30, 45, 62, 65, 61],
+                    backgroundColor: [
+                        "rgba(63, 81, 181, 0.5)", "rgba(77, 182, 172, 0.5)", "rgba(66, 133, 244, 0.5)", "rgba(156, 39, 176, 0.5)", "rgba(233, 30, 99, 0.5)"
+                    ],
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: true,
+            }
+        }
+    });
+</script>
+
+<script>
+    // Polar chart 
+    var ctxL = document.getElementById("polarChart").getContext('2d');
+    var myLineChart = new Chart(ctxL, {
+      type: 'polarArea',
+      data: {
+        labels: ["January", "February", "March", "April", "May"],
+        datasets: [
+          {
+            label: "Traffic",
+            data: [30, 45, 62, 65, 61],
+            backgroundColor: [
+              "rgba(63, 81, 181, 0.5)", "rgba(77, 182, 172, 0.5)", "rgba(66, 133, 244, 0.5)", "rgba(156, 39, 176, 0.5)", "rgba(233, 30, 99, 0.5)"
+            ],
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          display: true,
+        }
+      }
+    });
+  </script>
+
+<script>
+    // Radar chart 
+    var ctxL = document.getElementById("radarChart").getContext('2d');
+    var myLineChart = new Chart(ctxL, {
+      type: 'radar',
+      data: {
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [
+          {
+            label: "Traffic",
+            data: [30, 15, 62, 65, 61, 65, 40],
+            backgroundColor: 'rgba(66, 133, 244, 0.5)',
+            borderColor: '#4285F4',
+            borderWidth: 2,
+            pointBorderColor: '#4285F4',
+            pointBackgroundColor: '#4285F4',
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          display: true,
+        }
+      }
+    });
+  </script>
