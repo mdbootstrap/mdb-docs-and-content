@@ -1,6 +1,6 @@
 <style>
   .skin-light .login-form, .skin-light .logout-form {
-    max-width: 30rem;
+    max-width: 32rem;
     margin-right: auto;
     margin-left: auto;
   }
@@ -85,6 +85,111 @@
 
   </section>
   <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <div class="card login-form mb-5">
+          <h3 class="card-header primary-color white-text text-center py-4"><strong>Log in</strong></h3>
+          <div class="card-body">
+            <form class="needs-validation" novalidate autocomplete="off">
+              <div class="md-form md-outline form-lg">
+                <input type="email" id="login-email" name="login-email" class="form-control form-control-lg" required>
+                <label for="login-email">Email</label>
+              </div>
+              <div class="md-form md-outline form-lg">
+                <input type="password" id="login-password" name="login-password" class="form-control form-control-lg" required>
+                <label for="login-password">Password</label>
+              </div>
+              <button type="submit" class="btn btn-outline-primary btn-rounded btn-block btn-lg z-depth-0 mt-4 waves-effect">Log in</button>
+              <p class="mt-5 text-center">Not a member? <a href="https://mdbootstrap.com/docs/jquery/admin/auth/register/">Register</a></p>
+            </form>
+          </div>
+        </div>
+    
+        <div class="card logout-form mb-5">
+          <h3 class="card-header primary-color white-text text-center py-4"><strong>Log out</strong></h3>
+          <div class="card-body">
+            <p class="logged-user-message my-3"></p>
+            <button class="btn btn-outline-primary btn-rounded btn-block btn-lg z-depth-0 mt-4 waves-effect logout">Log out</button>
+          </div>
+        </div>
+      
+        <!-- Modal -->
+        <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Log in error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-rounded" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </code>
+
+      <code data-lang="javascript" data-name="JS">
+        $(document).ready(function() {
+
+          $('.login-form form').on('submit', function(event) {
+            event.preventDefault();
+      
+            if (document.querySelector('.login-form form').checkValidity()) {
+              const loginData = $(this).serializeArray();
+              if (loginData[0].value === localStorage.mdbAdminUserEmail && loginData[1].value === localStorage.mdbAdminUserPass) {
+                localStorage.setItem("mdbAdminUserLogged", true);
+                location.reload();
+              } else {
+                $('#error-modal .modal-body').html('Your email or password is incorrect.');
+                $('#error-modal').modal('toggle');
+              }
+            } else {
+              $('#error-modal .modal-body').html('Please provide correct login data.');
+              $('#error-modal').modal('toggle');
+            }
+      
+          })
+      
+          $('.logout').on('click', () => {
+            localStorage.setItem("mdbAdminUserLogged", false);
+            location.reload();
+          })
+      
+          if (localStorage.mdbAdminUserLogged === "true") {
+            $('.login-form').hide();
+            $('.logout-form').show();
+            $('.logged-user-message').html(`You're logged in as <strong>${localStorage.mdbAdminUserName}</strong>!`);
+          }
+      
+        })      
+
+      </code>
+
+      <code data-lang="css" data-name="CSS">
+        .skin-light .login-form, .skin-light .logout-form {
+          max-width: 32rem;
+          margin-right: auto;
+          margin-left: auto;
+        }
+      
+        .skin-light .logout-form {
+          display: none;
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
 
 </section>
 <!--/Section: Basic example-->
