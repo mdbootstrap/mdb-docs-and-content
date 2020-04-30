@@ -1,79 +1,110 @@
-<script>
-$(document).ready(function() {
-  function validateName() {
-    const $input = $('#register-name')
-    if ($input[0].value.length >= 4 && $input[0].value.length <= 50) {
-      $input.removeClass('is-invalid').addClass('is-valid');
-      return true;
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    function validateName() {
+      const $input = $('#register-name')
+      if ($input[0].value.length >= 4 && $input[0].value.length <= 50) {
+        $input.removeClass('is-invalid').addClass('is-valid');
+        return true;
+      }
+      $input.removeClass('is-valid').addClass('is-invalid');
+      return false;
     }
-    $input.removeClass('is-valid').addClass('is-invalid');
-    return false;
-  }
 
-  function validatePassword() {
-    const $input = $('#register-password')
-    if ($input[0].value.length >= 6) {
-      $input.removeClass('is-invalid').addClass('is-valid');
-      return true;
+    function validateEmail() {
+      const $input = $('#register-email')
+      if ($input[0].value.length >= 3 && $input[0].value.includes('@')) {
+        $input.removeClass('is-invalid').addClass('is-valid');
+        return true;
+      }
+      $input.removeClass('is-valid').addClass('is-invalid');
+      return false;
     }
-    $input.removeClass('is-valid').addClass('is-invalid');
-    return false;
-  }
 
-  function validatePasswordConfirm() {
-    const $input = $('#register-password');
-    const $inputConfirm = $('#register-password-confirm');
-    if ($inputConfirm[0].value === $input[0].value && $inputConfirm[0].value.length >= 6) {
-      $inputConfirm.removeClass('is-invalid').addClass('is-valid');
-      return true;
+    function validatePassword() {
+      const $input = $('#register-password')
+      if ($input[0].value.length >= 6) {
+        $input.removeClass('is-invalid').addClass('is-valid');
+        return true;
+      }
+      $input.removeClass('is-valid').addClass('is-invalid');
+      return false;
     }
-    $inputConfirm.removeClass('is-valid').addClass('is-invalid');
-    return false;
-  }
 
-  function validateForms() {
-    validateName()
-    validatePassword()
-    validatePasswordConfirm()
-  }
+    function validatePasswordConfirm() {
+      const $input = $('#register-password');
+      const $inputConfirm = $('#register-password-confirm');
+      if ($inputConfirm[0].value === $input[0].value && $inputConfirm[0].value.length >= 6) {
+        $inputConfirm.removeClass('is-invalid').addClass('is-valid');
+        return true;
+      }
+      $inputConfirm.removeClass('is-valid').addClass('is-invalid');
+      return false;
+    }
 
-  $('#register-name').on('input', function() {
-    validateName();
-  })
+    function validateCheckbox() {
+      const $input = $('#register-checkbox');
+      if ($input[0].checked === true) {
+        $input.removeClass('is-invalid').addClass('is-valid');
+        return true;
+      }
+      $input.removeClass('is-valid').addClass('is-invalid');
+      return false;
+    }
 
-  $('#register-password').on('input', function() {
-    validatePassword();
-    $('#register-password-confirm')[0].value = '';
-  })
+    function validateForms() {
+      validateName();
+      validateEmail();
+      validatePassword();
+      validatePasswordConfirm();
+      validateCheckbox();
+    }
 
-  $('#register-password-confirm').on('input', function() {
-    validatePasswordConfirm();
-  })
+    $('#register-name').on('input', function() {
+      validateName();
+    })
 
-  $('.register-form form').on('submit', function(event) {
-    event.preventDefault();
-    validateForms();
+    $('#register-email').on('input', function() {
+      validateEmail();
+    })
 
-    if (validateName() === true && validatePassword() === true && validatePasswordConfirm() === true) {
-      const userData = $(this).serializeArray();
+    $('#register-password').on('input', function() {
+      validatePassword();
+      $('#register-password-confirm')[0].value = '';
+    })
 
-      localStorage.setItem("mdbAdminUserName", userData[0].value);
-      localStorage.setItem("mdbAdminUserEmail", userData[1].value);
-      localStorage.setItem("mdbAdminUserPass", userData[2].value);
+    $('#register-password-confirm').on('input', function() {
+      validatePasswordConfirm();
+    })
+
+    $('#register-checkbox').on('change', function() {
+      validateCheckbox();
+    })
+
+    $('.register-form form').on('submit', function(event) {
+      event.preventDefault();
+      validateForms();
+
+      if (validateName() === true && validateEmail() === true && validatePassword() === true && validatePasswordConfirm() === true && validateCheckbox() === true) {
+        const userData = $(this).serializeArray();
+
+        localStorage.setItem("mdbAdminUserName", userData[0].value);
+        localStorage.setItem("mdbAdminUserEmail", userData[1].value);
+        localStorage.setItem("mdbAdminUserPass", userData[2].value);
+        location.reload();
+      }
+    })
+
+    $('.delete-user').on('click', () => {
+      localStorage.clear();
       location.reload();
+    })
+
+    if (localStorage.mdbAdminUserEmail) {
+      $('.register-form').hide();
+      $('.logout-form').show();
+      $('.logged-user-message').html(`You have been registered as <strong>${localStorage.mdbAdminUserName}</strong>!`);
     }
   })
 
-  $('.delete-user').on('click', () => {
-    localStorage.clear();
-    location.reload();
-  })
-
-  if (localStorage.mdbAdminUserEmail) {
-    $('.register-form').hide();
-    $('.logout-form').show();
-    $('.logged-user-message').html(`You have been registered as <strong>${localStorage.mdbAdminUserName}</strong>!`);
-  }
-
-})
 </script>
