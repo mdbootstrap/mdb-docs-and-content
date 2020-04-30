@@ -1,0 +1,30 @@
+<script>
+$(document).ready(function() {
+
+  $('.login-form form').on('submit', function(event) {
+    event.preventDefault();
+    $(this).addClass('was-validated');
+
+    if (document.querySelector('.login-form form').checkValidity()) {
+      const loginData = $(this).serializeArray();
+      if (loginData[0].value === localStorage.mdbAdminUserEmail && loginData[1].value === localStorage.mdbAdminUserPass) {
+        localStorage.setItem("mdbAdminUserLogged", true);
+        location.reload();
+      } else {
+        console.log('bad job');
+      }
+    }
+  })
+
+  $('.logout').on('click', () => {
+    localStorage.setItem("mdbAdminUserLogged", false);
+    location.reload();
+  })
+
+  if (localStorage.mdbAdminUserLogged === "true") {
+    $('.login-form').hide();
+    $('.logout-form').show();
+    $('.logged-user-message').html(`You're logged in as <strong>${localStorage.mdbAdminUserName}</strong>! <br>(${localStorage.mdbAdminUserEmail})`);
+  }
+})
+</script>
