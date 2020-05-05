@@ -1,0 +1,368 @@
+<script src="<?php echo get_template_directory_uri() ?>/js/plugins/moment.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/plugins/fullcalendar.min.js"></script>
+<script>
+  $(function () {
+    $('#calendar-1').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay,listWeek'
+      },
+      defaultDate: '2018-11-16',
+      navLinks: true,
+      eventLimit: true,
+      events: [{
+          title: 'Front-End Conference',
+          start: '2018-11-16',
+          end: '2018-11-18'
+        },
+        {
+          title: 'Hair stylist with Mike',
+          start: '2018-11-20',
+          allDay: true
+        },
+        {
+          title: 'Car mechanic',
+          start: '2018-11-14T09:00:00',
+          end: '2018-11-14T11:00:00'
+        },
+        {
+          title: 'Dinner with Mike',
+          start: '2018-11-21T19:00:00',
+          end: '2018-11-21T22:00:00'
+        },
+        {
+          title: 'Chillout',
+          start: '2018-11-15',
+          allDay: true
+        },
+        {
+          title: 'Vacation',
+          start: '2018-11-23',
+          end: '2018-11-29'
+        },
+      ]
+    });
+  });
+
+</script>
+
+<script>
+  $(function () {
+    $('#calendar-2').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'addEventButton',
+        right: 'month,agendaWeek,agendaDay,listWeek'
+      },
+      defaultDate: '2018-11-16',
+      navLinks: true,
+      editable: true,
+      eventLimit: true,
+      events: [{
+          title: 'Simple static event',
+          start: '2018-11-16',
+          description: 'Super cool event'
+        },
+
+      ],
+      customButtons: {
+        addEventButton: {
+          text: 'Add new event',
+          click: function () {
+            var dateStr = prompt('Enter date in YYYY-MM-DD format');
+            var date = moment(dateStr);
+
+            if (date.isValid()) {
+              $('#calendar-2').fullCalendar('renderEvent', {
+                title: 'Dynamic event',
+                start: date,
+                allDay: true
+              });
+            } else {
+              alert('Invalid Date');
+            }
+
+          }
+        }
+      },
+      dayClick: function (date, jsEvent, view) {
+        var date = moment(date);
+
+        if (date.isValid()) {
+          $('#calendar-2').fullCalendar('renderEvent', {
+            title: 'Dynamic event from date click',
+            start: date,
+            allDay: true
+          });
+        } else {
+          alert('Invalid');
+        }
+      },
+    });
+  });
+
+</script>
+
+<script>
+  $(function () {
+    $('#calendar-3').fullCalendar({
+      defaultView: 'month',
+      defaultDate: '2018-10-12',
+
+      eventRender: function (eventObj, $el) {
+        $el.popover({
+          title: eventObj.title,
+          content: eventObj.description,
+          trigger: 'hover',
+          placement: 'top',
+          container: 'body'
+        });
+      },
+
+      events: [{
+          title: 'All Day Event',
+          description: 'description for All Day Event',
+          start: '2018-11-01'
+        },
+        {
+          title: 'Long Event',
+          description: 'description for Long Event',
+          start: '2018-10-07',
+          end: '2018-11-10'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          description: 'description for Repeating Event',
+          start: '2018-11-09T16:00:00'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          description: 'description for Repeating Event',
+          start: '2018-11-16T16:00:00'
+        },
+        {
+          title: 'Conference',
+          description: 'description for Conference',
+          start: '2018-11-11',
+          end: '2018-11-13'
+        },
+        {
+          title: 'Meeting',
+          description: 'description for Meeting',
+          start: '2018-11-12T10:30:00',
+          end: '2018-11-12T12:30:00'
+        },
+        {
+          title: 'Lunch',
+          description: 'description for Lunch',
+          start: '2018-11-12T12:00:00'
+        },
+        {
+          title: 'Meeting',
+          description: 'description for Meeting',
+          start: '2018-11-12T14:30:00'
+        },
+        {
+          title: 'Birthday Party',
+          description: 'description for Birthday Party',
+          start: '2018-11-13T07:00:00'
+        },
+        {
+          title: 'Click for Google',
+          description: 'description for Click for Google',
+          url: 'http://google.com/',
+          start: '2018-11-28'
+        }
+      ]
+    });
+  });
+
+</script>
+
+<script>
+  $(function () {
+    $('#calendar-4').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay,listWeek'
+      },
+      defaultDate: '2018-11-16',
+      navLinks: true,
+      editable: true,
+      eventLimit: true,
+      events: [{
+          title: 'All Day Event',
+          start: '2018-11-01'
+        },
+        {
+          title: 'Long Event',
+          start: '2018-11-07',
+          end: '2018-11-10'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '2018-11-09T16:00:00'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '2018-11-16T16:00:00'
+        },
+        {
+          title: 'Conference',
+          start: '2018-11-11',
+          end: '2018-11-13'
+        },
+        {
+          title: 'Meeting',
+          start: '2018-11-12T10:30:00',
+          end: '2018-11-12T12:30:00'
+        },
+        {
+          title: 'Lunch',
+          start: '2018-11-12T12:00:00'
+        },
+        {
+          title: 'Meeting',
+          start: '2018-11-12T14:30:00'
+        },
+        {
+          title: 'Happy Hour',
+          start: '2018-11-12T17:30:00'
+        },
+        {
+          title: 'Dinner',
+          start: '2018-11-12T20:00:00'
+        },
+        {
+          title: 'Birthday Party',
+          start: '2018-11-13T07:00:00'
+        },
+        {
+          title: 'Click for Google',
+          url: 'https://google.com/',
+          start: '2018-11-28'
+        }
+      ]
+    })
+  });
+
+</script>
+
+<script>
+  $(function () {
+    $('#calendar-5').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'addEventButton',
+        right: 'month,agendaWeek,agendaDay,listWeek'
+      },
+      defaultDate: '2018-11-16',
+      navLinks: true,
+      editable: true,
+      eventLimit: true,
+      selectable: true,
+      events: [{
+          title: 'Simple static event',
+          start: '2018-11-16',
+          description: 'Super cool event'
+        },
+
+      ],
+      select: function (startDate, endDate) {
+        var dateStart = moment(startDate);
+        var dateEnd = moment(endDate);
+
+        if (dateStart.isValid() && dateEnd.isValid()) {
+          $('#calendar-5').fullCalendar('renderEvent', {
+            title: 'Long event',
+            start: dateStart,
+            end: dateEnd,
+            allDay: true
+          });
+        }
+      }
+    });
+  });
+
+</script>
+
+<!-- Structured data: Breadcrumbs -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "https://mdbootstrap.com/",
+        "name": "MDBootstrap",
+        "image": "https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg"
+      }
+    }, {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@id": "https://mdbootstrap.com/plugins/",
+        "name": "MDBootstrap jQuery",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2018/11/mdb-jquery-free.jpg"
+      }
+    }, {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@id": "https://mdbootstrap.com/plugins/jquery/",
+        "name": "Plugins",
+        "image": "https://mdbootstrap.com/img/Marketing/docs/social/main-addons.jpg"
+      }
+    }, {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@id": "https://mdbootstrap.com/plugins/jquery/full-calendar/",
+        "name": "Full Calendar",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2018/11/plugin-fullpage-calendar-jquery.jpg"
+      }
+    }]
+  }
+
+</script>
+
+
+<!-- Structured data: Article -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://mdbootstrap.com/plugins/jquery/full-calendar/"
+    },
+    "headline": "Bootstrap full calendar plugin - examples & tutorial. Basic & advanced usage",
+    "image": [
+      "https://mdbootstrap.com/wp-content/uploads/2018/11/plugin-fullpage-calendar-jquery.jpg"
+    ],
+    "datePublished": "2018-06-25T08:00:00+08:00",
+    "dateModified": "2018-06-25T09:20:00+08:00",
+    "author": {
+      "@type": "Organization",
+      "name": "MDBootstrap"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MDBootstrap",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+      }
+    },
+    "description": "Bootstrap full calendar plugin is an extension that allows you to create calendar functionality."
+  }
+
+</script>

@@ -3,211 +3,214 @@
 
   <style>
     @supports (--css: variables) {
-    input[type="range"].mdbMultiRange {
+      input[type="range"].mdbMultiRange {
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      input[type="range"].mdbMultiRange.original {
+        position: absolute;
+      }
+
+      input[type="range"].mdbMultiRange.original::-webkit-slider-thumb {
+        position: relative;
+        z-index: 2;
+      }
+
+      input[type="range"].mdbMultiRange.original::-moz-range-thumb {
+        transform: scale(1);
+        z-index: 1;
+      }
+
+      input[type="range"].mdbMultiRange::-moz-range-track {
+        border-color: transparent;
+      }
+
+      input[type="range"].mdbMultiRange.ghost {
+        position: relative;
+      }
+
+      input[type="range"].mdbMultiRange.ghost:nth-of-type(n+1) {
+        position: absolute;
+      }
+
+    }
+
+
+    .multi-range-field {
+      position: relative;
+    }
+
+    .multi-range-field input[type=range] {
+      cursor: pointer;
+      position: relative;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      width: 100%;
+      margin: 15px 0px;
       padding: 0;
-      margin: 0;
-      display: inline-block;
-      vertical-align: top;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border: 1px solid #fff;
+      /* fix for FF unable to apply focus style bug  */
     }
 
-    input[type="range"].mdbMultiRange.original {
+    .multi-range-field input[type=range]:focus {
+      outline: none;
+    }
+
+    .multi-range-field input[type=range]+.thumb {
       position: absolute;
+      border: none;
+      height: 0;
+      width: 0;
+      border-radius: 50%;
+      background-color: #4285f4;
+      top: 10px;
+      margin-left: -6px;
+      transform-origin: 50% 50%;
+      transform: rotate(-45deg);
     }
 
-    input[type="range"].mdbMultiRange.original::-webkit-slider-thumb {
-      position: relative;
-      z-index: 2;
+    .multi-range-field input[type=range]+.thumb .value {
+      display: block;
+      width: 30px;
+      text-align: center;
+      color: #4285f4;
+      font-size: 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
     }
 
-    input[type="range"].mdbMultiRange.original::-moz-range-thumb {
-      transform: scale(1);
-      z-index: 1;
+    .multi-range-field input[type=range]+.thumb.active {
+      -webkit-border-radius: 50% 50% 50% 0;
+      border-radius: 50% 50% 50% 0;
     }
 
-    input[type="range"].mdbMultiRange::-moz-range-track {
+    .multi-range-field input[type=range]+.thumb.active .value {
+      color: #fff;
+      margin-left: -1px;
+      margin-top: 8px;
+      font-size: 10px;
+    }
+
+    .multi-range-field input[type=range]::-webkit-slider-runnable-track {
+      height: 3px;
+      background: #c2c0c2;
+      border: none;
+    }
+
+    .multi-range-field input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      border: none;
+      height: 14px;
+      width: 14px;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      background-color: #4285f4;
+      -webkit-transform-origin: 50% 50%;
+      transform-origin: 50% 50%;
+      margin: -5px 0 0 0;
+      -webkit-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s;
+    }
+
+    .multi-range-field input[type=range]:focus::-webkit-slider-runnable-track {
+      background: #ccc;
+    }
+
+    .multi-range-field input[type=range]::-moz-range-track {
+      /*required for proper track sizing in FF*/
+      height: 3px;
+      background: #c2c0c2;
+      border: none;
+    }
+
+    .multi-range-field input[type=range]::-moz-range-thumb {
+      border: none;
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      background: #4285f4;
+      margin-top: -5px;
+    }
+
+    .multi-range-field input[type=range]:-moz-focusring {
+      /*hide the outline behind the border*/
+      outline: 1px solid #fff;
+      outline-offset: -1px;
+    }
+
+    .multi-range-field input[type=range]:focus::-moz-range-track {
+      background: #c2c0c2;
+    }
+
+    .multi-range-field input[type=range]::-ms-track {
+      height: 3px;
+      background: transparent;
+      /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
       border-color: transparent;
+      /*leave room for the larger thumb to overflow with a transparent border */
+      border-width: 6px 0;
+      color: transparent;
+      /*remove default tick marks*/
     }
 
-    input[type="range"].mdbMultiRange.ghost {
+    .multi-range-field input[type=range]::-ms-fill-lower {
+      background: #c2c0c2;
+    }
+
+    .multi-range-field input[type=range]::-ms-fill-upper {
+      background: #c2c0c2;
+    }
+
+    .multi-range-field input[type=range]::-ms-thumb {
+      border: none;
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      background: #4285f4;
+    }
+
+    .multi-range-field input[type=range]:focus::-ms-fill-lower {
+      background: #c2c0c2;
+    }
+
+    .multi-range-field input[type=range]:focus::-ms-fill-upper {
+      background: #c2c0c2;
+    }
+
+    .thumb-horizontal-wrapper {
       position: relative;
+      top: 190px;
+      transform: rotate(-270deg);
+      top: 500px;
     }
 
-    input[type="range"].mdbMultiRange.ghost:nth-of-type(n+1) {
-      position: absolute;
+    .multi-range-field input[type=range]+.thumb-horizontal .value {
+      transform: rotate(315deg) !important;
     }
-
-  }
-
-
-  .multi-range-field {
-    position: relative;
-  }
-
-  .multi-range-field input[type=range] {
-    cursor: pointer;
-    position: relative;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    width: 100%;
-    margin: 15px 0px;
-    padding: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: 1px solid #fff;
-    /* fix for FF unable to apply focus style bug  */
-  }
-
-  .multi-range-field input[type=range]:focus {
-    outline: none;
-  }
-
-  .multi-range-field input[type=range]+.thumb {
-    position: absolute;
-    border: none;
-    height: 0;
-    width: 0;
-    border-radius: 50%;
-    background-color: #4285f4;
-    top: 10px;
-    margin-left: -6px;
-    transform-origin: 50% 50%;
-    transform: rotate(-45deg);
-  }
-
-  .multi-range-field input[type=range]+.thumb .value {
-    display: block;
-    width: 30px;
-    text-align: center;
-    color: #4285f4;
-    font-size: 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-
-  .multi-range-field input[type=range]+.thumb.active {
-    -webkit-border-radius: 50% 50% 50% 0;
-    border-radius: 50% 50% 50% 0;
-  }
-
-  .multi-range-field input[type=range]+.thumb.active .value {
-    color: #fff;
-    margin-left: -1px;
-    margin-top: 8px;
-    font-size: 10px;
-  }
-
-  .multi-range-field input[type=range]::-webkit-slider-runnable-track {
-    height: 3px;
-    background: #c2c0c2;
-    border: none;
-  }
-
-  .multi-range-field input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    border: none;
-    height: 14px;
-    width: 14px;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    background-color: #4285f4;
-    -webkit-transform-origin: 50% 50%;
-    transform-origin: 50% 50%;
-    margin: -5px 0 0 0;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-  }
-
-  .multi-range-field input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #ccc;
-  }
-
-  .multi-range-field input[type=range]::-moz-range-track {
-    /*required for proper track sizing in FF*/
-    height: 3px;
-    background: #c2c0c2;
-    border: none;
-  }
-
-  .multi-range-field input[type=range]::-moz-range-thumb {
-    border: none;
-    height: 14px;
-    width: 14px;
-    border-radius: 50%;
-    background: #4285f4;
-    margin-top: -5px;
-  }
-
-  .multi-range-field input[type=range]:-moz-focusring {
-    /*hide the outline behind the border*/
-    outline: 1px solid #fff;
-    outline-offset: -1px;
-  }
-
-  .multi-range-field input[type=range]:focus::-moz-range-track {
-    background: #c2c0c2;
-  }
-
-  .multi-range-field input[type=range]::-ms-track {
-    height: 3px;
-    background: transparent;
-    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
-    border-color: transparent;
-    /*leave room for the larger thumb to overflow with a transparent border */
-    border-width: 6px 0;
-    color: transparent;
-    /*remove default tick marks*/
-  }
-
-  .multi-range-field input[type=range]::-ms-fill-lower {
-    background: #c2c0c2;
-  }
-
-  .multi-range-field input[type=range]::-ms-fill-upper {
-    background: #c2c0c2;
-  }
-
-  .multi-range-field input[type=range]::-ms-thumb {
-    border: none;
-    height: 14px;
-    width: 14px;
-    border-radius: 50%;
-    background: #4285f4;
-  }
-
-  .multi-range-field input[type=range]:focus::-ms-fill-lower {
-    background: #c2c0c2;
-  }
-
-  .multi-range-field input[type=range]:focus::-ms-fill-upper {
-    background: #c2c0c2;
-  }
-
-  .thumb-horizontal-wrapper {
-    position: relative;
-    top: 190px;
-    transform: rotate(-270deg);
-    top: 500px;
-  }
-
-  .multi-range-field input[type=range]+.thumb-horizontal .value {
-    transform: rotate(315deg) !important;
-  }
   </style>
 
   <!--Title-->
-  <h1 class="primary-heading mt-3">eCommerce sidebar</h1>
+  <h2 class="primary-heading mt-3">Sidebar</h2>
+
+  <!-- Subtitle -->
+  <h1 class="secondary-heading mb-4">eCommerce sidebar</h1>
 
   <!--Description-->
   <p>Set of design blocks dedicated to building eCommerce sidebars.</p>
 
   <p>See also a page fully composed of the following elements.</p>
 
-  <a class="btn btn-primary" href="" role="button">Shop Demo</a>
+  <a class="btn btn-primary" href="https://mdbootstrap.com/previews/ecommerce-demo/docs/pages/basic/shop.html" role="button" target="_blank">Shop Demo</a>
 
 </section>
 <!--/Section: Intro-->
@@ -223,7 +226,7 @@
   </h2>
 
   <!--Section: Live preview-->
-  <section class="section-preview" style="width: 23rem;">
+  <section class="section-preview" style="width: 21.55rem;">
 
     <!-- Section: Sidebar -->
     <section>
@@ -283,8 +286,7 @@
           </div>
           <div class="form-check pl-0 mb-3">
             <input type="checkbox" class="form-check-input filled-in" id="used">
-            <label class="form-check-label small text-uppercase card-link-secondary"
-              for="used">Used</label>
+            <label class="form-check-label small text-uppercase card-link-secondary" for="used">Used</label>
           </div>
           <div class="form-check pl-0 mb-3">
             <input type="checkbox" class="form-check-input filled-in" id="collectible">
@@ -293,8 +295,7 @@
           </div>
           <div class="form-check pl-0 mb-3 pb-1">
             <input type="checkbox" class="form-check-input filled-in" id="renewed">
-            <label class="form-check-label small text-uppercase card-link-secondary"
-              for="renewed">Renewed</label>
+            <label class="form-check-label small text-uppercase card-link-secondary" for="renewed">Renewed</label>
           </div>
 
         </section>
@@ -451,7 +452,7 @@
 
           <div class="slider-price d-flex align-items-center my-4">
             <span class="font-weight-normal small text-muted mr-2">$0</span>
-            <form class="multi-range-field w-100">
+            <form class="multi-range-field w-100 mb-1">
               <input id="multi" class="multi-range" type="range" />
             </form>
             <span class="font-weight-normal small text-muted ml-2">$100</span>
@@ -780,7 +781,7 @@
 
               <div class="slider-price d-flex align-items-center my-4">
                 <span class="font-weight-normal small text-muted mr-2">$0</span>
-                <form class="multi-range-field w-100">
+                <form class="multi-range-field w-100 mb-1">
                   <input id="multi" class="multi-range" type="range" />
                 </form>
                 <span class="font-weight-normal small text-muted ml-2">$100</span>
@@ -921,7 +922,7 @@
   </p>
 
   <!--Section: Live preview-->
-  <section class="" style="width: 23rem;">
+  <section class="" style="width: 21.55rem;">
 
     <!-- Section: Search Box -->
     <section class="mb-4">
@@ -979,7 +980,7 @@
   </p>
 
   <!--Section: Live preview-->
-  <section class="section-preview" style="width: 23rem;">
+  <section class="section-preview" style="width: 21.55rem;">
 
     <!-- Section: Categories -->
     <section>
@@ -1074,7 +1075,7 @@
   </p>
 
   <!--Section: Live preview-->
-  <section class="section-preview" style="width: 23rem;">
+  <section class="section-preview" style="width: 21.55rem;">
 
     <!-- Section: Condition -->
     <section class="">
@@ -1091,13 +1092,11 @@
       </div>
       <div class="form-check pl-0 mb-3">
         <input type="checkbox" class="form-check-input filled-in" id="collectible1">
-        <label class="form-check-label small text-uppercase card-link-secondary"
-          for="collectible1">Collectible</label>
+        <label class="form-check-label small text-uppercase card-link-secondary" for="collectible1">Collectible</label>
       </div>
       <div class="form-check pl-0">
         <input type="checkbox" class="form-check-input filled-in" id="renewed1">
-        <label class="form-check-label small text-uppercase card-link-secondary"
-          for="renewed1">Renewed</label>
+        <label class="form-check-label small text-uppercase card-link-secondary" for="renewed1">Renewed</label>
       </div>
 
     </section>
@@ -1162,7 +1161,7 @@
   </p>
 
   <!--Section: Live preview-->
-  <section class="section-preview" style="width: 23rem;">
+  <section class="section-preview" style="width: 21.55rem;">
 
     <!-- Section: Average -->
     <section class="">
@@ -1392,7 +1391,7 @@
   </p>
 
   <!--Section: Live preview-->
-  <section class="section-preview" style="width: 23rem;">
+  <section class="section-preview" style="width: 21.55rem;">
 
     <!-- Section: Price -->
     <section class="">
@@ -1491,7 +1490,7 @@
   </p>
 
   <!--Section: Live preview-->
-  <section class="section-preview" style="width: 23rem;">
+  <section class="section-preview" style="width: 21.55rem;">
 
     <!-- Section: Price -->
     <section class="">
@@ -1571,7 +1570,7 @@
   </p>
 
   <!--Section: Live preview-->
-  <section class="section-preview" style="width: 23rem;">
+  <section class="section-preview" style="width: 21.55rem;">
 
     <!-- Section: Price version 2 -->
     <section class="mb-4">
@@ -1580,7 +1579,7 @@
 
       <div class="slider-price d-flex align-items-center my-4">
         <span class="font-weight-normal small text-muted mr-2">$0</span>
-        <form class="multi-range-field w-100">
+        <form class="multi-range-field w-100 mb-1">
           <input id="multi1" class="multi-range" type="range" />
         </form>
         <span class="font-weight-normal small text-muted ml-2">$100</span>
@@ -1605,7 +1604,7 @@
 
             <div class="slider-price d-flex align-items-center my-4">
               <span class="font-weight-normal small text-muted mr-2">$0</span>
-              <form class="multi-range-field w-100">
+              <form class="multi-range-field w-100 mb-1">
                 <input id="multi1" class="multi-range" type="range" />
               </form>
               <span class="font-weight-normal small text-muted ml-2">$100</span>
@@ -1616,7 +1615,7 @@
   
         </code>
 
-        <code data-lang="js" data-name="JavaScript">
+      <code data-lang="js" data-name="JavaScript">
 
           $('#multi1').mdbRange({
             single: {
@@ -1639,7 +1638,7 @@
 
 <hr class="my-5">
 
-<!--Section: -->
+<!--Section: Buttons filter-->
 <section id="buttons-filter">
 
   <!--Title-->
@@ -1653,42 +1652,42 @@
   </p>
 
   <!--Section: Live preview-->
-  <section class="section-preview" style="width: 23rem;">
+  <section class="section-preview">
 
     <!-- Section: Color -->
-    <section class="mb-4">
+    <section class="mb-4" style="width: 21.55rem;">
 
       <h6 class="font-weight-bold mb-3">Color</h6>
 
       <div class="btn-group btn-group-toggle btn-color-group d-block mt-n2 ml-n2" data-toggle="buttons">
-        <label class="btn rounded-circle white border-inset-greyp-3 m-2">
+        <label class="btn rounded-circle white border-inset-grey p-3 m-2">
           <input type="checkbox" autocomplete="off">
         </label>
         <label class="btn rounded-circle grey p-3 m-2">
           <input type="checkbox" autocomplete="off">
         </label>
-        <label class="btn rounded-circle blackp-3 m-2">
+        <label class="btn rounded-circle black p-3 m-2">
           <input type="checkbox" autocomplete="off">
         </label>
-        <label class="btn rounded-circle greenp-3 m-2">
+        <label class="btn rounded-circle green p-3 m-2">
           <input type="checkbox" autocomplete="off">
         </label>
-        <label class="btn rounded-circle bluep-3 m-2">
+        <label class="btn rounded-circle blue p-3 m-2">
           <input type="checkbox" autocomplete="off">
         </label>
-        <label class="btn rounded-circle purplep-3 m-2">
+        <label class="btn rounded-circle purple p-3 m-2">
           <input type="checkbox" autocomplete="off">
         </label>
-        <label class="btn rounded-circle yellowp-3 m-2">
+        <label class="btn rounded-circle yellow p-3 m-2">
           <input type="checkbox" autocomplete="off">
         </label>
-        <label class="btn rounded-circle indigop-3 m-2">
+        <label class="btn rounded-circle indigo p-3 m-2">
           <input type="checkbox" checked autocomplete="off">
         </label>
-        <label class="btn rounded-circle redp-3 m-2">
+        <label class="btn rounded-circle red p-3 m-2">
           <input type="checkbox" autocomplete="off">
         </label>
-        <label class="btn rounded-circle orangep-3 m-2">
+        <label class="btn rounded-circle orange p-3 m-2">
           <input type="checkbox" autocomplete="off">
         </label>
       </div>
@@ -1705,52 +1704,52 @@
 
       <code data-lang="html" data-name="HTML">
 
-          <!-- Section: Color -->
-          <section class="mb-4">
+        <!-- Section: Color -->
+        <section class="mb-4">
 
-            <h6 class="font-weight-bold mb-3">Color</h6>
+          <h6 class="font-weight-bold mb-3">Color</h6>
 
-            <div class="btn-group btn-group-toggle btn-color-group d-block mt-n2 ml-n2" data-toggle="buttons">
-              <label class="btn rounded-circle white border-inset-greyp-3 m-2">
-                <input type="checkbox" autocomplete="off">
-              </label>
-              <label class="btn rounded-circle grey p-3 m-2">
-                <input type="checkbox" autocomplete="off">
-              </label>
-              <label class="btn rounded-circle blackp-3 m-2">
-                <input type="checkbox" autocomplete="off">
-              </label>
-              <label class="btn rounded-circle greenp-3 m-2">
-                <input type="checkbox" autocomplete="off">
-              </label>
-              <label class="btn rounded-circle bluep-3 m-2">
-                <input type="checkbox" autocomplete="off">
-              </label>
-              <label class="btn rounded-circle purplep-3 m-2">
-                <input type="checkbox" autocomplete="off">
-              </label>
-              <label class="btn rounded-circle yellowp-3 m-2">
-                <input type="checkbox" autocomplete="off">
-              </label>
-              <label class="btn rounded-circle indigop-3 m-2">
-                <input type="checkbox" checked autocomplete="off">
-              </label>
-              <label class="btn rounded-circle redp-3 m-2">
-                <input type="checkbox" autocomplete="off">
-              </label>
-              <label class="btn rounded-circle orangep-3 m-2">
-                <input type="checkbox" autocomplete="off">
-              </label>
-            </div>
+          <div class="btn-group btn-group-toggle btn-color-group d-block mt-n2 ml-n2" data-toggle="buttons">
+            <label class="btn rounded-circle white border-inset-grey p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle grey p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle black p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle green p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle blue p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle purple p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle yellow p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle indigo p-3 m-2">
+              <input type="checkbox" checked autocomplete="off">
+            </label>
+            <label class="btn rounded-circle red p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle orange p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+          </div>
 
-          </section>
-          <!-- Section: Color -->
-  
-        </code>
+        </section>
+        <!-- Section: Color -->
+
+      </code>
 
     </mdbsnippet>
   </section>
   <!--Section: Code-->
 
 </section>
-<!--/Section: -->
+<!--/Section: Buttons filter-->
