@@ -50,7 +50,7 @@
     <div class="container">
 
       <!--Grid row-->
-      <div class="row d-flex justify-content-center">
+      <div class="row">
 
         <!--Grid column-->
         <div class="col-md-6">
@@ -155,7 +155,7 @@
           <!--Section: Logout Form-->
           <section class="logout-form py-5 text-center">
             <p class="logged-user-message pb-2"></p>
-            <a href="https://mdbootstrap.com/docs/jquery/admin/auth/login.html" class="btn btn-primary waves-effect">Log in</a>
+            <a href="https://mdbootstrap.com/docs/jquery/admin/auth/login" class="btn btn-primary waves-effect">Log in</a>
             <button class="btn btn-danger waves-effect delete-user">Remove user account</button>
           </section>
           <!--Section: Logout Form-->
@@ -467,3 +467,248 @@
 
 </section>
 <!--/Section: Basic example-->
+
+<hr class="my-5">
+
+<!-- Section: Form validation-->
+<section id="form-validation">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    1. Form validation
+  </h2>
+
+  <p>New user registration should start with form validation. In the following example, we present selected validation elements that contain:</p>
+
+  <ul>
+    <li>Validate function</li>
+    <li>Function trigger</li>
+  </ul>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JS">
+
+        $(document).ready(function() {
+          <!-- Validate function  -->
+          function validateFirstName() {
+            <!-- Get an input -->
+            const $input = $('#register-first-name')
+
+            <!-- Validate input value -->
+            if ($input[0].value.length >= 4 && $input[0].value.length <= 50) {
+              $input.removeClass('is-invalid').addClass('is-valid');
+              return true;
+            }
+            $input.removeClass('is-valid').addClass('is-invalid');
+            return false;
+          }
+
+          <!-- Function trigger on each input event  -->
+          $('#register-first-name').on('input', function() {
+            validateFirstName();
+          })
+        });
+
+      </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--Section: Form validation -->
+
+<hr class="my-5">
+
+<!-- Section: -->
+<section id="form-submitting">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    2. Form submitting
+  </h2>
+
+  <p>After submitting the form, we perform full verification again. If the fields are correctly completed, we send the data to localStorage. LocalStorage will serve us as a database simulation.</p>
+
+  <p class="note note-danger">Please note that localStorage is only a replacement for a real database. In the production application, the data sent via the form should be verified on the server and, if validated, added to the database. Validation should therefore be carried out both on the Client and on the Server. It is very important when handling any forms.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JS">
+
+        $(document).ready(function() {
+          <!-- All forms validation function -->
+          function validateForms() {
+            validateFirstName();
+            validateLastName();
+            validateEmail();
+            validatePassword();
+            validatePasswordConfirm();
+          }
+
+          <!-- Form submit -->
+          $('.register-form form').on('submit', function(event) {
+            <!-- Prevent default behavior -->
+            event.preventDefault();
+
+            <!-- Validate all forms -->
+            validateForms();
+        
+            <!-- Validation passed -->
+            if (validateFirstName() === true && validateLastName() === true && validateEmail() === true && validatePassword() === true && validatePasswordConfirm() === true) {
+              <!-- Getting user data from form -->
+              const userData = $(this).serializeArray();
+        
+              <!-- Storing user data in localStorage -->
+              localStorage.setItem("mdbAdminUserFirstName", userData[0].value);
+              localStorage.setItem("mdbAdminUserLastName", userData[1].value);
+              localStorage.setItem("mdbAdminUserEmail", userData[2].value);
+              localStorage.setItem("mdbAdminUserPass", userData[3].value);
+
+              <!-- Reloading page -->
+              location.reload();
+            }
+          })
+        });
+
+      </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--Section: Form validation -->
+
+<hr class="my-5">
+
+<!-- Section: Checking user data -->
+<section id="checking-user-data">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    3. Checking user data
+  </h2>
+
+  <p>Each time the website is started, the system checks whether the user has already created an account. If so, it hides the registration form and displays user's data with the button to delete the account.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JS">
+
+        $(document).ready(function() {
+          <!-- checking if key mdbAdminUserEmail exists in localStorage -->
+          if (localStorage.mdbAdminUserEmail) {
+            <!-- Hiding register form if user account was created -->
+            $('.register-form').hide();
+
+            <!-- Showing logout form if user account was created -->
+            $('.logout-form').show();
+
+            <!-- Filling message with user data -->
+            $('.logged-user-message').html(`You have been registered as <strong>${localStorage.mdbAdminUserFirstName} ${localStorage.mdbAdminUserLastName}</strong>!`);
+          }
+        });
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--Section: Checking user data -->
+
+<hr class="my-5">
+
+<!-- Section: User account remove -->
+<section id="deleting-user-account">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    4. Deleting user account
+  </h2>
+
+  <p>When the system detects a registered account, it will be possible to delete it. After clicking the <strong>Remove user account</strong> button, the account will be deleted and the page will be reloaded.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JS">
+
+        $(document).ready(function() {
+          <!-- Deleting user account -->
+          $('.delete-user').on('click', () => {
+            <!-- Clearing local storage -->
+            localStorage.clear();
+
+            <!-- Reloading page -->
+            location.reload();
+          })
+        });
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--Section: User account remove -->
+
+<hr class="my-5">
+
+<!-- Section: Modal -->
+<section id="modal">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Terms of service modal
+  </h2>
+
+  <p>To display <strong>terms of service</strong> we used a basic modal with a standard toggler.</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+
+        <p>By clicking
+          <em>Sign up</em> you agree to our
+          <!-- Terms of service modal trigger -->
+          <a href="#" data-toggle="modal" data-target="#terms-modal">terms of service</a>
+        </p>
+
+        (...)
+
+        <!-- Terms of service modal -->
+        <div class="modal fade" id="terms-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Terms & Conditions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Your data will be saved in localStorage and kept only for the purposes of demonstration pages.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Terms of service modal -->
+
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--Section: Modal  -->
