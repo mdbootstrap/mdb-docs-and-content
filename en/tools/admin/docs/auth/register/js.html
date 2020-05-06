@@ -1,8 +1,18 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
-    function validateName() {
-      const $input = $('#register-name')
+    function validateFirstName() {
+      const $input = $('#register-first-name')
+      if ($input[0].value.length >= 4 && $input[0].value.length <= 50) {
+        $input.removeClass('is-invalid').addClass('is-valid');
+        return true;
+      }
+      $input.removeClass('is-valid').addClass('is-invalid');
+      return false;
+    }
+
+    function validateLastName() {
+      const $input = $('#register-last-name')
       if ($input[0].value.length >= 4 && $input[0].value.length <= 50) {
         $input.removeClass('is-invalid').addClass('is-valid');
         return true;
@@ -42,26 +52,20 @@
       return false;
     }
 
-    function validateCheckbox() {
-      const $input = $('#register-checkbox');
-      if ($input[0].checked === true) {
-        $input.removeClass('is-invalid').addClass('is-valid');
-        return true;
-      }
-      $input.removeClass('is-valid').addClass('is-invalid');
-      return false;
-    }
-
     function validateForms() {
-      validateName();
+      validateFirstName();
+      validateLastName();
       validateEmail();
       validatePassword();
       validatePasswordConfirm();
-      validateCheckbox();
     }
 
-    $('#register-name').on('input', function() {
-      validateName();
+    $('#register-first-name').on('input', function() {
+      validateFirstName();
+    })
+
+    $('#register-last-name').on('input', function() {
+      validateLastName();
     })
 
     $('#register-email').on('input', function() {
@@ -77,20 +81,17 @@
       validatePasswordConfirm();
     })
 
-    $('#register-checkbox').on('change', function() {
-      validateCheckbox();
-    })
-
     $('.register-form form').on('submit', function(event) {
       event.preventDefault();
       validateForms();
 
-      if (validateName() === true && validateEmail() === true && validatePassword() === true && validatePasswordConfirm() === true && validateCheckbox() === true) {
+      if (validateFirstName() === true && validateLastName() === true && validateEmail() === true && validatePassword() === true && validatePasswordConfirm() === true) {
         const userData = $(this).serializeArray();
 
-        localStorage.setItem("mdbAdminUserName", userData[0].value);
-        localStorage.setItem("mdbAdminUserEmail", userData[1].value);
-        localStorage.setItem("mdbAdminUserPass", userData[2].value);
+        localStorage.setItem("mdbAdminUserFirstName", userData[0].value);
+        localStorage.setItem("mdbAdminUserLastName", userData[1].value);
+        localStorage.setItem("mdbAdminUserEmail", userData[2].value);
+        localStorage.setItem("mdbAdminUserPass", userData[3].value);
         location.reload();
       }
     })
@@ -103,8 +104,9 @@
     if (localStorage.mdbAdminUserEmail) {
       $('.register-form').hide();
       $('.logout-form').show();
-      $('.logged-user-message').html(`You have been registered as <strong>${localStorage.mdbAdminUserName}</strong>!`);
+      $('.logged-user-message').html(`You have been registered as <strong>${localStorage.mdbAdminUserFirstName} ${localStorage.mdbAdminUserLastName}</strong>!`);
     }
+
   })
 
 </script>
