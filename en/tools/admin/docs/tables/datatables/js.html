@@ -1,0 +1,302 @@
+<!-- Datatables initialization -->
+<script>
+  
+  $(document).ready(function () {
+    
+    // Basick example
+    $('#dtBasicExample').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+  });
+
+   // Material Design example
+   $(document).ready(function () {
+      $('#dtMaterialDesignExample').DataTable();
+      $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
+        $(this).parent().append($(this).children());
+          });
+      $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
+            const $this = $(this);
+        $this.attr("placeholder", "Search");
+        $this.removeClass('form-control-sm');
+          });
+      $('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
+      $('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
+      $('#dtMaterialDesignExample_wrapper select').removeClass('custom-select custom-select-sm form-control form-control-sm');
+      $('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
+      $('#dtMaterialDesignExample_wrapper .mdb-select').materialSelect();
+      $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
+    });
+
+    // Basick checbox select
+    $(document).ready(function () {
+          $('#dt-basic-checkbox').dataTable({
+
+            columnDefs: [{
+              orderable: false,
+              className: 'select-checkbox',
+              targets: 0
+            }],
+            select: {
+              style: 'os',
+              selector: 'td:first-child'
+            }
+          });
+        });
+
+
+        $(document).ready(function () {
+          $('#dt-multi-checkbox').dataTable({
+
+            columnDefs: [{
+              orderable: false,
+              className: 'select-checkbox',
+              targets: 0
+            }],
+            select: {
+              style: 'multi',
+              selector: 'td:first-child'
+            }
+          });
+        });
+
+        $(document).ready(function () {
+          $('#dt-all-checkbox').dataTable({
+
+            columnDefs: [{
+              orderable: false,
+              className: 'select-checkbox select-checkbox-all',
+              targets: 0
+            }],
+            select: {
+              style: 'multi',
+              selector: 'td:first-child'
+            }
+          });
+        });
+
+  $(document).ready(function () {
+
+    $('#dt-cell-sellection').dataTable({
+
+    select: {
+      style: 'os',
+      items: 'cell'
+    }
+    });
+  });
+
+  $(document).ready(function () {
+
+    //Pagination numbers
+    $('#paginationNumbers').DataTable({
+      "pagingType": "numbers"
+    });
+  });
+
+  $(document).ready(function () {
+
+    //Pagination simple numbers
+    $('#paginationSimpleNumbers').DataTable({
+      "pagingType": "simple_numbers"
+    });
+  });
+
+  $(document).ready(function () {
+
+    //Pagination full
+    $('#paginationFull').DataTable({
+      "pagingType": "full"
+    });
+  });
+
+  $(document).ready(function () {
+
+    //Pagination full Numbers
+    $('#paginationFullNumbers').DataTable({
+      "pagingType": "full_numbers"
+    });
+  });
+
+  $(document).ready(function () {
+
+    //Pagination First Last
+    $('#paginationFirstLast').DataTable({
+      "pagingType": "first_last_numbers"
+    });
+  });
+
+  $(document).ready(function () {
+    // Fixed header scroll
+    $('#dt-vertical-scroll').dataTable({
+      "paging": false,
+      "fnInitComplete": function () {
+        var myCustomScrollbar = document.querySelector('#dt-vertical-scroll_wrapper .dataTables_scrollBody');
+        var ps = new PerfectScrollbar(myCustomScrollbar);
+      },
+      "scrollY": 450,
+    });
+  });
+
+  $(document).ready(function () {
+    // Fixed footer scroll
+    $('#dt-fixed-footer').dataTable({
+      "paging": false,
+      "fnInitComplete": function () {
+        var myCustomScrollbar = document.querySelector('#dt-fixed-footer_wrapper .dataTables_scrollBody');
+        var ps = new PerfectScrollbar(myCustomScrollbar);
+      },
+      "scrollY": 450,
+    });
+  });
+
+  $(document).ready(function () {
+    // Horizontal Scroll
+    $('#dt-horizontal-scroll').dataTable({
+    "fnInitComplete": function () {
+      var myCustomScrollbar = document.querySelector('#dt-horizontal-scroll_wrapper .dataTables_scrollBody');
+      var ps = new PerfectScrollbar(myCustomScrollbar);
+    },
+    "scrollX": true
+  });
+  });
+
+
+  $(document).ready(function () {
+    // Filter Select
+    $('#dt-filter-select').dataTable({
+
+    initComplete: function () {
+      this.api().columns().every( function () {
+          var column = this;
+          var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" selected>Search</option></select>')
+              .appendTo( $(column.footer()).empty() )
+              .on( 'change', function () {
+                  var val = $.fn.dataTable.util.escapeRegex(
+                      $(this).val()
+                  );
+
+                  column
+                      .search( val ? '^'+val+'$' : '', true, false )
+                      .draw();
+              } );
+
+          column.data().unique().sort().each( function ( d, j ) {
+              select.append( '<option value="'+d+'">'+d+'</option>' )
+          } );
+      } );
+    }
+    });
+  });
+
+  $(document).ready(function () {
+    // Filter Sarch
+    $('#dt-filter-search').dataTable({
+    
+      initComplete: function () {
+        this.api().columns().every( function () {
+            var column = this;
+            var search = $(`<input class="form-control form-control-sm" type="text" placeholder="Search">`)
+                .appendTo( $(column.footer()).empty() )
+                .on( 'change input', function () {
+                    var val = $(this).val()
+
+                    column
+                        .search( val ? val : '', true, false )
+                        .draw();
+                } );
+
+        } );
+    }
+    });
+  });
+
+  $(document).ready(function () {
+    $('#dt-bordered').dataTable({
+
+      columnDefs: [{
+        orderable: false,
+        className: 'select-checkbox',
+        targets: 0
+      }],
+      select: {
+        style: 'multi',
+        selector: 'td:first-child'
+      }
+    });
+  });
+
+</script>
+
+<!-- Structured data: Breadcrumbs -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "https://mdbootstrap.com/",
+        "name": "MDBootstrap",
+        "image": "https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg"
+      }
+    }, {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@id": "https://mdbootstrap.com/docs/jquery/",
+        "name": "Components",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2018/11/mdb-jquery-free.jpg"
+      }
+    }, {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@id": "https://mdbootstrap.com/docs/jquery/tables/",
+        "name": "Tables",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2015/08/table-fb.jpg"
+      }
+    }, {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@id": "https://mdbootstrap.com/docs/jquery/tables/datatables2/",
+        "name": "Bootstrap 4 DataTables",
+        "image": "https://mdbootstrap.com/wp-content/uploads/2015/08/table-fb.jpg"
+      }
+    }]
+  }
+
+</script>
+
+<!-- Structured data: Article -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://mdbootstrap.com/docs/jquery/tables/datatables/"
+    },
+    "headline": "Bootstrap 4 DataTables - examples & tutorial. Basic & advanced usage",
+    "image": [
+      "https://mdbootstrap.com/wp-content/uploads/2015/08/table-fb.jpg"
+    ],
+    "datePublished": "2018-06-25T08:00:00+08:00",
+    "dateModified": "2018-06-25T09:20:00+08:00",
+    "author": {
+      "@type": "Organization",
+      "name": "MDBootstrap"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MDBootstrap",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+      }
+    },
+    "description": "Bootstrap 4 integration with the most popular plugin enhancing the possibilities of standard tables. Available in Material Design or default Bootstrap style."
+  }
+
+</script>
