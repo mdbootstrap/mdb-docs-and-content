@@ -1,6 +1,6 @@
 <!--Section: Introduction-->
 <section id="e-introduction">
-  <h2 class="section-heading">Angular Autocomplete - examples & customization</h2>
+  <h2 class="section-heading">Angular自动完成-示例和自定义</h2>
 </section>
 <!--/Section: Introduction-->
 
@@ -9,10 +9,8 @@
 <!--Section: Icons-->
 <section id="e-icons">
   <h2 class="section-heading">
-    Autocomplete with icons
-    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm btn-md"
-      role="button">MDB Pro component <i class="far fa-gem ml-1"></i>
-    </a>
+    带图标自动完成<a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm btn-md"
+      role="button"> MDB Pro组件<i class="far fa-gem ml-1"></i></a>
   </h2>
 
   <!--Section: Code-->
@@ -20,16 +18,19 @@
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <div class="md-form">
-          <input type="text" class="completer-input form-control mdb-autocomplete mb-0"
-                 [(ngModel)]="searchText"
-                 (input)="getFilteredData()" (ngModelChange)="onChange()"
-                 [mdbAutoCompleter]="auto"
-                 placeholder="Pick person">
+          <input
+            type="text"
+            [ngModel]="searchText | async"
+            (ngModelChange)="searchText.next($event)"
+            class="completer-input form-control mdb-autocomplete mb-0"
+            [mdbAutoCompleter]="auto"
+            placeholder="选择您的图标颜色。"
+          />
           <mdb-auto-completer #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
             <mdb-option *ngFor="let option of results | async" [value]="option.name">
               <div class="d-flex justify-content-between align-items-center w-100">
-                <span>{{option.name}}</span>
-                <img [src]="option.icon" alt="{{option.name}} photo" class="completer-image">
+                <span>{{ option.name }}</span>
+                <img [src]="option.icon" alt="{{ option.name }}照片" class="completer-image" />
               </div>
             </mdb-option>
           </mdb-auto-completer>
@@ -37,53 +38,7 @@
       </code>
 
       <code data-lang="js" data-name="TS">
-        import {AfterViewInit, Component, ViewChild} from '@angular/core';
-        import {of} from 'rxjs';
-        import {MdbAutoCompleterComponent} from 'ng-uikit-pro-standard';
-
-        @Component({
-          selector: 'auto-completer-with-icons',
-          templateUrl: './auto-completer-with-icon.component.html',
-          styleUrls: ['./auto-completer-with-icon.component.scss'],
-        })
-        export class AutoCompleterWithIconsComponent implements AfterViewInit {
-          @ViewChild(MdbAutoCompleterComponent) completer: MdbAutoCompleterComponent;
-          searchText = '';
-          results: any;
-          data: any = [
-            { name: 'Anthony', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-1.jpg' },
-            { name: 'Jane', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg' },
-            { name: 'John', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg' },
-            { name: 'Samantha', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-4.jpg' }
-          ];
-
-          constructor() {
-            this.results = this.searchEntries(this.searchText);
-          }
-
-          getDataItems() {
-            return this.data;
-          }
-
-          searchEntries(term: string) {
-            return of(this.getDataItems().filter((data: any) => data['name'].toString().toLowerCase().includes(term.toString().toLowerCase())));
-          }
-
-          getFilteredData() {
-            this.results = this.searchEntries(this.searchText);
-          }
-
-          onChange() {
-            this.getFilteredData();
-          }
-
-          ngAfterViewInit() {
-            this.completer.selectedItemChanged().subscribe((data: any) => {
-              this.searchText = data.text;
-              this.getFilteredData();
-            });
-          }
-        }
+        从&amp;#39;@ angular / core&amp;#39;导入{Component，OnInit};从&amp;#39;rxjs&amp;#39;导入{Observable，Subject};从&amp;#39;rxjs / operators&amp;#39;导入{startWith，map}; @Component（{选择器：“带有图标的自动完成程序”，templateUrl：“ .// auto-completer-with-icon.component.html”，styleUrls：[&amp;#39;./ auto-completer-with-icon.component。scss&amp;#39;]，}）导出类AutoCompleterWithIconsComponent实现OnInit {searchText = new Subject（）;结果：可观察<any>;数据：任何[] = [{名称：&amp;#39;Anthony&amp;#39;，图标：&amp;#39;https：//mdbootstrap.com/img/Photos/Avatars/avatar-1.jpg&amp;#39;}，{名称：&amp;#39;Jane&amp;#39;，图标：&amp;#39;https ：//mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg&amp;#39;}，{名称：&amp;#39;John&amp;#39;，图标：&amp;#39;https：//mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg &amp;#39;}，{名称：“ Samantha”，图标：“ https://mdbootstrap.com/img/Photos/Avatars/avatar-4.jpg&amp;#39;}]； Constructor（）{} ngOnInit（）{this.results = this.searchText .pipe（startWith（&amp;#39;&amp;#39;），map（（value：string）=> this.filter（value）））;; } filter（value：string）：string [] {const filterValue = value.toLowerCase（）;返回this.data.filter（（item：any）=> item.name.toLowerCase（）。includes（filterValue））; }}
 
       </code>
     </mdbsnippet>
@@ -97,40 +52,52 @@
 <!--Section: No results message-->
 <section id="e-multiple">
   <h2 class="section-heading">
-    Second dependent on the first
-    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm btn-md"
-      role="button">MDB Pro component <i class="far fa-gem ml-1"></i>
-    </a>
+    第二依赖于第一<a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm btn-md"
+      role="button"> MDB Pro组件<i class="far fa-gem ml-1"></i></a>
   </h2>
 
-  <p class="description">The selection of values in the first auto-completer determines the options to choose in the second auto-completer.</p>
+  <p class="description">第一个自动完成器中值的选择确定了第二个自动完成器中要选择的选项。</p>
 
   <!--Section: Code-->
   <section class="mt-3">
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <div class="row">
-          <div class="col-md-4 mx-auto my-5">
+          <div class="col-md-4 mx-auto-my-5">
             <div class="md-form">
-              <input type="text" class="completer-input form-control mdb-autocomplete mb-0" [(ngModel)]="searchText"
-                     (input)="getFilteredData()" (ngModelChange)="onChange()" placeholder="Choose your framework"
-                     [mdbAutoCompleter]="auto">
+              <input
+                type="text"
+                [ngModel]="searchText | async"
+                (ngModelChange)="searchText.next($event)"
+                class="completer-input form-control mdb-autocomplete mb-0"
+                [mdbAutoCompleter]="auto"
+                placeholder="选择您的图标颜色。"
+              />
               <mdb-auto-completer #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
                 <mdb-option *ngFor="let option of results | async" [value]="option">
-                  {{option}}
+                  <div class="d-flex flex-column">
+                    {{ option }}
+                  </div>
                 </mdb-option>
               </mdb-auto-completer>
             </div>
           </div>
 
-          <div class="col-md-4 mx-auto my-5">
+          <div class="col-md-4 mx-auto-my-5">
             <div class="md-form">
-              <input type="text" class="completer-input form-control mdb-autocomplete mb-0" [(ngModel)]="searchText2"
-                     (input)="getFilteredData2()" (ngModelChange)="onChange2()" placeholder="Choose your framework version"
-                     [mdbAutoCompleter]="auto2">
+              <input
+                type="text"
+                [ngModel]="searchText2 | async"
+                (ngModelChange)="searchText2.next($event)"
+                class="completer-input form-control mdb-autocomplete mb-0"
+                [mdbAutoCompleter]="auto2"
+                placeholder="选择您的图标颜色。"
+              />
               <mdb-auto-completer #auto2="mdbAutoCompleter" textNoResults="I have found no results :(">
                 <mdb-option *ngFor="let option of results2 | async" [value]="option">
-                  {{option}}
+                  <div class="d-flex flex-column">
+                    {{ option }}
+                  </div>
                 </mdb-option>
               </mdb-auto-completer>
             </div>
@@ -138,78 +105,7 @@
         </div>
       </code>
       <code data-lang="js" data-name="TS">
-        import {AfterViewInit, Component, ViewChild} from '@angular/core';
-        import {of} from 'rxjs';
-        import {MdbAutoCompleterComponent} from 'ng-uikit-pro-standard';
-
-        @Component({
-          selector: 'multiple-autocompleter',
-          templateUrl: './multiple-autocompleter.component.html',
-          styleUrls: ['./multiple-autocompleter.component.scss'],
-        })
-        export class MultipleAutoCompleterComponent implements AfterViewInit {
-          @ViewChild(MdbAutoCompleterComponent) completer: MdbAutoCompleterComponent;
-
-          searchText = '';
-          searchText2 = '';
-
-          results: any = null;
-          results2: any = null;
-
-          data: Array<any> = ['Angular', 'React', 'Vue', 'jQuery'];
-          data2: Array<any> = [];
-
-            constructor() {
-              this.results = this.searchEntries(this.searchText);
-              this.results2 = this.searchEntries2(this.searchText2);
-            }
-
-            getDataItems() {
-              return {first: this.data, second: this.data2};
-            }
-
-            searchEntries(term: string) {
-              return of(this.getDataItems().first.filter((data: any) => data.toString().toLowerCase().includes(term.toString().toLowerCase())));
-            }
-
-            searchEntries2(term: string) {
-              return of(this.getDataItems().second.filter((data: any) => data.toString().toLowerCase().includes(term.toString().toLowerCase())));
-            }
-
-            getFilteredData() {
-              this.results = this.searchEntries(this.searchText);
-            }
-
-            getFilteredData2() {
-              this.results2 = this.searchEntries2(this.searchText2);
-            }
-
-            onChange() {
-              this.getFilteredData();
-            }
-
-            onChange2() {
-              this.getFilteredData();
-            }
-
-            ngAfterViewInit() {
-              this.completer.selectedItemChanged().subscribe((data: any) => {
-                this.searchText = data.text;
-                this.getFilteredData();
-
-                if (this.searchText === 'Angular') {
-                this.data2 = ['Angular 1', 'Angular 2', 'Angular 3', 'Angular 4'];
-                } else if (this.searchText === 'React') {
-                this.data2 = ['React 1', 'React 2', 'React 3', 'React 4'];
-                } else if (this.searchText === 'Vue') {
-                this.data2 = ['Vue 1', 'Vue 2', 'Vue 3', 'Vue 4'];
-                } else if (this.searchText === 'jQuery') {
-                this.data2 = ['jQuery 1', 'jQuery 2', 'jQuery 3', 'jQuery 4'];
-                }
-                this.getFilteredData2();
-              });
-            }
-          }
+        从&amp;#39;@ angular / core&amp;#39;导入{Component，OnInit};从&amp;#39;rxjs&amp;#39;导入{Observable，Subject};从&amp;#39;rxjs / operators&amp;#39;导入{startWith，map，tap}; @Component（{选择器：&amp;#39;multiple-autocompleter&amp;#39;，templateUrl：&amp;#39;./multiple-autocompleter.component.html&amp;#39;，styleUrls：[&amp;#39;./multiple-autocompleter.component.scss&amp;#39;]，}）导出类MultipleAutoCompleterComponent实现AfterViewInit { searchText = new Subject（）; searchText2 = new Subject（）;结果：Observable &lt;string []>;结果2：Observable &lt;string []>;数据：string [] = [&amp;#39;Angular&amp;#39;，&amp;#39;React&amp;#39;，&amp;#39;Vue&amp;#39;，&amp;#39;jQuery&amp;#39;]; data2：string [] = []; Constructor（）{} ngOnInit（）{this.results = this.searchText .pipe（startWith（&amp;#39;&amp;#39;），tap（（searchText：string）=> this.updateSecondCompleterData（searchText）），map（（value：string）= > this.filter（value，this.data）））; this.results2 = this.searchText2 .pipe（startWith（&amp;#39;&amp;#39;），map（（value：string）=> this.filter（value，this.data2）））; } updateSecondCompleterData（searchText：string）{if（searchText ===&amp;#39;Angular&amp;#39;）{this.data2 = [&amp;#39;Angular 1&amp;#39;，&amp;#39;Angular 2&amp;#39;，&amp;#39;Angular 3&amp;#39;，&amp;#39;Angular 4&amp;#39;]; }否则if（searchText ===&amp;#39;React&amp;#39;）{this.data2 = [&amp;#39;React 1&amp;#39;，&amp;#39;React 2&amp;#39;，&amp;#39;React 3&amp;#39;，&amp;#39;React 4&amp;#39;]; }否则if（searchText ===&amp;#39;Vue&amp;#39;）{this.data2 = [&amp;#39;Vue 1&amp;#39;，&amp;#39;Vue 2&amp;#39;，&amp;#39;Vue 3&amp;#39;，&amp;#39;Vue 4&amp;#39;]; } else if（searchText ===&amp;#39;jQuery&amp;#39;）{this.data2 = [&amp;#39;jQuery 1&amp;#39;，&amp;#39;jQuery 2&amp;#39;，&amp;#39;jQuery 3&amp;#39;，&amp;#39;jQuery 4&amp;#39;]; }} filter（value：string，data：string []）：string [] {const filterValue = value.toLowerCase（）;返回data.filter（（item：string）=> item.toLowerCase（）。includes（filterValue））; }
 
       </code>
     </mdbsnippet>
@@ -223,61 +119,36 @@
 <!--Section: No results message-->
 <section id="e-call-after-input">
   <h2 class="section-heading">
-    Remote call after input event
-    <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm btn-md"
-       role="button">MDB Pro component <i class="far fa-gem ml-1"></i>
-    </a>
+    输入事件后进行远程通话<a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-sm btn-md"
+       role="button"> MDB Pro组件<i class="far fa-gem ml-1"></i></a>
   </h2>
 
-  <p class="description">The selection of values in the first auto-completer determines the options to choose in the second auto-completer.</p>
+  <p class="description">第一个自动完成器中值的选择确定了第二个自动完成器中要选择的选项。</p>
 
   <!--Section: Code-->
   <section class="mt-3">
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <div class="md-form">
-          <input #inputEl type="text" class="completer-input form-control mdb-autocomplete mb-0"
-                 [(ngModel)]="searchText"
-                 [mdbAutoCompleter]="auto"
-                 placeholder="Pick the Star Wars character">
-          <mdb-auto-completer #auto="mdbAutoCompleter"  textNoResults="I have found no results :(">
-            <mdb-option *ngFor="let option of results" [value]="option.name">
+          <input
+            type="text"
+            [ngModel]="searchText | async"
+            (ngModelChange)="searchText.next($event)"
+            class="completer-input form-control mdb-autocomplete mb-0"
+            [mdbAutoCompleter]="auto"
+            placeholder="选择您的图标颜色。"
+          />
+          <mdb-auto-completer #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
+            <mdb-option *ngFor="let option of results | async" [value]="option.name">
               <div class="d-flex flex-column">
-                <strong>Name: {{option.name}}</strong>
-                <small>Gender: {{option.gender}}</small>
-                <small>Hair color: {{option.hair_color}}</small>
+                <strong>名称： {{ option.name }}</strong><small>性别： {{ option.gender }}</small><small>发色： {{ option.hair_color }}</small>
               </div>
             </mdb-option>
           </mdb-auto-completer>
         </div>
       </code>
       <code data-lang="js" data-name="TS">
-        import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-        import {fromEvent} from "rxjs";
-        import {HttpClient} from "@angular/common/http";
-        import {debounceTime} from "rxjs/operators";
-
-        @Component({
-          selector: 'remote-event',
-          templateUrl: './remote-event.component.html',
-          styleUrls: ['./remote-event.component.scss']
-        })
-        export class RemoteEventComponent implements AfterViewInit {
-          @ViewChild('inputEl') inputEl: ElementRef;
-          searchText = '';
-          url = 'https://swapi.co/api/people/?search=';
-          results: any = [];
-
-          constructor(private httpClient: HttpClient) {  }
-
-          ngAfterViewInit(): void {
-            fromEvent(this.inputEl.nativeElement, 'input').pipe(debounceTime(250)).subscribe(() => {
-              this.httpClient.get(this.url + this.searchText).subscribe((items: any) => {
-                this.results = items['results'];
-              });
-            });
-          }
-        }
+        从&amp;#39;@ angular / core&amp;#39;导入{Component，OnInit};从&amp;#39;rxjs&amp;#39;导入{Observable，Subject};从&amp;#39;rxjs / operators&amp;#39;导入{startWith，map，debounceTime，switchMap};从&amp;#39;@ angular / common / http&amp;#39;导入{HttpClient}; @Component（{选择器：&amp;#39;remote-event&amp;#39;，templateUrl：&amp;#39;./remote-event.component.html&amp;#39;，styleUrls：[&amp;#39;./remote-event.component.scss&amp;#39;]}）导出类RemoteEventComponent实现OnInit {searchText = new Subject（）;结果：可观察<any>; url =&amp;#39;https://swapi.co/api/people/?search=&amp;#39;;构造函数（私有http：HttpClient）{} ngOnInit（）{this.results = this.searchText .pipe（startWith（this.searchText），switchMap（（searchText：string）=> this.getRemoteData（searchText）））; } getRemoteData（searchText：string）{返回this.http.get（this.url + searchText）.pipe（debounceTime（250），map（（item：any）=> items.results）））; }}
       </code>
     </mdbsnippet>
   </section>

@@ -46,153 +46,210 @@
   <section>
     <mdbsnippet>
       <code data-lang="javascript" data-name="JSX">
-                import React, { Component } from "react";
-                import { BrowserRouter as Router } from "react-router-dom";
-                import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBMask, MDBRow, MDBCol, MDBBtn,   MDBView, MDBContainer, MDBFormInline } from "mdbreact";
-                import "./index.css";
-
-                class AppPage extends Component {
-                  state = {
-                    collapsed: false
-                  };
-
-                  handleTogglerClick = () => {
-                    this.setState({
-                      collapsed: !this.state.collapsed
-                    });
-                  };
-
-                  render() {
-                    const overlay = (
-                      <div
-                        id="sidenav-overlay"
-                        style={{ backgroundColor: "transparent" }}
-                        onClick={this.handleTogglerClick}
-                      />
-                    );
-                    return (
-                      <div id="apppage">
-                        <Router>
-                          <div>
-                            <MDBNavbar
-                              color="primary-color"
-                              dark
-                              expand="md"
-                              fixed="top"
-                              scrolling
-                              transparent
-                            >
-                              <MDBContainer>
-                                <MDBNavbarBrand>
-                                  <strong className="white-text">MDB</strong>
-                                </MDBNavbarBrand>
-                                <MDBNavbarToggler onClick={this.handleTogglerClick} />
-                                <MDBCollapse isOpen={this.state.collapsed} navbar>
-                                  <MDBNavbarNav left>
-                                    <MDBNavItem active>
-                                      <MDBNavLink to="#!">Home</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Link</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Profile</MDBNavLink>
-                                    </MDBNavItem>
-                                  </MDBNavbarNav>
-                                  <MDBNavbarNav right>
-                                    <MDBNavItem>
-                                      <MDBFormInline waves>
-                                        <div className="md-form my-0">
-                                          <input
-                                            className="form-control mr-sm-2"
-                                            type="text"
-                                            placeholder="Search"
-                                            aria-label="Search"
-                                          />
-                                        </div>
-                                      </MDBFormInline>
-                                    </MDBNavItem>
-                                  </MDBNavbarNav>
-                                </MDBCollapse>
-                              </MDBContainer>
-                            </MDBNavbar>
-                            {this.state.collapsed && overlay}
-                          </div>
-                        </Router>
-                        <MDBView>
-                          <MDBMask className="d-flex justify-content-center align-items-center gradient">
-                            <MDBContainer>
-                              <MDBRow>
-                                <div className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5">
-                                  <h1 className="h1-responsive font-weight-bold mt-sm-5">
-                                    Make purchases with our app{" "}
-                                  </h1>
-                                  <hr className="hr-light" />
-                                  <h6 className="mb-4">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Rem repellendus quasi fuga nesciunt dolorum nulla magnam
-                                    veniam sapiente, fugiat! Commodi sequi non animi ea dolor
-                                    molestiae iste.
-                                  </h6>
-                                  <MDBBtn color="white">Download</MDBBtn>
-                                  <MDBBtn outline color="white">
-                                    Learn More
-                                  </MDBBtn>
-                                </div>
-                                <MDBCol md="6" xl="5" className="mt-xl-5">
-                                  <img
-                                    src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png"
-                                    alt=""
-                                    className="img-fluid"
+        import React from 'react';
+        import { BrowserRouter as Router } from 'react-router-dom';
+        import {
+          MDBNavbar,
+          MDBNavbarBrand,
+          MDBNavbarNav,
+          MDBNavItem,
+          MDBNavLink,
+          MDBNavbarToggler,
+          MDBCollapse,
+          MDBMask,
+          MDBRow,
+          MDBCol,
+          MDBBtn,
+          MDBView,
+          MDBContainer,
+          MDBFormInline,
+          MDBAnimation
+        } from 'mdbreact';
+        import './AppPage.css';
+        
+        class AppPage extends React.Component {
+          state = {
+            collapsed: false
+          };
+        
+          handleTogglerClick = () => {
+            const { collapsed } = this.state;
+            this.setState({
+              collapsed: !collapsed
+            });
+          };
+        
+          componentDidMount() {
+            document.querySelector('nav').style.height = '65px';
+          }
+        
+          componentWillUnmount() {
+            document.querySelector('nav').style.height = 'auto';
+          }
+        
+          render() {
+            const { collapsed } = this.state;
+        
+            const overlay = (
+              <div
+                id='sidenav-overlay'
+                style={{ backgroundColor: 'transparent' }}
+                onClick={this.handleTogglerClick}
+              />
+            );
+            return (
+              <div id='apppage'>
+                <Router>
+                  <div>
+                    <MDBNavbar
+                      color='primary-color'
+                      dark
+                      expand='md'
+                      fixed='top'
+                      scrolling
+                      transparent
+                      style={{ marginTop: '65px' }}
+                    >
+                      <MDBContainer>
+                        <MDBNavbarBrand>
+                          <strong className='white-text'>MDB</strong>
+                        </MDBNavbarBrand>
+                        <MDBNavbarToggler onClick={this.handleTogglerClick} />
+                        <MDBCollapse isOpen={collapsed} navbar>
+                          <MDBNavbarNav left>
+                            <MDBNavItem active>
+                              <MDBNavLink to='#!'>Home</MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink to='#!'>Link</MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink to='#!'>Profile</MDBNavLink>
+                            </MDBNavItem>
+                          </MDBNavbarNav>
+                          <MDBNavbarNav right>
+                            <MDBNavItem>
+                              <MDBFormInline waves>
+                                <div className='md-form my-0'>
+                                  <input
+                                    className='form-control mr-sm-2'
+                                    type='text'
+                                    placeholder='Search'
+                                    aria-label='Search'
                                   />
-                                </MDBCol>
-                              </MDBRow>
-                            </MDBContainer>
-                          </MDBMask>
-                        </MDBView>
-
-                        <MDBContainer>
-                          <MDBRow className="py-5">
-                            <MDBCol md="12" className="text-center">
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                sunt in culpa qui officia deserunt mollit anim id est laborum.
-                              </p>
-                            </MDBCol>
-                          </MDBRow>
-                        </MDBContainer>
-                      </div>
-                    );
-                  }
-                }
-
-                export default AppPage;
+                                </div>
+                              </MDBFormInline>
+                            </MDBNavItem>
+                          </MDBNavbarNav>
+                        </MDBCollapse>
+                      </MDBContainer>
+                    </MDBNavbar>
+                    {collapsed && overlay}
+                  </div>
+                </Router>
+                <MDBView>
+                  <MDBMask className='white-text gradient' />
+                  <MDBContainer
+                    style={{ height: '100%', width: '100%', paddingTop: '10rem' }}
+                    className='d-flex justify-content-center white-text align-items-center'
+                  >
+                    <MDBRow>
+                      <MDBCol md='6' className='text-center text-md-left mt-xl-5 mb-5'>
+                        <MDBAnimation type='fadeInLeft' delay='.3s'>
+                          <h1 className='h1-responsive font-weight-bold mt-sm-5'>
+                            Make purchases with our app
+                          </h1>
+                          <hr className='hr-light' />
+                          <h6 className='mb-4'>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Rem repellendus quasi fuga nesciunt dolorum nulla magnam
+                            veniam sapiente, fugiat! Commodi sequi non animi ea dolor
+                            molestiae iste.
+                          </h6>
+                          <MDBBtn color='white'>Download</MDBBtn>
+                          <MDBBtn outline color='white'>
+                            Learn More
+                          </MDBBtn>
+                        </MDBAnimation>
+                      </MDBCol>
+        
+                      <MDBCol md='6' xl='5' className='mt-xl-5'>
+                        <MDBAnimation type='fadeInRight' delay='.3s'>
+                          <img
+                            src='https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png'
+                            alt=''
+                            className='img-fluid'
+                          />
+                        </MDBAnimation>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBContainer>
+                </MDBView>
+        
+                <MDBContainer>
+                  <MDBRow className='py-5'>
+                    <MDBCol md='12' className='text-center'>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                        nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                        sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      </p>
+                    </MDBCol>
+                  </MDBRow>
+                </MDBContainer>
+              </div>
+            );
+          }
+        }
+        
+        export default AppPage;
+        
       </code>
       <code data-lang="css" data-name="CSS">
-                #apppage .gradient {
-                  background: -moz-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
-                  background: -webkit-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
-                  background: -webkit-gradient(linear, 45deg, from(rgba(42, 27, 161, 0.7)), to(rgba(29, 210, 177, 0.7)));
-                  background: -o-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
-                  background: linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
-                }
-
-                #apppage .view {
-                  background-image: url('https://mdbootstrap.com/img/Photos/Others/architecture.jpg');
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  background-position: center center;
-                  height: 100vh;
-                }
-
-                #apppage h6 {
-                  line-height: 1.7;
-                }
+        #apppage .gradient {
+          background: -moz-linear-gradient(
+            45deg,
+            rgba(42, 27, 161, 0.7),
+            rgba(29, 210, 177, 0.7) 100%
+          );
+          background: -webkit-linear-gradient(
+            45deg,
+            rgba(42, 27, 161, 0.7),
+            rgba(29, 210, 177, 0.7) 100%
+          );
+          background: -webkit-gradient(
+            linear,
+            45deg,
+            from(rgba(42, 27, 161, 0.7)),
+            to(rgba(29, 210, 177, 0.7))
+          );
+          background: -o-linear-gradient(
+            45deg,
+            rgba(42, 27, 161, 0.7),
+            rgba(29, 210, 177, 0.7) 100%
+          );
+          background: linear-gradient(
+            45deg,
+            rgba(42, 27, 161, 0.7),
+            rgba(29, 210, 177, 0.7) 100%
+          );
+        }
+        
+        #apppage .view {
+          background-image: url('https://mdbootstrap.com/img/Photos/Others/architecture.jpg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center center;
+          min-height: 100vh;
+        }
+        
+        #apppage h6 {
+          line-height: 1.7;
+        }
             </code>
     </mdbsnippet>
   </section>
@@ -233,159 +290,183 @@
   <section>
     <mdbsnippet data-editor="false">
       <code data-lang="javascript" data-name="JSX">
-                import React, { Component } from "react";
-                import { BrowserRouter as Router } from "react-router-dom";
-                import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBMask, MDBRow, MDBCol, MDBBtn,  MDBView, MDBContainer, MDBFormInline, MDBCard, MDBCardBody, MDBInput } from "mdbreact";
-                import "./index.css";
-
-                class ContactFormPage extends Component {
-                  state = {
-                    collapseID: ""
-                  };
-
-                  toggleCollapse = collapseID => () =>
-                    this.setState(prevState => ({
-                      collapseID: prevState.collapseID !== collapseID ? collapseID : ""
-                    }));
-
-                  render() {
-                    const navStyle = { marginTop: "4rem" };
-                    const overlay = (
-                      <div
-                        id="sidenav-overlay"
-                        style={{ backgroundColor: "transparent" }}
-                        onClick={this.toggleCollapse("navbarCollapse")}
-                      />
-                    );
-                    return (
-                      <div id="contactformpage">
-                        <Router>
-                          <div>
-                            <MDBNavbar
-                              color="deep-purple darken-4"
-                              dark
-                              expand="md"
-                              fixed="top"
-                              scrolling
-                              transparent
-                            >
-                              <MDBContainer>
-                                <MDBNavbarBrand>
-                                  <strong className="white-text">MDB</strong>
-                                </MDBNavbarBrand>
-                                <MDBNavbarToggler
-                                  onClick={this.toggleCollapse("navbarCollapse")}
-                                />
-                                <MDBCollapse
-                                  id="navbarCollapse"
-                                  isOpen={this.state.collapseID}
-                                  navbar
-                                >
-                                  <MDBNavbarNav left>
-                                    <MDBNavItem active>
-                                      <MDBNavLink to="#!">Home</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Link</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Profile</MDBNavLink>
-                                    </MDBNavItem>
-                                  </MDBNavbarNav>
-                                  <MDBNavbarNav right>
-                                    <MDBNavItem>
-                                      <MDBFormInline waves>
-                                        <div className="md-form my-0">
-                                          <input
-                                            className="form-control mr-sm-2"
-                                            type="text"
-                                            placeholder="Search"
-                                            aria-label="Search"
-                                          />
-                                        </div>
-                                      </MDBFormInline>
-                                    </MDBNavItem>
-                                  </MDBNavbarNav>
-                                </MDBCollapse>
-                              </MDBContainer>
-                            </MDBNavbar>
-                            {this.state.collapseID && overlay}
-                          </div>
-                        </Router>
-
-                        <MDBView>
-                          <MDBMask
-                            className="d-flex justify-content-center align-items-center"
-                            overlay="indigo-strong"
-                          >
-                            <MDBContainer>
-                              <MDBRow>
-                                <div className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5">
-                                  <h1 className="display-4 font-weight-bold">Lorem ipsum </h1>
-                                  <hr className="hr-light" />
-                                  <h6 className="mb-4">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Rem repellendus quasi fuga nesciunt dolorum nulla magnam
-                                    veniam sapiente, fugiat! Commodi sequi non animi ea dolor
-                                    molestiae iste.
-                                  </h6>
-                                  <MDBBtn outline color="white">
-                                    Learn More
-                                  </MDBBtn>
+        import React from 'react';
+        import { BrowserRouter as Router } from 'react-router-dom';
+        import {
+          MDBNavbar,
+          MDBNavbarBrand,
+          MDBNavbarNav,
+          MDBNavItem,
+          MDBNavLink,
+          MDBNavbarToggler,
+          MDBCollapse,
+          MDBMask,
+          MDBRow,
+          MDBCol,
+          MDBBtn,
+          MDBView,
+          MDBContainer,
+          MDBFormInline,
+          MDBCard,
+          MDBCardBody,
+          MDBInput
+        } from 'mdbreact';
+        import './ContactFormPage.css';
+        
+        class ContactFormPage extends React.Component {
+          state = {
+            collapseID: ''
+          };
+        
+          toggleCollapse = collapseID => () =>
+            this.setState(prevState => ({
+              collapseID: prevState.collapseID !== collapseID ? collapseID : ''
+            }));
+        
+          componentDidMount() {
+            document.querySelector('nav').style.height = '65px';
+          }
+        
+          componentWillUnmount() {
+            document.querySelector('nav').style.height = 'auto';
+          }
+        
+          render() {
+            const { collapseID } = this.state;
+            const navStyle = { marginTop: '65px' };
+            const overlay = (
+              <div
+                id='sidenav-overlay'
+                style={{ backgroundColor: 'transparent' }}
+                onClick={this.toggleCollapse('navbarCollapse')}
+              />
+            );
+            return (
+              <div id='contactformpage'>
+                <Router>
+                  <div>
+                    <MDBNavbar
+                      style={navStyle}
+                      color='deep-purple darken-4'
+                      dark
+                      expand='md'
+                      fixed='top'
+                      scrolling
+                      transparent
+                    >
+                      <MDBContainer>
+                        <MDBNavbarBrand>
+                          <strong className='white-text'>MDB</strong>
+                        </MDBNavbarBrand>
+                        <MDBNavbarToggler
+                          onClick={this.toggleCollapse('navbarCollapse')}
+                        />
+                        <MDBCollapse id='navbarCollapse' isOpen={collapseID} navbar>
+                          <MDBNavbarNav left>
+                            <MDBNavItem active>
+                              <MDBNavLink to='#!'>Home</MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink to='#!'>Link</MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink to='#!'>Profile</MDBNavLink>
+                            </MDBNavItem>
+                          </MDBNavbarNav>
+                          <MDBNavbarNav right>
+                            <MDBNavItem>
+                              <MDBFormInline waves>
+                                <div className='md-form my-0'>
+                                  <input
+                                    className='form-control mr-sm-2'
+                                    type='text'
+                                    placeholder='Search'
+                                    aria-label='Search'
+                                  />
                                 </div>
-                                <MDBCol md="6" xl="5" className="mb-4">
-                                  <MDBCard className="dark-grey-text">
-                                    <MDBCardBody className="z-depth-2">
-                                      <h3 className="dark-grey-text text-center">
-                                        <strong>Write to us:</strong>
-                                      </h3>
-                                      <hr />
-                                      <MDBInput label="Your name" icon="user" />
-                                      <MDBInput label="Your email" icon="envelope" />
-                                      <MDBInput
-                                        label="Your message"
-                                        icon="pencil-alt"
-                                        type="textarea"
-                                        rows="3"
-                                      />
-                                      <div className="text-center mt-3 black-text">
-                                        <MDBBtn color="indigo">Send</MDBBtn>
-                                        <hr />
-                                        <MDBInput
-                                          type="checkbox"
-                                          id="checkbox"
-                                          label="Subscribe me to the newsletter"
-                                        />
-                                      </div>
-                                    </MDBCardBody>
-                                  </MDBCard>
-                                </MDBCol>
-                              </MDBRow>
-                            </MDBContainer>
-                          </MDBMask>
-                        </MDBView>
-
-                        <MDBContainer>
-                          <MDBRow className="py-5">
-                            <MDBCol md="12" className="text-center">
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                sunt in culpa qui officia deserunt mollit anim id est laborum.
-                              </p>
-                            </MDBCol>
-                          </MDBRow>
-                        </MDBContainer>
+                              </MDBFormInline>
+                            </MDBNavItem>
+                          </MDBNavbarNav>
+                        </MDBCollapse>
+                      </MDBContainer>
+                    </MDBNavbar>
+                    {collapseID && overlay}
+                  </div>
+                </Router>
+        
+                <MDBView>
+                  <MDBMask overlay='indigo-strong' />
+                  <MDBContainer
+                    style={{ height: '100%', width: '100%', paddingTop: '10rem' }}
+                    className='d-flex justify-content-center align-items-center'
+                  >
+                    <MDBRow>
+                      <div className='white-text text-center text-md-left col-md-6 mt-xl-5 mb-5'>
+                        <h1 className='display-4 font-weight-bold'>Lorem ipsum </h1>
+                        <hr className='hr-light' />
+                        <h6 className='mb-4'>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem
+                          repellendus quasi fuga nesciunt dolorum nulla magnam veniam
+                          sapiente, fugiat! Commodi sequi non animi ea dolor molestiae
+                          iste.
+                        </h6>
+                        <MDBBtn outline color='white'>
+                          Learn More
+                        </MDBBtn>
                       </div>
-                    );
-                  }
-                }
-
-                export default ContactFormPage;
+                      <MDBCol md='6' xl='5' className='mb-4'>
+                        <MDBCard className='dark-grey-text'>
+                          <MDBCardBody className='z-depth-2'>
+                            <h3 className='dark-grey-text text-center'>
+                              <strong>Write to us:</strong>
+                            </h3>
+                            <hr />
+                            <MDBInput label='Your name' icon='user' />
+                            <MDBInput label='Your email' icon='envelope' />
+                            <MDBInput
+                              label='Your message'
+                              icon='pencil-alt'
+                              type='textarea'
+                              rows='3'
+                            />
+                            <div className='text-center mt-3 black-text'>
+                              <MDBBtn color='indigo'>Send</MDBBtn>
+                              <hr />
+                              <MDBInput
+                                type='checkbox'
+                                id='checkbox'
+                                label='Subscribe me to the newsletter'
+                              />
+                            </div>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBContainer>
+                </MDBView>
+        
+                <MDBContainer>
+                  <MDBRow className='py-5'>
+                    <MDBCol md='12' className='text-center'>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                        nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                        sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      </p>
+                    </MDBCol>
+                  </MDBRow>
+                </MDBContainer>
+              </div>
+            );
+          }
+        }
+        
+        export default ContactFormPage;
+        
             </code>
       <code data-lang="css" data-name="CSS">
                 #contactformpage .view {
@@ -393,20 +474,21 @@
                   background-repeat: no-repeat;
                   background-size: cover;
                   background-position: center center;
-                  height: 100vh;
+                  min-height: 100vh;
                 }
-
+                
                 #contactformpage h6 {
                   line-height: 1.7;
                 }
-
+                
                 #contactformpage .form-check {
-                  margin-bottom: 0!important;
+                  margin-bottom: 0 !important;
                 }
-
+                
                 #contactformpage i {
-                  color: #9e9e9e!important;
+                  color: #9e9e9e !important;
                 }
+        
             </code>
     </mdbsnippet>
   </section>
@@ -447,69 +529,96 @@
   <section>
     <mdbsnippet>
       <code data-lang="javascript" data-name="JSX">
-        import React, { Component } from "react";
-        import { BrowserRouter as Router } from "react-router-dom";
-        import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBMask, MDBRow, MDBCol,  MDBBtn, MDBView, MDBContainer, MDBFormInline, MDBicon } from "mdbreact";
-
-        class MinimalisticIntro extends Component {
+        import React from 'react';
+        import { BrowserRouter as Router } from 'react-router-dom';
+        import {
+          MDBNavbar,
+          MDBNavbarBrand,
+          MDBNavbarNav,
+          MDBNavItem,
+          MDBNavLink,
+          MDBNavbarToggler,
+          MDBCollapse,
+          MDBMask,
+          MDBRow,
+          MDBCol,
+          MDBFormInline,
+          MDBBtn,
+          MDBView,
+          MDBContainer,
+          MDBIcon
+        } from 'mdbreact';
+        import './CallToActionIntro.css';
+        
+        class CallToActionIntro extends React.Component {
           state = {
             collapsed: false
           };
-
+        
           handleTogglerClick = () => {
+            const { collapsed } = this.state;
             this.setState({
-              collapsed: !this.state.collapsed
+              collapsed: !collapsed
             });
           };
-
+        
+          componentDidMount() {
+            document.querySelector('nav').style.height = '65px';
+          }
+        
+          componentWillUnmount() {
+            document.querySelector('nav').style.height = 'auto';
+          }
+        
           render() {
-            const navStyle = { marginTop: "4rem" };
+            const { collapsed } = this.state;
+            const navStyle = { marginTop: '4rem' };
             const overlay = (
               <div
-                id="sidenav-overlay"
-                style={{ backgroundColor: "transparent" }}
+                id='sidenav-overlay'
+                style={{ backgroundColor: 'transparent' }}
                 onClick={this.handleTogglerClick}
               />
             );
             return (
-              <>
+              <div id='caltoaction'>
                 <Router>
                   <div>
                     <MDBNavbar
-                      color="secondary-color"
+                      color='secondary-color'
                       style={navStyle}
-                      dark
-                      expand="md"
-                      fixed="top"
+                      light
+                      expand='md'
+                      fixed='top'
                       scrolling
                       transparent
                     >
                       <MDBContainer>
                         <MDBNavbarBrand>
-                          <strong className="white-text">MDB</strong>
+                          <strong>MDB</strong>
                         </MDBNavbarBrand>
                         <MDBNavbarToggler onClick={this.handleTogglerClick} />
-                        <MDBCollapse isOpen={this.state.collapsed} navbar>
+                        <MDBCollapse isOpen={collapsed} navbar>
                           <MDBNavbarNav left>
                             <MDBNavItem active>
-                              <MDBNavLink to="#!">Home</MDBNavLink>
+                              <MDBNavLink to='#!'>Home</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
-                              <MDBNavLink to="#!">Link</MDBNavLink>
+                              <MDBNavLink to='#!'>Link</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
-                              <MDBNavLink to="#!">Profile</MDBNavLink>
+                              <MDBNavLink to='#!'>Profile</MDBNavLink>
                             </MDBNavItem>
                           </MDBNavbarNav>
                           <MDBNavbarNav right>
                             <MDBNavItem>
                               <MDBFormInline waves>
-                                <div className="md-form my-0">
+                                <div className='md-form my-0'>
                                   <input
-                                    className="form-control mr-sm-2"
-                                    type="text"
-                                    placeholder="Search"
-                                    aria-label="Search"
+                                    className='form-control mr-sm-2'
+                                    type='text'
+                                    placeholder='Search'
+                                    aria-label='Search'
                                   />
                                 </div>
                               </MDBFormInline>
@@ -518,31 +627,49 @@
                         </MDBCollapse>
                       </MDBContainer>
                     </MDBNavbar>
-                    {this.state.collapsed && overlay}
+                    {collapsed && overlay}
                   </div>
                 </Router>
-                <MDBView src={`https://mdbootstrap.com/img/Photos/Others/gradient2.png`} >
-                  <MDBMask className="rgba-purple-slight d-flex justify-content-center align-items-center">
-                    <MDBContainer>
-                      <MDBRow>
-                        <MDBCol md="12" className="mb-4 text-center">
-                          <h1 className="display-4 font-weight-bold mb-0 pt-md-5 pt-5" >Our New Course is Ready</h1>
-                          <h5 className="pt-md-5 pt-sm-2 pt-5 pb-md-5 pb-sm-3 pb-5">It comes
-                             with a lot of new features, easy to follow videos and images. Check it out now!</h5>
-                          <MDBBtn rounded className="btn-purple"><MDBIcon icon="user" className="mr-2"></MDBIcon> Sign up!</MDBBtn>
-                          <MDBBtn outline color="purple" rounded ><MDBIcon icon="book" className="mr-2"></MDBIcon> Learn more</MDBBtn>
-                        </MDBCol>
-                      </MDBRow>
-                    </MDBContainer>
-                  </MDBMask>
+                <MDBView src='https://mdbootstrap.com/img/Photos/Others/gradient2.png'>
+                  <MDBMask className='rgba-purple-slight ' />
+                  <MDBContainer
+                    style={{ height: '100%', width: '100%', paddingTop: '14rem' }}
+                    className='d-flex justify-content-center align-items-center'
+                  >
+                    <MDBRow>
+                      <MDBCol md='12' className='mb-4 text-center'>
+                        <h1 className='display-4 font-weight-bold mb-0 pt-md-5 pt-5'>
+                          Our New Course is Ready
+                        </h1>
+                        <h5 className='pt-md-5 pt-sm-2 pt-5 pb-md-5 pb-sm-3 pb-5'>
+                          It comes with a lot of new features, easy to follow videos and
+                          images. Check it out now!
+                        </h5>
+                        <MDBBtn rounded className='btn-purple'>
+                          <MDBIcon icon='user' className='mr-2' /> Sign up!
+                        </MDBBtn>
+                        <MDBBtn outline color='purple' rounded>
+                          <MDBIcon icon='book' className='mr-2' /> Learn more
+                        </MDBBtn>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBContainer>
                 </MDBView>
-              </>
+              </div>
             );
           }
         }
-
-        export default MinimalisticIntro;
+        
+        export default CallToActionIntro;
+        
             </code>
+            <code data-lang="css" data-name="CSS">
+              #caltoaction .view {
+                min-height: 100vh !important;
+                height: unset !important;
+              }
+              
+          </code>
     </mdbsnippet>
   </section>
   <!--Section: Code-->
@@ -582,69 +709,91 @@
   <section>
     <mdbsnippet>
       <code data-lang="javascript" data-name="JSX">
-        import React, { Component } from "react";
-        import { BrowserRouter as Router } from "react-router-dom";
-        import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBMask, MDBRow, MDBCol,  MDBBtn, MDBView, MDBContainer, MDBFormInline } from "mdbreact";
-
-        class MinimalisticIntro extends Component {
+        import React from 'react';
+        import { BrowserRouter as Router } from 'react-router-dom';
+        import {
+          MDBNavbar,
+          MDBNavbarBrand,
+          MDBNavbarNav,
+          MDBNavItem,
+          MDBNavLink,
+          MDBNavbarToggler,
+          MDBCollapse,
+          MDBMask,
+          MDBRow,
+          MDBCol,
+          MDBFormInline,
+          MDBBtn,
+          MDBView,
+          MDBContainer
+        } from 'mdbreact';
+        import './ParallaxIntro.css';
+        
+        class ParallaxIntro extends React.Component {
           state = {
             collapsed: false
           };
-
+        
           handleTogglerClick = () => {
             this.setState({
               collapsed: !this.state.collapsed
             });
           };
-
+          componentDidMount() {
+            document.querySelector('nav').style.height = '65px';
+          }
+          componentWillUnmount() {
+            document.querySelector('nav').style.height = 'auto';
+          }
           render() {
-            const navStyle = { marginTop: "4rem" };
+            const navStyle = { marginTop: '4rem' };
             const overlay = (
               <div
-                id="sidenav-overlay"
-                style={{ backgroundColor: "transparent" }}
+                id='sidenav-overlay'
+                style={{ backgroundColor: 'transparent' }}
                 onClick={this.handleTogglerClick}
               />
             );
+        
+            const { collapsed } = this.state;
             return (
-              <>
+              <div id='parallaxintro'>
                 <Router>
                   <div>
                     <MDBNavbar
-                      color="primary-color"
+                      color='primary-color'
                       style={navStyle}
                       dark
-                      expand="md"
-                      fixed="top"
+                      expand='md'
+                      fixed='top'
                       scrolling
                       transparent
                     >
                       <MDBContainer>
                         <MDBNavbarBrand>
-                          <strong className="white-text">MDB</strong>
+                          <MDBNavLink to='https://mdbootstrap.com/'>
+                            <strong className='white-text'>MDB</strong>
+                          </MDBNavLink>
                         </MDBNavbarBrand>
                         <MDBNavbarToggler onClick={this.handleTogglerClick} />
-                        <MDBCollapse isOpen={this.state.collapsed} navbar>
+                        <MDBCollapse isOpen={collapsed} navbar>
                           <MDBNavbarNav left>
-                            <MDBNavItem active>
-                              <MDBNavLink to="#!">Home</MDBNavLink>
+                            <MDBNavItem>
+                              <MDBNavLink to='#'>Home</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
-                              <MDBNavLink to="#!">Link</MDBNavLink>
-                            </MDBNavItem>
-                            <MDBNavItem>
-                              <MDBNavLink to="#!">Profile</MDBNavLink>
+                              <MDBNavLink to='#'>About</MDBNavLink>
                             </MDBNavItem>
                           </MDBNavbarNav>
                           <MDBNavbarNav right>
                             <MDBNavItem>
                               <MDBFormInline waves>
-                                <div className="md-form my-0">
+                                <div className='md-form my-0'>
                                   <input
-                                    className="form-control mr-sm-2"
-                                    type="text"
-                                    placeholder="Search"
-                                    aria-label="Search"
+                                    className='form-control mr-sm-2'
+                                    type='text'
+                                    placeholder='Search'
+                                    aria-label='Search'
                                   />
                                 </div>
                               </MDBFormInline>
@@ -653,67 +802,118 @@
                         </MDBCollapse>
                       </MDBContainer>
                     </MDBNavbar>
-                    {this.state.collapsed && overlay}
+                    {collapsed && overlay}
                   </div>
                 </Router>
-                <MDBView src={`https://mdbootstrap.com/img/Photos/Others/images/76.jpg`} fixed>
-                  <MDBMask className="rgba-white-light d-flex justify-content-center align-items-center">
-                    <MDBContainer>
-                      <MDBRow>
-                        <MDBCol md="12" className="mb-4 white-text text-center">
-                          <h1 class="display-3 mb-0 pt-md-5 pt-5 white-text font-weight-bold" >NATALIE <span className="indigo-text font-weight-bold">SMITH</span></h1>
-                          <hr className="hr-light my-4" />
-                          <h5 className="text-uppercase pt-md-5 pt-sm-2 pt-5 pb-md-5 pb-sm-3 pb-5 white-text font-weight-bold">Web developer & graphic designer</h5>
-                          <MDBBtn className="white btn-light-blue" size="lg">portfolio</MDBBtn>
-                          <MDBBtn className="white btn-indigo" size="lg" >About me</MDBBtn>
-                        </MDBCol>
-                      </MDBRow>
-                    </MDBContainer>
-                  </MDBMask>
+                <MDBView
+                  src={'https://mdbootstrap.com/img/Photos/Others/images/76.jpg'}
+                  fixed
+                >
+                  <MDBMask className='rgba-white-light' />
+                  <MDBContainer
+                    className='d-flex justify-content-center align-items-center'
+                    style={{ height: '100%', width: '100%', paddingTop: '15rem' }}
+                  >
+                    <MDBRow>
+                      <MDBCol md='12' className='mb-4 white-text text-center'>
+                        <h1 className='display-3 mb-0 pt-md-5 pt-5 white-text font-weight-bold'>
+                          MDB
+                          <span className='indigo-text font-weight-bold'>Parallax</span>
+                        </h1>
+                        <hr className='hr-light my-4' />
+                        <h5 className='text-uppercase pt-md-5 pt-sm-2 pt-5 pb-md-5 pb-sm-3 pb-5 white-text font-weight-bold'>
+                          Check documentation to see how to use MDBParallax
+                        </h5>
+                        <MDBBtn
+                          className='btn-indigo'
+                          size='lg'
+                          href='https://mdbootstrap.com/docs/react/css/parallax/'
+                          target='_blank'
+                        >
+                          Parallax documentation
+                        </MDBBtn>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBContainer>
                 </MDBView>
                 <main>
                   <MDBContainer>
-                    <MDBRow className="py-5">
-                      <MDBCol md="12" className="text-center">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                          et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                          qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                          totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
-                          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                          consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-                          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-                          tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
-                          quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-                          consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
-                          molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                          et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                          qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                          totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
-                          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                          consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-                          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-                          tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
-                          quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-                          consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
-                          molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+                    <MDBRow className='py-5'>
+                      <MDBCol md='12' className='text-center'>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                          laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                          irure dolor in reprehenderit in voluptate velit esse cillum
+                          dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                          cupidatat non proident, sunt in culpa qui officia deserunt
+                          mollit anim id est laborum.
+                        </p>
+                        <p>
+                          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                          accusantium doloremque laudantium, totam rem aperiam, eaque
+                          ipsa quae ab illo inventore veritatis et quasi architecto
+                          beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+                          quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                          consequuntur magni dolores eos qui ratione voluptatem sequi
+                          nesciunt. Neque porro quisquam est, qui dolorem ipsum quia
+                          dolor sit amet, consectetur, adipisci velit, sed quia non
+                          numquam eius modi tempora incidunt ut labore et dolore magnam
+                          aliquam quaerat voluptatem. Ut enim ad minima veniam, quis
+                          nostrum exercitationem ullam corporis suscipit laboriosam,
+                          nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum
+                          iure reprehenderit qui in ea voluptate velit esse quam nihil
+                          molestiae consequatur, vel illum qui dolorem eum fugiat quo
+                          voluptas nulla pariatur?
+                        </p>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                          laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                          irure dolor in reprehenderit in voluptate velit esse cillum
+                          dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                          cupidatat non proident, sunt in culpa qui officia deserunt
+                          mollit anim id est laborum.
+                        </p>
+                        <p>
+                          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                          accusantium doloremque laudantium, totam rem aperiam, eaque
+                          ipsa quae ab illo inventore veritatis et quasi architecto
+                          beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+                          quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                          consequuntur magni dolores eos qui ratione voluptatem sequi
+                          nesciunt. Neque porro quisquam est, qui dolorem ipsum quia
+                          dolor sit amet, consectetur, adipisci velit, sed quia non
+                          numquam eius modi tempora incidunt ut labore et dolore magnam
+                          aliquam quaerat voluptatem. Ut enim ad minima veniam, quis
+                          nostrum exercitationem ullam corporis suscipit laboriosam,
+                          nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum
+                          iure reprehenderit qui in ea voluptate velit esse quam nihil
+                          molestiae consequatur, vel illum qui dolorem eum fugiat quo
+                          voluptas nulla pariatur?
+                        </p>
                       </MDBCol>
                     </MDBRow>
                   </MDBContainer>
                 </main>
-              </>
+              </div>
             );
           }
         }
-
-        export default MinimalisticIntro;
+        
+        export default ParallaxIntro;
+        
             </code>
+
+            <code data-lang="css" data-name="CSS">
+              #parallaxintro .view {
+                min-height: 100vh !important;
+                height: unset !important;
+              }
+              
+          </code>
     </mdbsnippet>
   </section>
   <!--Section: Code-->
@@ -752,198 +952,273 @@
   <section>
     <mdbsnippet>
       <code data-lang="javascript" data-name="JSX">
-                import React, { Component } from "react";
-                import { BrowserRouter as Router } from "react-router-dom";
-                import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBMask, MDBRow, MDBCol, MDBIcon,
-                  MDBBtn, MDBView, MDBContainer, MDBCard, MDBCardBody, MDBInput, MDBFormInline } from "mdbreact";
-                import "./ClassicFormPage.css";
-
-                class ClassicFormPage extends Component {
-                  state = {
-                    collapseID: ""
-                  };
-
-                  toggleCollapse = collapseID => () =>
-                    this.setState(prevState => ({
-                      collapseID: prevState.collapseID !== collapseID ? collapseID : ""
-                    }));
-
-                  render() {
-                    const navStyle = { marginTop: "4rem" };
-                    const overlay = (
-                      <div
-                        id="sidenav-overlay"
-                        style={{ backgroundColor: "transparent" }}
-                        onClick={this.toggleCollapse("navbarCollapse")}
-                      />
-                    );
-                    return (
-                      <div id="classicformpage">
-                        <Router>
-                          <div>
-                            <MDBNavbar style={navStyle} dark expand="md" fixed="top">
-                              <MDBContainer>
-                                <MDBNavbarBrand>
-                                  <strong className="white-text">MDB</strong>
-                                </MDBNavbarBrand>
-                                <MDBNavbarToggler
-                                  onClick={this.toggleCollapse("navbarCollapse")}
-                                />
-                                <MDBCollapse
-                                  id="navbarCollapse"
-                                  isOpen={this.state.collapseID}
-                                  navbar
-                                >
-                                  <MDBNavbarNav left>
-                                    <MDBNavItem active>
-                                      <MDBNavLink to="#!">Home</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Link</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Profile</MDBNavLink>
-                                    </MDBNavItem>
-                                  </MDBNavbarNav>
-                                  <MDBNavbarNav right>
-                                    <MDBNavItem>
-                                      <MDBFormInline waves>
-                                        <div className="md-form my-0">
-                                          <input
-                                            className="form-control mr-sm-2"
-                                            type="text"
-                                            placeholder="Search"
-                                            aria-label="Search"
-                                          />
-                                        </div>
-                                      </MDBFormInline>
-                                    </MDBNavItem>
-                                  </MDBNavbarNav>
-                                </MDBCollapse>
-                              </MDBContainer>
-                            </MDBNavbar>
-                            {this.state.collapseID && overlay}
-                          </div>
-                        </Router>
-
-                        <MDBView>
-                          <MDBMask className="d-flex justify-content-center align-items-center gradient">
-                            <MDBContainer>
-                              <MDBRow>
-                                <div className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5">
-                                  <h1 className="h1-responsive font-weight-bold">
-                                    Sign up right now!{" "}
-                                  </h1>
-                                  <hr className="hr-light" />
-                                  <h6 className="mb-4">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Rem repellendus quasi fuga nesciunt dolorum nulla magnam
-                                    veniam sapiente, fugiat! Commodi sequi non animi ea dolor
-                                    molestiae, quisquam iste, maiores. Nulla.
-                                  </h6>
-                                  <MDBBtn outline color="white">
-                                    Learn More
-                                  </MDBBtn>
+        import React from 'react';
+        import { BrowserRouter as Router } from 'react-router-dom';
+        import {
+          MDBNavbar,
+          MDBNavbarBrand,
+          MDBNavbarNav,
+          MDBNavItem,
+          MDBNavLink,
+          MDBNavbarToggler,
+          MDBCollapse,
+          MDBMask,
+          MDBRow,
+          MDBCol,
+          MDBIcon,
+          MDBBtn,
+          MDBView,
+          MDBContainer,
+          MDBCard,
+          MDBCardBody,
+          MDBInput,
+          MDBFormInline,
+          MDBAnimation
+        } from 'mdbreact';
+        import './ClassicFormPage.css';
+        
+        class ClassicFormPage extends React.Component {
+          state = {
+            collapseID: ''
+          };
+        
+          toggleCollapse = collapseID => () =>
+            this.setState(prevState => ({
+              collapseID: prevState.collapseID !== collapseID ? collapseID : ''
+            }));
+        
+          componentDidMount() {
+            document.querySelector('nav').style.height = '65px';
+          }
+        
+          componentWillUnmount() {
+            document.querySelector('nav').style.height = 'auto';
+          }
+        
+          render() {
+            const { collapseID } = this.state;
+            const overlay = (
+              <div
+                id='sidenav-overlay'
+                style={{ backgroundColor: 'transparent' }}
+                onClick={this.toggleCollapse('navbarCollapse')}
+              />
+            );
+            return (
+              <div id='classicformpage'>
+                <Router>
+                  <div>
+                    <MDBNavbar
+                      dark
+                      expand='md'
+                      scrolling
+                      fixed='top'
+                      style={{ marginTop: '65px' }}
+                    >
+                      <MDBContainer>
+                        <MDBNavbarBrand>
+                          <strong className='white-text'>MDB</strong>
+                        </MDBNavbarBrand>
+                        <MDBNavbarToggler
+                          onClick={this.toggleCollapse('navbarCollapse')}
+                        />
+                        <MDBCollapse id='navbarCollapse' isOpen={collapseID} navbar>
+                          <MDBNavbarNav left>
+                            <MDBNavItem active>
+                              <MDBNavLink to='#!'>Home</MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink to='#!'>Link</MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink to='#!'>Profile</MDBNavLink>
+                            </MDBNavItem>
+                          </MDBNavbarNav>
+                          <MDBNavbarNav right>
+                            <MDBNavItem>
+                              <MDBFormInline waves>
+                                <div className='md-form my-0'>
+                                  <input
+                                    className='form-control mr-sm-2'
+                                    type='text'
+                                    placeholder='Search'
+                                    aria-label='Search'
+                                  />
                                 </div>
-                                <MDBCol md="6" xl="5" className="mb-4">
-                                  <MDBCard id="classic-card">
-                                    <MDBCardBody className="z-depth-2 white-text">
-                                      <h3 className="text-center">
-                                        <MDBIcon icon="user" /> Register:
-                                      </h3>
-                                      <hr className="hr-light" />
-                                      <MDBInput label="Your name" icon="user" />
-                                      <MDBInput label="Your email" icon="envelope" />
-                                      <MDBInput
-                                        label="Your password"
-                                        icon="lock"
-                                        type="password"
-                                      />
-                                      <div className="text-center mt-4 black-text">
-                                        <MDBBtn color="indigo">Sign Up</MDBBtn>
-                                        <hr className="hr-light" />
-                                        <div className="text-center d-flex justify-content-center white-label">
-                                          <a href="#!" className="p-2 m-2">
-                                            <MDBIcon fab icon="twitter" className="white-text" />
-                                          </a>
-                                          <a href="#!" className="p-2 m-2">
-                                            <MDBIcon fab icon="linkedin-in" className="white-text" />
-                                          </a>
-                                          <a href="#!" className="p-2 m-2">
-                                            <MDBIcon fab icon="instagram" className="white-text" />
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </MDBCardBody>
-                                  </MDBCard>
-                                </MDBCol>
-                              </MDBRow>
-                            </MDBContainer>
-                          </MDBMask>
-                        </MDBView>
-
-                        <MDBContainer>
-                          <MDBRow className="py-5">
-                            <MDBCol md="12" className="text-center">
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                sunt in culpa qui officia deserunt mollit anim id est laborum.
-                              </p>
-                            </MDBCol>
-                          </MDBRow>
-                        </MDBContainer>
-                      </div>
-                    );
-                  }
-                }
-
-                export default ClassicFormPage;
+                              </MDBFormInline>
+                            </MDBNavItem>
+                          </MDBNavbarNav>
+                        </MDBCollapse>
+                      </MDBContainer>
+                    </MDBNavbar>
+                    {collapseID && overlay}
+                  </div>
+                </Router>
+        
+                <MDBView>
+                  <MDBMask className='d-flex justify-content-center align-items-center gradient' />
+                  <MDBContainer
+                    style={{ height: '100%', width: '100%', paddingTop: '10rem' }}
+                    className='mt-5  d-flex justify-content-center align-items-center'
+                  >
+                    <MDBRow>
+                      <MDBAnimation
+                        type='fadeInLeft'
+                        delay='.3s'
+                        className='white-text text-center text-md-left col-md-6 mt-xl-5 mb-5'
+                      >
+                        <h1 className='h1-responsive font-weight-bold'>
+                          Sign up right now!
+                        </h1>
+                        <hr className='hr-light' />
+                        <h6 className='mb-4'>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem
+                          repellendus quasi fuga nesciunt dolorum nulla magnam veniam
+                          sapiente, fugiat! Commodi sequi non animi ea dolor molestiae,
+                          quisquam iste, maiores. Nulla.
+                        </h6>
+                        <MDBBtn outline color='white'>
+                          Learn More
+                        </MDBBtn>
+                      </MDBAnimation>
+        
+                      <MDBCol md='6' xl='5' className='mb-4'>
+                        <MDBAnimation type='fadeInRight' delay='.3s'>
+                          <MDBCard id='classic-card'>
+                            <MDBCardBody className='white-text'>
+                              <h3 className='text-center'>
+                                <MDBIcon icon='user' /> Register:
+                              </h3>
+                              <hr className='hr-light' />
+                              <MDBInput
+                                className='white-text'
+                                iconClass='white-text'
+                                label='Your name'
+                                icon='user'
+                              />
+                              <MDBInput
+                                className='white-text'
+                                iconClass='white-text'
+                                label='Your email'
+                                icon='envelope'
+                              />
+                              <MDBInput
+                                className='white-text'
+                                iconClass='white-text'
+                                label='Your password'
+                                icon='lock'
+                                type='password'
+                              />
+                              <div className='text-center mt-4 black-text'>
+                                <MDBBtn color='indigo'>Sign Up</MDBBtn>
+                                <hr className='hr-light' />
+                                <div className='text-center d-flex justify-content-center white-label'>
+                                  <a href='#!' className='p-2 m-2'>
+                                    <MDBIcon
+                                      fab
+                                      icon='twitter'
+                                      className='white-text'
+                                    />
+                                  </a>
+                                  <a href='#!' className='p-2 m-2'>
+                                    <MDBIcon
+                                      fab
+                                      icon='linkedin'
+                                      className='white-text'
+                                    />
+                                  </a>
+                                  <a href='#!' className='p-2 m-2'>
+                                    <MDBIcon
+                                      fab
+                                      icon='instagram'
+                                      className='white-text'
+                                    />
+                                  </a>
+                                </div>
+                              </div>
+                            </MDBCardBody>
+                          </MDBCard>
+                        </MDBAnimation>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBContainer>
+                </MDBView>
+        
+                <MDBContainer>
+                  <MDBRow className='py-5'>
+                    <MDBCol md='12' className='text-center'>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                        nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                        sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      </p>
+                    </MDBCol>
+                  </MDBRow>
+                </MDBContainer>
+              </div>
+            );
+          }
+        }
+        
+        export default ClassicFormPage;        
             </code>
       <code data-lang="css" data-name="CSS">
                 #classicformpage .view {
-                  background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg');
+                  background-image: url('http://mdbootstrap.com/img/Photos/Others/images/91.jpg');
                   background-repeat: no-repeat;
                   background-size: cover;
                   background-position: center center;
-                  height: 100vh;
+                  min-height: 100vh;
                 }
-
+                
                 #classicformpage .gradient {
-                  background: -webkit-linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%);
-                  background: -webkit-gradient(linear, 45deg, from(rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%));
-                  background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%);
+                  background: -webkit-linear-gradient(
+                    45deg,
+                    rgba(0, 0, 0, 0.7),
+                    rgba(72, 15, 144, 0.4) 100%
+                  );
+                  background: -webkit-gradient(
+                    linear,
+                    45deg,
+                    from(rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%)
+                  );
+                  background: linear-gradient(
+                    45deg,
+                    rgba(0, 0, 0, 0.7),
+                    rgba(72, 15, 144, 0.4) 100%
+                  );
                 }
-
+                
                 #classicformpage .card {
                   background-color: rgba(126, 123, 215, 0.2);
                 }
-
+                
                 #classicformpage h6 {
                   line-height: 1.7;
                 }
-
+                
                 #classicformpage .navbar {
-                  transition: background .5s ease-in-out,padding .5s ease-in-out;
+                  transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
                 }
-
+                
                 #classicformpage .top-nav-collapse {
                   background: #424f95 !important;
                 }
-
+                
                 @media (max-width: 768px) {
                   #classicformpage .navbar:not(.top-nav-collapse) {
-                      background: #424f95 !important;
+                    background: #424f95 !important;
                   }
                 }
-
+                
                 #classicformpage label {
-                  color: #fff!important;
+                  color: #fff !important;
                 }
+        
 
             </code>
     </mdbsnippet>
@@ -985,150 +1260,185 @@
   <section>
     <mdbsnippet>
       <code data-lang="javascript" data-name="JSX">
-                import React, { Component } from "react";
-                import { BrowserRouter as Router } from "react-router-dom";
-                import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBMask, MDBRow, MDBCol, MDBIcon,   MDBBtn, MDBView, MDBContainer } from "mdbreact";
-                import "./VideoBackgroundPage.css";
-
-                class VideoBackgroundPage extends Component {
-                  state = {
-                    collapseID: ""
-                  };
-
-                  toggleCollapse = collapseID => () =>
-                    this.setState(prevState => ({
-                      collapseID: prevState.collapseID !== collapseID ? collapseID : ""
-                    }));
-
-                  render() {
-                    const navStyle = { marginTop: "4rem" };
-                    const overlay = (
-                      <div
-                        id="sidenav-overlay"
-                        style={{ backgroundColor: "transparent" }}
-                        onClick={this.toggleCollapse("navbarCollapse")}
+        import React from 'react';
+        import { BrowserRouter as Router } from 'react-router-dom';
+        import {
+          MDBNavbar,
+          MDBNavbarBrand,
+          MDBNavbarNav,
+          MDBNavItem,
+          MDBNavLink,
+          MDBNavbarToggler,
+          MDBCollapse,
+          MDBMask,
+          MDBRow,
+          MDBCol,
+          MDBIcon,
+          MDBBtn,
+          MDBView,
+          MDBContainer
+        } from 'mdbreact';
+        import './VideoBackgroundPage.css';
+        
+        class VideoBackgroundPage extends React.Component {
+          state = {
+            collapseID: ''
+          };
+        
+          toggleCollapse = collapseID => () =>
+            this.setState(prevState => ({
+              collapseID: prevState.collapseID !== collapseID ? collapseID : ''
+            }));
+        
+          componentDidMount() {
+            document.querySelector('nav').style.height = '65px';
+          }
+        
+          componentWillUnmount() {
+            document.querySelector('nav').style.height = 'auto';
+          }
+        
+          render() {
+            const { collapseID } = this.state;
+            const navStyle = { marginTop: '4rem' };
+            const overlay = (
+              <div
+                id='sidenav-overlay'
+                style={{ backgroundColor: 'transparent' }}
+                onClick={this.toggleCollapse('navbarCollapse')}
+              />
+            );
+            return (
+              <div id='videobackground'>
+                <Router>
+                  <div>
+                    <MDBNavbar style={navStyle} dark scrolling expand='md' fixed='top'>
+                      <MDBContainer>
+                        <MDBNavbarBrand>
+                          <span className='white-text'>MDBNavbar</span>
+                        </MDBNavbarBrand>
+                        <MDBNavbarToggler
+                          onClick={this.toggleCollapse('navbarCollapse')}
+                        />
+                        <MDBCollapse id='navbarCollapse' isOpen={collapseID} navbar>
+                          <MDBNavbarNav left>
+                            <MDBNavItem>
+                              <MDBNavLink to='#!'>Home</MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink link to='#!'>
+                                About
+                              </MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink link to='#!'>
+                                Features
+                              </MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink link to='#!'>
+                                Services
+                              </MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink link to='#!'>
+                                Opinions
+                              </MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink link to='#!'>
+                                Team
+                              </MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink link to='#!'>
+                                Contact
+                              </MDBNavLink>
+                            </MDBNavItem>
+                          </MDBNavbarNav>
+                          <MDBNavbarNav right>
+                            <MDBNavItem>
+                              <MDBNavLink link to='!#'>
+                                <MDBIcon fab icon='facebook' />
+                              </MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink link to='!#'>
+                                <MDBIcon fab icon='twitter' />
+                              </MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                              <MDBNavLink link to='!#'>
+                                <MDBIcon fab icon='instagram' />
+                              </MDBNavLink>
+                            </MDBNavItem>
+                          </MDBNavbarNav>
+                        </MDBCollapse>
+                      </MDBContainer>
+                    </MDBNavbar>
+                    {collapseID && overlay}
+                  </div>
+                </Router>
+        
+                <MDBView>
+                  <MDBMask className='gradient'>
+                    <video
+                      className='video-intro'
+                      poster='https://mdbootstrap.com/img/Photos/Others/background.jpg'
+                      muted
+                      loop
+                      autoPlay
+                    >
+                      <source
+                        src='https://mdbootstrap.com/img/video/animation.mp4'
+                        type='video/mp4'
                       />
-                    );
-                    return (
-                      <div id="videobackground">
-                        <Router>
-                          <div>
-                            <MDBNavbar style={navStyle} dark expand="md" fixed="top">
-                              <MDBContainer>
-                                <MDBNavbarBrand>
-                                  <span className="white-text">MDBNavbar</span>
-                                </MDBNavbarBrand>
-                                <MDBNavbarToggler
-                                  onClick={this.toggleCollapse("navbarCollapse")}
-                                />
-                                <MDBCollapse
-                                  id="navbarCollapse"
-                                  isOpen={this.state.collapseID}
-                                  navbar
-                                >
-                                  <MDBNavbarNav left>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Home</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">About</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Features</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Services</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Opinions</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Team</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="#!">Contact</MDBNavLink>
-                                    </MDBNavItem>
-                                  </MDBNavbarNav>
-                                  <MDBNavbarNav right>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="!#">
-                                        <MDBIcon fab icon="facebook-f" />
-                                      </MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="!#">
-                                        <MDBIcon fab icon="twitter" />
-                                      </MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                      <MDBNavLink to="!#">
-                                        <MDBIcon fab icon="instagram" />
-                                      </MDBNavLink>
-                                    </MDBNavItem>
-                                  </MDBNavbarNav>
-                                </MDBCollapse>
-                              </MDBContainer>
-                            </MDBNavbar>
-                            {this.state.collapseID && overlay}
-                          </div>
-                        </Router>
-
-                        <MDBView>
-                          <video
-                            className="video-intro"
-                            poster="https://mdbootstrap.com/img/Photos/Others/background.jpg"
-                            playsInline
-                            autoPlay
-                            muted=""
-                            loop
-                          >
-                            <source
-                              src="https://mdbootstrap.com/img/video/animation.mp4"
-                              type="video/mp4"
-                            />
-                          </video>
-                          <MDBMask className="d-flex justify-content-center align-items-center gradient">
-                            <MDBContainer className="px-md-3 px-sm-0">
-                              <MDBRow>
-                                <MDBCol md="12" className="mb-4 white-text text-center">
-                                  <h3 className="display-3 font-weight-bold mb-0 pt-md-5">
-                                    Creative Agency{" "}
-                                  </h3>
-                                  <hr className="hr-light my-4 w-75" />
-                                  <h4 className="subtext-header mt-2 mb-4">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                                    deleniti consequuntur nihil.
-                                  </h4>
-                                  <MDBBtn outline rounded color="white">
-                                    <MDBIcon icon="home" /> Visit us
-                                  </MDBBtn>
-                                </MDBCol>
-                              </MDBRow>
-                            </MDBContainer>
-                          </MDBMask>
-                        </MDBView>
-
-                        <MDBContainer>
-                          <MDBRow className="pt-5 pb-4">
-                            <MDBCol md="12" className="text-center">
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                sunt in culpa qui officia deserunt mollit anim id est laborum.
-                              </p>
-                            </MDBCol>
-                          </MDBRow>
-                        </MDBContainer>
-                      </div>
-                    );
-                  }
-                }
-
-                export default VideoBackgroundPage;
+                    </video>
+                  </MDBMask>{' '}
+                  <MDBContainer
+                    className='d-flex justify-content-center align-items-center px-md-3 px-sm-0'
+                    style={{ height: '100vh', width: '100%' }}
+                  >
+                    <MDBRow>
+                      <MDBCol md='12' className='mb-4 white-text text-center'>
+                        <h3 className='display-3 font-weight-bold mb-0 pt-md-5'>
+                          Creative Agency{' '}
+                        </h3>
+                        <hr className='hr-light my-4 w-75' />
+                        <h4 className='subtext-header mt-2 mb-4'>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                          deleniti consequuntur nihil.
+                        </h4>
+                        <MDBBtn outline rounded color='white'>
+                          <MDBIcon icon='home' /> Visit us
+                        </MDBBtn>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBContainer>
+                </MDBView>
+        
+                <MDBContainer>
+                  <MDBRow className='pt-5 pb-4'>
+                    <MDBCol md='12' className='text-center'>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                        nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                        sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      </p>
+                    </MDBCol>
+                  </MDBRow>
+                </MDBContainer>
+              </div>
+            );
+          }
+        }
+        
+        export default VideoBackgroundPage;
+        
             </code>
       <code data-lang="css" data-name="CSS">
                 #videobackground .gradient {
@@ -1136,13 +1446,24 @@
                   background: -webkit-linear-gradient(45deg, rgba(213, 15, 61, 0.6), rgba(13, 17, 198, 0.69) 100%);
                   background: linear-gradient(45deg, rgba(213, 15, 61, 0.6), rgba(13, 17, 198, 0.69) 100%);
                 }
-
-              #videobackground .view video {
-                top: 0!important;
-                left: 0!important;
-                transform: none!important;
-                height: 100vh;
-              }
+                
+                #videobackground .view video {
+                  z-index: -100;
+                  top: 50%;
+                  left: 50%;
+                  transform: translateX(-50%) translateY(-50%);
+                  transition: 1s opacity;
+                  min-width: 100%;
+                  min-height: 100%;
+                  width: auto;
+                  height: auto;
+                }
+                
+                #videobackground .view {
+                
+                  min-height: 100vh;
+                }
+        
             </code>
     </mdbsnippet>
   </section>
@@ -1183,69 +1504,96 @@
   <section>
     <mdbsnippet>
       <code data-lang="javascript" data-name="JSX">
-        import React, { Component } from "react";
-        import { BrowserRouter as Router } from "react-router-dom";
-        import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBMask, MDBRow, MDBCol,  MDBBtn, MDBView, MDBContainer, MDBFormInline } from "mdbreact";
-
-        class MinimalisticIntro extends Component {
+        import React from 'react';
+        import { BrowserRouter as Router } from 'react-router-dom';
+        import {
+          MDBNavbar,
+          MDBNavbarBrand,
+          MDBNavbarNav,
+          MDBNavItem,
+          MDBNavLink,
+          MDBNavbarToggler,
+          MDBCollapse,
+          MDBMask,
+          MDBRow,
+          MDBCol,
+          MDBFormInline,
+          MDBBtn,
+          MDBView,
+          MDBContainer
+        } from 'mdbreact';
+        import './MinimalisticIntro.css';
+        
+        class MinimalisticIntro extends React.Component {
           state = {
             collapsed: false
           };
-
+        
           handleTogglerClick = () => {
+            const { collapsed } = this.state;
+        
             this.setState({
-              collapsed: !this.state.collapsed
+              collapsed: !collapsed
             });
           };
-
+        
+          componentDidMount() {
+            document.querySelector('nav').style.height = '65px';
+          }
+        
+          componentWillUnmount() {
+            document.querySelector('nav').style.height = 'auto';
+          }
+        
           render() {
-            const navStyle = { marginTop: "4rem" };
+            const { collapsed } = this.state;
+            const navStyle = { marginTop: '4rem' };
             const overlay = (
               <div
-                id="sidenav-overlay"
-                style={{ backgroundColor: "transparent" }}
+                id='sidenav-overlay'
+                style={{ backgroundColor: 'transparent' }}
                 onClick={this.handleTogglerClick}
               />
             );
             return (
-              <>
+              <div id='minimalistintro'>
                 <Router>
                   <div>
                     <MDBNavbar
-                      color="primary-color"
+                      color='primary-color'
                       style={navStyle}
                       dark
-                      expand="md"
-                      fixed="top"
+                      expand='md'
+                      fixed='top'
                       scrolling
                       transparent
                     >
                       <MDBContainer>
                         <MDBNavbarBrand>
-                          <strong className="white-text">MDB</strong>
+                          <strong className='white-text'>MDB</strong>
                         </MDBNavbarBrand>
                         <MDBNavbarToggler onClick={this.handleTogglerClick} />
-                        <MDBCollapse isOpen={this.state.collapsed} navbar>
+                        <MDBCollapse isOpen={collapsed} navbar>
                           <MDBNavbarNav left>
                             <MDBNavItem active>
-                              <MDBNavLink to="#!">Home</MDBNavLink>
+                              <MDBNavLink to='#!'>Home</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
-                              <MDBNavLink to="#!">Link</MDBNavLink>
+                              <MDBNavLink to='#!'>Link</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
-                              <MDBNavLink to="#!">Profile</MDBNavLink>
+                              <MDBNavLink to='#!'>Profile</MDBNavLink>
                             </MDBNavItem>
                           </MDBNavbarNav>
                           <MDBNavbarNav right>
                             <MDBNavItem>
                               <MDBFormInline waves>
-                                <div className="md-form my-0">
+                                <div className='md-form my-0'>
                                   <input
-                                    className="form-control mr-sm-2"
-                                    type="text"
-                                    placeholder="Search"
-                                    aria-label="Search"
+                                    className='form-control mr-sm-2'
+                                    type='text'
+                                    placeholder='Search'
+                                    aria-label='Search'
                                   />
                                 </div>
                               </MDBFormInline>
@@ -1254,31 +1602,49 @@
                         </MDBCollapse>
                       </MDBContainer>
                     </MDBNavbar>
-                    {this.state.collapsed && overlay}
+                    {collapsed && overlay}
                   </div>
                 </Router>
-                <MDBView src={`https://mdbootstrap.com/img/Photos/Others/img%20%2848%29.jpg`}>
-                  <MDBMask className="rgba-black-light d-flex justify-content-center align-items-center">
-                    <MDBContainer>
-                      <MDBRow>
-                        <MDBCol md="12" className="mb-4 white-text text-center">
-                          <h1 className="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 ">Minimalist intro</h1>
-                          <hr className="hr-light my-4" />
-                          <h5 className="text-uppercase mb-4 white-text "><strong>Photography & design</strong></h5>
-                          <MDBBtn outline color="white">portfolio</MDBBtn>
-                          <MDBBtn outline color="white">About me</MDBBtn>
-                        </MDBCol>
-                      </MDBRow>
-                    </MDBContainer>
-                  </MDBMask>
+                <MDBView src='https://mdbootstrap.com/img/Photos/Others/img%20%2848%29.jpg'>
+                  <MDBMask className='rgba-black-light' />
+                  <MDBContainer
+                    className='d-flex justify-content-center align-items-center'
+                    style={{ height: '100%', width: '100%', paddingTop: '17rem' }}
+                  >
+                    <MDBRow>
+                      <MDBCol md='12' className='mb-4 white-text text-center'>
+                        <h1 className='h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 '>
+                          Minimalist intro
+                        </h1>
+                        <hr className='hr-light my-4' />
+                        <h5 className='text-uppercase mb-4 white-text '>
+                          <strong>Photography & design</strong>
+                        </h5>
+                        <MDBBtn outline color='white'>
+                          portfolio
+                        </MDBBtn>
+                        <MDBBtn outline color='white'>
+                          About me
+                        </MDBBtn>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBContainer>
                 </MDBView>
-              </>
+              </div>
             );
           }
         }
-
+        
         export default MinimalisticIntro;
+        
             </code>
+            <code data-lang="css" data-name="CSS">
+              #minimalistintro .view {
+                min-height: 100vh !important;
+                height: unset !important;
+              }
+              
+          </code>
     </mdbsnippet>
   </section>
   <!--Section: Code-->

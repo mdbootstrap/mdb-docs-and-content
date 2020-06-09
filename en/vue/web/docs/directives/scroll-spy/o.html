@@ -1,0 +1,1726 @@
+<style>
+  .scrollspy-example {
+    height: 200px;
+  }
+
+  #mdb-scrollspy-ex .nav-item {
+    width: 100%;
+  }
+
+  #mdb-scrollspy-ex a {
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1.1rem;
+    padding: 0 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: black;
+  }
+
+  #mdb-scrollspy-ex li .active {
+    font-weight: 600;
+  }
+
+  .mdb-scrollspy-ex-example {
+    height: 200px;
+  }
+</style>
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">Scroll Spy</h2>
+
+  <h1 class="secondary-heading mb-4">Vue Bootstrap Scroll Spy - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <div class="description">
+    <p>
+      The <code>v-mdb-scroll-spy</code> directive shows on navigation list
+      current scroll position (the default reference container is window). When
+      successfully implemented, your nav or list group will update accordingly,
+      moving the <code>.active</code> class from one item to the next based on
+      their associated targets - you can modify this behaviour by passing custom
+      callback function.
+    </p>
+    <p>
+      The directive is collecting <code>href</code> attributes from the
+      component it's attached to - it can be used with a variety of components
+      such as mdbNavbar, mdbListGroup and more. It offers the following
+      customization options:
+    </p>
+    <ul>
+      <li>
+        <strong>container</strong> - by default its value is set to
+        <code>window</code>. The directive selects the element with the given ID
+        as the reference container
+      </li>
+      <li>
+        <strong>visible</strong> - the part of the section which needs to be
+        visible in order to activate the corresponding link. Accepts values from
+        0 to 1 (the default value is 0.5)
+      </li>
+      <li>
+        <strong>callback</strong> - name of the method which will be called with
+        the active link's index once it changes
+      </li>
+      <li>
+        <strong>loading</strong> - option available with the <code>async</code> modifier - chnaging its value from <code>true</code> to <code>false</code> will trigger recalculating scrollspy
+      </li>
+    </ul>
+    <p>Adding the <code>.async</code></p> modifier will enable recalculating the directive's data based on <code>loading</code> value.
+  </div>
+
+  <a
+    href="https://vue.mdbootstrap.com/#/directives/scrollspy"
+    target="_blank"
+    class="btn btn-info mt-4 btn-rounded"
+    role="button"
+    >Live Preview
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: Primary color-->
+<!--Section: -->
+<section id="basic-usage">
+  <!--Title-->
+  <h2 class="section-heading">
+    Basic usage
+  </h2>
+
+  <p><strong>Step 1:</strong> Import the directive from 'mdbvue'</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy } from "mdbvue";
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 2: </strong>Add mdbScrollSpy to the
+    <code>directives</code> object
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy } from "mdbvue";
+          export default {
+            directives: {
+              mdbScrollSpy
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 3: </strong>Attach the directive to the navigation container
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <ul v-mdb-scroll-spy>
+            <li><a href="...">Link 1</a></li>
+          </ul>
+        </template>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <p>
+    <strong>Step 4: </strong> If you want to use the ScrollSpy on a certain
+    container or specify the custom callback, pass an object as the directive's
+    value. The method will be called with a href's index as an argument.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div>
+            <ul
+              v-mdb-scroll-spy="{container: 'custom-container', callback: 'customCallback'}"
+            >
+              <li><a href="#section-1">Section 1</a></li>
+            </ul>
+            <div
+              id="custom-container"
+              style="max-height: 100px; overflow-y: scroll;"
+            >
+              <p id="section-1">...</p>
+            </div>
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy, mdbBtn } from "mdbvue";
+          export default {
+            directives: {
+              mdbScrollSpy
+            },
+            methods: {
+              customCallback(i) {
+                //...
+              }
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: Basic example-->
+<section id="basic-example">
+  <!--Title-->
+  <h2 class="title">
+    Tabs example
+    <a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      >MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Description-->
+  <p>
+    To change the reference container from the <code>window</code>, pass the ID
+    as the value of the <code>container</code>.
+  </p>
+  <p class="description">Scroll down to see the effect</p>
+
+  <!--Section: Live preview-->
+  <section>
+    <!-- Nav tabs -->
+    <ul
+      id="navbar-example1"
+      class="nav nav-tabs md-tabs nav-justified indigo mb-4 mx-0"
+    >
+      <li class="nav-item">
+        <a class="nav-link active" href="#panel1">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#panel2">Follow</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#panel3">Contact</a>
+      </li>
+    </ul>
+    <!--Spied element-->
+    <div
+      style="overflow-y: scroll; max-height: 200px;"
+      class="p-3"
+      data-spy="scroll"
+      data-target="#navbar-example1"
+      data-offset="0"
+    >
+      <h4 class="pt-4" id="panel1" class="font-weight-bold">section1</h4>
+      <p>
+        Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim
+        lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights
+        whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+        booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg
+        hoodie minim qui you probably haven't heard of them et cardigan trust
+        fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+        cred irony biodiesel keffiyeh artisan ullamco consequat.
+      </p>
+      <p>
+        Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim
+        lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights
+        whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+        booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg
+        hoodie minim qui you probably haven't heard of them et cardigan trust
+        fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+        cred irony biodiesel keffiyeh artisan ullamco consequat.
+      </p>
+      <h4 class="pt-4" id="panel2" class="font-weight-bold">section2</h4>
+      <p>
+        Veniam marfa mustache skateboard, adipisicing fugiat velit pitchfork
+        beard. Freegan beard aliqua cupidatat mcsweeney's vero. Cupidatat four
+        loko nisi, ea helvetica nulla carles. Tattooed cosby sweater food truck,
+        mcsweeney's quis non freegan vinyl. Lo-fi wes anderson +1 sartorial.
+        Carles non aesthetic exercitation quis gentrify. Brooklyn adipisicing
+        craft beer vice keytar deserunt.
+      </p>
+      <p>
+        Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim
+        lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights
+        whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+        booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg
+        hoodie minim qui you probably haven't heard of them et cardigan trust
+        fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+        cred irony biodiesel keffiyeh artisan ullamco consequat.
+      </p>
+      <h4 class="pt-4" id="panel3" class="font-weight-bold">section3</h4>
+      <p>
+        Occaecat commodo aliqua delectus. Fap craft beer deserunt skateboard ea.
+        Lomo bicycle rights adipisicing banh mi, velit ea sunt next level
+        locavore single-origin coffee in magna veniam. High life id vinyl, echo
+        park consequat quis aliquip banh mi pitchfork. Vero VHS est adipisicing.
+        Consectetur nisi DIY minim messenger bag. Cred ex in, sustainable
+        delectus consectetur fanny pack iphone.
+      </p>
+      <p>
+        Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim
+        lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights
+        whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+        booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg
+        hoodie minim qui you probably haven't heard of them et cardigan trust
+        fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+        cred irony biodiesel keffiyeh artisan ullamco consequat.
+      </p>
+    </div>
+    <!--/.Spied element-->
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <section>
+            <mdb-tab
+              tabs
+              card
+              justify
+              color="default"
+              class="mt-4 mx-4"
+              v-mdb-scroll-spy="{ container: 'scroll-container' }"
+            >
+              <mdb-tab-item
+                v-for="(section, i) in sections"
+                :key="i"
+                :href="`#${section.id}`"
+                :active="tabs === i"
+                @click.native="tabs = i"
+                >{{ section.topic }}</mdb-tab-item
+              >
+            </mdb-tab>
+            <div
+              id="scroll-container"
+              class="mt-5 mx-4"
+              style="max-height: 300px; overflow-y: scroll;"
+            >
+              <div v-for="(section, i) in sections" :key="i" :id="section.id">
+                <h3>{{ section.topic }}</h3>
+                <p>{{ section.text }}</p>
+              </div>
+            </div>
+          </section>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTab, mdbTabItem, mdbScrollSpy } from "mdbvue";
+
+          export default {
+            name: "ScrollSpyProPage",
+            components: {
+              mdbTab,
+              mdbTabItem
+            },
+            data() {
+              return {
+                tabs: 0,
+                sections: [
+                  {
+                    id: "section1",
+                    topic: "section 1",
+                    text:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  },
+                  {
+                    id: "section2",
+                    topic: "section 2",
+                    text:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  },
+                  {
+                    id: "section3",
+                    topic: "section 3",
+                    text:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  }
+                ]
+              };
+            },
+
+            directives: { mdbScrollSpy }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: Basic example-->
+
+<hr class="mt-4 mb-5" />
+<!--Section: -->
+<section id="navbar-example">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Nav example with custom callback
+  </h2>
+
+  <!-- Description -->
+  <p class="description">
+    To modify the default behaviour, pass the name of the method you want to be
+    called with the active link's index once the scroll position changes.
+  </p>
+  <p>
+    Scroll the area below the navbar and watch the active class change. The
+    dropdown items will be highlighted as well.
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="p-1">
+    <nav id="navbar-example2" class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" href="#navbar-example2-fat">@fat</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#navbar-example2-mdo">@mdo</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Dropdown</a
+          >
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#navbar-example2-one">one</a>
+            <a class="dropdown-item" href="#navbar-example2-two">two</a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#navbar-example2-three">three</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <div
+      data-spy="scroll"
+      data-target="#navbar-example2"
+      class="scrollspy-example z-depth-1 mt-4"
+      data-offset="0"
+    >
+      <h4 id="navbar-example2-fat">@fat</h4>
+      <p>
+        Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim
+        lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights
+        whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+        booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg
+        hoodie minim qui you probably haven't heard of them et cardigan trust
+        fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+        cred irony biodiesel keffiyeh artisan ullamco consequat.
+      </p>
+      <h4 id="navbar-example2-mdo">@mdo</h4>
+      <p>
+        Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim
+        lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights
+        whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+        booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg
+        hoodie minim qui you probably haven't heard of them et cardigan trust
+        fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+        cred irony biodiesel keffiyeh artisan ullamco consequat.
+      </p>
+      <h4 id="navbar-example2-one">one</h4>
+      <p>
+        Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim
+        lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights
+        whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+        booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg
+        hoodie minim qui you probably haven't heard of them et cardigan trust
+        fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+        cred irony biodiesel keffiyeh artisan ullamco consequat.
+      </p>
+      <h4 id="navbar-example2-two">two</h4>
+      <p>
+        Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim
+        lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights
+        whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+        booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg
+        hoodie minim qui you probably haven't heard of them et cardigan trust
+        fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+        cred irony biodiesel keffiyeh artisan ullamco consequat.
+      </p>
+      <h4 id="navbar-example2-three">three</h4>
+      <p>
+        Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim
+        lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights
+        whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
+        booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg
+        hoodie minim qui you probably haven't heard of them et cardigan trust
+        fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
+        cred irony biodiesel keffiyeh artisan ullamco consequat.
+      </p>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <section>
+            <mdb-navbar color="grey" class="lighten-4">
+              <mdb-navbar-nav
+                nav
+                right
+                class="nav-pills"
+                v-mdb-scroll-spy="{
+                        container: 'navbar-container',
+                        visible: 0.4,
+                        callback: 'setActiveNavlink'
+                      }"
+              >
+                <mdb-nav-item href="#nav-example-1" :active="nav === 0"
+                  >@fat</mdb-nav-item
+                >
+                <mdb-nav-item href="#nav-example-2" :active="nav === 1"
+                  >@mdo</mdb-nav-item
+                >
+                <mdb-dropdown tag="li" class="nav-item text-primary">
+                  <mdb-dropdown-toggle
+                    tag="a"
+                    :active="nav === 2 || nav === 3 || nav === 4"
+                    navLink
+                    slot="toggle"
+                    waves-fixed
+                    >Dropdown</mdb-dropdown-toggle
+                  >
+                  <mdb-dropdown-menu>
+                    <mdb-dropdown-item href="#one" :active="nav === 2"
+                      >one</mdb-dropdown-item
+                    >
+                    <mdb-dropdown-item href="#two" :active="nav === 3"
+                      >two</mdb-dropdown-item
+                    >
+                    <mdb-dropdown-item href="#three" :active="nav === 4"
+                      >three</mdb-dropdown-item
+                    >
+                  </mdb-dropdown-menu>
+                </mdb-dropdown>
+              </mdb-navbar-nav>
+            </mdb-navbar>
+
+            <div
+              style="overflow-y: scroll; max-height: 200px;"
+              class="p-3"
+              id="navbar-container"
+            >
+              <h4 id="nav-example-1">@fat</h4>
+              <p>
+                Ad leggings keytar, brunch id art party dolor labore. Pitchfork
+                yr enim lo-fi before they sold out qui. Tumblr farm-to-table
+                bicycle rights whatever. Anim keffiyeh carles cardigan. Velit
+                seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater
+                lomo jean shorts, williamsburg hoodie minim qui you probably
+                haven't heard of them et cardigan trust fund culpa biodiesel wes
+                anderson aesthetic. Nihil tattooed accusamus, cred irony
+                biodiesel keffiyeh artisan ullamco consequat.
+              </p>
+              <h4 id="nav-example-2">@mdo</h4>
+              <p>
+                Ad leggings keytar, brunch id art party dolor labore. Pitchfork
+                yr enim lo-fi before they sold out qui. Tumblr farm-to-table
+                bicycle rights whatever. Anim keffiyeh carles cardigan. Velit
+                seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater
+                lomo jean shorts, williamsburg hoodie minim qui you probably
+                haven't heard of them et cardigan trust fund culpa biodiesel wes
+                anderson aesthetic. Nihil tattooed accusamus, cred irony
+                biodiesel keffiyeh artisan ullamco consequat.
+              </p>
+              <h4 id="one">one</h4>
+              <p>
+                Ad leggings keytar, brunch id art party dolor labore. Pitchfork
+                yr enim lo-fi before they sold out qui. Tumblr farm-to-table
+                bicycle rights whatever. Anim keffiyeh carles cardigan. Velit
+                seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater
+                lomo jean shorts, williamsburg hoodie minim qui you probably
+                haven't heard of them et cardigan trust fund culpa biodiesel wes
+                anderson aesthetic. Nihil tattooed accusamus, cred irony
+                biodiesel keffiyeh artisan ullamco consequat.
+              </p>
+              <h4 id="two">two</h4>
+              <p>
+                Ad leggings keytar, brunch id art party dolor labore. Pitchfork
+                yr enim lo-fi before they sold out qui. Tumblr farm-to-table
+                bicycle rights whatever. Anim keffiyeh carles cardigan. Velit
+                seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater
+                lomo jean shorts, williamsburg hoodie minim qui you probably
+                haven't heard of them et cardigan trust fund culpa biodiesel wes
+                anderson aesthetic. Nihil tattooed accusamus, cred irony
+                biodiesel keffiyeh artisan ullamco consequat.
+              </p>
+              <h4 id="three">three</h4>
+              <p>
+                Ad leggings keytar, brunch id art party dolor labore. Pitchfork
+                yr enim lo-fi before they sold out qui. Tumblr farm-to-table
+                bicycle rights whatever. Anim keffiyeh carles cardigan. Velit
+                seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater
+                lomo jean shorts, williamsburg hoodie minim qui you probably
+                haven't heard of them et cardigan trust fund culpa biodiesel wes
+                anderson aesthetic. Nihil tattooed accusamus, cred irony
+                biodiesel keffiyeh artisan ullamco consequat.
+              </p>
+            </div>
+          </section>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import {
+            mdbNavbar,
+            mdbNavbarNav,
+            mdbNavItem,
+            mdbDropdown,
+            mdbDropdownToggle,
+            mdbDropdownMenu,
+            mdbDropdownItem,
+            mdbScrollSpy
+          } from "mdbvue";
+
+          export default {
+            name: "ScrollSpyPage",
+            components: {
+              mdbNavbar,
+              mdbNavbarNav,
+              mdbNavItem,
+              mdbDropdown,
+              mdbDropdownToggle,
+              mdbDropdownMenu,
+              mdbDropdownItem
+            },
+            data() {
+              return {
+                nav: 0
+              };
+            },
+            methods: {
+              setActiveNavlink(i) {
+                this.nav = i;
+              }
+            },
+            directives: { mdbScrollSpy }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="nested-nav-example">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Example with nested nav
+  </h2>
+
+  <!--Description-->
+  <!--Section: Live preview-->
+  <section class="p-1">
+    <div class="row">
+      <div class="col-sm-4 col-lg-3">
+        <nav
+          id="navbar-example3"
+          class="navbar navbar-light bg-light flex-column mt-4"
+        >
+          <a class="navbar-brand" href="#">Navbar</a>
+          <nav class="nav nav-pills flex-column">
+            <a class="nav-link active" href="#item-1">Item 1</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ml-3 my-1" href="#item-1-1">Item 1-1</a>
+              <a class="nav-link ml-3 my-1" href="#item-1-2">Item 1-2</a>
+            </nav>
+            <a class="nav-link" href="#item-2">Item2</a>
+            <a class="nav-link" href="#item-3">Item3</a>
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link ml-3 my-1" href="#item-3-1">Item 3-1</a>
+              <a class="nav-link ml-3 my-1" href="#item-3-2">Item 3-2</a>
+            </nav>
+          </nav>
+        </nav>
+      </div>
+
+      <div class="col-sm-8 col-lg-9">
+        <div
+          data-spy="scroll"
+          class="scrollspy-example z-depth-1 mt-4"
+          data-target="#navbar-example3"
+          data-offset="0"
+          style="height: 360px"
+        >
+          <h4 id="item-1">Item 1</h4>
+          <p>
+            Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr
+            enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle
+            rights whatever. Anim keffiyeh carles cardigan. Velit seitan
+            mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean
+            shorts, williamsburg hoodie minim qui you probably haven't heard of
+            them et cardigan trust fund culpa biodiesel wes anderson aesthetic.
+            Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan
+            ullamco consequat.
+          </p>
+          <h5 id="item-1-1">Item 1-1</h5>
+          <p>
+            Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr
+            enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle
+            rights whatever. Anim keffiyeh carles cardigan. Velit seitan
+            mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean
+            shorts, williamsburg hoodie minim qui you probably haven't heard of
+            them et cardigan trust fund culpa biodiesel wes anderson aesthetic.
+            Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan
+            ullamco consequat.
+          </p>
+          <h5 id="item-1-2">Item 2-2</h5>
+          <p>
+            Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr
+            enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle
+            rights whatever. Anim keffiyeh carles cardigan. Velit seitan
+            mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean
+            shorts, williamsburg hoodie minim qui you probably haven't heard of
+            them et cardigan trust fund culpa biodiesel wes anderson aesthetic.
+            Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan
+            ullamco consequat.
+          </p>
+          <h4 id="item-2">Item 2</h4>
+          <p>
+            Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr
+            enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle
+            rights whatever. Anim keffiyeh carles cardigan. Velit seitan
+            mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean
+            shorts, williamsburg hoodie minim qui you probably haven't heard of
+            them et cardigan trust fund culpa biodiesel wes anderson aesthetic.
+            Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan
+            ullamco consequat.
+          </p>
+          <h4 id="item-3">Item 3</h4>
+          <p>
+            Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr
+            enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle
+            rights whatever. Anim keffiyeh carles cardigan. Velit seitan
+            mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean
+            shorts, williamsburg hoodie minim qui you probably haven't heard of
+            them et cardigan trust fund culpa biodiesel wes anderson aesthetic.
+            Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan
+            ullamco consequat.
+          </p>
+          <h5 id="item-3-1">Item 3-1</h5>
+          <p>
+            Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr
+            enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle
+            rights whatever. Anim keffiyeh carles cardigan. Velit seitan
+            mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean
+            shorts, williamsburg hoodie minim qui you probably haven't heard of
+            them et cardigan trust fund culpa biodiesel wes anderson aesthetic.
+            Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan
+            ullamco consequat.
+          </p>
+          <h5 id="item-3-2">Item 3-2</h5>
+          <p>
+            Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr
+            enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle
+            rights whatever. Anim keffiyeh carles cardigan. Velit seitan
+            mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean
+            shorts, williamsburg hoodie minim qui you probably haven't heard of
+            them et cardigan trust fund culpa biodiesel wes anderson aesthetic.
+            Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan
+            ullamco consequat.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <mdb-col sm="4" lg="3">
+                <mdb-navbar :toggler="false" color="grey" class="lighten-4">
+                  <mdb-navbar-nav
+                    vertical
+                    v-mdb-scroll-spy="{
+                            container: 'nested',
+                            callback: 'setActiveLink'
+                          }"
+                    class="nav-pills"
+                  >
+                    <mdb-nav-item
+                      href="#item-1"
+                      :active="nested === 0 || nested === 1 || nested === 2"
+                      >Item 1</mdb-nav-item
+                    >
+                    <mdb-navbar-nav vertical>
+                      <mdb-nav-item
+                        :active="nested === 1"
+                        class="ml-3 my-1"
+                        href="#item-1-1"
+                        >Item 1-1</mdb-nav-item
+                      >
+                      <mdb-nav-item
+                        :active="nested === 2"
+                        class="ml-3 my-1"
+                        href="#item-1-2"
+                        >Item 1-2</mdb-nav-item
+                      >
+                    </mdb-navbar-nav>
+                    <mdb-nav-item href="#item-2" :active="nested === 3"
+                      >Item 2</mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      href="#item-3"
+                      :active="nested === 4 || nested === 5 || nested === 6"
+                      >Item 3</mdb-nav-item
+                    >
+                    <mdb-navbar-nav vertical>
+                      <mdb-nav-item
+                        :active="nested === 5"
+                        class="ml-3 my-1"
+                        href="#item-3-1"
+                        >Item 3-1</mdb-nav-item
+                      >
+                      <mdb-nav-item
+                        :active="nested === 6"
+                        class="ml-3 my-1"
+                        href="#item-3-2"
+                        >Item 3-2</mdb-nav-item
+                      >
+                    </mdb-navbar-nav>
+                  </mdb-navbar-nav>
+                </mdb-navbar>
+              </mdb-col>
+
+              <mdb-col sm="8" lg="9">
+                <div
+                  class="z-depth-1 p-3"
+                  style="max-height: 325px; overflow-y: scroll;"
+                  id="nested"
+                >
+                  <div id="item-1">
+                    <h4>Item 1</h4>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                  <div id="item-1-1">
+                    <h5>Item 1-1</h5>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                  <div id="item-1-2">
+                    <h5>Item 1-2</h5>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                  <div id="item-2">
+                    <h4>Item 2</h4>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                  <div id="item-3">
+                    <h4>Item 3</h4>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                  <div id="item-3-1">
+                    <h5>Item 3-1</h5>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                  <div id="item-3-2">
+                    <h5>Item 3-2</h5>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                </div>
+              </mdb-col>
+            </mdb-row>
+          </mdb-container>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import {
+            mdbContainer,
+            mdbNavbar,
+            mdbNavbarNav,
+            mdbNavItem,
+            mdbRow,
+            mdbCol,
+            mdbScrollSpy
+          } from "mdbvue";
+
+          export default {
+            name: "ScrollSpyPage",
+            components: {
+              mdbContainer,
+              mdbNavbar,
+              mdbNavbarNav,
+              mdbNavItem,
+              mdbRow,
+              mdbCol
+            },
+            data() {
+              return {
+                nested: 0
+              };
+            },
+            methods: {
+              setActiveLink(i) {
+                this.nested = i;
+              }
+            },
+            directives: { mdbScrollSpy }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="list-group-example">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Example with list-group
+  </h2>
+
+  <!--Section: Live preview-->
+  <section class="p-1">
+    <div class="row">
+      <div class="col-4">
+        <div id="list-example" class="list-group">
+          <a
+            class="list-group-item list-group-item-action active"
+            href="#list-item-1"
+            >Item 1</a
+          >
+          <a class="list-group-item list-group-item-action" href="#list-item-2"
+            >Item2</a
+          >
+          <a class="list-group-item list-group-item-action" href="#list-item-3"
+            >Item 3</a
+          >
+          <a class="list-group-item list-group-item-action" href="#list-item-4"
+            >Item 4</a
+          >
+        </div>
+      </div>
+      <div class="col-8">
+        <div
+          data-spy="scroll"
+          data-target="#list-example"
+          data-offset="0"
+          class="scrollspy-example z-depth-1"
+        >
+          <h4 id="list-item-1">Item 1</h4>
+          <p>
+            Ex consequat commodo adipisicing exercitation aute excepteur
+            occaecat ullamco duis aliqua id magna ullamco eu. Do aute ipsum
+            ipsum ullamco cillum consectetur ut et aute consectetur labore.
+            Fugiat laborum incididunt tempor eu consequat enim dolore proident.
+            Qui laborum do non excepteur nulla magna eiusmod consectetur in.
+            Aliqua et aliqua officia quis et incididunt voluptate non anim
+            reprehenderit adipisicing dolore ut consequat deserunt mollit
+            dolore. Aliquip nulla enim veniam non fugiat id cupidatat nulla elit
+            cupidatat commodo velit ut eiusmod cupidatat elit dolore.
+          </p>
+          <h4 id="list-item-2">Item 2</h4>
+          <p>
+            Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex
+            nulla tempor. Laborum consequat non elit enim exercitation cillum
+            aliqua consequat id aliqua. Esse ex consectetur mollit voluptate est
+            in duis laboris ad sit ipsum anim Lorem. Incididunt veniam velit
+            elit elit veniam Lorem aliqua quis ullamco deserunt sit enim elit
+            aliqua esse irure. Laborum nisi sit est tempor laborum mollit labore
+            officia laborum excepteur commodo non commodo dolor excepteur
+            commodo. Ipsum fugiat ex est consectetur ipsum commodo tempor sunt
+            in proident.
+          </p>
+          <h4 id="list-item-3">Item 3</h4>
+          <p>
+            Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit
+            culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat
+            excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor
+            mollit elit ex pariatur dolore velit fugiat mollit culpa irure
+            ullamco est ex ullamco excepteur.
+          </p>
+          <h4 id="list-item-4">Item 4</h4>
+          <p>
+            Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit
+            culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat
+            excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor
+            mollit elit ex pariatur dolore velit fugiat mollit culpa irure
+            ullamco est ex ullamco excepteur.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-container>
+            <mdb-row>
+              <mdb-col sm="4">
+                <mdb-list-group
+                  v-mdb-scroll-spy="{ container: 'container', callback: 'setActive' }"
+                  class="scrollspy"
+                >
+                  <mdb-list-group-item
+                    action
+                    :active="i === active"
+                    tag="a"
+                    :href="`#${section.id}`"
+                    v-for="(section, i) in scrollSections"
+                    :key="section.id"
+                  >
+                    {{ section.title }}
+                  </mdb-list-group-item>
+                </mdb-list-group>
+              </mdb-col>
+              <mdb-col>
+                <div
+                  class="z-depth-1 p-5"
+                  id="container"
+                  style="height: 500px; overflow-y: scroll"
+                >
+                  <div
+                    v-for="section in scrollSections"
+                    :id="section.id"
+                    :key="section.id"
+                  >
+                    <h5>{{ section.title }}</h5>
+                    <p>{{ section.content }}</p>
+                  </div>
+                </div>
+              </mdb-col>
+            </mdb-row>
+          </mdb-container>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import {
+            mdbContainer,
+            mdbRow,
+            mdbCol,
+            mdbListGroup,
+            mdbListGroupItem,
+            mdbScrollSpy
+          } from "mdbvue";
+
+          export default {
+            name: "ScrollSpyPage",
+            components: {
+              mdbContainer,
+              mdbRow,
+              mdbCol,
+              mdbListGroup,
+              mdbListGroupItem
+            },
+            data() {
+              return {
+                active: 0,
+                nav: 0,
+                scrollSections: [
+                  {
+                    id: "section1",
+                    title: "First title",
+                    content:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  },
+                  {
+                    id: "section2",
+                    title: "Second title",
+                    content:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  },
+                  {
+                    id: "section3",
+                    title: "Third title",
+                    content:
+                      "Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat. Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony biodiesel keffiyeh artisan ullamco consequat."
+                  }
+                ]
+              };
+            },
+            methods: {
+              setActive(i) {
+                this.active = i;
+              }
+            },
+            directives: { mdbScrollSpy }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="mdb-scrollspy">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    MDB Scrollspy
+    <a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      >MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!-- Description -->
+  <p></p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-md-8">
+        <!--Spied element-->
+        <div
+          class="scrollspy-example z-depth-1 text-center p-0"
+          data-spy="scroll"
+          data-target="#mdb-scrollspy-ex"
+          data-offset="0"
+        >
+          <section id="section1" class="blue lighten-4">
+            <h3>
+              <strong>Section 1</strong>
+            </h3>
+
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+              ipsa at provident qui doloremque libero quo non pariatur quaerat
+              iure, nostrum, possimus vitae sequi officiis quasi dolores
+              asperiores earum quis!
+            </p>
+
+            <hr />
+
+            <section id="subsection1A" class=" m-4 red lighten-4">
+              <h4>
+                Subsection 1A
+              </h4>
+
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+                ipsa at provident qui doloremque libero quo non pariatur quaerat
+                iure, nostrum, possimus vitae sequi officiis quasi dolores
+                asperiores earum quis!
+              </p>
+            </section>
+
+            <hr />
+
+            <section id="subsection1B" class=" m-4 green lighten-4">
+              <h4>
+                Subsection 1B
+              </h4>
+
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+                ipsa at provident qui doloremque libero quo non pariatur quaerat
+                iure, nostrum, possimus vitae sequi officiis quasi dolores
+                asperiores earum quis!
+              </p>
+            </section>
+
+            <hr />
+
+            <section id="subsection1C" class=" m-4 indigo lighten-4">
+              <h4>
+                Subsection 1C
+              </h4>
+
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+                ipsa at provident qui doloremque libero quo non pariatur quaerat
+                iure, nostrum, possimus vitae sequi officiis quasi dolores
+                asperiores earum quis!
+              </p>
+            </section>
+          </section>
+
+          <section id="section2" class="blue lighten-4">
+            <h3>
+              <strong>Section 2</strong>
+            </h3>
+
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+              ipsa at provident qui doloremque libero quo non pariatur quaerat
+              iure, nostrum, possimus vitae sequi officiis quasi dolores
+              asperiores earum quis!
+            </p>
+
+            <hr />
+
+            <section id="subsection2A" class=" m-4 red lighten-4">
+              <h4>
+                Subsection 2A
+              </h4>
+
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+                ipsa at provident qui doloremque libero quo non pariatur quaerat
+                iure, nostrum, possimus vitae sequi officiis quasi dolores
+                asperiores earum quis!
+              </p>
+            </section>
+
+            <hr />
+
+            <section id="subsection2B" class=" m-4 green lighten-4">
+              <h4>
+                Subsection 2B
+              </h4>
+
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+                ipsa at provident qui doloremque libero quo non pariatur quaerat
+                iure, nostrum, possimus vitae sequi officiis quasi dolores
+                asperiores earum quis!
+              </p>
+            </section>
+
+            <hr />
+
+            <section id="subsection2C" class=" m-4 indigo lighten-4">
+              <h4>
+                Subsection 2C
+              </h4>
+
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+                ipsa at provident qui doloremque libero quo non pariatur quaerat
+                iure, nostrum, possimus vitae sequi officiis quasi dolores
+                asperiores earum quis!
+              </p>
+            </section>
+          </section>
+        </div>
+        <!--/.Spied element-->
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-3 mb-4">
+        <!--Scrollspy-->
+        <div id="mdb-scrollspy-ex">
+          <!-- Links -->
+          <ul class="nav nav-pills default-pills smooth-scroll">
+            <li class="nav-item">
+              <a class="nav-link" href="#section1">Section 1</a>
+              <ul class="nav ml-3">
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection1A">Subsection 1A</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection1B">Subsection 1B</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection1C">Subsection 1C</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#section1">Section 2</a>
+              <ul class="nav ml-3">
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection2A">Subsection 2A</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection2B">Subsection 2B</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#subsection2C">Subsection 2C</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <!-- Links -->
+        </div>
+        <!--Scrollspy-->
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </section>
+</section>
+
+<!--Section: Code-->
+<section>
+  <mdbsnippet>
+    <code data-lang="html" data-name="template">
+      <template>
+        <mdb-container>
+          <mdb-row>
+            <mdb-col sm="4" lg="3">
+              <mdb-navbar
+                :toggler="false"
+                class="z-depth-0"
+                id="mdb-scrollspy-ex"
+              >
+                <mdb-navbar-nav
+                  vertical
+                  v-mdb-scroll-spy="{
+                          container: 'mdb-scrollspy-container',
+                          callback: 'setActiveLink',
+                          visible: 0.2
+                        }"
+                  class="nav-pills default-pills"
+                >
+                  <mdb-nav-item
+                    href="#section-1"
+                    :active="
+                            nested === 0 || nested === 1 || nested === 2 || nested === 3
+                          "
+                    >Section 1</mdb-nav-item
+                  >
+                  <mdb-navbar-nav vertical>
+                    <mdb-nav-item
+                      :active="nested === 1"
+                      class="ml-3 my-1"
+                      href="#subsection-1a"
+                      >Subsection 1A</mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      :active="nested === 2"
+                      class="ml-3 my-1"
+                      href="#subsection-1b"
+                      >Subsection 1B</mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      :active="nested === 3"
+                      class="ml-3 my-1"
+                      href="#subsection-1c"
+                      >Subsection 1C</mdb-nav-item
+                    >
+                  </mdb-navbar-nav>
+
+                  <mdb-nav-item
+                    href="#section-2"
+                    :active="
+                            nested === 4 || nested === 5 || nested === 6 || nested === 7
+                          "
+                    >Section 2</mdb-nav-item
+                  >
+                  <mdb-navbar-nav vertical>
+                    <mdb-nav-item
+                      :active="nested === 5"
+                      class="ml-3 my-1"
+                      href="#subsection-2a"
+                      >Subsection 2A</mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      :active="nested === 6"
+                      class="ml-3 my-1"
+                      href="#subsection-2b"
+                      >Subsection 2B</mdb-nav-item
+                    >
+                    <mdb-nav-item
+                      :active="nested === 7"
+                      class="ml-3 my-1"
+                      href="#subsection-2c"
+                      >Subsection 2C</mdb-nav-item
+                    >
+                  </mdb-navbar-nav>
+                </mdb-navbar-nav>
+              </mdb-navbar>
+            </mdb-col>
+
+            <mdb-col sm="8" lg="9">
+              <div
+                class="z-depth-1"
+                style="max-height: 325px; overflow-y: scroll;"
+                id="mdb-scrollspy-container"
+              >
+                <div class="blue lighten-4 p-3">
+                  <h4 id="section-1">Section 1</h4>
+                  <p>
+                    Ad leggings keytar, brunch id art party dolor labore.
+                    Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                    farm-to-table bicycle rights whatever. Anim keffiyeh carles
+                    cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon
+                    irure. Cosby sweater lomo jean shorts, williamsburg hoodie
+                    minim qui you probably haven't heard of them et cardigan
+                    trust fund culpa biodiesel wes anderson aesthetic. Nihil
+                    tattooed accusamus, cred irony biodiesel keffiyeh artisan
+                    ullamco consequat.
+                  </p>
+
+                  <div id="subsection-1a" class="red lighten-4 p-3 mt-3">
+                    <h5>Subsection 1A</h5>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                  <div id="subsection-1b" class="green lighten-4 p-3 mt-3">
+                    <h5>Subsection 1B</h5>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                  <div id="subsection-1c" class="indigo lighten-4 p-3 mt-3">
+                    <h4>Subsection 1C</h4>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                </div>
+                <div class="blue lighten-4 p-3">
+                  <h4 id="section-1">Section 2</h4>
+                  <p>
+                    Ad leggings keytar, brunch id art party dolor labore.
+                    Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                    farm-to-table bicycle rights whatever. Anim keffiyeh carles
+                    cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon
+                    irure. Cosby sweater lomo jean shorts, williamsburg hoodie
+                    minim qui you probably haven't heard of them et cardigan
+                    trust fund culpa biodiesel wes anderson aesthetic. Nihil
+                    tattooed accusamus, cred irony biodiesel keffiyeh artisan
+                    ullamco consequat.
+                  </p>
+
+                  <div id="subsection-2a" class="red lighten-4 p-3 mt-3">
+                    <h5>Subsection 2A</h5>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                  <div id="subsection-2b" class="green lighten-4 p-3 mt-3">
+                    <h5>Subsection 2B</h5>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                  <div id="subsection-2c" class="indigo lighten-4 p-3 mt-3">
+                    <h4>Subsection 2C</h4>
+                    <p>
+                      Ad leggings keytar, brunch id art party dolor labore.
+                      Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+                      farm-to-table bicycle rights whatever. Anim keffiyeh
+                      carles cardigan. Velit seitan mcsweeney's photo booth 3
+                      wolf moon irure. Cosby sweater lomo jean shorts,
+                      williamsburg hoodie minim qui you probably haven't heard
+                      of them et cardigan trust fund culpa biodiesel wes
+                      anderson aesthetic. Nihil tattooed accusamus, cred irony
+                      biodiesel keffiyeh artisan ullamco consequat.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </mdb-col>
+          </mdb-row>
+        </mdb-container>
+      </template>
+    </code>
+    <code data-lang="html" data-name="script">
+      <script>
+        import {
+          mdbContainer,
+          mdbRow,
+          mdbCol,
+          mdbNavbar,
+          mdbNavbarNav,
+          mdbNavItem,
+          mdbScrollSpy
+        } from "mdbvue";
+
+        export default {
+          name: "ScrollSpyProPage",
+          components: {
+            mdbContainer,
+            mdbRow,
+            mdbCol,
+            mdbNavbar,
+            mdbNavbarNav,
+            mdbNavItem
+          },
+          data() {
+            return {
+              nested: 1
+            };
+          },
+          methods: {
+            setActiveLink(i) {
+              this.nested = i;
+            }
+          },
+          directives: { mdbScrollSpy }
+        };
+      </script>
+    </code>
+    <code data-lang="html" data-name="style">
+      <style>
+        #mdb-scrollspy-ex .nav-item {
+          width: 100%;
+        }
+
+        #mdb-scrollspy-ex a {
+          font-size: 0.8rem;
+          font-weight: 400;
+          line-height: 1.1rem;
+          padding: 0 5px;
+          margin-top: 3px;
+          margin-bottom: 3px;
+          color: black;
+        }
+
+        #mdb-scrollspy-ex li .active {
+          font-weight: 600;
+        }
+
+        .mdb-scrollspy-ex-example {
+          height: 200px;
+        }
+      </style>
+    </code>
+  </mdbsnippet>
+</section>
+<!--Section: Code-->
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="dotted-scrollspy">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Dotted Scrollspy
+    <a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      >MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Description-->
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+    <a
+      href="https://vue.mdbootstrap.com/#/directives/pro/scrollspy"
+      class="btn btn-primary"
+      target="_blank"
+      >Live Example
+      <i class="fas fa-eye ml-1"></i>
+    </a>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <section>
+            <div class="dotted-scrollspy">
+              <ul
+                class="pl-0 clearfix d-none d-sm-flex flex-column"
+                v-mdb-scroll-spy="{ visible: 1 }"
+              >
+                <li class="nav-item">
+                  <a class="nav-link" href="#dot-1"><span></span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#dot-2"><span></span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#dot-3"><span></span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#dot-4"><span></span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#dot-5"><span></span></a>
+                </li>
+              </ul>
+            </div>
+            <div id="dot-1" class="blue" style="height: 40vh;"></div>
+            <div id="dot-2" class="blue lighten-1" style="height: 40vh;"></div>
+            <div id="dot-3" class="blue lighten-2" style="height: 40vh;"></div>
+            <div id="dot-4" class="blue lighten-3" style="height: 40vh;"></div>
+            <div id="dot-5" class="blue lighten-4" style="height: 40vh;"></div>
+          </section>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbScrollSpy } from "mdbvue";
+
+          export default {
+            directives: { mdbScrollSpy }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->

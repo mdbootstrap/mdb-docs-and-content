@@ -1,0 +1,1755 @@
+<!--Section: Intro-->
+<section id="introduction">
+
+  <style>
+    @supports (--css: variables) {
+      input[type="range"].mdbMultiRange {
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      input[type="range"].mdbMultiRange.original {
+        position: absolute;
+      }
+
+      input[type="range"].mdbMultiRange.original::-webkit-slider-thumb {
+        position: relative;
+        z-index: 2;
+      }
+
+      input[type="range"].mdbMultiRange.original::-moz-range-thumb {
+        transform: scale(1);
+        z-index: 1;
+      }
+
+      input[type="range"].mdbMultiRange::-moz-range-track {
+        border-color: transparent;
+      }
+
+      input[type="range"].mdbMultiRange.ghost {
+        position: relative;
+      }
+
+      input[type="range"].mdbMultiRange.ghost:nth-of-type(n+1) {
+        position: absolute;
+      }
+
+    }
+
+
+    .multi-range-field {
+      position: relative;
+    }
+
+    .multi-range-field input[type=range] {
+      cursor: pointer;
+      position: relative;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      width: 100%;
+      margin: 15px 0px;
+      padding: 0;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border: 1px solid #fff;
+      /* fix for FF unable to apply focus style bug  */
+    }
+
+    .multi-range-field input[type=range]:focus {
+      outline: none;
+    }
+
+    .multi-range-field input[type=range]+.thumb {
+      position: absolute;
+      border: none;
+      height: 0;
+      width: 0;
+      border-radius: 50%;
+      background-color: #4285f4;
+      top: 10px;
+      margin-left: -6px;
+      transform-origin: 50% 50%;
+      transform: rotate(-45deg);
+    }
+
+    .multi-range-field input[type=range]+.thumb .value {
+      display: block;
+      width: 30px;
+      text-align: center;
+      color: #4285f4;
+      font-size: 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    .multi-range-field input[type=range]+.thumb.active {
+      -webkit-border-radius: 50% 50% 50% 0;
+      border-radius: 50% 50% 50% 0;
+    }
+
+    .multi-range-field input[type=range]+.thumb.active .value {
+      color: #fff;
+      margin-left: -1px;
+      margin-top: 8px;
+      font-size: 10px;
+    }
+
+    .multi-range-field input[type=range]::-webkit-slider-runnable-track {
+      height: 3px;
+      background: #c2c0c2;
+      border: none;
+    }
+
+    .multi-range-field input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      border: none;
+      height: 14px;
+      width: 14px;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      background-color: #4285f4;
+      -webkit-transform-origin: 50% 50%;
+      transform-origin: 50% 50%;
+      margin: -5px 0 0 0;
+      -webkit-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s;
+    }
+
+    .multi-range-field input[type=range]:focus::-webkit-slider-runnable-track {
+      background: #ccc;
+    }
+
+    .multi-range-field input[type=range]::-moz-range-track {
+      /*required for proper track sizing in FF*/
+      height: 3px;
+      background: #c2c0c2;
+      border: none;
+    }
+
+    .multi-range-field input[type=range]::-moz-range-thumb {
+      border: none;
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      background: #4285f4;
+      margin-top: -5px;
+    }
+
+    .multi-range-field input[type=range]:-moz-focusring {
+      /*hide the outline behind the border*/
+      outline: 1px solid #fff;
+      outline-offset: -1px;
+    }
+
+    .multi-range-field input[type=range]:focus::-moz-range-track {
+      background: #c2c0c2;
+    }
+
+    .multi-range-field input[type=range]::-ms-track {
+      height: 3px;
+      background: transparent;
+      /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+      border-color: transparent;
+      /*leave room for the larger thumb to overflow with a transparent border */
+      border-width: 6px 0;
+      color: transparent;
+      /*remove default tick marks*/
+    }
+
+    .multi-range-field input[type=range]::-ms-fill-lower {
+      background: #c2c0c2;
+    }
+
+    .multi-range-field input[type=range]::-ms-fill-upper {
+      background: #c2c0c2;
+    }
+
+    .multi-range-field input[type=range]::-ms-thumb {
+      border: none;
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      background: #4285f4;
+    }
+
+    .multi-range-field input[type=range]:focus::-ms-fill-lower {
+      background: #c2c0c2;
+    }
+
+    .multi-range-field input[type=range]:focus::-ms-fill-upper {
+      background: #c2c0c2;
+    }
+
+    .thumb-horizontal-wrapper {
+      position: relative;
+      top: 190px;
+      transform: rotate(-270deg);
+      top: 500px;
+    }
+
+    .multi-range-field input[type=range]+.thumb-horizontal .value {
+      transform: rotate(315deg) !important;
+    }
+  </style>
+
+  <!--Title-->
+  <h2 class="primary-heading mt-3">Sidebar</h2>
+
+  <!-- Subtitle -->
+  <h1 class="secondary-heading mb-4">eCommerce sidebar</h1>
+
+  <!--Description-->
+  <p>Set of design blocks dedicated to building eCommerce sidebars.</p>
+
+  <p>See also a page fully composed of the following elements.</p>
+
+  <a class="btn btn-primary" href="https://mdbootstrap.com/previews/ecommerce-demo/examples/pages/basic/shop.html" role="button" target="_blank">Shop Demo</a>
+
+</section>
+<!--/Section: Intro-->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="sidebar-full-example">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Sidebar full-example
+  </h2>
+
+  <!--Section: Live preview-->
+  <section class="section-preview" style="width: 21.55rem;">
+
+    <!-- Section: Sidebar -->
+    <section>
+
+      <!-- Section: Categories -->
+      <section>
+
+        <h5>Subcategories</h5>
+
+        <div class="text-muted small text-uppercase mb-5">
+          <p class="mb-4">return to <a href="#!" class="card-link-secondary"><strong>Clothing, Shoes,
+                Accessories</strong></a></p>
+
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Dresses</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Tops, Tees & Blouses</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Sweaters</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Fashion Hoodies & Sweatshirts</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Jeans</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Pants</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Skirts</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Shorts</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Leggings</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Active</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Swimsuits & Cover Ups</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Lingerie, Sleep & Lounge</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Jumpsuits, Rompers & Overalls</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Coats, Jackets & Vests</a></p>
+          <p class="mb-3"><a href="#!" class="card-link-secondary">Suiting & Blazers</a></p>
+          <p class="mb-0"><a href="#!" class="card-link-secondary">Socks & Hosiery</a></p>
+        </div>
+
+      </section>
+      <!-- Section: Categories -->
+
+      <!-- Section: Filters -->
+      <section>
+
+        <h5 class="mb-4">Filters</h5>
+
+        <section class="mb-4">
+
+          <div class="md-form md-outline mt-0 d-flex justify-content-between align-items-center">
+            <input type="text" id="search12" class="form-control mb-0" placeholder="Search...">
+            <a href="#!" class="btn btn-flat btn-md px-3 waves-effect"><i class="fas fa-search fa-lg"></i></a>
+          </div>
+
+        </section>
+
+        <!-- Section: Condition -->
+        <section class="mb-4">
+
+          <h6 class="font-weight-bold mb-3">Condition</h6>
+
+          <div class="form-check pl-0 mb-3">
+            <input type="checkbox" class="form-check-input filled-in" id="new">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="new">New</label>
+          </div>
+          <div class="form-check pl-0 mb-3">
+            <input type="checkbox" class="form-check-input filled-in" id="used">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="used">Used</label>
+          </div>
+          <div class="form-check pl-0 mb-3">
+            <input type="checkbox" class="form-check-input filled-in" id="collectible">
+            <label class="form-check-label small text-uppercase card-link-secondary"
+              for="collectible">Collectible</label>
+          </div>
+          <div class="form-check pl-0 mb-3 pb-1">
+            <input type="checkbox" class="form-check-input filled-in" id="renewed">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="renewed">Renewed</label>
+          </div>
+
+        </section>
+        <!-- Section: Condition -->
+
+        <!-- Section: Average -->
+        <section class="mb-4">
+
+          <h6 class="font-weight-bold mb-3">Avg. Customer Review</h6>
+
+          <a href="#!">
+            <ul class="rating">
+              <li>
+                <i class="fas fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="fas fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="fas fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="fas fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="far fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+              </li>
+            </ul>
+          </a>
+          <a href="#!">
+            <ul class="rating">
+              <li>
+                <i class="fas fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="fas fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="fas fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="far fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="far fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+              </li>
+            </ul>
+          </a>
+          <a href="#!">
+            <ul class="rating">
+              <li>
+                <i class="fas fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="fas fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="far fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="far fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="far fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+              </li>
+            </ul>
+          </a>
+          <a href="#!">
+            <ul class="rating">
+              <li>
+                <i class="fas fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="far fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="far fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="far fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <i class="far fa-star fa-sm text-primary"></i>
+              </li>
+              <li>
+                <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+              </li>
+            </ul>
+          </a>
+
+        </section>
+        <!-- Section: Average -->
+
+        <!-- Section: Price -->
+        <section class="mb-4">
+
+          <h6 class="font-weight-bold mb-3">Price</h6>
+
+          <div class="form-check pl-0 mb-3">
+            <input type="radio" class="form-check-input" id="under25" name="materialExampleRadios">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="under25">Under
+              $25</label>
+          </div>
+          <div class="form-check pl-0 mb-3">
+            <input type="radio" class="form-check-input" id="2550" name="materialExampleRadios">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="2550">$25 to
+              $50</label>
+          </div>
+          <div class="form-check pl-0 mb-3">
+            <input type="radio" class="form-check-input" id="50100" name="materialExampleRadios">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="50100">$50 to
+              $100</label>
+          </div>
+          <div class="form-check pl-0 mb-3">
+            <input type="radio" class="form-check-input" id="100200" name="materialExampleRadios">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="100200">$100 to
+              $200</label>
+          </div>
+          <div class="form-check pl-0 mb-3">
+            <input type="radio" class="form-check-input" id="200above" name="materialExampleRadios">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="200above">$200 &
+              Above</label>
+          </div>
+          <form>
+            <div class="d-flex align-items-center mt-4 pb-1">
+              <div class="md-form md-outline my-0">
+                <input id="from" type="text" class="form-control mb-0">
+                <label for="form">$ Min</label>
+              </div>
+              <p class="px-2 mb-0 text-muted"> - </p>
+              <div class="md-form md-outline my-0">
+                <input id="to" type="text" class="form-control mb-0">
+                <label for="to">$ Max</label>
+              </div>
+            </div>
+          </form>
+
+        </section>
+        <!-- Section: Price -->
+
+        <!-- Section: Price version 2 -->
+        <section class="mb-4">
+
+          <h6 class="font-weight-bold mb-3">Price</h6>
+
+          <div class="slider-price d-flex align-items-center my-4">
+            <span class="font-weight-normal small text-muted mr-2">$0</span>
+            <form class="multi-range-field w-100 mb-1">
+              <input id="multi" class="multi-range" type="range" />
+            </form>
+            <span class="font-weight-normal small text-muted ml-2">$100</span>
+          </div>
+
+        </section>
+        <!-- Section: Price version 2 -->
+
+        <!-- Section: Size -->
+        <section class="mb-4">
+
+          <h6 class="font-weight-bold mb-3">Size</h6>
+
+          <div class="form-check pl-0 mb-3">
+            <input type="checkbox" class="form-check-input filled-in" id="34">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="34">34</label>
+          </div>
+          <div class="form-check pl-0 mb-3">
+            <input type="checkbox" class="form-check-input filled-in" id="36">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="36">36</label>
+          </div>
+          <div class="form-check pl-0 mb-3">
+            <input type="checkbox" class="form-check-input filled-in" id="38">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="38">38</label>
+          </div>
+          <div class="form-check pl-0 mb-3">
+            <input type="checkbox" class="form-check-input filled-in" id="40">
+            <label class="form-check-label small text-uppercase card-link-secondary" for="40">40</label>
+          </div>
+          <a class="btn btn-link text-muted p-0" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+            aria-controls="collapseExample">
+            More
+          </a>
+          <div class="collapse pt-3" id="collapseExample">
+            <div class="form-check pl-0 mb-3">
+              <input type="checkbox" class="form-check-input filled-in" id="42">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="42">42</label>
+            </div>
+            <div class="form-check pl-0 mb-3">
+              <input type="checkbox" class="form-check-input filled-in" id="44">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="44">44</label>
+            </div>
+            <div class="form-check pl-0 mb-3">
+              <input type="checkbox" class="form-check-input filled-in" id="46">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="46">46</label>
+            </div>
+            <div class="form-check pl-0 mb-3">
+              <input type="checkbox" class="form-check-input filled-in" id="50">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="50">50</label>
+            </div>
+          </div>
+
+        </section>
+        <!-- Section: Size -->
+
+        <!-- Section: Color -->
+        <section class="mb-4">
+
+          <h6 class="font-weight-bold mb-3">Color</h6>
+
+          <div class="btn-group btn-group-toggle btn-color-group d-block mt-n2 ml-n2" data-toggle="buttons">
+            <label class="btn rounded-circle white border-inset-grey p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle grey p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle black p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle green p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle blue p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle purple p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle yellow p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle indigo p-3 m-2">
+              <input type="checkbox" checked autocomplete="off">
+            </label>
+            <label class="btn rounded-circle red p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle orange p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+          </div>
+
+        </section>
+        <!-- Section: Color -->
+
+      </section>
+      <!-- Section: Filters -->
+
+    </section>
+    <!-- Section: Sidebar -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <!-- Section: Sidebar -->
+        <section>
+    
+          <!-- Section: Categories -->
+          <section>
+
+            <h5>Subcategories</h5>
+            
+            <div class="text-muted small text-uppercase mb-5">
+              <p class="mb-4">return to <a href="#!" class="card-link-secondary"><strong>Clothing, Shoes, Accessories</strong></a></p>
+            
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Dresses</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Tops, Tees & Blouses</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Sweaters</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Fashion Hoodies & Sweatshirts</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Jeans</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Pants</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Skirts</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Shorts</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Leggings</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Active</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Swimsuits & Cover Ups</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Lingerie, Sleep & Lounge</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Jumpsuits, Rompers & Overalls</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Coats, Jackets & Vests</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Suiting & Blazers</a></p>
+              <p class="mb-0"><a href="#!" class="card-link-secondary">Socks & Hosiery</a></p>
+            </div>
+
+          </section>
+          <!-- Section: Categories -->
+
+          <!-- Section: Filters -->
+          <section>
+
+            <h5 class="mb-4">Filters</h5>
+
+            <section class="mb-4">
+
+              <div class="md-form md-outline mt-0 d-flex justify-content-between align-items-center">
+                <input type="text" id="search12" class="form-control mb-0" placeholder="Search...">
+                <a href="#!" class="btn btn-flat btn-md px-3 waves-effect"><i class="fas fa-search fa-lg"></i></a>
+              </div>
+    
+            </section>
+
+            <!-- Section: Condition -->
+            <section class="mb-4">
+
+              <h6 class="font-weight-bold mb-3">Condition</h6>
+
+              <div class="form-check pl-0 mb-3">
+                <input type="checkbox" class="form-check-input filled-in" id="new">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="new">New</label>
+              </div>
+              <div class="form-check pl-0 mb-3">
+                <input type="checkbox" class="form-check-input filled-in" id="used">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="used">Used</label>
+              </div>
+              <div class="form-check pl-0 mb-3">
+                <input type="checkbox" class="form-check-input filled-in" id="collectible">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="collectible">Collectible</label>
+              </div>
+              <div class="form-check pl-0 mb-3 pb-1">
+                <input type="checkbox" class="form-check-input filled-in" id="renewed">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="renewed">Renewed</label>
+              </div>
+
+            </section>
+            <!-- Section: Condition -->
+
+            <!-- Section: Average -->
+            <section class="mb-4">
+
+              <h6 class="font-weight-bold mb-3">Avg. Customer Review</h6>
+
+              <a href="#!">
+                <ul class="rating">
+                  <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+                  </li>
+                </ul>
+              </a>
+              <a href="#!">
+                <ul class="rating">
+                  <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+                  </li>
+                </ul>
+              </a>
+              <a href="#!">
+                <ul class="rating">
+                  <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+                  </li>
+                </ul>
+              </a>
+              <a href="#!">
+                <ul class="rating">
+                  <li>
+                    <i class="fas fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <i class="far fa-star fa-sm text-primary"></i>
+                  </li>
+                  <li>
+                    <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+                  </li>
+                </ul>
+              </a>
+
+            </section>
+            <!-- Section: Average -->
+
+            <!-- Section: Price -->
+            <section class="mb-4">
+
+              <h6 class="font-weight-bold mb-3">Price</h6>
+
+              <div class="form-check pl-0 mb-3">
+                <input type="radio" class="form-check-input" id="under25" name="materialExampleRadios">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="under25">Under $25</label>
+              </div>
+              <div class="form-check pl-0 mb-3">
+                <input type="radio" class="form-check-input" id="2550" name="materialExampleRadios">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="2550">$25 to $50</label>
+              </div>
+              <div class="form-check pl-0 mb-3">
+                <input type="radio" class="form-check-input" id="50100" name="materialExampleRadios">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="50100">$50 to $100</label>
+              </div>
+              <div class="form-check pl-0 mb-3">
+                <input type="radio" class="form-check-input" id="100200" name="materialExampleRadios">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="100200">$100 to $200</label>
+              </div>
+              <div class="form-check pl-0 mb-3">
+                <input type="radio" class="form-check-input" id="200above" name="materialExampleRadios">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="200above">$200 & Above</label>
+              </div>
+              <form>
+                <div class="d-flex align-items-center mt-4 pb-1">
+                  <div class="md-form md-outline my-0">
+                    <input id="from" type="text" class="form-control mb-0">
+                    <label for="form">$ Min</label>
+                  </div>
+                  <p class="px-2 mb-0 text-muted"> - </p>
+                  <div class="md-form md-outline my-0">
+                    <input id="to" type="text" class="form-control mb-0">
+                    <label for="to">$ Max</label>
+                  </div>
+                </div>
+              </form>
+
+            </section>
+            <!-- Section: Price -->
+            
+            <!-- Section: Price version 2 -->
+            <section class="mb-4">
+
+              <h6 class="font-weight-bold mb-3">Price</h6>
+
+              <div class="slider-price d-flex align-items-center my-4">
+                <span class="font-weight-normal small text-muted mr-2">$0</span>
+                <form class="multi-range-field w-100 mb-1">
+                  <input id="multi" class="multi-range" type="range" />
+                </form>
+                <span class="font-weight-normal small text-muted ml-2">$100</span>
+              </div>
+
+            </section>
+            <!-- Section: Price version 2 -->
+
+            <!-- Section: Size -->
+            <section class="mb-4">
+
+              <h6 class="font-weight-bold mb-3">Size</h6>
+
+              <div class="form-check pl-0 mb-3">
+                <input type="checkbox" class="form-check-input filled-in" id="34">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="34">34</label>
+              </div>
+              <div class="form-check pl-0 mb-3">
+                <input type="checkbox" class="form-check-input filled-in" id="36">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="36">36</label>
+              </div>
+              <div class="form-check pl-0 mb-3">
+                <input type="checkbox" class="form-check-input filled-in" id="38">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="38">38</label>
+              </div>
+              <div class="form-check pl-0 mb-3">
+                <input type="checkbox" class="form-check-input filled-in" id="40">
+                <label class="form-check-label small text-uppercase card-link-secondary" for="40">40</label>
+              </div>
+              <a class="btn btn-link text-muted p-0" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                More
+              </a>
+              <div class="collapse pt-3" id="collapseExample">
+                <div class="form-check pl-0 mb-3">
+                  <input type="checkbox" class="form-check-input filled-in" id="42">
+                  <label class="form-check-label small text-uppercase card-link-secondary" for="42">42</label>
+                </div>
+                <div class="form-check pl-0 mb-3">
+                  <input type="checkbox" class="form-check-input filled-in" id="44">
+                  <label class="form-check-label small text-uppercase card-link-secondary" for="44">44</label>
+                </div>
+                <div class="form-check pl-0 mb-3">
+                  <input type="checkbox" class="form-check-input filled-in" id="46">
+                  <label class="form-check-label small text-uppercase card-link-secondary" for="46">46</label>
+                </div>
+                <div class="form-check pl-0 mb-3">
+                  <input type="checkbox" class="form-check-input filled-in" id="50">
+                  <label class="form-check-label small text-uppercase card-link-secondary" for="50">50</label>
+                </div>
+              </div>
+
+            </section>
+            <!-- Section: Size -->
+
+            <!-- Section: Color -->
+            <section class="mb-4">
+
+              <h6 class="font-weight-bold mb-3">Color</h6>
+
+              <div class="btn-group btn-group-toggle btn-color-group d-block mt-n2 ml-n2" data-toggle="buttons">
+                <label class="btn rounded-circle white border-inset-grey p-3 m-2">
+                  <input type="checkbox" autocomplete="off">
+                </label>
+                <label class="btn rounded-circle grey p-3 m-2">
+                  <input type="checkbox" autocomplete="off">
+                </label>
+                <label class="btn rounded-circle black p-3 m-2">
+                  <input type="checkbox" autocomplete="off">
+                </label>
+                <label class="btn rounded-circle green p-3 m-2">
+                  <input type="checkbox" autocomplete="off">
+                </label>
+                <label class="btn rounded-circle blue p-3 m-2">
+                  <input type="checkbox" autocomplete="off">
+                </label>
+                <label class="btn rounded-circle purple p-3 m-2">
+                  <input type="checkbox" autocomplete="off">
+                </label>
+                <label class="btn rounded-circle yellow p-3 m-2">
+                  <input type="checkbox" autocomplete="off">
+                </label>
+                <label class="btn rounded-circle indigo p-3 m-2">
+                  <input type="checkbox" checked autocomplete="off">
+                </label>
+                <label class="btn rounded-circle red p-3 m-2">
+                  <input type="checkbox" autocomplete="off">
+                </label>
+                <label class="btn rounded-circle orange p-3 m-2">
+                  <input type="checkbox" autocomplete="off">
+                </label>
+              </div>
+
+            </section>
+            <!-- Section: Color -->
+
+          </section>
+          <!-- Section: Filters -->
+
+        </section>
+        <!-- Section: Sidebar -->
+
+      </code>
+
+      <code data-lang="js" data-name="JavaScript">
+
+        $('#multi').mdbRange({
+          single: {
+            active: true,
+            multi: {
+              active: true,
+              rangeLength: 1
+            },
+          }
+        });
+
+    </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="search-box">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Search box
+  </h2>
+
+  <!-- Description -->
+  <p>
+
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="" style="width: 21.55rem;">
+
+    <!-- Section: Search Box -->
+    <section class="mb-4">
+
+      <div class="md-form md-outline mt-0 d-flex justify-content-between align-items-center">
+        <input type="text" id="search12" class="form-control mb-0" placeholder="Search...">
+        <a href="#!" class="btn btn-flat btn-md px-3 waves-effect"><i class="fas fa-search fa-lg"></i></a>
+      </div>
+
+    </section>
+    <!-- Section: Search Box -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <!-- Section: Search Box -->
+        <section class="mb-4">
+
+          <div class="md-form md-outline mt-0 d-flex justify-content-between align-items-center">
+            <input type="text" id="search12" class="form-control mb-0" placeholder="Search...">
+            <a href="#!" class="btn btn-flat btn-md px-3 waves-effect"><i class="fas fa-search fa-lg"></i></a>
+          </div>
+
+        </section>
+        <!-- Section: Search Box -->
+  
+        </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="product-categories">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Product categories
+  </h2>
+
+  <!-- Description -->
+  <p>
+
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview" style="width: 21.55rem;">
+
+    <!-- Section: Categories -->
+    <section>
+
+      <h5>Subcategories</h5>
+
+      <div class="text-muted small text-uppercase">
+        <p class="mb-4">return to <a href="#!" class="card-link-secondary"><strong>Clothing, Shoes,
+              Accessories</strong></a></p>
+
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Dresses</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Tops, Tees & Blouses</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Sweaters</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Fashion Hoodies & Sweatshirts</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Jeans</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Pants</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Skirts</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Shorts</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Leggings</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Active</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Swimsuits & Cover Ups</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Lingerie, Sleep & Lounge</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Jumpsuits, Rompers & Overalls</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Coats, Jackets & Vests</a></p>
+        <p class="mb-3"><a href="#!" class="card-link-secondary">Suiting & Blazers</a></p>
+        <p class="mb-0"><a href="#!" class="card-link-secondary">Socks & Hosiery</a></p>
+      </div>
+
+    </section>
+    <!-- Section: Categories -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+          <!-- Section: Categories -->
+          <section>
+
+            <h5>Subcategories</h5>
+            
+            <div class="text-muted small text-uppercase mb-5">
+              <p class="mb-4">return to <a href="#!" class="card-link-secondary"><strong>Clothing, Shoes, Accessories</strong></a></p>
+            
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Dresses</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Tops, Tees & Blouses</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Sweaters</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Fashion Hoodies & Sweatshirts</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Jeans</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Pants</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Skirts</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Shorts</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Leggings</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Active</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Swimsuits & Cover Ups</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Lingerie, Sleep & Lounge</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Jumpsuits, Rompers & Overalls</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Coats, Jackets & Vests</a></p>
+              <p class="mb-3"><a href="#!" class="card-link-secondary">Suiting & Blazers</a></p>
+              <p class="mb-0"><a href="#!" class="card-link-secondary">Socks & Hosiery</a></p>
+            </div>
+
+          </section>
+          <!-- Section: Categories -->
+  
+        </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="checkbox-filter">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Checkbox filter
+  </h2>
+
+  <!-- Description -->
+  <p>
+
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview" style="width: 21.55rem;">
+
+    <!-- Section: Condition -->
+    <section class="">
+
+      <h6 class="font-weight-bold mb-3">Condition</h6>
+
+      <div class="form-check pl-0 mb-3">
+        <input type="checkbox" class="form-check-input filled-in" id="new1">
+        <label class="form-check-label small text-uppercase card-link-secondary" for="new1">New</label>
+      </div>
+      <div class="form-check pl-0 mb-3">
+        <input type="checkbox" class="form-check-input filled-in" id="used1">
+        <label class="form-check-label small text-uppercase card-link-secondary" for="used1">Used</label>
+      </div>
+      <div class="form-check pl-0 mb-3">
+        <input type="checkbox" class="form-check-input filled-in" id="collectible1">
+        <label class="form-check-label small text-uppercase card-link-secondary" for="collectible1">Collectible</label>
+      </div>
+      <div class="form-check pl-0">
+        <input type="checkbox" class="form-check-input filled-in" id="renewed1">
+        <label class="form-check-label small text-uppercase card-link-secondary" for="renewed1">Renewed</label>
+      </div>
+
+    </section>
+    <!-- Section: Condition -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+          <!-- Section: Condition -->
+          <section class="mb-4">
+
+            <h6 class="font-weight-bold mb-3">Condition</h6>
+
+            <div class="form-check pl-0 mb-3">
+              <input type="checkbox" class="form-check-input filled-in" id="new">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="new">New</label>
+            </div>
+            <div class="form-check pl-0 mb-3">
+              <input type="checkbox" class="form-check-input filled-in" id="used">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="used">Used</label>
+            </div>
+            <div class="form-check pl-0 mb-3">
+              <input type="checkbox" class="form-check-input filled-in" id="collectible">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="collectible">Collectible</label>
+            </div>
+            <div class="form-check pl-0 mb-3 pb-1">
+              <input type="checkbox" class="form-check-input filled-in" id="renewed">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="renewed">Renewed</label>
+            </div>
+
+          </section>
+          <!-- Section: Condition -->
+  
+        </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="rating-filter">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Rating filter
+  </h2>
+
+  <!-- Description -->
+  <p>
+
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview" style="width: 21.55rem;">
+
+    <!-- Section: Average -->
+    <section class="">
+
+      <h6 class="font-weight-bold mb-3">Avg. Customer Review</h6>
+
+      <a href="#!">
+        <ul class="rating">
+          <li>
+            <i class="fas fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="fas fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="fas fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="fas fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="far fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+          </li>
+        </ul>
+      </a>
+      <a href="#!">
+        <ul class="rating">
+          <li>
+            <i class="fas fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="fas fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="fas fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="far fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="far fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+          </li>
+        </ul>
+      </a>
+      <a href="#!">
+        <ul class="rating">
+          <li>
+            <i class="fas fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="fas fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="far fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="far fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="far fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+          </li>
+        </ul>
+      </a>
+      <a href="#!">
+        <ul class="rating mb-0">
+          <li>
+            <i class="fas fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="far fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="far fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="far fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <i class="far fa-star fa-sm text-primary"></i>
+          </li>
+          <li>
+            <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+          </li>
+        </ul>
+      </a>
+
+    </section>
+    <!-- Section: Average -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+          <!-- Section: Average -->
+          <section class="mb-4">
+
+            <h6 class="font-weight-bold mb-3">Avg. Customer Review</h6>
+
+            <a href="#!">
+              <ul class="rating">
+                <li>
+                  <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+                </li>
+              </ul>
+            </a>
+            <a href="#!">
+              <ul class="rating">
+                <li>
+                  <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+                </li>
+              </ul>
+            </a>
+            <a href="#!">
+              <ul class="rating">
+                <li>
+                  <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+                </li>
+              </ul>
+            </a>
+            <a href="#!">
+              <ul class="rating">
+                <li>
+                  <i class="fas fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <i class="far fa-star fa-sm text-primary"></i>
+                </li>
+                <li>
+                  <p class="small text-uppercase card-link-secondary px-2">& Up</p>
+                </li>
+              </ul>
+            </a>
+
+          </section>
+          <!-- Section: Average -->
+  
+        </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="radio-buttons-filter">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Radio buttons filter
+  </h2>
+
+  <!-- Description -->
+  <p>
+
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview" style="width: 21.55rem;">
+
+    <!-- Section: Price -->
+    <section class="">
+
+      <h6 class="font-weight-bold mb-3">Price</h6>
+
+      <div class="form-check pl-0 mb-3">
+        <input type="radio" class="form-check-input" id="under251" name="materialExampleRadios">
+        <label class="form-check-label small text-uppercase card-link-secondary" for="under251">Under
+          $25</label>
+      </div>
+      <div class="form-check pl-0 mb-3">
+        <input type="radio" class="form-check-input" id="25501" name="materialExampleRadios">
+        <label class="form-check-label small text-uppercase card-link-secondary" for="25501">$25 to
+          $50</label>
+      </div>
+      <div class="form-check pl-0 mb-3">
+        <input type="radio" class="form-check-input" id="501001" name="materialExampleRadios">
+        <label class="form-check-label small text-uppercase card-link-secondary" for="501001">$50 to
+          $100</label>
+      </div>
+      <div class="form-check pl-0 mb-3">
+        <input type="radio" class="form-check-input" id="1002001" name="materialExampleRadios">
+        <label class="form-check-label small text-uppercase card-link-secondary" for="1002001">$100 to
+          $200</label>
+      </div>
+      <div class="form-check pl-0">
+        <input type="radio" class="form-check-input" id="200above1" name="materialExampleRadios">
+        <label class="form-check-label small text-uppercase card-link-secondary" for="200above1">$200 &
+          Above</label>
+      </div>
+
+    </section>
+    <!-- Section: Price -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+          <!-- Section: Price -->
+          <section class="mb-4">
+
+            <h6 class="font-weight-bold mb-3">Price</h6>
+
+            <div class="form-check pl-0 mb-3">
+              <input type="radio" class="form-check-input" id="under25" name="materialExampleRadios">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="under25">Under $25</label>
+            </div>
+            <div class="form-check pl-0 mb-3">
+              <input type="radio" class="form-check-input" id="2550" name="materialExampleRadios">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="2550">$25 to $50</label>
+            </div>
+            <div class="form-check pl-0 mb-3">
+              <input type="radio" class="form-check-input" id="50100" name="materialExampleRadios">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="50100">$50 to $100</label>
+            </div>
+            <div class="form-check pl-0 mb-3">
+              <input type="radio" class="form-check-input" id="100200" name="materialExampleRadios">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="100200">$100 to $200</label>
+            </div>
+            <div class="form-check pl-0 mb-3">
+              <input type="radio" class="form-check-input" id="200above" name="materialExampleRadios">
+              <label class="form-check-label small text-uppercase card-link-secondary" for="200above">$200 & Above</label>
+            </div>
+
+          </section>
+          <!-- Section: Price -->
+  
+        </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="input-fields-filter">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Input fields filter
+  </h2>
+
+  <!-- Description -->
+  <p>
+
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview" style="width: 21.55rem;">
+
+    <!-- Section: Price -->
+    <section class="">
+
+      <h6 class="font-weight-bold mb-3">Price</h6>
+
+      <form>
+        <div class="d-flex align-items-center mt-4 pb-1">
+          <div class="md-form md-outline my-0">
+            <input id="from1" type="text" class="form-control mb-0">
+            <label for="form1">$ Min</label>
+          </div>
+          <p class="px-2 mb-0 text-muted"> - </p>
+          <div class="md-form md-outline my-0">
+            <input id="to1" type="text" class="form-control mb-0">
+            <label for="to1">$ Max</label>
+          </div>
+        </div>
+      </form>
+
+    </section>
+    <!-- Section: Price -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+          <!-- Section: Price -->
+          <section class="mb-4">
+
+            <h6 class="font-weight-bold mb-3">Price</h6>
+            
+            <form>
+              <div class="d-flex align-items-center mt-4 pb-1">
+                <div class="md-form md-outline my-0">
+                  <input id="from" type="text" class="form-control mb-0">
+                  <label for="form">$ Min</label>
+                </div>
+                <p class="px-2 mb-0 text-muted"> - </p>
+                <div class="md-form md-outline my-0">
+                  <input id="to" type="text" class="form-control mb-0">
+                  <label for="to">$ Max</label>
+                </div>
+              </div>
+            </form>
+
+          </section>
+          <!-- Section: Price -->
+  
+        </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: -->
+<section id="slider-filter">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Slider filter
+  </h2>
+
+  <!-- Description -->
+  <p>
+
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview" style="width: 21.55rem;">
+
+    <!-- Section: Price version 2 -->
+    <section class="mb-4">
+
+      <h6 class="font-weight-bold mb-3">Price</h6>
+
+      <div class="slider-price d-flex align-items-center my-4">
+        <span class="font-weight-normal small text-muted mr-2">$0</span>
+        <form class="multi-range-field w-100 mb-1">
+          <input id="multi1" class="multi-range" type="range" />
+        </form>
+        <span class="font-weight-normal small text-muted ml-2">$100</span>
+      </div>
+
+    </section>
+    <!-- Section: Price version 2 -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+          <!-- Section: Price version 2 -->
+          <section class="mb-4">
+
+            <h6 class="font-weight-bold mb-3">Price</h6>
+
+            <div class="slider-price d-flex align-items-center my-4">
+              <span class="font-weight-normal small text-muted mr-2">$0</span>
+              <form class="multi-range-field w-100 mb-1">
+                <input id="multi1" class="multi-range" type="range" />
+              </form>
+              <span class="font-weight-normal small text-muted ml-2">$100</span>
+            </div>
+
+          </section>
+          <!-- Section: Price version 2 -->
+  
+        </code>
+
+      <code data-lang="js" data-name="JavaScript">
+
+          $('#multi1').mdbRange({
+            single: {
+              active: true,
+              multi: {
+                active: true,
+                rangeLength: 1
+              },
+            }
+          });
+  
+        </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: -->
+
+<hr class="my-5">
+
+<!--Section: Buttons filter-->
+<section id="buttons-filter">
+
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Buttons filter
+  </h2>
+
+  <!-- Description -->
+  <p>
+
+  </p>
+
+  <!--Section: Live preview-->
+  <section class="section-preview">
+
+    <!-- Section: Color -->
+    <section class="mb-4" style="width: 21.55rem;">
+
+      <h6 class="font-weight-bold mb-3">Color</h6>
+
+      <div class="btn-group btn-group-toggle btn-color-group d-block mt-n2 ml-n2" data-toggle="buttons">
+        <label class="btn rounded-circle white border-inset-grey p-3 m-2">
+          <input type="checkbox" autocomplete="off">
+        </label>
+        <label class="btn rounded-circle grey p-3 m-2">
+          <input type="checkbox" autocomplete="off">
+        </label>
+        <label class="btn rounded-circle black p-3 m-2">
+          <input type="checkbox" autocomplete="off">
+        </label>
+        <label class="btn rounded-circle green p-3 m-2">
+          <input type="checkbox" autocomplete="off">
+        </label>
+        <label class="btn rounded-circle blue p-3 m-2">
+          <input type="checkbox" autocomplete="off">
+        </label>
+        <label class="btn rounded-circle purple p-3 m-2">
+          <input type="checkbox" autocomplete="off">
+        </label>
+        <label class="btn rounded-circle yellow p-3 m-2">
+          <input type="checkbox" autocomplete="off">
+        </label>
+        <label class="btn rounded-circle indigo p-3 m-2">
+          <input type="checkbox" checked autocomplete="off">
+        </label>
+        <label class="btn rounded-circle red p-3 m-2">
+          <input type="checkbox" autocomplete="off">
+        </label>
+        <label class="btn rounded-circle orange p-3 m-2">
+          <input type="checkbox" autocomplete="off">
+        </label>
+      </div>
+
+    </section>
+    <!-- Section: Color -->
+
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+
+      <code data-lang="html" data-name="HTML">
+
+        <!-- Section: Color -->
+        <section class="mb-4">
+
+          <h6 class="font-weight-bold mb-3">Color</h6>
+
+          <div class="btn-group btn-group-toggle btn-color-group d-block mt-n2 ml-n2" data-toggle="buttons">
+            <label class="btn rounded-circle white border-inset-grey p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle grey p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle black p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle green p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle blue p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle purple p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle yellow p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle indigo p-3 m-2">
+              <input type="checkbox" checked autocomplete="off">
+            </label>
+            <label class="btn rounded-circle red p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+            <label class="btn rounded-circle orange p-3 m-2">
+              <input type="checkbox" autocomplete="off">
+            </label>
+          </div>
+
+        </section>
+        <!-- Section: Color -->
+
+      </code>
+
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+</section>
+<!--/Section: Buttons filter-->

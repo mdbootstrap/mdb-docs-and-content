@@ -1,0 +1,102 @@
+<script>
+    $(document).ready(function () {
+      const updateStorageResult = (query, key) => {
+        const value = Cookies.getStorage(key) !== undefined ? Cookies.getStorage(key) : '';
+        $(query).html(value)
+      }
+
+      const updateCookieResult = (query, key) => {
+        const value = Cookies.get(key)
+        $(query).html(value)
+      }
+
+      const initDynamicContent = () => {
+        const key = "nextVisit";
+        const value = true;
+        const firstVisitText = "Welcome!"
+        const nextVisitText = "Welcome back!"
+
+        const isNextVisit = Cookies.getStorage(key);
+      
+        if ( isNextVisit ) {
+          $('#dynamic-content-result').html(nextVisitText)
+        } else {
+          $('#dynamic-content-result').html(firstVisitText)
+          Cookies.setStorage(key, true);
+        }
+      }
+
+      $('#basic-example-set-cookie').on('click', () => {
+        const key = "date";
+        const value = new Date();
+        const expirationTime = 1;
+        Cookies.set(key, value, {expires: expirationTime});
+        updateCookieResult('#basic-example-cookie-result', key)
+      })
+
+      $('#basic-example-reset-cookie').on('click', () => {
+        const key = "date";
+        const value = '';
+        const expirationTime = -1;
+        Cookies.set(key, value, {expires: expirationTime});
+        updateCookieResult('#basic-example-cookie-result', key)
+      })
+
+      $('#basic-example-set-storage').on('click', () => {
+        const key = "date";
+        const value = new Date();
+        Cookies.setStorage(key, value);
+        updateStorageResult('#basic-example-storage-result', key);
+      })
+
+      $('#basic-example-reset-storage').on('click', () => {
+        Cookies.removeStorage('date');
+        updateStorageResult('#basic-example-storage-result', 'date');
+      })
+
+      $('#expiration-example-set-storage').on('click', () => {
+        const key = "expiration-example";
+        const value = 'Wait 5 seconds';
+        const expiry = '0.05'
+        Cookies.setStorage(key, value, expiry);
+        updateStorageResult('#expiration-example-storage-result', key);
+      })
+
+      $('#expiration-example-reset-storage').on('click', () => {
+        Cookies.checkExpiry();
+        updateStorageResult('#expiration-example-storage-result', 'expiration-example');
+      })
+
+      $('#dynamic-content-reset').on('click', () => {
+        Cookies.removeStorage('date');
+        updateStorageResult('#dynamic-content-result','date')
+      })
+
+      $('#modal-example').on('click', () => {
+        Cookies.setStorage('modal-example', true)
+        Cookies.removeStorage('hadModal');
+      })
+
+      $('#modal-scoring-example').on('click', () => {
+        Cookies.setStorage('modal-scoring-example', true)
+        Cookies.removeStorage('Counter');
+        Cookies.removeStorage('hasShown');
+      })
+
+      const showModal = Cookies.getStorage('modal-example');
+      if (showModal) {
+        Cookies.showModalNewUser('#example-modal');
+      }
+
+      const showScoringModal = Cookies.getStorage('modal-scoring-example');
+      if (showScoringModal) {
+        Cookies.showModalScoring('#example-scoring-modal', 3);
+      }
+
+      updateCookieResult('#basic-example-cookie-result', "date");
+      updateStorageResult('#basic-example-result', 'date');
+      updateStorageResult('#expiration-example-storage-result', 'expiration-example');
+      
+      initDynamicContent();
+    });
+</script>

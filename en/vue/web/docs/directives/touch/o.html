@@ -1,0 +1,541 @@
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">
+    Touch
+    <a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      >MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <h1 class="secondary-heading mb-4">MDB Vue custom directive</h1>
+
+  <!--Description-->
+  <p>
+    This directive allows you to improve the user experience on touch screens by
+    calling methods on the following custom events: pinch, swipe, doubletap,
+    longtap and pan.
+  </p>
+
+  <a
+    href="https://vue.mdbootstrap.com/#/directives/pro/touch"
+    target="_blank"
+    class="btn btn-info mt-4 btn-rounded"
+    role="button"
+    >Live Preview
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="basic-usage">
+  <!--Title-->
+  <h2 class="section-heading">
+    Basic usage
+  </h2>
+
+  <p><strong>Step 1:</strong> Import the directive from 'mdbvue'</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 2: </strong>Add mdbTouch to the <code>directives</code> object
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+          export default {
+            directives: {
+              mdbTouch
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 3: </strong>Attach the directive, choose one of supported
+    events to an element and pass a callback
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div v-mdb-touch:doubleTap="zoom" />
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+          export default {
+            directives: {
+              mdbTouch
+            },
+            methods: {
+              zoom() {
+                //...
+              }
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <p>
+    <strong>Step 4: </strong>For the swipe event you can additionally use
+    modifiers (left, right, up, down)
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div v-mdb-touch:swipe.left="changeSlide" />
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+          export default {
+            directives: {
+              mdbTouch
+            },
+            methods: {
+              changeSlide() {
+                //...
+              }
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="long-tap">
+  <!--Title-->
+  <h2 class="section-heading">
+    Long tap
+  </h2>
+
+  <p>
+    The <code>v-mdb-touch:longTap</code> calls the chosen method when the touch
+    event on the element lasts longer than 1 second.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <section>
+            <mdb-view
+              src="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg"
+              imgClass="img-fluid"
+            >
+              <transition
+                enter-active-class="animated fadeIn"
+                leave-active-class="animated fadeOut"
+              >
+                <mdb-mask
+                  flex-center
+                  v-if="mask"
+                  overlay="stylish-strong"
+                  text="Hold the button to remove the mask from the image"
+                />
+              </transition>
+            </mdb-view>
+            <mdb-btn
+              v-mdb-touch:longTap="showImage"
+              class="mx-0 mt-2"
+              color="pink"
+              >Tap & hold to show image</mdb-btn
+            >
+          </section>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMask, mdbView, mdbBtn, mdbTouch } from "mdbvue";
+
+          export default {
+            name: "TouchPage",
+            components: {
+              mdbMask,
+              mdbView,
+              mdbBtn
+            },
+            data() {
+              return {
+                mask: true
+              };
+            },
+            methods: {
+              showImage() {
+                this.mask = false;
+              }
+            },
+            directives: { mdbTouch }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="double-tap">
+  <!--Title-->
+  <h2 class="section-heading">
+    Double tap
+  </h2>
+
+  <p>
+    The callback on doubleTap event is called with an object containing
+    <code>origin</code> field - the x and y cooridinates of the user's touch. In
+    this example it allows us to transform origin via CSS
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div
+            class="img-container"
+            v-mdb-touch:doubleTap="resizeImg"
+            ref="img"
+          >
+            <img
+              src="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg"
+              :style="imgStyle"
+              class="w-100"
+            />
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+
+          export default {
+            data() {
+              return {
+                scale: 1,
+                origin: null
+              };
+            },
+            computed: {
+              imgStyle() {
+                return {
+                  transform: `scale(${this.scale})`,
+                  transformOrigin: this.origin
+                    ? `${this.origin.x}px ${this.origin.y}px 0`
+                    : "50% 50% 0"
+                };
+              }
+            },
+            methods: {
+              resizeImg(e) {
+                const rect = this.$refs.img.getBoundingClientRect();
+                this.origin = {
+                  x: e.origin.x - rect.x,
+                  y: e.origin.y - rect.y
+                };
+
+                this.scale === 1 ? (this.scale = 2) : (this.scale = 1);
+              }
+            },
+            directives: { mdbTouch }
+          };
+        </script>
+      </code>
+      <code data-lang="html" data-name="style">
+        <style scoped>
+          .img-container {
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+          }
+
+          .img-container img {
+            transition: transform 0.4s linear;
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="pinch">
+  <!--Title-->
+  <h2 class="section-heading">
+    Pinch
+  </h2>
+
+  <p>
+    The pinch event calls the given method with an object containing two keys -
+    ratio and origin. The first one it the ratio of the distance between user's
+    fingers on <code>touchend</code> to the same distance on
+    <code>touchstart</code> - it's particularly useful for scaling images. The
+    second one, similarly as in doubleTap event, is a pair of coordinates
+    indicating the middle point between the user's fingers.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div class="img-container" v-mdb-touch:pinch="zoom" ref="pinchImg">
+            <img
+              src="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg"
+              class="img-fluid"
+              :style="imgStyle2"
+            />
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+
+          export default {
+            data() {
+              return {
+                scale2: 1,
+                origin2: null
+              };
+            },
+            computed: {
+              imgStyle2() {
+                return {
+                  transform: `scale(${this.scale2})`,
+                  transformOrigin: this.origin2
+                    ? `${this.origin2.x}px ${this.origin2.y}px 0`
+                    : "50% 50% 0"
+                };
+              }
+            },
+            methods: {
+              zoom(e) {
+                const rect = this.$refs.pinchImg.getBoundingClientRect();
+                this.origin2 = {
+                  x: e.origin.x - rect.x,
+                  y: e.origin.y - rect.y
+                };
+                this.scale2 * e.ratio > 1
+                  ? (this.scale2 *= e.ratio)
+                  : (this.scale2 = 1);
+              }
+            },
+            directives: { mdbTouch }
+          };
+        </script>
+      </code>
+      <code data-lang="html" data-name="style">
+        <style scoped>
+          .img-container {
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+          }
+
+          .img-container img {
+            transition: transform 0.4s linear;
+          }
+        </style>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="swipe">
+  <!--Title-->
+  <h2 class="section-heading">
+    Swipe
+  </h2>
+
+  <p>
+    The swipe event comes with several modifiers (left, right, up, down) - each
+    of them will ensure that event will fire only on swipe in that particular
+    direction. If the directive is used without any modifier, the callback
+    method will be called each time the swiping occurs, and the string
+    indicating the direction will be passed as an argument.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div
+            v-mdb-touch:swipe.left="swipeLeft"
+            v-mdb-touch:swipe.right="swipeRight"
+          >
+            <mdb-view
+              src="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg"
+              imgClass="img-fluid"
+            >
+              <mdb-mask :overlay="overlays[activeOverlay]" />
+            </mdb-view>
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMask, mdbView, mdbTouch } from "mdbvue";
+
+          export default {
+            components: {
+              mdbMask,
+              mdbView
+            },
+            data() {
+              return {
+                activeOverlay: 0,
+                overlays: [
+                  "indigo-light",
+                  "indigo-strong",
+                  "blue-light",
+                  "pink-light"
+                ]
+              };
+            },
+            methods: {
+              swipeRight() {
+                if (this.activeOverlay === 0)
+                  this.activeOverlay = this.overlays.length - 1;
+                else this.activeOverlay--;
+              },
+              swipeLeft() {
+                if (this.activeOverlay === this.overlays.length - 1)
+                  this.activeOverlay = 0;
+                this.activeOverlay++;
+              }
+            },
+            directives: { mdbTouch }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="pan">
+  <!--Title-->
+  <h2 class="section-heading">
+    Pan
+  </h2>
+
+  <p>
+    The pan event is useful for dragging elements - every time the user moves a
+    finger on the element to which the directive is attached to, the given
+    method is being called with an argument consisting of two keys:
+    <code>x</code> and <code>y</code> (the values corresponds to the horizontal
+    and vertical translation).
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div v-mdb-touch:pan="pan" style="overflow: hidden; height: 400px;">
+            <img
+              :style="imgStyle3"
+              src="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(47).jpg"
+            />
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbTouch } from "mdbvue";
+
+          export default {
+            data() {
+              return {
+                translate: {
+                  x: 0,
+                  y: 0
+                }
+              };
+            },
+            computed: {
+              imgStyle3() {
+                return {
+                  transform: `translate(${this.translate.x}px, ${this.translate.y}px)`
+                };
+              }
+            },
+            methods: {
+              pan(e) {
+                this.translate = {
+                  x: this.translate.x + e.x,
+                  y: this.translate.y + e.y
+                };
+              }
+            },
+            directives: { mdbTouch }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: -->

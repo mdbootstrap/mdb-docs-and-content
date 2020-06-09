@@ -1,0 +1,446 @@
+<!--Title-->
+<section class="mb-4">
+  <h2 class="primary-heading mb-3">自动完成-API</h2>
+
+  <p>
+    在本节中，您将找到有关自动完成组件的高级信息。您将了解此组件中需要哪些模块，配置该组件有哪些可能性以及可以使用哪些事件和方法来使用它。</p>
+
+  <hr class="mt-4 mb-5" />
+
+  <!--Title-->
+  <h3 class="secondary-heading mb-3">导入账单</h3>
+
+  <!--Section: Code-->
+  <section id="import">
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="&lt;template&gt;">
+        从&amp;#39;mdbvue&amp;#39;导入{mdbAutocomplete};
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<!--Section: props-->
+<section id="proptypes">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    API参考：属性
+  </h2>
+
+  <section>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="th-sm">名称</th>
+          <th class="th-sm">类型</th>
+          <th class="th-sm">默认</th>
+          <th class="th-sm">描述</th>
+          <th class="th-sm">范例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">数据</code></td>
+          <td><i>阵列</i></td>
+          <td><code>[]</code></td>
+          <td>所有可用选项的数组（ <code>串</code> ）</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete：data =“ [&amp;#39;选项1&amp;#39;，&amp;#39;选项2&amp;#39;]” ...
+              ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">isAsync</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>
+            组件将显示加载信息，直到获取数据
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete isAsync ... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">显示所有</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>
+            如果设置为<code>真正</code> ，该组件将在空搜索时显示所有选项
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete showAll ... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">标签</code></td>
+          <td><i>字符串</i></td>
+          <td></td>
+          <td>向组件标签添加描述</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete label =“示例标签” ... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td class="text-nowrap">
+            <code class="highlighter-rouge">占位符</code>
+          </td>
+          <td><i>字符串</i></td>
+          <td></td>
+          <td>向组件占位符添加内容</td>
+          <td class="text-nowrap">
+            <code class="language-markup text-nowrap"
+              >&lt;mdb-autocomplete placeholder =“示例占位符” ...
+              ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">图标</code></td>
+          <td><i>字符串</i></td>
+          <td></td>
+          <td>在输入的左侧站点添加图标</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete icon =“信封” ... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">iconClass</code></td>
+          <td><i>字符串</i></td>
+          <td></td>
+          <td>将自定义类添加到图标</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete icon =“ envelope” iconClass =“黄色文本” ...
+              ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">較遠的 / 较远的 (jiào yuǎn de)</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>将图标的样式设置为常规</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete远... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">定期</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>将图标的样式设置为常规</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete常规... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">Fal</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>设置图标样式为浅色</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete错误... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">明亮</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>设置图标样式为浅色</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete light ... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">很棒</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>将图标的样式设置为品牌</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete fab ... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">品牌</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>将图标的样式设置为品牌</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete品牌... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">時尚潮流</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>将图标的样式设置为双色调</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete时尚... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">双色调</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>将图标的样式设置为双色调</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete duotone ... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">大綱</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>将组件的样式更改为轮廓</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete大纲... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code class="highlighter-rouge text-nowrap">bg</code>
+          </td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>将设计设置为带有背景的动画边框</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete bg ... ></code
+            >
+          </td>
+        </tr>
+
+        <tr>
+          <td><code class="highlighter-rouge">loadingText</code></td>
+          <td><i>字符串</i></td>
+          <td><code>正在加载结果...</code></td>
+          <td>当组件带有<code> isAsync </code>值正在等待数据</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete isAsync loadingText =“ ...” ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">resultText</code></td>
+          <td><i>字符串</i></td>
+          <td><code>未找到结果</code></td>
+          <td>未找到匹配结果时显示的消息</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete resultText =“ ...” ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">滚动</code></td>
+          <td><i>真假值</i></td>
+          <td><code>如果为 true，则幻灯片将没有固定位置</code></td>
+          <td>使下拉菜单在最大高度固定的情况下可滚动</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete :scroll=&quot;false&quot; /></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">显示屏</code></td>
+          <td><i>号码</i></td>
+          <td><code>4</code></td>
+          <td>可滚动容器中一次显示的最大选项数</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete :display=&quot;5&quot; /></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">flipOnScroll</code></td>
+          <td><i>真假值</i></td>
+          <td><code>如果为 true，则幻灯片将没有固定位置</code></td>
+          <td>在滚动事件上启用翻转下拉菜单</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete :flipOnScroll=&quot;false&quot; /></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">禁用</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>禁用自动换行输入</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete禁用/></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">清除</code></td>
+          <td><i>真假值</i></td>
+          <td><code>如果为 true，则幻灯片将没有固定位置</code></td>
+          <td>切换清除按钮的可见性</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete :clearBtn=&quot;false&quot; /></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">filterFunction</code></td>
+          <td><i>功能</i></td>
+          <td><code>（项目，搜索）=> item.toLowerCase（）。indexOf（search.toLowerCase（））> -1</code></td>
+          <td>函数采用两个参数-数据元素和搜索值并返回<code>布尔型</code>值</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete：filterFunction =“ filterFunction” /></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">查验</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>将此属性设置为<code>真正</code>将添加<code>需要</code>嵌套输入字段的属性</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-autocomplete验证/></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">wasValidated</code></td>
+          <td><i>真假值</i></td>
+          <td><code>false</code></td>
+          <td>将此属性设置为<code>真正</code>将已验证的样式添加到组件</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-自动完成验证wasValidated /></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code class="highlighter-rouge text-nowrap">有效反馈</code>
+          </td>
+          <td><i>[字符串，布尔值]</i></td>
+          <td><code>false</code></td>
+          <td>有效的反馈标签</td>
+          <td>
+            <code class="language-markup text-nowrap"
+              >&lt;mdb-input validFeedback =“正确” ... ></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code class="highlighter-rouge text-nowrap">invalidFeedback</code>
+          </td>
+          <td><i>[字符串，布尔值]</i></td>
+          <td><code>false</code></td>
+          <td>无效的反馈标签</td>
+          <td>
+            <code class="language-markup text-nowrap"
+              >&lt;mdb-input：invalidFeedback =“不正确” ... ></code
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>
+<!--/Section: props-->
+
+<hr class="my-5" />
+
+<!--Section: methods-->
+<section id="events">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    API参考：事件和指令
+  </h2>
+
+  <section>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="th-sm">名称</th>
+          <th class="th-sm">描述</th>
+          <th class="th-sm">范例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td><code class="text-nowrap">模型</code></td>
+            <td>允许双向数据绑定</td>
+            <td>
+              <code class="language-markup text-nowrap"
+              >&lt;mdb-autocomplete v-model =“ option” /></code
+              >
+            </td>
+          </tr>
+        <tr>
+          <td><code class="text-nowrap">搜索</code></td>
+          <td>发出搜索值</td>
+          <td>
+            <code class="language-markup text-nowrap"
+              >&lt;mdb-autocomplete @ search =“ handleSearch” /></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">焦点</code></td>
+          <td>
+            根据输入的本机发出<code>焦点</code>事件，即当该领域获得关注时。</td>
+          <td>
+            <code class="language-markup text-nowrap"
+              >&lt;mdb-autocomplete @ focus =“ onFocus” /></code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">模糊</code></td>
+          <td>
+            根据输入的本机发出<code>模糊</code>事件，即当视野失去焦点时。</td>
+          <td>
+            <code class="language-markup text-nowrap"
+              >&lt;mdb-autocomplete @ blur =“ onBlur” /></code
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>

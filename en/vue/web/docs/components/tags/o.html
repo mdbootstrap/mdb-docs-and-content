@@ -52,6 +52,31 @@
   .table a  {
     margin-right: auto !important;
   }
+
+  #chips-btn .chips {
+  position: relative;
+}
+
+#chips-v-model .chip {
+  overflow: hidden;
+}
+
+#chips-btn .add-chip-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  background-color: #eceff1;
+  border-radius: 50%;
+  padding: 0;
+  height: 40px;
+  width: 40px !important;
+}
+
+#chips-btn .add-chip-btn i{
+  position: absolute;
+  top: calc(50% - 6px);
+  left: calc(50% - 9px);
+}
 </style>
 
 <!-- Section: Intro -->
@@ -911,12 +936,11 @@
     </h4>
 
     <!--Description-->
-    <p class="description">Chip input is a component that helps to style and render collections of strings. It accepts <code>placeholder</code> <em>String</em> prop, that gets replaced with <code>secondaryPlaceholder</code>, if present after there is a chip in already. Try adding tags by hitting Enter and deleting them with Backspace or by pressing
-      <strong>X</strong>.</p>
+    <p class="description">Type a new chip input and press the <code>enter</code> key to add it - you can later delete chips with the <code>backspace</code> key or the  <code>x</code> button.</p>
     <!--Section: Live preview-->
     <section>
 
-      <div class="chips chips-placeholder"></div>
+      <div id="mdb-chip-input"><mdb-chip-input placeholder="+Tag"/></div>
 
     </section>
     <!--Section: Live preview-->
@@ -926,7 +950,7 @@
       <mdbsnippet>
         <code data-lang="html" data-name="template">
           <template>
-            <mdb-chip-input placeholder="+Tag" secondaryPlaceholder="Enter a tag"/>
+            <mdb-chip-input placeholder="+Tag"/>
           </template>
         </code>
         <code data-lang="html" data-name="script">
@@ -946,16 +970,16 @@
 
     <!--Subheading-->
     <h4 id="" class="">
-      <strong>Setting initial tags</strong>
+      <strong>Two-way data binding</strong>
     </h4>
 
     <!--Description-->
-    <p class="description">Chip input can use <code>:chips</code> <em>Array</em> prop to render predefined tags.</p>
+    <p class="description">Use <code>v-model</code> directive for two-way data binding</p>
 
     <!--Section: Live preview-->
     <section>
 
-      <div class="chips chips-initial"></div>
+      <div id="chips-v-model"><mdb-chip-input :value="['Tag 1', 'Tag 2']"></mdb-chip-input></div>
 
     </section>
     <!--Section: Live preview-->
@@ -965,7 +989,7 @@
       <mdbsnippet>
         <code data-lang="html" data-name="template">
           <template>
-            <mdb-chip-input :chips="['Tag 1','Tag 2','Tag 3']"/>
+            <mdb-chip-input v-model="['Tag 1', 'Tag 2']"/>
           </template>
         </code>
         <code data-lang="html" data-name="script">
@@ -982,6 +1006,45 @@
       </mdbsnippet>
     </section>
     <!--Section: Code-->
+
+    <!--Subheading-->
+    <h4 id="" class="">
+        <strong>Button</strong>
+      </h4>
+  
+      <!--Description-->
+      <p class="description">For some reasons, the <code>enter</code> key might not always be available - in this case you can provide an additional button to add your chips - just set the property <code>btn</code> to true</p>
+  
+      <!--Section: Live preview-->
+      <section>
+  
+        <div id="chips-btn"><mdb-chip-input :btn="true"></mdb-chip-input></div>
+  
+      </section>
+      <!--Section: Live preview-->
+  
+      <!--Section: Code-->
+      <section>
+        <mdbsnippet>
+          <code data-lang="html" data-name="template">
+            <template>
+              <mdb-chip-input btn/>
+            </template>
+          </code>
+          <code data-lang="html" data-name="script">
+            <script>
+              import { mdbChipInput } from 'mdbvue';
+              export default {
+                name: 'BadgePage',
+                components: {
+                  mdbChipInput
+                }
+              }
+            </script>
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
 
   </section>
   <!--/Section: -->

@@ -1,0 +1,542 @@
+<!--Title-->
+<section class="mb-4">
+  <h2 class="primary-heading mb-3">SideNav - API</h2>
+
+  <p>
+    In this section you will find advanced information about the SideNav
+    component. You will learn which modules are required in this component, what
+    are the possibilities of configuring the component, and what events and
+    methods you can use to work with it.
+  </p>
+
+  <div class="flex-center my-4">
+        <a
+          href="https://vue.mdbootstrap.com/#/navigation/pro/sidenav-playground"
+          target="_blank"
+          class="btn btn-outline-primary btn-lg"
+          role="button"
+        >
+          Open Playground
+        </a>
+    </div>
+
+  <hr class="mt-4 mb-5" />
+
+  <!--Title-->
+  <h3 class="secondary-heading mb-3">Import statement</h3>
+
+  <!--Section: Code-->
+  <section id="import">
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JS">
+        import { mdbSideNav2 } from 'mdbvue';
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+
+<hr class="my-5" />
+
+<!--Section: props-->
+<section id="proptypes">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    API Reference: Properties
+  </h2>
+
+  <section>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="th-sm">Name</th>
+          <th class="th-sm">Type</th>
+          <th class="th-sm">Default</th>
+          <th class="th-sm">Description</th>
+          <th class="th-sm">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td><code class="highlighter-rouge">value</code></td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Opens / closes side navigation</td>
+            <td>
+                <code class="language-markup"
+                >&lt;mdb-side-nav-2 :value="true" ... /&gt;</code
+                >
+            </td>
+        </tr>
+        <tr>
+          <td class="text-nowrap">
+            <code class="highlighter-rouge">data</code>
+          </td>
+          <td><i>Array</i></td>
+          <td><code>[]</code></td>
+          <td>
+            Renders the navigation links - see the required structure below
+          </td>
+          <td>
+            <code class="language-markup text-nowrap"
+              >&lt;mdb-side-nav-2 :data="[{ ... }, { ... }]" /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">over</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>false</code></td>
+          <td>Changes the sidenav position to over</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 over ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">push</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>false</code></td>
+          <td>Makes the sidenav push the content out of its way</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 push ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code class="highlighter-rouge text-nowrap">right</code>
+          </td>
+          <td><i>Boolean</i></td>
+          <td><code>false</code></td>
+          <td>Moves the side nav to the right</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 right ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">duration</code></td>
+          <td><i>Number</i></td>
+          <td><code>300</code></td>
+          <td>
+            Sets the duration of animations (in miliseconds)
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 :duration="200" ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">backdrop</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>true</code></td>
+          <td>
+            Allows to add/remove a backdrop do the navigation with property
+            <code>over</code>
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 :backdrop="false" ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">backdropClass</code></td>
+          <td><i>String, Array</i></td>
+          <td><code>"rgba-black-light"</code></td>
+          <td>Allows to customize a backdrop</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 backdrop-class="rgba-pink-strong" ...
+              /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">slim</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>false</code></td>
+          <td>Changes the side nav style to slim</td>
+          <td>
+            <code class="language-markup">&lt;mdb-side-nav-2 slim /&gt;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">slimCollapsed</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>true</code></td>
+          <td>
+            Determines if the slim sidenav is collapsed to the narrow state
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 slim slim-collapsed="slimCollapsed" ...
+              /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">expandOnHover</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>false</code></td>
+          <td>
+            Allows to expand a slim side nav to wide version on a mouseover
+            event
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 slim expand-on-hover ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">slimWidth</code></td>
+          <td><i>Number</i></td>
+          <td><code>60</code></td>
+          <td>Changes the width of the slim sidenav</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 slim :slim-width="100" ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">width</code></td>
+          <td><i>Number</i></td>
+          <td><code>240</code></td>
+          <td>Changes the default width of the sidenav</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 :width="360" ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">fixedHeader</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>false</code></td>
+          <td>
+            Allows to make the content of the <code>header</code> slot fixed on
+            top
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 fixed-header ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">color</code></td>
+          <td><i>String</i></td>
+          <td><code>"primary"</code></td>
+          <td>
+            Changes the color of active items (see list of available colors
+            below)
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 color="success" ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">sidenavClass</code></td>
+          <td><i>String, Array</i></td>
+          <td><code>[]</code></td>
+          <td>Adds a custom class to the side navigation</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 sidenav-class="danger-color" ... /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code class="highlighter-rouge">groups</code></td>
+          <td><i>Boolean</i></td>
+          <td><code>false</code></td>
+          <td>Allows to render the content in groups</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 groups :data="[]" ... /&gt;</code
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>
+<!--/Section: props-->
+
+<hr class="my-5" />
+
+<!--Section: data structure-->
+<section id="data-structure">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    API Reference: Data structure
+  </h2>
+
+  <p class="note note-info">
+    The <code>data</code> property supports nesting links one level deep - if
+    you need to create more complicated structures, use
+    <code>content</code> slot instead.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="basic">
+        const data = [ 
+            { 
+                name: String, 
+                to: String (use for router-links), 
+                href: String (use for simple anchor tags), 
+                icon: String, 
+                fab: Boolean, 
+                far: Boolean, 
+                fal: Boolean, 
+                fad: Boolean, 
+                children: [ 
+                    { 
+                        name: String, 
+                        to: String, 
+                        href: String 
+                    } 
+                ] 
+            } 
+        ]
+      </code>
+      <code data-lang="javascript" data-name="groups">
+        const data = [
+            {
+                name: String - group name,
+                data: [ 
+                    { 
+                        name: String, 
+                        to: String (use for router-links), 
+                        href: String (use for simple anchor tags), 
+                        icon: String, 
+                        fab: Boolean, 
+                        far: Boolean, 
+                        fal: Boolean, 
+                        fad: Boolean, 
+                        children: [ 
+                            { 
+                                name: String, 
+                                to: String, 
+                                href: String 
+                            } 
+                        ] 
+                    } 
+                ]
+                }
+            ]
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: data structure-->
+
+<!--Section: colors-->
+<section id="colors">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    API Reference: Colors
+  </h2>
+
+  <ul>
+      <li>primary</li>
+      <li>danger</li>
+      <li>warning</li>
+      <li>succsess</li>
+      <li>info</li>
+      <li>default</li>
+      <li>secondary</li>
+      <li>elegant</li>
+      <li>stylish</li>
+      <li>unique</li>
+      <li>special</li>
+      <li>white</li>
+  </ul>
+</section>
+<!--/Section: colors-->
+
+<hr class="my-5" />
+
+<!--Section: methods-->
+<section id="methods">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    API Reference: Methods
+  </h2>
+
+  <section>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="th-sm">Name</th>
+          <th class="th-sm">Parameters</th>
+          <th class="th-sm">Description</th>
+          <th class="th-sm">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code style="word-break: normal">@input</code>
+          </td>
+          <td><i>value</i></td>
+          <td>Emits the value and allows to use two way data binding</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 v-model="show" /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code style="word-break: normal">@itemClick</code>
+          </td>
+          <td>
+            <i
+              >index of link / category, index of the child (if the event was
+              emitted by it)</i
+            >
+          </td>
+          <td>Allows to call a method when the navigation's item is clicked</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 @itemClick="handleItemClick" /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code style="word-break: normal">@toggleSlim</code>
+          </td>
+          <td><i>Boolean (true - sidenav collapsed, false - expanded)</i></td>
+          <td>Allows to control the slim sidenav behaviours from outside</td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 :slimCollapsed="value" @toggleSlim="value =
+              $event" /&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code style="word-break: normal">@setOffset</code>
+          </td>
+          <td><i>Offset (Number in px)</i></td>
+          <td>
+            Allows to create customized behaviour and set additional offsets to
+            the page's elements as the sidenav is being toggled
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2 @setOffset="setOffset" /&gt;</code
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>
+<!--/Section: methods-->
+
+<hr class="my-5" />
+
+<!--Section: slots-->
+<section id="slots">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    API Reference: Slots
+  </h2>
+
+  <section>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="th-sm">Name</th>
+          <th class="th-sm">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code style="word-break: normal">header</code>
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2&gt; &lt;div slot="header"&gt;...&lt;/div&gt;
+              &lt;/mdb-side-nav-2&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code style="word-break: normal">content-header</code>
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2&gt; &lt;div
+              slot="content-header"&gt;...&lt;/div&gt;
+              &lt;/mdb-side-nav-2&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code style="word-break: normal">content</code>
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2&gt; &lt;div slot="content"&gt;...&lt;/div&gt;
+              &lt;/mdb-side-nav-2&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code style="word-break: normal">nav</code>
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2&gt; &lt;div slot="nav"&gt;...&lt;/div&gt;
+              &lt;/mdb-side-nav-2&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code style="word-break: normal">main</code>
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2&gt; &lt;div slot="main"&gt;...&lt;/div&gt;
+              &lt;/mdb-side-nav-2&gt;</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code style="word-break: normal">footer</code>
+          </td>
+          <td>
+            <code class="language-markup"
+              >&lt;mdb-side-nav-2&gt; &lt;div slot="footer"&gt;...&lt;/div&gt;
+              &lt;/mdb-side-nav-2&gt;</code
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>
+<!--/Section: slots-->

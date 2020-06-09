@@ -1,0 +1,412 @@
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">Infinite Scroll <a
+    href="https://mdbootstrap.com/products/vue-ui-kit/"
+    target="_blank"
+    class="btn btn-danger btn-sm"
+    role="button"
+    >MDB Pro component
+    <i class="far fa-gem ml-1"></i>
+  </a></h2>
+
+  <h1 class="secondary-heading mb-4">Vue Bootstrap Infinite Scroll - Bootstrap 4 & Material Design</h1>
+
+  <!--Description-->
+  <p>
+    This directive adds a scroll event listener (to the window or the component
+    it's attached to if it has <code>overflow-y</code> property set to
+    <code>scroll</code>) and calls a callback method every time a user reaches an
+    end of a page/container.
+  </p>
+
+  <a
+    href="https://vue.mdbootstrap.com/#/directives/pro/infinite-scroll"
+    target="_blank"
+    class="btn btn-info mt-4 btn-rounded"
+    role="button"
+    >Live Preview
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: Primary color-->
+<!--Section: -->
+<section id="basic-usage">
+  <!--Title-->
+  <h2 class="section-heading">
+    Basic usage
+  </h2>
+
+  <p><strong>Step 1:</strong> Import the directive from 'mdbvue'</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbInfiniteScroll } from "mdbvue";
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 2: </strong>Add mdbInfiniteScroll to the
+    <code>directives</code> object
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbInfiniteScroll } from "mdbvue";
+          export default {
+            directives: {
+              mdbInfiniteScroll
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>Step 3: </strong>Attach the directive to the container and create a
+    method which will be called every time user reaches the end.
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-list-group
+            v-mdb-infinite-scroll="showMoreItems"
+            flush
+            style="max-height: 255px; overflow-y: scroll;"
+          >
+            <mdb-list-group-item
+              v-for="(activity, i) in visibleActivities"
+              :key="i"
+              social
+              circle
+              iconColor="grey"
+              :icon="activity.icon"
+              >{{ activity.text }}</mdb-list-group-item
+            >
+          </mdb-list-group>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import {
+            mdbListGroup,
+            mdbListGroupItem,
+            mdbinfiniteScroll
+          } from "mdbvue";
+
+          export default {
+            components: {
+              mdbListGroup,
+              mdbListGroupItem
+            },
+            data() {
+              return {
+                activities: [
+                  {
+                    icon: "swimmer",
+                    text: "Swimming"
+                  },
+                  {
+                    icon: "running",
+                    text: "Running"
+                  },
+                  {
+                    icon: "skating",
+                    text: "Skating"
+                  },
+                  {
+                    icon: "skiing",
+                    text: "Skiing"
+                  },
+                  {
+                    icon: "snowboarding",
+                    text: "Snowboarding"
+                  },
+                  {
+                    icon: "quidditch",
+                    text: "Quidditch"
+                  },
+                  {
+                    icon: "dumbbell",
+                    text: "Weight lifting"
+                  },
+                  {
+                    icon: "basketball-ball",
+                    text: "Basketball"
+                  },
+                  {
+                    icon: "futbol",
+                    text: "Football"
+                  },
+                  {
+                    icon: "volleyball-ball",
+                    text: "Volleyball"
+                  },
+                  {
+                    icon: "hockey-puck",
+                    text: "Hockey"
+                  },
+                  {
+                    icon: "table-tennis",
+                    text: "Table Tennis"
+                  },
+                  {
+                    icon: "skiing-nordic",
+                    text: "Nordic skiing"
+                  },
+                  {
+                    icon: "golf-ball",
+                    text: "Golf"
+                  },
+                  {
+                    icon: "biking",
+                    text: "Cycling"
+                  },
+                  {
+                    icon: "chess",
+                    text: "Chess"
+                  }
+                ],
+                visibleItems: 4
+              };
+            },
+            computed: {
+              visibleActivities() {
+                return this.activities.slice(0, this.visibleItems);
+              }
+            },
+            methods: {
+              showMoreItems() {
+                if (this.visibleItems + 2 < this.activities.length)
+                  this.visibleItems += 2;
+                else this.visibleItems = this.activities.length - 1;
+              }
+            },
+
+            directives: { mdbinfiniteScroll }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+
+  <!--Section: Code-->
+</section>
+<!--/Section: -->
+
+<hr class="mt-4 mb-5" />
+
+<!-- Section -->
+<section id="example">
+  <h2 class="section-heading">
+    Example with spinner
+  </h2>
+  <!--Section: Live preview-->
+
+   <a
+    href="https://vue.mdbootstrap.com/#/directives/pro/infinite-scroll"
+    target="_blank"
+    class="btn btn-info mt-4 btn-rounded"
+    role="button"
+    >Live Preview
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-container>
+            <ul class="list-unstyled" v-mdb-infinite-scroll="loadItems">
+              <li v-for="(item, i) in visibleItems" :key="i" class="my-2">
+                <mdb-card>
+                  <mdb-card-body>
+                    <mdb-row>
+                      <mdb-col sm="6">
+                        <img :src="item.img" class="img-fluid" />
+                      </mdb-col>
+                      <mdb-col sm="6">
+                        <h4 class="text-primary">{{ item.title }}</h4>
+                        <h6>{{ item.category }}</h6>
+                        <p class="grey-text my-4">{{ item.description }}</p>
+                        <h2>{{ item.price }}</h2>
+
+                        <div class="d-flex justify-content-end">
+                          <mdb-btn
+                            tag="a"
+                            floating
+                            color="primary"
+                            icon="shopping-cart"
+                          />
+                          <mdb-btn tag="a" floating color="pink" icon="heart" />
+                        </div>
+                      </mdb-col>
+                    </mdb-row>
+                  </mdb-card-body>
+                </mdb-card>
+              </li>
+              <li v-if="loading" class="text-center mt-5"><mdb-spinner /></li>
+            </ul>
+          </mdb-container>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import {
+            mdbContainer,
+            mdbRow,
+            mdbCol,
+            mdbSpinner,
+            mdbBtn,
+            mdbCard,
+            mdbCardBody,
+            mdbInfiniteScroll
+          } from "mdbvue";
+
+          export default {
+            name: "InfiniteScroll",
+            components: {
+              mdbContainer,
+              mdbRow,
+              mdbCol,
+              mdbSpinner,
+              mdbBtn,
+              mdbCard,
+              mdbCardBody
+            },
+            data() {
+              return {
+                items: [
+                  {
+                    img:
+                      "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(39).jpg",
+                    category: "Shoes",
+                    title: "Leather boots",
+                    description:
+                      "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci.",
+                    price: "69$"
+                  },
+                  {
+                    img:
+                      "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(22).jpg",
+                    category: "Jeans",
+                    title: "Slim jeans",
+                    description:
+                      "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci.",
+                    price: "99$"
+                  },
+                  {
+                    img:
+                      "https://mdbootstrap.com/img/Photos/Others/img%20(31).jpg",
+                    category: "Shorts",
+                    title: "Denim shorts",
+                    description:
+                      "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci.",
+                    price: "49$"
+                  },
+                  {
+                    img:
+                      "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(30).jpg",
+                    category: "Accesories",
+                    title: "Summer hat",
+                    description:
+                      "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci.",
+                    price: "39$"
+                  },
+                  {
+                    img:
+                      "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(37).jpg",
+                    category: "Shoes",
+                    title: "Black Heels",
+                    description:
+                      "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci.",
+                    price: "79$"
+                  },
+                  {
+                    img:
+                      "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(31).jpg",
+                    category: "Outwear",
+                    title: "Black jacket",
+                    description:
+                      "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci.",
+                    price: "149$"
+                  },
+                  {
+                    img:
+                      "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(38).jpg",
+                    category: "Accesories",
+                    title: "Leather bag",
+                    description:
+                      "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci.",
+                    price: "29$"
+                  },
+                  {
+                    img:
+                      "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/belt.jpg",
+                    category: "Accesories",
+                    title: "Leather belt",
+                    description:
+                      "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci.",
+                    price: "79$"
+                  },
+                  {
+                    img:
+                      "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img%20(57).jpg",
+                    category: "Shoes",
+                    title: "Snickers",
+                    description:
+                      "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci.",
+                    price: "139$"
+                  }
+                ],
+                show: 3,
+                loading: false
+              };
+            },
+            computed: {
+              visibleItems() {
+                return this.items.slice(0, this.show);
+              }
+            },
+            methods: {
+              loadItems() {
+                if (!this.loading && this.show < this.items.length) {
+                  this.loading = true;
+                  setTimeout(() => {
+                    this.show += 1;
+                    this.loading = false;
+                  }, 1000);
+                }
+
+                return;
+              }
+            },
+            directives: { mdbInfiniteScroll }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!-- /Section -->

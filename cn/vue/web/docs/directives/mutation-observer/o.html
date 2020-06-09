@@ -1,0 +1,206 @@
+<!--Section: Intro-->
+<section id="introduction">
+  <!--Title-->
+  <h2 class="primary-heading">
+    Vue Bootstrap突变观察者<a
+      href="https://mdbootstrap.com/products/vue-ui-kit/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      > MDB Pro组件<i class="far fa-gem ml-1"></i></a>
+  </h2>
+
+  <h1 class="secondary-heading mb-4">
+    Vue突变观察者-Bootstrap 4和材料设计
+  </h1>
+
+  <!--Description-->
+  <p>
+    的<code> mdb-mutate </code>是一个自定义指令，它使用以下命令检测元素的更新<a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver" target="_blank" nofollow>变异观察者API </a
+    > 。</p>
+
+  <a
+    href="https://vue.mdbootstrap.com/#/directives/pro/mutate"
+    target="_blank"
+    class="btn btn-info mt-4 btn-rounded"
+    role="button"
+    >实时预览
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</section>
+<!--/Section: Intro-->
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="basic-usage">
+  <!--Title-->
+  <h2 class="section-heading">
+    基本用法
+  </h2>
+
+  <p><strong>步骤1： </strong>从&amp;#39;mdbvue&amp;#39;导入指令</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMutate } from "mdbvue";
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>第2步： </strong>将mdbMutate添加到<code>指令</code>宾语
+  </p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMutate } from "mdbvue";
+          export default {
+            directives: {
+              mdbMutate
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    <strong>第三步： </strong>该指令使用<a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver" target="_blank" nofollow>变异观察者API </a
+    > -您可以使用相同的选项来配置观察者。您可以分别将选项作为修饰符传递，将处理函数作为值传递，或同时作为和对象的键传递。为了使Mutation Observer正常工作，必须将childList，attribute或characterData之一设置为<code>真正</code> 。</p>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div v-mdb-mutate="mutate">...</div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMutate } from "mdbvue";
+          export default {
+            directives: {
+              mdbMutate
+            },
+            data() {
+              return {
+                mutate: {
+                  handler: () => {},
+                  options: {
+                    childList: true,
+                    attributes: true,
+                    characterData: false,
+                    subtree: false,
+                    attributeFilter: ["one", "two"],
+                    attributeOldValue: false,
+                    characterDataOldValue: false
+                  }
+                }
+              };
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div v-mdb-mutate.attributes="callback">...</div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbMutate } from "mdbvue";
+          export default {
+            directives: {
+              mdbMutate
+            },
+            methods: {
+              callback(mutationList, observer) {
+                //...
+              }
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="example">
+  <!--Title-->
+  <h2 class="section-heading">
+    基本示例
+  </h2>
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-select
+            v-mdb-mutate="mutate"
+            label="Mutation observer"
+            :options="options"
+          />
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbSelect, mdbMutate } from "mdbvue";
+
+          export default {
+            name: "ResizePage",
+            components: {
+              mdbSelect
+            },
+            data() {
+              return {
+                valueMutation: 0,
+                options: [
+                  { text: "Option nr 1", value: "Option 1" },
+                  { text: "Option nr 2", value: "Option 2" },
+                  { text: "Option nr 3", value: "Option 3" },
+                  { text: "Option nr 4", value: "Option 4" },
+                  { text: "Option nr 5", value: "Option 5" }
+                ],
+                mutate: {
+                  handler: () => {
+                    this.valueMutation++;
+                  },
+                  options: {
+                    attributes: true,
+                    subtree: true,
+                    attributeFilter: ["value"]
+                  }
+                }
+              };
+            },
+            directives: { mdbMutate }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>

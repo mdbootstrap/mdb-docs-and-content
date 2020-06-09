@@ -5,10 +5,10 @@
     <section id="advanced">
 
       <!--Title-->
-      <h1 class="main-title">Angular Bootstrap advanced table</h1>
+      <h1 class="main-title">Angular Bootstrap高级表</h1>
 
       <!--Description-->
-      <p class="description">Advanced use of the table where you can find data acquired from the external API, search and pagination and exporting the whole table to CSV file.</p>
+      <p class="description">表格的高级使用，您可以在其中查找从外部API获取的数据，进行搜索和分页，并将整个表格导出到CSV文件。</p>
 
     </section>
     <!--/Section: Intro-->
@@ -20,14 +20,9 @@
 
       <!--Title-->
       <h2 class="title">
-        <strong>Basic example</strong>
-        <a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md"
-          role="button">MDB Pro component
-          <i class="far fa-gem ml-1"></i>
-        </a>
-        <a href="https://ng-demo.mdbootstrap.com/tables/data-tables/" target="_blank" class="btn btn-danger btn-md"
-        role="button">Live Example
-      </a>
+        <strong>基本例子</strong><a href="https://mdbootstrap.com/products/angular-ui-kit/" target="_blank" class="btn btn-danger btn-md"
+          role="button"> MDB Pro组件<i class="far fa-gem ml-1"></i></a><a href="https://ng-demo.mdbootstrap.com/tables/data-tables/" target="_blank" class="btn btn-danger btn-md"
+        role="button">现场例子</a>
       </h2>
 
       <!--Description-->
@@ -42,7 +37,7 @@
   <!--Card image-->
   <div class="view view-cascade gradient-card-header purple-gradient narrower py-4 mx-4 mb-3 d-flex justify-content-center align-items-center">
 
-    <h4 class="white-text font-weight-bold text-uppercase mb-0">Advanced table</h4>
+    <h4 class="white-text font-weight-bold text-uppercase mb-0">高级表</h4>
 
   </div>
 
@@ -51,11 +46,11 @@
     <div class="col-md-6 mx-auto">
       <div class="md-form">
         <input type="search" [(ngModel)]="searchText" id="search" class="form-control" mdbInputDirective [mdbValidation]="false">
-        <label for="search">Search data</label>
+        <label for="search">搜索</label>
       </div>
     </div>
     <div class="col-md-3 mx-auto">
-      <button class="btn btn-primary waves-light btn-sm" mdbWavesEffect (click)="generateCsv()">Generate CSV</button>
+      <button class="btn btn-primary waves-light btn-sm" mdbWavesEffect (click)="generateCsv()">生成CSV</button>
     </div>
   </div>
   <div class="px-2">
@@ -66,13 +61,13 @@
       <!--Table head-->
       <thead>
         <tr>
-          <th style="width: 50px">id
+          <th style="width: 50px">ID
             <mdb-icon fas icon="sort" (click)="sortBy('id')"></mdb-icon>
           </th>
-          <th class="th-lg">Post title
+          <th class="th-lg">帖子标题
             <mdb-icon fas icon="sort" (click)="sortBy('title')"></mdb-icon>
           </th>
-          <th class="th-lg">Post body
+          <th class="th-lg">文章正文
             <mdb-icon fas icon="sort" (click)="sortBy('body')"></mdb-icon>
           </th>
         </tr>
@@ -103,14 +98,13 @@
 
         <!--First-->
         <li class="page-item clearfix d-none d-md-block" (click)="firstPage()" [ngClass]="{disabled: activePage == firstPageNumber}">
-          <a class="page-link">First</a>
+          <a class="page-link">第一</a>
         </li>
 
         <!--Arrow left-->
         <li class="page-item" (click)="previousPage($event)" [ngClass]="{disabled: activePage == firstPageNumber}">
           <a class="page-link" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
+            <span aria-hidden="true"> « </span><span class="sr-only">以前</span>
           </a>
         </li>
 
@@ -124,14 +118,13 @@
         <!--Arrow right-->
         <li class="page-item" (click)="nextPage($event)" [ngClass]="{disabled: activePage == lastPageNumber}">
           <a class="page-link" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
+            <span aria-hidden="true"> » </span><span class="sr-only">下一个</span>
           </a>
         </li>
 
         <!--First-->
         <li class="page-item clearfix d-none d-md-block" (click)="lastPage()" [ngClass]="{disabled: activePage == lastPageNumber}">
-          <a class="page-link">Last</a>
+          <a class="page-link">最后一个</a>
         </li>
 
       </ul>
@@ -144,142 +137,7 @@
 </div>
           </code>
           <code data-lang="js" data-name="TS">
-import { Component, OnInit, HostListener, ViewChildren, QueryList, ElementRef } from '@angular/core';
-import { Http } from '@angular/http';
-import { Angular5Csv } from 'angular5-csv/Angular5-csv';
-
-@Component({
-  selector: 'advanced-table',
-  templateUrl: './advanced-table.component.html',
-  styleUrls: ['./advanced-table.component.scss']
-})
-
-export class AdvancedTableComponent implements OnInit {
-options = {
-    fieldSeparator: ',',
-    quoteStrings: '"',
-    decimalseparator: '.',
-    showLabels: true,
-    showTitle: true,
-    useBom: true,
-    headers: ['Post ID', 'Post title', 'Post body']
-  };
-
-
-  @ViewChildren('list') list: QueryList<ElementRef>;
-  paginators: Array<any> = [];
-  activePage: number = 1;
-  firstVisibleIndex: number = 1;
-  lastVisibleIndex: number = 10;
-  url: any = 'https://jsonplaceholder.typicode.com/posts';
-  tableData = [];
-  sorted = false;
-  searchText: string;
-  firstPageNumber: number = 1;
-  lastPageNumber: number;
-  maxVisibleItems: number = 10;
-
-  constructor(private http: Http) { }
-
-  getData() {
-    return this.http.get(this.url);
-  }
-
-  ngOnInit() {
-    this.getData().subscribe((next: any) => {
-      next.json().forEach((element: any) => {
-        this.tableData.push({ id: (element.id).toString(), title: element.title, body: element.body });
-      });
-    });
-
-    setTimeout(() => {
-      for ( let i = 1; i <= this.tableData.length; i++) {
-        if (i % 10 === 0) {
-          this.paginators.push(i / 10);
-        }
-      }
-      this.lastPageNumber = this.paginators.length;
-    }, 200);
-
-  }
-
-  @HostListener('input') oninput() {
-    this.paginators = [];
-    for (let i = 1; i <= this.search().length; i++) {
-      if (!(this.paginators.indexOf(Math.ceil(i / 10)) !== -1)) {
-        this.paginators.push(Math.ceil(i / 10));
-      }
-    }
-    this.lastPageNumber = this.paginators.length;
-  }
-  changePage(event: any) {
-    if (event.target.text >= 1 && event.target.text <= this.maxVisibleItems) {
-      this.activePage = +event.target.text;
-      this.firstVisibleIndex = this.activePage * this.maxVisibleItems - this.maxVisibleItems + 1;
-      this.lastVisibleIndex = this.activePage * this.maxVisibleItems;
-    }
-  }
-
-  nextPage() {
-    this.activePage += 1;
-    this.firstVisibleIndex = this.activePage * this.maxVisibleItems - this.maxVisibleItems + 1;
-    this.lastVisibleIndex = this.activePage * this.maxVisibleItems;
-  }
-  previousPage() {
-    this.activePage -= 1;
-    this.firstVisibleIndex = this.activePage * this.maxVisibleItems - this.maxVisibleItems + 1;
-    this.lastVisibleIndex = this.activePage * this.maxVisibleItems;
-  }
-
-  firstPage() {
-    this.activePage = 1;
-    this.firstVisibleIndex = this.activePage * this.maxVisibleItems - this.maxVisibleItems + 1;
-    this.lastVisibleIndex = this.activePage * this.maxVisibleItems;
-  }
-
-  lastPage() {
-    this.activePage = this.lastPageNumber;
-    this.firstVisibleIndex = this.activePage * this.maxVisibleItems - this.maxVisibleItems + 1;
-    this.lastVisibleIndex = this.activePage * this.maxVisibleItems;
-  }
-
-  sortBy(by: string | any): void {
-    if (by == 'id') {
-      this.search().reverse();
-    } else {
-      this.search().sort((a: any, b: any) => {
-        if (a[by] < b[by]) {
-          return this.sorted ? 1 : -1;
-        }
-        if (a[by] > b[by]) {
-          return this.sorted ? -1 : 1;
-        }
-        return 0;
-      });
-    }
-    this.sorted = !this.sorted;
-  }
-
-  filterIt(arr: any, searchKey: any) {
-    return arr.filter((obj: any) => {
-      return Object.keys(obj).some((key) => {
-        return obj[key].includes(searchKey);
-      });
-    });
-  }
-
-  search() {
-    if (!this.searchText) {
-      return this.tableData;
-    }
-    if (this.searchText) {
-      return this.filterIt(this.tableData, this.searchText);
-    }
-  }
-
-  generateCsv() {
-    new Angular5Csv(this.search(), 'data-table', this.options);
-  }
+从&amp;#39;@ angular / core&amp;#39;导入{Component，OnInit，HostListener，ViewChildren，QueryList，ElementRef};从&amp;#39;@ angular / http&amp;#39;导入{Http};从&amp;#39;angular5-csv / Angular5-csv&amp;#39;导入{Angular5Csv}; @Component（{选择器：&amp;#39;advanced-table&amp;#39;，templateUrl：&amp;#39;./advanced-table.component.html&amp;#39;，styleUrls：[&amp;#39;./advanced-table.component.scss&amp;#39;]}）导出类AdvancedTableComponent实现OnInit {选项= {fieldSeparator：&amp;#39;，&amp;#39;，quoteStrings：&amp;#39;“&amp;#39;，decimalseparator：&amp;#39;。&amp;#39;，showLabels：true，showTitle：true，useBom：true，标头：[&amp;#39;Post ID&amp;#39;，&amp;#39;Post title&amp;#39;，&amp;#39;Post body&amp;#39;] }; @ViewChildren（&amp;#39;list&amp;#39;）列表：QueryList<ElementRef>;分页器：数组<any> = []; activePage：数字= 1； firstVisibleIndex：数字= 1； lastVisibleIndex：数字= 10;网址：任何=&amp;#39;https://jsonplaceholder.typicode.com/posts&amp;#39;; tableData = [];排序=假; searchText：字符串； firstPageNumber：数字= 1； lastPageNumber：数字； maxVisibleItems：数字= 10;构造函数（私有http：Http）{} getData（）{返回this.http.get（this.url）; } ngOnInit（）{this.getData（）。subscribe（（next：any）=> {next.json（）。forEach（（element：any）=> {this.tableData.push（{id：（element.id ）.toString（），标题：element.title，正文：element.body}）;}）;}）; setTimeout（（）=> {for（让i = 1; i &lt;= this.tableData.length; i ++）{if（i％10 === 0）{this.paginators.push（i / 10）;}} this.lastPageNumber = this.paginators.length;}，200）； } @HostListener（&amp;#39;input&amp;#39;）oninput（）{this.paginators = []; for（let i = 1; i = this.search（）。length; i ++）{if（！（this.paginators.indexOf（Math.ceil（i / 10））！== -1））{this.paginators.push（Math.ceil（i / 10））; }} this.lastPageNumber = this.paginators.length; } changePage（event：any）{if（event.target.text> = 1 &amp;&amp; event.target.text &lt;= this.maxVisibleItems）{this.activePage = + event.target.text; this.firstVisibleIndex = this.activePage * this.maxVisibleItems-this.maxVisibleItems +1; this.lastVisibleIndex = this.activePage * this.maxVisibleItems; }} nextPage（）{this.activePage + = 1; this.firstVisibleIndex = this.activePage * this.maxVisibleItems-this.maxVisibleItems +1; this.lastVisibleIndex = this.activePage * this.maxVisibleItems; } previousPage（）{this.activePage-= 1; this.firstVisibleIndex = this.activePage * this.maxVisibleItems-this.maxVisibleItems +1; this.lastVisibleIndex = this.activePage * this.maxVisibleItems; } firstPage（）{this.activePage = 1; this.firstVisibleIndex = this.activePage * this.maxVisibleItems-this.maxVisibleItems +1; this.lastVisibleIndex = this.activePage * this.maxVisibleItems; } lastPage（）{this.activePage = this.lastPageNumber; this.firstVisibleIndex = this.activePage * this.maxVisibleItems-this.maxVisibleItems +1; this.lastVisibleIndex = this.activePage * this.maxVisibleItems; } sortBy（by：string | any）：void {if（by ==&amp;#39;id&amp;#39;）{this.search（）。reverse（）; } else {this.search（）。sort（（a：any，b：any）=> {如果（a [by] &lt;b [by]）{返回this.sorted？1：-1； } if（a [by]> b [by]）{返回this.sorted吗？-1：1; }返回0; }）; } this.sorted =！这个} filterIt（arr：any，searchKey：any）{return arr.filter（（obj：any）=> {return Object.keys（obj）.some（（key）=> {返回obj [key] .includes（searchKey ）;}）;}）; } search（）{如果（！this.searchText）{返回this.tableData; }如果（this.searchText）{返回this.filterIt（this.tableData，this.searchText）; }} generateCsv（）{new Angular5Csv（this.search（），&amp;#39;data-table&amp;#39;，this.options）; }
           </code>
         </mdbsnippet>
       </section>
@@ -292,31 +150,24 @@ options = {
     <!-- SECTION-->
     <section id="APIref">
 
-      <h2 class="title my-4">API Reference:</h2>
-      <p>In order to speed up your application, you can choose to import only the modules you actually need, instead of importing
-        the entire MDB Angular library. Remember that importing the entire library, and immediately afterwards a specific module,
-        is bad practice, and can cause application errors.
-      </p>
+      <h2 class="title my-4">API参考：</h2>
+      <p>为了加快应用程序的速度，您可以选择仅导入实际需要的模块，而不是导入整个MDB Angular库。请记住，导入整个库以及紧随其后的特定模块是不好的做法，并且可能导致应用程序错误。</p>
 
-      <p>Exporting table data to CSV requires external library called <code>Angular5-csv</code>. Install it by typing following command into your console. </p>
+      <p>将表数据导出到CSV需要外部库<code> Angular5-csv </code> 。通过在控制台中键入以下命令来安装它。</p>
       <pre>
           <code class="language-javascript">
               npm install angular5-csv --save
           </code>
       </pre>
 
-      <h5 class="mb-4">API Reference for MDB Angular Tables:</h5>
-    <pre><code class="language-javascript">// MDB Angular Pro
-import { WavesModule } from 'ng-uikit-pro-standard'</code></pre>
-    <pre><code class="language-javascript">// Forms Module
-import { FormsModule } from '@angular/forms'</code></pre>
-    <pre><code class="language-javascript">// HTTP Module
-import { HttpModule } from '@angular/http'</code></pre>
+      <h5 class="mb-4">MDB角表的API参考：</h5>
+    <pre><code class="language-javascript">// MDB Angular Pro从&amp;#39;ng-uikit-pro-standard&amp;#39;导入{WavesModule}</code></pre>
+    <pre><code class="language-javascript">//从&amp;#39;@ angular / forms&amp;#39;导入Forms Module {{FormsModule}</code></pre>
+    <pre><code class="language-javascript">// HTTP模块从&amp;#39;@ angular / http&amp;#39;导入{HttpModule}</code></pre>
 
       <div class="row">
         <div class="col-md-6">
-          <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">Import example</a>
-          <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">Modules list</a>
+          <a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/importing-modules/" alt="Check how you should import MDB Angular modules">汇入范例</a><a class="btn btn-primary waves-light mx-2" href="https://mdbootstrap.com/docs/angular/getting-started/modules/" alt="Check how you should import MDB Angular modules">模块清单</a>
         </div>
       </div>
     </section>

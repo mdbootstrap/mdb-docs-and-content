@@ -27,7 +27,7 @@
   
     <mdbsnippet>
       <code data-lang="js" data-name="Imports">
-        import { mdbDatatable } from 'mdbvue';
+        import { mdbDatatable2 } from 'mdbvue';
       </code>
     </mdbsnippet>
   
@@ -49,22 +49,18 @@
     </p>
     
     <mdbsnippet>
-      <code data-lang="js" data-name="Data from Object">
+      <code data-lang="html" data-name="Data from Object">
         <template>
-          <mdb-datatable
-            :data="data"
-            striped
-            bordered
-          />
+          <mdb-datatable-2 v-model="data" />
         </template>
         
         <script>
-        import { mdbDatatable } from 'mdbvue';
+        import { mdbDatatable2 } from 'mdbvue';
         
         export default {
           name: 'DatatablePage',
           components: {
-            mdbDatatable
+            mdbDatatable2
           },
           data() {
             return {
@@ -569,34 +565,31 @@
 
         </style>
       </code>
-      <code data-lang="js" data-name="Data from API">
+      <code data-lang="html" data-name="Data from API">
         <template>
-          <mdb-datatable
-            :data="https://YOUR_API_URL"
-            striped
-            bordered
-          />
+          <mdb-datatable-2 v-model="'https://YOUR_API_URL'" />
         </template>
         
         <script>
-        import { mdbDatatable } from 'mdbvue';
+        import { mdbDatatable2 } from 'mdbvue';
         
         export default {
           name: 'DatatablePage',
           components: {
-            mdbDatatable
+            mdbDatatable2
           }
         };
         </script>
       </code>
   
-      <code data-lang="js" data-name="Object structure">
+      <code data-lang="html" data-name="Object structure">
         data = {
           columns: [
             {
               label: String (displayed column label),
               field: String (corresponding key for cells),
-              sort: String (Optional, 'asc'/'desc', describes the initial sorting direcotry),
+              sort: Boolean (Optional, enables column sorting),
+              format: Function (optional, formats the displayed data)
             }
           ],
           rows: [
@@ -625,7 +618,7 @@
     </h2>
   
     <p class="description">
-      All properties and options refered to <code>mdb-datatable</code> component.
+      All properties and options refered to <code>mdb-datatable-2</code> component.
     </p>
   
     <table class="table table-bordered table-striped table-responsive-xl">
@@ -640,136 +633,372 @@
       </thead>
       <tbody>
         <tr>
-          <td><code style="word-break: normal">sorting</code></td>
+          <td><code class="text-nowrap">sorting</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">true</code></td>
+          <td><code class="text-nowrap">true</code></td>
           <td>Determines whether sorting is enabled/disabled.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable striped&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 striped&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">order</code></td>
+          <td><code class="text-nowrap">order</code></td>
           <td><i>String[]</i></td>
-          <td><code style="word-break: normal"></code></td>
+          <td><code class="text-nowrap"></code></td>
           <td>Sets initial order. Accepts array of strings, index 0: table field by which you want to sort, index 1: sorting direction ('desc'/'asc').</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable order="['age', 'desc']"&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 order="['age', 'desc']"&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">searching</code></td>
-          <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">true</code></td>
-          <td>Determines whether searching is enabled/disabled.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable searching="false"&gt;</code></td>
+          <td><code class="text-nowrap">searching</code></td>
+          <td><i>[String, Object]</i></td>
+          <td><code class="text-nowrap">''</code></td>
+          <td>Determines searching value.</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 :searching="{value: search, field: 'office'}"&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">pagination</code></td>
+          <td><code class="text-nowrap">pagination</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">true</code></td>
+          <td><code class="text-nowrap">true</code></td>
           <td>Determines whether pagination is enabled/disabled.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable pagination="false"&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 pagination="false"&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">scrollY</code></td>
+          <td><code class="text-nowrap">scrollY</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Allows table to be scrolled vertically if it's content is higher than 200px. Combine it with <i>maxHeight</i> to manipulate table's height.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable scrollY&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 scrollY&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">maxHeight</code></td>
+          <td><code class="text-nowrap">maxHeight</code></td>
           <td><i>String</i></td>
-          <td><code style="word-break: normal">200px</code></td>
+          <td><code class="text-nowrap">200px</code></td>
           <td>Sets table's maxHeight. You can use px, vh or whatever fits to your needs.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable maxHeight="400px"&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 maxHeight="400px"&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">striped</code></td>
+          <td><code class="text-nowrap">striped</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Adds zebra-striping to any table row.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable striped&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 striped&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">bordered</code></td>
+          <td><code class="text-nowrap">bordered</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Adds border on all table's and cell's sides.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable bordered&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 bordered&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">borderless</code></td>
+          <td><code class="text-nowrap">borderless</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Disables border on all table's and cell's sides.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable borderless&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 borderless&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">hover</code></td>
+          <td><code class="text-nowrap">hover</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Adds hover state on table rows (rows are marked on light-grey color).</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable hover&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 hover&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">small</code></td>
+          <td><code class="text-nowrap">small</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Cuts cell's padding by half.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable small&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 small&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">reponsive</code></td>
+          <td><code class="text-nowrap">reponsive</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">true</code></td>
           <td>
             Makes table scrollable horizontally when screen width is smaller than table content (under 768px).<br />
             It make use of <code>overflow-y: hidden</code> which clips off content that goes beyon the bottom or top edge of the table.
           </td>
-          <td><code style="word-break: normal">&lt;mdb-datatable responsive&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 responsive&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">reponsiveSm</code></td>
+          <td><code class="text-nowrap">reponsiveSm</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Makes table scrollable horizontally on under 576px wide screens.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable responsiveSm&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 responsiveSm&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">reponsiveMd</code></td>
+          <td><code class="text-nowrap">reponsiveMd</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Makes table scrollable horizontally on under 768px wide screens.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable responsiveMd&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 responsiveMd&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">reponsiveLg</code></td>
+          <td><code class="text-nowrap">reponsiveLg</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Makes table scrollable horizontally on under 992px wide screens.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable responsiveLg&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 responsiveLg&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">reponsiveXl</code></td>
+          <td><code class="text-nowrap">reponsiveXl</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Makes table scrollable horizontally on under 1200px wide screens.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable responsiveXl&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 responsiveXl&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">autoWidth</code></td>
+          <td><code class="text-nowrap">autoWidth</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Automatically adjust columns width to the content.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable autoWidth&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 autoWidth&gt;</code></td>
         </tr>
         <tr>
-          <td><code style="word-break: normal">fixed</code></td>
+          <td><code class="text-nowrap">filter</code><a href="https://mdbootstrap.com/products/vue-ui-kit/" target="_blank"
+            role="button">
+            <i class="red-text p-1 transparent far fa-gem ml-1"></i>
+          </a></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap"></code></td>
+          <td>Adds a new select to filter table data by column name.</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 filter="office" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">fixed</code></td>
           <td><i>Boolean</i></td>
-          <td><code style="word-break: normal">false</code></td>
+          <td><code class="text-nowrap">false</code></td>
           <td>Sets fixed columns width.</td>
-          <td><code style="word-break: normal">&lt;mdb-datatable fixed&gt;</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 fixed&gt;</code></td>
+        </tr>
+          <td><code class="text-nowrap">arrows</code></td>
+          <td><i>Boolean</i></td>
+          <td><code class="text-nowrap">false</code></td>
+          <td>Replaces 'Next', 'Previous', 'Start' and 'End' in the pagination with mdb-icons.</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 arrows&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">start</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">'Start'</code></td>
+          <td>Replaces 'Start' in the pagination with the custom text.</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 start="<<"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">end</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">"End"</code></td>
+          <td>Replaces 'End' in the pagination with the custom text.</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 end=">>"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">next</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">"Next"</code></td>
+          <td>Replaces 'Next' in the pagination with the custom text.</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 next=">"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">previous</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">"Previous"</code></td>
+          <td>Replaces 'Previous' in the pagination with the custom text.</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 previous="<"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">display</code></td>
+          <td><i>Number</i></td>
+          <td><code class="text-nowrap">5</code></td>
+          <td>Specifies maximum number of pages displayed in the pagination.</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 :display="7"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">defaultRow</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">'-'</code></td>
+          <td>Specifies default value for the missing piece of data.</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 defaultRow="missing data"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">defaultCol</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">'undefined'</code></td>
+          <td>Specifies default value for the column header - for example when one of the elements in the columns array is <code>null</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 defaultCol="default header"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">footer</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap"></code></td>
+          <td>Determines table footer content</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 footer="'&lt;td colspan="7"&gt;Test&lt;/td&gt;''"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">refresh</code></td>
+          <td><i>Boolean</i></td>
+          <td><code class="text-nowrap">false</code></td>
+          <td>If set to <code>true</code>, 'refresh' button will be shown. To refresh content <code>data</code> property has to be in following format: <code>v-model="./https://YOUR_API"</code></td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 v-model="./https://YOUR_API" refresh&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">reactive</code></td>
+          <td><i>Boolean</i></td>
+          <td><code class="text-nowrap">false</code></td>
+          <td>Triggers reloading data every 5 seconds (you can change this value with <code>time</code> property. To reload content <code>data</code> property has to be in following format: <code>v-model="./https://YOUR_API"</code> </td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 v-model="./https://YOUR_API" reactive&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">time</code></td>
+          <td><i>Number</i></td>
+          <td><code class="text-nowrap">5000</code></td>
+          <td>Sets time interval for reloading <code>reactive</code> data .</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 v-model="./https://YOUR_API" reactive :time="3000"&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">searchPlaceholder</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">"Search"</code></td>
+          <td>Changes placeholder in Search input to custom text</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 searchPlaceholder="..." &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">entriesTitle</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">"Show entries"</code></td>
+          <td>Changes title next to select with number of entries to custom text</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 entriesTitle="..." &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">noFoundMessage</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">"No matching records found"</code></td>
+          <td>Allows to display custom message informing user about lack of data</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 noFoundMessage="..." &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">showingText</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">"Showing"</code></td>
+          <td>Allows to resplace 'of'" with different word</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 showingText="..." &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">btnColor</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">primary</code></td>
+          <td>Changes refresh button's colot</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 btnColor="secondary" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">paginationColor</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">blue</code></td>
+          <td>Changes the color of the pagination</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 paginationColor="red" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">selectColor</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">blue lighten-4</code></td>
+          <td>Changes the color of the selected row</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 selectColor="indigo lighten-3" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">hoverColor</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">blue lighten-5</code></td>
+          <td>Changes the color of the hovered row</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 hoverColor="indigo lighten-5" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">fixedHeader</code></td>
+          <td><i>Boolean</i></td>
+          <td><code class="text-nowrap">false</code></td>
+          <td>Enables fixed header option</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 fixedHeader &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">fixedCols</code></td>
+          <td><i>Number</i></td>
+          <td><code class="text-nowrap"></code></td>
+          <td>Defines number of fixed cols. Keep in mind to define fixedColsPosition's to make it work fine.</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 :fixedCols="2" :fixedColsPosition="[0, 150]" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">fixedColsPosition</code></td>
+          <td><i>Array</i></td>
+          <td><code class="text-nowrap">[0, 120]</code></td>
+          <td>Defines position of fixed cols</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 :fixedCols="2" :fixedColsPosition="[0, 150]" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">fixedColsBg</code></td>
+          <td><i>String</i></td>
+          <td><code class="text-nowrap">white</code></td>
+          <td>Defines fixed cols background color</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 :fixedCols="2" :fixedColsPosition="[0, 150]" fixedColsBg="blue" &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">fullPagination</code></td>
+          <td><i>Boolean</i></td>
+          <td><code class="text-nowrap">false</code></td>
+          <td>Enables full pagination</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 fullPagination &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">selectable</code></td>
+          <td><i>Boolean</i></td>
+          <td><code class="text-nowrap">false</code></td>
+          <td>Enables selectable mode</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 selectable &gt;</code></td>
+        </tr>
+        <tr>
+          <td><code class="text-nowrap">multiselectable</code></td>
+          <td><i>Boolean</i></td>
+          <td><code class="text-nowrap">false</code></td>
+          <td>Enables multiselectable mode</td>
+          <td><code class="text-nowrap">&lt;mdb-datatable-2 multiselectable &gt;</code></td>
         </tr>
       </tbody>
     </table>
-  
+  <p><a href="https://mdbootstrap.com/products/jquery-ui-kit/" target="_blank"
+    role="button">
+    <i class="red-text p-1 transparent far fa-gem ml-1"></i>
+  </a> - property available only for PRO users.</p>
   </section>
   <!--/Section-->
+
+   <!--Title-->
+   <h2 class="section-heading mb-4">
+    API Reference: Events
+</h2>
+
+<section>
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th class="th-sm">Event</th>
+        <th class="th-sm">Description</th>
+        <th class="th-sm">Example</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>@selected</code></td>
+            <td>It emits selected row data.</td>
+            <td><code class="language-markup text-nowrap">&lt;mdb-datatable-2 @selected="selected = $event" /&gt;</code></td>
+        </tr>
+        <tr>
+          <td><code>@fields</code></td>
+          <td>Emits columns after a component mounts and once data is fetched from API</td>
+          <td><code class="language-markup text-nowrap">&lt;mdb-datatable-2 v-model="https://..." @fields="setColumns"  /&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code>@pages</code></td>
+        <td>Emits an array of pages (sorted & grouped entries)</td>
+        <td><code class="language-markup text-nowrap">&lt;mdb-datatable-2 v-model="..." @pages="setPages"  /&gt;</code></td>
+    </tr>
+    </tbody>
+</table>
+
+</section>
