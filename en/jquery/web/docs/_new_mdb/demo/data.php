@@ -1,7 +1,9 @@
 <?php
 
+global $data_var;
 $data_var = array(
   'seo_title' => 'To jest testowy seo title tralala',
+  'dict_value' => 'To jest jakis tytul polaczony z wartoscia z bazy: ' . get_dict_value( 'users', 'product-values', 'All' ) . ', <- ktora dolaczamy w ten sposob',
 );
 
 $display_meta_tags = function () use ($data_var) {
@@ -9,6 +11,7 @@ $display_meta_tags = function () use ($data_var) {
 
   <title><?= $data_var['seo_title']; ?></title>
   <meta name="og:title" content="<?= $data_var['seo_title']; ?>>">
+  <meta name="og:description" content="<?= $data_var['dict_value']; ?>>">
 <?php
 };
 
