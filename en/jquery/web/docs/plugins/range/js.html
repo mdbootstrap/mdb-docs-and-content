@@ -1,12 +1,404 @@
 <script>
-"use strict";function _instanceof(t,n){return null!=n&&"undefined"!=typeof Symbol&&n[Symbol.hasInstance]?n[Symbol.hasInstance](t):t instanceof n}function _typeof(t){return(_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function _toConsumableArray(t){return _arrayWithoutHoles(t)||_iterableToArray(t)||_nonIterableSpread()}function _nonIterableSpread(){throw new TypeError("Invalid attempt to spread non-iterable instance")}function _iterableToArray(t){if(Symbol.iterator in Object(t)||"[object Arguments]"===Object.prototype.toString.call(t))return Array.from(t)}function _arrayWithoutHoles(t){if(Array.isArray(t)){for(var n=0,o=new Array(t.length);n<t.length;n++)o[n]=t[n];return o}}function _classCallCheck(t,n){if(!_instanceof(t,n))throw new TypeError("Cannot call a class as a function")}function _defineProperties(t,n){for(var o=0;o<n.length;o++){var i=n[o];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}function _createClass(t,n,o){return n&&_defineProperties(t.prototype,n),o&&_defineProperties(t,o),t}!function(t){var n="100%",o="vertical",i=!0,e=!1,s=!1,a=!1,l=null,r=null,u="#4285F4",h="#4285F4",g="#fff",c=["#fff"],p=0,m=100,f="",v="",d=1,b=1,y=0,C=function(){function C(t,T){_classCallCheck(this,C),this.defaults={width:n,direction:o,value:{min:p,max:m},single:{active:i,value:{step:d,symbol:f},counting:s,countingTarget:r,bgThumbColor:u,textThumbColor:g,multi:{active:e,value:{step:b,symbol:v},counting:a,rangeLength:y,countingTarget:l,bgThumbColor:h,textThumbColor:c}}},this.$range=t,this.options=this.assignedOptions(T),this.$rangeWrapper=this.$range.parent().hasClass("multi-range-field")?this.$range.parent():null,this.thumbHtml='<span class="thumb"><span class="value"></span></span>',this.rangeMousedown=!1,this.left,this.init()}return _createClass(C,[{key:"assignedOptions",value:function(n){return t.extend({},this.defaults,n)}},{key:"init",value:function(){this.addThumb(),this.rangeChange(),this.multiRangeInit(),this.inputMouseDown(),this.mouseUponInput(),this.mouseMoveOnInput(),this.mouseOutFromInput(),this.multiRangeValue(),this.multiRangeCSS(),this.inputMultiRange()}},{key:"randomLetter",value:function(){for(var t="",n="abcdefghijklmnopqrstuvwxyz123456789",o=arguments.length,i=new Array(o),e=0;e<o;e++)i[e]=arguments[e];for(var s=0;s<new Number(i);s++)t+=n.charAt(Math.floor(Math.random()*n.length));return t}},{key:"addThumb",value:function(){!0===this.options.single.active?t(this.$range.prop({id:this.randomLetter(10),disabled:!1})).after(t(this.thumbHtml).attr("data-id","")):t(this.$range.prop("disabled",!0)),"horizontal"===this.options.direction&&this.$rangeWrapper.addClass("thumb-horizontal-wrapper")}},{key:"rangeChange",value:function(){var n=this;this.$range.on("change",function(o){o.preventDefault();var i=t(o.target),e=i.siblings(".thumb").find(".value");void 0!==n.options.single.value?e.html("".concat(i.val()," ").concat(n.options.single.value.symbol)):e.html(i.val())})}},{key:"multiRangeInit",value:function(){this.$range.attr({min:this.options.value.min,max:this.options.value.max,step:void 0!==this.options.single.value?this.options.single.value.step:this.defaults.single.value.step,symbol:void 0!==this.options.single.value?this.options.single.value.symbol:this.defaults.single.value.symbol}),this.$range.addClass("mdbMultiRange original"),this.$range.val(this.$range.attr("min"))}},{key:"inputMouseDown",value:function(){var n=this;this.$range.on("input mousedown",function(o){var i=t(o.target),e=i.siblings(".thumb"),s=i.outerWidth();if(e.length||n.addThumb(),e.find(".value").html(i.val()),n.rangeMousedown=!0,i.addClass("active"),e.hasClass("active")||e.css({height:"30px",width:"30px",top:"-23px",marginLeft:"-15px"}),"input"!==o.type){var a=o.pageY,l=i.offset().top;"horizontal"===n.options.direction||(a=o.pageX),"horizontal"===n.options.direction||(l=i.offset().left),n.left=null==a?o.originalEvent.touches[0].pageY-l:a-l,n.left<0?n.left=0:n.left>s&&(n.left=s),e.addClass("active").css("left",n.left)}e.attr("data-id",i.attr("id")),i.hasClass("ghost")?(e.css("background-color",i.data("color")),e.children().css("color",i.data("text-color"))):(e.css("background-color",void 0===n.options.single.bgThumbColor?n.defaults.single.bgThumbColor:n.options.single.bgThumbColor),e.children().css("color",void 0===n.options.single.textThumbColor?n.defaults.single.textThumbColor:n.options.single.textThumbColor)),void 0!==n.options.single.value?e.find(".value").html("".concat(i.val()," ").concat(n.options.single.value.symbol)):e.find(".value").html(i.val())})}},{key:"mouseUponInput",value:function(){var n=this;this.$range.on("mouseup",function(o){n.rangeMousedown=!1,t(o.target).parent().removeClass("active")})}},{key:"mouseMoveOnInput",value:function(){var n=this;this.$range.on("mousemove",function(o){var i=t(o.target),e=i.siblings(".thumb");if(n.left,n.rangeMousedown){e.hasClass("active")||e.css({height:"30px",width:"30px",top:"-23px",marginLeft:"-15px"});var s=i.outerWidth(),a=o.pageY,l=i.offset().top;"horizontal"===n.options.direction||(a=o.pageX),"horizontal"===n.options.direction||(l=i.offset().left),"horizontal"===n.options.direction?e.addClass("active thumb-horizontal"):e.addClass("active"),n.left=null==a?o.originalEvent.touches[0].pageY-l:a-l,n.left<0?n.left=0:n.left>s&&(n.left=s),e.css("left",n.left),i.length<1&&e.find(".value").html("".concat(i.val()," ").concat(n.options.single.value.symbol))}})}},{key:"mouseOutFromInput",value:function(){var n=this;this.$range.on("mouseout",function(o){if(!n.rangeMousedown){var i=t(o.target).siblings(".thumb");i.hasClass("active")&&i.animate({marginLeft:"0px",top:"12px",height:"0px",width:"0px"},230),i.removeClass("active")}})}},{key:"multiRangeValue",value:function(){var n=this;if(null!==this.options.single.countingTarget&&void 0!==this.options.single.countingTarget&&""!==this.options.single.countingTarget&&!0===this.options.single.counting){var o=t("".concat(_toConsumableArray(this.options.single.countingTarget.split(" "))));this.$range.on("input mousedown touchstart",function(){void 0===n.options.single.value||o.is("input")?o.is("input")?o.val("".concat(n.$range.val())):o.html("".concat(n.$range.val())):o.html("".concat(n.$range.val()," ").concat(n.options.single.value.symbol))})}}},{key:"multiRangeCSS",value:function(){this.$range.css("width",this.options.width)}},{key:"inputMultiRange",value:function(){var n=this;if(void 0!==this.options.single.multi&&!0===this.options.single.active&&this.options.single.multi.rangeLength>=1)for(var o=0;o<this.options.single.multi.rangeLength;o++){var i=this.$range.clone(!0,!0).prop("id",this.randomLetter(10));void 0!==this.options.single.multi.bgThumbColor&&void 0!==this.options.single.multi.textThumbColor&&this.options.single.multi.bgThumbColor.length>1?i.attr({"data-color":this.options.single.multi.bgThumbColor.length>1?_toConsumableArray(this.options.single.multi.bgThumbColor)[o]:_toConsumableArray(this.options.single.multi.bgThumbColor)[0],"data-text-color":this.options.single.multi.textThumbColor.length>1?_toConsumableArray(this.options.single.multi.textThumbColor)[o]:_toConsumableArray(this.options.single.multi.textThumbColor)[0]}):i.attr({"data-color":[],"data-text-color":[]}),i.attr({step:void 0!==this.options.single.multi.value?this.options.single.multi.value.step:null,symbol:void 0!==this.options.single.multi.value?this.options.single.multi.value.symbol:null}),i.val(i.attr("max")),i.addClass("mdbMultiRange ghost"),i.prev().css("background-color",this.options.single.multi.bgThumbColor),this.$range.after(i),null!==this.options.single.multi.countingTarget&&void 0!==this.options.single.multi.countingTarget&&"object"===_typeof(this.options.single.multi.countingTarget)&&this.options.single.multi.counting&&function(){var e=t("".concat(Object.values(_toConsumableArray(n.options.single.multi.countingTarget))[o]));i.on("input mousedown",function(o){void 0===n.options.single.multi.value||e.is("input")?e.is("input")?e.val(t(o.target).val()):e.html(t(o.target).val()):e.html("".concat(t(o.target).val()," ").concat(n.options.single.multi.value.symbol))})}()}}}]),C}();t.fn.mdbRange=function(n){return this.each(function(){new C(t(this),n)})}}(jQuery);
+  "use strict"; function _instanceof(t, n) { return null != n && "undefined" != typeof Symbol && n[Symbol.hasInstance] ? n[Symbol.hasInstance](t) : t instanceof n } function _typeof(t) { return (_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (t) { return typeof t } : function (t) { return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t })(t) } function _toConsumableArray(t) { return _arrayWithoutHoles(t) || _iterableToArray(t) || _nonIterableSpread() } function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance") } function _iterableToArray(t) { if (Symbol.iterator in Object(t) || "[object Arguments]" === Object.prototype.toString.call(t)) return Array.from(t) } function _arrayWithoutHoles(t) { if (Array.isArray(t)) { for (var n = 0, o = new Array(t.length); n < t.length; n++)o[n] = t[n]; return o } } function _classCallCheck(t, n) { if (!_instanceof(t, n)) throw new TypeError("Cannot call a class as a function") } function _defineProperties(t, n) { for (var o = 0; o < n.length; o++) { var i = n[o]; i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(t, i.key, i) } } function _createClass(t, n, o) { return n && _defineProperties(t.prototype, n), o && _defineProperties(t, o), t } !function (t) { var n = "100%", o = "vertical", i = !0, e = !1, s = !1, a = !1, l = null, r = null, u = "#4285F4", h = "#4285F4", g = "#fff", c = ["#fff"], p = 0, m = 100, f = "", v = "", d = 1, b = 1, y = 0, C = function () { function C(t, T) { _classCallCheck(this, C), this.defaults = { width: n, direction: o, value: { min: p, max: m }, single: { active: i, value: { step: d, symbol: f }, counting: s, countingTarget: r, bgThumbColor: u, textThumbColor: g, multi: { active: e, value: { step: b, symbol: v }, counting: a, rangeLength: y, countingTarget: l, bgThumbColor: h, textThumbColor: c } } }, this.$range = t, this.options = this.assignedOptions(T), this.$rangeWrapper = this.$range.parent().hasClass("multi-range-field") ? this.$range.parent() : null, this.thumbHtml = '<span class="thumb"><span class="value"></span></span>', this.rangeMousedown = !1, this.left, this.init() } return _createClass(C, [{ key: "assignedOptions", value: function (n) { return t.extend({}, this.defaults, n) } }, { key: "init", value: function () { this.addThumb(), this.rangeChange(), this.multiRangeInit(), this.inputMouseDown(), this.mouseUponInput(), this.mouseMoveOnInput(), this.mouseOutFromInput(), this.multiRangeValue(), this.multiRangeCSS(), this.inputMultiRange() } }, { key: "randomLetter", value: function () { for (var t = "", n = "abcdefghijklmnopqrstuvwxyz123456789", o = arguments.length, i = new Array(o), e = 0; e < o; e++)i[e] = arguments[e]; for (var s = 0; s < new Number(i); s++)t += n.charAt(Math.floor(Math.random() * n.length)); return t } }, { key: "addThumb", value: function () { !0 === this.options.single.active ? t(this.$range.prop({ id: this.randomLetter(10), disabled: !1 })).after(t(this.thumbHtml).attr("data-id", "")) : t(this.$range.prop("disabled", !0)), "horizontal" === this.options.direction && this.$rangeWrapper.addClass("thumb-horizontal-wrapper") } }, { key: "rangeChange", value: function () { var n = this; this.$range.on("change", function (o) { o.preventDefault(); var i = t(o.target), e = i.siblings(".thumb").find(".value"); void 0 !== n.options.single.value ? e.html("".concat(i.val(), " ").concat(n.options.single.value.symbol)) : e.html(i.val()) }) } }, { key: "multiRangeInit", value: function () { this.$range.attr({ min: this.options.value.min, max: this.options.value.max, step: void 0 !== this.options.single.value ? this.options.single.value.step : this.defaults.single.value.step, symbol: void 0 !== this.options.single.value ? this.options.single.value.symbol : this.defaults.single.value.symbol }), this.$range.addClass("mdbMultiRange original"), this.$range.val(this.$range.attr("min")) } }, { key: "inputMouseDown", value: function () { var n = this; this.$range.on("input mousedown", function (o) { var i = t(o.target), e = i.siblings(".thumb"), s = i.outerWidth(); if (e.length || n.addThumb(), e.find(".value").html(i.val()), n.rangeMousedown = !0, i.addClass("active"), e.hasClass("active") || e.css({ height: "30px", width: "30px", top: "-23px", marginLeft: "-15px" }), "input" !== o.type) { var a = o.pageY, l = i.offset().top; "horizontal" === n.options.direction || (a = o.pageX), "horizontal" === n.options.direction || (l = i.offset().left), n.left = null == a ? o.originalEvent.touches[0].pageY - l : a - l, n.left < 0 ? n.left = 0 : n.left > s && (n.left = s), e.addClass("active").css("left", n.left) } e.attr("data-id", i.attr("id")), i.hasClass("ghost") ? (e.css("background-color", i.data("color")), e.children().css("color", i.data("text-color"))) : (e.css("background-color", void 0 === n.options.single.bgThumbColor ? n.defaults.single.bgThumbColor : n.options.single.bgThumbColor), e.children().css("color", void 0 === n.options.single.textThumbColor ? n.defaults.single.textThumbColor : n.options.single.textThumbColor)), void 0 !== n.options.single.value ? e.find(".value").html("".concat(i.val(), " ").concat(n.options.single.value.symbol)) : e.find(".value").html(i.val()) }) } }, { key: "mouseUponInput", value: function () { var n = this; this.$range.on("mouseup", function (o) { n.rangeMousedown = !1, t(o.target).parent().removeClass("active") }) } }, { key: "mouseMoveOnInput", value: function () { var n = this; this.$range.on("mousemove", function (o) { var i = t(o.target), e = i.siblings(".thumb"); if (n.left, n.rangeMousedown) { e.hasClass("active") || e.css({ height: "30px", width: "30px", top: "-23px", marginLeft: "-15px" }); var s = i.outerWidth(), a = o.pageY, l = i.offset().top; "horizontal" === n.options.direction || (a = o.pageX), "horizontal" === n.options.direction || (l = i.offset().left), "horizontal" === n.options.direction ? e.addClass("active thumb-horizontal") : e.addClass("active"), n.left = null == a ? o.originalEvent.touches[0].pageY - l : a - l, n.left < 0 ? n.left = 0 : n.left > s && (n.left = s), e.css("left", n.left), i.length < 1 && e.find(".value").html("".concat(i.val(), " ").concat(n.options.single.value.symbol)) } }) } }, { key: "mouseOutFromInput", value: function () { var n = this; this.$range.on("mouseout", function (o) { if (!n.rangeMousedown) { var i = t(o.target).siblings(".thumb"); i.hasClass("active") && i.animate({ marginLeft: "0px", top: "12px", height: "0px", width: "0px" }, 230), i.removeClass("active") } }) } }, { key: "multiRangeValue", value: function () { var n = this; if (null !== this.options.single.countingTarget && void 0 !== this.options.single.countingTarget && "" !== this.options.single.countingTarget && !0 === this.options.single.counting) { var o = t("".concat(_toConsumableArray(this.options.single.countingTarget.split(" ")))); this.$range.on("input mousedown touchstart", function () { void 0 === n.options.single.value || o.is("input") ? o.is("input") ? o.val("".concat(n.$range.val())) : o.html("".concat(n.$range.val())) : o.html("".concat(n.$range.val(), " ").concat(n.options.single.value.symbol)) }) } } }, { key: "multiRangeCSS", value: function () { this.$range.css("width", this.options.width) } }, { key: "inputMultiRange", value: function () { var n = this; if (void 0 !== this.options.single.multi && !0 === this.options.single.active && this.options.single.multi.rangeLength >= 1) for (var o = 0; o < this.options.single.multi.rangeLength; o++) { var i = this.$range.clone(!0, !0).prop("id", this.randomLetter(10)); void 0 !== this.options.single.multi.bgThumbColor && void 0 !== this.options.single.multi.textThumbColor && this.options.single.multi.bgThumbColor.length > 1 ? i.attr({ "data-color": this.options.single.multi.bgThumbColor.length > 1 ? _toConsumableArray(this.options.single.multi.bgThumbColor)[o] : _toConsumableArray(this.options.single.multi.bgThumbColor)[0], "data-text-color": this.options.single.multi.textThumbColor.length > 1 ? _toConsumableArray(this.options.single.multi.textThumbColor)[o] : _toConsumableArray(this.options.single.multi.textThumbColor)[0] }) : i.attr({ "data-color": [], "data-text-color": [] }), i.attr({ step: void 0 !== this.options.single.multi.value ? this.options.single.multi.value.step : null, symbol: void 0 !== this.options.single.multi.value ? this.options.single.multi.value.symbol : null }), i.val(i.attr("max")), i.addClass("mdbMultiRange ghost"), i.prev().css("background-color", this.options.single.multi.bgThumbColor), this.$range.after(i), null !== this.options.single.multi.countingTarget && void 0 !== this.options.single.multi.countingTarget && "object" === _typeof(this.options.single.multi.countingTarget) && this.options.single.multi.counting && function () { var e = t("".concat(Object.values(_toConsumableArray(n.options.single.multi.countingTarget))[o])); i.on("input mousedown", function (o) { void 0 === n.options.single.multi.value || e.is("input") ? e.is("input") ? e.val(t(o.target).val()) : e.html(t(o.target).val()) : e.html("".concat(t(o.target).val(), " ").concat(n.options.single.multi.value.symbol)) }) }() } } }]), C }(); t.fn.mdbRange = function (n) { return this.each(function () { new C(t(this), n) }) } }(jQuery);
+
+  /*
+   * MDBootstrap Range Slider
+   * Learn more:  https://mdbootstrap.com/plugins/jquery/multi-range/,
+   *
+   * About MDBootstrap: https://mdbootstrap.com/
+   * Support: https://mdbootstrap.com/support/
+   * Contact: https://mdbootstrap.com/contact/
+   *
+   * This addons was created by MDBootstrap Developer Team
+   *
+   */
+
+  ($ => {
+    class mdbRange {
+
+      constructor(range, options) {
+
+        this.defaults = {
+          width: '100%',
+          direction: 'vertical',
+          value: {
+            min: 0,
+            max: 100
+          },
+          single: {
+            active: true,
+            value: {
+              step: 1,
+              symbol: ''
+            },
+            counting: false,
+            countingTarget: null,
+            bgThumbColor: '#1266f1',
+            textThumbColor: '#fff',
+            multi: {
+              active: false,
+              value: {
+                step: 1,
+                symbol: ''
+              },
+              counting: false,
+              rangeLength: 0,
+              countingTarget: null,
+              bgThumbColor: '#1266f1',
+              textThumbColor: '#fff'
+            }
+          }
+        };
+
+        this.$range = range;
+        this.options = this.assignedOptions(options);
+        this.$rangeWrapper = this.$range.parent().hasClass('multi-range-field') ? this.$range.parent() : null;
+        this.thumbHtml = '<span class="thumb"><span class="value"></span></span>';
+        this.rangeMousedown = false;
+        this.left;
+        this.init();
+      }
+
+      assignedOptions(newOptions) {
+        return $.extend({}, this.defaults, newOptions);
+      }
+
+      init() {
+
+        this.addThumb();
+        this.rangeChange();
+        this.multiRangeInit();
+        this.inputMouseDown();
+        this.mouseUponInput();
+        this.mouseMoveOnInput();
+        this.mouseOutFromInput();
+        this.multiRangeValue();
+        this.multiRangeCSS();
+        this.inputMultiRange();
+      }
+
+      randomLetter(...letter) {
+
+        let text = '';
+        const charset = 'abcdefghijklmnopqrstuvwxyz123456789';
+
+        for (let i = 0; i < new Number(letter); i++) {
+          text += charset.charAt(Math.floor(Math.random() * charset.length));
+        }
+        return text;
+      }
+
+      addThumb() {
+
+        if (this.options.single.active === true) {
+
+          $(this.$range.prop({
+            id: this.randomLetter(10),
+            disabled: false
+          })).after($(this.thumbHtml).attr('data-id', ''));
+        } else {
+
+          $(this.$range.prop('disabled', true));
+        }
+
+        this.options.direction === 'horizontal' ? this.$rangeWrapper.addClass('thumb-horizontal-wrapper') : null;
+      }
+
+      rangeChange() {
+
+        this.$range.on('change', e => {
+
+          e.preventDefault();
+
+          const $etarget = $(e.target);
+
+          const $thumbValue = $etarget.siblings('.thumb').find('.value');
+
+          this.options.single.value !== undefined ? $thumbValue.html(`${$etarget.val()} ${this.options.single.value.symbol}`) : $thumbValue.html($etarget.val());
+        });
+      }
+
+      multiRangeInit() {
+
+        this.$range.attr({
+          min: this.options.value.min,
+          max: this.options.value.max,
+          step: this.options.single.value !== undefined ? this.options.single.value.step : this.defaults.single.value.step,
+          symbol: this.options.single.value !== undefined ? this.options.single.value.symbol : this.defaults.single.value.symbol
+        });
+
+        this.$range.addClass('mdbMultiRange original');
+        this.$range.val(this.$range.attr('min'));
+      }
+
+      inputMouseDown() {
+
+        this.$range.on('input mousedown touchstart', e => {
+
+          const $etarget = $(e.target);
+          const $thumb = $etarget.siblings('.thumb');
+
+          if (!$thumb.length) {
+
+            this.addThumb();
+          }
+
+          $thumb.find('.value').html($etarget.val());
+
+          this.rangeMousedown = true;
+          $etarget.addClass('active');
+
+          if (!$thumb.hasClass('active')) {
+
+            $thumb.css({
+              height: '30px',
+              width: '30px',
+              top: '-23px',
+              marginLeft: '-15px'
+            });
+          }
+
+          if (e.type !== 'input') {
+
+            let page = e.pageY;
+            let offset = $etarget.offset().top;
+            const width = $etarget.outerWidth();
+
+            this.options.direction === 'horizontal' ? page : page = e.pageX;
+            this.options.direction === 'horizontal' ? offset : offset = $etarget.offset().left;
+
+            if (page === undefined || page === null) {
+
+              let originalEventTouch = e.originalEvent.touches[0].pageY;
+
+              this.options.direction === 'horizontal' ? originalEventTouch : originalEventTouch = e.originalEvent.touches[0].pageX;
+
+              this.left = originalEventTouch - offset;
+
+            } else {
+              this.left = page - offset;
+            }
+
+            if (this.left < 0) {
+
+              this.left = 0;
+            } else if (this.left > width) {
+
+              this.left = width;
+            }
+            $thumb.addClass('active').css('left', this.left);
+          }
+
+          $thumb.attr('data-id', $etarget.attr('id'));
+
+          if ($etarget.hasClass('ghost')) {
+
+            $thumb.css('background-color', $etarget.data('color'));
+            $thumb.children().css('color', $etarget.data('text-color'));
+          } else {
+
+            $thumb.css('background-color', this.options.single.bgThumbColor === undefined ? this.defaults.single.bgThumbColor : this.options.single.bgThumbColor);
+            $thumb.children().css('color', this.options.single.textThumbColor === undefined ? this.defaults.single.textThumbColor : this.options.single.textThumbColor);
+          }
+
+          this.options.single.value !== undefined ? $thumb.find('.value').html(`${$etarget.val()} ${this.options.single.value.symbol}`) : $thumb.find('.value').html($etarget.val());
+        });
+      }
+
+      mouseUponInput() {
+
+        this.$range.on('mouseup', e => {
+
+          this.rangeMousedown = false;
+          $(e.target).parent().removeClass('active');
+        });
+      }
+
+      mouseMoveOnInput() {
+
+        this.$range.on('mousemove touchmove', e => {
+
+          const $etarget = $(e.target);
+          const $thumb = $etarget.siblings('.thumb');
+
+          this.left;
+
+          if (this.rangeMousedown) {
+
+            if (!$thumb.hasClass('active')) {
+
+              $thumb.css({
+                height: '30px',
+                width: '30px',
+                top: '-23px',
+                marginLeft: '-15px'
+              });
+            }
+
+            const width = $etarget.outerWidth();
+            let page = e.pageY;
+            let offset = $etarget.offset().top;
+
+            this.options.direction === 'horizontal' ? page : page = e.pageX;
+            this.options.direction === 'horizontal' ? offset : offset = $etarget.offset().left;
+            this.options.direction === 'horizontal' ? $thumb.addClass('active thumb-horizontal') : $thumb.addClass('active');
+
+            if (page === undefined || page === null) {
+
+              let originalEventTouch = e.originalEvent.touches[0].pageY;
+
+              this.options.direction === 'horizontal' ? originalEventTouch : originalEventTouch = e.originalEvent.touches[0].pageX;
+
+              this.left = originalEventTouch - offset;
+            } else {
+
+              this.left = page - offset;
+            }
+
+            if (this.left < 0) {
+
+              this.left = 0;
+            } else if (this.left > width) {
+
+              this.left = width;
+            }
+
+            $thumb.css('left', this.left);
+
+            if ($etarget.length < 1) {
+              $thumb.find('.value').html(`${$etarget.val()} ${this.options.single.value.symbol}`);
+            }
+          }
+        });
+      }
+
+      mouseOutFromInput() {
+
+        this.$range.on('mouseout touchend', e => {
+
+          if (!this.rangeMousedown) {
+
+            this.hasClassActive(e);
+          } else {
+
+            this.hasClassActive(e);
+          }
+        });
+      }
+
+      hasClassActive(e) {
+
+        const $thumb = $(e.target).siblings('.thumb');
+
+        if ($thumb.hasClass('active')) {
+
+          $thumb.animate({
+            marginLeft: '0px',
+            top: '12px',
+            height: '0px',
+            width: '0px'
+          }, 230);
+
+        }
+        $thumb.removeClass('active');
+      }
+
+      multiRangeValue() {
+
+        if (this.options.single.countingTarget !== null && this.options.single.countingTarget !== undefined && this.options.single.countingTarget !== '' && this.options.single.counting === true) {
+
+          const $orginalTarget = $(`${[...this.options.single.countingTarget.split(' ')]}`);
+
+          this.$range.on('input mousedown touchstart', () => {
+
+            if (this.options.single.value !== undefined && !$orginalTarget.is('input')) {
+
+              $orginalTarget.html(`${this.$range.val()} ${this.options.single.value.symbol}`);
+            } else if ($orginalTarget.is('input')) {
+
+              $orginalTarget.val(`${this.$range.val()}`);
+            } else {
+
+              $orginalTarget.html(`${this.$range.val()}`);
+            }
+          });
+        }
+      }
+
+      multiRangeCSS() {
+
+        this.$range.css('width', this.options.width);
+      }
+
+      inputMultiRange() {
+
+        if (this.options.single.multi !== undefined && this.options.single.active === true && this.options.single.multi.rangeLength >= 1) {
+
+          for (let i = 0; i < this.options.single.multi.rangeLength; i++) {
+
+            const $ghost = this.$range.clone(true, true).prop('id', this.randomLetter(10));
+
+            if (this.options.single.multi.bgThumbColor !== undefined && this.options.single.multi.textThumbColor !== undefined && this.options.single.multi.bgThumbColor.length > 1) {
+
+              $ghost.attr({
+                'data-color': this.options.single.multi.bgThumbColor.length > 1 ? [...this.options.single.multi.bgThumbColor][i] : [...this.options.single.multi.bgThumbColor][0],
+                'data-text-color': this.options.single.multi.textThumbColor.length > 1 ? [...this.options.single.multi.textThumbColor][i] : [...this.options.single.multi.textThumbColor][0]
+              });
+            } else {
+
+              $ghost.attr({
+                'data-color': [],
+                'data-text-color': []
+              });
+            }
+
+            $ghost.attr({
+              step: this.options.single.multi.value !== undefined ? this.options.single.multi.value.step : null,
+              symbol: this.options.single.multi.value !== undefined ? this.options.single.multi.value.symbol : null
+            });
+
+            $ghost.val($ghost.attr('max'));
+            $ghost.addClass('mdbMultiRange ghost');
+            $ghost.prev().css('background-color', this.options.single.multi.bgThumbColor);
+            this.$range.after($ghost);
+
+            if (this.options.single.multi.countingTarget !== null && this.options.single.multi.countingTarget !== undefined && typeof this.options.single.multi.countingTarget === 'object' && this.options.single.multi.counting) {
+
+              const $ghostTargetValue = $(`${Object.values([...this.options.single.multi.countingTarget])[i]}`);
+
+              $ghost.on('input mousedown', e => {
+
+                if (this.options.single.multi.value !== undefined && !$ghostTargetValue.is('input')) {
+
+                  $ghostTargetValue.html(`${$(e.target).val()} ${this.options.single.multi.value.symbol}`);
+                } else if ($ghostTargetValue.is('input')) {
+
+                  $ghostTargetValue.val($(e.target).val());
+                } else {
+                  $ghostTargetValue.html($(e.target).val());
+                }
+              });
+            }
+          }
+        }
+      }
+    }
+
+    $.fn.mdbRange = function (options) {
+
+      return this.each(function () {
+        new mdbRange($(this), options);
+      });
+    };
+
+  })(jQuery);
 
   $('#multi').mdbRange({
     single: {
       active: true,
       multi: {
         active: true,
-        rangeLength:1
+        rangeLength: 1
       },
     }
   });
