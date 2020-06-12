@@ -2,7 +2,7 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Breakpoints',
-  'seo_title' => 'Breakpoints - Bootstrap 5 & Material Design layout',
+  'seo_title' => 'Breakpoints - Bootstrap 5 & Material Design 2.0 layout',
   'seo_description' => 'Breakpoints built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
   'url' => 'https://mdbootstrap.com/docs/standard/layout/breakpoints/',
   'image' => '',
