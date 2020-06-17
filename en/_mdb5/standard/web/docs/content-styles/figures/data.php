@@ -4,7 +4,7 @@ $data_var = array(
   'main_title' => 'Figures',
   'seo_title' => 'Figures - Bootstrap 5 & Material Design 2.0',
   'description' => 'Figures built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
-  'url' => 'https://mdbootstrap.com/docs/standard/',
+  'url' => 'https://mdbootstrap.com/docs/standard/content-styles/figures/',
   'image' => '',
   'video' => '',
 );
