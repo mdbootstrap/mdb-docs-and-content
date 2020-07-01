@@ -6,5 +6,5 @@ $data_var = array(
   'description' => 'Alerts built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
   'url' => 'https://mdbootstrap.com/docs/standard/components/alerts/',
   'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/components/alerts/alerts.jpg',
-  'video' => 'https://www.youtube.com/watch?v=XavTclE2U9Y',
+  'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );
