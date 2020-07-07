@@ -6,7 +6,7 @@ $data_var = array(
   'description' => 'Bootstrap grid is a powerful system for building mobile-first layouts. It is very extensive tool with a great number of options. Below we present you the core knowledge. It is a simplified overview of the most commonly used examples.',
   'url' => 'https://mdbootstrap.com/docs/standard/layout/grid/',
   'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/layout/grid/grid.jpg',
-  'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
+  'video' => 'https://youtu.be/DZKf9l42WCo',
 );
 
 
