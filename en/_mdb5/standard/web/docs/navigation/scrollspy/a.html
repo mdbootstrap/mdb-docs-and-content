@@ -25,19 +25,13 @@
       To easily add scrollspy behavior to your topbar navigation, add
       <code>data-spy="scroll"</code> to the element you want to spy on (most typically this would be
       the <code>&lt;body&gt;</code>). Then add the <code>data-target</code> attribute with the ID or
-      class of the parent element of any Bootstrap <code>.nav</code> component.
+      class of the parent element of any MDB <code>.nav</code> component.
     </p>
 
     <!--Section: Code-->
     <section>
       <mdbsnippet>
         <!-- prettier-ignore -->
-        <code data-lang="css" data-name="CSS">
-          body { 
-            position: relative;
-          }
-        </code>
-
         <code data-lang="html" data-name="HTML">
           <body data-spy="scroll" data-target="#navbar-example">
             ...
@@ -48,6 +42,11 @@
             </div>
             ...
           </body>
+        </code>
+        <code data-lang="css" data-name="CSS">
+          body { 
+            position: relative;
+          }
         </code>
       </mdbsnippet>
     </section>
@@ -66,7 +65,7 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="js" data-name="JavaScript">
-          var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+          var scrollSpy = new mdb.ScrollSpy(document.body, {
             target: '#navbar-example'
           })
         </code>
@@ -84,6 +83,24 @@
       <strong>Non-visible target elements ignored:</strong> Target elements that are not visible
       will be ignored and their corresponding nav items will never be highlighted.
     </p>
+
+    <h4 class="mt-4">Via jQuery</h4>
+
+    <p class="note note-warning">
+      <strong>Note:</strong> By default, MDB <strong>does not</strong> include jQuery
+      and you have to add it to the project on your own.
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="jQuery">
+          $('.example-class').scrollSpy(options);
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
   </section>
   <!--Section: Usage-->
 
@@ -99,7 +116,7 @@
       option name to <code>data-</code>, as in <code>data-offset=""</code>.
     </p>
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
       <thead>
         <tr>
           <th style="width: 100px;">Name</th>
@@ -110,15 +127,15 @@
       </thead>
       <tbody>
         <tr>
-          <td>offset</td>
+          <td><code>offset</code></td>
           <td>number</td>
-          <td>10</td>
+          <td><code>10</code></td>
           <td>Pixels to offset from top when calculating position of scroll.</td>
         </tr>
         <tr>
-          <td>method</td>
+          <td><code>method</code></td>
           <td>string</td>
-          <td>auto</td>
+          <td><code>auto</code></td>
           <td>
             Finds which section the spied element is in. <code>auto</code> will choose the best
             method to get scroll coordinates. <code>offset</code> will use the
@@ -146,7 +163,7 @@
           </td>
         </tr>
         <tr>
-          <td>target</td>
+          <td><code>target</code></td>
           <td>string | jQuery object | DOM element</td>
           <td></td>
           <td>Specifies element to apply Scrollspy plugin.</td>
@@ -163,44 +180,40 @@
     <!-- Section title -->
     <h2 class="mb-4">Methods</h2>
 
-    <h4 class="mt-4">
-      refresh
-    </h4>
-
-    <p>
-      When using scrollspy in conjunction with adding or removing of elements from the DOM, you’ll
-      need to call the refresh method like so:
-    </p>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 150px;"class="th-sm">Name</th>
+          <th class="th-sm">Description</th>
+          <th class="th-sm">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>refresh</code></td>
+          <td>When using scrollspy in conjunction with adding or removing of elements from the DOM, you’ll
+            need to call the refresh method</td>
+          <td>instance.refresh()</td>
+        </tr>
+        <tr>
+          <td><code>dispose</code></td>
+          <td>Destroys an element’s tab.</td>
+          <td>instance.dispose()</td>
+        </tr>
+      </tbody>
+    </table>
 
     <!-- prettier-ignore -->
     <mdbsnippet>
       <code data-lang="js" data-name="JavaScript"> 
         var dataSpyList = [].slice.call(document.querySelectorAll('[data-spy="scroll"]'))
         dataSpyList.forEach(function (dataSpyEl) {
-          bootstrap.ScrollSpy.getInstance(dataSpyEl)
+          mdb.ScrollSpy.getInstance(dataSpyEl)
             .refresh()
         })
       </code>
     </mdbsnippet>
 
-    <h4 class="mt-4">
-      dispose
-    </h4>
-
-    <p>Destroys an element’s scrollspy.</p>
-
-    <h4 class="mt-4">
-      getInstance
-    </h4>
-
-    <!-- prettier-ignore -->
-    <mdbsnippet>
-      <code data-lang="js" data-name="JavaScript"> 
-        var scrollSpyContentEl = document.getElementById('content')
-        var scrollSpy = bootstrap.ScrollSpy.getInstance(scrollSpyContentEl) // Returns a Bootstrap scrollspy instance
-      </code>
-    </mdbsnippet>
-  </section>
   <!--Section: Methods-->
 
   <hr class="my-5" />
@@ -210,7 +223,7 @@
     <!-- Section title -->
     <h2 class="mb-4">Events</h2>
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
       <thead>
         <tr>
           <th style="width: 150px;">Event type</th>
@@ -219,7 +232,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>activate.bs.scrollspy</td>
+          <td><code>activate.bs.scrollspy</code></td>
           <td>
             This event fires on the scroll element whenever a new item becomes activated by the
             scrollspy.
@@ -239,5 +252,27 @@
     </mdbsnippet>
   </section>
   <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- Description -->
+    <p>
+      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following
+      code to import this component:
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        import { ScrollSpy } from 'mdb-ui-kit';
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
 </section>
 <!--Section: Docs content-->
