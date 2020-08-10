@@ -1,1 +1,41 @@
-<script></script>
+<script>
+  document.getElementById('slim-toggler').addEventListener('click', () => {
+    const instance = mdb.Sidenav.getInstance(document.getElementById('sidenav-4'));
+    instance.toggleSlim();
+  });
+
+  ['sidenav-1', 'sidenav-2'].forEach((sidenav) => {
+    const instance = mdb.Sidenav.getInstance(document.getElementById(sidenav));
+    instance.show();
+  });
+
+  const modes = ['push', 'over', 'side'];
+
+  modes.forEach((mode) => {
+    const modeSwitch = document.getElementById(mode);
+    modeSwitch.addEventListener('click', () => {
+      const instance = mdb.Sidenav.getInstance(document.getElementById('sidenav-2'));
+      instance.changeMode(mode);
+      modes.forEach((el) => {
+        if (el === mode) {
+          modeSwitch.classList.remove('btn-outline-primary');
+          modeSwitch.classList.add('btn-primary');
+        } else {
+          const node = document.getElementById(el);
+          node.classList.add('btn-outline-primary');
+          node.classList.remove('btn-primary');
+        }
+      });
+    });
+  });
+
+  const colors = ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'];
+
+  const instance = mdb.Sidenav.getInstance(document.getElementById('sidenav-colors'));
+
+  colors.forEach((color) => {
+    document.getElementById(`sidenav-${color}`).addEventListener('click', () => {
+      instance.update({ color });
+    });
+  });
+</script>
