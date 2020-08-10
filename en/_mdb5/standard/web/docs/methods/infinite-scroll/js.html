@@ -1,1 +1,135 @@
-<script></script>
+<script type="text/javascript">
+  const element = document.getElementById('basic-example');
+  const widthElement = document.getElementById('direction-example');
+  const spinnersElement = document.getElementById('spinners-and-async-example');
+  const images = document.getElementById('images');
+  const spinner = document.getElementById('spinner');
+
+  const content = [
+    'Sad-Tear',
+    'Meh-Blank',
+    'Smile-Wink',
+    'Tired',
+    'Surprise',
+    'Kiss-Beam',
+    'Laugh-Squint',
+  ];
+  const liClasses = ['list-group-item', 'd-flex', 'align-items-center'];
+  const iconClasses = ['far', 'fa-3x', 'mr-4'];
+  let i = 0;
+  let j = 0;
+
+  element.addEventListener('complete.mdb.infiniteScroll', () => {
+    if (i < content.length) {
+      let innerEl = document.createElement('li');
+
+      let icon = document.createElement('i');
+
+      liClasses.forEach((item, index) => {
+        innerEl.classList.add(liClasses[index]);
+      });
+
+      icon.classList.add(`fa-${content[i].toLowerCase()}`);
+
+      iconClasses.forEach((item, index) => {
+        icon.classList.add(iconClasses[index]);
+      });
+
+      innerEl.appendChild(icon);
+
+      innerEl.innerHTML += content[i];
+
+      element.appendChild(innerEl);
+
+      i++;
+    }
+  });
+
+  widthElement.addEventListener('complete.mdb.infiniteScroll', () => {
+    if (j < content.length) {
+      let innerEl = document.createElement('span');
+
+      innerEl.classList.add('mx-5');
+
+      let icon = document.createElement('i');
+
+      icon.classList.add(`fa-${content[j].toLowerCase()}`);
+
+      for (let l = 0; l < iconClasses.length; l++) {
+        icon.classList.add(iconClasses[l]);
+      }
+
+      innerEl.appendChild(icon);
+
+      innerEl.innerHTML += content[j];
+
+      widthElement.appendChild(innerEl);
+
+      j++;
+    }
+  });
+
+  const urls = [
+    'https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg',
+    'https://mdbootstrap.com/img/Photos/Slides/img%20(103).jpg',
+    'https://mdbootstrap.com/img/Photos/Slides/img%20(104).jpg',
+    'https://mdbootstrap.com/img/Photos/Slides/img%20(107).jpg',
+    'https://mdbootstrap.com/img/Photos/Slides/img%20(108).jpg',
+    'https://mdbootstrap.com/img/Photos/Slides/img%20(109).jpg',
+    'https://mdbootstrap.com/img/Photos/Slides/img%20(110).jpg',
+  ];
+
+  let items = [];
+
+  urls.map((value, i) => {
+    items[i] = document.createElement('img');
+    items[i].classList.add('img-fluid');
+    items[i].classList.add('mb-3');
+    items[i].setAttribute('src', value);
+  });
+
+  let renderedItems = 0;
+
+  const renderItems = () => {
+    images.appendChild(items[renderedItems]);
+    renderedItems++;
+
+    if (renderedItems === urls.length) {
+      spinnersElement.removeEventListener('complete.mdb.infiniteScroll', loadItems);
+    }
+  };
+
+  const loadItems = () => {
+    if (renderedItems < urls.length) {
+      spinner.style.display = 'block';
+
+      setTimeout(() => {
+        spinner.style.display = 'none';
+        renderItems();
+      }, 1000);
+    }
+  };
+
+  spinnersElement.addEventListener('complete.mdb.infiniteScroll', loadItems);
+
+  const container = document.getElementById('window-example');
+
+  let iterator = 0;
+
+  new mdb.InfiniteScroll(window);
+  window.addEventListener('complete.mdb.infiniteScroll', (e) => {
+    if (e.target === window && iterator < urls.length) {
+      const imageElement = document.createElement('img');
+
+      imageElement.classList.add('img-fluid');
+
+      imageElement.classList.add('mb-3');
+
+      imageElement.setAttribute('src', urls[iterator]);
+
+      container.appendChild(imageElement);
+
+      iterator++;
+    }
+  });
+</script>
