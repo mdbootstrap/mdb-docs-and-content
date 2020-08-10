@@ -1,7 +1,7 @@
-<!--Section: Docs content-->
+<!--Section: API content-->
 <section>
   <!--Section: Introduction-->
-  <section id="api-section-introduction">
+  <section id="section-introduction">
     <!-- Main title -->
     <h2 class="h1 font-weight-bold">
       <?= $data_var['main_title']; ?>
@@ -17,13 +17,43 @@
     <!-- Section title -->
     <h2 class="mb-4">Usage</h2>
 
-    <!--Section: Code-->
-    <section>
-      <mdbsnippet>
-        <code data-lang="html" data-name="HTML"> </code>
-      </mdbsnippet>
-    </section>
-    <!--Section: Code-->
+    <h4 class="mb-4">Via data attributes</h4>
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="lightbox" data-zoom-level="0.5">
+          <img
+            src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
+            data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
+            alt="Lightbox image 1"
+            class="w-100"
+          />
+        </div>
+      </code>
+    </mdbsnippet>
+
+    <h4 class="my-4">Via JavaScript</h4>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+    <code data-lang="js" data-name="JavaScript">
+      var lightbox = document.getElementById('lightbox');
+      var instance = mdb.Lightbox.getInstance(lightbox);
+      instance.open();
+    </code>
+  </mdbsnippet>
+
+    <h4 class="my-4">Via jQuery</h4>
+
+    <p class="note note-warning">
+      <strong>Note:</strong> By default, MDB <strong>does not</strong> include jQuery and you have
+      to add it to the project on your own.
+    </p>
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        $('#lightbox').lightbox('open');
+      </code>
+    </mdbsnippet>
   </section>
   <!--Section: Usage-->
 
@@ -33,6 +63,56 @@
   <section id="api-section-options">
     <!-- Section title -->
     <h2 class="mb-4">Options</h2>
+
+    <p>
+      Options can be passed via data attributes, JavaScript, or jQuery. For data attributes, append
+      the option name to <code>data-</code>, as in <code>data-zoom-level=""</code>. The
+      <code>img</code> and <code>caption</code> attributes should be pinned directly to the
+      thumbnails, not to the lightbox wrapper element.
+    </p>
+    <p></p>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Type</th>
+            <th class="th-sm">Default</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">zoomLevel</code>
+            </td>
+            <td><i>Number / String</i></td>
+            <td><code>1</code></td>
+            <td>Defines zoom level while zooming in or out.</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">img</code></td>
+            <td><i>String</i></td>
+            <td><code></code></td>
+            <td>
+              Defines regular image to load when gallery is open. If not set, the value of
+              <code>src</code> attribute is taken.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">caption</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code></code></td>
+            <td>
+              Defines caption of the image. If not set, the value of
+              <code>alt</code> attribute is taken.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
   <!--Section: Options-->
 
@@ -42,6 +122,112 @@
   <section id="api-section-methods">
     <!-- Section title -->
     <h2 class="mb-4">Methods</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Parameters</th>
+            <th class="th-sm">Description</th>
+            <th class="th-sm">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">open</code></td>
+            <td>target</td>
+            <td>
+              Opens the gallery and activates image set by the target key. Default is the first
+              image.
+            </td>
+            <td><code class="language-markup text-nowrap">instance.open(1)</code></td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">slide</code></td>
+            <td>target</td>
+            <td>
+              Slides an image in the gallery. Available options: <code>left</code>,
+              <code>right</code>, <code>first</code>, <code>last</code>. Dafault is right direction.
+            </td>
+            <td>
+              <code class="language-markup text-nowrap">instance.slide('last')</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">zoomIn</code></td>
+            <td></td>
+            <td>Zooms in active image by one level.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.zoomIn()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">zoomOut</code>
+            </td>
+            <td></td>
+            <td>Zooms out active image by one level.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.zoomOut()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">toggleFullscreen</code>
+            </td>
+            <td></td>
+            <td>Toggles fullscreen.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.toggleFullscreen()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">reset</code></td>
+            <td></td>
+            <td>Resets changed parameters such as position, zoom or fullscreen.</td>
+            <td><code class="language-markup text-nowrap">instance.reset()</code></td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">close</code></td>
+            <td></td>
+            <td>Closes the gallery.</td>
+            <td><code class="language-markup text-nowrap">instance.close()</code></td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">dispose</code>
+            </td>
+            <td></td>
+            <td>Removes the mdb.Lightbox instance.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.dispose()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">getInstance</code>
+            </td>
+            <td>element</td>
+            <td>
+              Static method which allows to get the lightbox instance associated with a DOM element.
+            </td>
+            <td>
+              <code class="language-markup text-nowrap">mdb.Lightbox.getInstance(element)</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+    <code data-lang="js" data-name="JavaScript">
+      var lightbox = document.getElementById('lightbox');
+      var instance = mdb.Lightbox.getInstance(lightbox);
+      instance.open(1);
+    </code>
+  </mdbsnippet>
   </section>
   <!--Section: Methods-->
 
@@ -51,7 +237,129 @@
   <section id="api-section-events">
     <!-- Section title -->
     <h2 class="mb-4">Events</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">open.mdb.lightbox</code>
+            </td>
+            <td>
+              Emitted when a lightbox has been toggled.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">opened.mdb.lightbox</code>
+            </td>
+            <td>
+              Emitted when a lightbox is opened.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">slide.mdb.lightbox</code>
+            </td>
+            <td>
+              Emitted when a lightbox has been slided.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">slided.mdb.lightbox</code>
+            </td>
+            <td>
+              Emitted after an image slide.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">zoomIn.mdb.lightbox</code>
+            </td>
+            <td>
+              Emitted when an image has been zoom in.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">zoomedIn.mdb.lightbox</code>
+            </td>
+            <td>
+              Emitted after an image is zoomed in.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">zoomOut.mdb.lightbox</code>
+            </td>
+            <td>
+              Emitted when an image has been zoom out.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">zoomedOut.mdb.lightbox</code>
+            </td>
+            <td>
+              Emitted after an image is zoomed out.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">close.mdb.lightbox</code>
+            </td>
+            <td>
+              Emitted when a lightbox has been toggled.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">closed.mdb.lightbox</code>
+            </td>
+            <td>
+              Emitted when a lightbox is closed.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        window.addEventListener('opened.mdb.lightbox', () => alert('Lightbox opened'));
+      </code>
+    </mdbsnippet>
+    </div>
   </section>
   <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- Description -->
+    <p>
+      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following code to import
+      this component:
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+    <code data-lang="js" data-name="JavaScript">
+      import { Lightbox } from 'mdb-ui-kit';
+    </code>
+  </mdbsnippet>
+  </section>
+  <!--Section: Import-->
 </section>
-<!--Section: Docs content-->
+<!--Section: API content-->
