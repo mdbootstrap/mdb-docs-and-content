@@ -160,12 +160,12 @@ EXAMPLES
     <h2 class="mb-4">mdb set-name [&lt;name&gt;]</h2>
 
     <p>
-      Set the name of your project. It only changes the name locally in your local <code>package.json</code> file. In order to change the name of the project on the remote server, you need to run <code>mdb publish</code>.
+      Set the name of your project. It only changes the name locally in your local <code>package.json</code> file. The changes will take effect on the remote server after running <code>mdb publish</code> command.
     </p>
     <p>
       <strong>Note</strong>
       <br />
-      After running this command, the copy of your project will be published under the new name. The old project with the old name will still exist. In order to <strong>rename</strong> the project, you need to run <code>mdb rename</code> command.
+      After running this command, the first <code>mdb publish</code> will cause the new copy of your project to be published under the new name. The old project with the old name will still exist. In order to <strong>rename</strong> the project, you need to run <code>mdb rename</code> command.
     </p>
 
     <!--Section: Code-->
@@ -188,7 +188,7 @@ EXAMPLES
     <h2 class="mb-4">mdb create</h2>
 
     <p>
-      Create the Git repository on <a href="https://git.mdbgo.com/" target="_blank" rel="nofollow">our GitLab server</a>. It allows you to use MDB Go pipeline to deploy your project on our remote server and track the project builds.
+      Create the Git repository on <a href="https://git.mdbgo.com/" target="_blank" rel="nofollow">our GitLab server</a> for the current project. It allows you to use MDB Go pipeline to deploy your project on our remote server and track the project builds.
     </p>
 
     <!--Section: Code-->
@@ -207,21 +207,21 @@ EXAMPLES
     <h2 class="mb-4">mdb publish [OPTIONS]</h2>
 
     <p>
-      Upload your project to our remote server and access it under this link: <code>https://mdbgo.dev/&lt;username&gt;/&lt;project-name&gt;/</code>.
+      Upload your current project to our remote server and access it under similar link: <code>https://mdbgo.dev/&lt;username&gt;/&lt;project-name&gt;/</code>.
       <br />
       Use this command to either upload a new project or update the existing project with the latest changes.
     </p>
 
     <p>
-      You can publish your projects in two ways.
+      You can publish your project in the two ways.
     </p>
 
     <p>
-      First and recommended is to use MDB Go pipeline. It means that your project will be using GitLab repository and Jenkins job to be deployed on our FTP server. In short, using this option means that your project will have configured CI/CD pipeline with all its advantages.
+      First and recommended is to use MDB Go pipeline. It means that your project will be using GitLab repository and Jenkins job to be deployed on our FTP server. In short, using this option means that your project will have configured CI/CD pipeline with all its advantages. It works like that by default.
     </p>
 
     <p>
-      Second way is to simply upload your files directly to the FTP server. That way you loose all of the advantages of having CI/CD configured for your project.
+      Second way is to simply upload your files directly to the FTP server. That way you loose all of the advantages of having CI/CD configured for your project. In order to go that way you need to add <code>--ftp</code> parameter.
     </p>
 
     <!--Section: Code-->
@@ -310,7 +310,8 @@ EXAMPLES
     $ mdb get [&lt;name&gt;]
 
 EXAMPLES
-    $ mdb get</pre>
+    $ mdb get
+    $ mdb get my-project-name</pre>
     </section>
     <!--Section: Code-->
   </section>
@@ -327,7 +328,7 @@ EXAMPLES
     <p>
       <strong>Note</strong>
       <br />
-      This command will change the project name in the <code>package.json</code> file only. The project directory name will remain unchanged.
+      This command will change the project name in the <code>package.json</code> file and on the remote server. The local project directory name will remain unchanged.
     </p>
 
     <!--Section: Code-->
@@ -350,7 +351,7 @@ EXAMPLES
     <h2 class="mb-4">mdb set-domain-name [&lt;name&gt;]</h2>
 
     <p>
-      Set the custom domain name which the project will be available under. It requires you to configure the DNS record (A) in your domain name provider settings.
+      Set the custom domain name which the current project will be available under. It requires you to configure the DNS record (A) in your domain name provider settings.
     </p>
     <p>
       <strong>Note</strong>
