@@ -104,6 +104,7 @@
           </ul>
         </code>
         <code data-lang="js" data-name="JavaScript">
+          // An array of icon names
           const icons = [
             'Sad-Tear',
             'Meh-Blank',
@@ -114,28 +115,37 @@
             'Laugh-Squint',
           ];
   
+          // Get a scrollable container using an id attribute
           const basicElement = document.getElementById('basic-example');
   
+          // An index of elements added after scrolling to the end of the container
           let itemIndex = 0;
   
-          // items - array of the created elements using reference to array icons
+          // items - an array of the created elements using the loop through icons array
           const items = icons.map((icon) => {
+            // Create a list item element
             const element = document.createElement('li');
   
+            // Change HTML code inside created list element using icon we are currently working on
             element.innerHTML = `
             <li class="list-group-item d-flex align-items-center">
               <i class="far fa-${icon.toLowerCase()} fa-3x mr-4"></i>${icon}
             </li>
             `;
   
+            // Return ready element
             return element;
           });
-  
+
+          // Add an event listener to the scrollable container. The event below is triggered when a user scrolls to the end of the container
           basicElement.addEventListener('complete.mdb.infiniteScroll', () => {
+            // Return nothing when user appended all of the generated items
             if (itemIndex === icons.length - 1) return;
   
+            // Append next element to the scrollable container
             basicElement.appendChild(items[itemIndex]);
   
+            // Increment amount of items that are appended
             itemIndex++;
           });
       </code>
@@ -187,10 +197,13 @@
           </div>
         </code>
         <code data-lang="js" data-name="JavaScript">
+          // Get a scrollable container using an id attribute
           const directionElement = document.getElementById('direction-example');
 
+          // An index of elements added after scrolling to the end of the container
           let itemIndex = 0;
   
+          // An array of icon names
           const icons = [
             'Sad-Tear',
             'Meh-Blank',
@@ -201,27 +214,33 @@
             'Laugh-Squint',
           ];
   
-          // items - array of the created elements using reference to array icons
+          // items - an array of the created elements using the loop through icons array
           const items = icons.map((icon) => {
+            // Create a span element
             const element = document.createElement('span');
   
+            // Add class mx-5 to the created element, which defines left and right margin
             element.classList.add('mx-5');
   
+            // Change HTML code inside created span element using icon we are currently working on
             element.innerHTML = `
               <i class="far fa-${icon.toLowerCase()} fa-3x mr-4"></i>
               ${icon}
             `;
   
+            // Return ready element
             return element;
           });
   
+          // Add an event listener to the scrollable container. The event below is triggered when a user scrolls to the end of the container
           directionElement.addEventListener('complete.mdb.infiniteScroll', () => {
+            // Return nothing when user appended all of the generated items
             if (itemIndex === items.length - 1) return;
   
-            const newElement = items[itemIndex];
+            // Append next element to the scrollable container
+            directionElement.appendChild(items[itemIndex]);
   
-            directionElement.appendChild(newElement);
-  
+            // Increment amount of items that are appended
             itemIndex++;
           });
         </code>
@@ -292,31 +311,44 @@
           </div>
         </code>
         <code data-lang="js" data-name="JavaScript">
+          // Get a spinner, container with images and scrollable container using an id attribute
           const spinner = document.getElementById('spinner');
           const imagesContainer = document.getElementById('images');
           const infiniteContainer = document.getElementById('spinners-and-async-example');
 
+          // Function that generates image with data from API
           const createImg = url => {
+            // Create an image element
             let imgElement = document.createElement('img');
 
+            // Add .img-fluid class to the element, it will adjust size of it to the container
             imgElement.classList.add('img-fluid');
             
+            // Set a src attribute using parameter that is passed to the function
             imgElement.setAttribute('src', url);
 
+            // Return ready image element
             return imgElement;
           }
 
+          // Function that loads next image
           const loadImages = () => {
+            // Make spinner visible
             spinner.style.display = 'block';
 
+            // Fetch your API 
             fetch('YOUR_API/getNextItem')
             .then(response => response.json)
             .then(imgUrl => {
+              // Hide spinner after data loads
               spinner.style.display = 'none';
+
+              // Append an image element generated by createImg function to the container with images
               imagesContainer.appendChild(createImg(imgUrl));
             });
           }
 
+          // Add an event listener to the scrollable container. The event below is triggered when a user scrolls to the end of the container
           infiniteContainer.addEventListener('complete.mdb.infiniteScroll', loadImages);
         </code>
       </mdbsnippet>
