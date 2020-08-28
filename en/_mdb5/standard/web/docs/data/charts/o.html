@@ -899,6 +899,93 @@
 
   <hr class="my-5" />
 
+  <!--Section: Pie chart with DataLabel plugin example-->
+  <section id="section-pie-chart-with-plugin">
+    <!-- Section title -->
+    <h2 class="mb-4">Pie chart with <code>DataLabels</code> plugin</h2>
+
+    <p>
+      Set <code>dataLabelsPlugin</code> option to <strong>true</strong> to display values directly
+      on a graph.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="pie-chart-with-plugin" class="col-sm-12 col-md-10 col-xl-8 mb-4"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+            <div id="pie-chart-with-plugin"></div>
+        </code>
+
+        <code data-lang="js" data-name="JavaScript">
+          // Pie chart with plugin
+          const dataPieWithPlugin = {
+            dataLabelsPlugin: true,
+            type: 'pie',
+            data: {
+              labels: ['January', 'February', 'March', 'April', 'May'],
+              datasets: [
+                {
+                  label: 'Traffic',
+                  data: [30, 45, 62, 65, 61],
+                  backgroundColor: [
+                    'rgba(63, 81, 181, 0.5)',
+                    'rgba(77, 182, 172, 0.5)',
+                    'rgba(66, 133, 244, 0.5)',
+                    'rgba(156, 39, 176, 0.5)',
+                    'rgba(233, 30, 99, 0.5)',
+                  ],
+                },
+              ],
+            },
+          };
+
+          const optionsPieWithPlugin = {
+            options: {
+              plugins: {
+                datalabels: {
+                  formatter: (value, ctx) => {
+                    let sum = 0;
+                    let dataArr = dataPieWithPlugin.data.datasets[0].data;
+                    dataArr.map((data) => {
+                      sum += data;
+                    });
+                    let percentage = ((value * 100) / sum).toFixed(2) + '%';
+                    return percentage;
+                  },
+                  color: 'white',
+                  labels: {
+                    title: {
+                      font: {
+                        size: '14',
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          };
+
+          new mdb.Chart(
+            document.getElementById('pie-chart-with-plugin'),
+            dataPieWithPlugin,
+            optionsPieWithPlugin
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Pie chart with plugin example-->
+
+  <hr class="my-5" />
+
   <!--Section: Bar chart with custom options example-->
   <section id="section-bar-chart-custom-options">
     <!-- Section title -->
