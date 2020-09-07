@@ -309,10 +309,7 @@
     }
 
     async _getIconsList(icons = this.startedNumberIcons) {
-      const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-      const url = ICON_HTTP_API;
-
-      const request = await fetch(proxyurl + url);
+      const request = await fetch(ICON_HTTP_API, { credentials: 'same-origin', mode: 'cors' });
       const { dataArray } = await request.json();
 
       return Promise.all([dataArray.slice(0, icons), dataArray]);
