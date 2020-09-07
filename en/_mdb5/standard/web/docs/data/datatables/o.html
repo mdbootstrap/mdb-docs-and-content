@@ -43,6 +43,13 @@
       <code>&lt;th data-sort="false"&gt;</code>).
     </p>
 
+    <p class="note note-warning">
+      Datatable collects information from HTML markup to create a data structure - the
+      <code>&lt;table&gt;</code> element will be replaced in the DOM with a different
+      node after component initializes.
+    </p>
+
+
     <!--Section: Demo-->
     <section class="border p-4 mb-4">
       <div class="datatable">
@@ -527,10 +534,10 @@
             ],
           };
 
-          const instance = new mdb.Datatable(document.getElementById('datatable'), data)
+          const searchInstance = new mdb.Datatable(document.getElementById('datatable'), data)
 
           document.getElementById('datatable-search-input').addEventListener('input', (e) => {
-            instance.search(e.target.value);
+            searchInstance.search(e.target.value);
           });
         </code>
       </mdbsnippet>
@@ -617,7 +624,7 @@
             ],
           };
 
-          const instance = new mdb.Datatable(document.getElementById('datatable'), data)
+          const advancedSearchInstance = new mdb.Datatable(document.getElementById('datatable'), data)
 
           const advancedSearchInput = document.getElementById('advanced-search-input');
   
@@ -629,7 +636,7 @@
               columns = columns.split(',').map((str) => str.toLowerCase().trim());
             }
   
-            instance.search(phrase, columns);
+            advancedSearchInstance.search(phrase, columns);
           }
   
           document.getElementById('advanced-search-button').addEventListener('click', (e) => search(advancedSearchInput.value));
@@ -911,7 +918,7 @@
           ];
 
           const asyncTable = new mdb.Datatable(
-            document.getElementById('datatable-async-data'),
+            document.getElementById('datatable'),
             {
               columns,
             }
