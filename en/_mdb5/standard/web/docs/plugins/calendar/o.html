@@ -1,3 +1,8 @@
+<link
+  rel="stylesheet"
+  href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/calendar.min.css"
+/>
+
 <!--Section: Docs content-->
 <section>
   <!--Section: Introduction-->
@@ -20,24 +25,971 @@
     <!-- Section title -->
     <h2 class="mb-4">Basic example</h2>
 
+    <!-- description -->
+    <p class="mb-4">A few predefined events allowing you to see how the plugin looks like.</p>
+
     <!--Section: Demo-->
-    <section class="border p-4 text-center mb-4"></section>
+    <div class="calendar"></div>
     <!--Section: Demo-->
 
-    <!--Section: Code-->
-    <section>
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML"> </code>
+        <code data-lang="html" data-name="HTML">
+          <div class="calendar" id="calendar"></div>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          const events = [
+            {
+              summary: 'JS Conference',
+              start: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Vue Meetup',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#00B74A',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Angular Meetup',
+              description:
+                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              start: {
+                date: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY') + ' 10:00',
+              },
+              end: {
+                date: Calendar.moment.add(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(3, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#F93154',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'React Meetup',
+              start: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(8, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#39C0ED',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Meeting',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 8:00',
+              },
+              end: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 12:00',
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Call',
+              start: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 11:00',
+              },
+              end: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#FFA900',
+              },
+            }
+          ];
 
-        <code data-lang="css" data-name="CSS"> </code>
-
-        <code data-lang="js" data-name="JavaScript"> </code>
+          const calendarElement = document.getElementById('calendar');
+          const calendarInstance = Calendar.getInstance(calendarElement);
+          calendarInstance.addEvents(events);
+        </code>
       </mdbsnippet>
     </section>
-    <!--Section: Code-->
+    <!--Section: Live Preview-->
   </section>
   <!--Section: Basic example-->
 
   <hr class="my-5" />
+
+  <!--Section: Event format-->
+  <section id="section-event-formats">
+    <!-- Section title -->
+    <h2 class="mb-4">Event formats</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Calendar events can be added with time in two different formats - 12h or 24h. Optionally, you
+      can also use the <strong>moment</strong> static getter which returns the current date object.
+      We recommend reading the
+      <a href="https://momentjs.com/" target="_blank">moment</a>
+      library documentation before using this method.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="24h">
+          { 
+            summary: 'Call',
+            start: {
+              date: '08/09/2020',
+              dateTime: '08/09/2020 10:00',
+            },
+            end: {
+              date: '08/09/2020',
+              dateTime: '08/09/2020 14:00',
+            },
+            color: {
+              background: '#FFA900',
+            },
+          }
+        </code>
+        <code data-lang="js" data-name="12h">
+          { 
+            summary: 'Call',
+            start: {
+              date: '08/09/2020',
+              dateTime: '08/09/2020 10:00 AM',
+            },
+            end: {
+              date: '08/09/2020',
+              dateTime: '08/09/2020 02:00 PM',
+            },
+            color: {
+              background: '#FFA900',
+            },
+          }
+        </code>
+        <code data-lang="js" data-name="moment">
+          {
+            summary: 'Call',
+            start: {
+              date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+              dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 11:00',
+            },
+            end: {
+              date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+              dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 14:00',
+            },
+            color: {
+              background: '#FFA900',
+            },
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Event format-->
+
+  <hr class="my-5" />
+
+  <!--Section: Monday first-->
+  <section id="section-monday-first">
+    <!-- Section title -->
+    <h2 class="mb-4">Monday first</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Set the <code>data-monday-first</code> attribute to true so that Monday is the first day of
+      the week.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-monday-first="true"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="calendar" id="calendar-2" data-monday-first="true"></div> 
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          const events = [
+            {
+              summary: 'JS Conference',
+              start: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Vue Meetup',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#00B74A',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Angular Meetup',
+              description:
+                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              start: {
+                date: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY') + ' 10:00',
+              },
+              end: {
+                date: Calendar.moment.add(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(3, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#F93154',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'React Meetup',
+              start: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(8, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#39C0ED',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Meeting',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 8:00',
+              },
+              end: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 12:00',
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Call',
+              start: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 11:00',
+              },
+              end: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#FFA900',
+              },
+            }
+          ];
+
+          const calendarElement = document.getElementById('calendar-2');
+          const calendarInstance = Calendar.getInstance(calendarElement);
+          calendarInstance.addEvents(events);
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Monday first-->
+
+  <hr class="my-5" />
+
+  <!--Section: Default view-->
+  <section id="section-default-view">
+    <!-- Section title -->
+    <h2 class="mb-4">Default view</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Set the <code>data-default-view</code> attribute to <code>week</code> or <code>list</code> to
+      change the start view. By default, it is a <code>month</code>.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-default-view="week"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="calendar" id="calendar-3" data-default-view="week"></div>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          const events = [
+            {
+              summary: 'JS Conference',
+              start: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Vue Meetup',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#00B74A',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Angular Meetup',
+              description:
+                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              start: {
+                date: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY') + ' 10:00',
+              },
+              end: {
+                date: Calendar.moment.add(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(3, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#F93154',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'React Meetup',
+              start: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(8, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#39C0ED',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Meeting',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 8:00',
+              },
+              end: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 12:00',
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Call',
+              start: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 11:00',
+              },
+              end: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#FFA900',
+              },
+            }
+          ]);
+
+          const calendarElement = document.getElementById('calendar-3');
+          const calendarInstance = Calendar.getInstance(calendarElement);
+          calendarInstance.addEvents(events);
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Default view-->
+
+  <hr class="my-5" />
+
+  <!--Section: Twelve hour-->
+  <section id="section-twelve-hour">
+    <!-- Section title -->
+    <h2 class="mb-4">Twelve hour</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      By setting the <code>data-twelve-hour</code> attribute to true, you get a 12-hour schedule.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-default-view="week" data-twelve-hour="true"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="calendar" id="calendar-4" data-default-view="week" data-twelve-hour="true"></div> 
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          const events = [
+            {
+              summary: 'JS Conference',
+              start: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Vue Meetup',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#00B74A',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Angular Meetup',
+              description:
+                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              start: {
+                date: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY') + ' 10:00 AM',
+              },
+              end: {
+                date: Calendar.moment.add(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(3, 'day').format('DD/MM/YYYY') + ' 02:00 PM',
+              },
+              color: {
+                background: '#F93154',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'React Meetup',
+              start: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(8, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#39C0ED',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Meeting',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 8:00 AM',
+              },
+              end: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 12:00 PM',
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Call',
+              start: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 11:00 AM',
+              },
+              end: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 02:00 PM',
+              },
+              color: {
+                background: '#FFA900',
+              },
+            }
+          ];
+
+          const calendarElement = document.getElementById('calendar-4');
+          const calendarInstance = Calendar.getInstance(calendarElement);
+          calendarInstance.addEvents(events);
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Twelve hour-->
+
+  <hr class="my-5" />
+
+  <!--Section: Customize captions-->
+  <section id="section-customize-captions">
+    <!-- Section title -->
+    <h2 class="mb-4">Customize captions</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      You can customize all captions very easily using data attributes. Detailed options are
+      described in the API tab.
+    </p>
+
+    <!--Section: Demo-->
+    <div
+      class="calendar"
+      data-weekdays="Nd, Pon, Wt, Śr, Czw, Pt, Sb"
+      data-months="Styczeń, Luty, Marzec, Kwiecień, Maj, Czerwiec, Lipiec, Sierpień, Wrzesień, Październik, Listopad, Grudzień"
+      data-months-short="Sty, Lut, Mar, Kwi, Maj, Cze, Lip, Sie, Wrz, Paź, Lis, Gru"
+      data-today-caption="Dzisiaj"
+      data-month-caption="Miesiąc"
+      data-week-caption="Tydzień"
+      data-list-caption="Lista"
+      data-all-day-caption="Cały dzień"
+      data-no-events-caption="Brak wydarzeń"
+      data-summary-caption="Nazwa wydarzenia"
+      data-description-caption="Szczegółowy opis wydarzenia"
+      data-start-caption="Początek"
+      data-end-caption="Koniec"
+      data-add-event-modal-caption="Dodaj wydarzenie"
+      data-edit-event-modal-caption="Edytuj wydarzenie"
+      data-add-caption="Dodaj"
+      data-edit-caption="Edytuj"
+      data-delete-caption="Usuń"
+      data-close-caption="Zamknij"
+    ></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div 
+            class="calendar"
+            id="calendar-5"
+            data-weekdays="Nd, Pon, Wt, Śr, Czw, Pt, Sb"
+            data-months="Styczeń, Luty, Marzec, Kwiecień, Maj, Czerwiec, Lipiec, Sierpień, Wrzesień, Październik, Listopad, Grudzień"
+            data-months-short="Sty, Lut, Mar, Kwi, Maj, Cze, Lip, Sie, Wrz, Paź, Lis, Gru"
+            data-today-caption="Dzisiaj"
+            data-month-caption="Miesiąc"
+            data-week-caption="Tydzień"
+            data-list-caption="Lista"
+            data-all-day-caption="Cały dzień"
+            data-no-events-caption="Brak wydarzeń"
+            data-summary-caption="Nazwa wydarzenia"
+            data-description-caption="Szczegółowy opis wydarzenia"
+            data-start-caption="Początek"
+            data-end-caption="Koniec"
+            data-add-event-modal-caption="Dodaj wydarzenie"
+            data-edit-event-modal-caption="Edytuj wydarzenie"
+            data-add-caption="Dodaj"
+            data-edit-caption="Edytuj"
+            data-delete-caption="Usuń"
+            data-close-caption="Zamknij"
+          ></div>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          const events = [
+            {
+              summary: 'JS Conference',
+              start: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Vue Meetup',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#00B74A',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Angular Meetup',
+              description:
+                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              start: {
+                date: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY') + ' 10:00',
+              },
+              end: {
+                date: Calendar.moment.add(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(3, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#F93154',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'React Meetup',
+              start: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(8, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#39C0ED',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Meeting',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 8:00',
+              },
+              end: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 12:00',
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Call',
+              start: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 11:00',
+              },
+              end: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#FFA900',
+              },
+            }
+          ];
+
+          const calendarElement = document.getElementById('calendar-5');
+          const calendarInstance = Calendar.getInstance(calendarElement);
+          calendarInstance.addEvents(events);
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Customize captions-->
+
+  <hr class="my-5" />
+
+  <!--Section: Default date-->
+  <section id="section-default-date">
+    <!-- Section title -->
+    <h2 class="mb-4">Default date</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      A starting day can be easily set using the
+      <code>data-default-date</code> attribute.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-default-date="01-12-2019"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="calendar" id="calendar-6" data-default-date="01-12-2019"></div>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          const events = [
+            {
+              summary: 'JS Conference',
+              start: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Vue Meetup',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#00B74A',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Angular Meetup',
+              description:
+                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              start: {
+                date: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY') + ' 10:00',
+              },
+              end: {
+                date: Calendar.moment.add(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(3, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#F93154',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'React Meetup',
+              start: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(8, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#39C0ED',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Meeting',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 8:00',
+              },
+              end: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 12:00',
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Call',
+              start: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 11:00',
+              },
+              end: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#FFA900',
+              },
+            }
+          ];
+
+          const calendarElement = document.getElementById('calendar-6');
+          const calendarInstance = Calendar.getInstance(calendarElement);
+          calendarInstance.addEvents(events);
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Default date-->
+
+  <hr class="my-5" />
+
+  <!--Section: Readonly-->
+  <section id="section-readonly">
+    <!-- Section title -->
+    <h2 class="mb-4">Readonly</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      The editable mode can be easily disabled using the
+      <code>data-readonly</code> attribute.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-readonly="true"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="calendar" id="calendar-7" data-readonly="true"></div>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          const events = [
+            {
+              summary: 'JS Conference',
+              start: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Vue Meetup',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#00B74A',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Angular Meetup',
+              description:
+                'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              start: {
+                date: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.subtract(3, 'day').format('DD/MM/YYYY') + ' 10:00',
+              },
+              end: {
+                date: Calendar.moment.add(3, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(3, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#F93154',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'React Meetup',
+              start: {
+                date: Calendar.moment.add(5, 'day').format('DD/MM/YYYY'),
+              },
+              end: {
+                date: Calendar.moment.add(8, 'day').format('DD/MM/YYYY'),
+              },
+              color: {
+                background: '#39C0ED',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Meeting',
+              start: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 8:00',
+              },
+              end: {
+                date: Calendar.moment.add(1, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(1, 'day').format('DD/MM/YYYY') + ' 12:00',
+              },
+              color: {
+                background: '#1266F1',
+                foreground: 'white',
+              },
+            },
+            {
+              summary: 'Call',
+              start: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 11:00',
+              },
+              end: {
+                date: Calendar.moment.add(2, 'day').format('DD/MM/YYYY'),
+                dateTime: Calendar.moment.add(2, 'day').format('DD/MM/YYYY') + ' 14:00',
+              },
+              color: {
+                background: '#FFA900',
+              },
+            }
+          ];
+
+          const calendarElement = document.getElementById('calendar-7');
+          const calendarInstance = Calendar.getInstance(calendarElement);
+          calendarInstance.addEvents(events);
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Readonly-->
 </section>
 <!--Section: Docs content-->
