@@ -2,99 +2,433 @@
 <section id="introduction">
 
   <!--Title-->
-  <h2 class="primary-heading">Heading</h2>
+  <h2 class="primary-heading">Blazor Bootstrap Parallax</h2>
 
-  <h1 class="secondary-heading mb-4">Subheading</h1>
+  <h1 class="secondary-heading mb-4">Blazor Parallax - Bootstrap 4 & Material Design</h1>
 
   <!--Description-->
-  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident optio voluptas hic nesciunt, nulla voluptatum labore
-    aliquid quia repudiandae molestias ducimus aut assumenda rerum suscipit consequatur quam odio facere at.</p>
+  <p>Blazor Bootstrap parallax is a design effect visible while scrolling down - background image is moving with a
+    different speed than the foreground content.</p>
 
-  <hr class="my-4">
-
-  <!--Grid row-->
-  <div class="row">
-
-    <!--Grid column-->
-    <div class="col-md-6 mb-4">
-
-      <!--Title-->
-      <h2 class="secondary-heading mb-3">
-        Subheading
-      </h2>
-
-      <!--Description-->
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident optio voluptas hic nesciunt, nulla voluptatum labore
-        aliquid quia repudiandae molestias ducimus aut assumenda rerum suscipit consequatur quam odio facere at.</p>
-
-      <!--Section: Live preview-->
-      <section>
-
-
-
-      </section>
-      <!--Section: Live preview-->
-
-      <!--Section: Code-->
-      <section>
-        <mdbsnippet>
-
-          <code data-lang="html" data-name="HTML">
-
-
-
-          </code>
-
-        </mdbsnippet>
-      </section>
-      <!--Section: Code-->
-
-    </div>
-    <!--Grid column-->
-
-    <!--Grid column-->
-    <div class="col-md-6 mb-4">
-
-      <!--Title-->
-      <h2 class="secondary-heading">
-        Subheading
-        <a href="https://mdbootstrap.com/pricing/jquery/pro/" target="_blank" class="btn btn-danger btn-sm"
-          role="button">MDB Pro component
-          <i class="far fa-gem ml-1"></i>
-        </a>
-      </h2>
-
-      <!--Description-->
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident optio voluptas hic nesciunt, nulla voluptatum labore
-        aliquid quia repudiandae molestias ducimus aut assumenda rerum suscipit consequatur quam odio facere at.</p>
-
-      <!--Section: Live preview-->
-      <section>
-
-
-
-      </section>
-      <!--Section: Live preview-->
-
-      <!--Section: Code-->
-      <section>
-        <mdbsnippet>
-
-          <code data-lang="html" data-name="HTML">
-
-          </code>
-
-        </mdbsnippet>
-      </section>
-      <!--Section: Code-->
-
-    </div>
-    <!--Grid column-->
-
-  </div>
-  <!--Grid row-->
+  <a href="https://mdbootstrap.com/previews/docs/latest/html/parallax/index.html" target="_blank"
+     class="btn btn-primary btn-lg">Live demo <i class="far fa-eye ml-2"></i></a>
 
 </section>
 <!--/Section: Intro-->
 
 <hr class="mt-4 mb-5">
+
+<blockquote class="blockquote bq-danger">
+  <p class="bq-title">Required external library</p>
+  <p>Using this functionality requires the installation of an external library - <code>jarallax</code>.
+
+    Install it with the following command, then configure it as follows:
+
+        
+  
+
+    <ul>
+    <li>
+      <code data-lang="js" data-name="installation">
+          npm install jarallax --save
+      </code>
+  </li>
+    <li>Import the required files into an <code>angular.json</code> file,</li>
+    <li>Add the polyfill to the polyfills.ts file,</li>
+    <li>In the component in which you use Parallax effect add its initialization.</li>
+  </ul>
+  </p>
+</blockquote>
+
+<section>
+    <mdbsnippet>
+      <code data-lang="js" data-name="instalation">
+          npm install jarallax --save
+      </code>
+    </mdbsnippet>
+    </section>
+
+
+<section>
+<mdbsnippet>
+  <code data-lang="js" data-name="angular.json">
+    "styles": [
+    ...
+    "node_modules/jarallax/dist/jarallax.css",
+    ...
+    ],
+    "scripts": [
+    ...
+    "node_modules/jarallax/dist/jarallax.min.js",
+    "node_modules/jarallax/dist/jarallax-element.min.js",
+    "node_modules/jarallax/dist/jarallax-video.min.js"
+    ...
+    ]
+  </code>
+</mdbsnippet>
+</section>
+
+<section>
+<mdbsnippet>
+  <code data-lang="js" data-name="polyfills.ts">
+    (window as any).global = window; // add this line at the top of the polyfills.ts file
+  </code>
+</mdbsnippet>
+</section>
+
+<section>
+<mdbsnippet>
+  <code data-lang="js" data-name="component.ts">
+    import {AfterViewInit, Component} from '@angular/core';
+    import 'jarallax';
+    declare var jarallax: any;
+    @Component({
+    selector: 'app-root',
+      templateUrl: './app.component.html',
+      styleUrls: ['./app.component.scss'],
+    })
+    export class AppComponent implements AfterViewInit {
+
+      ngAfterViewInit() {
+        jarallax(document.querySelectorAll('.jarallax'), {
+          speed: 0.2
+        });
+      }
+    }
+
+  </code>
+</mdbsnippet>
+</section>
+<hr class="mt-4 mb-5">
+
+<section id="basic-example">
+  <h2 class="title mb-4">Basic example <a href="https://mdbootstrap.com/pricing/angular/pro/"
+                                          class="btn btn-danger btn-md waves-effect waves-light" role="button">MDB Pro
+    component <i class="far fa-gem ml-1"></i></a></h2>
+
+  <mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+      <div class="view intro jarallax"
+           style="background-image: url(https://mdbootstrap.com/img/Photos/Others/img%20%2844%29.jpg); background-attachment: fixed; height: 1200px;">
+        <div class="full-bg-img mask rgba-white-light">
+          <div class="container">
+            <div class="d-flex align-items-center d-flex justify-content-center" style="height: 1200px">
+              <div class="row mt-5">
+                <div class="col-md-12 wow fadeIn mb-3">
+                  <div class="intro-info-content text-center">
+                    <h2 class="h1 display-1 mb-2 wow fadeInDown" data-wow-delay="0.3s">CARLA <a
+                      class="indigo-text font-bold">SMITH</a>
+                    </h2>
+                    <h5 class="font-up mb-3 mt-1 font-bold wow fadeIn" data-wow-delay="0.4s">Web developer & graphic
+                      designer</h5>
+                    <a mdbBtn color="light-blue" size="lg" class="wow fadeIn waves-light" mdbWavesEffect
+                       data-wow-delay="0.4s">portfolio</a>
+                    <a mdbBtn color="indigo" size="lg" class="wow fadeIn waves-light" mdbWavesEffect
+                       data-wow-delay="0.4s">About
+                      me</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-md-12 text-center mb-5">
+            <h2 class="h1 font-bold light-blue-text my-5">Lorem ipsum dolor sit amet, consectetur quis elit.</h2>
+            <p align="justify">Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque
+              provident
+              rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.</p>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </div>
+
+      <div class="view intro jarallax" style="background-image: none; z-index: 0; min-height: 700px;">
+        <div class="full-bg-img mask rgba-white-light">
+          <div class="container flex-center">
+            <div class="row mt-5 py-5">
+              <div class="col-md-12 wow fadeIn mb-3" style="animation-name: none; visibility: visible;">
+                <div class="text-center">
+                  <h2 class="h1 display-2 mb-2 wow fadeInDown" data-wow-delay="0.3s">ANNA'S <a
+                    class="white-text font-bold">BLOG</a>
+                  </h2>
+                  <h5 class="font-up mb-3 mt-1 font-bold wow fadeInDown" data-wow-delay="0.4s">Interior designer &
+                    Nature
+                    lover</h5>
+                  <a mdbBtn color="elegant" size="lg" class="wow fadeInDown waves-effect waves-light" mdbWavesEffect
+                     data-wow-delay="0.4s">portfolio</a>
+                  <a mdbBtn color="white" outline="true" size="lg" class="wow fadeInDown waves-effect waves-light"
+                     mdbWavesEffect data-wow-delay="0.4s">About me</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-md-12 text-center my-5">
+            <h2 class="h1 font-bold grey-text mb-5">Lorem ipsum dolor sit amet, consectetur quis elit.</h2>
+            <p align="justify">Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque
+              provident
+              rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.</p>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </div>
+
+      <div class="view intro jarallax"
+           style="background-image: url(https://mdbootstrap.com/img/Photos/Others/food2.jpg); background-attachment: fixed; background-size: cover; min-height: 700px">
+        <div class="full-bg-img mask rgba-pink-slight">
+        </div>
+      </div>
+
+      <div class="view intro jarallax"
+           style="background-image: url(https://mdbootstrap.com/img/Photos/Others/background.jpg); background-attachment: fixed; min-height: 700px">
+        <div class="full-bg-img mask rgba-purple-slight">
+          <div class="container">
+            <div class="d-flex align-items-center d-flex justify-content-center" style="height: 700px">
+              <div class="row mt-5">
+                <div class="col-md-12 wow fadeIn mb-3">
+                  <div class="intro-info-content text-center">
+                    <h2 class="h1 display-1 white-text mb-2 wow fadeInDown" data-wow-delay="0.3s">Welcome on my
+                      page!</h2>
+                    <h4 class="mb-3 mt-1 white-text font-bold wow fadeIn" data-wow-delay="0.4s">Lorem ipsum dolor sit
+                      amet</h4>
+                    <a mdbBtn color="pink" class="wow fadeIn waves-light" mdbWavesEffect data-wow-delay="0.4s">Read
+                      more</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-md-12 text-center my-5">
+            <h2 class="h1 font-bold pink-text mb-5">Lorem ipsum dolor sit amet, consectetur quis elit.</h2>
+            <p align="justify">Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque
+              provident
+              rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro,
+              cumque
+              provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet,
+              veritatis
+              cupiditate reprehenderit.</p>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </div>
+
+    </code>
+  </mdbsnippet>
+
+</section>
+
+
+
+<hr class="mt-4 mb-5">
+
+<section id="extended-example">
+  <h2 class="title mb-4">Video Parallax with *ngIf</h2>
+  <a href="https://ng-demo.mdbootstrap.com/css/video-parallax" target="_blank"
+  class="btn btn-primary btn-lg waves-effect waves-light" role="button">Live Demo <i class="far fa-eye ml-2"></i></a>
+
+  <mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+      <div *ngIf="statement">
+        <div class="jarallax jarallax-my-video">
+          <div class="full-bg-img mask rgba-white-light">
+            <div class="container">
+              <div
+                class="d-flex align-items-center d-flex justify-content-center"
+                style="height: 1200px"
+              >
+                <div class="row mt-5">
+                  <div class="col-md-12 wow fadeIn mb-3">
+                    <div class="intro-info-content text-center">
+                      <h2
+                        class="h1 display-1 mb-2 wow fadeInDown"
+                        data-wow-delay="0.3s"
+                      >
+                        CARLA <a class="indigo-text font-bold">SMITH</a>
+                      </h2>
+                      <h5
+                        class="font-up mb-3 mt-1 font-bold wow fadeIn"
+                        data-wow-delay="0.4s"
+                      >
+                        Web developer & graphic designer
+                      </h5>
+                      <a
+                        mdbBtn
+                        color="light-blue"
+                        size="lg"
+                        class="wow fadeIn waves-light"
+                        mdbWavesEffect
+                        data-wow-delay="0.4s"
+                        >portfolio</a
+                      >
+                      <a
+                        mdbBtn
+                        color="indigo"
+                        size="lg"
+                        class="wow fadeIn waves-light"
+                        mdbWavesEffect
+                        data-wow-delay="0.4s"
+                        >About me</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="container text-center justify-content-center py-5"
+        *ngIf="!statement"
+      >
+        <div class="row">
+          <div class="col-sm-12">
+            <button
+              type="button"
+              mdbBtn
+              color="primary"
+              (click)="changeStatement()"
+              mdbWavesEffect
+            >
+              click to show video parallax
+            </button>
+          </div>
+        </div>
+      </div>
+      
+    </code>
+    <code data-lang="ts" data-name="TS">
+      import { Component, ChangeDetectorRef } from '@angular/core';
+import 'jarallax';
+declare var jarallax: any;
+@Component({
+  selector: 'app-video-parallax',
+  templateUrl: './video-parallax.component.html',
+  styleUrls: ['./video-parallax.component.scss']
+})
+export class VideoParallaxComponent {
+  statement = false;
+
+  constructor(private changeDetector: ChangeDetectorRef) {}
+
+  setVideo() {
+    jarallax(document.querySelectorAll('.jarallax-my-video'), {
+      speed: 0.2,
+      videoSrc: 'https://vimeo.com/groups/freehd/videos/153749650'
+    });
+  }
+  changeStatement() {
+    this.statement = true;
+    this.changeDetector.detectChanges();
+    this.setVideo();
+  }
+}
+
+    </code>
+  </mdbsnippet>
+
+</section>
