@@ -1,0 +1,703 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold" style="line-height: 0.8;">
+      <?= $data_var['main_title']; ?>
+      <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button"
+        >MDB Pro component <i class="far fa-gem ml-1"></i
+      ></a>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">
+      This documentation provides examples of advanced chart usage.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the
+      <a href="https://mdbootstrap.com/docs/standard/data/charts/"
+        ><strong>API</strong> tab in the basic chart docs</a
+      >
+      to find all available options and advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Options-->
+  <section id="section-options">
+    <!-- Section title -->
+    <h2 class="mb-4">Options</h2>
+
+    <p>
+      In most cases, working with advanced charts is related to the handling of options.
+    </p>
+
+    <p>
+      MDB provides default options for each chart - you can easily change that by passing an object
+      with your custom options to the Chart constructor.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-options-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="chart-options-example"></div>
+        </code>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript"> 
+          // Data
+          const dataChartOptionsExample = {
+            type: 'bar',
+            data: {
+              labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+              datasets: [
+                {
+                  label: 'Traffic',
+                  data: [30, 15, 62, 65, 61, 6],
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                  ],
+                  borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                  ],
+                  borderWidth: 1,
+                },
+              ],
+            },
+          };
+    
+          // Options
+          const optionsChartOptionsExample = {
+            options: {
+              scales: {
+                xAxes: [
+                  {
+                    ticks: {
+                      fontColor: '#4285F4',
+                    },
+                  },
+                ],
+                yAxes: [
+                  {
+                    ticks: {
+                      fontColor: '#f44242',
+                    },
+                  },
+                ],
+              },
+            },
+          };
+    
+          new mdb.Chart(
+            document.getElementById('chart-options-example'),
+            dataChartOptionsExample,
+            optionsChartOptionsExample
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Options-->
+
+  <hr class="my-5" />
+
+  <!--Section: Mixed-->
+  <section id="section-mixed">
+    <!-- Section title -->
+    <h2 class="mb-4">Mixed</h2>
+
+    <p>
+      With MDB it is possible to create mixed charts that are a combination of two or more different
+      chart types. A common example is a bar chart that also includes a line dataset.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-mixed-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="chart-mixed-example"></div>
+        </code>
+
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript"> 
+          // Data
+          const dataMixedChartExample = {
+            type: 'bar',
+            data: {
+              labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday '],
+              datasets: [
+                // First dataset (bar)
+                {
+                  label: 'Impressions',
+                  data: [2112, 2343, 2545, 3423, 2365, 1985, 987],
+                  order: 2,
+                },
+                // Second dataset (line)
+                {
+                  label: 'Impressions (absolute top) %',
+                  data: [211, 2543, 2745, 3123, 2765, 1485, 587],
+                  type: 'line',
+                  order: 1,
+                  backgroundColor: 'rgba(66, 133, 244, 0.0)',
+                  borderColor: '#94DFD7',
+                  borderWidth: 2,
+                  pointBorderColor: '#94DFD7',
+                  pointBackgroundColor: '#94DFD7',
+                  lineTension: 0.0,
+                },
+              ],
+            },
+          };
+    
+          new mdb.Chart(document.getElementById('chart-mixed-example'), dataMixedChartExample);
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Mixed-->
+
+  <hr class="my-5" />
+
+  <!--Section: Data labels-->
+  <section id="section-data-labels">
+    <!-- Section title -->
+    <h2 class="mb-4">Data labels</h2>
+
+    <p>
+      Set <code>dataLabelsPlugin</code> option to <strong>true</strong> to display values directly
+      on a graph.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-data-labels-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="chart-data-labels-example"></div>
+        </code>
+
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          // Data
+          const dataChartDataLabelsExample = {
+            type: 'pie',
+            data: {
+              labels: ['January', 'February', 'March', 'April', 'May'],
+              datasets: [
+                {
+                  label: 'Traffic',
+                  data: [30, 45, 62, 65, 61],
+                  backgroundColor: [
+                    'rgba(63, 81, 181, 0.5)',
+                    'rgba(77, 182, 172, 0.5)',
+                    'rgba(66, 133, 244, 0.5)',
+                    'rgba(156, 39, 176, 0.5)',
+                    'rgba(233, 30, 99, 0.5)',
+                  ],
+                },
+              ],
+            },
+          };
+    
+          // Options
+          const optionsChartDataLabelsExample = {
+            dataLabelsPlugin: true,
+            options: {
+              plugins: {
+                datalabels: {
+                  formatter: (value, ctx) => {
+                    let sum = 0;
+                    // Assign the data to the variable and format it according to your needs
+                    let dataArr = dataChartDataLabelsExample.data.datasets[0].data;
+                    dataArr.map((data) => {
+                      sum += data;
+                    });
+                    let percentage = ((value * 100) / sum).toFixed(2) + '%';
+                    return percentage;
+                  },
+                  color: 'white',
+                  labels: {
+                    title: {
+                      font: {
+                        size: '14',
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          };
+    
+          new mdb.Chart(
+            document.getElementById('chart-data-labels-example'),
+            dataChartDataLabelsExample,
+            optionsChartDataLabelsExample
+          );  
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Data labels-->
+
+  <hr class="my-5" />
+
+  <!--Section: Double Y axis-->
+  <section id="section-double-y-axis">
+    <!-- Section title -->
+    <h2 class="mb-4">Double Y axis</h2>
+
+    <p>
+      In the example below we created chart with double Y axis with 2 datasets, each one with
+      completely different data range.
+    </p>
+
+    <p>
+      Such a construction requires a scale adjustment, so the left axis is assigned and adjusted to
+      the first dataset, and the right axis to the second dataset.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-double-y-axis-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="chart-double-y-axis-example"></div>
+        </code>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          // Data
+          const dataChartDobuleYAxisExample = {
+            type: 'bar',
+            data: {
+              labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday '],
+              datasets: [
+                {
+                  label: 'Impressions',
+                  yAxisID: 'y-axis-1',
+                  data: [2112, 2343, 2545, 3423, 2365, 1985, 987],
+                  order: 2,
+                },
+                {
+                  label: 'Impressions (absolute top) %',
+                  yAxisID: 'y-axis-2',
+                  data: [1.5, 2, 0.5, 3, 1.2, 4, 3.4],
+                  type: 'line',
+                  order: 1,
+                  backgroundColor: 'rgba(66, 133, 244, 0.0)',
+                  borderColor: '#94DFD7',
+                  borderWidth: 2,
+                  pointBorderColor: '#94DFD7',
+                  pointBackgroundColor: '#94DFD7',
+                  lineTension: 0.0,
+                },
+              ],
+            },
+          };
+    
+          // Options
+          const optionsChartDobuleYAxisExample = {
+            options: {
+              scales: {
+                yAxes: [
+                  {
+                    display: true,
+                    position: 'left',
+                    id: 'y-axis-1',
+                  },
+                  {
+                    display: true,
+                    position: 'right',
+                    id: 'y-axis-2',
+                    gridLines: {
+                      drawOnChartArea: false,
+                    },
+                    ticks: {
+                      beginAtZero: true,
+                    },
+                  },
+                ],
+              },
+            },
+          };
+    
+          new mdb.Chart(
+            document.getElementById('chart-double-y-axis-example'),
+            dataChartDobuleYAxisExample,
+            optionsChartDobuleYAxisExample
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Double Y axis-->
+
+  <hr class="my-5" />
+
+  <!--Section: Funnel-->
+  <section id="section-funnel">
+    <!-- Section title -->
+    <h2 class="mb-4">Funnel</h2>
+
+    <p>
+      Example of horizontal bar chart with custom options and labels formatting (calculating
+      integers numbers into percentages).
+    </p>
+
+    <p>
+      This data visualization is often used to visualize the flow of the website traffic.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-funnel-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="chart-funnel-example"></div>
+        </code>
+
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          // Data
+          const dataChartFunnelExample = {
+            type: 'horizontalBar',
+            data: {
+              labels: ['Product views', 'Checkout', 'Purchases'],
+              datasets: [
+                {
+                  data: [2112, 343, 45],
+                  barPercentage: 1.24,
+                },
+              ],
+            },
+          };
+    
+          // Options
+          const optionsChartFunnelExample = {
+            dataLabelsPlugin: true,
+            options: {
+              scales: {
+                xAxes: [
+                  {
+                    gridLines: {
+                      offsetGridLines: true,
+                    },
+                  },
+                ],
+              },
+              legend: {
+                display: false,
+              },
+              plugins: {
+                datalabels: {
+                  formatter: (value, ctx) => {
+                    let sum = 0;
+                    let dataArr = dataChartFunnelExample.data.datasets[0].data;
+                    dataArr.map((data) => {
+                      sum += data;
+                    });
+                    let percentage = ((value * 100) / sum).toFixed(2) + '%';
+                    return percentage;
+                  },
+                  color: '#4f4f4f',
+                  labels: {
+                    title: {
+                      font: {
+                        size: '13',
+                      },
+                      anchor: 'end',
+                      align: 'right',
+                    },
+                  },
+                },
+              },
+            },
+          };
+    
+          new mdb.Chart(
+            document.getElementById('chart-funnel-example'),
+            dataChartFunnelExample,
+            optionsChartFunnelExample
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Funnel-->
+
+  <hr class="my-5" />
+
+  <!--Section: Formatting values on the Y axes-->
+  <section id="section-formatting-values-on-the-y-axes">
+    <!-- Section title -->
+    <h2 class="mb-4">Formatting values on the Y axes</h2>
+
+    <p>In the example below we simply add "$" before each value on the Y axis.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-values-formatting-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="chart-values-formatting-example"></div>
+        </code>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          // Data
+          const dataChartValuesFormattingExample = {
+            type: 'bar',
+            data: {
+              labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday '],
+              datasets: [
+                {
+                  label: 'Sales',
+                  data: [2112, 2343, 2545, 3423, 2365, 1985, 987],
+                },
+              ],
+            },
+          };
+    
+          // Options
+          const optionsChartValuesFormattingExample = {
+            options: {
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      callback: function (value, index, values) {
+                        return '$' + value;
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          };
+    
+          new mdb.Chart(
+            document.getElementById('chart-values-formatting-example'),
+            dataChartValuesFormattingExample,
+            optionsChartValuesFormattingExample
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Formatting values on the Y axes-->
+
+  <hr class="my-5" />
+
+  <!--Section: Formatting values in the tooltips-->
+  <section id="section-formatting-values-in-the-tooltips">
+    <!-- Section title -->
+    <h2 class="mb-4">Formatting values in the tooltips</h2>
+
+    <p>
+      In the example below we simply add "$" before each value displayed in the tooltips.
+    </p>
+
+    <p>Hover the line of the chart to see the tooltip.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-tooltips-formatting-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="chart-tooltips-formatting-example"></div>
+        </code>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          // Data
+          const dataChartTooltipsFormattingExample = {
+            type: 'line',
+            data: {
+              labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday '],
+              datasets: [
+                {
+                  label: 'Sales',
+                  data: [2112, 2343, 2545, 3423, 2365, 1985, 987],
+                },
+              ],
+            },
+          };
+    
+          // Options
+          const optionsChartTooltipsFormattingExample = {
+            options: {
+              tooltips: {
+                callbacks: {
+                  label: function (tooltipItem, data) {
+                    return '$ ' + tooltipItem.yLabel;
+                  },
+                },
+              },
+            },
+          };
+    
+          new mdb.Chart(
+            document.getElementById('chart-tooltips-formatting-example'),
+            dataChartTooltipsFormattingExample,
+            optionsChartTooltipsFormattingExample
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Formatting values in the tooltips-->
+
+  <hr class="my-5" />
+
+  <!--Section: Double datasets in a bar chart-->
+  <section id="section-double-datasets-in-a-bar-chart">
+    <!-- Section title -->
+    <h2 class="mb-4">Double datasets in a bar chart</h2>
+
+    <p>Example of the double datasets in a bar chart.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-bar-double-datasets-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="chart-bar-double-datasets-example"></div>
+        </code>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          // Data
+          const dataChartBarDoubleDatasetsExample = {
+            type: 'bar',
+            data: {
+              labels: ['Desktop', 'Mobile', 'Tablet'],
+    
+              datasets: [
+                {
+                  label: 'Users',
+                  data: [510, 653, 255],
+                },
+                {
+                  label: 'Page views',
+                  data: [1251, 1553, 1355],
+                  backgroundColor: '#94DFD7',
+                  borderColor: '#94DFD7',
+                },
+              ],
+            },
+          };
+    
+          // Options
+          const optionsChartBarDoubleDatasetsExample = {
+            options: {
+              scales: {
+                yAxes: [
+                  {
+                    stacked: false,
+                    ticks: {
+                      beginAtZero: true,
+                    },
+                  },
+                ],
+                xAxes: [
+                  {
+                    stacked: false,
+                  },
+                ],
+              },
+            },
+          };
+    
+          new mdb.Chart(
+            document.getElementById('chart-bar-double-datasets-example'),
+            dataChartBarDoubleDatasetsExample,
+            optionsChartBarDoubleDatasetsExample
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Double datasets in a bar chart-->
+</section>
+<!--Section: Docs content-->
