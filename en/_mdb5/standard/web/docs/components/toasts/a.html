@@ -13,245 +13,321 @@
   <hr class="my-5" />
 
   <!--Section: Usage-->
-  <section id="api-section-usage">
+  <section id="section-usage">
     <!-- Section title -->
     <h2 class="mb-4">Usage</h2>
 
-    <h4 class="mt-5">Via JavaScript:</h4>
+    <h4 class="mb-4">Via data attributes</h4>
 
-    <!--Section: Code-->
-    <section>
-      <!-- prettier-ignore -->
-      <mdbsnippet>
-        <code data-lang="js" data-name="javascript">
-          var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-          var toastList = toastElList.map(function (toastEl) {
-            return new mdb.Toast(toastEl, option)
-          })
-        </code>
-      </mdbsnippet>
-    </section>
-    <!--Section: Code-->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div
+          class="toast"
+          id="example-toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          data-autohide="false"
+          data-position="..."
+          data-container="..."
+          data-offset="..."
+        >
+          <div class="toast-header">
+            <svg
+              class="bd-placeholder-img rounded mr-2"
+              width="20"
+              height="20"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid slice"
+              role="img"
+              focusable="false"
+            >
+              <rect width="100%" height="100%" fill="#007aff"></rect>
+            </svg>
+            <strong class="mr-auto">MDBootstrap</strong>
+            <small>11 mins ago</small>
+            <button
+              type="button"
+              class="ml-2 mb-1 close"
+              data-dismiss="toast"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="toast-body">
+            Example toast
+          </div>
+        </div>
+      </code>
+    </mdbsnippet>
 
-    <h4 class="mt-4">
-      Making popovers work for keyboard and assistive technology users
-    </h4>
+    <h4 class="my-4">Via JavaScript</h4>
 
-    <p>
-      To allow keyboard users to activate your popovers, you should only add them to HTML elements
-      that are traditionally keyboard-focusable and interactive (such as links or form controls).
-      Although arbitrary HTML elements (such as
-      <code>&lt;span&gt;</code>s) can be made focusable by adding the
-      <code>tabindex="0"</code> attribute, this will add potentially annoying and confusing tab
-      stops on non-interactive elements for keyboard users, and most assistive technologies
-      currently do not announce the popover’s content in this situation. Additionally, do not rely
-      solely on <code>hover</code> as the trigger for your popovers, as this will make them
-      impossible to trigger for keyboard users.
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+      mdb.Toast.getInstance(document.getElementById('placement-example-toast')).update({
+        position: ...,
+        offset: ...,
+        container: ...,
+      });
+      </code>
+    </mdbsnippet>
+
+    <h4 class="mt-5 mb-3">Via jQuery</h4>
+
+    <p class="note note-warning">
+      <strong>Note:</strong> By default, MDB <strong>does not</strong> include jQuery
+      and you have to add it to the project on your own.
     </p>
 
-    <p>
-      While you can insert rich, structured HTML in popovers with the
-      <code>html</code> option, we strongly recommend that you avoid adding an excessive amount of
-      content. The way popovers currently work is that, once displayed, their content is tied to the
-      trigger element with the <code>aria-describedby</code> attribute. As a result, the entirety of
-      the popover’s content will be announced to assistive technology users as one long,
-      uninterrupted stream.
-    </p>
-
-    <p>
-      Additionally, while it is possible to also include interactive controls (such as form elements
-      or links) in your popover (by adding these elements to the
-      <code>whiteList</code> or allowed attributes and tags), be aware that currently the popover
-      does not manage keyboard focus order. When a keyboard user opens a popover, focus remains on
-      the triggering element, and as the popover usually does not immediately follow the trigger in
-      the document’s structure, there is no guarantee that moving forward/pressing
-      <kbd>TAB</kbd> will move a keyboard user into the popover itself. In short, simply adding
-      interactive controls to a popover is likely to make these controls unreachable/unusable for
-      keyboard users and users of assistive technologies, or at the very least make for an illogical
-      overall focus order. In these cases, consider using a modal dialog instead.
-    </p>
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        $('.example-class').toast(options);
+      </code>
+    </mdbsnippet>
   </section>
   <!--Section: Usage-->
 
   <hr class="my-5" />
 
   <!--Section: Options-->
-  <section id="api-section-options">
+  <section id="section-options">
     <!-- Section title -->
     <h2 class="mb-4">Options</h2>
 
-    <p>
-      Options can be passed via data attributes or JavaScript. For data attributes, append the
-      option name to <code>data-</code>, as in <code>data-animation=""</code>.
-    </p>
-
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th style="width: 100px;">Name</th>
-          <th style="width: 100px;">Type</th>
-          <th style="width: 50px;">Default</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>animation</code></td>
-          <td>boolean</td>
-          <td><code>true</code></td>
-          <td>Apply a CSS fade transition to the toast</td>
-        </tr>
-        <tr>
-          <td><code>autohide</code></td>
-          <td>boolean</td>
-          <td><code>true</code></td>
-          <td>Auto hide the toast</td>
-        </tr>
-        <tr>
-          <td><code>content</code></td>
-          <td>number</td>
-          <td><code>500</code></td>
-          <td>Delay hiding the toast (ms)</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Type</th>
+            <th class="th-sm">Default</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">width</code>
+            </td>
+            <td><i>String / null</i></td>
+            <td><code>null</code></td>
+            <td>Defines the width of a toast</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">position</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'top-left'</code></td>
+            <td>Changes position of toast</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">color</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code></code></td>
+            <td>Sets background of a toast (basic MDB colors)</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">offset</code></td>
+            <td><i>Number</i></td>
+            <td><code>'10'</code></td>
+            <td>Changes offset of toast</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">container</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>-</code></td>
+            <td>Defines id/class of parent element</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">autohide</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>true</code></td>
+            <td>Toasts will hide automatically or not</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">animation</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>true</code></td>
+            <td>Toasts will be animated or not</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">delay</code></td>
+            <td><i>Boolean</i></td>
+            <td><code>500</code></td>
+            <td>Sets length of animation delay</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">appendToBody</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Appends element to the end of body</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">stacking</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>true</code></td>
+            <td>Enables stacking notifications</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
   <!--Section: Options-->
 
   <hr class="my-5" />
 
   <!--Section: Methods-->
-  <section id="api-section-methods">
+  <section id="section-methods">
     <!-- Section title -->
     <h2 class="mb-4">Methods</h2>
 
-    <p class="note note-danger">
-      <strong>Asynchronous methods and transitions:</strong>
-      <br />
-      All API methods are <strong>asynchronous</strong> and start a <strong>transition</strong>.
-      They return to the caller as soon as the transition is started but
-      <strong>before it ends</strong>. In addition, a method call on a
-      <strong>transitioning component will be ignored</strong>.
-    </p>
-
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th>Method</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>show</code></td>
-          <td>
-            Reveals an element’s toast. Returns to the caller before the toast has actually been shown (i.e. before the shown.bs.toast event occurs). You have to manually call this method, instead your toast won’t show.
-        </tr>
-        <tr>
-          <td><code>hide</code></td>
-          <td>
-            Hides an element’s toast. Returns to the caller before the toast has actually been hidden (i.e. before the hidden.bs.toast event occurs). You have to manually call this method if you made autohide to false.
-          </td>
-        </tr>
-        <tr>
-          <td><code>dispose</code></td>
-          <td>
-            Hides an element’s toast. Your toast will remain on the DOM but won’t show anymore.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Parameters</th>
+            <th class="th-sm">Description</th>
+            <th class="th-sm">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">show</code></td>
+            <td>-</td>
+            <td>Shows toast</td>
+            <td><code class="language-markup text-nowrap">instance.show()</code></td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">hide</code></td>
+            <td>-</td>
+            <td>Hides toast</td>
+            <td><code class="language-markup text-nowrap">instance.hide()</code></td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">dispose</code>
+            </td>
+            <td>-</td>
+            <td>Removes a mdb.Toast instance</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.dispose()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">update</code></td>
+            <td>options (Object)</td>
+            <td>Updates options of mdb.Toast instance</td>
+            <td>
+              <code class="language-markup text-nowrap"
+                >instance.update({position: 'top-center'})</code
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <mdbsnippet>
-      <code data-lang="javascript" data-name="JS">
-        var exampleTriggerEl = document.getElementById('example')
-        var toast = new mdb.Toast(exampleTriggerEl)
-        toast.show()
+      <code data-lang="js" data-name="JavaScript">
+        mdb.Toast.getInstance(document.getElementById('show-example')).show();
       </code>
     </mdbsnippet>
-
   </section>
   <!--Section: Methods-->
 
   <hr class="my-5" />
 
   <!--Section: Events-->
-  <section id="api-section-events">
+  <section id="section-events">
     <!-- Section title -->
     <h2 class="mb-4">Events</h2>
 
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th style="width: 150px;">Event type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>show.bs.toast</code></td>
-          <td>
-            This event fires immediately when the <code>show</code> instance method is called.
-          </td>
-        </tr>
-        <tr>
-          <td><code>shown.bs.toast</code></td>
-          <td>
-            This event is fired when the toast has been made visible to the user.
-          </td>
-        </tr>
-        <tr>
-          <td><code>hide.bs.toast</code></td>
-          <td>
-            This event is fired immediately when the hide instance method has been called.
-          </td>
-        </tr>
-        <tr>
-          <td><code>hidden.bs.toast</code></td>
-          <td>
-            This event is fired when the toast has finished being hidden from the user.
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">show.bs.toast</code>
+            </td>
+            <td>
+              Emitted when a toast has been toggled
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">shown.bs.toast</code>
+            </td>
+            <td>
+              Emitted once toast is shown
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">hide.bs.toast</code>
+            </td>
+            <td>
+              Emitted when a toast has been toggled
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">hidden.bs.toast</code>
+            </td>
+            <td>
+              Emitted once toast is hidden
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <!--Section: Code-->
-    <section class="mb-4">
-      <mdbsnippet>
-        <!-- prettier-ignore -->
-        <code data-lang="js" data-name="JavaScript">
-          var myToastEl = document.getElementById('myToast')
-          myToastEl.addEventListener('hidden.bs.toast', function () {
-            // do something...
-          })
-        </code>
-      </mdbsnippet>
-    </section>
-    <!--Section: Code-->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        const instance = mdb.Toast.getInstance(document.getElementById('show-example'));
+        instance.addEventListener('hidden.bs.toast', () => { // do something });
+      </code>
+    </mdbsnippet>
   </section>
   <!--Section: Events-->
 
   <hr class="my-5" />
 
-  <!--Section: Import-->
-  <section id="api-section-import">
-    <!-- Section title -->
+  <!-- Section: Import -->
+  <section id="section-import">
     <h2 class="mb-4">Import</h2>
-    <!-- Description -->
-    <p>MDB UI KIT also works with module bundlers. Use the following code to import this component:</p>
 
-    <!--Section: Code-->
-    <section class="mb-4">
-      <mdbsnippet>
-        <!-- prettier-ignore -->
-        <code data-lang="js" data-name="JavaScript">
-          import { Toast } from 'mdb-ui-kit';
-        </code>
-      </mdbsnippet>
-    </section>
-    <!--Section: Code-->
+    <p>
+      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following
+      code to import this component:
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        import { Toast } from 'mdb-ui-kit';
+      </code>
+    </mdbsnippet>
   </section>
-  <!--Section: Import-->
-
+  <!-- Section: Import -->
 </section>
 <!--Section: Docs content-->
