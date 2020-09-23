@@ -250,9 +250,9 @@
     <hr class="my-5" />
 
     <!--Subsection: awesome-->
-    <section id="subsection-delay">
+    <section id="section-delay">
       <!--Subsection title-->
-      <h4 class="mt-5">Delay</h4>
+      <h2 class="mb-4">Delay</h2>
 
       <!--Description-->
       <p></p>
@@ -291,24 +291,66 @@
               </div>
             </div>";
 
-            const switches = document.querySelector('#flexSwitchCheckDefault');
+            const loader = `<div id="loading-test-6" style="height: 300px; width: 100%">
+              <div class="loading-delay">
+                <div class="spinner-border loading-icon text-succes"></div>
+                  <span class="loading-text">Loading...</span>
+                </div>
+            </div>`;
 
-            let timeleft = 4;
+  const loader1 = `<div class="loading-full">
+                <div class="spinner-border loading-icon text-succes"></div>
+                <span class="loading-text">Loading...</span>
+              </div>`;
 
-            switches.addEventListener('change', (e) => {
-            const test = document.querySelector('#test');
+              const switches = document.querySelector('#flexSwitchCheckDefault');
 
-            if (e.target.checked) {
-            test.insertAdjacentHTML('beforeend', loader);
-            const loadingDelay = document.querySelector('.loading-delay');
-            const test1 = document.querySelector('.test-counter');
+              let timeleft = 4;
 
-            const downloadTimer = setInterval(function () {
-            test1.classList.add('h2', 'd-flex', 'justify-content-center', 'align-items-center');
-            if (timeleft <= 0) { clearInterval(downloadTimer); timeleft=4; } test1.innerHTML=timeleft; timeleft -=1; },
-              1000); new mdb.Loading(loadingDelay, { delay: 5000, }); } else { const
-              loadingDelay=document.querySelector('#loading-test-6'); loadingDelay.remove();
-              document.querySelector('.test-counter').innerHTML=0; } }); </code> </mdbsnippet> </section> <!--Section:
+              switches.addEventListener('change', (e) => {
+                const test = document.querySelector('#test');
+
+                if (e.target.checked) {
+                  test.insertAdjacentHTML('beforeend', loader);
+                  const loadingDelay = document.querySelector('.loading-delay');
+                  const test1 = document.querySelector('.test-counter');
+
+                  const downloadTimer = setInterval(function () {
+                    test1.classList.add('h2', 'd-flex', 'justify-content-center', 'align-items-center');
+                    if (timeleft <= 0) {
+                      clearInterval(downloadTimer);
+                      timeleft = 4;
+                    }
+                    test1.innerHTML = timeleft;
+
+                    timeleft -= 1;
+                  }, 1000);
+
+                  new mdb.LoadingManagement(loadingDelay, {
+                    delay: 5000,
+                    backdropID: 'delay-backdrop',
+                  });
+
+                  setTimeout(() => {
+                    const backdrop = document.querySelector('#delay-backdrop');
+
+                    backdrop.remove();
+                    loadingDelay.remove();
+                    document.body.style.overflow = '';
+                  }, 8000);
+
+                } else {
+                  const loadingDelay = document.querySelector('#loading-test-6');
+
+                  loadingDelay.remove();
+
+                  document.querySelector('.test-counter').innerHTML = 0;
+                }
+              });
+            
+            
+            
+            </code> </mdbsnippet> </section> <!--Section:
               Code-->
       </section>
       <!--Subsection: awesome-->
@@ -316,9 +358,9 @@
       <hr class="my-5" />
 
       <!--Subsection: awesome-->
-      <section id="subsection-full">
+      <section id="section-full">
         <!--Subsection title-->
-        <h4 class="mt-5">Full screen</h4>
+        <h2 class="mb-4">Full screen</h2>
 
         <!--Description-->
         <p></p>
