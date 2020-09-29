@@ -1,0 +1,80 @@
+<script>
+  // Basic examples
+  const triggersBasic = [
+    'primary',
+    'secondary',
+    'success',
+    'danger',
+    'warning',
+    'info',
+    'light',
+    'dark',
+  ];
+  const instancesBasic = [
+    'alert-primary',
+    'alert-secondary',
+    'alert-success',
+    'alert-danger',
+    'alert-warning',
+    'alert-info',
+    'alert-light',
+    'alert-dark',
+  ];
+
+  triggersBasic.forEach(function (trigger, index) {
+    let instance = mdb.Alert.getInstance(document.getElementById(instancesBasic[index]));
+    document.getElementById(trigger).addEventListener('click', function () {
+      instance.show();
+    });
+  });
+</script>
+
+<script>
+  const triggers = [
+    'show-trigger-example',
+    'placement-trigger-example',
+    'container-trigger-example',
+    'offset-trigger-example',
+    'stacking-first-trigger-example',
+    'stacking-second-trigger-example',
+  ];
+  const instances = [
+    'show-example',
+    'placement-example',
+    'container-example',
+    'offset-example',
+    'stacking-first-example',
+    'stacking-second-example',
+  ];
+
+  triggers.forEach(function (trigger, index) {
+    let instance = mdb.Alert.getInstance(document.getElementById(instances[index]));
+    document.getElementById(trigger).addEventListener('click', function () {
+      instance.show();
+    });
+  });
+
+  document.getElementById('hide-trigger-example').addEventListener('click', function () {
+    mdb.Alert.getInstance(document.getElementById('hide-example')).hide();
+  });
+
+  let position = {
+    y: 'top',
+    x: 'right',
+  };
+
+  const positionTrigger = document.getElementById('placement-trigger-example');
+  const positionAlert = mdb.Alert.getInstance(document.getElementById('placement-example'));
+  const display = document.getElementById('positionDisplay');
+
+  ['left', 'right', 'top', 'bottom', 'center'].forEach((trigger) => {
+    document.getElementById(trigger).addEventListener('click', function () {
+      const axis = trigger === 'top' || trigger === 'bottom' ? 'y' : 'x';
+      position[axis] = trigger;
+      positionAlert.update({
+        position: `${position.y}-${position.x}`,
+      });
+      display.textContent = `${position.y}-${position.x}`;
+    });
+  });
+</script>
