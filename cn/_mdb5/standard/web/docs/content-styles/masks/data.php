@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'Masks',
-  'seo_title' => 'Masks - Bootstrap 5 & Material Design 2.0',
-  'description' => 'Masks built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide and customization tools',
-  'url' => 'https://mdbootstrap.com/docs/standard/content-styles/masks/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/content-styles/masks/masks.jpg',
+  'main_title' => '口罩',
+  'seo_title' => '口罩-Bootstrap 5和Material Design 2.0',
+  'description' => '使用最新的Bootstrap 5和Material Design 2.0构建的口罩。多个示例，用户友好的指南和自定义工具',
+  'url' => 'https://mdbootstrap.com/cn docs/standard/content-styles/masks/',
+  'image' => 'https://mdbootstrap.com/cn wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/content-styles/masks/masks.jpg',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

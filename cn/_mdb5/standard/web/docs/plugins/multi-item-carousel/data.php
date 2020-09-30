@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'Multi item carousel',
-  'seo_title' => 'Multi item carousel - Bootstrap 5 & Material Design 2.0 plugin',
-  'description' => 'Multi item carousel built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
-  'url' => 'https://mdbootstrap.com/docs/standard/plugins/multi-item-carousel/',
+  'main_title' => '多项目轮播',
+  'seo_title' => '多项目轮播-Bootstrap 5和Material Design 2.0插件',
+  'description' => '使用最新的Bootstrap 5和Material Design 2.0构建的多项目轮播。多个示例，用户友好指南，广泛的API和自定义工具',
+  'url' => 'https://mdbootstrap.com/cn docs/standard/plugins/multi-item-carousel/',
   'image' => '',
   'video' => '',
 );

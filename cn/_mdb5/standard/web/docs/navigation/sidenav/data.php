@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'Sidenav',
-  'seo_title' => 'Sidenav - Bootstrap 5 & Material Design 2.0 navigation',
-  'description' => 'Sidenav built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
-  'url' => 'https://mdbootstrap.com/docs/standard/navigation/sidenav/',
+  'main_title' => '侧',
+  'seo_title' => '侧 Bootstrap 5和Material Design 2.0导航',
+  'description' => '侧 使用最新的Bootstrap 5和Material Design 2.0构建。多个示例，用户友好指南，广泛的API和自定义工具',
+  'url' => 'https://mdbootstrap.com/cn docs/standard/navigation/sidenav/',
   'image' => '',
   'video' => '',
 );

@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'Storage management',
-  'seo_title' => 'Storage management - Bootstrap 5 & Material Design 2.0 plugin',
-  'description' => 'Storage management built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
-  'url' => 'https://mdbootstrap.com/docs/standard/plugins/storage-management/',
+  'main_title' => '仓储管理',
+  'seo_title' => '存储管理-Bootstrap 5和Material Design 2.0插件',
+  'description' => '使用最新的Bootstrap 5和Material Design 2.0构建的存储管理。多个示例，用户友好指南，广泛的API和自定义工具',
+  'url' => 'https://mdbootstrap.com/cn docs/standard/plugins/storage-management/',
   'image' => '',
   'video' => '',
 );

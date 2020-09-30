@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'Charts advanced usage',
-  'seo_title' => 'Charts advanced usage - Bootstrap 5 & Material Design 2.0',
-  'description' => 'Charts built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
-  'url' => 'https://mdbootstrap.com/docs/standard/data/charts-advanced/',
+  'main_title' => '图表高级用法',
+  'seo_title' => '图表高级用法-Bootstrap 5和Material Design 2.0',
+  'description' => '使用最新的Bootstrap 5和Material Design 2.0构建的图表。多个示例，用户友好指南，广泛的API和自定义工具',
+  'url' => 'https://mdbootstrap.com/cn docs/standard/data/charts-advanced/',
   'image' => '',
   'video' => '',
 );

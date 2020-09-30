@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'Datatables',
-  'seo_title' => 'Datatables - Bootstrap 5 & Material Design 2.0',
-  'description' => 'Datatables built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
-  'url' => 'https://mdbootstrap.com/docs/standard/data/datatables/',
+  'main_title' => '数据表',
+  'seo_title' => '数据表-Bootstrap 5和Material Design 2.0',
+  'description' => '使用最新的Bootstrap 5和Material Design 2.0构建的数据表。多个示例，用户友好指南，广泛的API和自定义工具',
+  'url' => 'https://mdbootstrap.com/cn docs/standard/data/datatables/',
   'image' => '',
   'video' => '',
 );
