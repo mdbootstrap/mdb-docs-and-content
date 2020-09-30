@@ -1,0 +1,140 @@
+<script type="text/javascript">
+  // basic example
+
+  (function () {
+    const icons = [
+      'Sad-Tear',
+      'Meh-Blank',
+      'Smile-Wink',
+      'Tired',
+      'Surprise',
+      'Kiss-Beam',
+      'Laugh-Squint',
+    ];
+
+    const basicElement = document.getElementById('basic-example');
+
+    let itemIndex = 0;
+
+    // items - array of the created elements using reference to array icons
+    const items = icons.map((icon) => {
+      const element = document.createElement('li');
+
+      element.innerHTML = `
+          <li class="list-group-item d-flex align-items-center">
+            <i class="far fa-${icon.toLowerCase()} fa-3x mr-4"></i>${icon}
+          </li>
+          `;
+
+      return element;
+    });
+
+    basicElement.addEventListener('complete.mdb.infiniteScroll', () => {
+      if (itemIndex === icons.length - 1) return;
+
+      basicElement.appendChild(items[itemIndex]);
+
+      itemIndex++;
+    });
+  })();
+
+  // Direction
+
+  (function () {
+    const directionElement = document.getElementById('direction-example');
+
+    let itemIndex = 0;
+
+    const icons = [
+      'Sad-Tear',
+      'Meh-Blank',
+      'Smile-Wink',
+      'Tired',
+      'Surprise',
+      'Kiss-Beam',
+      'Laugh-Squint',
+    ];
+
+    // items - array of the created elements using reference to array icons
+    const items = icons.map((icon) => {
+      const element = document.createElement('span');
+
+      element.classList.add('mx-5');
+
+      element.innerHTML = `
+            <i class="far fa-${icon.toLowerCase()} fa-3x mr-4"></i>
+            ${icon}
+          `;
+
+      return element;
+    });
+
+    directionElement.addEventListener('complete.mdb.infiniteScroll', () => {
+      if (itemIndex === items.length - 1) return;
+
+      const newElement = items[itemIndex];
+
+      directionElement.appendChild(newElement);
+
+      itemIndex++;
+    });
+  })();
+
+  // async
+
+  (function () {
+    const spinnersElement = document.getElementById('spinners-and-async-example');
+
+    const images = document.getElementById('images');
+
+    const spinner = document.getElementById('spinner');
+
+    const imgSrc = [
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg',
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(103).jpg',
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(104).jpg',
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(107).jpg',
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(108).jpg',
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(109).jpg',
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(110).jpg',
+    ];
+
+    const items = imgSrc.map((url) => {
+      const el = document.createElement('img');
+
+      el.classList.add('img-fluid');
+
+      el.classList.add('mb-3');
+
+      el.setAttribute('src', url);
+
+      return el;
+    });
+
+    let renderedItems = 0;
+
+    const renderItems = (index) => {
+      setTimeout(() => {
+        spinner.style.display = 'none';
+
+        images.appendChild(items[index]);
+      }, 1000);
+    };
+
+    const loadItems = () => {
+      if (renderedItems < items.length) {
+        spinner.style.display = 'block';
+
+        renderItems(renderedItems);
+
+        renderedItems++;
+
+        if (renderedItems === items.length) {
+          spinnersElement.removeEventListener('complete.mdb.infiniteScroll', loadItems);
+        }
+      }
+    };
+
+    spinnersElement.addEventListener('complete.mdb.infiniteScroll', loadItems);
+  })();
+</script>

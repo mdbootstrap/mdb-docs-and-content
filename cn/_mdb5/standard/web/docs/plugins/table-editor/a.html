@@ -1,0 +1,636 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="api-section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Usage-->
+  <section id="api-section-usage">
+    <!-- Section title -->
+    <h2 class="mb-4">Usage</h2>
+
+    <h4>Via data attributes</h4>
+
+    <p>
+      Using the Table Editor component doesn't require any additional JavaScript code - simply add a
+      div wrapper with a class "table-editor" to your table and use data attributes to set all
+      options.
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="d-flex justify-content-end mb-4">
+          <div class="form-outline">
+            <input
+              data-search
+              data-target="#table_1"
+              type="text"
+              id="search_table_1"
+              class="form-control"
+            />
+            <label class="form-label" for="search_table_1">Search</label>
+          </div>
+          <button class="btn btn-primary btn-sm ml-3" data-add-entry data-target="#table_1">
+            <i class="fa fa-plus"></i>
+          </button>
+        </div>
+        <hr />
+        <div
+          class="table-editor"
+          id="table_1"
+          data-mode="modal"
+          data-entries="5"
+          data-entries-options="[5, 10, 15]"
+        >
+          <table></table>
+        </div>
+      </code>
+    </mdbsnippet>
+
+    <h4 class="mt-4">Via JavaScript</h4>
+
+    <p>
+      If you prefer to render a table with JavaScript, initialize an instance with the TableEditor
+      constructor.
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        const table = document.getElementById('my-table');
+        const tableEditor = new TableEditor(table, { rows: [], columns: [], { 
+          mode: 'modal', 
+          entries: 5, 
+          entriesOptions: [5, 10, 15]
+        }})
+      </code>
+    </mdbsnippet>
+
+    <h4 class="mt-4">Via jQuery</h4>
+
+    <p class="note note-warning">
+      <strong>Note:</strong> By default, MDB <strong>does not</strong> include jQuery and you have
+      to add it to the project on your own.
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="jQuery">
+        $('#my-tableEditor').tableEditor({
+          columns: [
+            { label: 'Column 1', width: 100, fixed: true, sort: false },
+            { label: 'Column 2'}
+          ],
+          rows: [
+            ['Value 1', 'Value 2']
+          ]
+        }, {
+           bordered: true
+        })
+
+        // Calling .update() with the jQuery interface:
+
+        $('#my-tableEditor').tableEditor('update', { rows: [...], columns: [...]}, { bordered: true, loading: false })
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Usage-->
+
+  <hr class="my-5" />
+
+  <!--Section: Options-->
+  <section id="api-section-options">
+    <!-- Section title -->
+    <h2 class="mb-4">Options</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Type</th>
+            <th class="th-sm">Default</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">actionHeader</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'Actions'</code></td>
+            <td>Header for action buttons</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">actionPosition</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'end'</code></td>
+            <td>Decides where to render an action column (start/end)</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">bordered</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Adds borders to a datatable</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">borderless</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Removes all borders from a datatable</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">borderColor</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code></code></td>
+            <td>Changes a border color to one of main colors</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">cancelText</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'Cancel'</code></td>
+            <td>Text displayed in cancel buttons</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">confirm</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Displays a Popconfirm element before removing an entry</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">confirmText</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'Delete'</code></td>
+            <td>Text displayed in confirm buttons (Popconfirm)</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">confirmMessage</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'Are you sure you want to delete this entry?'</code></td>
+            <td>Text displayed in a Popconfirm element</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">color</code></td>
+            <td><i>String</i></td>
+            <td><code></code></td>
+            <td>Adds a color class to a datatable (f.e 'bg-dark')</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">dark</code></td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Changes a font color to white</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">defaultValue</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'-'</code></td>
+            <td>
+              This string will be used as a placeholder if a row doesn't have a defined value for a
+              column
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">entries</code>
+            </td>
+            <td><i>Number</i></td>
+            <td><code>10</code></td>
+            <td>Number of visible entries (pagination)</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">entriesOptions</code>
+            </td>
+            <td><i>Array</i></td>
+            <td><code>[10, 25, 50, 200]</code></td>
+            <td>Options available to choose from in a pagination select (rows per page)</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">fixedHeader</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>When it's set to true, the table's header will remain visible while scrolling</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">fullPagination</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Displays additional buttons for the first and last pages</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">hover</code></td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Changes the background color of a hovered row</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">loading</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Sets the loading mode - disables interactions and displays a loader</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">loaderClass</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'bg-primary'</code></td>
+            <td>The class name for a loader (loading mode)</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">loadingMessage</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'Loading results...'</code></td>
+            <td>A message displayed while loading data</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">maxWidth</code>
+            </td>
+            <td><i>Number|String</i></td>
+            <td><code></code></td>
+            <td>
+              Sets a maximum width of a datatable - can be either a string ('10%') or a number of
+              pixels.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">maxHeight</code>
+            </td>
+            <td><i>Number|String</i></td>
+            <td><code></code></td>
+            <td>
+              Sets a maximum height of a datatable - can be either a string ('10%') or a number of
+              pixels.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">mode</code></td>
+            <td><i>String</i></td>
+            <td><code>'inline'</code></td>
+            <td>Changes edit mode - available options: 'inline', 'modal'</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">newItemHeader</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'New item'</code></td>
+            <td>A header of modal</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">noFoundMessage</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'No matching results found'</code></td>
+            <td>A message displayed when a table is empty</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">pagination</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>true</code></td>
+            <td>Shows/hides the pagination panel</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">saveText</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'Save'</code></td>
+            <td>Text displayed in the save button (modal)</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">sm</code></td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Decreases a row's paddings</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">striped</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>false</code></td>
+            <td>Slightly changes the background's color in every other row</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">rowsText</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'Rows per page':</code></td>
+            <td>A text indicating a number of rows per page</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!--Section: Options-->
+
+  <hr class="my-5" />
+
+  <!--Section: Column Options-->
+  <section id="section-column-options">
+    <!-- Section title -->
+    <h2 class="mb-4">Options (column)</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Type</th>
+            <th class="th-sm">Default</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">defaultValue</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code></code></td>
+            <td>Default value only for one column</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">editable</code>
+            </td>
+            <td><i>Boolean</i></td>
+            <td><code>true</code></td>
+            <td>Enables/disabled editing fields in this column</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">field</code></td>
+            <td><i>String</i></td>
+            <td><code>''</code></td>
+            <td>A field's name - will be used as a key for values in rows</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">fixed</code></td>
+            <td><i>Boolean|String</i></td>
+            <td><code>false</code></td>
+            <td>
+              When set to <code>true</code>, makes a column stick on the left while scrolling.
+              Changing its value to <code>right</code> will do the same on the other side. For this
+              option to work, you need to define <code>width</code> as well.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">inputType</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'text'</code></td>
+            <td>
+              Input type for a column. Available options: 'text', 'number', 'checkbox', 'select'
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">label</code></td>
+            <td><i>String</i></td>
+            <td><code>''</code></td>
+            <td>A displayed header of a column</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">options</code>
+            </td>
+            <td><i>Array</i></td>
+            <td><code></code></td>
+            <td>Array of options (for column with a "select" input type)</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">sort</code></td>
+            <td><i>Boolean</i></td>
+            <td><code>true</code></td>
+            <td>Enables/disables sorting for this column</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">width</code></td>
+            <td><i>Number</i></td>
+            <td><code></code></td>
+            <td>A column's width in pixels</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!--Section: Column Options-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">Methods</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Description</th>
+            <th class="th-sm">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">add</code></td>
+            <td>Adds a new row (default values are optional)</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.add(row: Object)</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">update</code></td>
+            <td>Updates and rerenders datatable</td>
+            <td>
+              <code class="language-markup text-nowrap"
+                >instance.update(data: Object, options: Object)</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">search</code></td>
+            <td>Filters rows so there are only those containing the searched phrase</td>
+            <td>
+              <code class="language-markup text-nowrap"
+                >instance.search(phrase: String, column: String|Array (optional))</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">dispose</code>
+            </td>
+            <td>Removes the component's instance</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.dispose()</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code  data-lang="javascript" data-name="JavaScript">
+        const tableEditorInstance = TableEditor.getInstance(document.getElementById('my-tableEditor'));
+
+        tableEditorInstance.update({ rows: [...], columns: [...]}, { bordered: true, loading: false })
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Methods-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+    <h2 class="mb-4">Events</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">add.mdb.tableEditor</code>
+            </td>
+            <td>This event fires after adding a new row</td>
+          </tr>
+
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">delete.mdb.tableEditor</code>
+            </td>
+            <td>This event fires after deleting a row</td>
+          </tr>
+
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">edit.mdb.tableEditor</code>
+            </td>
+            <td>This event fires when user enters edit mode</td>
+          </tr>
+
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">exit.mdb.tableEditor</code>
+            </td>
+            <td>This event fires when user exits edit mode</td>
+          </tr>
+
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">update.mdb.tableEditor</code>
+            </td>
+            <td>
+              This event fires in an editable mode when a user updates values. You can access the
+              upsdated data inside a listener's handler with
+              <code>event.rows</code> and <code>event.columns</code> fields.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">updateEntry.mdb.tableEditor</code>
+            </td>
+            <td>This event fires after saving changes in an existing row.</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">render.mdb.tableEditor</code>
+            </td>
+            <td>Event emitted after the component renders/updates rows.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code  data-lang="javascript" data-name="JavaScript">
+        const tableEditor = document.getElementById('my-tableEditor');
+
+        new TableEditor({ rows: [], columns: []}, { selectable: true, multi: true })
+
+        tableEditor.addEventListener('add.mdb.tableEditor', event => {
+          console.log(event.row)
+        })
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- Description -->
+    <p>
+      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following code to import
+      this component:
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        import { TableEditor } from 'mdb-table-editor';
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+</section>
+<!--Section: Docs content-->

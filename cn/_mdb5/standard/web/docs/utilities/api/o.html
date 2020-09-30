@@ -1,0 +1,422 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold"><?= $data_var['main_title']; ?></h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">The utility API is a Sass based tool to generate utility classes.</p>
+
+    <hr />
+
+    <p>
+      The bootstrap utilities are generated with the utility API which can be used to change or
+      extend Bootstrap’s utility classes. If you don’t have any idea what Sass maps are, you can
+      consult the
+      <a rel="nofollow" target="_blank" href="https://sass-lang.com/documentation/values/maps"
+        >official docs</a
+      >
+      to get started.
+    </p>
+
+    <p>
+      The <code>$utilities</code> map contains all utilities and is later merged with your custom
+      <code>$utilities</code> map if present. The utility map contains a keyed list of utility
+      groups which accept the following options:
+    </p>
+
+    <ul>
+      <li>
+        <code>property</code>: Name of the property, this can be a string or an array of strings
+        (needed for eg. horizontal paddings or margins).
+      </li>
+      <li>
+        <code>responsive</code> <em>(optional)</em>: Boolean indicating if responsive classes need
+        to be generated. <code>false</code> by default.
+      </li>
+      <li>
+        <code>rfs</code> <em>(optional)</em>: Variable to enable fluid rescaling. Have a look at the
+        RFS page to find out how this works. <code>false</code> by default.
+      </li>
+      <li>
+        <code>class</code> <em>(optional)</em>: Variable to change the class name if you don’t want
+        it to be the same as the property. In case you don’t provide the <code>class</code> key and
+        <code>property</code> key is an array of strings, the class name will be the first element
+        of the <code>property</code> array.
+      </li>
+      <li>
+        <code>values</code>: This can be a list of values or a map if you don’t want the class name
+        to be the same as the value. If null is used as map key, it isn’t rendered.
+      </li>
+      <li>
+        <code>print</code> <em>(optional)</em>: Boolean indicating if print classes need to be
+        generated. <code>false</code> by default.
+      </li>
+    </ul>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Adding utilities to the utility API-->
+  <section id="section-adding-utilities-to-the-utility-api">
+    <!-- Section title -->
+    <h2 class="mb-4">Adding utilities to the utility API</h2>
+
+    <p>
+      All utility variables are added to the <code>$utilities</code> variable. Custom utility groups
+      can added like this:
+    </p>
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss"> 
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                100: 1,
+              )
+            )
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="css" data-name="css">
+      .opacity-0 {
+        opacity: 0;
+      }
+      .opacity-25 {
+        opacity: .25;
+      }
+      .opacity-75 {
+        opacity: .75;
+      }
+      .opacity-100 {
+        opacity: 1;
+      }
+    </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Adding utilities to the utility API-->
+
+  <hr class="my-5" />
+
+  <!--Section: Changing the class prefix-->
+  <section id="section-changing-the-class-prefix">
+    <!--Section title-->
+    <h2 class="mb-4">
+      Changing the class prefix
+    </h2>
+
+    <!-- Section description -->
+    <p>With the <code>class</code> option, the class prefix can be changed:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss">
+  
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              class: o,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                100: 1,
+              )
+            )
+           );
+  
+     </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="css" data-name="css">
+      .o-0 {
+        opacity: 0;
+      }
+      .o-25 {
+        opacity: .25;
+      }
+      .o-75 {
+        opacity: .75;
+      }
+      .o-100 {
+        opacity: 1;
+      }
+    </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Changing the class prefix-->
+
+  <hr class="my-5" />
+
+  <!--Section: Responsive utilities-->
+  <section id="section-responsive-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">
+      Responsive utilities
+    </h2>
+
+    <!-- Section description -->
+    <p>With the <code>responsive</code> option, responsive utility classes can be generated:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss">
+  
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              responsive: true,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                100: 1,
+              )
+            )
+           );
+  
+     </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="css" data-name="css"> 
+      .opacity-0 {
+        opacity: 0;
+      }
+      .opacity-25 {
+        opacity: .25;
+      }
+      .opacity-75 {
+        opacity: .75;
+      }
+      .opacity-100 {
+        opacity: 1;
+      }
+      @media (min-width: 576px) {
+        .opacity-sm-0 {
+          opacity: 0;
+        }
+        .opacity-sm-25 {
+          opacity: .25;
+        }
+        .opacity-sm-75 {
+          opacity: .75;
+        }
+        .opacity-sm-100 {
+          opacity: 1;
+        }
+      }
+      @media (min-width: 768px) {
+        .opacity-md-0 {
+          opacity: 0;
+        }
+        .opacity-md-25 {
+          opacity: .25;
+        }
+        .opacity-md-75 {
+          opacity: .75;
+        }
+        .opacity-md-100 {
+          opacity: 1;
+        }
+      }
+      @media (min-width: 992px) {
+        .opacity-lg-0 {
+          opacity: 0;
+        }
+        .opacity-lg-25 {
+          opacity: .25;
+        }
+        .opacity-lg-75 {
+          opacity: .75;
+        }
+        .opacity-lg-100 {
+          opacity: 1;
+        }
+      }
+      @media (min-width: 1200px) {
+        .opacity-xl-0 {
+          opacity: 0;
+        }
+        .opacity-xl-25 {
+          opacity: .25;
+        }
+        .opacity-xl-75 {
+          opacity: .75;
+        }
+        .opacity-xl-100 {
+          opacity: 1;
+        }
+      }
+    </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Responsive utilities-->
+
+  <hr class="my-5" />
+
+  <!--Section: Changing utilities-->
+  <section id="section-changing-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">
+      Changing utilities
+    </h2>
+
+    <!-- Section description -->
+    <p>
+      Overriding excising utilities is possible by using the same key. For example if you want more
+      responsive overflow utility classes you can do this:
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss">
+  
+          $utilities: (
+            "overflow": (
+              responsive: true,
+              property: overflow,
+              values: visible hidden scroll auto,
+            ),
+          );
+  
+     </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Changing utilities-->
+
+  <hr class="my-5" />
+
+  <!--Section: Print utilities-->
+  <section id="section-print-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">
+      Print utilities
+    </h2>
+
+    <!-- Section description -->
+    <p>
+      Enabling the <code>print</code> option will <strong>also</strong> generate utility classes for
+      print.
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss">
+  
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              class: o,
+              print: true,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                100: 1,
+              )
+            )
+           );
+  
+     </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="css" data-name="css">
+          .o-0 { opacity: 0; } .o-25 { opacity: .25; } .o-75 { opacity: .75; } .o-100 { opacity: 1;
+          } @media print { .o-print-0 { opacity: 0; } .o-print-25 { opacity: .25; } .o-print-75 {
+          opacity: .75; } .o-print-100 { opacity: 1; } }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Print utilities-->
+
+  <hr class="my-5" />
+
+  <!--Section: Removing utilities-->
+  <section id="section-removing-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">
+      Removing utilities
+    </h2>
+
+    <!-- Section description -->
+    <p>Utilities can also be removed by changing the group key to <code>null</code>:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss">
+  
+          $utilities: (
+            "float": null,
+          );
+  
+     </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Removing utilities-->
+</section>
+<!--Section: Docs content-->

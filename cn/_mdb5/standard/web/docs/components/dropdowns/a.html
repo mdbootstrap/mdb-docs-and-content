@@ -1,0 +1,363 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="api-section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Usage-->
+  <section id="api-section-usage">
+    <!-- Section title -->
+    <h2 class="mb-4">Usage</h2>
+
+    <p>
+      Via data attributes or JavaScript, the dropdown plugin toggles hidden content (dropdown menus)
+      by toggling the <code>.show</code> class on the parent list item. The
+      <code>data-toggle="dropdown"</code> attribute is relied on for closing dropdown menus at an
+      application level, so it’s a good idea to always use it.
+    </p>
+
+    <p class="note note-info">
+      <strong>Note:</strong>
+      <br />
+      On touch-enabled devices, opening a dropdown adds empty
+      <code>mouseover</code> handlers to the immediate children of the
+      <code>&lt;body&gt;</code> element. This admittedly ugly hack is necessary to work around a
+      <a
+        target="_blank"
+        rel="nofollow"
+        href="https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html"
+        >quirk in iOS’ event delegation</a
+      >, which would otherwise prevent a tap anywhere outside of the dropdown from triggering the
+      code that closes the dropdown. Once the dropdown is closed, these additional empty
+      <code>mouseover</code> handlers are removed.
+    </p>
+
+    <h4 class="mt-4">
+      Via data attributes
+    </h4>
+
+    <p>Add <code>data-toggle="dropdown"</code> to a link or button to toggle a dropdown.</p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="dropdown">
+            <button id="dLabel" type="button" data-toggle="dropdown" aria-expanded="false">
+              Dropdown trigger
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dLabel">
+              ...
+            </ul>
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <h4 class="mt-4">
+      Via JavaScript
+    </h4>
+
+    <p>Call the dropdowns via JavaScript:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript">
+          var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+          var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+            return new mdb.Dropdown(dropdownToggleEl)
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p class="note note-info">
+      <strong><code>data-toggle="dropdown"</code> still required:</strong>
+      <br />
+      Regardless of whether you call your dropdown via JavaScript or instead use the data-api,
+      <code>data-toggle="dropdown"</code> is always required to be present on the dropdown’s trigger
+      element.
+    </p>
+  </section>
+  <!--Section: Usage-->
+
+  <hr class="my-5" />
+
+  <!--Section: Options-->
+  <section id="api-section-options">
+    <!-- Section title -->
+    <h2 class="mb-4">Options</h2>
+    <p>
+      Options can be passed via data attributes or JavaScript. For data attributes, append the
+      option name to <code>data-</code>, as in <code>data-offset=""</code>.
+    </p>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 100px;">Name</th>
+          <th style="width: 100px;">Type</th>
+          <th style="width: 50px;">Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>offset</code></td>
+          <td>number | string | function</td>
+          <td><code>0</code></td>
+          <td>
+            <p>Offset of the dropdown relative to its target.</p>
+            <p>
+              When a function is used to determine the offset, it is called with an object
+              containing the offset data as its first argument. The function must return an object
+              with the same structure. The triggering element DOM node is passed as the second
+              argument.
+            </p>
+            <p>
+              For more information refer to Popper.js's
+              <a href="https://popper.js.org/docs/v1/#modifiers..offset.offset">offset docs</a>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>flip</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>
+            Allow Dropdown to flip in case of an overlapping on the reference element. For more
+            information refer to Popper.js's
+            <a href="https://popper.js.org/docs/v1/#modifiers..flip.enabled">flip docs</a>.
+          </td>
+        </tr>
+        <tr>
+          <td><code>boundary</code></td>
+          <td>string | element</td>
+          <td><code>'scrollParent'</code></td>
+          <td>
+            Overflow constraint boundary of the dropdown menu. Accepts the values of
+            <code>'viewport'</code>, <code>'window'</code>, <code>'scrollParent'</code>, or an
+            HTMLElement reference (JavaScript only). For more information refer to Popper.js's
+            <a href="https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement"
+              >preventOverflow docs</a
+            >.
+          </td>
+        </tr>
+        <tr>
+          <td><code>reference</code></td>
+          <td>string | element</td>
+          <td><code>'toggle'</code></td>
+          <td>
+            Reference element of the dropdown menu. Accepts the values of
+            <code>'toggle'</code>, <code>'parent'</code>, or an HTMLElement reference. For more
+            information refer to Popper.js's
+            <a href="https://popper.js.org/docs/v1/#referenceObject">referenceObject docs</a>.
+          </td>
+        </tr>
+        <tr>
+          <td><code>display</code></td>
+          <td>string</td>
+          <td><code>'dynamic'</code></td>
+          <td>
+            By default, we use Popper.js for dynamic positioning. Disable this with
+            <code>static</code>.
+          </td>
+        </tr>
+        <tr>
+          <td><code>popperConfig</code></td>
+          <td>null | object</td>
+          <td><code>null</code></td>
+          <td>
+            To change Bootstrap's default Popper.js config, see
+            <a href="https://popper.js.org/docs/v1/#Popper.Defaults">Popper.js's configuration</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Note when <code>boundary</code> is set to any value other than <code>'scrollParent'</code>,
+      the style <code>position: static</code> is applied to the <code>.dropdown</code> container.
+    </p>
+  </section>
+  <!--Section: Options-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">Methods</h2>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>toggle</code></td>
+          <td>
+            Toggles the dropdown menu of a given navbar or tabbed navigation.
+          </td>
+        </tr>
+        <tr>
+          <td><code>show</code></td>
+          <td>
+            Shows the dropdown menu of a given navbar or tabbed navigation.
+          </td>
+        </tr>
+        <tr>
+          <td><code>hide</code></td>
+          <td>
+            Hides the dropdown menu of a given navbar or tabbed navigation.
+          </td>
+        </tr>
+        <tr>
+          <td><code>update</code></td>
+          <td>
+            Updates the position of an element's dropdown.
+          </td>
+        </tr>
+        <tr>
+          <td><code>dispose</code></td>
+          <td>
+            Destroys an element's dropdown.
+          </td>
+        </tr>
+        <tr>
+          <td><code>getInstance</code></td>
+          <td>
+            Static method which allows you to get the dropdown instance associated with a DOM
+            element.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript">
+          var myDropdown = document.getElementById('myDropdown')
+          var bsDropdown = new mdb.Dropdown(myDropdown)
+          bsDropdown.show()
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Methods-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+    <h2 class="mb-4">Events</h2>
+    <p>
+      All dropdown events are fired at the <code>.dropdown-menu</code>'s parent element and have a
+      <code>relatedTarget</code> property, whose value is the toggling anchor element.
+      <code>hide.bs.dropdown</code> and <code>hidden.bs.dropdown</code> events have a
+      <code>clickEvent</code> property (only when the original Event type is <code>click</code>)
+      that contains an Event Object for the click event.
+    </p>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code>show.bs.dropdown</code>
+          </td>
+          <td>
+            Fires immediately when the show instance method is called.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>shown.bs.dropdown</code>
+          </td>
+          <td>
+            Fired when the dropdown has been made visible to the user and CSS transitions have
+            completed.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>hide.bs.dropdown</code>
+          </td>
+          <td>
+            Fires immediately when the hide instance method has been called.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>hidden.bs.dropdown</code>
+          </td>
+          <td>
+            Fired when the dropdown has finished being hidden from the user and CSS transitions have
+            completed.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript">
+          var myDropdown = document.getElementById('myDropdown')
+          myDropdown.addEventListener('show.bs.dropdown', function () {
+            // do something...
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- Description -->
+    <p>
+      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following code to import
+      this component:
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        import { Dropdown } from 'mdb-ui-kit';
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+</section>
+<!--Section: Docs content-->

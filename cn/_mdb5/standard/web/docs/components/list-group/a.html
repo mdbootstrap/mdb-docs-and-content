@@ -1,0 +1,285 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="api-section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Usage-->
+  <section id="api-section-usage">
+    <!-- Section title -->
+    <h2 class="mb-4">Usage</h2>
+
+    <h4 class="mt-4">
+      Using data attributes
+    </h4>
+
+    <p>
+      You can activate a list group navigation without writing any JavaScript by simply specifying
+      <code>data-toggle="list"</code> or on an element. Use these data attributes on
+      <code>.list-group-item</code>.
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <!-- List group -->
+          <div class="list-group" id="myList" role="tablist">
+            <a
+              class="list-group-item list-group-item-action active"
+              data-toggle="list"
+              href="#home"
+              role="tab"
+              >Home</a
+            >
+            <a
+              class="list-group-item list-group-item-action"
+              data-toggle="list"
+              href="#profile"
+              role="tab"
+              >Profile</a
+            >
+            <a
+              class="list-group-item list-group-item-action"
+              data-toggle="list"
+              href="#messages"
+              role="tab"
+              >Messages</a
+            >
+            <a
+              class="list-group-item list-group-item-action"
+              data-toggle="list"
+              href="#settings"
+              role="tab"
+              >Settings</a
+            >
+          </div>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active" id="home" role="tabpanel">...</div>
+            <div class="tab-pane" id="profile" role="tabpanel">...</div>
+            <div class="tab-pane" id="messages" role="tabpanel">...</div>
+            <div class="tab-pane" id="settings" role="tabpanel">...</div>
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <h4 class="mt-4">
+      Via JavaScript
+    </h4>
+
+    <p>
+      Enable tabbable list item via JavaScript (each list item needs to be activated individually):
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript">
+          var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
+          triggerTabList.forEach(function (triggerEl) {
+            var tabTrigger = new mdb.Tab(triggerEl)
+
+            triggerEl.addEventListener('click', function (e) {
+              e.preventDefault()
+              tabTrigger.show()
+            })
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>You can activate individual list item in several ways:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          var triggerEl = document.querySelector('#myTab a[href="#profile"]')
+          mdb.Tab.getInstance(triggerEl).show() // Select tab by name var triggerFirstTabEl =
+          document.querySelector('#myTab li:first-child a')
+          mdb.Tab.getInstance(triggerFirstTabEl).show() // Select first tab
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Usage-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">Methods</h2>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>show</code></td>
+          <td>
+            Selects the given list item and shows its associated pane. Any other list item that was
+            previously selected becomes unselected and its associated pane is hidden.
+            <strong>Returns to the caller before the tab pane has actually been shown</strong>
+            (for example, before the <code>shown.bs.tab</code> event occurs).
+          </td>
+        </tr>
+        <tr>
+          <td><code>dispose</code></td>
+          <td>
+            Destroys an element’s tab.
+          </td>
+        </tr>
+        <tr>
+          <td><code>getInstance</code></td>
+          <td>
+            <em>Static</em> method which allows you to get the tab instance associated with a DOM
+            element
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript">
+          var triggerEl = document.querySelector('#trigger')
+          var tab = new mdb.Tab(triggerEl);
+          tab.show()
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Methods-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+    <h2 class="mb-4">Events</h2>
+    <p>When showing a new tab, the events fire in the following order:</p>
+
+    <ol>
+      <li><code>hide.bs.tab</code> (on the current active tab)</li>
+      <li><code>show.bs.tab</code> (on the to-be-shown tab)</li>
+      <li>
+        <code>hidden.bs.tab</code> (on the previous active tab, the same one as for the
+        <code>hide.bs.tab</code> event)
+      </li>
+      <li>
+        <code>shown.bs.tab</code> (on the newly-active just-shown tab, the same one as for the
+        <code>show.bs.tab</code> event)
+      </li>
+    </ol>
+
+    <p>
+      If no tab was already active, the <code>hide.bs.tab</code> and
+      <code>hidden.bs.tab</code> events will not be fired.
+    </p>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>show.bs.tab</code></td>
+          <td>
+            This event fires on tab show, but before the new tab has been shown. Use
+            <code>event.target</code> and <code>event.relatedTarget</code> to target the active tab
+            and the previous active tab (if available) respectively.
+          </td>
+        </tr>
+        <tr>
+          <td><code>shown.bs.tab</code></td>
+          <td>
+            This event fires on tab show after a tab has been shown. Use
+            <code>event.target</code> and <code>event.relatedTarget</code> to target the active tab
+            and the previous active tab (if available) respectively.
+          </td>
+        </tr>
+        <tr>
+          <td><code>hide.bs.tab</code></td>
+          <td>
+            This event fires when a new tab is to be shown (and thus the previous active tab is to
+            be hidden). Use <code>event.target</code> and <code>event.relatedTarget</code> to target
+            the current active tab and the new soon-to-be-active tab, respectively.
+          </td>
+        </tr>
+        <tr>
+          <td><code>hidden.bs.tab</code></td>
+          <td>
+            This event fires after a new tab is shown (and thus the previous active tab is hidden).
+            Use <code>event.target</code> and <code>event.relatedTarget</code> to target the
+            previous active tab and the new active tab, respectively.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          var tabEl = document.querySelector('a[data-toggle="list"]')
+          tabEl.addEventListener('shown.bs.tab', function (e) {
+            e.target // newly activated tab
+            e.relatedTarget // previous active tab
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- Description -->
+    <p>
+      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following code to import
+      this component:
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        import { Tab } from 'mdb-ui-kit';
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+</section>
+<!--Section: Docs content-->

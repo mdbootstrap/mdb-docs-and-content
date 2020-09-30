@@ -1,0 +1,62 @@
+<script src="<?php echo get_template_directory_uri() ?>/js/mdb5/plugins/storage.min.js"></script>
+
+<script>
+  // <!-- Show modal for new users -->
+  const showModalForNewUsersButton = document.getElementById('show-modal-for-new-user-button');
+
+  showModalForNewUsersButton.addEventListener('click', () => {
+    Storage.showModalNewUser('show-modal-for-new-user-modal');
+  });
+
+  const resetShowModalForNewUsersButton = document.getElementById(
+    'reset-show-modal-for-new-user-button'
+  );
+
+  resetShowModalForNewUsersButton.addEventListener('click', () => {
+    Storage.remove('is-first-visit');
+  });
+  // <!-- Show modal for new users -->
+
+  // <!-- Show modal after next visit -->
+  const showModalAfterNextVisitButton = document.getElementById(
+    'show-modal-after-next-visit-button'
+  );
+
+  showModalAfterNextVisitButton.addEventListener('click', () => {
+    Storage.showModalScoring('show-after-next-visit-modal', 3);
+  });
+
+  const resetShowModalAfterNextVisitButton = document.getElementById(
+    'reset-show-modal-after-next-visit-button'
+  );
+
+  resetShowModalAfterNextVisitButton.addEventListener('click', () => {
+    Storage.remove('visit-counter');
+  });
+  // <!-- Show modal after next visit -->
+
+  // <!-- Set storage example -->
+  document.getElementById('basic-example-set-storage-result').innerHTML =
+    Storage.get('date') || '';
+
+  const basicExampleSetStorageButton = document.getElementById(
+    'basic-example-set-storage-button'
+  );
+
+  const basicExampleResetStorageButton = document.getElementById(
+    'basic-example-reset-storage-button'
+  );
+
+  basicExampleSetStorageButton.addEventListener('click', () => {
+    Storage.set('date', new Date());
+    document.getElementById('basic-example-set-storage-result').innerHTML = Storage.get(
+      'date'
+    );
+  });
+
+  basicExampleResetStorageButton.addEventListener('click', () => {
+    Storage.remove('date');
+    document.getElementById('basic-example-set-storage-result').innerHTML = '';
+  });
+  // <!-- Set storage example -->
+</script>

@@ -1,0 +1,751 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+      <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button"
+        >MDB Pro component <i class="far fa-gem ml-1"></i
+      ></a>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">
+      This feature adds a scroll event listener (to the window or the component it's attached to if
+      it has the overflow-y property set to scroll) and calls a callback method every time a user
+      reaches an end of a page/container.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!-- Description -->
+    <p>Scroll down the container below to add more items.</p>
+
+    <p class="note note-info">
+      <strong>Note:</strong> Your element should be scrollable, for example, it should have
+      <code>overflow-y: scroll</code> property like in the example below.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul
+        class="container list-group infinite-scroll"
+        id="basic-example"
+        style="max-height: 261px; overflow-y: scroll"
+      >
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-angry fa-3x mr-4"></i> Angry
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-dizzy fa-3x mr-4"></i> Dizzy
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-flushed fa-3x mr-4"></i> Flushed
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-frown fa-3x mr-4"></i> Frown
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-grimace fa-3x mr-4"></i> Grimace
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-grin fa-3x mr-4"></i> Grin
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <ul
+            class="container list-group infinite-scroll"
+            id="basic-example"
+            style="max-height: 261px; overflow-y: scroll"
+          >
+            <li class="list-group-item d-flex align-items-center">
+              <i class="far fa-angry fa-3x mr-4"></i> Angry
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="far fa-dizzy fa-3x mr-4"></i> Dizzy
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="far fa-flushed fa-3x mr-4"></i> Flushed
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="far fa-frown fa-3x mr-4"></i> Frown
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="far fa-grimace fa-3x mr-4"></i> Grimace
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="far fa-grin fa-3x mr-4"></i> Grin
+            </li>
+          </ul>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          // An array of icon names
+          const icons = [
+            'Sad-Tear',
+            'Meh-Blank',
+            'Smile-Wink',
+            'Tired',
+            'Surprise',
+            'Kiss-Beam',
+            'Laugh-Squint',
+          ];
+  
+          // Get a scrollable container using an id attribute
+          const basicElement = document.getElementById('basic-example');
+  
+          // An index of elements added after scrolling to the end of the container
+          let itemIndex = 0;
+  
+          // items - an array of the created elements using the loop through icons array
+          const items = icons.map((icon) => {
+            // Create a list item element
+            const element = document.createElement('li');
+  
+            // Change HTML code inside created list element using icon we are currently working on
+            element.innerHTML = `
+            <li class="list-group-item d-flex align-items-center">
+              <i class="far fa-${icon.toLowerCase()} fa-3x mr-4"></i>${icon}
+            </li>
+            `;
+  
+            // Return ready element
+            return element;
+          });
+
+          // Add an event listener to the scrollable container. The event below is triggered when a user scrolls to the end of the container
+          basicElement.addEventListener('complete.mdb.infiniteScroll', () => {
+            // Return nothing when user appended all of the generated items
+            if (itemIndex === icons.length - 1) return;
+  
+            // Append next element to the scrollable container
+            basicElement.appendChild(items[itemIndex]);
+  
+            // Increment amount of items that are appended
+            itemIndex++;
+          });
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Direction-->
+  <section id="section-direction">
+    <!-- Section title -->
+    <h2 class="mb-4">Direction</h2>
+
+    <!-- Description -->
+    <p>Use <code>data-infinite-direction</code> to define the scrolling direction.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div
+        class="infinite-scroll py-3 text-center"
+        id="direction-example"
+        style="max-width: 1500px; overflow-x: scroll; white-space: nowrap"
+        data-infinite-direction="x"
+      >
+        <span class="mx-5"><i class="far fa-angry fa-3x mr-4"></i> Angry</span>
+        <span class="mx-5"><i class="far fa-dizzy fa-3x mr-4"></i> Dizzy</span>
+        <span class="mx-5"><i class="far fa-flushed fa-3x mr-4"></i> Flushed</span>
+        <span class="mx-5"><i class="far fa-grimace fa-3x mr-4"></i> Grimace</span>
+        <span class="mx-5"><i class="far fa-grin fa-3x mr-4"></i> Grin</span>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="infinite-scroll py-3 text-center" id="direction-example"
+            style="max-width: 1500px; overflow-x: scroll; white-space: nowrap;" data-infinite-direction="x">
+            <span class="mx-5"><i class="far fa-angry fa-3x mr-4"></i> Angry</span>
+            <span class="mx-5"><i class="far fa-dizzy fa-3x mr-4"></i> Dizzy</span>
+            <span class="mx-5"><i class="far fa-flushed fa-3x mr-4"></i> Flushed</span>
+            <span class="mx-5"><i class="far fa-grimace fa-3x mr-4"></i> Grimace</span>
+            <span class="mx-5"><i class="far fa-grin fa-3x mr-4"></i> Grin</span>
+          </div>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          // Get a scrollable container using an id attribute
+          const directionElement = document.getElementById('direction-example');
+
+          // An index of elements added after scrolling to the end of the container
+          let itemIndex = 0;
+  
+          // An array of icon names
+          const icons = [
+            'Sad-Tear',
+            'Meh-Blank',
+            'Smile-Wink',
+            'Tired',
+            'Surprise',
+            'Kiss-Beam',
+            'Laugh-Squint',
+          ];
+  
+          // items - an array of the created elements using the loop through icons array
+          const items = icons.map((icon) => {
+            // Create a span element
+            const element = document.createElement('span');
+  
+            // Add class mx-5 to the created element, which defines left and right margin
+            element.classList.add('mx-5');
+  
+            // Change HTML code inside created span element using icon we are currently working on
+            element.innerHTML = `
+              <i class="far fa-${icon.toLowerCase()} fa-3x mr-4"></i>
+              ${icon}
+            `;
+  
+            // Return ready element
+            return element;
+          });
+  
+          // Add an event listener to the scrollable container. The event below is triggered when a user scrolls to the end of the container
+          directionElement.addEventListener('complete.mdb.infiniteScroll', () => {
+            // Return nothing when user appended all of the generated items
+            if (itemIndex === items.length - 1) return;
+  
+            // Append next element to the scrollable container
+            directionElement.appendChild(items[itemIndex]);
+  
+            // Increment amount of items that are appended
+            itemIndex++;
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Direction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Spinners and asynchronous data-->
+  <section id="section-spinners-and-async-data">
+    <!-- Section title -->
+    <h2 class="mb-4">Spinners and asynchronous data</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div
+        class="infinite-scroll py-3 text-center"
+        id="spinners-and-async-example"
+        style="max-height: 500px; overflow-y: scroll"
+      >
+        <div id="images">
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(100).jpg"
+            class="img-fluid mb-3"
+          />
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(105).jpg"
+            class="img-fluid mb-3"
+          />
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(106).jpg"
+            class="img-fluid mb-3"
+          />
+        </div>
+        <div class="spinner-border mx-auto" id="spinner" style="display: none"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div
+          class="infinite-scroll py-3 text-center"
+          id="spinners-and-async-example"
+          style="max-height: 500px; overflow-y: scroll;"
+          >
+            <div id="images">
+              <img
+                src="https://mdbootstrap.com/img/Photos/Slides/img%20(100).jpg"
+                class="img-fluid mb-3"
+              />
+              <img
+                src="https://mdbootstrap.com/img/Photos/Slides/img%20(105).jpg"
+                class="img-fluid mb-3"
+              />
+              <img
+                src="https://mdbootstrap.com/img/Photos/Slides/img%20(106).jpg"
+                class="img-fluid mb-3"
+              />
+            </div>
+            <div class="spinner-border mx-auto" id="spinner" style="display: none;"></div>
+          </div>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          // Get a spinner, container with images and scrollable container using an id attribute
+          const spinner = document.getElementById('spinner');
+          const imagesContainer = document.getElementById('images');
+          const infiniteContainer = document.getElementById('spinners-and-async-example');
+
+          // Function that generates image with data from API
+          const createImg = url => {
+            // Create an image element
+            let imgElement = document.createElement('img');
+
+            // Add .img-fluid class to the element, it will adjust size of it to the container
+            imgElement.classList.add('img-fluid');
+            
+            // Set a src attribute using parameter that is passed to the function
+            imgElement.setAttribute('src', url);
+
+            // Return ready image element
+            return imgElement;
+          }
+
+          // Function that loads next image
+          const loadImages = () => {
+            // Make spinner visible
+            spinner.style.display = 'block';
+
+            // Fetch your API 
+            fetch('YOUR_API/getNextItem')
+            .then(response => response.json)
+            .then(imgUrl => {
+              // Hide spinner after data loads
+              spinner.style.display = 'none';
+
+              // Append an image element generated by createImg function to the container with images
+              imagesContainer.appendChild(createImg(imgUrl));
+            });
+          }
+
+          // Add an event listener to the scrollable container. The event below is triggered when a user scrolls to the end of the container
+          infiniteContainer.addEventListener('complete.mdb.infiniteScroll', loadImages);
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Spinners and asynchronous data-->
+
+  <hr class="my-5" />
+
+  <!--Section: Window-->
+  <section id="section-window">
+    <!-- Section title -->
+    <h2 class="mb-4">Window</h2>
+
+    <!-- Description -->
+    <p>You can apply the <code>mdb.InfiniteScroll</code> instance to a window.</p>
+
+    <p class="note note-info">
+      <strong>Note:</strong> You have to initialize an instance on your own, using JavaScript. If
+      you are using other containers, you have to make a check if your <code>event.target</code> is
+      a <code>window</code>.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4 justify-content-center">
+      <a
+        class="btn btn-primary"
+        role="button"
+        target="_blank"
+        href="https://mdbootstrap.com/previews/mdb-ui-kit/infinite-scroll/full-page-example.html"
+        >View full screen demo<i class="far fa-eye pl-2"></i
+      ></a>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <!--Main layout-->
+          <main class="my-4">
+            <div class="container">
+              <!--Section: Posts-->
+              <section class="text-center mb-4" id="posts">
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded mb-4"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        data-lazy-src="https://mdbootstrap.com/img/Photos/Others/images/29.jpg"
+                        data-lazy-placeholder="https://placehold.it/1321x583?text=Loading"
+                        class="w-100 lazy"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                    <h5>This is an title of the article</h5>
+      
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Quisquam cupiditate veniam voluptatibus laudantium cum dolorem
+                      illo. Quos architecto deserunt saepe.
+                    </p>
+      
+                    <a class="btn btn-info btn-rounded" href="#!" role="button"
+                      >Read more</a
+                    >
+                  </div>
+      
+                  <div class="col-md-6 mb-4">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded mb-4"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        data-lazy-src="https://mdbootstrap.com/img/Photos/Others/images/27.jpg"
+                        data-lazy-placeholder="https://placehold.it/1321x583?text=Loading"
+                        class="w-100 lazy"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                    <h5>This is an title of the article</h5>
+      
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Quisquam cupiditate veniam voluptatibus laudantium cum dolorem
+                      illo. Quos architecto deserunt saepe.
+                    </p>
+      
+                    <a class="btn btn-info btn-rounded" href="#!" role="button"
+                      >Read more</a
+                    >
+                  </div>
+                </div>
+      
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded mb-4"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        data-lazy-src="https://mdbootstrap.com/img/Photos/Others/images/25.jpg"
+                        data-lazy-placeholder="https://placehold.it/1321x583?text=Loading"
+                        class="w-100 lazy"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                    <h5>This is an title of the article</h5>
+      
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Quisquam cupiditate veniam voluptatibus laudantium cum dolorem
+                      illo. Quos architecto deserunt saepe.
+                    </p>
+      
+                    <a class="btn btn-info btn-rounded" href="#!" role="button"
+                      >Read more</a
+                    >
+                  </div>
+      
+                  <div class="col-md-6 mb-4">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded mb-4"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        data-lazy-src="https://mdbootstrap.com/img/Photos/Others/images/24.jpg"
+                        data-lazy-placeholder="https://placehold.it/1321x583?text=Loading"
+                        class="w-100 lazy"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                    <h5>This is an title of the article</h5>
+      
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Quisquam cupiditate veniam voluptatibus laudantium cum dolorem
+                      illo. Quos architecto deserunt saepe.
+                    </p>
+      
+                    <a class="btn btn-info btn-rounded" href="#!" role="button"
+                      >Read more</a
+                    >
+                  </div>
+                </div>
+      
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded mb-4"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        data-lazy-src="https://mdbootstrap.com/img/Photos/Others/images/31.jpg"
+                        data-lazy-placeholder="https://placehold.it/1321x583?text=Loading"
+                        class="w-100 lazy"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                    <h5>This is an title of the article</h5>
+      
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Quisquam cupiditate veniam voluptatibus laudantium cum dolorem
+                      illo. Quos architecto deserunt saepe.
+                    </p>
+      
+                    <a class="btn btn-info btn-rounded" href="#!" role="button"
+                      >Read more</a
+                    >
+                  </div>
+      
+                  <div class="col-md-6 mb-4">
+                    <div
+                      class="bg-image hover-overlay ripple shadow-1-strong rounded mb-4"
+                      data-ripple-color="light"
+                    >
+                      <img
+                        data-lazy-src="https://mdbootstrap.com/img/Photos/Others/images/23.jpg"
+                        data-lazy-placeholder="https://placehold.it/1321x583?text=Loading"
+                        class="w-100 lazy"
+                      />
+                      <a href="#!">
+                        <div
+                          class="mask"
+                          style="background-color: rgba(251, 251, 251, 0.2);"
+                        ></div>
+                      </a>
+                    </div>
+                    <h5>This is an title of the article</h5>
+      
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Quisquam cupiditate veniam voluptatibus laudantium cum dolorem
+                      illo. Quos architecto deserunt saepe.
+                    </p>
+      
+                    <a class="btn btn-info btn-rounded" href="#!" role="button"
+                      >Read more</a
+                    >
+                  </div>
+                </div>
+      
+                <div class="row" id="spinner" style="display: none;">
+                  <div class="col-md-12">
+                    <div class="spinner-border mx-auto"></div>
+                  </div>
+                </div>
+      
+              </section>
+              <!--Section: Posts-->
+            </div>
+          </main>
+          <!--Main layout-->
+        </code> 
+        <code data-lang="js" data-name="JavaScript">
+          const postsContainer = document.getElementById('posts');
+          const spinner = document.getElementById('spinner');
+    
+          const items = [
+            {
+              img: 'https://mdbootstrap.com/img/Photos/Others/images/31.jpg',
+              title: 'This is an title of the article',
+              text:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe.',
+            },
+            {
+              img: 'https://mdbootstrap.com/img/Photos/Others/images/23.jpg',
+              title: 'This is an title of the article',
+              text:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe.',
+            },
+            {
+              img: 'https://mdbootstrap.com/img/Photos/Others/images/29.jpg',
+              title: 'This is an title of the article',
+              text:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe.',
+            },
+            {
+              img: 'https://mdbootstrap.com/img/Photos/Others/images/27.jpg',
+              title: 'This is an title of the article',
+              text:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe.',
+            },
+            {
+              img: 'https://mdbootstrap.com/img/Photos/Others/images/25.jpg',
+              title: 'This is an title of the article',
+              text:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe.',
+            },
+            {
+              img: 'https://mdbootstrap.com/img/Photos/Others/images/24.jpg',
+              title: 'This is an title of the article',
+              text:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe.',
+            },
+            {
+              img: 'https://mdbootstrap.com/img/Photos/Others/images/31.jpg',
+              title: 'This is an title of the article',
+              text:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe.',
+            },
+            {
+              img: 'https://mdbootstrap.com/img/Photos/Others/images/32.jpg',
+              title: 'This is an title of the article',
+              text:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe.',
+            },
+          ];
+    
+          const getPostTemplate = (post) => {
+            // returns the HTML template with post's title, image & text
+            return `
+            <div class="col-md-6 mb-4">
+              <div class="bg-image hover-overlay ripple shadow-1-strong rounded mb-4" data-ripple-color="light">
+                <img
+                src="${post.img}"
+                class="w-100 lazy"
+                />
+                <a href="#!">
+                  <div
+                  class="mask"
+                  style="background-color: rgba(251, 251, 251, 0.2);"
+                  >
+                  </div>
+                </a>
+              </div>
+              <h5>${post.title}</h5>
+    
+              <p>
+                ${post.text}
+              </p>
+    
+              <a class="btn btn-info btn-rounded" href="#!" role="button"
+              >Read more</a>
+            </div>
+          `;
+          };
+    
+          // posts - array of templates
+          const posts = items.map((item) => getPostTemplate(item));
+    
+          const generateRow = (firstPost, secondPost) => {
+            // Returns a div.row element with two columns generated based on arguments
+            let el = document.createElement('div');
+            el.classList.add('row');
+    
+            el.innerHTML = `
+              ${firstPost}
+              ${secondPost}
+            `;
+            return el;
+          };
+    
+          // rows - array of rows with two posts each
+          const rows = [];
+    
+          // iterates over posts and creates a row for every two of them
+          for (let i = 0; i < posts.length - 1; i += 2) {
+            rows.push(generateRow(posts[i], posts[i + 1]));
+          }
+    
+          // renderedItems - number of items already rendered
+          let renderedItems = 0;
+    
+          const renderItems = (index) => {
+            // timeout simulates delay in loading items (f.e. API call)
+            setTimeout(() => {
+              // hide spinner
+              spinner.style.display = 'none';
+    
+              postsContainer.appendChild(rows[index]);
+            }, 1500);
+          };
+    
+          const loadItems = () => {
+            if (renderedItems < rows.length) {
+              // show spinner
+              postsContainer.appendChild(spinner);
+              spinner.style.display = 'flex';
+    
+              renderItems(renderedItems);
+    
+              renderedItems++;
+    
+              // Removes event listener after all items have been loaded
+              if (renderedItems === rows.length) {
+                window.removeEventListener('complete.mdb.infiniteScroll', loadItems);
+              }
+            }
+          };
+    
+          // load items when window is scrolled to the end
+          window.addEventListener('complete.mdb.infiniteScroll', loadItems);
+    
+          // init infinite scroll
+          new mdb.InfiniteScroll(window);
+        </code> 
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="container" id="window-example"></div>
+    </section>
+    <!--Section: Demo-->
+  </section>
+  <!--Section: Window-->
+</section>
+<!--Section: Docs content-->

@@ -1,0 +1,349 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="api-section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Usage-->
+  <section id="api-section-usage">
+    <!-- Section title -->
+    <h2 class="mb-4">Usage</h2>
+
+    <h4 class="mt-4">
+      Regarding accessibility
+    </h4>
+
+    <p>
+      If you’re using navs to provide a navigation bar, be sure to add a
+      <code>role="navigation"</code> to the most logical parent container of the
+      <code>&lt;ul&gt;</code>, or wrap a <code>&lt;nav&gt;</code> element around the whole
+      navigation. Do not add the role to the <code>&lt;ul&gt;</code> itself, as this would prevent
+      it from being announced as an actual list by assistive technologies.
+    </p>
+
+    <p>
+      Note that navigation bars, even if visually styled as pills with the
+      <code>.nav-pills</code> class, should <strong>not</strong> be given
+      <code>role="tablist"</code>, <code>role="tab"</code> or
+      <code>role="tabpanel"</code> attributes. These are only appropriate for dynamic tabbed
+      interfaces, as described in the
+      <a rel="nofollow" target="_blank" href="https://www.w3.org/TR/wai-aria-practices/#tabpanel"
+        ><abbr title="Web Accessibility Initiative">WAI</abbr>
+        <abbr title="Accessible Rich Internet Applications">ARIA</abbr> Authoring Practices</a
+      >. The <code>aria-current</code> attribute is not necessary on dynamic tabbed interfaces since
+      our JavaScript handles the selected state by adding <code>aria-selected="true"</code> on the
+      active tab.
+    </p>
+
+    <h4 class="mt-4">Via data attributes</h4>
+    <p>
+      You can activate a tab or pill navigation without writing any JavaScript by simply specifying
+      <code>data-toggle="tab"</code> or <code>data-toggle="pill"</code> on an element. Use these
+      data attributes on <code>.nav-pills</code> or <code>.nav-pills</code>.
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="html" data-name="html">
+          <!-- Nav pills -->
+          <ul class="nav nav-pills" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link active"
+                id="home-tab"
+                data-toggle="tab"
+                href="#home"
+                role="tab"
+                aria-controls="home"
+                aria-selected="true"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                id="profile-tab"
+                data-toggle="tab"
+                href="#profile"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="false"
+                >Profile</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                id="messages-tab"
+                data-toggle="tab"
+                href="#messages"
+                role="tab"
+                aria-controls="messages"
+                aria-selected="false"
+                >Messages</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                id="settings-tab"
+                data-toggle="tab"
+                href="#settings"
+                role="tab"
+                aria-controls="settings"
+                aria-selected="false"
+                >Settings</a
+              >
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              ...
+            </div>
+            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              ...
+            </div>
+            <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+              ...
+            </div>
+            <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+              ...
+            </div>
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <h4 class="mt-4">Via JavaScript</h4>
+
+    <p>
+      Enable tabbable pills via JavaScript (each tab needs to be activated individually):
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript"> 
+          var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
+          triggerTabList.forEach(function (triggerEl) {
+            var tabTrigger = new mdb.Tab(triggerEl)
+
+            triggerEl.addEventListener('click', function (e) {
+              e.preventDefault()
+              tabTrigger.show()
+            })
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>You can activate individual pills in several ways:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          var triggerEl = document.querySelector('#myTab a[href="#profile"]')
+          mdb.Tab.getInstance(triggerEl).show() // Select tab by name
+          
+          var triggerFirstTabEl = document.querySelector('#myTab li:first-child a')
+          mdb.Tab.getInstance(triggerFirstTabEl).show() // Select first tab  
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <h4 class="mt-4">Via jQuery</h4>
+
+    <p class="note note-warning">
+      <strong>Note:</strong> By default, MDB <strong>does not</strong> include jQuery
+      and you have to add it to the project on your own.
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="jQuery">
+          $('.example-class').tab();
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Usage-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">Methods</h2>
+
+    <p class="note note-danger">
+      <strong>Asynchronous methods and transitions:</strong>
+      <br />
+      All API methods are <strong>asynchronous</strong> and start a <strong>transition</strong>.
+      They return to the caller as soon as the transition is started but
+      <strong>before it ends</strong>. In addition, a method call on a
+      <strong>transitioning component will be ignored</strong>.
+    </p>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="th-sm">Name</th>
+          <th class="th-sm">Description</th>
+          <th class="th-sm">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>show</code></td>
+          <td>Selects the given tab and shows its associated pane. Any other tab that was previously selected becomes unselected and its associated pane is hidden. Returns to the caller before the tab pane has actually been shown (i.e. before the shown.bs.tab event occurs).</td>
+          <td>instance.show()</td>
+        </tr>
+        <tr>
+          <td><code>dispose</code></td>
+          <td>Destroys an element’s tab.</td>
+          <td>instance.dispose()</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          var someTabTriggerEl = document.querySelector('#someTabTrigger') var tab = new
+          mdb.Tab(someTabTriggerEl) tab.show()
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+  </section>
+  <!--Section: Methods-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+    <h2 class="mb-4">Events</h2>
+    <p>When showing a new tab, the events fire in the following order:</p>
+    <ol>
+      <li><code>hide.bs.tab</code> (on the current active tab)</li>
+      <li><code>show.bs.tab</code> (on the to-be-shown tab)</li>
+      <li>
+        <code>hidden.bs.tab</code> (on the previous active tab, the same one as for the
+        <code>hide.bs.tab</code> event)
+      </li>
+      <li>
+        <code>shown.bs.tab</code> (on the newly-active just-shown tab, the same one as for the
+        <code>show.bs.tab</code> event)
+      </li>
+    </ol>
+    <p>
+      If no tab was already active, then the <code>hide.bs.tab</code> and
+      <code>hidden.bs.tab</code> events will not be fired.
+    </p>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="th-sm" style="width: 150px;">Event type</th>
+          <th class="th-sm">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>show.bs.tab</code></td>
+          <td>
+            This event fires on tab show, but before the new tab has been shown. Use
+            <code>event.target</code> and <code>event.relatedTarget</code> to target the active tab
+            and the previous active tab (if available) respectively.
+          </td>
+        </tr>
+        <tr>
+          <td><code>shown.bs.tab</code></td>
+          <td>
+            This event fires on tab show after a tab has been shown. Use
+            <code>event.target</code> and <code>event.relatedTarget</code> to target the active tab
+            and the previous active tab (if available) respectively.
+          </td>
+        </tr>
+        <tr>
+          <td><code>hide.bs.tab</code></td>
+          <td>
+            This event fires when a new tab is to be shown (and thus the previous active tab is to
+            be hidden). Use <code>event.target</code> and <code>event.relatedTarget</code> to target
+            the current active tab and the new soon-to-be-active tab, respectively.
+          </td>
+        </tr>
+        <tr>
+          <td><code>hidden.bs.tab</code></td>
+          <td>
+            This event fires after a new tab is shown (and thus the previous active tab is hidden).
+            Use <code>event.target</code> and <code>event.relatedTarget</code> to target the
+            previous active tab and the new active tab, respectively.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript"> 
+          var tabEl = document.querySelector('a[data-toggle="tab"]')
+          tabEl.addEventListener('shown.bs.tab', function (e) {
+            e.target // newly activated tab
+            e.relatedTarget // previous active tab
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- Description -->
+    <p>
+      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following
+      code to import this component:
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        import { Tab } from 'mdb-ui-kit';
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+</section>
+<!--Section: Docs content-->

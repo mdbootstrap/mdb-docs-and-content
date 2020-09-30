@@ -1,0 +1,59 @@
+<script src="<?php echo get_template_directory_uri() ?>/js/mdb5/plugins/cookie.min.js"></script>
+
+<script>
+  // <!-- Show modal for new users -->
+  const showModalForNewUsersButton = document.getElementById('show-modal-for-new-user-button');
+
+  showModalForNewUsersButton.addEventListener('click', () => {
+    Cookie.showModalNewUser('show-modal-for-new-user-modal');
+  });
+
+  const resetShowModalForNewUsersButton = document.getElementById(
+    'reset-show-modal-for-new-user-button'
+  );
+
+  resetShowModalForNewUsersButton.addEventListener('click', () => {
+    Cookie.remove('is-first-visit');
+  });
+  // <!-- Show modal for new users -->
+
+  // <!-- Show modal after next visit -->
+  const showModalAfterNextVisitButton = document.getElementById(
+    'show-modal-after-next-visit-button'
+  );
+
+  showModalAfterNextVisitButton.addEventListener('click', () => {
+    Cookie.showModalScoring('show-after-next-visit-modal', 3);
+  });
+
+  const resetShowModalAfterNextVisitButton = document.getElementById(
+    'reset-show-modal-after-next-visit-button'
+  );
+
+  resetShowModalAfterNextVisitButton.addEventListener('click', () => {
+    Cookie.remove('visit-counter');
+  });
+  // <!-- Show modal after next visit -->
+
+  // <!-- Set Cookie example -->
+  document.getElementById('basic-example-set-cookie-result').innerHTML =
+    Cookie.get('first-visit') || '';
+
+  const basicExampleSetCookieButton = document.getElementById('basic-example-set-cookie-button');
+
+  const basicExampleResetCookieButton = document.getElementById(
+    'basic-example-reset-cookie-button'
+  );
+
+  basicExampleSetCookieButton.addEventListener('click', () => {
+    Cookie.set('first-visit', new Date(), { expires: 1 });
+    document.getElementById('basic-example-set-cookie-result').innerHTML = Cookie.get(
+      'first-visit'
+    );
+  });
+
+  basicExampleResetCookieButton.addEventListener('click', () => {
+    Cookie.remove('first-visit');
+  });
+  // <!-- Set Cookie example -->
+</script>

@@ -1,0 +1,526 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="api-section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Usage-->
+  <section id="api-section-usage">
+    <!-- Section title -->
+    <h2 class="mb-4">Usage</h2>
+
+    <h4 class="mt-5">Via JavaScript:</h4>
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript">
+          var exampleEl = document.getElementById('example')
+          var popover = new mdb.Popover(exampleEl, options)
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <h4 class="mt-4">
+      Making popovers work for keyboard and assistive technology users
+    </h4>
+
+    <p>
+      To allow keyboard users to activate your popovers, you should only add them to HTML elements
+      that are traditionally keyboard-focusable and interactive (such as links or form controls).
+      Although arbitrary HTML elements (such as
+      <code>&lt;span&gt;</code>s) can be made focusable by adding the
+      <code>tabindex="0"</code> attribute, this will add potentially annoying and confusing tab
+      stops on non-interactive elements for keyboard users, and most assistive technologies
+      currently do not announce the popover’s content in this situation. Additionally, do not rely
+      solely on <code>hover</code> as the trigger for your popovers, as this will make them
+      impossible to trigger for keyboard users.
+    </p>
+
+    <p>
+      While you can insert rich, structured HTML in popovers with the
+      <code>html</code> option, we strongly recommend that you avoid adding an excessive amount of
+      content. The way popovers currently work is that, once displayed, their content is tied to the
+      trigger element with the <code>aria-describedby</code> attribute. As a result, the entirety of
+      the popover’s content will be announced to assistive technology users as one long,
+      uninterrupted stream.
+    </p>
+
+    <p>
+      Additionally, while it is possible to also include interactive controls (such as form elements
+      or links) in your popover (by adding these elements to the
+      <code>whiteList</code> or allowed attributes and tags), be aware that currently the popover
+      does not manage keyboard focus order. When a keyboard user opens a popover, focus remains on
+      the triggering element, and as the popover usually does not immediately follow the trigger in
+      the document’s structure, there is no guarantee that moving forward/pressing
+      <kbd>TAB</kbd> will move a keyboard user into the popover itself. In short, simply adding
+      interactive controls to a popover is likely to make these controls unreachable/unusable for
+      keyboard users and users of assistive technologies, or at the very least make for an illogical
+      overall focus order. In these cases, consider using a modal dialog instead.
+    </p>
+  </section>
+  <!--Section: Usage-->
+
+  <hr class="my-5" />
+
+  <!--Section: Options-->
+  <section id="api-section-options">
+    <!-- Section title -->
+    <h2 class="mb-4">Options</h2>
+
+    <p>
+      Options can be passed via data attributes or JavaScript. For data attributes, append the
+      option name to <code>data-</code>, as in <code>data-animation=""</code>.
+    </p>
+
+    <p class="note note-warning">
+      <strong>Note:</strong> For security reasons the <code>sanitize</code>,
+      <code>sanitizeFn</code> and <code>whiteList</code> options cannot be supplied using data
+      attributes.
+    </p>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 100px;">Name</th>
+          <th style="width: 100px;">Type</th>
+          <th style="width: 50px;">Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>animation</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Apply a CSS fade transition to the popover</td>
+        </tr>
+        <tr>
+          <td><code>container</code></td>
+          <td>string | element | false</td>
+          <td><code>false</code></td>
+          <td>
+            <p>
+              Appends the popover to a specific element. Example:
+              <code>container: 'body'</code>. This option is particularly useful in that it allows
+              you to position the popover in the flow of the document near the triggering element
+              -&nbsp;which will prevent the popover from floating away from the triggering element
+              during a window resize.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>content</code></td>
+          <td>string | element | function</td>
+          <td><code>''</code></td>
+          <td>
+            <p>Default content value if <code>data-content</code> attribute isn't present.</p>
+            <p>
+              If a function is given, it will be called with its
+              <code>this</code> reference set to the element that the popover is attached to.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>delay</code></td>
+          <td>number | object</td>
+          <td><code>0</code></td>
+          <td>
+            <p>
+              Delay showing and hiding the popover (ms) - does not apply to manual trigger type
+            </p>
+            <p>If a number is supplied, delay is applied to both hide/show</p>
+            <p>Object structure is: <code>delay: { "show": 500, "hide": 100 }</code></p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>html</code></td>
+          <td>boolean</td>
+          <td><code>false</code></td>
+          <td>
+            Insert HTML into the popover. If false, <code>innerText</code> property will be used to
+            insert content into the DOM. Use text if you're worried about XSS attacks.
+          </td>
+        </tr>
+        <tr>
+          <td><code>placement</code></td>
+          <td>string | function</td>
+          <td><code>'right'</code></td>
+          <td>
+            <p>
+              How to position the popover - auto | top | bottom | left | right.<br />When
+              <code>auto</code> is specified, it will dynamically reorient the popover.
+            </p>
+            <p>
+              When a function is used to determine the placement, it is called with the popover DOM
+              node as its first argument and the triggering element DOM node as its second. The
+              <code>this</code> context is set to the popover instance.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>selector</code></td>
+          <td>string | false</td>
+          <td><code>false</code></td>
+          <td>
+            If a selector is provided, popover objects will be delegated to the specified targets.
+            In practice, this is used to enable dynamic HTML content to have popovers added. See
+            <a rel="nofollow" target="_blank" href="https://github.com/twbs/bootstrap/issues/4215"
+              >this</a
+            >
+            and
+            <a rel="nofollow" target="_blank" href="https://codepen.io/Johann-S/pen/djJYPb"
+              >an informative example</a
+            >.
+          </td>
+        </tr>
+        <tr>
+          <td><code>template</code></td>
+          <td>string</td>
+          <td>
+            <code
+              >'&lt;div class="popover" role="tooltip"&gt;&lt;div
+              class="popover-arrow"&gt;&lt;/div&gt;&lt;h3
+              class="popover-header"&gt;&lt;/h3&gt;&lt;div
+              class="popover-body"&gt;&lt;/div&gt;&lt;/div&gt;'</code
+            >
+          </td>
+          <td>
+            <p>Base HTML to use when creating the popover.</p>
+            <p>
+              The popover's <code>title</code> will be injected into the
+              <code>.popover-header</code>.
+            </p>
+            <p>
+              The popover's <code>content</code> will be injected into the
+              <code>.popover-body</code>.
+            </p>
+            <p><code>.popover-arrow</code> will become the popover's arrow.</p>
+            <p>
+              The outermost wrapper element should have the
+              <code>.popover</code> class.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>title</code></td>
+          <td>string | element | function</td>
+          <td><code>''</code></td>
+          <td>
+            <p>Default title value if <code>title</code> attribute isn't present.</p>
+            <p>
+              If a function is given, it will be called with its
+              <code>this</code> reference set to the element that the popover is attached to.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>trigger</code></td>
+          <td>string</td>
+          <td>'click'</td>
+          <td>
+            How popover is triggered - click | hover | focus | manual. You may pass multiple
+            triggers; separate them with a space. <code>manual</code> cannot be combined with any
+            other trigger.
+          </td>
+        </tr>
+        <tr>
+          <td><code>offset</code></td>
+          <td>number | string</td>
+          <td>0</td>
+          <td>
+            Offset of the popover relative to its target. For more information refer to Popper.js's
+            <a
+              rel="nofollow"
+              target="_blank"
+              href="https://popper.js.org/docs/v1/#modifiers..offset.offset"
+              >offset docs</a
+            >.
+          </td>
+        </tr>
+        <tr>
+          <td><code>fallbackPlacement</code></td>
+          <td>string | array</td>
+          <td>'flip'</td>
+          <td>
+            Allow to specify which position Popper will use on fallback. For more information refer
+            to Popper.js's
+            <a
+              rel="nofollow"
+              target="_blank"
+              href="https://popper.js.org/docs/v1/#modifiers..flip.behavior"
+              >behavior docs</a
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><code>boundary</code></td>
+          <td>string | element</td>
+          <td>'scrollParent'</td>
+          <td>
+            Overflow constraint boundary of the popover. Accepts the values of
+            <code>'viewport'</code>, <code>'window'</code>, <code>'scrollParent'</code>, or an
+            HTMLElement reference (JavaScript only). For more information refer to Popper.js's
+            <a
+              rel="nofollow"
+              target="_blank"
+              href="https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement"
+              >preventOverflow docs</a
+            >.
+          </td>
+        </tr>
+        <tr>
+          <td><code>sanitize</code></td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>
+            Enable or disable the sanitization. If activated <code>'template'</code>,
+            <code>'content'</code> and <code>'title'</code> options will be sanitized.
+          </td>
+        </tr>
+        <tr>
+          <td><code>whiteList</code></td>
+          <td>object</td>
+          <td><code>Default value</code></td>
+          <td>Object which contains allowed attributes and tags</td>
+        </tr>
+        <tr>
+          <td><code>sanitizeFn</code></td>
+          <td>null | function</td>
+          <td><code>null</code></td>
+          <td>
+            Here you can supply your own sanitize function. This can be useful if you prefer to use
+            a dedicated library to perform sanitization.
+          </td>
+        </tr>
+        <tr>
+          <td><code>popperConfig</code></td>
+          <td>null | object</td>
+          <td><code>null</code></td>
+          <td>
+            To change Bootstrap's default Popper.js config, see
+            <a rel="nofollow" target="_blank" href="https://popper.js.org/docs/v1/#Popper.Defaults"
+              >Popper.js's configuration</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="note note-info">
+      <strong>Data attributes for individual popovers:</strong>
+      <br />
+      Options for individual popovers can alternatively be specified through the use of data
+      attributes, as explained above.
+    </p>
+  </section>
+  <!--Section: Options-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">Methods</h2>
+
+    <p class="note note-danger">
+      <strong>Asynchronous methods and transitions:</strong>
+      <br />
+      All API methods are <strong>asynchronous</strong> and start a <strong>transition</strong>.
+      They return to the caller as soon as the transition is started but
+      <strong>before it ends</strong>. In addition, a method call on a
+      <strong>transitioning component will be ignored</strong>.
+    </p>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>show</code></td>
+          <td>
+            Reveals an element’s popover.
+            <strong>Returns to the caller before the popover has actually been shown</strong>
+            (i.e. before the <code>shown.bs.popover</code> event occurs). This is considered a “manual”
+            triggering of the popover. Popovers whose title and content are both zero-length are never
+            displayed.
+          </td>
+        </tr>
+        <tr>
+          <td><code>hide</code></td>
+          <td>
+            Hides an element’s popover.
+            <strong>Returns to the caller before the popover has actually been hidden</strong>
+            (i.e. before the <code>hidden.bs.popover</code> event occurs). This is considered a “manual”
+            triggering of the popover.
+          </td>
+        </tr>
+        <tr>
+          <td><code>toggle</code></td>
+          <td>
+            Toggles an element’s popover.
+            <strong>Returns to the caller before the popover has actually been shown or hidden</strong>
+            (i.e. before the <code>shown.bs.popover</code> or <code>hidden.bs.popover</code> event
+            occurs). This is considered a “manual” triggering of the popover.
+          </td>
+        </tr>
+        <tr>
+          <td><code>dispose</code></td>
+          <td>
+            Hides and destroys an element’s popover. Popovers that use delegation (which are created using
+            <a href="#api-section-options">the <code>selector</code> option</a>) cannot be individually
+            destroyed on descendant trigger elements.
+          </td>
+        </tr>
+        <tr>
+          <td><code>enable</code></td>
+          <td>Gives an element’s popover the ability to be shown.
+            <strong>Popovers are enabled by default.</strong>
+          </td>
+        </tr>
+        <tr>
+          <td><code>disable</code></td>
+          <td>      
+            Removes the ability for an element’s popover to be shown. The popover will only be able to be
+            shown if it is re-enabled.
+          </td>
+        </tr>
+        <tr>
+          <td><code>toggleEnabled</code></td>
+          <td>
+            Toggles the ability for an element’s popover to be shown or hidden.
+          </td>
+        </tr>
+        <tr>
+          <td><code>update</code></td>
+          <td>
+            Updates the position of an element’s popover.
+          </td>
+        </tr>
+        <tr>
+          <td><code>getInstance</code></td>
+          <td>
+            <em>Static</em> method which allows you to get the popover instance associated with a DOM
+            element.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <mdbsnippet>
+      <code data-lang="javascript" data-name="JS">
+        var exampleTriggerEl = document.getElementById('example')
+        var popover = new mdb.Popover(exampleTriggerEl)
+        popover.show()
+      </code>
+    </mdbsnippet>
+
+  </section>
+  <!--Section: Methods-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+    <h2 class="mb-4">Events</h2>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>show.bs.popover</code></td>
+          <td>
+            This event fires immediately when the <code>show</code> instance method is called.
+          </td>
+        </tr>
+        <tr>
+          <td><code>shown.bs.popover</code></td>
+          <td>
+            This event is fired when the popover has been made visible to the user (will wait for
+            CSS transitions to complete).
+          </td>
+        </tr>
+        <tr>
+          <td><code>hide.bs.popover</code></td>
+          <td>
+            This event is fired immediately when the <code>hide</code> instance method has been
+            called.
+          </td>
+        </tr>
+        <tr>
+          <td><code>hidden.bs.popover</code></td>
+          <td>
+            This event is fired when the popover has finished being hidden from the user (will wait
+            for CSS transitions to complete).
+          </td>
+        </tr>
+        <tr>
+          <td><code>inserted.bs.popover</code></td>
+          <td>
+            This event is fired after the <code>show.bs.popover</code> event when the popover
+            template has been added to the DOM.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          var myPopoverTrigger = document.getElementById('myPopover')
+          myPopoverTrigger.addEventListener('hidden.bs.popover', function () {
+            // do something...
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+    <!-- Description -->
+    <p>MDB UI KIT also works with module bundlers. Use the following code to import this component:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          import { Popover } from 'mdb-ui-kit';
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Import-->
+
+</section>
+<!--Section: Docs content-->
