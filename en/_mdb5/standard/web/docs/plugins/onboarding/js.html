@@ -1,1 +1,54 @@
-<script></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/mdb5/plugins/onboarding.min.js"></script>
+
+<script type="text/javascript">
+    const intersectionTrigger = document.getElementById('autostart-trigger');
+    const autostartExample = document.getElementById('autostart-example');
+    const autostart = Onboarding.getInstance(autostartExample);
+    let autostartTimer;
+
+    const createObserver = () => {
+      let observer;
+
+      let options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 1.0,
+      };
+
+      observer = new IntersectionObserver(handleIntersect, options);
+      observer.observe(intersectionTrigger);
+    };
+
+    const handleIntersect = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          startCounter();
+
+          autostartTimer = setTimeout(() => {
+            autostart.open();
+          }, 3000);
+        } else {
+          clearTimeout(autostartTimer);
+          if (autostart._isPopoverOpen) autostart.close();
+        }
+      });
+    };
+
+    const startCounter = () => {
+      let counterElement = document.getElementById('counter');
+      let counter = 3;
+
+      const counterInterval = setInterval(() => {
+        counter -= 0.1;
+        if (counter <= 0) {
+          clearInterval(counterInterval);
+          counter = 0;
+          counterElement.textContent = counter.toFixed(1);
+          return;
+        }
+        counterElement.textContent = counter.toFixed(1);
+      }, 100);
+    };
+
+    createObserver();
+</script>
