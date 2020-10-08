@@ -33,7 +33,7 @@ $display_structured_data = function () use ($data_var) {
         "https://dribbble.com/mdbootstrap",
         "https://pinterest.com/mdbootstrap",
         "http://codepen.io/mdbootstrap/",
-        "https://github.com/mdbootstrap/bootstrap-material-design"
+        "https://github.com/mdbootstrap/material-design-for-bootstrap"
       ],
       "potentialAction": {
         "@type": "SearchAction",
