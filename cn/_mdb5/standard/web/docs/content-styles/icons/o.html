@@ -1,0 +1,938 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+<style>
+  .mdb-icon-list .mdb-icon-wrapper-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+    grid-gap: 1.6rem;
+    padding: 0.4375rem;
+    position: relative;
+    max-height: 75rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .mdb-icon-list .list-item,
+  .mdb-icon-list .list-item-ex {
+    list-style-type: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    border-radius: 0.25rem;
+    position: relative;
+  }
+
+  .mdb-icon-list .list-item-ex.active,
+  .mdb-icon-list .list-item-ex:hover,
+  .mdb-icon-list .list-item.active,
+  .mdb-icon-list .list-item:hover {
+    -webkit-box-shadow: 0 0.125rem 0.3125rem 0 rgba(0, 0, 0, 0.16),
+      0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0.125rem 0.3125rem 0 rgba(0, 0, 0, 0.16),
+      0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .mdb-icon-list .list-item-ex:hover .mdb-class-label,
+  .mdb-icon-list .list-item:hover .mdb-class-label {
+    display: block;
+  }
+
+  .mdb-icon-list .icon-item,
+  .mdb-icon-list .icon-item-ex {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    color: #4f4f4f;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 2.5rem;
+    min-height: 4.375rem;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 100%;
+    height: 4.375rem;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+
+  .mdb-icon-list .icon-item-ex.active,
+  .mdb-icon-list .icon-item-ex:hover,
+  .mdb-icon-list .icon-item.active,
+  .mdb-icon-list .icon-item:hover {
+    background-color: #1266f1;
+    color: #fff;
+  }
+
+  .mdb-icon-list .icon-text {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #bdbdbd;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    padding-right: 0.125rem;
+    padding-left: 0.125rem;
+    min-height: 2.5rem;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .mdb-icon-list .icon-span-text,
+  .mdb-icon-list .mdb-unicode {
+    -webkit-user-select: all;
+    -moz-user-select: all;
+    -ms-user-select: all;
+    user-select: all;
+  }
+
+  .mdb-icon-list .mdb-span-unicode,
+  .mdb-icon-list .mdb-span-unicode-not {
+    font-size: 0.8rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+
+  .mdb-icon-list .mdb-span-unicode-not i,
+  .mdb-icon-list .mdb-span-unicode i {
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+
+  .mdb-icon-list .mdb-span-unicode-not i:hover,
+  .mdb-icon-list .mdb-span-unicode i:hover {
+    color: #4f4f4f;
+  }
+
+  .mdb-icon-list .chip {
+    background-color: #495057;
+    border-radius: 0.625rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.6875rem;
+    height: 0.75rem;
+    line-height: 0.125rem;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+
+  .mdb-icon-list .chip:hover {
+    background-color: #f93154;
+    color: #fff;
+  }
+
+  .mdb-icon-list .chip .close {
+    color: #fff;
+    font-size: 0.75rem;
+    line-height: 0;
+    padding-left: 0.5rem;
+    font-weight: 400;
+  }
+
+  .mdb-icon-list .btn-load-more-icon,
+  .mdb-icon-list .mdb-gallery-view-li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .mdb-icon-list .mdb-gallery-view-li {
+    text-align: left !important;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .mdb-icon-list .mdb-gallery-view-icon {
+    height: 100%;
+    width: 4.625rem;
+  }
+
+  .mdb-icon-list .mdb-gallery-view-icon-text {
+    margin: auto !important;
+  }
+
+  .mdb-icon-list .mdb-class-label {
+    right: -0.5rem;
+    top: -0.25rem;
+    display: none;
+  }
+</style>
+
+<!-- Main title -->
+<h2 class="h1 font-weight-bold"><?= $data_var['main_title']; ?></h2>
+
+<!-- Seo title -->
+<h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+<hr class="my-4" />
+
+<!--Section: Basic usage-->
+<section id="section-basic-usage">
+  <!--Section title-->
+  <h2 class="mb-4">Basic usage</h2>
+
+  <!-- Section description -->
+  <p>
+    您可以使用CSS前缀将图标放置在几乎任何地方
+    <code> fa </code>和图标的名称。图标旨在与内联元素一起使用（我们喜欢 为简洁起见，使用<code
+      >＆lt; i&gt; </code
+    >标签，但是使用<code>＆lt; span&gt; </code> 语义正确）。
+  </p>
+
+  <!--Section: Demo-->
+  <section class="border p-4 text-center mb-4">
+    <i class="fas fa-camera-retro"></i>
+  </section>
+  <!--Section: Demo-->
+
+  <!--Section: Code-->
+  <section class="mb-4">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <i class="fas fa-camera-retro"></i>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+
+  <p>
+    要增加图标相对于其容器的大小，请使用<code>fa-xs</code>,
+    <code>fa-sm</code>, <code>fa-lg</code> (33% increase), <code>fa-2x</code>, <code>fa-3x</code>,
+    <code>fa-4x</code>, <code>fa-5x</code>, <code>fa-6x</code>, <code>fa-7x</code>,
+    <code>fa-8x</code>, <code>fa-9x</code>, <code>fa-10x</code> 类.
+  </p>
+
+  <!--Section: Demo-->
+  <section class="border p-4 text-center mb-4">
+    <i class="fas fa-camera fa-xs"></i>
+    <i class="fas fa-camera fa-sm"></i>
+    <i class="fas fa-camera fa-lg"></i>
+    <i class="fas fa-camera fa-2x"></i>
+    <i class="fas fa-camera fa-3x"></i>
+    <i class="fas fa-camera fa-4x"></i>
+    <i class="fas fa-camera fa-5x"></i>
+    <i class="fas fa-camera fa-6x"></i>
+    <i class="fas fa-camera fa-7x"></i>
+    <i class="fas fa-camera fa-8x"></i>
+    <i class="fas fa-camera fa-9x"></i>
+    <i class="fas fa-camera fa-10x"></i>
+  </section>
+  <!--Section: Demo-->
+
+  <!--Section: Code-->
+  <section class="mb-4">
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <i class="fas fa-camera fa-xs"></i>
+        <i class="fas fa-camera fa-sm"></i>
+        <i class="fas fa-camera fa-lg"></i>
+        <i class="fas fa-camera fa-2x"></i>
+        <i class="fas fa-camera fa-3x"></i>
+        <i class="fas fa-camera fa-4x"></i>
+        <i class="fas fa-camera fa-5x"></i>
+        <i class="fas fa-camera fa-6x"></i>
+        <i class="fas fa-camera fa-7x"></i>
+        <i class="fas fa-camera fa-8x"></i>
+        <i class="fas fa-camera fa-9x"></i>
+        <i class="fas fa-camera fa-10x"></i>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
+<!--/Section: Basic usage-->
+
+<hr class="my-5" />
+
+<section id="section-icon-search" class="position-relative" style="bottom: 45px; top: 0px">
+  <div class="container text-center">
+    <div
+      class="alert fade d-flex justify-content-center align-items-center"
+      id="placement-example"
+      data-width="250px"
+      data-autohide="true"
+      data-position="top-right"
+      data-delay="2000"
+      role="alert"
+      data-hidden="true"
+      data-append-to-body="true"
+      data-color="primary"
+    ></div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="mdb-icon-list">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-10 col-md-12">
+          <div class="row">
+            <div class="col-md-5 mt-4 mdb-order-list-example">
+              <!-- Search box -->
+              <div class="card mb-4">
+                <!--Card content-->
+                <div class="card-body">
+                  <form id="mdb-search-form" class="d-flex justify-content-center">
+                    <!-- Default input -->
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        id="mdb-search-input"
+                        type="search"
+                        aria-label="Search"
+                        autocomplete="off"
+                      />
+                      <label class="form-label" fpr="mdb-search-input">Search icons for...</label>
+
+                      <!-- <i id="mdb-magnifier" class="fas fa-search position-absolute"
+                        style="right: 30px; top: 35px; opacity: 0.3;"></i> -->
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- Search box -->
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-md-2 d-none d-sm-block mdb-selected-icon">
+              <div class="list-item-ex active" style="user-select: none">
+                <i
+                  class="icon-item-ex fab fa-mdb active"
+                  id="mdb-span-example-icon"
+                  role="button"
+                  style="user-select: none"
+                ></i>
+                <div class="icon-text mt-1">
+                  <span class="icon-span-text" id="mdb-span-example-text">mdb</span>
+                  <div id="unicode-accusoft" class="justify-content-center" style="display: flex">
+                    <span class="mt-1 mdb-span-unicode-not flex-row-reverse justify-content-center">
+                      <div class="ml-2" id="mdb-span-example-unicode">f8ca</div>
+                      <i class="fas fa-clipboard font-glyph"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              id="mdb-code-wrapper"
+              class="col-md-5 d-none d-sm-flex flex-column mdb-selected-icon-mobile mdb-code-btn-wrapper text-center"
+              style="margin-top: 1.7rem"
+            >
+              <code id="mdb-icon-code" class="border mb-0 p-2 h6 blue-text"
+                >&lt;i class=&quot;fab fa-mdb&quot;&gt;&lt;/i&gt;</code
+              >
+              <div class="mt-1">
+                <button id="mdb-button-copy" class="btn btn-primary btn-block btn-sm">
+                  COPY <i class="fas fa-copy ml-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <!-- Filter summary -->
+          <div class="d-flex justify-content-between flex-my-column">
+            <div class="">
+              <h5
+                id="mdb-icon-counting"
+                class="h4 mdr-3 ml-2 mt-2"
+                style="color: #495057; font-weight: 500"
+              ></h5>
+            </div>
+            <div class="mx-1" id="mdb-cheatsheet-wrapper">
+              <a
+                id="mdb-cheatsheet-gallery"
+                class="btn btn-floating btn-outline-primary"
+                data-ripple-color="primary"
+              >
+                <span>
+                  <i data-toggle="tooltip" title="Gallery View" class="fas fa-th"> </i>
+                </span>
+              </a>
+              <a
+                id="mdb-cheatsheet-info"
+                class="btn btn-floating btn-outline-primary"
+                data-ripple-color="primary"
+              >
+                <span>
+                  <i data-toggle="tooltip" title="Show Cheatsheet" class="fas fa-info-circle"> </i>
+                </span>
+              </a>
+            </div>
+          </div>
+          <!-- Filter summary -->
+
+          <hr />
+          <div
+            id="mdb-chips-wrapper"
+            class="mx-1 chips-wrapper flex-wrap align-items-center mb-3 d-flex"
+          ></div>
+          <div
+            id="mdb-icons-wrapper"
+            class="col-md-12 flex-wrap flex-row flex-wrap justify-start items-start"
+          ></div>
+          <div class="col-md-12">
+            <button
+              style="bottom: 0; width: 80%"
+              class="btn btn-outline-primary btn-load-more-icon position-absolute justify-content-center align-items-center"
+              data-ripple-color="primary"
+            >
+              Load More Icons <i class="fas fa-cloud-download-alt fa-lg ml-2"></i>
+            </button>
+          </div>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-2 mb-4 d-none d-lg-block" id="mdb-filter-list">
+          <div class="form-check">
+            <input type="checkbox" class="mdb-filter-checkbox form-check-input" id="solid" />
+            <label class="form-check-label" for="solid">Solid</label>
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" class="mdb-filter-checkbox form-check-input" id="regular" />
+            <label class="form-check-label" for="regular">Regular</label>
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" class="mdb-filter-checkbox form-check-input" id="brands" />
+            <label class="form-check-label" for="brands">Brands</label>
+          </div>
+
+          <hr />
+
+          <div class="form-check">
+            <input type="checkbox" class="mdb-filter-checkbox form-check-input" id="latest" />
+            <label class="form-check-label" for="latest">Latest</label>
+          </div>
+
+          <hr />
+
+          <div class="form-outline mb-3">
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              id="mdb-search-category"
+              type="search"
+              aria-label="Search"
+              autocomplete="off"
+            />
+            <label class="form-label" fpr="mdb-search-category" style="white-space: nowrap"
+              >Search category</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="accessibility"
+            />
+            <label class="form-check-label" for="accessibility">Accessibility</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="animals"
+            />
+            <label class="form-check-label" for="animals">Animals</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="arrows"
+            />
+            <label class="form-check-label" for="arrows">Arrows</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="audio-video"
+            />
+            <label class="form-check-label" for="audio-video">Audio-Video</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="automotive"
+            />
+            <label class="form-check-label" for="automotive">Automotive</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="autumn"
+            />
+            <label class="form-check-label" for="autumn">Autumn</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="buildings"
+            />
+            <label class="form-check-label" for="buildings">Buildings</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="business"
+            />
+            <label class="form-check-label" for="business">Business</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="charity"
+            />
+            <label class="form-check-label" for="charity">Charity</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="chat"
+            />
+            <label class="form-check-label" for="chat">Chat</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="chess"
+            />
+            <label class="form-check-label" for="chess">Chess</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="code"
+            />
+            <label class="form-check-label" for="code">Code</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="communication"
+            />
+            <label class="form-check-label" for="communication">Communication</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="computers"
+            />
+            <label class="form-check-label" for="computers">Computers</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="currency"
+            />
+            <label class="form-check-label" for="currency">Currency</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="date-time"
+            />
+            <label class="form-check-label" for="date-time">Date-Time</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="delivery"
+            />
+            <label class="form-check-label" for="delivery">Delivery</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="design"
+            />
+            <label class="form-check-label" for="design">Design</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="editors"
+            />
+            <label class="form-check-label" for="editors">Editors</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="education"
+            />
+            <label class="form-check-label" for="education">Education</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="emoji"
+            />
+            <label class="form-check-label" for="emoji">Emoji</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="files"
+            />
+            <label class="form-check-label" for="files">Files</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="food"
+            />
+            <label class="form-check-label" for="food">Food</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="genders"
+            />
+            <label class="form-check-label" for="genders">Genders</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="halloween"
+            />
+            <label class="form-check-label" for="halloween">Halloween</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="hands"
+            />
+            <label class="form-check-label" for="hands">Hands</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="health"
+            />
+            <label class="form-check-label" for="health">Health</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="holiday"
+            />
+            <label class="form-check-label" for="holiday">Holiday</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="images"
+            />
+            <label class="form-check-label" for="images">Images</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="interfaces"
+            />
+            <label class="form-check-label" for="interfaces">Interfaces</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="logistics"
+            />
+            <label class="form-check-label" for="logistics">Logistics</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="maps"
+            />
+            <label class="form-check-label" for="maps">Maps</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="marketing"
+            />
+            <label class="form-check-label" for="marketing">Marketing</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="mathematics"
+            />
+            <label class="form-check-label" for="mathematics">Mathematics</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="medical"
+            />
+            <label class="form-check-label" for="medical">Medical</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="moving"
+            />
+            <label class="form-check-label" for="moving">Moving</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="objects"
+            />
+            <label class="form-check-label" for="objects">Objects</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="payments-shopping"
+            />
+            <label class="form-check-label" for="payments-shopping">Payments-Shopping</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="political"
+            />
+            <label class="form-check-label" for="political">Political</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="programming"
+            />
+            <label class="form-check-label" for="programming">Programming</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="religion"
+            />
+            <label class="form-check-label" for="religion">Religion</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="shapes"
+            />
+            <label class="form-check-label" for="shapes">Shapes</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="spinners"
+            />
+            <label class="form-check-label" for="spinners">Spinners</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="software"
+            />
+            <label class="form-check-label" for="software">Software</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="sports"
+            />
+            <label class="form-check-label" for="sports">Sports</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="status"
+            />
+            <label class="form-check-label" for="status">Status</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="tabletop-gaming"
+            />
+            <label class="form-check-label" for="tabletop-gaming">Tabletop-gaming</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="travel"
+            />
+            <label class="form-check-label" for="travel">Travel</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="users-people"
+            />
+            <label class="form-check-label" for="users-people">Users-People</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="vehicles"
+            />
+            <label class="form-check-label" for="vehicles">Vehicles</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="weather"
+            />
+            <label class="form-check-label" for="weather">Weather</label>
+          </div>
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="winter"
+            />
+            <label class="form-check-label" for="winter">Winter</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="mdb-filter-checkbox mdb-filter-category form-check-input"
+              id="writing"
+            />
+            <label class="form-check-label" for="writing">Writing</label>
+          </div>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+  </div>
+</section>

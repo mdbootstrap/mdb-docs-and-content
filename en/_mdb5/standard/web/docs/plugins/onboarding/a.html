@@ -17,13 +17,107 @@
     <!-- Section title -->
     <h2 class="mb-4">Usage</h2>
 
-    <!--Section: Code-->
-    <section>
-      <mdbsnippet>
-        <code data-lang="html" data-name="HTML"> </code>
-      </mdbsnippet>
-    </section>
-    <!--Section: Code-->
+    <h4>Via data attributes</h4>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="onboarding"
+            data-start-trigger="#onboarding-start"
+            data-start-event="click">
+          <button
+            data-id="onboarding-start"
+            data-step
+            data-index="1"
+            data-onboarding-content="Step 1">Click me</button>
+          <div
+            data-step
+            data-index="2"
+            data-onboarding-content="Step 2">Some content</div>
+          <div
+            data-step
+            data-index="3"
+            data-onboarding-content="Step 3">Some content</div>
+        </div>
+      </code>
+    </mdbsnippet>
+
+    <h4 class="mt-4">Via JavaScript</h4>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div id="js-example">
+          <button
+            data-id="onboarding-start">Click me</button>
+          <div
+            data-target="step-1">Some content</div>
+          <div
+            data-target="step-2">Some content</div>
+        </div>
+      </code>
+      <code data-lang="js" data-name="JavaScript">
+          const options = {
+            steps: [
+              {
+              index: 1,
+              onboardingContent: '1',
+              target: 'step-1'
+              },
+              {
+              index: 2,
+              onboardingContent: '2',
+              target: 'step-2'
+            },
+            ],
+          startTrigger: '#onboarding-start',
+          startEvent: 'click'
+          }
+
+          const myOnboarding = new Onboarding(document.getElementById('js-example'), options);
+      </code>
+    </mdbsnippet>
+
+    <h4 class="mt-4">Via jQuery</h4>
+
+    <p class="note note-warning">
+      <strong>Note:</strong> By default, MDB <strong>does not</strong> include jQuery
+      and you have to add it to the project on your own.
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div id="jquery-example">
+          <button
+            data-id="onboarding-start">Click me</button>
+          <div
+            data-target="step-1">Some content</div>
+          <div
+            data-target="step-2">Some content</div>
+        </div>
+      </code>
+      <code data-lang="js" data-name="jQuery">
+          const options = {
+            steps: [
+              {
+              index: 1,
+              onboardingContent: '1',
+              target: 'step-1'
+              },
+              {
+              index: 2,
+              onboardingContent: '2',
+              target: 'step-2'
+            },
+            ],
+          startTrigger: '#onboarding-start',
+          startEvent: 'click'
+          }
+
+          $('#jquery-example').onbaording(options);
+      </code>
+    </mdbsnippet>
   </section>
   <!--Section: Usage-->
 
@@ -33,6 +127,498 @@
   <section id="api-section-options">
     <!-- Section title -->
     <h2 class="mb-4">Options</h2>
+
+    <p>
+      Options can be passed via data attributes, JavaScript, or jQuery. For data
+      attributes, append the option name to <code>data-</code>, as in
+      <code>data-start-trigger</code>. Some attributes should be pinned directly to
+      wrapper element and some can be used as both global or individual step
+      attributes.
+    </p>
+
+    <!--Section: Options global-->
+    <section id="api-subsection-options-global">
+      <!-- Section title -->
+      <h2 class="mb-4">Global</h2>
+
+      <p></p>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">nextLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'Next'</code></td>
+              <td>Defines label for next step button inside popover element</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">prevLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'Back'</code></td>
+              <td>
+                Defines label for previous step button inside popover element
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">skipLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'Skip'</code></td>
+              <td>Defines label for skip button inside popover element</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">finishLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'Finish'</code></td>
+              <td>
+                Defines label for finish button inside popover element
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">pauseLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'Pause'</code></td>
+              <td>
+                Defines label for pause button inside popover element when
+                <code>autoPlay</code>,<code>stepsDuration</code> or step
+                <code>duration</code> is set
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">resumeLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'Resume'</code></td>
+              <td>
+                Defines label for resume button inside popover element when
+                <code>autoPlay</code>,<code>stepsDuration</code> or step
+                <code>duration</code> is set
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">btnMain</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'btn-main'</code></td>
+              <td>
+                Set class for main button style
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">btnClose</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'btn-close'</code></td>
+              <td>
+                Set class for skip and finish buttons
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">btnPause</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'btn-pause'</code></td>
+              <td>
+                Set class for pause control button
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge"> btnResume</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'btn-resume'</code></td>
+              <td>
+                Set class for resume control button
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">steps</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code>[]</code></td>
+              <td>
+                An array of items to create step elements. Each element should contain
+                the required <code>index</code> and <code>onboardingContent</code>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">startTrigger</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Set selector for HTML element that will start Onboarding when
+                <code>startEvent</code> occurs.
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">startEvent</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Set event on <code>startTrigger</code> element which will start
+                Onboarding, e.g. <code>mouseover</code> or <code>click</code>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">autostart</code>
+              </td>
+              <td><i>Boolean</i></td>
+              <td><code>false</code></td>
+              <td>
+                Set Onboarding to start automatically after
+                <code>startDelay</code> seconds
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">startDelay</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>
+                Set time in seconds after which Onboarding will start. Use it with
+                <code>autoStart</code> or
+                <code>startTrigger / startEvent</code> combination
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">autoplay</code>
+              </td>
+              <td><i>Boolean</i></td>
+              <td><code>false</code></td>
+              <td>
+                Set automatic step change on or off. Use it in combination with
+                <code>stepsDuration</code>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">stepsDuration</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>
+                Set time in seconds after which each step will automatically change to
+                next
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">autoscroll</code>
+              </td>
+              <td><i>Boolean</i></td>
+              <td><code>false</code></td>
+              <td>
+                Defines whether window should automatically scroll into opened step
+                position
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">startIndex</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>1</code></td>
+              <td>
+                Set index from which Onboarding will start
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">debounce</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>300</code></td>
+              <td>
+                Set time in miliseconds after which changing of steps via keyboard
+                navigation will be possible
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">backdrop</code>
+              </td>
+              <td><i>Boolean</i></td>
+              <td><code>false</code></td>
+              <td>
+                Set show backdrop for step popover on or off
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">backdropOpacity</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0.6</code></td>
+              <td>
+                Set opacity for step popover backdrop element
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">autoFocus</code>
+              </td>
+              <td><i>Boolean</i></td>
+              <td><code>false</code></td>
+              <td>
+                Set auto focusing step popover element on or off
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">customClass</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'</code></td>
+              <td>
+                Adds user's custom class to popover element
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <!--Section: Options global-->
+
+    <hr class="my-4" />
+
+    <p>
+      Each individual step attribute will overwrite its global counterpart behavior.
+    </p>
+
+    <!--Section: Options global-->
+    <section id="api-subsection-options-step">
+      <!-- Section title -->
+      <h2 class="mb-4">Step</h2>
+
+      <p></p>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">nextLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Overwrites global <code>nextLabel</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">prevLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Overwrites global <code>prevLabel</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">skipLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Overwrites global <code>skipLabel</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">finishLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Overwrites global <code>finishLabel</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">pauseLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Overwrites global <code>pasueLabel</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">resumeLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Overwrites global <code>resumeLabel</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">btnMain</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Overwrites global <code>btnMain</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">btnClose</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Overwrites global <code>btnClose</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">btnPause</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Overwrites global <code>btnPause</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">btnResume</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Overwrites global <code>btnResume</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">onboardingContent</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Set content for step element. Can receive HTML templates
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">index</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>null</code></td>
+              <td>
+                Set index number for step element
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">target</code>
+              </td>
+              <td><i>String | Null</i></td>
+              <td><code>null</code></td>
+              <td>
+                Define selector for step element when creating Onboarding via JS
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">placement</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'bottom'</code></td>
+              <td>
+                Define placement of step popover. auto | top | bottom | left | right
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">title</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>''</code></td>
+              <td>
+                Set title for step popover element. When no title given, popover shows
+                progress indicator
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">backdrop</code>
+              </td>
+              <td><i>Boolean | Null</i></td>
+              <td><code>null</code></td>
+              <td>
+                Overwrites global <code>backdrop</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">duration</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>
+                Overwrites global <code>stepsDuration</code> attribute for single step
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">autoplay</code>
+              </td>
+              <td><i>Boolean</i></td>
+              <td><code>true</code></td>
+              <td>
+                Set step <code>autoplay</code> attribute to <code>false</code> to turn
+                off global autoplay for this particular step
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <!--Section: Options global-->
   </section>
   <!--Section: Options-->
 
@@ -42,6 +628,112 @@
   <section id="api-section-methods">
     <!-- Section title -->
     <h2 class="mb-4">Methods</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Parameters</th>
+            <th class="th-sm">Description</th>
+            <th class="th-sm">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">open</code></td>
+            <td>index</td>
+            <td>
+              Starts Onboarding on step set by the index key. Default is the first
+              step.
+            </td>
+            <td><code class="language-markup text-nowrap">instance.open(1)</code></td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">close</code></td>
+            <td></td>
+            <td>
+              Closes opened step popover.
+            </td>
+            <td>
+              <code class="language-markup text-nowrap">instance.close()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">nextStep</code>
+            </td>
+            <td></td>
+            <td>Opens next step popover.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.nextStep()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">prevStep</code>
+            </td>
+            <td></td>
+            <td>Opens previous step popover.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.prevStep()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">pause</code>
+            </td>
+            <td></td>
+            <td>Pauses Onboarding on current step when autoplay is on.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.pause()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">resume</code></td>
+            <td></td>
+            <td>Resumes Onboarding on current step when autoplay is on.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.resume()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">dispose</code>
+            </td>
+            <td></td>
+            <td>Removes the Onbaording instance.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.dispose()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">getInstance</code>
+            </td>
+            <td>element</td>
+            <td>
+              Static method which allows to get the Onboarding instance associated
+              with a DOM element.
+            </td>
+            <td>
+              <code class="language-markup text-nowrap"
+                >Onboarding.getInstance(element)</code
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        var onboardingElement = document.getElementById('my-onboarding');
+        var instance = Onboarding.getInstance(onboardingElement);
+        instance.open();
+      </code>
+    </mdbsnippet>
   </section>
   <!--Section: Methods-->
 
@@ -51,7 +743,100 @@
   <section id="api-section-events">
     <!-- Section title -->
     <h2 class="mb-4">Events</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">start.mdb.onboarding</code>
+            </td>
+            <td>
+              Emitted when an Onboarding has started.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">end.mdb.onboarding</code>
+            </td>
+            <td>
+              Emitted when the last step of the Onboarding has ended.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">open.mdb.onboarding</code>
+            </td>
+            <td>
+              Emitted when a step element has opened.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">close.mdb.onboarding</code>
+            </td>
+            <td>
+              Emitted when a step element has closed
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">next.mdb.onboarding</code>
+            </td>
+            <td>
+              Emitted when next step is about to be opened.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">previous.mdb.onboarding</code>
+            </td>
+            <td>
+              Emitted when previous step is about to be opened.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          window.addEventListener('start.mdb.onboarding', () => alert('Onboarding has started'));
+        </code>
+      </mdbsnippet>
+    </div>
   </section>
   <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- Description -->
+    <p>
+      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following
+      code to import this component:
+    </p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        import { Onboarding } from 'mdb-ui-kit';
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+
+
+
 </section>
 <!--Section: Docs content-->

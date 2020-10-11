@@ -1,0 +1,51 @@
+<script>
+  //   List group animation example
+  let elementNumber = 1;
+  const bindRemoveClickEvent = (el) => {
+    const element = el;
+    element.addEventListener('click', () => {
+      const prevElement = element.previousElementSibling ? element.previousElementSibling : element;
+      const animation = element === prevElement ? 'fade-out' : 'slide-out-up';
+      prevElement.style.zIndex = '1';
+      element.addEventListener('animationend', () => {
+        element.remove();
+        prevElement.style.zIndex = '0';
+      });
+      element.classList.add('animation', 'faster', animation);
+    });
+  };
+  const addNewOption = () => {
+    const element = document.getElementById('example-list');
+    const newElement = document.createElement('li');
+    const lastElement = element.lastElementChild || element;
+    const animation = element === lastElement ? 'fade-in' : 'slide-in-down';
+    newElement.innerText = `element ${elementNumber}`;
+    lastElement.style.zIndex = '1';
+    newElement.classList.add('list-group-item', 'animation', 'faster', animation);
+    newElement.addEventListener('animationend', () => {
+      lastElement.style.zIndex = '0';
+      newElement.classList.remove('animation', 'faster', animation);
+    });
+    bindRemoveClickEvent(newElement);
+    element.appendChild(newElement);
+    elementNumber += 1;
+  };
+  document.querySelectorAll('#example-list li').forEach((el) => {
+    bindRemoveClickEvent(el);
+  });
+  document.getElementById('add').addEventListener('click', () => {
+    addNewOption();
+  });
+</script>
+
+<script>
+  // Accordion animation example
+  document.querySelectorAll('button[data-toggle="collapse"]').forEach((el) => {
+    const animate = new mdb.Animate(el, {
+      animation: 'fade-in-up',
+      delay: '500',
+      duration: '500',
+    });
+    animate.init();
+  });
+</script>

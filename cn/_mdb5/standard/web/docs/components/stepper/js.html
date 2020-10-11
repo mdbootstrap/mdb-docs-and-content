@@ -1,0 +1,55 @@
+<script type="text/javascript">
+  const stepper = new mdb.Stepper(document.getElementById('stepper-buttons'));
+
+  document.getElementById('next-step').addEventListener('click', () => {
+    stepper.nextStep();
+  });
+
+  document.getElementById('prev-step').addEventListener('click', () => {
+    stepper.previousStep();
+  });
+
+  document.getElementById('step-1').addEventListener('click', () => {
+    stepper.changeStep(0);
+  });
+
+  document.getElementById('step-2').addEventListener('click', () => {
+    stepper.changeStep(1);
+  });
+
+  document.getElementById('step-3').addEventListener('click', () => {
+    stepper.changeStep(2);
+  });
+
+  document
+    .querySelector('#linear-stepper .stepper')
+    .addEventListener('onValid.mdb.stepper', (e) => {
+      console.log('onValid', e);
+    });
+
+  document
+    .querySelector('#linear-stepper .stepper')
+    .addEventListener('onInvalid.mdb.stepper', (e) => {
+      console.log('onInvalid', e);
+    });
+
+  document
+    .querySelector('#linear-stepper .stepper')
+    .addEventListener('onChangeStep.mdb.stepper', (e) => {
+      console.log('onChangeStep', e);
+    });
+
+  document
+    .querySelector('#custom-validation .stepper .stepper-step')
+    .addEventListener('onChangeStep.mdb.stepper', (e) => {
+      const input = e.target.querySelector('.stepper-content input[type="password"]');
+      const inputLenght = input.value.length;
+
+      if (inputLenght < 5) {
+        e.target.querySelector('input').setCustomValidity('Invalid');
+        e.preventDefault();
+      } else {
+        e.target.querySelector('input').setCustomValidity('');
+      }
+    });
+</script>

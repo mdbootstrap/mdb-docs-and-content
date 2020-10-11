@@ -1,0 +1,1456 @@
+<!--Section: API content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="api-section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+    <p>
+      在本节中，您将找到有关 <code>图表</code>组件。您将了解此组件中需要哪些模块，
+      配置组件的可能性是什么，可以使用哪些事件和方法 使用它。
+    </p>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Usage-->
+  <section id="api-section-usage">
+    <!-- Section title -->
+    <h2 class="mb-4">用法</h2>
+
+    <h4 class="mb-4">通过数据属性</h4>
+
+    <!--Description-->
+    <p>
+      您可以在不使用其他JavaScript代码的情况下初始化简单的图表-只需设置
+      <code> data-chart </code>到所选图表的类型（例如'line'，'bar'）。
+    </p>
+
+    <p class="note note-primary">
+      注意：<code>散点</code>和<code>气泡</code>图表必须使用 JavaScript。
+    </p>
+
+    <section>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">data-chart</code>
+              </td>
+              <td><i>String</i></td>
+              <td>Attribute responsible for initialization and defining a type.</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">data-labels</code>
+              </td>
+              <td class="text-nowrap"><i>String</i></td>
+              <td>Labels for x-axis</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">data-dataset-label</code>
+              </td>
+              <td class="text-nowrap"><i>String</i></td>
+              <td>Label values ​​for datasets</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">data-dataset-background-color</code>
+              </td>
+              <td class="text-nowrap"><i>Color[ ]</i></td>
+              <td>A single color or an array of colors for datasets</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">data-dataset-border-color</code>
+              </td>
+              <td class="text-nowrap"><i>Color[ ]</i></td>
+              <td>A single border or line color or an array of border colors for datasets</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">data-dataset-border-width</code>
+              </td>
+              <td class="text-nowrap"><i>Number[ ]</i></td>
+              <td>Single border thickness or a border thickness table for datasets</td>
+            </tr>
+
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">data-dataset-data</code>
+              </td>
+              <td class="text-nowrap"><i>Number[ ]</i></td>
+              <td>Value sets for charts</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+        <div
+        class="col-sm-12 col-md-10 col-xl-8 mb-4"
+        data-chart="bar"
+        data-dataset-label="Traffic"
+        data-labels="['Monday', 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' , 'Sunday ']"
+        data-dataset-data="[2112, 2343, 2545, 3423, 2365, 1985, 987]"
+        ></div>
+        </code>
+    </mdbsnippet>
+
+    <hr class="my-5" />
+
+    <h4 class="my-4">通过 JavaScript</h4>
+
+    <p>
+      使用Chart构造函数初始化实例时，可以指定三个参数。
+      第一个参数是图表的包装元素，第二个参数是具有以下内容的<code> data </code>对象
+      有关显示的数据集的必要信息。最后是<code>选件</code>-每个图表
+      具有组件提供的默认设置，因此此参数是可选的。
+    </p>
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+        <div id="bar-chart"></div>
+    </code>
+    <code data-lang="JavaScript" data-name="JavaScript">
+        // Bar chart
+        const dataBar = {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+            {
+                label: 'Traffic',
+                data: [30, 15, 62, 65, 61, 65, 40],
+
+            },
+            ],
+        },
+        };
+
+        new mdb.Chart(document.getElementById('bar-chart'), dataBar);
+    </code>
+    </mdbsnippet>
+
+    <hr class="my-5" />
+
+    <h4 class="my-4">通过jQuery</h4>
+
+    <p class="note note-warning">
+      <strong>注意：</strong>默认情况下，MDB <strong>不</strong>包含jQuery，并且您拥有
+      自行添加到项目中。
+    </p>
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+    <code data-lang="html" data-name="HTML">
+        <div id="bar-chart"></div>
+    </code>
+    <code data-lang="JavaScript" data-name="JavaScript">
+        // Bar chart
+        const dataBar = {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+            {
+                label: 'Traffic',
+                data: [30, 15, 62, 65, 61, 65, 40],
+
+            },
+            ],
+        },
+        };
+
+        $('#bar-chart').chart(dataBar);
+    </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Usage-->
+
+  <hr class="my-5" />
+
+  <!--Section: Options-->
+  <section id="api-section-options">
+    <!-- Section title -->
+    <h2 class="mb-4">选件</h2>
+
+    <section id="api-subsection-options-line">
+      <!--Subheading-->
+      <h4><strong>线路选项</strong></h4>
+
+      <!--Description-->
+      <p>
+        折线图允许为每个数据集指定多个属性。此外，其中一些 （例如，所有point
+        *属性）都可以定义为数组-这样，第一个值适用 到第一点，第二到第二点，依此类推。
+      </p>
+      <section>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">label</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>The label for the dataset that appears in the legend and tooltips.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">xAxisID</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>
+                  The ID of the x-axis to plot this dataset on. If not specified, this defaults to
+                  the ID of the first found x-axis
+                </td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">yAxisID</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>
+                  The ID of the y-axis to plot this dataset on. If not specified, this defaults to
+                  the ID of the first found y-axis.
+                </td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">backgroundColor</code>
+                </td>
+                <td class="text-nowrap">Color</td>
+                <td>The fill color under the line.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderColor</code>
+                </td>
+                <td class="text-nowrap">Color</td>
+                <td>The color of the line.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderWidth</code>
+                </td>
+                <td class="text-nowrap">Number</td>
+                <td>The width of the line in pixels.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderDash</code>
+                </td>
+                <td class="text-nowrap">Number</td>
+                <td>The length and spacing of dashes.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderDashOffset</code>
+                </td>
+                <td class="text-nowrap">Number</td>
+                <td>Offset for line dashes.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderCapStyle</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>Cap style of the line.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderJoinStyle</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>Line joint style.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">cubicInterpolationMode</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>
+                  The algorithm used to interpolate a smooth curve from the discrete data points.
+                </td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">fill</code>
+                </td>
+                <td><i>Boolean/String</i></td>
+                <td>How to fill the area under the line.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">lineTension</code>
+                </td>
+                <td class="text-nowrap"><i>Number</i></td>
+                <td>
+                  Bezier curve tension of the line. Set to 0 to draw straight lines. This option is
+                  ignored if monotone cubic interpolation is used.
+                </td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointBackgroundColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>The fill color for points.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointBorderColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>The border color for points.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointBorderWidth</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The width of the point border in pixels.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointRadius</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The radius of the point shape. If set to 0, the point is not rendered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointStyle</code>
+                </td>
+                <td class="text-nowrap"><i>String/String[ ]/Image/Image[ ]</i></td>
+                <td>Style of the point.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointRotation</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The rotation of the point in degrees.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointHitRadius</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The pixel size of the non-displayed point that reacts to mouse events.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointHoverBackgroundColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>Point background color when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointHoverBorderColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>Point border color when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointHoverBorderWidth</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The border width of a point when hovered over.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointHoverRadius</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The radius of the point when hovered over.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">showLine</code>
+                </td>
+                <td class="text-nowrap"><i>Boolean</i></td>
+                <td>If false, the line is not drawn for this dataset.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">spanGaps</code>
+                </td>
+                <td class="text-nowrap"><i>Boolean</i></td>
+                <td>
+                  If true, lines will be drawn between points with no or null data. If false, points
+                  with NaN data will create a break in the line
+                </td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">steppedLine</code>
+                </td>
+                <td class="text-nowrap"><i>Boolean/String</i></td>
+                <td>If the line is shown as a stepped line.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <hr class="mt-4 mb-5" />
+
+    <section id="api-subsection-options-bar">
+      <!--Subheading-->
+      <h4><strong>酒吧选项</strong></h4>
+
+      <!--Description-->
+      <p>
+        条形图允许为每个数据集指定多个属性。此外，其中一些
+        可以定义为数组-这样，第一个值将应用于第一个条，第二个将 到第二个酒吧，等等。
+      </p>
+
+      <section>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">label</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>The label for the dataset which appears in the legend and tooltips.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">xAxisID</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>
+                  The ID of the x axis to plot this dataset on. If not specified, this defaults to
+                  the ID of the first found x axis
+                </td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">yAxisID</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>
+                  The ID of the y axis to plot this dataset on. If not specified, this defaults to
+                  the ID of the first found y axis.
+                </td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">backgroundColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>The fill color of the bar.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>The color of the bar border.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderWidth</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The stroke width of the bar in pixels.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderSkipped</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>Which edge to skip drawing the border for.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBackgroundColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>The fill colour of the bars when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBorderColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>The stroke colour of the bars when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBorderWidth</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The stroke width of the bars when hovered.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <hr class="mt-4 mb-5" />
+
+    <section id="api-subsection-options-radar">
+      <!--Subheading-->
+      <h4><strong>雷达图</strong></h4>
+
+      <!--Description-->
+      <p>
+        雷达图允许为每个数据集指定多个属性。此外，其中一些 （例如，所有point
+        *属性）都可以定义为数组-这样，第一个值适用 到第一点，第二到第二点，依此类推。
+      </p>
+
+      <section>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">label</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>The label for the dataset which appears in the legend and tooltips.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">backgroundColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color</i></td>
+                <td>The fill color under the line.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color</i></td>
+                <td>The color of the line.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderWidth</code>
+                </td>
+                <td class="text-nowrap"><i>Number</i></td>
+                <td>The width of the line in pixels.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderDash</code>
+                </td>
+                <td class="text-nowrap"><i>Number[ ]</i></td>
+                <td>Length and spacing of dashes. S</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderDashOffset</code>
+                </td>
+                <td class="text-nowrap"><i>Number</i></td>
+                <td>Offset for line dashes.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderCapStyle</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>Cap style of the line</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderJoinStyle</code>
+                </td>
+                <td class="text-nowrap"><i>String</i></td>
+                <td>Line joint style</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">fill</code>
+                </td>
+                <td><i>Boolean/String</i></td>
+                <td>How to fill the area under the line.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">lineTension</code>
+                </td>
+                <td class="text-nowrap"><i>Number</i></td>
+                <td>Bezier curve tension of the line. Set to 0 to draw straightlines.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointBackgroundColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>The fill color for points.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointBorderColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>The border color for points.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointBorderWidth</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The width of the point border in pixels.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointRadius</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>TThe radius of the point shape. If set to 0, the point is not rendered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointRotation</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The rotation of the point in degrees.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointStyle</code>
+                </td>
+                <td class="text-nowrap"><i>String/String[ ]/Image/Image[ ]</i></td>
+                <td>Style of the point.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointHitRadius</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The pixel size of the non-displayed point that reacts to mouse events.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointHoverBackgroundColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>Point background color when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointHoverBorderColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color/Color[ ]</i></td>
+                <td>Point border color when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointHoverBorderWidth</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>Border width of point when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointHoverRadius</code>
+                </td>
+                <td class="text-nowrap"><i>Number/Number[ ]</i></td>
+                <td>The radius of the point when hovered.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <hr class="mt-4 mb-5" />
+
+    <section id="api-subsection-options-doughnut-pie">
+      <!--Subheading-->
+      <h4 class="mt-5">
+        <strong>甜甜圈和馅饼</strong>
+      </h4>
+
+      <!--Description-->
+      <p>在Donut和Pie图表中，将值数组传递给选项将应用它们中的每一个 到数据集中的对应条目。</p>
+
+      <!--Section: Live preview-->
+      <section>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">backgroundColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color[ ]</i></td>
+                <td>The fill color of the arcs in the dataset.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color[ ]</i></td>
+                <td>The border color of the arcs in the dataset.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderWidth</code>
+                </td>
+                <td class="text-nowrap"><i>Number[ ]</i></td>
+                <td>The border width of the arcs in the dataset.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBackgroundColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color[ ]</i></td>
+                <td>The fill colour of the arcs when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBorderColor</code>
+                </td>
+                <td class="text-nowrap"><i>Color[ ]</i></td>
+                <td>The stroke colour of the arcs when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBorderWidth</code>
+                </td>
+                <td class="text-nowrap"><i>Number[ ]</i></td>
+                <td>The stroke width of the arcs when hovered.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!--Section: Code-->
+    </section>
+
+    <hr class="mt-4 mb-5" />
+
+    <section id="api-subsection-options-polar">
+      <!--Subheading-->
+      <h4><strong>极地面积图</strong></h4>
+      <p>极地面积图与饼图相似，但是每个段的角度相同但不同 半径（取决于值）。</p>
+      <!--Description-->
+      <section>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">backgroundColor</code>
+                </td>
+                <td><i>Color</i></td>
+                <td>The fill color of the arcs in the dataset.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderColor</code>
+                </td>
+                <td><i>Color</i></td>
+                <td>The border color of the arcs in the dataset.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderWidth</code>
+                </td>
+                <td><i>number</i></td>
+                <td>The border width of the arcs in the dataset.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBackgroundColor</code>
+                </td>
+                <td><i>Color</i></td>
+                <td>The fill colour of the arcs when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBorderColor</code>
+                </td>
+                <td><i>Color</i></td>
+                <td>The stroke colour of the arcs when hovered.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBorderWidth</code>
+                </td>
+                <td><i>number</i></td>
+                <td>The stroke width of the arcs when hovered.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!--Description-->
+    </section>
+
+    <hr class="mt-4 mb-5" />
+
+    <section id="api-subsection-options-bubble">
+      <!--Subheading-->
+      <h4><strong>气泡图</strong></h4>
+      <p>气泡图显示具有x和y坐标的一系列点。 z坐标 确定每个气泡的大小。</p>
+      <!--Description-->
+      <section>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">backgroundColor</code>
+                </td>
+                <td><i>Color</i></td>
+                <td>bubble background color</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderColor</code>
+                </td>
+                <td><i>Color</i></td>
+                <td>bubble border color</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">borderWidth</code>
+                </td>
+                <td><i>Number</i></td>
+                <td>bubble border width (in pixels)</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBackgroundColor</code>
+                </td>
+                <td><i>Color</i></td>
+                <td>bubble background color when hovered</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBorderColor</code>
+                </td>
+                <td><i>Color</i></td>
+                <td>bubble border color when hovered</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverBorderWidth</code>
+                </td>
+                <td><i>Number</i></td>
+                <td>bubble border width when hovered (in pixels)</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hoverRadius</code>
+                </td>
+                <td><i>Number</i></td>
+                <td>bubble additional radius when hovered (in pixels)</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">hitRadius</code>
+                </td>
+                <td><i>Number</i></td>
+                <td>bubble additional radius for hit detection (in pixels).</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">label</code>
+                </td>
+                <td><i>String</i></td>
+                <td>The label for the dataset which appears in the legend and tooltips.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">order</code>
+                </td>
+                <td><i>Number</i></td>
+                <td>The drawing order of dataset.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">pointStyle</code>
+                </td>
+                <td><i>String</i></td>
+                <td>bubble shape style.</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">rotation</code>
+                </td>
+                <td><i>Number</i></td>
+                <td>bubble rotation (in degrees).</td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">
+                  <code class="highlighter-rouge">radius</code>
+                </td>
+                <td>
+                  <i>Number</i>
+                </td>
+                <td>bubble radius (in pixels).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--Description-->
+      </section>
+      <!--Section: Options-->
+    </section>
+
+    <hr class="mt-4 mb-5" />
+
+    <section id="api-subsection-options-scatter">
+      <!--Subheading-->
+      <h4><strong>散点图</strong></h4>
+
+      <!--Description-->
+      <p>散点图将数据集显示为具有z和y坐标的一系列点。</p>
+
+      <p class="note note-primary">散点图支持与折线图相同的属性。</p>
+    </section>
+
+    <hr class="mt-4 mb-5" />
+
+    <section id="api-subsection-options-legend">
+      <!--Subheading-->
+      <h4><strong>Legend</strong></h4>
+
+      <p></p>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">display</code>
+              </td>
+              <td><i>Boolean</i></td>
+              <td>true</td>
+              <td>showing legend</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">position</code>
+              </td>
+              <td><i>String</i></td>
+              <td>'top'</td>
+              <td>Position of the legend.</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">fullWidth</code>
+              </td>
+              <td><i>Boolean</i></td>
+              <td>true</td>
+              <td>
+                Marks that this box should take the full width of the canvas (pushing down other
+                boxes). This is unlikely to need to be changed in day-to-day use.
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">onClick</code>
+              </td>
+              <td><i>Function</i></td>
+              <td></td>
+              <td>
+                <p>A callback that is called when a click event is registered on a label item</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">onHover</code>
+              </td>
+              <td><i>Function</i></td>
+              <td></td>
+              <td>
+                <p>
+                  A callback that is called when a 'mousemove' event is registered on top of a label
+                  item
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">reverse</code>
+              </td>
+              <td><i>Boolean</i></td>
+              <td>false</td>
+              <td>
+                <p>Legend will show datasets in reverse order.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">labels</code>
+              </td>
+              <td><i>Object</i></td>
+              <td></td>
+              <td>
+                <p>See documentation about labels in table below.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="mt-4 mb-5" />
+
+    <section id="api-subsection-options-legend-label">
+      <!--Subheading-->
+      <h4><strong>图例标签配置</strong></h4>
+
+      <p></p>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">boxWidth</code>
+              </td>
+              <td><i>Number</i></td>
+              <td>40</td>
+              <td>width of coloured box</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">fontSize</code>
+              </td>
+              <td><i>Number</i></td>
+              <td>12</td>
+              <td>font size of text</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">fontStyle</code>
+              </td>
+              <td><i>String</i></td>
+              <td>'normal'</td>
+              <td>font style of text</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">fontColor</code>
+              </td>
+              <td><i>Color</i></td>
+              <td>'#666'</td>
+              <td>
+                <p>Color of text</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">fontFamily</code>
+              </td>
+              <td><i>String</i></td>
+              <td>"Roboto"</td>
+              <td>
+                <p>Font family of legend text.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">padding</code>
+              </td>
+              <td><i>Number</i></td>
+              <td>10</td>
+              <td>
+                <p>Padding between rows of colored boxes. .</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">generateLabels</code>
+              </td>
+              <td><i>Function</i></td>
+              <td></td>
+              <td>
+                <p>
+                  Generates legend items for each thing in the legend. Default implementation
+                  returns the text + styling for the color box.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">filter</code>
+              </td>
+              <td><i>Function</i></td>
+              <td>null</td>
+              <td>
+                <p>
+                  Filters legend items out of the legend. Receives 2 parameters, a Legend Item and
+                  the chart data.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">usePointStyle</code>
+              </td>
+              <td><i>Boolean</i></td>
+              <td>false</td>
+              <td>
+                <p>
+                  Label style will match corresponding point style (size is based on fontSize,
+                  boxWidth is not used in this case).
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">backgroundColor</code>
+              </td>
+              <td><i>Style/Null</i></td>
+              <td>Null</td>
+              <td>
+                <p>Background color of datalabels. .</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="mt-4 mb-5" />
+
+    <section id="api-subsection-options-animation">
+      <!--Subheading-->
+      <h4><strong>动画</strong></h4>
+
+      <!--Description-->
+      <p>您可以使用以下选项来自定义图表的动画：</p>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">duration</code>
+              </td>
+              <td><i>Number</i></td>
+              <td>1000</td>
+              <td>The number of milliseconds an animation takes</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">easing</code>
+              </td>
+              <td><i>String</i></td>
+              <td>easeOutQuart</td>
+              <td>Easing function to use.</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">onProgress</code>
+              </td>
+              <td><i>Function</i></td>
+              <td>null</td>
+              <td>Callback called at the end of an animation.</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">onComplete</code>
+              </td>
+              <td><i>Function</i></td>
+              <td>null</td>
+              <td>
+                <p>Callback called on each step of an animation.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="mt-4 mb-5" />
+
+    <section id="api-subsection-options-easing">
+      <h4><strong>缓和</strong></h4>
+
+      <p>可用选项：</p>
+
+      <ul>
+        <li><code>linear</code></li>
+        <li><code>easeInQuad</code></li>
+        <li><code>easeOutQuad</code></li>
+        <li><code>easeInOutQuad</code></li>
+        <li><code>easeInCubic</code></li>
+        <li><code>easeOutCubic</code></li>
+        <li><code>easeInOutCubic</code></li>
+        <li><code>easeInQuart</code></li>
+        <li><code>easeOutQuart</code></li>
+        <li><code>easeInOutQuart</code></li>
+        <li><code>easeInQuint</code></li>
+        <li><code>easeOutQuint</code></li>
+        <li><code>easeInOutQuint</code></li>
+        <li><code>easeInSine</code></li>
+        <li><code>easeOutSine</code></li>
+        <li><code>easeInOutSine</code></li>
+        <li><code>easeInExpo</code></li>
+        <li><code>easeOutExpo</code></li>
+        <li><code>easeInOutExpo</code></li>
+        <li><code>easeInCirc</code></li>
+        <li><code>easeOutCirc</code></li>
+        <li><code>easeInOutCirc</code></li>
+        <li><code>easeInElastic</code></li>
+        <li><code>easeOutElastic</code></li>
+        <li><code>easeInOutElastic</code></li>
+        <li><code>easeInBack</code></li>
+        <li><code>easeOutBack</code></li>
+        <li><code>easeInOutBack</code></li>
+        <li><code>easeInBounce</code></li>
+        <li><code>easeOutBounce</code></li>
+        <li><code>easeInOutBounce</code></li>
+      </ul>
+    </section>
+  </section>
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">方法</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Description</th>
+            <th class="th-sm">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">update(data, config)</code>
+            </td>
+            <td>
+              Updates chart's data and calls
+              <a
+                href="https://www.chartjs.org/docs/latest/developers/api.html#updateconfig"
+                nofollow
+                target="_blank"
+                >.update(config)</a
+              >
+              method
+            </td>
+            <td>
+              <code class="language-markup text-nowrap"
+                >instance.update(data, { duration: 800})</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">dispose</code>
+            </td>
+            <td>Removes a mdb.Chart instance</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.dispose()</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+    <code data-lang="JavaScript" data-name="JavaScript">
+        const instance new mdb.Chart(el, data, options);
+
+        instance.dispose();
+    </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Methods-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+    <h2 class="mb-4">大事记</h2>
+
+    <p>
+      Event handling in Charts differs from other MDB components - in the
+      <code>选件</code> parameter you can define which events should be triggered and handlers for
+      some of them (click, hover).
+    </p>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Type</th>
+            <th class="th-sm">Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">events</code>
+            </td>
+            <td><i>string[ ]</i></td>
+            <td>
+              <code class="highlighter-rouge"
+                >['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove']</code
+              >
+            </td>
+            <td>
+              The <code class="highlighter-rouge">events</code> option defines the browser events
+              that the chart should listen to for tooltips and hovering.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code>onHover</code></td>
+            <td><i>function</i></td>
+            <td><code class="highlighter-rouge">null</code></td>
+            <td>
+              Called when any of the events fire. Called in the context of the chart and passed the
+              event and an array of active elements (bars, points, etc).
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">onClick</code>
+            </td>
+            <td><i>function</i></td>
+            <td><code class="highlighter-rouge">null</code></td>
+            <td>
+              Called if the event is of type
+              <code class="highlighter-rouge">'mouseup'</code> or
+              <code class="highlighter-rouge">'click'</code>. Called in the context of the chart and
+              passed the event and an array of active elements.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="JavaScript" data-name="JavaScript">
+        const eventOption ={
+            options: {
+            // This chart will not respond to mousemove, etc
+            events: ['click']
+            }
+        };
+        </code>
+    </mdbsnippet>
+    </div>
+  </section>
+  <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- Description -->
+    <p><strong> MDB UI KIT </strong>也可与模块捆绑器一起使用。使用以下代码导入 此组件：</p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+    <code data-lang="js" data-name="JavaScript">
+        import { Chart } from 'mdb-ui-kit';
+    </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+
+  <!--Section: API content-->
+</section>
+<!--Section: API content-->

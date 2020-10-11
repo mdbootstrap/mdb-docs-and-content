@@ -1,0 +1,295 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="api-section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Usage-->
+  <section id="api-section-usage">
+    <!-- Section title -->
+    <h2 class="mb-4">用法</h2>
+
+    <p>崩溃插件利用一些类来处理繁重的工作：</p>
+    <ul>
+      <li><code> .collapse </code>隐藏内容</li>
+      <li><code> .collapse.show </code>显示内容</li>
+      <li><code> .collapsing </code>在过渡开始时添加，并在过渡完成时删除</li>
+    </ul>
+    <p>这些类可以在<code> _transitions.scss </code>中找到。</p>
+    <h4 class="mt-4">通过数据属性</h4>
+    <p>
+      只需将<code> data-toggle ="折叠" </code>和<code> data-target </code>添加到元素即可
+      自动分配对一个或多个可折叠元素的控制。的
+      <code> data-target </code>属性接受CSS选择器来应用折叠。务必 将类<code> collapse </code
+      >添加到可折叠元素中。如果您希望它默认 打开，添加其他类<code> show </code>。
+    </p>
+    <p>
+      要将类似手风琴的组管理添加到可折叠区域，请添加data属性
+      <code> data-parent ="＃selector" </code>。请参阅演示以查看实际操作。
+    </p>
+
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseExample"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >
+            Button with data-target
+          </button>
+
+          <!-- Collapsed content -->
+          <div class="collapse mt-3" id="collapseExample">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+            squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+            sapiente ea proident.
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <h4 class="mt-4">通过 JavaScript</h4>
+    <p>Enable manually with:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript">
+          var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+          var collapseList = collapseElementList.map(function (collapseEl) {
+            return new mdb.Collapse(collapseEl)
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Usage-->
+
+  <hr class="my-5" />
+
+  <!--Section: Options-->
+  <section id="api-section-options">
+    <!-- Section title -->
+    <h2 class="mb-4">选项</h2>
+    <p>
+      可以通过数据属性或JavaScript传递选项。对于数据属性，请附加 选项名称为<code> data-</code
+      >，如<code> data-parent ="" </code>中一样。
+    </p>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 100px">Name</th>
+          <th style="width: 50px">Type</th>
+          <th style="width: 50px">Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>parent</code></td>
+          <td>selector | jQuery object | DOM element</td>
+          <td><code>false</code></td>
+          <td>
+            If parent is provided, then all collapsible elements under the specified parent will be
+            closed when this collapsible item is shown. (similar to traditional accordion behavior -
+            this is dependent on the
+            <code>card</code> class). The attribute has to be set on the target collapsible area.
+          </td>
+        </tr>
+        <tr>
+          <td><code>toggle</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>Toggles the collapsible element on invocation</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <!--Section: Options-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">方法</h2>
+
+    <p class=""" note note-danger">
+      <strong>异步方法和过渡：</strong>
+      <br />
+      所有API方法都是<strong>异步</strong>并开始<strong>过渡</strong>。
+      转换开始后，他们会立即返回给呼叫者，但
+      <strong>在结束之前</strong>。此外，在 <strong>转换组件将被忽略</strong>。
+    </p>
+    <p>
+      将您的内容激活为可折叠元素。接受可选选项
+      <code> object </code>。
+    </p>
+    <p>您可以使用构造函数创建折叠实例，例如：</p>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>toggle</code></td>
+          <td>
+            Toggles a collapsible element to shown or hidden.
+            <strong
+              >Returns to the caller before the collapsible element has actually been shown or
+              hidden</strong
+            >
+            (i.e. before the <code>shown.bs.collapse</code> or <code>hidden.bs.collapse</code> event
+            occurs).
+          </td>
+        </tr>
+        <tr>
+          <td><code>show</code></td>
+          <td>
+            Shows a collapsible element.
+            <strong
+              >Returns to the caller before the collapsible element has actually been shown</strong
+            >
+            (e.g., before the <code>shown.bs.collapse</code> event occurs).
+          </td>
+        </tr>
+        <tr>
+          <td><code>hide</code></td>
+          <td>
+            Hides a collapsible element.
+            <strong
+              >Returns to the caller before the collapsible element has actually been hidden</strong
+            >
+            (e.g., before the <code>hidden.bs.collapse</code> event occurs).
+          </td>
+        </tr>
+        <tr>
+          <td><code>dispose</code></td>
+          <td>Destroys an element's collapse.</td>
+        </tr>
+        <tr>
+          <td><code>getInstance</code></td>
+          <td>
+            Static method which allows you to get the collapse instance associated with a DOM
+            element.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript">
+          var myCollapse = document.getElementById('myCollapse')
+          var bsCollapse = new mdb.Collapse(myCollapse)
+          bsCollapse.show()
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Methods-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+  <h2 class ="mb-4">大事记</h2>
+    <p> Bootstrap的折叠类提供了一些事件，可以挂入折叠功能。</ p>
+    <table class =" table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th style="width：150px">事件类型</ th>
+          <th>说明</ th>
+        </ tr>
+      </ thead>
+      <身体>
+        <tr>
+          <td> <code> show.bs.collapse </ code> </ td>
+          <td>
+            调用<code> show </ code>实例方法时，将立即触发此事件。
+          </ td>
+        </ tr>
+        <tr>
+          <td> <code> shown.bs.collapse </ code> </ td>
+          <td>
+            当折叠元素对用户可见时将触发此事件（将等待
+            CSS转换完成）​​。
+          </ td>
+        </ tr>
+        <tr>
+          <td> <code> hide.bs.collapse </ code> </ td>
+          <td>
+            调用<code> hide </ code>方法后，立即触发此事件。
+          </ td>
+        </ tr>
+        <tr>
+          <td> <code> hidden.bs.collapse </ code> </ td>
+          <td>
+            当折叠元素已向用户隐藏时将触发此事件（将等待
+            CSS转换完成）​​。
+          </ td>
+        </ tr>
+      </ tbody>
+    </ table>
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript">
+          var myCollapsible = document.getElementById('myCollapsible')
+          myCollapsible.addEventListener('hidden.bs.collapse', function () {
+            // do something...
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+  <h2 class =" mb-4">导入</ h2>
+
+    <！-说明->
+    <p>
+      <strong> MDB UI KIT </ strong>也可与模块捆绑器一起使用。使用以下代码导入
+      此组件：
+    </ p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        import { Collapse } from 'mdb-ui-kit';
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+</section>
+<!--Section: Docs content-->

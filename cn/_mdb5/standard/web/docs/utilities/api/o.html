@@ -1,0 +1,406 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold"><?= $data_var['main_title']; ?></h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">实用程序API是用于生成实用程序类的基于Sass的工具。</p>
+
+    <hr />
+
+    <p>
+      引导实用程序是使用实用程序API生成的，可用于更改或
+      扩展Bootstrap的实用程序类。如果您不知道什么是Sass地图，可以 咨询
+      <a rel=" nofollow" target=" _ blank" href=" https://sass-lang.com/documentation/values/maps"
+        >官方文档</a
+      >
+      开始。
+    </p>
+
+    <p>
+      <code> $ utilities </code>映射包含所有实用程序，以后与您的自定义合并
+      <code> $ utilities </code>映射（如果存在）。实用程序映射包含实用程序的键控列表
+      接受以下选项的组：
+    </p>
+
+    <ul>
+      <li>
+        <code> property </code>：属性的名称，可以是字符串或字符串数​​组 （例如水平填充或边距所需）。
+      </li>
+      <li>
+        <code> response </code> <em>（可选）</em>：布尔值，指示是否需要响应类 被生成。默认为<code>
+          false </code
+        >。
+      </li>
+      <li>
+        <code> rfs </code> <em>（可选）</em>：用于启用流体缩放的变量。看看
+        RFS页面以了解其工作原理。默认为<code> false </code>。
+      </li>
+      <li>
+        <code> class </code> <em>（可选）</em>：如果您不想更改类名的变量
+        它与属性相同。如果您不提供<code> class </code>键，
+        <code> property </code>键是一个字符串数组，类名将是第一个元素 属性<code> array </code
+        >的数组。
+      </li>
+      <li>
+        <code> values </code>：如果您不希望使用班级名称，则可以是值列表或地图
+        与值相同。如果将null用作地图键，则不会渲染。
+      </li>
+      <li>
+        <code> print </code> <em>（可选）</em>：布尔值，指示是否需要打印类 产生。默认为<code>
+          false </code
+        >。
+      </li>
+    </ul>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Adding utilities to the utility API-->
+  <section id="section-adding-utilities-to-the-utility-api">
+    <!-- Section title -->
+    <h2 class="mb-4">将实用程序添加到实用程序API</h2>
+
+    <p>所有实用程序变量都添加到<code> $ utilities </code>变量中。定制实用程序组 可以这样添加：</p>
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss"> 
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                100: 1,
+              )
+            )
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="css" data-name="css">
+      .opacity-0 {
+        opacity: 0;
+      }
+      .opacity-25 {
+        opacity: .25;
+      }
+      .opacity-75 {
+        opacity: .75;
+      }
+      .opacity-100 {
+        opacity: 1;
+      }
+    </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Adding utilities to the utility API-->
+
+  <hr class="my-5" />
+
+  <!--Section: Changing the class prefix-->
+  <section id="section-changing-the-class-prefix">
+    <!--Section title-->
+    <h2 class="mb-4">更改类前缀</h2>
+
+    <!-- Section description -->
+    <p>使用<code> class </code>选项，可以更改类前缀：</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss">
+  
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              class: o,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                100: 1,
+              )
+            )
+           );
+  
+     </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="css" data-name="css">
+      .o-0 {
+        opacity: 0;
+      }
+      .o-25 {
+        opacity: .25;
+      }
+      .o-75 {
+        opacity: .75;
+      }
+      .o-100 {
+        opacity: 1;
+      }
+    </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Changing the class prefix-->
+
+  <hr class="my-5" />
+
+  <!--Section: Responsive utilities-->
+  <section id="section-responsive-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">响应实用程序</h2>
+
+    <!-- Section description -->
+    <p>使用<code>响应</code>选项，可以生成响应实用程序类：</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss">
+  
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              responsive: true,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                100: 1,
+              )
+            )
+           );
+  
+     </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="css" data-name="css"> 
+      .opacity-0 {
+        opacity: 0;
+      }
+      .opacity-25 {
+        opacity: .25;
+      }
+      .opacity-75 {
+        opacity: .75;
+      }
+      .opacity-100 {
+        opacity: 1;
+      }
+      @media (min-width: 576px) {
+        .opacity-sm-0 {
+          opacity: 0;
+        }
+        .opacity-sm-25 {
+          opacity: .25;
+        }
+        .opacity-sm-75 {
+          opacity: .75;
+        }
+        .opacity-sm-100 {
+          opacity: 1;
+        }
+      }
+      @media (min-width: 768px) {
+        .opacity-md-0 {
+          opacity: 0;
+        }
+        .opacity-md-25 {
+          opacity: .25;
+        }
+        .opacity-md-75 {
+          opacity: .75;
+        }
+        .opacity-md-100 {
+          opacity: 1;
+        }
+      }
+      @media (min-width: 992px) {
+        .opacity-lg-0 {
+          opacity: 0;
+        }
+        .opacity-lg-25 {
+          opacity: .25;
+        }
+        .opacity-lg-75 {
+          opacity: .75;
+        }
+        .opacity-lg-100 {
+          opacity: 1;
+        }
+      }
+      @media (min-width: 1200px) {
+        .opacity-xl-0 {
+          opacity: 0;
+        }
+        .opacity-xl-25 {
+          opacity: .25;
+        }
+        .opacity-xl-75 {
+          opacity: .75;
+        }
+        .opacity-xl-100 {
+          opacity: 1;
+        }
+      }
+    </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Responsive utilities-->
+
+  <hr class="my-5" />
+
+  <!--Section: Changing utilities-->
+  <section id="section-changing-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">改变公用事业</h2>
+
+    <!-- Section description -->
+    <p>
+      通过使用相同的密钥，可以改写切除实用程序。例如，如果您想要更多
+      响应式溢出实用程序类，您可以执行以下操作：
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss">
+  
+          $utilities: (
+            "overflow": (
+              responsive: true,
+              property: overflow,
+              values: visible hidden scroll auto,
+            ),
+          );
+  
+     </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Changing utilities-->
+
+  <hr class="my-5" />
+
+  <!--Section: Print utilities-->
+  <section id="section-print-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">打印实用程序</h2>
+
+    <!-- Section description -->
+    <p>启用<code> print </code>选项将<strong>也</strong>生成实用程序类，用于 打印。</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss">
+  
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              class: o,
+              print: true,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                100: 1,
+              )
+            )
+           );
+  
+     </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="css" data-name="css">
+          .o-0 { opacity: 0; } .o-25 { opacity: .25; } .o-75 { opacity: .75; } .o-100 { opacity: 1;
+          } @media print { .o-print-0 { opacity: 0; } .o-print-25 { opacity: .25; } .o-print-75 {
+          opacity: .75; } .o-print-100 { opacity: 1; } }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Print utilities-->
+
+  <hr class="my-5" />
+
+  <!--Section: Removing utilities-->
+  <section id="section-removing-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">删除实用程序</h2>
+
+    <!-- Section description -->
+    <p>也可以通过将组键更改为<code> null </code>来删除实用程序：</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="scss" data-name="scss">
+  
+          $utilities: (
+            "float": null,
+          );
+  
+     </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Removing utilities-->
+</section>
+<!--Section: Docs content-->

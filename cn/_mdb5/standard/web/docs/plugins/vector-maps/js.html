@@ -1,0 +1,127 @@
+<script src="<?php echo get_template_directory_uri() ?>/js/mdb5/plugins/vector-map.min.js"></script>
+<script>
+  // Basic example
+
+  (function () {
+    const map = document.getElementById('map-1');
+    const selectedCountry = document.getElementById('map-1-selection');
+
+    map.addEventListener('select', (e) => {
+      selectedCountry.innerText = e.selected ? e.selected.title : '-';
+    });
+  })();
+
+  (function () {
+    const map = document.getElementById('map-colors');
+    const mapInstance = new VectorMap(map, {
+      strokeWidth: 0.2,
+      readonly: true,
+      fill: 'white',
+      hover: false,
+      colorMap: [
+        { fill: '#B2EBF2', regions: ['CN', 'PL', 'AU', 'NZ'] },
+        { fill: '#80DEEA', regions: ['FR', 'GB', 'NO', 'FI', 'IE', 'RU'] },
+        { fill: '#4DD0E1', regions: ['US', 'CN', 'ES', 'DE', 'PR'] },
+        { fill: '#26C6DA', regions: ['BE', 'BB', 'CZ', 'DK'] },
+        { fill: '#00BCD4', regions: ['LY', 'LI', 'MC', 'SI'] },
+        { fill: '#00ACC1', regions: ['TH', 'VN'] },
+      ],
+    });
+  })();
+
+  // Read-only map
+
+  (function () {
+    const mapInstance = VectorMap.getInstance(document.getElementById('map-readonly'));
+    const btns = document.getElementsByClassName('select-region-btn');
+
+    const setActiveBtn = (region) => {
+      btns.forEach((btn) => {
+        if (btn.getAttribute('data-region') === region) {
+          btn.classList.remove('btn-outline-primary');
+          btn.classList.add('btn-primary');
+        } else {
+          btn.classList.add('btn-outline-primary');
+          btn.classList.remove('btn-primary');
+        }
+      });
+    };
+
+    btns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const region = btn.getAttribute('data-region');
+        mapInstance.select(region);
+
+        setActiveBtn(region);
+      });
+    });
+  })();
+
+  // Data from API
+
+  (function () {
+    const map = document.getElementById('api-map');
+    const legend = document.getElementById('api-legend');
+
+    const colorMap = [
+      { fill: '#fff', regions: [], min: 0, max: 1000000 },
+      { fill: '#E8F5E9', regions: [], min: 1000000, max: 5000000 },
+      { fill: '#A5D6A7', regions: [], min: 5000000, max: 10000000 },
+      { fill: '#66BB6A', regions: [], min: 10000000, max: 20000000 },
+      { fill: '#43A047', regions: [], min: 20000000, max: 50000000 },
+      { fill: '#388E3C', regions: [], min: 50000000, max: 100000000 },
+      { fill: '#2E7D32', regions: [], min: 100000000, max: 1000000000 },
+      { fill: '#1B5E20', regions: [], min: 1000000000, max: 1 / 0 },
+    ];
+
+    const generateLegend = (colorMap) => {
+      return colorMap
+        .map(({ fill, min, max }) => {
+          return `
+            <li class="vector-map-legend__item my-2">
+              <div
+                class="vector-map-legend__color mr-2 border"
+                style="background-color: ${fill}"
+              ></div>
+              ${min} - ${max}
+            </li>
+          `;
+        })
+        .join('\n');
+    };
+
+    legend.innerHTML = generateLegend(colorMap);
+
+    fetch('https://restcountries.eu/rest/v2/all')
+      .then((response) => response.json())
+      .then((data) => {
+        data.map((country) => {
+          const { alpha2Code, population, capital, flag } = country;
+          const section = colorMap.find((section) => {
+            return population >= section.min && population < section.max;
+          });
+
+          if (!section) {
+            return;
+          }
+
+          section.regions.push({
+            id: alpha2Code,
+            tooltip: `
+                <div>
+                  <img src="${flag}" class="my-1" style="max-width: 40px">
+                </div>
+                `,
+          });
+        });
+
+        const mapInstance = new VectorMap(map, {
+          readonly: true,
+          strokeWidth: 0.2,
+          hover: false,
+          fill: 'white',
+          colorMap,
+        });
+      });
+  })();
+</script>
