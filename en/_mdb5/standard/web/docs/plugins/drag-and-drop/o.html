@@ -1,3 +1,54 @@
+<link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/drag-and-drop.min.css">
+
+<style>
+  .draggable-element {
+    display: flex;
+    width: 200px;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+  }
+
+  .draggable-drag-ico {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: grey;
+  }
+
+  #sortable-horizontal .sortable-item {
+    width: 100%;
+    border-bottom: none;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+
+  #sortable-grid {
+    border: none;
+  }
+
+  #sortable-grid .sortable-item {
+    width: 125px;
+    height: 125px;
+    margin: 15px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+
+  #sortable-condition-1,
+  #sortable-condition-2 {
+    width: 500px;
+    max-width: 100%;
+    border: solid 1px #ccc;
+    min-height: 60px;
+    display: block;
+    background: #fff;
+    border-radius: 4px;
+  }
+</style>
+
 <!--Section: Docs content-->
 <section>
   <!--Section: Introduction-->
@@ -28,20 +79,31 @@
   <!--Section: Basic example-->
   <section id="section-basic-example">
     <!-- Section title -->
-    <h2 class="mb-4">Basic example</h2>
+    <h2 class="mb-4">Draggable basic example</h2>
 
-    <!--Section: Demo-->
-    <section class="border p-4 text-center mb-4"></section>
-    <!--Section: Demo-->
+    <!-- description -->
+    <p class="mb-4">
+      By adding <code>draggable-element</code> class name you can make your custom
+      element draggable.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4" style="height: 400px;">
+      <div class="draggable-element shadow-1-strong">
+        <p>Drag me!</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
 
     <!--Section: Code-->
     <section>
+      <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML"> </code>
-
-        <code data-lang="css" data-name="CSS"> </code>
-
-        <code data-lang="js" data-name="JavaScript"> </code>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-3">
+          <p>Drag me!</p>
+        </div>
+      </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
@@ -49,5 +111,660 @@
   <!--Section: Basic example-->
 
   <hr class="my-5" />
+
+  <!--Section: Draggable with container-->
+  <section id="section-draggable-with-container-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom container</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      If you want to have your draggable component in a container, just add
+      <code>data-container</code>
+      attribute with selector to your component.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section id="draggable-container" class="border p-4 mb-4" style="height: 400px; overflow: hidden;">
+      <div class="draggable-element shadow-1-strong" data-container="#draggable-container">
+        <p>Drag me!</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-1-strong" data-container="#draggable-container">
+          <p>Drag me!</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Draggable with container-->
+
+  <hr class="my-5" />
+
+  <!--Section: Draggable with blocked axis-->
+  <section id="section-draggable-with-blocked-axis">
+    <!-- Section title -->
+    <h2 class="mb-4">Blocked axis</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Thanks to <code>data-block-x-axis</code> attribute or
+      <code>data-block-y-axis</code> attribute you can disable x or y axis.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section id="draggable-container-2" class="border p-4 d-flex justify-content-center mb-4"
+      style="height: 400px; overflow: hidden;">
+      <div class="draggable-element shadow-1-strong" data-block-x-axis="true" data-container="#draggable-container-2">
+        <p>Drag me!</p>
+      </div>
+
+      <div class="draggable-element shadow-1-strong" data-block-y-axis="true" data-container="#draggable-container-2">
+        <p>Drag me!</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-1-strong" data-block-x-axis="true" data-container="#draggable-container-2">
+          <p>Drag me!</p>
+        </div>
+
+        <div class="draggable-element shadow-1-strong" data-block-y-axis="true" data-container="#draggable-container-2">
+          <p>Drag me!</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Draggable with blocked axis-->
+
+  <hr class="my-5" />
+
+  <!--Section: Draggable with delay-->
+  <section id="section-draggable-with-delay">
+    <!-- Section title -->
+    <h2 class="mb-4">Delay</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      You can set deley of starting dragging by adding
+      <code>data-delay</code> attribute with miliseconds value.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section id="draggable-container-3" class="border p-4 d-flex justify-content-center mb-4" style="height: 400px;">
+      <div class="draggable-element shadow-1-strong" data-delay="1000">
+        <p>Drag me after one second!</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-1-strong"  data-delay="1000">
+          <p>Drag me after one second!</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Draggable with delay-->
+
+  <hr class="my-5" />
+
+  <!--Section: Disabled draggable-->
+  <section id="section-draggable-disabled">
+    <!-- Section title -->
+    <h2 class="mb-4">Disabled</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      You can set your draggable element as disabled by adding
+      <code>data-disabled</code> with <code>true</code> value.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section id="draggable-container-4" class="border p-4 d-flex justify-content-center mb-4" style="height: 400px;">
+      <div class="draggable-element shadow-1-strong" data-disabled="true">
+        <p>Disabled</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-1-strong" data-disabled="true">
+          <p>Disabled</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Disabled draggable-->
+
+  <hr class="my-5" />
+
+  <!--Section: Draggable with custom drag button-->
+  <section id="section-draggable-with-custom-drag-button">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom drag button</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      By adding <code>data-drag-handle</code> with selector you can set drag handler
+      of your element. Note that drag handler has to be inside an element.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section id="draggable-container-5" class="border p-4 d-flex justify-content-center mb-4" style="height: 400px;">
+      <div class="draggable-element shadow-1-strong" data-drag-handle=".draggable-drag-ico">
+        <i class="fas fa-arrows-alt draggable-drag-ico"></i>
+        <p>Drag only on button!</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-1-strong" data-drag-handle=".draggable-drag-ico">
+          <i class="fas fa-arrows-alt draggable-drag-ico"></i>
+          <p>Drag only on button!</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Draggable with custom drag button-->
+
+  <hr class="my-5" />
+
+  <!--Section: Draggable with scrolling option-->
+  <section id="section-draggable-with-scroll">
+    <!-- Section title -->
+    <h2 class="mb-4">Scrolling option</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      When your draggable element is inside a scrollable container your component will
+      scroll its while you will be near the edge.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section id="draggable-container-6" class="border p-4 mb-4" style="height: 400px; overflow: auto;">
+      <div id="draggable-scroll" class="draggable-element shadow-1-strong" data-container="#draggable-container-6">
+        <p>Drag!</p>
+      </div>
+
+      <div style="height: 800px; width: 2000px;"></div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="draggable-scroll" class="draggable-element shadow-1-strong" data-container="#draggable-container-6">
+          <p>Drag!</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Draggable with scrolling option-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable Basic example-->
+  <section id="section-sortable-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Sortable basic example</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      By adding <code>data-sortable</code> with <code>sortable</code> value to your
+      list, you will make its sortable. Note, only elements with
+      <code>sortable-item</code> class name will be able to sort.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div data-sortable="sortable" class="sortable-list">
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div data-sortable="sortable" class="sortable-list">
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable horizontal example-->
+  <section id="section-sortable-horizontal-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Horizontal example</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Sortable list will create no matter how rotated it is.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="sortable-horizontal" data-sortable="sortable" class="sortable-list d-flex">
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div data-sortable="sortable" class="sortable-list d-flex">
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable horizontal example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable grid example-->
+  <section id="section-sortable-grid-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Grid example</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Sortable list works with grid as well.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex mb-4 d-flex justify-content-center">
+      <div id="sortable-grid" data-sortable="sortable" class="sortable-list d-flex flex-wrap">
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+        <div class="sortable-item">Item 6</div>
+        <div class="sortable-item">Item 7</div>
+        <div class="sortable-item">Item 8</div>
+        <div class="sortable-item">Item 9</div>
+        <div class="sortable-item">Item 10</div>
+        <div class="sortable-item">Item 11</div>
+        <div class="sortable-item">Item 12</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="sortable-grid" data-sortable="sortable" class="sortable-list d-flex flex-wrap">
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+          <div class="sortable-item">Item 6</div>
+          <div class="sortable-item">Item 7</div>
+          <div class="sortable-item">Item 8</div>
+          <div class="sortable-item">Item 9</div>
+          <div class="sortable-item">Item 10</div>
+          <div class="sortable-item">Item 11</div>
+          <div class="sortable-item">Item 12</div>
+        </div>
+      </code>
+
+        <code data-lang="css" data-name="CSS">
+        #sortable-grid .sortable-item {
+          width: 125px;
+          height: 125px;
+          margin: 15px;
+          display: flex;
+          justify-content: center;
+          border: 1px solid #ccc;
+          text-align: center;
+        }
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable grid example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable multiple tables-->
+  <section id="section-multiple-tables">
+    <!-- Section title -->
+    <h2 class="mb-4">Multiple tables</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      By adding <code>data-connected-list</code> attribute you can connect your list
+      with other. Note, you has to set value as selector when you initialize your
+      component via data attributes.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="sortable-multi-tables-1" data-sortable="sortable" class="sortable-list"
+        data-connected-list="#sortable-multi-tables-2">
+        <h4 class="text-center pt-2">To do</h4>
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+        <div class="sortable-item" data-disabled="true">Disabled</div>
+      </div>
+
+      <div id="sortable-multi-tables-2" data-sortable="sortable" class="sortable-list"
+        data-connected-list="#sortable-multi-tables-1">
+        <h4 class="text-center pt-2">Done</h4>
+        <div class="sortable-item">Item 6</div>
+        <div class="sortable-item">Item 7</div>
+        <div class="sortable-item">Item 8</div>
+        <div class="sortable-item">Item 9</div>
+        <div class="sortable-item">Item 10</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="sortable-multi-tables-1" data-sortable="sortable" class="sortable-list" data-connected-list="#sortable-multi-tables-2">
+          <h4 class="text-center pt-2">To do</h4>
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+          <div class="sortable-item" data-disabled="true">Disabled</div>
+        </div>
+
+        <div id="sortable-multi-tables-2" data-sortable="sortable" class="sortable-list" data-connected-list="#sortable-multi-tables-1">
+          <h4 class="text-center pt-2">Done</h4>
+          <div class="sortable-item">Item 6</div>
+          <div class="sortable-item">Item 7</div>
+          <div class="sortable-item">Item 8</div>
+          <div class="sortable-item">Item 9</div>
+          <div class="sortable-item">Item 10</div>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable multiple tables-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable with coping items-->
+  <section id="subsection-sortable-with-coping-items">
+    <!-- Section title -->
+    <h2 class="mb-4">Coping items</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      By adding <code>data-copy</code> with value <code>true</code> you can copy your
+      items to connected table.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="sortable-copy-1" data-sortable="sortable" class="sortable-list" data-connected-list="#sortable-copy-2"
+        data-copy="true" data-sorting="false">
+        <h4 class="text-center pt-2">Elements</h4>
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+      </div>
+
+      <div id="sortable-copy-2" data-sortable="sortable" class="sortable-list" data-connected-list="#sortable-copy-1">
+        <h4 class="text-center pt-2">Copy</h4>
+        <div class="sortable-item">Item 6</div>
+        <div class="sortable-item">Item 7</div>
+        <div class="sortable-item">Item 8</div>
+        <div class="sortable-item">Item 9</div>
+        <div class="sortable-item">Item 10</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="sortable-copy-1" data-sortable="sortable" class="sortable-list" data-connected-list="#sortable-copy-2" data-copy="true" data-sorting="false">
+          <h4 class="text-center pt-2">Elements</h4>
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+        </div>
+
+        <div id="sortable-copy-2" data-sortable="sortable" class="sortable-list" data-connected-list="#sortable-copy-1">
+          <h4 class="text-center pt-2">Copy</h4>
+          <div class="sortable-item">Item 6</div>
+          <div class="sortable-item">Item 7</div>
+          <div class="sortable-item">Item 8</div>
+          <div class="sortable-item">Item 9</div>
+          <div class="sortable-item">Item 10</div>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable with coping items-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable with conditions-->
+  <section id="subsection-sortable-with-conditions">
+    <!-- Section title -->
+    <h2 class="mb-4">Conditions</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      You can set your own conditions about permission to sending or coping items to
+      connected table by adding your custom function with <code>true</code> /
+      <code>false</code> return to <code>enterPredicate</code> property. Note, you can
+      only initialize it via JavaScript.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="sortable-condition-1" class="sortable-list">
+        <h4 class="text-center pt-2">Numbers</h4>
+        <div class="sortable-item" data-value="1">1</div>
+        <div class="sortable-item" data-value="2">2</div>
+        <div class="sortable-item" data-value="3">3</div>
+        <div class="sortable-item" data-value="4">4</div>
+        <div class="sortable-item" data-value="5">5</div>
+      </div>
+
+      <div id="sortable-condition-2" class="sortable-list">
+        <h4 class="text-center pt-2">Only odd numbers</h4>
+        <div class="sortable-item" data-value="7">7</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="sortable-condition-1" class="sortable-list">
+          <h4 class="text-center pt-2">Numbers</h4>
+          <div class="sortable-item" data-value="1">1</div>
+          <div class="sortable-item" data-value="2">2</div>
+          <div class="sortable-item" data-value="3">3</div>
+          <div class="sortable-item" data-value="4">4</div>
+          <div class="sortable-item" data-value="5">5</div>
+        </div>
+
+        <div id="sortable-condition-2" class="sortable-list">
+          <h4 class="text-center pt-2">Only odd numbers</h4>
+          <div class="sortable-item" data-value="7">7</div>
+        </div>
+      </code>
+
+        <code data-lang="js" data-name="JavaScript">
+        // Your custom function with true/false return
+        const accessOddNumbers = (value) => {
+          return parseInt(value) % 2;
+        }
+      
+        const sortableCondition1 = document.getElementById('sortable-condition-1');
+        const sortableCondition2 = document.getElementById('sortable-condition-2');
+      
+        const instanceSortableCondition1 = new DragAndDrop.Sortable(sortableCondition1, {
+          connectedList: sortableCondition2,
+          enterPredicate: accessOddNumbers,
+        });
+        const instanceSortableCondition2 = new DragAndDrop.Sortable(sortableCondition2);
+      </code>
+
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable with disabled sorting-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="subsection-sortable-with-disabled-sorting">
+    <!-- Section title -->
+    <h2 class="mb-4">Disabled sorting</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      By adding <code>data-sorting</code> with <code>false</code> value you can
+      disable sorting in table.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="sortable-disabled-1" data-sortable="sortable" class="sortable-list"
+        data-connected-list="#sortable-disabled-2">
+        <h4 class="text-center pt-2">Sorting available</h4>
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+      </div>
+
+      <div id="sortable-disabled-2" data-sortable="sortable" class="sortable-list"
+        data-connected-list="#sortable-disabled-1" data-sorting="false">
+        <h4 class="text-center pt-2">Sorting not available</h4>
+        <div class="sortable-item">item 6</div>
+        <div class="sortable-item">item 7</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="sortable-disabled-1" data-sortable="sortable" class="sortable-list" data-connected-list="#sortable-disabled-2">
+          <h4 class="text-center pt-2">Sorting available</h4>
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+        </div>
+
+        <div id="sortable-disabled-2" data-sortable="sortable" class="sortable-list" data-connected-list="#sortable-disabled-1" data-sorting="false">
+          <h4 class="text-center pt-2">Sorting not available</h4>
+          <div class="sortable-item">item 6</div>
+          <div class="sortable-item">item 7</div>
+        </div>
+      </code>
+
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable with disabled sorting-->
 </section>
 <!--Section: Docs content-->
