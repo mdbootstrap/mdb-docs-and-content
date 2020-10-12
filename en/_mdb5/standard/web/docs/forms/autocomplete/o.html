@@ -1,0 +1,489 @@
+<style>
+  .autocomplete-custom-item-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .autocomplete-custom-item-title {
+    font-weight: 500;
+  }
+
+  .autocomplete-custom-item-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .autocomplete-custom-content {
+    padding: 6.5px 16px;
+  }
+</style>
+
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">Autocomplete</h2>
+
+    <!-- Seo title -->
+    <h1 class="h6">Autocomplete - Bootstrap 5 & Material Design 2.0 component</h1>
+
+    <!-- Description -->
+    <p>
+      Autocomplete component predicts the words being typed based on the first few letters given by
+      the user. You can search the list using basic scroll and the keyboard arrows
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <p>
+      The <code>filter</code> option is required in order for component to work properly. The option
+      accepts a function that is expected to return an array of results or a
+      <code>Promise</code> that resolves to an array of results.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="basic" class="form-outline" style="width: 22rem;">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="basic" class="form-outline">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Example label</label>
+          </div>
+        </code>
+
+        <code data-lang="js" data-name="Javascript">
+          const basicAutocomplete = document.querySelector('#basic');
+          const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(basicAutocomplete, {
+            filter: dataFilter
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Display value-->
+  <section id="section-display-value">
+    <!-- Section title -->
+    <h2 class="mb-4">Display value</h2>
+
+    <p>
+      The <code>displayValue</code> option allow to separate oryginal result value from the value
+      that will be displayed in the result list or input (after selection). Its useful when the data
+      returned by the <code>filter</code> function is an array of objects. You can specify which
+      parameter of the object should be displayed.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="displayValue" class="form-outline" style="width: 22rem;">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="displayValue" class="form-outline">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Example label</label>
+            <div class="autocomplete-custom-content"></div>
+          </div>
+        </code>
+
+        <code data-lang="js" data-name="Javascript">
+          const displayValueAutocomplete = document.querySelector('#displayValue');
+          const data = [
+            { title: 'One', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+            { title: 'Two', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+            { title: 'Three', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+            { title: 'Four', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+            { title: 'Five', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' }
+          ];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.title.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(displayValueAutocomplete, {
+            filter: dataFilter,
+            displayValue: (value) => value.title,
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Display value-->
+
+  <hr class="my-5" />
+
+  <!--Section: Async search-->
+  <section id="section-async-search">
+    <!-- Section title -->
+    <h2 class="mb-4">Asynchronous search</h2>
+
+    <p>
+      The function passed to the <code>filter</code> option can return a <code>Promise</code> that
+      resolves to an array of results. By default the component expects to receive data as an array
+      of strings. If you want to return an array of objects instead, you can use
+      <code>displayValue</code> option to specify which parameter should be used as a display value
+      of the specific result.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="async" class="form-outline" style="width: 22rem;">
+        <input type="text" id="form2" class="form-control" />
+        <label class="form-label" for="form2">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="async" class="form-outline autocomplete">
+            <input type="text" id="form2" class="form-control" />
+            <label class="form-label" for="form2">Example label</label>
+          </div>
+        </code>
+
+        <code data-lang="javascript" data-name="Javascript">
+          const asyncAutocomplete = document.querySelector('#async');
+          const asyncFilter = async (query) => {
+            const url = `https://swapi.py4e.com/api/people/?search=${encodeURI(query)}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.results;
+          };
+
+          new mdb.Autocomplete(asyncAutocomplete, {
+            filter: asyncFilter,
+            displayValue: (value) => value.name
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Async search-->
+
+  <hr class="my-5" />
+
+  <!--Section: Threshold-->
+  <section id="section-threshold">
+    <!-- Section title -->
+    <h2 class="mb-4">Threshold</h2>
+
+    <p>
+      Use <code>threshold</code> option to specify a minimum number of the characters in the input
+      field needed to perform a search operation.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="threshold" class="form-outline" style="width: 22rem;">
+        <input
+          type="text"
+          id="form3"
+          class="form-control"
+          placeholder="Type 2 characters to search"
+        />
+        <label class="form-label" for="form3">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="threshold" class="form-outline">
+            <input
+              type="text"
+              id="form3"
+              class="form-control"
+              placeholder="Type 2 characters to search"
+            />
+            <label class="form-label" for="form3">Example label</label>
+          </div>
+        </code>
+
+        <code data-lang="javascript" data-name="Javascript">
+          const thresholdAutocomplete = document.querySelector('#threshold');
+          const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(thresholdAutocomplete, {
+            filter: dataFilter,
+            threshold: 2
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Threshold-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom item template-->
+  <section id="section-custom-item">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom item template</h2>
+
+    <p>
+      The <code>itemContent</code> option allow to display custom HTML in the result list. You can
+      use the <code>listHeight</code> option to modify the result list height when you want to
+      display more content in the component dropdown.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="customItem" class="form-outline" style="width: 22rem;" data-list-height="290">
+        <input type="text" id="form4" class="form-control" />
+        <label class="form-label" for="form4">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="customItem" class="form-outline" data-list-height="290">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Example label</label>
+          </div>
+        </code>
+
+        <code data-lang="js" data-name="Javascript">
+          const customItemAutocomplete = document.querySelector('#customItem');
+          const data = [
+            { title: 'One', subtitle: 'Secondary text' },
+            { title: 'Two', subtitle: 'Secondary text' },
+            { title: 'Three', subtitle: 'Secondary text' },
+            { title: 'Four', subtitle: 'Secondary text' },
+            { title: 'Five', subtitle: 'Secondary text' },
+            { title: 'Six', subtitle: 'Secondary text' },
+          ];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.title.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(customItem, {
+            filter: dataFilter,
+            displayValue: (value) => value.title,
+            itemContent: (result) => {
+              return `
+                <div class="autocomplete-custom-item-content">
+                  <div class="autocomplete-custom-item-title">${result.title}</div>
+                  <div class="autocomplete-custom-item-subtitle">${result.subtitle}</div>
+                </div>
+              `;
+            },
+          });
+        </code>
+
+        <code data-lang="css" data-name="SCSS">
+          .autocomplete-custom-item-content {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .autocomplete-custom-item-title {
+            font-weight: 500;
+          }
+
+          .autocomplete-custom-item-subtitle {
+            font-size: 0.8rem;
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom item template-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom content-->
+  <section id="section-custom-content">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom content</h2>
+
+    <p>
+      A custom content container with a class .autocomplete-custom-content will be displayed at the
+      end of the autocomplete-custom-item-subtitle dropdown. You can use it to display a number of
+      search results.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="customContent" class="form-outline" style="width: 22rem;">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="customContent" class="form-outline">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Example label</label>
+            <div class="autocomplete-custom-content"></div>
+          </div>
+        </code>
+
+        <code data-lang="js" data-name="Javascript">
+          const customContentAutocomplete = document.querySelector('#customContent');
+          const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(customContent, {
+            filter: dataFilter,
+            customContent: `
+              <div class="autocomplete-custom-content"></div>
+            `,
+          });
+
+          customContent.addEventListener('update.mdb.autocomplete', (event) => {
+            const resultsLength = event.results.length;
+
+            setTimeout(() => {
+              customContentContainer = document.querySelector('.autocomplete-custom-content');
+              customContentContainer.innerHTML = `Search results: ${resultsLength}`;
+            }, 0);
+          });
+        </code>
+
+        <code data-lang="css" data-name="SCSS">
+          .autocomplete-custom-content {
+            padding: 6.5px 16px;
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom content-->
+
+  <hr class="my-5" />
+
+  <!--Section: Validation-->
+  <section id="section-validation">
+    <!-- Section title -->
+    <h2 class="mb-4">Validation</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <form class="needs-validation" novalidate style="width: 22rem;">
+        <div id="validation" class="form-outline">
+          <input type="text" id="form6" class="form-control" required />
+          <label class="form-label" for="form6">Example label</label>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Input value is required</div>
+        </div>
+
+        <button type="submit" id="submit" class="btn btn-primary btn-sm mt-3">
+          Submit
+        </button>
+      </form>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form class="needs-validation" novalidate style="width: 22rem;">
+            <div id="validation" class="form-outline">
+              <input type="text" id="form6" class="form-control" required />
+              <label class="form-label" for="form6">Example label</label>
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Input value is required</div>
+            </div>
+
+            <button type="submit" id="submit" class="btn btn-primary btn-sm mt-3">
+              Submit
+            </button>
+          </form>
+        </code>
+
+        <code data-lang="js" data-name="Javascript">
+          const validationAutocomplete = document.querySelector('#validation');
+          const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(validationAutocomplete, {
+            filter: dataFilter
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Validation-->
+</section>
+<!--Section: Docs content-->
