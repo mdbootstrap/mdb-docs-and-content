@@ -17,25 +17,17 @@
     <!-- Section title -->
     <h2 class="mb-4">Usage</h2>
 
-    <p class="mb-4">Create default Countdown by adding <code>data-countdown</code> to a container element
-      with a Countdown expiration date value. Date value should be passed using
-      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse#ECMAScript_5_ISO-8601_format_support">proper Date format</a>.
-      <br />
-      Add <code>countdown-unit</code> class to a child element to indicate unit styling and
-      <code>countdown-*</code> class, where * indicating which time units should be displayed inside
-      Countdown.</p>
+    <p>
+      Add <code>dummy</code> class to any of HTML tags to initiate Dummy on this element. If no
+      options are passed, Dummy element based on tag element will be created.
+    </p>
 
     <h4>Via data attributes</h4>
 
     <!-- prettier-ignore -->
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
-        <div data-countdown="31 December 2021 23:59:59">
-          <div class="countdown-unit countdown-days"></div>
-          <div class="countdown-unit countdown-hours"></div>
-          <div class="countdown-unit countdown-minutes"></div>
-          <div class="countdown-unit countdown-seconds"></div>
-        </div>
+        <div class="dummy"></div>
       </code>
     </mdbsnippet>
 
@@ -43,41 +35,23 @@
 
     <!-- prettier-ignore -->
     <mdbsnippet>
-      <code data-lang="html" data-name="HTML">
-        <div id="countdown-element">
-          <div class="countdown-unit countdown-days"></div>
-          <div class="countdown-unit countdown-hours"></div>
-          <div class="countdown-unit countdown-minutes"></div>
-          <div class="countdown-unit countdown-seconds"></div>
-        </div>
-      </code>
       <code data-lang="js" data-name="JavaScript">
-        const countdownExample = document.getElementById('countdown-element');
-        new Countdown(countdownExample, {
-        countdown: "31 December 2021 23:59:59",
-        })
+        const dummyElement = document.getElementById('dummy-element');
+        new Dummy(dummyElement);
       </code>
     </mdbsnippet>
 
     <h4 class="mt-4">Via jQuery</h4>
 
     <p class="note note-warning">
-      <strong>Note:</strong> By default, MDB <strong>does not</strong> include jQuery
-      and you have to add it to the project on your own.
+      <strong>Note:</strong> By default, MDB <strong>does not</strong> include jQuery and you have
+      to add it to the project on your own.
     </p>
 
     <!-- prettier-ignore -->
     <mdbsnippet>
-      <code data-lang="html" data-name="HTML">
-        <div id="countdown-element">
-          <div class="countdown-unit countdown-days"></div>
-          <div class="countdown-unit countdown-hours"></div>
-          <div class="countdown-unit countdown-minutes"></div>
-          <div class="countdown-unit countdown-seconds"></div>
-        </div>
-      </code>
       <code data-lang="js" data-name="jQuery">
-        $('#countdown-element').countdown();
+        $('#dummy-element').dummy();
       </code>
     </mdbsnippet>
   </section>
@@ -91,9 +65,10 @@
     <h2 class="mb-4">Options</h2>
 
     <p>
-      Options can be passed via data attributes, JavaScript, or jQuery. For data
-      attributes, append the option name to <code>data-</code>, as in
-      <code>data-</code>. Each option can be passed with value or <code>null</code>.
+      Options can be passed via data attributes, JavaScript, or jQuery. For data attributes, append
+      the option name to <code>data-</code>, as in <code>data-dummy-text="20"</code>. Each option
+      can be passed with value or <code>null</code>. Passing <code>null</code> will cause element to
+      use default options.
     </p>
     <p></p>
     <div class="table-responsive">
@@ -109,88 +84,97 @@
         <tbody>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">countdown</code>
+              <code class="highlighter-rouge">dummyText</code>
             </td>
-            <td><i>String</i></td>
-            <td><code>''</code></td>
-            <td>Initiates Countdown instance on element. Takes the value of the date to which the timer will
-              be counting.</td>
+            <td><i>Null / Number</i></td>
+            <td><code>20</code></td>
+            <td>Creates Dummy Text of given length on element.</td>
           </tr>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">'unit'</code>
+              <code class="highlighter-rouge">dummyImg</code>
             </td>
-            <td><i></i></td>
+            <td><i>Null / String</i></td>
+            <td><code>'150'</code></td>
+            <td>Creates Dummy Img of given size.</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">dummyList</code>
+            </td>
+            <td><i>Null / Number</i></td>
+            <td><code>5</code></td>
+            <td>Creates Dummy List with given number of list elements</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">dummyTable</code>
+            </td>
+            <td><i>Null / String</i></td>
+            <td><code>'5,5'</code></td>
+            <td>Creates Dummy Table with given rows and cols number</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">dummyCopy</code>
+            </td>
+            <td><i>Null / String</i></td>
             <td><code></code></td>
-            <td>Attached to children element defines time unit to be displayed on element. Possible values:
-              <code>data-"days | hours | minutes | seconds"</code>.</td>
+            <td>Creates copy of element based on given selector</td>
           </tr>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">'countdownInterval'</code>
+              <code class="highlighter-rouge">dummyRepeat</code>
             </td>
-            <td><i>Number</i></td>
-            <td><code>0</code></td>
-            <td>Sets interval in seconds that will reset timer after given amount of time after initial
-              countdown ends.</td>
+            <td><i>Null / Number</i></td>
+            <td><code>1</code></td>
+            <td>
+              Creates given number of copies of element to which dummyRepeat was attached. Allows to
+              repeat elements created by other Dummy methods.
+            </td>
           </tr>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">countdownLabel</code>
+              <code class="highlighter-rouge">dummyTemplate</code>
             </td>
-            <td><i>String</i></td>
-            <td><code>''</code></td>
-            <td>Attached to children element defines time unit label to be displayed on element.</td>
+            <td><i>Null / String</i></td>
+            <td><code>'h1,p,table,h2,p, form,blockquote,img,ul'</code></td>
+            <td>Creates template from given string of HTML tag elements</td>
           </tr>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">countdownSeparator</code>
+              <code class="highlighter-rouge">dummyColor</code>
             </td>
-            <td><i>String</i></td>
-            <td><code>''</code></td>
-            <td>Attached to container element defines separator used between each time unit value. Separator
-              is not visible in vertical position of the Countdown element.</td>
+            <td><i>Null / String</i></td>
+            <td><code></code></td>
+            <td>
+              Defines color of Dummy Image background. Allows colours only in
+              <code>hex</code> format
+            </td>
           </tr>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">countdownPosition</code>
+              <code class="highlighter-rouge">dummyTextColor</code>
             </td>
-            <td><i>String</i></td>
-            <td><code>'horizontal'</code></td>
-            <td>Positions Countdown element horizontally or vertically.</td>
+            <td><i>Null / String</i></td>
+            <td><code></code></td>
+            <td>Defines color of Dummy Text</td>
           </tr>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">countdownLabelPosition</code>
+              <code class="highlighter-rouge">dummyImgText</code>
             </td>
-            <td><i>String</i></td>
-            <td><code>'vertical'</code></td>
-            <td>Positions the label at the bottom or next to the corresponding time unit value.</td>
+            <td><i>Null / String</i></td>
+            <td><code></code></td>
+            <td>Defines text of Dummy Text inside Dummy Image</td>
           </tr>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">countdownTextStyle</code>
+              <code class="highlighter-rouge">dummyTextLength</code>
             </td>
-            <td><i>String</i></td>
-            <td><code>''</code></td>
-            <td>Adds custom styles to all time unit text elements.</td>
-          </tr>
-          <tr>
-            <td class="text-nowrap">
-              <code class="highlighter-rouge">countdownLabelStyle</code>
-            </td>
-            <td><i>String</i></td>
-            <td><code>''</code></td>
-            <td>Adds custom styles to all labels.</td>
-          </tr>
-          <tr>
-            <td class="text-nowrap">
-              <code class="highlighter-rouge">countdownTextSize</code>
-            </td>
-            <td><i>String</i></td>
-            <td><code>''</code></td>
-            <td>Sets size of time unit text element. Text for labels in vertical label position is four
-              times smaller than time unit text.</td>
+            <td><i>Null / String</i></td>
+            <td><code></code></td>
+            <td>Defines length of the text in text based Dummy elements</td>
           </tr>
         </tbody>
       </table>
@@ -218,43 +202,22 @@
         <tbody>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">stop</code>
-            </td>
-            <td></td>
-            <td>Stops the timer.</td>
-            <td>
-              <code class="language-markup text-nowrap">instance.stop()</code>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-nowrap">
-              <code class="highlighter-rouge">start</code>
-            </td>
-            <td></td>
-            <td>Starts stopped timer.</td>
-            <td>
-              <code class="language-markup text-nowrap">instance.start()</code>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-nowrap">
-              <code class="highlighter-rouge">setCountdownDate</code>
-            </td>
-            <td>date</td>
-            <td>Dynamically sets new date to count to</td>
-            <td>
-              <code class="language-markup text-nowrap">instance.setCountdownDate('31 December 2021
-                23:59:59')</code>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-nowrap">
               <code class="highlighter-rouge">dispose</code>
             </td>
             <td></td>
-            <td>Disposes a Countdown instance.</td>
+            <td>Disposes a Dummy instance.</td>
             <td>
               <code class="language-markup text-nowrap">instance.dispose()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">init</code>
+            </td>
+            <td></td>
+            <td>Initializes dummy for dynamically added element.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.init()</code>
             </td>
           </tr>
           <tr>
@@ -263,11 +226,10 @@
             </td>
             <td>element</td>
             <td>
-              Static method which allows to get the countdown instance associated with
-              a DOM element.
+              Static method which allows to get the dummy instance associated with a DOM element.
             </td>
             <td>
-              <code class="language-markup text-nowrap">Countdown.getInstance(couontdownElement)</code>
+              <code class="language-markup text-nowrap">Dummy.getInstance(dummyElement)</code>
             </td>
           </tr>
         </tbody>
@@ -277,10 +239,9 @@
     <!-- prettier-ignore -->
     <mdbsnippet>
       <code data-lang="js" data-name="JavaScript">
-        const countdownElement = document.getElementById('countdown-element');
-        const instance = Countdown.getInstance(countdownElement);
-        instance.stop();
-        instance.start();
+        const dummyElement = document.getElementById('dummy-element');
+        const instance = Dummy.getInstance(dummyElement);
+        instance.init();
       </code>
     </mdbsnippet>
   </section>
@@ -304,19 +265,9 @@
         <tbody>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">start.mdb.countdown</code>
+              <code class="highlighter-rouge"></code>
             </td>
-            <td>
-              This event fires immediately when the countdown starts counting.
-            </td>
-          </tr>
-          <tr>
-            <td class="text-nowrap">
-              <code class="highlighter-rouge">end.mdb.countdown</code>
-            </td>
-            <td>
-              This event fires immediately when the countdown timer stops counting.
-            </td>
+            <td></td>
           </tr>
         </tbody>
       </table>
@@ -324,9 +275,6 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="js" data-name="JavaScript">
-          document.addEventListener('start.mdb.countdown', (e)=> {
-          // do something...
-          })
         </code>
       </mdbsnippet>
     </div>
@@ -342,18 +290,17 @@
 
     <!-- Description -->
     <p>
-      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following
-      code to import this component:
+      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following code to import
+      this component:
     </p>
 
     <!-- prettier-ignore -->
     <mdbsnippet>
       <code data-lang="js" data-name="JavaScript">
-        import { Countdown } from 'mdb-countdown';
+        import { Dummy } from 'mdb-dummy';
       </code>
     </mdbsnippet>
   </section>
   <!--Section: Import-->
-
 </section>
 <!--Section: Docs content-->
