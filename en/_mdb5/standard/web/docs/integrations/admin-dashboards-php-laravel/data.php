@@ -1,8 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'Admin Dashboard MDB 5 & PHP Laravel',
-  'seo_title' => 'Admin Dashboard MDB 5 & PHP Laravel',
-  'description' => 'Admin Dashboard MDB 5 & PHP Laravel',
+  'main_title' => 'Admin Dashboard + PHP + Laravel',
+  'seo_title' => 'Bootstrap 5 integration with PHP & Laravel',
+  'description' => 'MDB Integration - Admin Dashboard built with the latest Bootstrap 5, PHP, Laravel & Material Design 2.0',
   'url' => 'https://mdbootstrap.com/docs/standard/integrations/admin-dashboards-php-laravel/',
+  'image' => '',
+  'video' => '',
 );
