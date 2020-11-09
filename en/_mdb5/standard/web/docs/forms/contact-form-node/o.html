@@ -43,7 +43,7 @@
 
     <!--Section: Live Preview-->
     <section class="border p-4 d-flex justify-content-center mb-4">
-      <form id="contact-form" class="text-center" style="width: 100%; max-width: 300px">
+      <form id="form" class="text-center" style="width: 100%; max-width: 300px">
         <h2>Contact us</h2>
 
         <!-- Name input -->
@@ -86,7 +86,7 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
-          <form id="contact-form" action="mail.php" method="POST">
+          <form id="contact-form">
             <h2>Contact us</h2>
 
             <!-- Name input -->
@@ -111,6 +111,11 @@
             <div class="form-outline mb-4">
               <textarea class="form-control" id="message" name="message" rows="4"></textarea>
               <label class="form-label" for="message">Message</label>
+            </div>
+
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" name="mailCopy" id="mailCopy" value="1">
+              <label for="mailCopy" class="form-check-label">Notify me about new updates</label>
             </div>
 
             <!-- Submit button -->
@@ -150,7 +155,7 @@
     <section class="mb-4">
       <mdbsnippet class="mb-4">
         <code data-lang="js" data-name="JavaScript">
-          npm install express nodemailer body-parser --save
+          npm install express nodemailer body-parser dotenv express-validator --save
         </code>
       </mdbsnippet>
     </section>
@@ -175,7 +180,7 @@
           app.use(bodyParser.json());
 
           app.listen(port, () => {
-            console.log('Express started on port: ', port);
+          console.log('Express started on port: ', port);
           });
 
         </code>
@@ -190,5 +195,226 @@
     </p>
   </section>
   <!--Section: Node server -->
+
+  <hr class="my-5" />
+
+  <!--Section: File structure -->
+  <section id="section-file-structure">
+    <!-- Section title -->
+    <h2 class="mb-4">Create file structure for mail sending</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Having the server set up you are ready to create a file structure for mail sending route and
+      middleware. For the purposes of our course, it is not necessary, but in case you want to
+      expand the functionality of our example, it is worth knowing what the file structure could
+      looks like in applications using the NodeJS environment and Express server.
+    </p>
+
+    <!--Section: Environment variables -->
+    <section id="subsection-environment-variables" class="mb-4">
+      <!-- Section title -->
+      <h4 class="mb-4">Create and read environment variables file</h4>
+
+      <p>
+        Firstly, create <code>.env</code> file inside your root directory. This file will contain
+        all your private data that is used inside your NodeJS project. It's content for our purposes
+        would look like this:
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            PORT=3000 MAIL_USERNAME=your_email_address_here MAIL_PASSWORD=your_email_password
+            MAIL_HOST=smtp.gmail.com MAIL_PORT=465 MAIL_PROVIDER=gmail
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p class="mb-4">
+        Please note that we are using SMTP for Gmail here. If you would like to use another provider
+        your <code>HOST, PORT and PROVIDER</code> would be different. Also if you would like to send
+        test mails in development mode you may want to be interested in fake SMTP servers, e.g.
+        <a href="https://mailtrap.io/" target="_blank">Mailtrap</a>.
+      </p>
+
+      <p class="note note-danger mb-4">
+        <strong>Never</strong> publish your environment variable files. Include all your
+        <code>.env</code> files inside <code>.gitignore</code> file when you publish your code.
+      </p>
+
+      <p>
+        Now add <code>/config/index.js</code> file that will read all your environment variables.
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            require('dotenv').config(); module.exports = { PORT: process.env.PORT || 3000,
+            MAIL_HOST: process.env.MAIL_HOST, MAIL_PORT: process.env.MAIL_PORT, MAIL_PROVIDER:
+            process.env.MAIL_PROVIDER, MAIL_USERNAME: process.env.MAIL_USERNAME, MAIL_PASSWORDD:
+            process.env.MAIL_PASSWORD, };
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p class="mb-4">
+        ... and change your <code>server.js</code> file so the config can expose your variables to
+        the server:
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            const express = require('express'); const bodyParser = require('body-parser'); const
+            config = require('./config'); const app = express(); app.use(bodyParser.json());
+            app.use(require('./routes')); app.listen(config.PORT, () => { console.log(`Server is
+            running on port ${config.PORT}.`); });
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>
+        Also notice that we added <code>app.use(require('./routes'));</code> which will use our
+        router from the next section.
+      </p>
+    </section>
+    <!--Section: Environment variables -->
+
+    <!--Section: Router -->
+    <section id="subsection-router" class="mb-4">
+      <!-- Section title -->
+      <h4 class="mb-4">Create router and contact form routes.</h4>
+
+      <p class="mb-4">
+        Create <code>/routes</code> folder and inside it create two files. First
+        <code>index.js</code> that will control all your project routes:
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            const express = require('express'); const router = express.Router({ mergeParams: true
+            }); router.use('/contact', require('./contact.routes')); module.exports = router;
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p class="mb-4">
+        ... and <code>contact.routes.js</code> file that will contain all your contact form related
+        routes.
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            // express server specific imports const express = require('express'); const router =
+            express.Router({ mergeParams: true }); // import for cotact form routes controller const
+            contactController = require('../controllers/contact.controller'); // import for contact
+            validation middleware const { contactValidation } =
+            require('../middlewares/contactValidation'); router.post('/', contactValidation(),
+            contactController.sendContactForm); module.exports = router;
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p class="mb-4">
+        Thanks to <code>express.Router({ mergeParams: true })</code> we can access the
+        <code>params</code> from the parent router inside the child router. In our case creating
+        <code>router.post('/', ...)</code> is equal to <code>router.post('/contact', ...)</code>.
+        This structure is very helpful in deep nested routes structure.
+      </p>
+
+      <p class="mb-4">
+        Our contact router is also using <code>sendContactForm</code> method from the
+        contactController. Let's create this file.
+      </p>
+    </section>
+    <!--Section: Router -->
+
+    <!--Section: Contact controller -->
+    <section id="subsection-contact-controller" class="mb-4">
+      <!-- Section title -->
+      <h4 class="mb-4">Contact controller</h4>
+
+      <p class="mb-4">
+        Controllers are callback functions passed to the router methods which process request to the
+        route and generate the response.
+      </p>
+
+      <p class="mb-4">Controller for <code>/contact</code> route will look as follows:</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            const nodemailer = require('nodemailer'); const { check, validationResult } =
+            require('express-validator'); const { MAIL_HOST, MAIL_PORT, MAIL_PROVIDER,
+            MAIL_USERNAME, MAIL_PASSWORD } = require('../config'); const transporter =
+            nodemailer.createTransport({ host: MAIL_HOST, provider: MAIL_PROVIDER, port: MAIL_PORT,
+            secure: true, auth: { user: MAIL_USERNAME, pass: MAIL_PASSWORD, }, tls: {
+            rejectUnauthorized: false, }, }); exports.sendContactForm = async (req, res) => { await
+            check('name').notEmpty().withMessage('You must supply a name').run(req); await
+            check('email').isEmail().normalizeEmail().withMessage('Email is not valid').run(req);
+            await check('subject').notEmpty().withMessage('You must supply a subject').run(req);
+            await check('message').notEmpty().withMessage('You must supply a subject').run(req);
+            await check('mailCopy').toBoolean().run(req); const errors = validationResult(req); if
+            (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array() }); } const {
+            name, email, subject, message, mailCopy } = req.body; const mailOptions = { to: [''], //
+            Enter here the email address on which you want to send emails from your customers from:
+            name, subject, text: message, replyTo: email, }; if (mailCopy) {
+            mailOptions.to.push(email); } transporter .sendMail(message) .then(() => { return
+            res.status(200).json({ msg: 'Email sent successfully' }); }) .catch((error) => { return
+            res.status(400).json({ msg: `Something went wront: ${error}` }); }); };
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>
+        Line 5 - <code>const transporter = nodemailer.createTransport({ })</code> is used to create
+        a function that takes the object containing the configuration of the transporter as a
+        parameter. It is in this configuration that you define the host from which emails are sent,
+        the provider (if it is gmail), port, authorization, and many other things that are to be
+        sent.
+      </p>
+
+      <p>
+        Lines 20-24 - since manual validation of the contact form in the NodeJS environment would
+        look very similar to the validation on the <a href="" target="_blank">frontend</a> site,
+        we've decided to validate our backend code with <code>express-validator</code> package. Its
+        documentation can be found
+        <a href="https://express-validator.github.io/docs/" target="_blank">here</a>.
+      </p>
+
+      <p>Lines 26-29 - server response with error message for negativley validated contact form.</p>
+
+      <p>
+        Lines 33-43 - defines the <code>mailOptions</code> object that is sent to the sendMail()
+        method. It is in this object that we define, to who the email is to be sent, from who, what
+        is its subject, text, and to who the response in the email is to be addressed. In this
+        object are many more options that you can use. You will find them
+        <a gref="https://nodemailer.com/message/" target="_blank">here</a>.
+      </p>
+
+      <p>
+        Lines 45-52 - Code responsible for sending the mail with the parameters defined inside
+        <code>mailOptions</code>. Will send either success or failure response message to the
+        frontend.
+      </p>
+    </section>
+    <!--Section: Contact controller -->
+  </section>
+  <!--Section: File structure -->
 </section>
 <!--Section: Docs content-->
