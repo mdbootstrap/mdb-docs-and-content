@@ -1,0 +1,194 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p class="description"><?= $data_var['description']; ?></p>
+
+    <p class="note note-success">
+      For creating Contact Forms using <strong>PHP</strong> environment please follow the
+      <a href="#" target="_blank">link</a>
+    </p>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Form HTML-->
+  <section id="section-form-html">
+    <!-- Section title -->
+    <h2 class="mb-4">Form HTML</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      First, create basic contact form which will be our base for validating and sending data.
+    </p>
+
+    <p class="note note-danger">
+      Within this tutorial we are using the Material Design for Bootstrap library, you can download
+      it for free from
+      <a href="https://mdbootstrap.com/docs/standard/getting-started/installation/"
+        ><strong>here</strong></a
+      >. Without the library, the form will still work — however it may look and behave differently.
+      It's recommended to use this library along with the tutorial.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <form id="contact-form" class="text-center" style="width: 100%; max-width: 300px">
+        <h2>Contact us</h2>
+
+        <!-- Name input -->
+        <div class="form-outline mb-4">
+          <input type="text" id="name" name="name" class="form-control" />
+          <label class="form-label" for="name">Name</label>
+        </div>
+
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input type="email" id="email" name="email" class="form-control" />
+          <label class="form-label" for="email">Email address</label>
+        </div>
+
+        <!-- Subject input -->
+        <div class="form-outline mb-4">
+          <input type="text" id="subject" name="subject" class="form-control" />
+          <label class="form-label" for="subject">Subject</label>
+        </div>
+
+        <!-- Message input -->
+        <div class="form-outline mb-4">
+          <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+          <label class="form-label" for="message">Message</label>
+        </div>
+
+        <!-- Submit button -->
+        <button class="btn btn-primary btn-block mb-4">Send</button>
+      </form>
+    </section>
+    <!--Section: Live Preview-->
+
+    <p class="mt-4">
+      Copy and paste the following HTML and JavaScript code into your file (e.g.
+      <code>index.html</code>):
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form id="contact-form" action="mail.php" method="POST">
+            <h2>Contact us</h2>
+
+            <!-- Name input -->
+            <div class="form-outline mb-4">
+              <input type="text" id="name" name="name" class="form-control" />
+              <label class="form-label" for="name">Name</label>
+            </div>
+
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="email" id="email" name="email" class="form-control" />
+              <label class="form-label" for="email">Email address</label>
+            </div>
+
+            <!-- Subject input -->
+            <div class="form-outline mb-4">
+              <input type="text" id="subject" name="subject" class="form-control" />
+              <label class="form-label" for="subject">Subject</label>
+            </div>
+
+            <!-- Message input -->
+            <div class="form-outline mb-4">
+              <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+              <label class="form-label" for="message">Message</label>
+            </div>
+
+            <!-- Submit button -->
+            <button id="submit-form" type="submit" class="btn btn-primary btn-block mb-4">
+              Send
+            </button>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p class="note note-warning">
+      Rest of the frontend code for sending Contact Forms with NodeJS will be the same as in
+      <strong><a href="" target="_blank">PHP Contact Form</a></strong> tutorial, therefore it won't
+      be biscussed in more detail here and only parts of it requiring minor changes will be shown.
+    </p>
+  </section>
+  <!--Section: Form HTML-->
+
+  <hr class="my-5" />
+
+  <!--Section: Node server -->
+  <section id="section-node-server">
+    <!-- Section title -->
+    <h2 class="mb-4">Create NodeJS server file</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Create a new file called <code>server.js</code> inside your application's root directory.
+    </p>
+
+    <p class="mb-4">
+      If you haven't installed the express, nodemailer and body-parser packages from the npm
+      repository so far, do so immediately using the following command in your application terminal:
+    </p>
+    <section class="mb-4">
+      <mdbsnippet class="mb-4">
+        <code data-lang="js" data-name="JavaScript">
+          npm install express nodemailer body-parser --save
+        </code>
+      </mdbsnippet>
+    </section>
+
+    <p class="mb-4">
+      Having all set up, let's create our server. Paste following code into your file
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          const express = require('express');
+          const nodemailer = require('nodemailer');
+
+          const app = express();
+          const port = process.env.PORT || 3000;
+
+          const bodyParser = require('body-parser');
+
+          app.use(bodyParser.json());
+
+          app.listen(port, () => {
+            console.log('Express started on port: ', port);
+          });
+
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>
+      This will import all necessary dependencies, initialize application as expressinstance, create
+      body-parser middleware that will extract the eniter body from the request and expose it to the
+      server, and finally start the server.
+    </p>
+  </section>
+  <!--Section: Node server -->
+</section>
+<!--Section: Docs content-->

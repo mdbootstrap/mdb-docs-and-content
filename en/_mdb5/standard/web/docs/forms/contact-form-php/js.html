@@ -8,28 +8,32 @@
 
     // Loop over them and prevent submission
     Array.prototype.slice.call(forms).forEach((form) => {
-      form.addEventListener('submit', (event) => {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
+      form.addEventListener(
+        'submit',
+        (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        },
+        false
+      );
     });
   })();
 
   const forms = document.querySelectorAll('form');
-  forms.forEach(form => {
+  forms.forEach((form) => {
     form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    })
-  })
+      e.preventDefault();
+    });
+  });
 
   const submitButton = document.getElementById('custom-validation-button');
 
   submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    const {isDataValid, statusMessage} = validateForm();
+    const { isDataValid, statusMessage } = validateForm();
 
     if (!isDataValid) {
       document.getElementById('status').innerHTML = statusMessage;
@@ -45,35 +49,35 @@
     let statusMessage = '';
 
     const name = document.getElementById('custom-validation-name').value;
-    if (name == "") {
+    if (name == '') {
       statusMessage += `<p class="note note-danger"><strong>Name</strong> cannot be empty</p>`;
       isDataValid = false;
-    };
+    }
 
     const email = document.getElementById('custom-validation-email').value;
-    if (email == "") {
+    if (email == '') {
       statusMessage += `<p class="note note-danger"><strong>Email</strong> cannot be empty</p>`;
       isDataValid = false;
     } else {
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<p>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-      if(!re.test(email)){
+      if (!re.test(email)) {
         statusMessage += `<p class="note note-danger"><strong>Email</strong> is invalid</p>`;
         isDataValid = false;
       }
     }
 
     const subject = document.getElementById('custom-validation-subject').value;
-    if (subject == "") {
+    if (subject == '') {
       statusMessage += `<p class="note note-danger"><strong>Subject</strong> cannot be empty</p>`;
       isDataValid = false;
     }
     const message = document.getElementById('custom-validation-message').value;
-      if (message == "") {
+    if (message == '') {
       statusMessage += `<p class="note note-danger"><strong>Subject</strong> cannot be empty</p>`;
       isDataValid = false;
     }
 
-    return {isDataValid, statusMessage};
+    return { isDataValid, statusMessage };
   }
 </script>
