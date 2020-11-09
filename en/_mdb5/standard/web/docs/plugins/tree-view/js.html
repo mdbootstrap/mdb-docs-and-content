@@ -60,6 +60,10 @@
     collapseButton.addEventListener('click', () => {
       collapseInstance.collapse();
     });
+
+    collapseTreeview.addEventListener('collapsed.mdb.treeview', () => {
+      console.log('xd');
+    });
   })();
 
   (function () {
@@ -125,6 +129,61 @@
         colorTreeviewEl.classList.add(`treeview-${id}`);
         currentColor.innerText = id;
       });
+    });
+  })();
+
+  (function () {
+    const disabledTreeview = document.getElementById('disabled-element');
+
+    const disabledTreeviewInstance = new Treeview(disabledTreeview, {
+      structure: [
+        { name: 'One', disabled: true },
+        { name: 'Two' },
+        {
+          name: ' Three',
+          show: true,
+          children: [
+            { name: 'Second-one' },
+            { name: 'Second-two' },
+            {
+              name: ' Second-three',
+              disabled: true,
+              children: [
+                {
+                  name: ' Third-one',
+                  children: [
+                    { name: 'Fourth-one' },
+                    { name: 'Fourth-two' },
+                    { name: 'Fourth-three' },
+                  ],
+                },
+                { name: 'Third-two' },
+                {
+                  name: ' Third-three',
+                  children: [
+                    { name: 'Fourth-one' },
+                    { name: 'Fourth-two' },
+                    { name: 'Fourth-three' },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+  })();
+
+  (function () {
+    const filterTreeview = document.getElementById('filter-example');
+    const filteringInput = document.getElementById('form1');
+
+    const filterTreeviewInstance = Treeview.getInstance(filterTreeview);
+
+    filteringInput.addEventListener('change', () => {
+      const value = filteringInput.value;
+
+      filterTreeviewInstance.filter(value);
     });
   })();
 </script>
