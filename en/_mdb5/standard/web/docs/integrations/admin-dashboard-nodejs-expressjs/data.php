@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap 5 integration with Node.js & Express.js',
   'description' => 'MDB Integration - Admin Dashboard built with the latest Bootstrap 5, Node.js, Express.js & Material Design 2.0',
   'url' => 'https://mdbootstrap.com/docs/standard/integrations/admin-dashboard-nodejs-expressjs/',
-  'image' => '',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/general/integrations/assets/admin-nodejs-expressjs.jpg',
   'video' => '',
 );
