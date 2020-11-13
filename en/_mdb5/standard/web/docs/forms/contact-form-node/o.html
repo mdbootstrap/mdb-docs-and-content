@@ -15,10 +15,57 @@
 
     <p class="note note-success">
       For creating Contact Forms using <strong>PHP</strong> environment please follow the
-      <a href="#" target="_blank">link</a>
+      <a href="https://mdbootstrap.com/docs/standard/forms/contact-form-php/" target="_blank"
+        >link</a
+      >
     </p>
   </section>
   <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Prerequisites-->
+  <section id="section-prerequisites">
+    <!-- Section title -->
+    <h2 class="mb-4">Prerequisites</h2>
+
+    <p>Before starting the project make sure to install the following utilities:</p>
+
+    <ul>
+      <li>
+        <a href="https://nodejs.org/en/" target="_blank">Node LTS</a> environment (12.x.x
+        recomennded)
+      </li>
+      <li><a href="https://www.npmjs.com/package/express">Express</a>- setting the server</li>
+      <li>
+        <a href="https://www.npmjs.com/package/express-validator">Express-validator</a> - for
+        validating the form
+      </li>
+      <li><a href="https://www.npmjs.com/package/nodemailer">Nodemailer</a> - for sending mails</li>
+      <li>
+        <a href="https://www.npmjs.com/package/multer">Multer</a> - for handling multiparts request
+        (reading FormData)
+      </li>
+      <li>
+        <a href="https://www.npmjs.com/package/dotenv">Dotenv</a> - for loading environment
+        variables
+      </li>
+      <li>
+        <a href="https://www.npmjs.com/package/cors">Cors</a> - for enabling CORS (Cross-origin
+        resource sharing)
+      </li>
+    </ul>
+
+    <p class="note note-danger mb-4">
+      Within this tutorial we are using the Material Design for Bootstrap library, you can download
+      it for free from
+      <a href="https://mdbootstrap.com/docs/standard/getting-started/installation/"
+        ><strong>here</strong></a
+      >. Without the library, the form will still work — however it may look and behave differently.
+      It's recommended to use this library along with the tutorial.
+    </p>
+  </section>
+  <!--Section: Prerequisites-->
 
   <hr class="my-5" />
 
@@ -30,15 +77,6 @@
     <!-- description -->
     <p class="mb-4">
       First, create basic contact form which will be our base for validating and sending data.
-    </p>
-
-    <p class="note note-danger">
-      Within this tutorial we are using the Material Design for Bootstrap library, you can download
-      it for free from
-      <a href="https://mdbootstrap.com/docs/standard/getting-started/installation/"
-        ><strong>here</strong></a
-      >. Without the library, the form will still work — however it may look and behave differently.
-      It's recommended to use this library along with the tutorial.
     </p>
 
     <!--Section: Live Preview-->
@@ -70,8 +108,14 @@
           <label class="form-label" for="message">Message</label>
         </div>
 
+        <!-- Mail copy -->
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" name="mailCopy" id="mailCopy" value="1" />
+          <label for="mailCopy" class="form-check-label">Send me copy</label>
+        </div>
+
         <!-- Submit button -->
-        <button class="btn btn-primary btn-block mb-4">Send</button>
+        <button class="btn btn-primary btn-block my-4">Send</button>
       </form>
     </section>
     <!--Section: Live Preview-->
@@ -113,9 +157,10 @@
               <label class="form-label" for="message">Message</label>
             </div>
 
+            <!-- Mail copy -->
             <div class="form-check">
               <input type="checkbox" class="form-check-input" name="mailCopy" id="mailCopy" value="1">
-              <label for="mailCopy" class="form-check-label">Notify me about new updates</label>
+              <label for="mailCopy" class="form-check-label">Send me copy</label>
             </div>
 
             <!-- Submit button -->
@@ -129,9 +174,14 @@
     <!--Section: Code-->
 
     <p class="note note-warning">
-      Rest of the frontend code for sending Contact Forms with NodeJS will be the same as in
-      <strong><a href="" target="_blank">PHP Contact Form</a></strong> tutorial, therefore it won't
-      be biscussed in more detail here and only parts of it requiring minor changes will be shown.
+      Rest of the frontend code for sending Contact Forms with NodeJS, such as validating form on
+      frontend side or sending form with AJAX will be the same as in
+      <strong
+        ><a href="https://mdbootstrap.com/docs/standard/forms/contact-form-php/" target="_blank"
+          >PHP Contact Form</a
+        ></strong
+      >
+      tutorial, therefore it will be discussed here only in NodeJS relate parts.
     </p>
   </section>
   <!--Section: Form HTML-->
@@ -149,13 +199,14 @@
     </p>
 
     <p class="mb-4">
-      If you haven't installed the express, nodemailer and body-parser packages from the npm
-      repository so far, do so immediately using the following command in your application terminal:
+      If you haven't installed the express, nodemailer, body-parser and other necessary packages
+      from the npm repository so far, do so immediately using the following command in your
+      application terminal:
     </p>
     <section class="mb-4">
       <mdbsnippet class="mb-4">
         <code data-lang="js" data-name="JavaScript">
-          npm install express nodemailer body-parser dotenv express-validator --save
+          npm install express nodemailer express-validator multer dotenv cors --save
         </code>
       </mdbsnippet>
     </section>
@@ -169,39 +220,42 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="js" data-name="JavaScript">
-          const express = require('express');
-          const nodemailer = require('nodemailer');
+          const express = require("express");
+          const multer = require("multer");
+          const cors = require("cors");
 
           const app = express();
+          const upload = multer({ dest: "./uploads" });
+
           const port = process.env.PORT || 3000;
 
-          const bodyParser = require('body-parser');
-
-          app.use(bodyParser.json());
+          app.use(cors());
+          app.use(upload.any());
 
           app.listen(port, () => {
-          console.log('Express started on port: ', port);
+            console.log('Express started on port: ', port);
           });
-
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
 
     <p>
-      This will import all necessary dependencies, initialize application as expressinstance, create
-      body-parser middleware that will extract the eniter body from the request and expose it to the
-      server, and finally start the server.
+      This will import all necessary dependencies, initialize application as express instance,
+      allows Cross-Origin Resource Sharing (CORS) for sending information between frontend and
+      backend development servers and finally start the server.
+      <code>const upload = multer({ dest: "./uploads" })</code> and
+      <code>app.use(upload.any())</code> creates middlewarae for handling multiparts requests. which
+      will allow to send contact form data using FormData object.
     </p>
   </section>
   <!--Section: Node server -->
 
   <hr class="my-5" />
 
-  <!--Section: File structure -->
-  <section id="section-file-structure">
-    <!-- Section title -->
-    <h2 class="mb-4">Create file structure for mail sending</h2>
+  <!--Section: Server structure -->
+  <section id="section-server-structure">
+    <h2 class="mb-4">Create file structure for mail sending server</h2>
 
     <!-- description -->
     <p class="mb-4">
@@ -212,22 +266,36 @@
     </p>
 
     <!--Section: Environment variables -->
-    <section id="subsection-environment-variables" class="mb-4">
+    <section id="subsection-environment-variables">
       <!-- Section title -->
       <h4 class="mb-4">Create and read environment variables file</h4>
 
       <p>
         Firstly, create <code>.env</code> file inside your root directory. This file will contain
-        all your private data that is used inside your NodeJS project. It's content for our purposes
-        would look like this:
+        all your private data used inside your NodeJS project. It's content for our purposes would
+        look like this:
       </p>
 
       <!--Section: Code-->
       <section class="mb-4">
         <mdbsnippet class="mb-4">
           <code data-lang="js" data-name="JavaScript">
-            PORT=3000 MAIL_USERNAME=your_email_address_here MAIL_PASSWORD=your_email_password
-            MAIL_HOST=smtp.gmail.com MAIL_PORT=465 MAIL_PROVIDER=gmail
+            PORT=3000 MAIL_USERNAME_DEV=your_smtp_email_address
+            MAIL_PASSWORD_DEV=your_smtp_email_password MAIL_HOST_DEV=your_smtp_host
+            MAIL_PORT_DEV=your_smtp_port
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>Example <code>.env</code> file for Gmail</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            PORT=3000 MAIL_USERNAME_DEV=your_email_address_here
+            MAIL_PASSWORD_DEV=your_email_password MAIL_HOST_DEV=smtp.gmail.com MAIL_PORT_DEV=465
           </code>
         </mdbsnippet>
       </section>
@@ -237,7 +305,8 @@
         Please note that we are using SMTP for Gmail here. If you would like to use another provider
         your <code>HOST, PORT and PROVIDER</code> would be different. Also if you would like to send
         test mails in development mode you may want to be interested in fake SMTP servers, e.g.
-        <a href="https://mailtrap.io/" target="_blank">Mailtrap</a>.
+        <a href="https://mailtrap.io/" target="_blank">Mailtrap</a>. Also for production purposes it
+        is recommended to use one of many SMTP providers.
       </p>
 
       <p class="note note-danger mb-4">
@@ -254,9 +323,9 @@
         <mdbsnippet class="mb-4">
           <code data-lang="js" data-name="JavaScript">
             require('dotenv').config(); module.exports = { PORT: process.env.PORT || 3000,
-            MAIL_HOST: process.env.MAIL_HOST, MAIL_PORT: process.env.MAIL_PORT, MAIL_PROVIDER:
-            process.env.MAIL_PROVIDER, MAIL_USERNAME: process.env.MAIL_USERNAME, MAIL_PASSWORDD:
-            process.env.MAIL_PASSWORD, };
+            MAIL_HOST_DEV: process.env.MAIL_HOST_DEV, MAIL_PORT_DEV: process.env.MAIL_PORT_DEV,
+            MAIL_USERNAME_DEV: process.env.MAIL_USERNAME_DEV, MAIL_PASSWORDD_DEV:
+            process.env.MAIL_PASSWORD_DEV, };
           </code>
         </mdbsnippet>
       </section>
@@ -271,24 +340,27 @@
       <section class="mb-4">
         <mdbsnippet class="mb-4">
           <code data-lang="js" data-name="JavaScript">
-            const express = require('express'); const bodyParser = require('body-parser'); const
-            config = require('./config'); const app = express(); app.use(bodyParser.json());
-            app.use(require('./routes')); app.listen(config.PORT, () => { console.log(`Server is
-            running on port ${config.PORT}.`); });
+            const express = require("express"); const multer = require("multer"); const cors =
+            require("cors"); const config = require("./config"); const routes = require("./routes");
+            const upload = multer({ dest: "./uploads" }); const app = express(); app.use(cors());
+            app.use(upload.any()); app.use("/api", routes); app.listen(config.PORT, () => {
+            console.log(`Server is running on port ${config.PORT}.`); });
           </code>
         </mdbsnippet>
       </section>
       <!--Section: Code-->
 
       <p>
-        Also notice that we added <code>app.use(require('./routes'));</code> which will use our
-        router from the next section.
+        Also notice that we added <code>app.use("/api", routes);</code> which will use our router
+        from the next section.
       </p>
     </section>
     <!--Section: Environment variables -->
 
+    <hr class="my-4" />
+
     <!--Section: Router -->
-    <section id="subsection-router" class="mb-4">
+    <section id="subsection-router">
       <!-- Section title -->
       <h4 class="mb-4">Create router and contact form routes.</h4>
 
@@ -301,8 +373,9 @@
       <section class="mb-4">
         <mdbsnippet class="mb-4">
           <code data-lang="js" data-name="JavaScript">
-            const express = require('express'); const router = express.Router({ mergeParams: true
-            }); router.use('/contact', require('./contact.routes')); module.exports = router;
+            const router = require("express").Router({ mergeParams: true }); const contactRoutes =
+            require("./contact.routes"); router.use("/contact", contactRoutes); module.exports =
+            router;
           </code>
         </mdbsnippet>
       </section>
@@ -317,12 +390,11 @@
       <section class="mb-4">
         <mdbsnippet class="mb-4">
           <code data-lang="js" data-name="JavaScript">
-            // express server specific imports const express = require('express'); const router =
-            express.Router({ mergeParams: true }); // import for cotact form routes controller const
-            contactController = require('../controllers/contact.controller'); // import for contact
-            validation middleware const { contactValidation } =
-            require('../middlewares/contactValidation'); router.post('/', contactValidation(),
-            contactController.sendContactForm); module.exports = router;
+            // express server specific imports const router = require("express").Router({
+            mergeParams: true }); // import for contact form routes controller const {
+            ContactController } = require("../controllers/contact.controller"); router.post("/",
+            (req, res) => { const controller = new ContactController(req, res);
+            controller.sendContactForm(); }); module.exports = router;
           </code>
         </mdbsnippet>
       </section>
@@ -342,79 +414,230 @@
     </section>
     <!--Section: Router -->
 
+    <hr class="my-4" />
+
     <!--Section: Contact controller -->
-    <section id="subsection-contact-controller" class="mb-4">
+    <section id="subsection-contact-controller">
       <!-- Section title -->
       <h4 class="mb-4">Contact controller</h4>
 
       <p class="mb-4">
-        Controllers are callback functions passed to the router methods which process request to the
-        route and generate the response.
+        Controllers are callbacks passed to the router methods which process request to the route
+        and generate the response.
       </p>
 
-      <p class="mb-4">Controller for <code>/contact</code> route will look as follows:</p>
+      <p class="mb-4">
+        Create <code>/controllers</code> folder inside which you will create
+        <code>contact.controllers.js</code> file. Controller for <code>/contact</code> route will
+        look as follows:
+      </p>
 
       <!--Section: Code-->
       <section class="mb-4">
         <mdbsnippet class="mb-4">
           <code data-lang="js" data-name="JavaScript">
-            const nodemailer = require('nodemailer'); const { check, validationResult } =
-            require('express-validator'); const { MAIL_HOST, MAIL_PORT, MAIL_PROVIDER,
-            MAIL_USERNAME, MAIL_PASSWORD } = require('../config'); const transporter =
-            nodemailer.createTransport({ host: MAIL_HOST, provider: MAIL_PROVIDER, port: MAIL_PORT,
-            secure: true, auth: { user: MAIL_USERNAME, pass: MAIL_PASSWORD, }, tls: {
-            rejectUnauthorized: false, }, }); exports.sendContactForm = async (req, res) => { await
-            check('name').notEmpty().withMessage('You must supply a name').run(req); await
-            check('email').isEmail().normalizeEmail().withMessage('Email is not valid').run(req);
-            await check('subject').notEmpty().withMessage('You must supply a subject').run(req);
-            await check('message').notEmpty().withMessage('You must supply a subject').run(req);
-            await check('mailCopy').toBoolean().run(req); const errors = validationResult(req); if
-            (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array() }); } const {
-            name, email, subject, message, mailCopy } = req.body; const mailOptions = { to: [''], //
-            Enter here the email address on which you want to send emails from your customers from:
-            name, subject, text: message, replyTo: email, }; if (mailCopy) {
-            mailOptions.to.push(email); } transporter .sendMail(message) .then(() => { return
-            res.status(200).json({ msg: 'Email sent successfully' }); }) .catch((error) => { return
-            res.status(400).json({ msg: `Something went wront: ${error}` }); }); };
+            const nodemailer = require("nodemailer"); const { MAIL_HOST_DEV, MAIL_PORT_DEV,
+            MAIL_PROVIDER, MAIL_USERNAME_DEV, MAIL_PASSWORD_DEV } = require('../config'); const
+            transporter = nodemailer.createTransport({ host: MAIL_HOST_DEV, port: MAIL_PORT_DEV,
+            auth: { user: MAIL_USERNAME_DEV, pass: MAIL_PASSWORD_DEV, }, }); class ContactController
+            { constructor(request, response) { this.request = request; this.response = response; }
+            sendContactForm() { const { name, email, subject, message, mailCopy } =
+            this.request.body; const mailOptions = { to: ["your@email.com"], // Enter here the email
+            address on which you want to send emails from your customers from: name, subject, text:
+            message, }; if (mailCopy) { mailOptions.to.push(email); } transporter
+            .sendMail(mailOptions) .then(() => { return this.response .status(200) .json({ msg:
+            "Email sent successfully" }); }) .catch((error) => { return this.response .status(400)
+            .json({ errors: [{ msg: `Something went wrong: ${error}` }] }); }); } } module.exports =
+            ContactController;
           </code>
         </mdbsnippet>
       </section>
       <!--Section: Code-->
 
       <p>
+        Controller is based on a class instance for better scalability of the application. You could
+        also use function based controller aswell.
+      </p>
+
+      <p>
         Line 5 - <code>const transporter = nodemailer.createTransport({ })</code> is used to create
         a function that takes the object containing the configuration of the transporter as a
-        parameter. It is in this configuration that you define the host from which emails are sent,
-        the provider (if it is gmail), port, authorization, and many other things that are to be
-        sent.
+        parameter. It is in this configuration that you define the host from which emails are sent
+        port, authorization, and many other settings that are to be sent.
       </p>
 
       <p>
-        Lines 20-24 - since manual validation of the contact form in the NodeJS environment would
-        look very similar to the validation on the <a href="" target="_blank">frontend</a> site,
-        we've decided to validate our backend code with <code>express-validator</code> package. Its
-        documentation can be found
-        <a href="https://express-validator.github.io/docs/" target="_blank">here</a>.
+        Line 14 - create class instance of the controller that, in this example will take request
+        and response from the rserver as its constructor arguments.
       </p>
 
-      <p>Lines 26-29 - server response with error message for negativley validated contact form.</p>
+      <p>
+        Line 20 - declares <code>sendContactForm</code> method for handling <code>POST</code> method
+        on <code>/contact</code> route.
+      </p>
 
       <p>
-        Lines 33-43 - defines the <code>mailOptions</code> object that is sent to the sendMail()
-        method. It is in this object that we define, to who the email is to be sent, from who, what
-        is its subject, text, and to who the response in the email is to be addressed. In this
-        object are many more options that you can use. You will find them
+        Lines 22-33 - defines the <code>mailOptions</code> object that is sent to the sendMail()
+        method of transporter. It is in this object that we define, to who the email is to be sent,
+        from who, what is its subject, text, and to who the response in the email is to be
+        addressed. In this object are many more options that you can use. You will find them
         <a gref="https://nodemailer.com/message/" target="_blank">here</a>.
       </p>
 
       <p>
-        Lines 45-52 - Code responsible for sending the mail with the parameters defined inside
+        Lines 35-48 - Code responsible for sending the mail with the parameters defined inside
         <code>mailOptions</code>. Will send either success or failure response message to the
         frontend.
       </p>
     </section>
     <!--Section: Contact controller -->
+
+    <hr class="my-4" />
+
+    <!--Section: Validation middleware-->
+    <section id="subsection-validation-middleware">
+      <!-- Section title -->
+      <h4 class="mb-4">Create validating middleware</h4>
+
+      <p>
+        Middlewares are functions that have access to the server request and response objects. In
+        our example we will create middleware function that will validate contact form data.
+      </p>
+
+      <p class="mb-4">
+        Create <code>/middleware</code> folder and inside it create <code>validate.js</code> file.
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            const { body, validationResult } = require("express-validator"); module.exports = [
+            body("name").notEmpty().withMessage("You must supply a name"),
+            body("email").isEmail().normalizeEmail().withMessage("Email is not valid"),
+            body("subject").notEmpty().withMessage("You must supply a subject"),
+            body("message").notEmpty().withMessage("You must supply a message"),
+            body("mailCopy").toBoolean(), function (req, res, next) { const errors =
+            validationResult(req); if (!errors.isEmpty()) { return res.json({ errors: errors.array()
+            }); } next(); }, ];
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p class="mb-4">
+        We are using here <code>express-validator</code> package that will help us validate
+        <code>request.body</code> and if something is wrong provide server response with proper
+        error message. If everything in the request is ok, <code>next()</code> function that will
+        allow server to call next function (controller) is called.
+      </p>
+
+      <p class="mb-4">
+        Now update <code>contact.routes.js</code> file with our validator. Note that middleware
+        function is added between the route and controller callback.
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            // express server specific imports const router = require("express").Router({
+            mergeParams: true }); // import validation middleware const validate =
+            require("../middleware/validate"); // import for contact form routes controller const {
+            ContactController } = require("../controllers/contact.controller"); // add validator to
+            the route callback router.post("/", validate, (req, res) => { const controller = new
+            ContactController(req, res); controller.sendContactForm(); }); module.exports = router;
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Section: Validation middleware -->
+
+    <hr class="my-4" />
+
+    <!--Section: Run server -->
+    <section id="subsection-run-server">
+      <!-- Section title -->
+      <h4 class="mb-4">Run server</h4>
+
+      <p>In your <code>package.json</code> file add script that will run your server:</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            "start": "node server.js", "start:dev" : "nodemon server.js"
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>
+        You can also add <code>start:dev</code> script for development purposes that will restart
+        your server anytime you make a change to the code. For that add <code>nodemon</code> package
+        to your application.
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript"> npm install nodemon --save-dev </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Section: Run server -->
   </section>
-  <!--Section: File structure -->
+  <!--Section: Server structure -->
+
+  <hr class="my-5" />
+
+  <!--Section: Connect frontend with backend-->
+  <section id="section-connect-frontend-with-backend">
+    <!-- Section title -->
+    <h2 class="mb-4">Connect frontend form with backend server</h2>
+
+    <!-- description -->
+    <p class="mb-4">To connect frontend contact form with backend server we will use AJAX.</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet class="mb-4">
+        <code data-lang="js" data-name="JavaScript">
+          const form = document.getElementById('form'); form.addEventListener('submit', (e) => {
+          e.preventDefault(); const formData = new FormData(form); fetch('/api/contact', { method:
+          'POST', body: formData, mode: 'cors' }) .then((response) => { response.json(); })
+          .then((response) => { // handle errors if (response.errors) { response.errors.forEach(({
+          msg }) => { document.getElementById('status').innerHTML += `
+          <p class="note note-danger">${msg}</p>
+          ` }); return; } // If mail was sent successfully, reset all elements with attribute 'name'
+          const values = document.querySelectorAll('[name]'); values.forEach( value => {
+          value.textContent = ''; }); document.getElementById('status').innerHTML = `
+          <p class="note note-success">${response.msg}</p>
+          `; }) .catch((err) => { document.getElementById('status').innerHTML += `
+          <p class="note note-danger">${err}</p>
+          ` }) .finally(()=> { setTimeout(()=> { document.getElementById('status').innerHTML = '';
+          }, 2000) }) });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p class="mb-4">
+      Now it's time for you to run your backend server and frontend application and start sending
+      your contact forms.
+    </p>
+
+    <p class="mb-4">
+      Informations provided above are just an example of implementation of sending contact forms
+      using NodeJS server. If you have any questions, please do not hesitate to post a question on
+      our <a href="https://mdbootstrap.com/support/" target="_blank">support forum</a>. Final files
+      for the Contact Form Starter that will allow you to create scallable fullstack applications
+      using MDB Free, Contact Form controller and NodeJS you can download from our repository
+      <a href="" target="_blank">here</a>.
+    </p>
+  </section>
+  <!--Section: Connect frontend with backend-->
 </section>
 <!--Section: Docs content-->

@@ -7,7 +7,7 @@ $data_var = array(
   forms using the Bootstrap framework, JavaScript and NodeJS environment with Express server. It also covers validation of data, sending
   requests using AJAX and other form related topics. If you have any questions, please do not hesitate
   to post a question on our <a href="https://mdbootstrap.com/support/">support forum</a>.',
-  'url' => 'https://mdbootstrap.com/docs/standard/forms/contact-form/',
+  'url' => 'https://mdbootstrap.com/docs/standard/forms/contact-form-node/',
   'image' => '',
   'video' => '',
 );

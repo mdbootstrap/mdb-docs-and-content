@@ -7,7 +7,7 @@ $data_var = array(
   forms using the Bootstrap framework, PHP and JavaScript. It also covers validation of data, sending
   requests using AJAX and other form related topics. If you have any questions, please do not hesitate
   to post a question on our <a href="https://mdbootstrap.com/support/">support forum</a>.',
-  'url' => 'https://mdbootstrap.com/docs/standard/forms/contact-form/',
+  'url' => 'https://mdbootstrap.com/docs/standard/forms/contact-form-php/',
   'image' => '',
   'video' => '',
 );
