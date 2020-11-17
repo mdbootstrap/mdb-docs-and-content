@@ -144,47 +144,47 @@
     <section class="mb-4">
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <form id="contact-form">
-            <h2>Contact us</h2>
+      <code data-lang="html" data-name="HTML">
+        <form id="contact-form">
+          <h2>Contact us</h2>
 
-            <!-- Name input -->
-            <div class="form-outline mb-4">
-              <input type="text" id="name" name="name" class="form-control" />
-              <label class="form-label" for="name">Name</label>
-            </div>
+          <!-- Name input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="name" name="name" class="form-control" />
+            <label class="form-label" for="name">Name</label>
+          </div>
 
-            <!-- Email input -->
-            <div class="form-outline mb-4">
-              <input type="email" id="email" name="email" class="form-control" />
-              <label class="form-label" for="email">Email address</label>
-            </div>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="email" name="email" class="form-control" />
+            <label class="form-label" for="email">Email address</label>
+          </div>
 
-            <!-- Subject input -->
-            <div class="form-outline mb-4">
-              <input type="text" id="subject" name="subject" class="form-control" />
-              <label class="form-label" for="subject">Subject</label>
-            </div>
+          <!-- Subject input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="subject" name="subject" class="form-control" />
+            <label class="form-label" for="subject">Subject</label>
+          </div>
 
-            <!-- Message input -->
-            <div class="form-outline mb-4">
-              <textarea class="form-control" id="message" name="message" rows="4"></textarea>
-              <label class="form-label" for="message">Message</label>
-            </div>
+          <!-- Message input -->
+          <div class="form-outline mb-4">
+            <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+            <label class="form-label" for="message">Message</label>
+          </div>
 
-            <!-- Mail copy -->
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" name="mailCopy" id="mailCopy" value="1">
-              <label for="mailCopy" class="form-check-label">Send me copy</label>
-            </div>
+          <!-- Mail copy -->
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="mailCopy" id="mailCopy" value="1">
+            <label for="mailCopy" class="form-check-label">Send me copy</label>
+          </div>
 
-            <!-- Submit button -->
-            <button id="submit-form" type="submit" class="btn btn-primary btn-block mb-4">
-              Send
-            </button>
-          </form>
-        </code>
-      </mdbsnippet>
+          <!-- Submit button -->
+          <button id="submit-form" type="submit" class="btn btn-primary btn-block mb-4">
+            Send
+          </button>
+        </form>
+      </code>
+    </mdbsnippet>
     </section>
     <!--Section: Code-->
 
@@ -221,7 +221,7 @@
     <section class="mb-4">
       <mdbsnippet class="mb-4">
         <code data-lang="js" data-name="JavaScript">
-          npm install express nodemailer express-validator multer dotenv cors --save
+          npm install express nodemailer express-validator multer dotenv cors
         </code>
       </mdbsnippet>
     </section>
@@ -234,24 +234,24 @@
     <section class="mb-4">
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="js" data-name="JavaScript">
-          const express = require("express");
-          const multer = require("multer");
-          const cors = require("cors");
+      <code data-lang="js" data-name="JavaScript">
+        const express = require("express");
+        const multer = require("multer");
+        const cors = require("cors");
 
-          const app = express();
-          const upload = multer({ dest: "./uploads" });
+        const app = express();
+        const upload = multer();
 
-          const port = process.env.PORT || 3000;
+        const port = process.env.PORT || 3000;
 
-          app.use(cors());
-          app.use(upload.any());
+        app.use(cors());
+        app.use(upload.none());
 
-          app.listen(port, () => {
-            console.log('Express started on port: ', port);
-          });
-        </code>
-      </mdbsnippet>
+        app.listen(port, () => {
+          console.log('Express started on port: ', port);
+        });
+      </code>
+    </mdbsnippet>
     </section>
     <!--Section: Code-->
 
@@ -259,9 +259,16 @@
       This will import all necessary dependencies, initialize application as express instance,
       allows Cross-Origin Resource Sharing (CORS) for sending information between frontend and
       backend development servers and finally start the server.
-      <code>const upload = multer({ dest: "./uploads" })</code> and
-      <code>app.use(upload.any())</code> creates middlewarae for handling multiparts requests. which
-      will allow to send contact form data using FormData object.
+      <code>const upload = multer()</code> and <code>app.use(upload.none())</code> creates
+      middlewarae for handling multiparts requests, which will allow to send contact form data using
+      FormData object.
+    </p>
+
+    <p class="note note-warning">
+      In this example we use <code>app.use(upload.none())</code> to show how multipart request can
+      be handled (with file upload turned off), however it is not recommended to use it global
+      scope. In your production app use e.g. <code>upload.any()</code> for specific endpoints in
+      which you expect to handle multipart requests.
     </p>
   </section>
   <!--Section: Node server -->
@@ -295,22 +302,23 @@
       <section class="mb-4">
         <mdbsnippet class="mb-4">
           <code data-lang="js" data-name="JavaScript">
-            PORT=3000 MAIL_USERNAME_DEV=your_smtp_email_address
-            MAIL_PASSWORD_DEV=your_smtp_email_password MAIL_HOST_DEV=your_smtp_host
-            MAIL_PORT_DEV=your_smtp_port
+            NODE_ENV=development PORT=3000 MAIL_USERNAME=your_smtp_email_address
+            MAIL_PASSWORD=your_smtp_email_password MAIL_HOST=your_smtp_host MAIL_PORT=your_smtp_port
+            MAIL_TO=email_address_to_which_you_want_mails_to_be_sent
           </code>
         </mdbsnippet>
       </section>
       <!--Section: Code-->
 
-      <p>Example <code>.env</code> file for Gmail</p>
+      <p>Example <code>.env</code> file for Gmail SMTP</p>
 
       <!--Section: Code-->
       <section class="mb-4">
         <mdbsnippet class="mb-4">
           <code data-lang="js" data-name="JavaScript">
-            PORT=3000 MAIL_USERNAME_DEV=your_email_address_here
-            MAIL_PASSWORD_DEV=your_email_password MAIL_HOST_DEV=smtp.gmail.com MAIL_PORT_DEV=465
+            NODE_ENV=development PORT=3000 MAIL_USERNAME=your_email_address_here
+            MAIL_PASSWORD=your_email_password MAIL_HOST=smtp.gmail.com MAIL_PORT=465
+            MAIL_TO=email_address_to_which_you_want_mails_to_be_sent
           </code>
         </mdbsnippet>
       </section>
@@ -337,10 +345,10 @@
       <section class="mb-4">
         <mdbsnippet class="mb-4">
           <code data-lang="js" data-name="JavaScript">
-            require('dotenv').config(); module.exports = { PORT: process.env.PORT || 3000,
-            MAIL_HOST_DEV: process.env.MAIL_HOST_DEV, MAIL_PORT_DEV: process.env.MAIL_PORT_DEV,
-            MAIL_USERNAME_DEV: process.env.MAIL_USERNAME_DEV, MAIL_PASSWORDD_DEV:
-            process.env.MAIL_PASSWORD_DEV, };
+            require('dotenv').config(); module.exports = { PORT: process.env.PORT || 3000, NODE_ENV,
+            MAIL_HOST: process.env.MAIL_HOST, MAIL_PORT: process.env.MAIL_PORT, MAIL_USERNAME:
+            process.env.MAIL_USERNAME, MAIL_PASSWORD: process.env.MAIL_PASSWORD, MAIL_TO:
+            process.env.MAIL_TO };
           </code>
         </mdbsnippet>
       </section>
@@ -357,9 +365,9 @@
           <code data-lang="js" data-name="JavaScript">
             const express = require("express"); const multer = require("multer"); const cors =
             require("cors"); const config = require("./config"); const routes = require("./routes");
-            const upload = multer({ dest: "./uploads" }); const app = express(); app.use(cors());
-            app.use(upload.any()); app.use("/api", routes); app.listen(config.PORT, () => {
-            console.log(`Server is running on port ${config.PORT}.`); });
+            const upload = multer(); const app = express(); app.use(cors()); app.use(upload.none());
+            app.use("/api", routes); app.listen(config.PORT, () => { console.log(`Server is running
+            on port ${config.PORT}.`); });
           </code>
         </mdbsnippet>
       </section>
@@ -451,19 +459,18 @@
       <section class="mb-4">
         <mdbsnippet class="mb-4">
           <code data-lang="js" data-name="JavaScript">
-            const nodemailer = require("nodemailer"); const { MAIL_HOST_DEV, MAIL_PORT_DEV,
-            MAIL_PROVIDER, MAIL_USERNAME_DEV, MAIL_PASSWORD_DEV } = require('../config'); const
-            transporter = nodemailer.createTransport({ host: MAIL_HOST_DEV, port: MAIL_PORT_DEV,
-            auth: { user: MAIL_USERNAME_DEV, pass: MAIL_PASSWORD_DEV, }, }); class ContactController
-            { constructor(request, response) { this.request = request; this.response = response; }
+            const nodemailer = require("nodemailer"); const { MAIL_HOST, MAIL_PORT, MAIL_PROVIDER,
+            MAIL_USERNAME, MAIL_PASSWORD, MAIL_TO } = require('../config'); const transporter =
+            nodemailer.createTransport({ host: MAIL_HOST, port: MAIL_PORT, auth: { user:
+            MAIL_USERNAME, pass: MAIL_PASSWORD, }, }); class ContactController {
+            constructor(request, response) { this.request = request; this.response = response; }
             sendContactForm() { const { name, email, subject, message, mailCopy } =
-            this.request.body; const mailOptions = { to: ["your@email.com"], // Enter here the email
-            address on which you want to send emails from your customers from: name, subject, text:
-            message, }; if (mailCopy) { mailOptions.to.push(email); } transporter
-            .sendMail(mailOptions) .then(() => { return this.response .status(200) .json({ msg:
-            "Email sent successfully" }); }) .catch((error) => { return this.response .status(400)
-            .json({ errors: [{ msg: `Something went wrong: ${error}` }] }); }); } } module.exports =
-            ContactController;
+            this.request.body; const mailOptions = { to: [MAIL_TO], // Enter here the email address
+            on which you want to send emails from your customers from: name, subject, text: message,
+            }; if (mailCopy) { mailOptions.to.push(email); } transporter .sendMail(mailOptions)
+            .then(() => { return this.response .status(200) .json({ msg: "Email sent successfully"
+            }); }) .catch((error) => { return this.response .status(400) .json({ errors: [{ msg:
+            `Something went wrong: ${error}` }] }); }); } } module.exports = ContactController;
           </code>
         </mdbsnippet>
       </section>
@@ -647,16 +654,10 @@
     <p class="mb-4">
       Informations provided above are just an example of implementation of sending contact forms
       using NodeJS server. If you have any questions, please do not hesitate to post a question on
-      our <a href="https://mdbootstrap.com/support/" target="_blank">support forum</a>. Final files
-      for the Contact Form Starter that will allow you to create scallable fullstack applications
-      using MDB Free, Contact Form controller and NodeJS you can download from our repository
-      <a
-        href="https://mdbootstrap.com/download/contact-form-node/MDB5-Contact-Form-Starter.zip"
-        target="_blank"
-        >here</a
-      >.
+      our <a href="https://mdbootstrap.com/support/" target="_blank">support forum</a>.
     </p>
   </section>
+
   <!--Section: Connect frontend with backend-->
 </section>
 <!--Section: Docs content-->

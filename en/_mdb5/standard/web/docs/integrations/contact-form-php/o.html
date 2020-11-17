@@ -151,22 +151,24 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="php" data-name="PHP">
-          <?php
-            if(isset( $_POST['name']))
-            $name = $_POST['name'];
-            if(isset( $_POST['email']))
-            $email = $_POST['email'];
-            if(isset( $_POST['message']))
-            $message = $_POST['message'];
-            if(isset( $_POST['subject']))
-            $subject = $_POST['subject'];
 
-            $content="From: $name \n Email: $email \n Message: $message";
-            $recipient = "youremail@here.com";
-            $mailheader = "From: $email \r\n";
-            mail($recipient, $subject, $content, $mailheader) or die("Error!");
-            echo "Email sent!";
-            ?>
+          <?php
+          $name    = (isset($_POST['name'])) ? $_POST['name'] : '';
+          $email   = (isset($_POST['email'])) ? $_POST['email'] : '';
+          $message = (isset($_POST['message'])) ? $_POST['message'] : '';
+          $subject = (isset($_POST['subject'])) ? $_POST['subject'] : '';
+
+          $content    = "From: $name \n Email: $email \n Message: $message";
+          $recipient  = "youremail@here.com";
+
+          $mailheader = array(
+            'From' => $email,
+            'Content-Type' => 'text/html;charset=UTF-8',
+          );
+          mail($recipient, $subject, $content, $mailheader) or die("Error!");
+          echo "Email sent!";
+          ?>
+
         </code>
       </mdbsnippet>
     </section>
@@ -175,11 +177,6 @@
     <p>
       Now just replace youremail@here.com with your email address and it's done. Remember that in
       order for the script to work you will need to keep it on PHP-supporting server such as Apache.
-    </p>
-
-    <p>
-      You can download the source code from
-      <a href="https://mdbootstrap.com//download/contact-form-php/basic-example.zip">here</a>.
     </p>
   </section>
   <!--Section: Send via PHP -->
@@ -331,16 +328,16 @@
           </code>
           <code data-lang="js" data-name="JavaScript">
             (() => {
-            'use strict';
+              'use strict';
 
-            const forms = document.querySelectorAll('.needs-validation');
+              const forms = document.querySelectorAll('.needs-validation');
 
-            Array.prototype.slice.call(forms).forEach((form) => {
-              form.addEventListener('submit', (event) => {
-                if (!form.checkValidity()) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                }
+              Array.prototype.slice.call(forms).forEach((form) => {
+                form.addEventListener('submit', (event) => {
+                  if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }
                   form.classList.add('was-validated');
                 }, false);
               });
@@ -349,10 +346,6 @@
         </mdbsnippet>
       </section>
       <!--Section: Code-->
-      <p>
-        You can download the source code from
-        <a href="https://mdbootstrap.com//download/contact-form-php/mdb-validation.zip">here</a>.
-      </p>
     </section>
     <!--Section: MDB validation -->
 
@@ -523,13 +516,13 @@
                 let statusMessage = '';
 
                 const name = document.getElementById('custom-validation-name').value;
-                if (name == "") {
+                if (name === "") {
                   statusMessage += `<p class="note note-danger"><strong>Name</strong> cannot be empty</p>`;
                   isDataValid = false;
                 };
 
                 const email = document.getElementById('custom-validation-email').value;
-                if (email == "") {
+                if (email === "") {
                   statusMessage += `<p class="note note-danger"><strong>Email</strong> cannot be empty</p>`;
                   isDataValid = false;
                 } else {
@@ -542,12 +535,12 @@
                 }
 
                 const subject = document.getElementById('custom-validation-subject').value;
-                if (subject == "") {
+                if (subject === "") {
                   statusMessage += `<p class="note note-danger"><strong>Subject</strong> cannot be empty</p>`;
                   isDataValid = false;
                 }
                 const message = document.getElementById('custom-validation-message').value;
-                  if (message == "") {
+                  if (message === "") {
                   statusMessage += `<p class="note note-danger"><strong>Subject</strong> cannot be empty</p>`;
                   isDataValid = false;
                 }
@@ -558,11 +551,6 @@
           </mdbsnippet>
       </section>
       <!--Section: Code-->
-
-      <p>
-        You can download the source code from
-        <a href="https://mdbootstrap.com//download/contact-form-php/custom-validation.zip">here</a>.
-      </p>
     </section>
     <!--Section: Custom validation -->
   </section>
@@ -587,50 +575,37 @@
       <mdbsnippet>
         <code data-lang="php" data-name="PHP">
           <?php
-          if(isset( $_POST['name']))
-          $name = $_POST['name'];
-          if(isset( $_POST['email']))
-          $email = $_POST['email'];
-          if(isset( $_POST['message']))
-          $message = $_POST['message'];
-          if(isset( $_POST['subject']))
-          $subject = $_POST['subject'];
-          if ($name === ''){
-          echo "Name cannot be empty.";
-          die();
+          $name    = (isset($_POST['name'])) ? $_POST['name'] : '';
+          $email   = (isset($_POST['email'])) ? $_POST['email'] : '';
+          $message = (isset($_POST['message'])) ? $_POST['message'] : '';
+          $subject = (isset($_POST['subject'])) ? $_POST['subject'] : '';
+
+          if ($name === '') {
+            die("Name cannot be empty.");
           }
-          if ($email === ''){
-          echo "Email cannot be empty.";
-          die();
-          } else {
-          if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-          echo "Email format invalid.";
-          die();
+          if ($email === '') {
+            die("Email cannot be empty.");
+          } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            die("Email format invalid.");
           }
+          if ($subject === '') {
+            die("Subject cannot be empty.");
           }
-          if ($subject === ''){
-          echo "Subject cannot be empty.";
-          die();
+          if ($message === '') {
+            die("Message cannot be empty.");
           }
-          if ($message === ''){
-          echo "Message cannot be empty.";
-          die();
-          }
-          $content="From: $name \nEmail: $email \nMessage: $message";
-          $recipient = "youremail@here.com";
-          $mailheader = "From: $email \r\n";
-          mail($recipient, $subject, $content, $mailheader) or die("Error!");
-          echo "Email sent!";
-          ?>
+
+          $content    = "From: $name \n Email: $email \n Message: $message";
+          $recipient  = "youremail@here.com";
+
+          $mailheader = array(
+            'From' =>
+          $email, 'Content-Type' => 'text/html;charset=UTF-8', ); mail($recipient, $subject,
+          $content, $mailheader) or die("Error!"); echo "Email sent!"; ?>
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
-
-    <p>
-      You can download the source code from
-      <a href="https://mdbootstrap.com//download/contact-form-php/server-validation.zip">here</a>.
-    </p>
   </section>
   <!--Section: Server-side validation -->
 
@@ -663,7 +638,9 @@
           `; setTimeout(()=> { document.getElementById('status').innerHTML = ''; }, 2000) } else {
           document.getElementById('status').innerHTML = `
           <p class="note note-danger">${response.message}</p>
-          `; } }) .catch((err) => { console.log(err.message); }); });
+          `; } }) .catch((err) => { document.getElementById('status').innerHTML = `
+          <p class="note note-danger">An unexpected error occured. Please try again</p>
+          `; }); });
         </code>
       </mdbsnippet>
     </section>
@@ -682,31 +659,30 @@
       <mdbsnippet>
         <code data-lang="php" data-name="PHP">
           <?php
-          $name = $_POST['name'];
-          $email = $_POST['email'];
-          $message = $_POST['message'];
-          $subject = $_POST['subject'];
+          $name    = (isset($_POST['name'])) ? $_POST['name'] : '';
+          $email   = (isset($_POST['email'])) ? $_POST['email'] : '';
+          $message = (isset($_POST['message'])) ? $_POST['message'] : '';
+          $subject = (isset($_POST['subject'])) ? $_POST['subject'] : '';
+
           header('Content-Type: application/json');
-          if ($name === ''){
-          print json_encode(array('message' =>
-          'Name cannot be empty', 'code' => 0)); exit(); } if ($email === ''){ print
-          json_encode(array('message' => 'Email cannot be empty', 'code' => 0)); exit(); } else { if
-          (!filter_var($email, FILTER_VALIDATE_EMAIL)){ print json_encode(array('message' => 'Email
-          format invalid.', 'code' => 0)); exit(); } } if ($subject === ''){ print
-          json_encode(array('message' => 'Subject cannot be empty', 'code' => 0)); exit(); } if
-          ($message === ''){ print json_encode(array('message' => 'Message cannot be empty', 'code'
-          => 0)); exit(); } $content="From: $name \nEmail: $email \nMessage: $message"; $recipient =
-          "youremail@here.com"; $mailheader = "From: $email \r\n"; mail($recipient, $subject,
-          $content, $mailheader) or die("Error!"); print json_encode(array('message' => 'Email
-          successfully sent!', 'code' => 1)); exit(); ?>
+          if ($name === '') {
+            $response =  json_encode(array(
+              'message' =>
+          'Name cannot be empty', 'code' => 0 )); die($response); } if ($email === '') { $response =
+          json_encode(array( 'message' => 'Email cannot be empty', 'code' => 0 )); die($response); }
+          else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { $response = json_encode(array(
+          'message' => 'Email format invalid.', 'code' => 0 )); die($response); } if ($subject ===
+          '') { $response = json_encode(array( 'message' => 'Subject cannot be empty', 'code' => 0
+          )); die($response); } if ($message === '') { $response = json_encode(array( 'message' =>
+          'Message cannot be empty', 'code' => 0 )); die($response); } $content = "From: $name \n
+          Email: $email \n Message: $message"; $recipient = "youremail@here.com"; $mailheader =
+          array( 'From' => $email, 'Content-Type' => 'text/html;charset=UTF-8', ); mail($recipient,
+          $subject, $content, $mailheader) or die("Error!"); $response = json_encode(array(
+          'message' => 'Email successfully sent!', 'code' => 1 )); die($response); ?>
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
-    <p>
-      You can download the source code from
-      <a href="https://mdbootstrap.com//download/contact-form-php/ajax.zip">here</a>.
-    </p>
   </section>
   <!--Section: Send AJAX -->
 
@@ -765,7 +741,7 @@
   <hr class="my-5" />
 
   <!--Section: Other inputs -->
-  <section id="inputs">
+  <section id="section-other-inputs">
     <!-- Section title -->
     <h2 class="mb-4">Other inputs</h2>
 
@@ -809,7 +785,7 @@
             document.querySelector('form'); const data = new FormData(form); form.submit(); });
           </code>
           <code data-lang="php" data-name="PHP">
-            if(isset( $_POST['updates'])) $updates = $_POST['updates'];
+            $updates = if(isset( $_POST['updates'])) ? $_POST['updates'] : '';
           </code>
         </mdbsnippet>
       </section>
@@ -873,7 +849,7 @@
               <input
                 type="checkbox"
                 class="form-check-input"
-                name="channel"
+                name="channel[]"
                 id="checkbox1"
                 value="nl"
               />
@@ -884,7 +860,7 @@
               <input
                 type="checkbox"
                 class="form-check-input"
-                name="channel"
+                name="channel[]"
                 id="checkbox2"
                 value="ad"
               />
@@ -895,7 +871,7 @@
               <input
                 type="checkbox"
                 class="form-check-input"
-                name="channel"
+                name="channel[]"
                 id="checkbox3"
                 value="ot"
               />
@@ -907,7 +883,7 @@
             document.querySelector('form'); const data = new FormData(form); form.submit(); });
           </code>
           <code data-lang="php" data-name="PHP">
-            if(isset( $_POST['cmethod'])){ foreach ($_POST['cmethod'] as $value) { //loop through
+            if(isset( $_POST['channel'])){ foreach ($_POST['channel'] as $value) { //loop through
             all checked checkboxes and do logic } }
           </code>
         </mdbsnippet>
@@ -996,7 +972,7 @@
             document.querySelector('form'); const data = new FormData(form); form.submit(); });
           </code>
           <code data-lang="php" data-name="PHP">
-            if(isset( $_POST['cmethod'])) $updates = $_POST['cmethod'];
+            $updates = if(isset( $_POST['cmethod'])) ? $_POST['cmethod'] : '';
           </code>
         </mdbsnippet>
       </section>
