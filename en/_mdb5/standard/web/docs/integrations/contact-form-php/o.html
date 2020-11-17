@@ -15,15 +15,11 @@
 
     <p class="note note-light">
       For creating Contact Forms using <strong>NodeJS</strong> environment please follow the
-      <a href="https://mdbootstrap.com/docs/standard/forms/contact-form-node/" target="_blank"
+      <a
+        href="https://mdbootstrap.com/docs/standard/integrations/contact-form-node/"
+        target="_blank"
         >link</a
       >
-    </p>
-
-    <p>
-      If you don't want to follow the tutorial or you, just need a working solution, you can
-      download the final files from our repository
-      <a href="https://mdbootstrap.com/download/contact-form-php/ajax.zip">here</a>.
     </p>
   </section>
   <!--Section: Introduction-->
@@ -364,10 +360,14 @@
 
       <!--Section: Code-->
       <section class="mb-4">
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="js" data-name="Javascript">
+
             submitButton.addEventListener('click', function(){
-            document.getElementById('contact-form').submit() };
+              document.getElementById('contact-form').submit()
+            };
+
           </code>
         </mdbsnippet>
       </section>
@@ -380,9 +380,12 @@
 
       <!--Section: Code-->
       <section class="mb-4">
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="js" data-name="Javascript">
+
             submitButton.addEventListener('click', validateForm);
+
           </code>
         </mdbsnippet>
       </section>
@@ -572,8 +575,10 @@
 
     <!--Section: Code-->
     <section class="mb-4">
+      <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="php" data-name="PHP">
+
           <?php
           $name    = (isset($_POST['name'])) ? $_POST['name'] : '';
           $email   = (isset($_POST['email'])) ? $_POST['email'] : '';
@@ -599,9 +604,13 @@
           $recipient  = "youremail@here.com";
 
           $mailheader = array(
-            'From' =>
-          $email, 'Content-Type' => 'text/html;charset=UTF-8', ); mail($recipient, $subject,
-          $content, $mailheader) or die("Error!"); echo "Email sent!"; ?>
+            'From' => $email,
+            'Content-Type' => 'text/html;charset=UTF-8',
+          );
+          mail($recipient, $subject, $content, $mailheader) or die("Error!");
+          echo "Email sent!";
+          ?>
+
         </code>
       </mdbsnippet>
     </section>
@@ -625,23 +634,52 @@
 
     <!--Section: Code-->
     <section class="mb-4">
+      <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="js" data-name="JavaScript">
-          form.addEventListener('submit', (e) => { e.preventDefault(); const formData = new
-          FormData(e.target); const {isDataValid, statusMessage} = validateForm(); if (!isDataValid)
-          { document.getElementById('status').innerHTML = statusMessage; return; } fetch('mail.php',
-          { method: 'POST', body: formData }) .then((response) => { response.json(); })
-          .then((response) => { if (response.code) { // If mail was sent successfully, reset the
-          form; const values = document.querySelectorAll('.form-control'); values.forEach( value =>
-          { value.textContent = ''; }); document.getElementById('status').innerHTML = `
-          <p class="note note-success">${response.message}</p>
-          `; setTimeout(()=> { document.getElementById('status').innerHTML = ''; }, 2000) } else {
-          document.getElementById('status').innerHTML = `
-          <p class="note note-danger">${response.message}</p>
-          `; } }) .catch((err) => { document.getElementById('status').innerHTML = `
-          <p class="note note-danger">An unexpected error occured. Please try again</p>
-          `; }); });
+
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+
+            const {isDataValid, statusMessage} = validateForm();
+
+            if (!isDataValid) {
+              document.getElementById('status').innerHTML = statusMessage;
+              return;
+            }
+
+            fetch('mail.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then((response) => {
+              response.json();
+            })
+            .then((response) => {
+              if (response.code) {
+                // If mail was sent successfully, reset the form;
+                const values = document.querySelectorAll('.form-control');
+                values.forEach( value => {
+                  value.textContent = '';
+                });
+
+                document.getElementById('status').innerHTML = `<p class="note note-success">${response.message}</p>`;
+                setTimeout(()=> {
+                  document.getElementById('status').innerHTML = '';
+                }, 2000)
+              } else {
+                document.getElementById('status').innerHTML = `<p class="note note-danger">${response.message}</p>`;
+              }
+            })
+            .catch((err) => {
+              document.getElementById('status').innerHTML = `<p class="note note-danger">An unexpected error occured. Please try again</p>`;
+            });
+          });
+
         </code>
+
       </mdbsnippet>
     </section>
     <!--Section: Code-->
@@ -656,6 +694,7 @@
 
     <!--Section: Code-->
     <section class="mb-4">
+      <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="php" data-name="PHP">
           <?php
@@ -667,18 +706,54 @@
           header('Content-Type: application/json');
           if ($name === '') {
             $response =  json_encode(array(
-              'message' =>
-          'Name cannot be empty', 'code' => 0 )); die($response); } if ($email === '') { $response =
-          json_encode(array( 'message' => 'Email cannot be empty', 'code' => 0 )); die($response); }
-          else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { $response = json_encode(array(
-          'message' => 'Email format invalid.', 'code' => 0 )); die($response); } if ($subject ===
-          '') { $response = json_encode(array( 'message' => 'Subject cannot be empty', 'code' => 0
-          )); die($response); } if ($message === '') { $response = json_encode(array( 'message' =>
-          'Message cannot be empty', 'code' => 0 )); die($response); } $content = "From: $name \n
-          Email: $email \n Message: $message"; $recipient = "youremail@here.com"; $mailheader =
-          array( 'From' => $email, 'Content-Type' => 'text/html;charset=UTF-8', ); mail($recipient,
-          $subject, $content, $mailheader) or die("Error!"); $response = json_encode(array(
-          'message' => 'Email successfully sent!', 'code' => 1 )); die($response); ?>
+              'message' => 'Name cannot be empty',
+              'code' => 0
+            ));
+            die($response);
+          }
+          if ($email === '') {
+            $response =  json_encode(array(
+              'message' => 'Email cannot be empty',
+              'code' => 0
+            ));
+            die($response);
+          } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $response =  json_encode(array(
+              'message' => 'Email format invalid.',
+              'code' => 0
+            ));
+            die($response);
+          }
+          if ($subject === '') {
+            $response =  json_encode(array(
+              'message' => 'Subject cannot be empty',
+              'code' => 0
+            ));
+            die($response);
+          }
+          if ($message === '') {
+            $response =  json_encode(array(
+              'message' => 'Message cannot be empty',
+              'code' => 0
+            ));
+            die($response);
+          }
+
+          $content    = "From: $name \n Email: $email \n Message: $message";
+          $recipient  = "youremail@here.com";
+
+          $mailheader = array(
+            'From' => $email,
+            'Content-Type' => 'text/html;charset=UTF-8',
+          );
+          mail($recipient, $subject, $content, $mailheader) or die("Error!");
+          $response =  json_encode(array(
+            'message' => 'Email successfully sent!',
+            'code' => 1
+          ));
+          die($response);
+          ?>
+
         </code>
       </mdbsnippet>
     </section>
@@ -767,22 +842,23 @@
 
       <!--Section: Code-->
       <section>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="php" data-name="PHP">
             <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                name="updates"
-                id="updates"
-                value="1"
-              />
+              <input type="checkbox" class="form-check-input" name="updates" id="updates" value="1">
               <label for="updates" class="form-check-label">Notify me about new updates</label>
             </div>
           </code>
           <code data-lang="js" data-name="Javascript">
-            submitButton.addEventListener('click', (e) => { e.preventDefault(); const form =
-            document.querySelector('form'); const data = new FormData(form); form.submit(); });
+            submitButton.addEventListener('click', (e) => {
+              e.preventDefault();
+
+              const form = document.querySelector('form');
+              const data = new FormData(form);
+
+              form.submit();
+            });
           </code>
           <code data-lang="php" data-name="PHP">
             $updates = if(isset( $_POST['updates'])) ? $_POST['updates'] : '';
@@ -841,50 +917,42 @@
 
       <!--Section: Code-->
       <section>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="HTML" data-name="HTML">
             <h5 class="h5 mb-3">How did you get to know about us?</h5>
 
             <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                name="channel[]"
-                id="checkbox1"
-                value="nl"
-              />
-              <label for="checkbox1" class="form-check-label">Newsletter</label>
+                <input type="checkbox" class="form-check-input" name="channel[]" id="checkbox1" value="nl">
+                <label for="checkbox1" class="form-check-label">Newsletter</label>
             </div>
 
             <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                name="channel[]"
-                id="checkbox2"
-                value="ad"
-              />
-              <label for="checkbox2" class="form-check-label">Advertisement</label>
+                <input type="checkbox" class="form-check-input" name="channel[]" id="checkbox2" value="ad">
+                <label for="checkbox2" class="form-check-label">Advertisement</label>
             </div>
 
             <div class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                name="channel[]"
-                id="checkbox3"
-                value="ot"
-              />
-              <label for="checkbox3" class="form-check-label">Other</label>
+                <input type="checkbox" class="form-check-input" name="channel[]" id="checkbox3" value="ot">
+                <label for="checkbox3" class="form-check-label">Other</label>
             </div>
           </code>
           <code data-lang="js" data-name="Javascript">
-            submitButton.addEventListener('click', (e) => { e.preventDefault(); const form =
-            document.querySelector('form'); const data = new FormData(form); form.submit(); });
+            submitButton.addEventListener('click', (e) => {
+              e.preventDefault();
+
+              const form = document.querySelector('form');
+              const data = new FormData(form);
+
+              form.submit();
+            });
           </code>
           <code data-lang="php" data-name="PHP">
-            if(isset( $_POST['channel'])){ foreach ($_POST['channel'] as $value) { //loop through
-            all checked checkboxes and do logic } }
+            if(isset( $_POST['channel'])){
+              foreach ($_POST['channel'] as $value) {
+                //loop through all checked checkboxes and do logic
+              }
+            }
           </code>
         </mdbsnippet>
       </section>
@@ -929,47 +997,35 @@
 
       <!--Section: Code-->
       <section>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="HTML" data-name="HTML">
             <h5 class="h5 mb-3">What is your preferred contact method?</h5>
 
             <div class="form-check mb-4">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="radio1"
-                name="cmethod"
-                value="phone"
-                checked
-              />
-              <label class="form-check-label" for="radio1">Phone</label>
+                <input class="form-check-input" type="radio" id="radio1" name="cmethod" value="phone" checked>
+                <label class="form-check-label" for="radio1">Phone</label>
             </div>
 
             <div class="form-check mb-3">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="radio2"
-                name="cmethod"
-                value="mail"
-              />
-              <label class="form-check-label" for="radio2">Email</label>
+                <input class="form-check-input" type="radio" id="radio2" name="cmethod" value="mail">
+                <label class="form-check-label" for="radio2">Email</label>
             </div>
 
             <div class="form-check mb-3">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="radio3"
-                name="cmethod"
-                value="post"
-              />
-              <label class="form-check-label" for="radio3">Post</label>
+                <input class="form-check-input" type="radio" id="radio3" name="cmethod" value="post">
+                <label class="form-check-label" for="radio3">Post</label>
             </div>
           </code>
           <code data-lang="js" data-name="Javascript">
-            submitButton.addEventListener('click', (e) => { e.preventDefault(); const form =
-            document.querySelector('form'); const data = new FormData(form); form.submit(); });
+            submitButton.addEventListener('click', (e) => {
+              e.preventDefault();
+
+              const form = document.querySelector('form');
+              const data = new FormData(form);
+
+              form.submit();
+            });
           </code>
           <code data-lang="php" data-name="PHP">
             $updates = if(isset( $_POST['cmethod'])) ? $_POST['cmethod'] : '';
