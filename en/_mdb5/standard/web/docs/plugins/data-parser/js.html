@@ -1,1 +1,532 @@
-<script></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/mdb5/plugins/treeview.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/mdb5/plugins/vector-maps.min.js"></script>
+<script>
+  // DATATABLE
+
+  // Datatables - CSV
+
+  (() => {
+    const table = document.getElementById('datatable-csv');
+
+    const columns = ['Country', 'Code', 'Population 2015', 'Population 2016'];
+
+    const datatableInstance = new mdb.Datatable(table, { columns }, { loading: true });
+
+    fetch('data.csv')
+      .then((data) => data.text())
+      .then((data) => {
+        const parser = new DataParser('datatable', 'csv', {
+          rows: { start: 10, end: 14 },
+          columns: {
+            indexes: [0, 1, 57, 58],
+          },
+        });
+
+        const { rows } = parser.parse(data);
+
+        setTimeout(() => datatableInstance.update({ rows }, { loading: false }), 2000);
+      });
+  })();
+
+  // Datatables - JSON
+
+  (() => {
+    const table = document.getElementById('datatable-json');
+
+    const columns = [
+      { label: 'Country', field: 'Country' },
+      { label: 'Code', field: 'Country_Code' },
+      { label: 'Population 2015', field: 'Year_2015' },
+      { label: 'Population 2016', field: 'Year_2016' },
+    ];
+
+    const datatableInstance = new mdb.Datatable(table, { columns }, { loading: true });
+
+    fetch('data.json')
+      .then((data) => data.json())
+      .then((data) => {
+        const parser = new DataParser('datatable', 'json', {
+          rows: { start: 30, end: 100 },
+          keys: columns.map((column) => column.field),
+        });
+
+        const { rows } = parser.parse(data);
+
+        setTimeout(() => datatableInstance.update({ rows }, { loading: false }), 2000);
+      });
+  })();
+
+  // VECTOR MAPS
+
+  // Vector Maps - CSV
+
+  (() => {
+    const map = document.getElementById('map-csv');
+
+    const vectorMapInstance = new VectorMap(map, {
+      fill: '#fff',
+      readonly: true,
+      hover: false,
+    });
+
+    fetch('data.csv')
+      .then((data) => data.text())
+      .then((data) => {
+        const parser = new DataParser('vectorMap', 'csv', {
+          color: 'lightGreen',
+          field: 42,
+          rows: {
+            start: 1,
+          },
+          step: 8000000,
+          countryIdentifier: 1,
+        });
+
+        const { colorMap, legend } = parser.parse(data);
+
+        setTimeout(() => vectorMapInstance.update({ colorMap }), 2000);
+      });
+  })();
+
+  // Vector Maps - JSON
+
+  (() => {
+    const map = document.getElementById('map-json');
+    const legendList = document.getElementById('legend-json');
+
+    const getLegend = (legend) => {
+      return legend
+        .map((color, i) => {
+          let label;
+
+          if (i === 0) {
+            label = `< ${color.max}`;
+          } else if (i === legend.length - 1) {
+            label = `> ${color.min}`;
+          } else {
+            label = `${color.min} - ${color.max}`;
+          }
+
+          return `
+          <li class="vector-map-legend__item my-2">
+            <div class="vector-map-legend__color mr-2 border border-light" style="background-color: ${color.color}"></div>
+            <small>${label}</small>
+          </li>
+          `;
+        })
+        .join('\n');
+    };
+
+    const vectorMapInstance = new VectorMap(map, {
+      fill: 'rgb(7 43 49)',
+      tooltips: true,
+      stroke: '#fff',
+      btnClass: 'btn-light',
+      readonly: true,
+      hover: false,
+    });
+
+    fetch('data.json')
+      .then((data) => data.json())
+      .then((data) => {
+        const parser = new DataParser('vectorMap', 'json', {
+          color: [
+            'rgba(163, 199, 210, 0.05)',
+            'rgba(163, 199, 210, 0.1)',
+            'rgba(163, 199, 210, 0.15)',
+            'rgba(163, 199, 210, 0.2)',
+            'rgba(163, 199, 210, 0.25)',
+            'rgba(163, 199, 210, 0.3)',
+            'rgba(163, 199, 210, 0.35)',
+            'rgba(163, 199, 210, 0.4)',
+            'rgba(163, 199, 210, 0.45)',
+            'rgba(163, 199, 210, 0.5)',
+          ],
+          field: 'Year_2016',
+          step: 8000000,
+          countryIdentifier: 'Country_Code',
+          tooltips: (value) => `Population: ${value}`,
+        });
+
+        const { colorMap, legend } = parser.parse(data);
+
+        legendList.innerHTML = getLegend(legend);
+
+        vectorMapInstance.update({
+          colorMap,
+          markers: [
+            {
+              ...parser.getMapCoordinates(52.107811, 19.94487),
+              fill: 'rgb(185, 211, 220)',
+              type: 'bullet',
+              label: 'Warsaw',
+              latitude: 52.2297,
+              longitude: 21.0122,
+            },
+          ],
+        });
+      });
+  })();
+
+  // CHARTS
+
+  // Charts - CSV
+
+  (() => {
+    const chart = document.getElementById('chart-csv');
+    const chartInstance = new mdb.Chart(
+      chart,
+      { type: 'line' },
+      {
+        options: {
+          tooltips: {
+            displayColors: false,
+          },
+        },
+      }
+    );
+
+    fetch('data.csv')
+      .then((data) => data.text())
+      .then((data) => {
+        const parser = new DataParser('chart', 'csv', {
+          rows: { start: 170, end: 176 },
+          datasetLabel: 0,
+          labelsIndex: 0,
+          formatLabel: (label) => {
+            return label.replace('Year_', '');
+          },
+        });
+
+        const { labels, datasets } = parser.parse(data);
+
+        chartInstance.update({
+          labels,
+          datasets: datasets.map((dataset) => ({
+            ...dataset,
+            pointRadius: 0,
+            borderColor: dataset.color,
+            color: dataset.color,
+          })),
+        });
+      });
+  })();
+
+  // Charts - CSV (coordinates)
+
+  (() => {
+    const chart = document.getElementById('chart-csv-coordinates');
+    const chartInstance = new mdb.Chart(
+      chart,
+      { type: 'bubble' },
+      {
+        options: {
+          tooltips: {
+            displayColors: false,
+          },
+          scales: {
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time consumed (%)',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Tasks done (%)',
+                },
+              },
+            ],
+          },
+        },
+      }
+    );
+
+    fetch('data-bubble.csv')
+      .then((data) => data.text())
+      .then((data) => {
+        const parser = new DataParser('chart', 'csv', {
+          datasetLabel: 0,
+          labelsIndex: 0,
+          rows: {
+            start: 1,
+          },
+          getCoordinates: ([departament, done, team, startDate, currentDate, deadline]) => {
+            const getDayDifference = (firstDate, secondDate) => {
+              return (
+                (new Date(secondDate).getTime() - new Date(firstDate).getTime()) /
+                (1000 * 3600 * 24)
+              );
+            };
+
+            const timeConsumedPercentage = Math.round(
+              (getDayDifference(startDate, currentDate) / getDayDifference(startDate, deadline)) *
+                100
+            );
+
+            const targetPercentage = done * 100;
+
+            return {
+              x: timeConsumedPercentage,
+              y: targetPercentage,
+              r: team,
+            };
+          },
+          color: 400,
+        });
+
+        const { labels, datasets } = parser.parse(data);
+
+        chartInstance.update({
+          labels,
+          datasets: datasets.map((dataset) => ({
+            ...dataset,
+            borderColor: dataset.color,
+            backgroundColor: dataset.color,
+            color: dataset.color,
+          })),
+        });
+      });
+  })();
+
+  // Charts - JSON
+
+  (() => {
+    const chart = document.getElementById('chart-json');
+    const chartInstance = new mdb.Chart(
+      chart,
+      { type: 'line' },
+      {
+        options: {
+          tooltips: {
+            displayColors: false,
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            titleFontColor: 'rgb(7, 43, 49)',
+            bodyFontColor: 'rgb(7, 43, 49)',
+          },
+          legend: {
+            labels: {
+              fontColor: 'rgba(255, 255, 255, 0.7)',
+            },
+          },
+          scales: {
+            xAxes: [
+              {
+                ticks: {
+                  fontColor: 'rgba(255, 255, 255, 0.7)',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  fontColor: 'rgba(255, 255, 255, 0.7)',
+                },
+                gridLines: {
+                  color: 'rgba(255, 255, 255, 0.3)',
+                },
+              },
+            ],
+          },
+        },
+      }
+    );
+
+    fetch('data.json')
+      .then((data) => data.json())
+      .then((data) => {
+        const column = [{ label: 'Population 2016', field: 'Year_2016' }];
+
+        const parser = new DataParser('chart', 'json', {
+          datasetLabel: 'Country',
+          ignoreKeys: ['Country', 'Country_Code'],
+          rows: { start: 9, end: 14 },
+          formatLabel: (label) => {
+            return label.replace('Year_', '');
+          },
+          color: 100,
+        });
+
+        const { labels, datasets } = parser.parse(data);
+
+        chartInstance.update({
+          labels,
+          datasets: datasets.map((dataset) => ({
+            ...dataset,
+            pointRadius: 0,
+            borderColor: dataset.color,
+            color: dataset.color,
+          })),
+        });
+      });
+  })();
+
+  // Charts - JSON (coordinates)
+
+  (() => {
+    const chart = document.getElementById('chart-json-coordinates');
+    const chartInstance = new mdb.Chart(
+      chart,
+      { type: 'bubble' },
+      {
+        options: {
+          tooltips: {
+            displayColors: false,
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            titleFontColor: 'rgb(7, 43, 49)',
+            bodyFontColor: 'rgb(7, 43, 49)',
+          },
+          legend: {
+            labels: {
+              fontColor: 'rgba(255, 255, 255, 0.7)',
+            },
+          },
+          scales: {
+            xAxes: [
+              {
+                ticks: {
+                  fontColor: 'rgba(255, 255, 255, 0.7)',
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time consumed (%)',
+                  fontColor: 'rgba(255, 255, 255, 0.7)',
+                },
+              },
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  fontColor: 'rgba(255, 255, 255, 0.7)',
+                },
+                gridLines: {
+                  color: 'rgba(255, 255, 255, 0.3)',
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Tasks done (%)',
+                  fontColor: 'rgba(255, 255, 255, 0.7)',
+                },
+              },
+            ],
+          },
+        },
+      }
+    );
+
+    fetch('data-bubble.json')
+      .then((data) => data.json())
+      .then((data) => {
+        const parser = new DataParser('chart', 'json', {
+          datasetLabel: 'departament',
+          getCoordinates: ({ done, team, startDate, currentDate, deadline }) => {
+            const getDayDifference = (firstDate, secondDate) => {
+              return (
+                (new Date(secondDate).getTime() - new Date(firstDate).getTime()) /
+                (1000 * 3600 * 24)
+              );
+            };
+
+            const timeConsumedPercentage = Math.round(
+              (getDayDifference(startDate, currentDate) / getDayDifference(startDate, deadline)) *
+                100
+            );
+
+            const targetPercentage = done * 100;
+
+            return {
+              x: timeConsumedPercentage,
+              y: targetPercentage,
+              r: team,
+            };
+          },
+          color: 100,
+        });
+
+        const { labels, datasets } = parser.parse(data);
+
+        chartInstance.update({
+          labels,
+          datasets: datasets.map((dataset) => ({
+            ...dataset,
+            borderColor: dataset.color,
+            backgroundColor: dataset.color,
+            color: dataset.color,
+          })),
+        });
+      });
+  })();
+
+  // Treeview - JSON
+
+  (() => {
+    const treeview = document.getElementById('treeview-json');
+
+    const expandFolder = ({ name }) => {
+      const expandedFolders = ['Desktop', 'Programming', 'node_modules'];
+
+      return expandedFolders.includes(name);
+    };
+
+    fetch('data-treeview.json')
+      .then((data) => data.json())
+      .then((data) => {
+        const parser = new DataParser('treeview', 'json', {
+          show: expandFolder,
+          children: 'content',
+          name: (el) => {
+            const getExtensionIcon = (extension) => {
+              const iconMap = {
+                doc: 'file-alt',
+                js: 'file-code',
+                zip: 'file-archive',
+                jpg: 'file-image',
+                pdf: 'file-pdf',
+              };
+
+              return iconMap[extension] || 'file';
+            };
+
+            const name = el.directory ? el.name : `${el.name}.${el.extension}`;
+
+            const icon = el.directory ? 'folder' : getExtensionIcon(el.extension);
+
+            return `<i class="far fa-${icon} mx-2"></i>${name}`;
+          },
+        });
+
+        const treeviewInstance = new Treeview(treeview, {
+          structure: parser.parse(data),
+        });
+
+        const colorIterator = DataParser.colorGenerator(
+          [
+            '#FFEBEE',
+            '#FCE4EC',
+            '#F3E5F5',
+            '#EDE7F6',
+            '#E8EAF6',
+            '#E3F2FD',
+            '#E1F5FE',
+            '#E0F7FA',
+            '#E0F2F1',
+            '#E8F5E9',
+            '#F1F8E9',
+            '#F9FBE7',
+            '#FFFDE7',
+            '#FFF8E1',
+            '#FFF3E0',
+            '#FBE9E7',
+            '#EFEBE9',
+            '#FAFAFA',
+            '#ECEFF1',
+          ],
+          0
+        );
+      });
+  })();
+</script>
