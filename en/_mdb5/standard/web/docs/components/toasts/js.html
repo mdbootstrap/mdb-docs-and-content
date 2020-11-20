@@ -16,8 +16,6 @@
     'placement-toast',
     'offset-toast',
     'container-toast',
-    'stacking-toast-one',
-    'stacking-toast-two',
   ];
 
   const triggerID = [
@@ -32,8 +30,6 @@
     'placement-trigger',
     'offset-trigger',
     'container-trigger',
-    'stacking-trigger-one',
-    'stacking-trigger-two',
   ];
 
   let position = {
@@ -62,4 +58,89 @@
       display.textContent = `${position.y}-${position.x}`;
     });
   });
+
+  // Stacking
+
+  (function () {
+  let stackCount = 0;
+
+  document.getElementById('stacking-trigger').addEventListener('click', () => {
+    stackCount++;
+
+    const toast = document.createElement('div');
+    toast.innerHTML = `
+    <div class="toast-header">
+      <strong class="mr-auto">${stackCount}</strong>
+      <small>11 mins ago</small>
+      <button
+        type="button"
+        class="btn-close"
+        data-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body">
+      Stacking element
+    </div>
+    `;
+
+    toast.classList.add('toast', 'fade');
+
+    document.body.appendChild(toast);
+
+    const toastInstance = new mdb.Toast(toast, {
+      stacking: true,
+      hidden: true,
+      width: '450px',
+      position: 'top-right',
+      autohide: true,
+      delay: 5000,
+    });
+
+    toastInstance.show();
+  });
+})();
+
+// Stacking inside container
+
+(function () {
+  let stackCount = 0;
+
+  document.getElementById('stacking-container-trigger').addEventListener('click', () => {
+    stackCount++;
+
+    const toast = document.createElement('div');
+    toast.innerHTML = `
+    <div class="toast-header">
+      <strong class="mr-auto">${stackCount}</strong>
+      <small>11 mins ago</small>
+      <button
+        type="button"
+        class="btn-close"
+        data-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body text-left">
+      Stacking element
+    </div>
+    `;
+
+    toast.classList.add('toast', 'fade');
+
+    document.getElementById('stacking-container').appendChild(toast);
+
+    const toastInstance = new mdb.Toast(toast, {
+      stacking: true,
+      hidden: true,
+      width: '450px',
+      position: 'top-right',
+      container: '#stacking-container',
+      autohide: true,
+      delay: 5000,
+    });
+
+    toastInstance.show();
+  });
+})();
 </script>

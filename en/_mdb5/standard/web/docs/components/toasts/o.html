@@ -1054,61 +1054,92 @@
     </p>
 
     <!--Section: Demo-->
-    <section class="border p-5 d-flex justify-content-center mb-4" id="container-example">
-      <button type="button" class="btn btn-primary mr-3" id="stacking-trigger-one">
-        First stacking element
+    <section class="border p-5 d-flex justify-content-center mb-4">
+      <button type="button" class="btn btn-primary mr-3" id="stacking-trigger">
+        Show toast notification
       </button>
-      <button type="button" class="btn btn-primary" id="stacking-trigger-two">
-        Second stacking element
-      </button>
+    </section>
+    <!--Section: Demo-->
 
-      <div
-        class="toast text-white"
-        id="stacking-toast-one"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-        data-autohide="true"
-        data-delay="2000"
-        data-position="top-right"
-        data-width="350px"
-        data-color="info"
-      >
-        <div class="toast-header text-white">
-          <strong class="mr-auto">MDBootstrap</strong>
-          <small>11 mins ago</small>
-          <button
-            type="button"
-            class="btn-close btn-close-white"
-            data-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="toast-body">First stacking element</div>
-      </div>
-      <div
-        class="toast text-white"
-        id="stacking-toast-two"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-        data-autohide="true"
-        data-delay="2000"
-        data-position="top-right"
-        data-width="350px"
-        data-color="info"
-      >
-        <div class="toast-header text-white">
-          <strong class="mr-auto">MDBootstrap</strong>
-          <small>11 mins ago</small>
-          <button
-            type="button"
-            class="btn-close btn-close-white"
-            data-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="toast-body">Second stacking element</div>
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <button type="button" class="btn btn-primary mr-3" id="stacking-trigger">
+            Show toast notification
+          </button>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          let stackCount = 0;
+
+
+          document.getElementById('stacking-trigger').addEventListener('click', () => {
+            stackCount++;
+
+            const toast = document.createElement('div');
+            toast.innerHTML = `
+            <div class="toast-header">
+              <strong class="mr-auto">${stackCount}</strong>
+              <small>11 mins ago</small>
+              <button
+                type="button"
+                class="btn-close"
+                data-dismiss="toast"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="toast-body">
+              Stacking element
+            </div>
+            `;
+
+            toast.classList.add('toast', 'fade');
+
+            document.body.appendChild(toast);
+
+            const toastInstance = new mdb.Toast(toast, {
+              stacking: true,
+              hidden: true,
+              width: '450px',
+              position: 'top-right',
+              autohide: false,
+              delay: 5000,
+            });
+
+            toastInstance.show();
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Stacking-->
+
+  <hr class="mt-5" />
+
+  <!--Section: Stacking (container)-->
+  <section id="section-stacking-container">
+    <!-- Section title -->
+    <h2 class="mb-4">Stacking (container)</h2>
+    <p>
+      You can turn on/off stacking your notifications using
+      <code>data-stacking</code> attribute or <code>update()</code> method.
+    </p>
+
+    <!--Section: Demo-->
+    <section
+      class="border p-5 d-flex justify-content-center mb-4"
+      style="height: 400px; overflow: scroll;"
+    >
+      <div class="container text-center" id="stacking-container">
+        <button
+          type="button"
+          class="btn btn-primary mr-3"
+          id="stacking-container-trigger"
+        >
+          Show toast notification
+        </button>
       </div>
     </section>
     <!--Section: Demo-->
@@ -1118,63 +1149,61 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
-          <div
-            class="toast text-white"
-            id="stacking-toast-one"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-            data-autohide="true"
-            data-delay="2000"
-            data-position="top-right"
-            data-color="info"
+          <section
+            class="border p-5 d-flex justify-content-center mb-4"
+            style="height: 400px; overflow: scroll;"
           >
-            <div class="toast-header text-white">
-              <strong class="mr-auto">MDBootstrap</strong>
-              <small>11 mins ago</small>
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                data-dismiss="toast"
-                aria-label="Close"
-              ></button>
+            <div class="container text-center" id="stacking-container">
+              <button type="button" class="btn btn-primary mr-3" id="stacking-container-trigger">
+                Show toast notification
+              </button>
             </div>
-            <div class="toast-body">First stacking element</div>
-          </div>
-          <div
-            class="toast text-white"
-            id="stacking-toast-two"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-            data-autohide="true"
-            data-delay="2000"
-            data-position="top-right"
-            data-color="info"
-          >
-            <div class="toast-header text-white">
-              <strong class="mr-auto">MDBootstrap</strong>
-              <small>11 mins ago</small>
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                data-dismiss="toast"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="toast-body">Second stacking element</div>
-          </div>
+          </section>
         </code>
         <code data-lang="js" data-name="JavaScript">
-          const instance = mdb.Toast.getInstance(document.getElementById('stacking-toast-one'));
-          const secondInstance = mdb.Toast.getInstance(document.getElementById('stacking-toast-two')); 
-          instance.update({ stacking: true, }); 
-          secondInstance.update({ stacking: true, });
+          let stackCount = 0;
+
+          document.getElementById('stacking-container-trigger').addEventListener('click', () => {
+            stackCount++;
+
+            const toast = document.createElement('div');
+            toast.innerHTML = `
+            <div class="toast-header">
+              <strong class="mr-auto">${stackCount}</strong>
+              <small>11 mins ago</small>
+              <button
+                type="button"
+                class="btn-close"
+                data-dismiss="toast"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="toast-body text-left">
+              Stacking element
+            </div>
+            `;
+
+            toast.classList.add('toast', 'fade');
+
+            document.getElementById('stacking-container').appendChild(toast);
+
+            const toastInstance = new mdb.Toast(toast, {
+              stacking: true,
+              hidden: true,
+              width: '450px',
+              position: 'top-right',
+              container: '#stacking-container',
+              autohide: true,
+              delay: 5000,
+            });
+
+            toastInstance.show();
+          });
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
+    <!--Section: Stacking (container)-->
   </section>
-  <!--Section: Stacking-->
 </section>
 <!--Section: Docs content-->
