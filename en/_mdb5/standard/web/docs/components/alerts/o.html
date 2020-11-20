@@ -914,77 +914,188 @@
     <!--Section: Demo-->
     <section class="border p-4 d-flex justify-content-center mb-4">
       <div class="container text-center">
-        <button type="button" class="btn btn-primary" id="stacking-first-trigger-example">
-          First stacking example
+        <button type="button" class="btn btn-primary" id="stacking-trigger-example">
+          Show notification
         </button>
-        <button type="button" class="btn btn-primary" id="stacking-second-trigger-example">
-          Second stacking example
-        </button>
-        <div
-          class="alert fade"
-          id="stacking-first-example"
-          role="alert"
-          data-autohide="true"
-          data-delay="5000"
-          data-position="top-right"
-          data-width="250px"
-          data-hidden="true"
-          data-stacking="true"
-          data-append-to-body="true"
-          data-color="primary"
-        >
-          First stacking example
-        </div>
-        <div
-          class="alert fade"
-          id="stacking-second-example"
-          role="alert"
-          data-autohide="true"
-          data-delay="5000"
-          data-position="top-right"
-          data-width="250px"
-          data-hidden="true"
-          data-stacking="true"
-          data-append-to-body="true"
-          data-color="primary"
-        >
-          Second stacking example
-        </div>
       </div>
     </section>
     <!--Section: Demo-->
 
     <!--Section: Code-->
     <section>
+      <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
-          <div
-            class="alert fade"
-            id="stacking-first-example"
-            role="alert"
-            data-stacking="true"
-            data-color="primary"
-          >
-            First stacking example
-          </div>
-          <div
-            class="alert fade"
-            id="stacking-second-example"
-            role="alert"
-            data-stacking="true"
-            data-color="primary"
-          >
-            Second stacking example
+          <div class="container text-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="stacking-trigger-example"
+            >
+              Show notification
+            </button>
           </div>
         </code>
         <code data-lang="js" data-name="JavaScript">
-          mdb.Alert.getInstance(document.getElementById('stacking-first-example')).show();
-          mdb.Alert.getInstance(document.getElementById('stacking-second-example')).show();
+          let alertCount = 0;
+
+          function* colorGenerator(i) {
+            const colors = ['primary', 'warning', 'info', 'success', 'secondary', 'danger', 'light'];
+
+            while (true) {
+              yield colors[i];
+
+              i++;
+
+              if (i > colors.length - 1) {
+                i = 0;
+              }
+            }
+          }
+
+          const colorIterator = colorGenerator(0);
+
+          document.getElementById('stacking-trigger-example').addEventListener('click', () => {
+            alertCount++;
+            color = colorIterator.next().value;
+
+            const alert = document.createElement('div');
+            alert.innerHTML = `
+            <div class="d-flex justify-content-between">
+              <p class="mb-0"><strong>${alertCount}.</strong> Stacking alerts</p>
+              <button
+                type="button"
+                class="btn-close"
+                data-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
+            `;
+            alert.classList.add('alert', 'fade');
+
+            document.body.appendChild(alert);
+
+            const alertInstance = new mdb.Alert(alert, {
+              color,
+              stacking: true,
+              hidden: true,
+              width: '450px',
+              position: 'bottom-right',
+              autohide: true,
+              delay: 5000,
+            });
+
+            alertInstance.show();
+          });
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
   </section>
   <!--Section: Stacking-->
+
+  <hr class="my-5" />
+
+  <!--Section: Stacking - Container-->
+  <section id="section-stacking-container">
+    <!-- Section title -->
+    <h2 class="mb-4">Stacking - Container</h2>
+    <p>
+      You can also stack alerts inside the container
+    </p>
+
+    <!--Section: Demo-->
+    <section
+      class="border p-4 d-flex justify-content-center mb-4"
+      style="height: 400px; overflow: scroll;"
+    >
+      <div class="container text-center" id="parent-stacking-container-example">
+        <button
+          type="button"
+          class="btn btn-primary mb-5"
+          id="stacking-container-trigger-example"
+        >
+          Show notification
+        </button>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="container text-center" id="parent-stacking-container-example">
+            <button
+              type="button"
+              class="btn btn-primary mb-5"
+              id="stacking-container-trigger-example"
+            >
+              Show notification
+            </button>
+          </div>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          let alertCount = 0;
+
+        function* colorGenerator(i) {
+          const colors = ['primary', 'warning', 'info', 'success', 'secondary', 'danger', 'light'];
+
+          while (true) {
+            yield colors[i];
+
+            i++;
+
+            if (i > colors.length - 1) {
+              i = 0;
+            }
+          }
+        }
+
+        const colorIterator = colorGenerator(0);
+
+        document
+          .getElementById('stacking-container-trigger-example')
+          .addEventListener('click', () => {
+            alertCount++;
+            color = colorIterator.next().value;
+
+            const alert = document.createElement('div');
+            alert.innerHTML = `
+          <div class="d-flex justify-content-between">
+            <p class="mb-0"><strong>${alertCount}.</strong> Stacking alerts</p>
+            <button
+              type="button"
+              class="btn-close"
+              data-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
+          `;
+            alert.classList.add('alert', 'fade');
+
+            document.getElementById('parent-stacking-container-example').appendChild(alert);
+
+            const alertInstance = new mdb.Alert(alert, {
+              color,
+              stacking: true,
+              container: '#parent-stacking-container-example',
+              hidden: true,
+              width: '250px',
+              position: 'top-right',
+              autohide: true,
+              delay: 5000,
+            });
+
+            alertInstance.show();
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Stacking - Container-->
+
 </section>
 <!--Section: Docs content-->
