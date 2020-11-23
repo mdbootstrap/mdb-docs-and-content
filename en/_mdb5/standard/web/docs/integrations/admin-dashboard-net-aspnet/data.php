@@ -6,4 +6,5 @@ $data_var = array(
   'description' => 'MDB Integration - Admin Dashboard built with the latest Bootstrap 5, .NET Core, ASP.NET Core & Material Design 2.0',
   'url' => 'https://mdbootstrap.com/docs/standard/integrations/admin-dashboard-net-aspnet/',
   'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/general/integrations/assets/admin-net-aspnet.jpg',
+  'video' => '',
 );

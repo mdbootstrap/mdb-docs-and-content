@@ -3,7 +3,7 @@
   <!--Section: Introduction-->
   <section id="section-introduction">
     <!-- Main title -->
-    <h2 class="h1 font-weight-bold" style="line-height: 0.8;">
+    <h2 class="h1 font-weight-bold" style="line-height: 0.8">
       <?= $data_var['main_title']; ?>
       <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button"
         >MDB Pro component <i class="far fa-gem ml-1"></i
@@ -842,7 +842,8 @@
     </p>
 
     <p class="note note-warning">
-      Using fixed columns in a vertically scrollable table, requires setting an option <code>fixedHeader</code> to <code>true</code> as well.
+      Using fixed columns in a vertically scrollable table, requires setting an option
+      <code>fixedHeader</code> to <code>true</code> as well.
     </p>
 
     <p class="note note-primary">
@@ -1057,6 +1058,284 @@
     <!--Section: Code-->
   </section>
   <!--Section: Action buttons-->
+
+  <hr class="my-5" />
+
+  <!--Section: Cell formatting-->
+  <section id="section-cell-format">
+    <!-- Section title -->
+    <h2 class="mb-4">Cell formatting</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="datatable-cell-format" data-sort-field="purchases" data-sort-order="desc"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div
+            id="datatable-cell-format"
+            data-sort-field="purchases"
+            data-sort-order="desc"
+          ></div>
+        </code>
+        <code  data-lang="JavaScript" data-name="JavaScript">
+          const rows = [
+            ['Product 1', 10, 103],
+            ['Product 2', 45, 110],
+            ['Product 3', 76, 56],
+            ['Product 4', 89, 230],
+            ['Product 5', 104, 240],
+            ['Product 6', 97, 187],
+            ['Product 7', 167, 130],
+            ['Product 8', 50, 199],
+            ['Product 9', 4, 206],
+            ['Product 10', 120, 88],
+            ['Product 11', 22, 100],
+          ];
+
+          const maxValue = Math.max(...rows.map((row) => row[2]));
+          const minValue = Math.min(...rows.map((row) => row[2]));
+
+          const colors = ['#E3F2FD', '#BBDEFB', '#90CAF9', '#64B5F6', '#42A5F5'];
+
+          const step = (maxValue - minValue) / (colors.length - 1);
+
+          const formatCell = (cell, value) => {
+            const colorIndex = Math.floor((value - minValue) / step);
+
+            cell.style.backgroundColor = colors[colorIndex];
+            cell.style.fontWeight = 400;
+          };
+
+          const columns = [
+            { label: 'Product', field: 'product' },
+            { label: 'Quantity', field: 'quantity' },
+            { label: 'Purchases', field: 'purchases', format: formatCell },
+          ];
+
+          const datatableInstance = new mdb.Datatable(
+            document.getElementById('datatable-cell-format'),
+            { rows, columns }
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Cell formatting-->
+
+  <hr class="my-5" />
+
+  <!--Section: Clickable rows-->
+  <section id="section-clickable-rows">
+    <!-- Section title -->
+    <h2 class="mb-4">Clickable rows</h2>
+
+    <p>Click on the row to preview the message.</p>
+    <p>Selecting the row with checkbox doesn't trigger <code>rowClick</code> event.</p>
+
+    <p class="note note-primary">
+      Note: To prevent this action with other clickable elements within the row, call
+      <code>stopPropagation()</code> method.
+    </p>
+    <p class="note note-warning">
+      Note: This feature cannot be used simultaneously with <code>edit</code> option.
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div
+        id="datatable-clickable-rows"
+        data-clickable-rows="true"
+        data-selectable="true"
+        data-multi="true"
+      ></div>
+
+      <!-- Modal -->
+      <div class="modal fade" tabindex="-1" aria-hidden="true" id="modal-clickable-rows">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modal-header-clickable-rows"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body mt-4 mb-5" id="modal-body-clickable-rows"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-primary">
+                Reply<i class="fa fa-paper-plane ml-2"></i>
+              </button>
+              <button type="button" class="btn btn-outline-primary">
+                Forward<i class="fa fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div
+            id="datatable-clickable-rows"
+            data-clickable-rows="true"
+            data-selectable="true"
+            data-multi="true"
+          ></div>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            tabindex="-1"
+            aria-hidden="true"
+            id="modal-clickable-rows"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modal-header-clickable-rows"></h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body mt-4 mb-5" id="modal-body-clickable-rows"></div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-primary">
+                    Reply<i class="fa fa-paper-plane ml-2"></i>
+                  </button>
+                  <button type="button" class="btn btn-outline-primary">
+                    Forward<i class="fa fa-arrow-right ml-2"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </code>
+        <code  data-lang="javascript" data-name="JavaScript">
+          const table = document.getElementById('datatable-clickable-rows');
+          const modal = document.getElementById('modal-clickable-rows');
+          const modalBody = document.getElementById('modal-body-clickable-rows');
+          const modalHeader = document.getElementById('modal-header-clickable-rows');
+
+          const modalInstance = new mdb.Modal(modal);
+
+          const setupButtons = (action) => {
+            document.getElementsByClassName(`${action}-email-button`).forEach((button) => {
+              button.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+                const index = button.getAttribute('data-index');
+
+                console.log(`${action} message: ${index}`, messages[index]);
+              });
+            });
+          };
+
+          const columns = [
+            { label: 'Actions', field: 'actions', sort: false },
+            { label: 'From', field: 'from' },
+            { label: 'Title', field: 'title' },
+            { label: 'Message', field: 'preview', sort: false },
+            { label: 'Date', field: 'date' },
+          ];
+
+          const messages = [
+            {
+              from: 'admin@mdbootstrap.com',
+              title: 'MDBootstrap spring sale',
+              message:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed metus ultricies, sollicitudin est nec, blandit turpis. Fusce venenatis nisi volutpat, pharetra elit eu, ullamcorper metus. Vestibulum dapibus laoreet aliquam. Maecenas sed magna ut libero consequat elementum. Maecenas euismod pellentesque pulvinar. Morbi sit amet turpis eget dolor rutrum eleifend. Sed bibendum diam nec diam posuere pulvinar. Cras ac bibendum arcu.',
+              date: '11/12/2019',
+            },
+            {
+              from: 'user@mdbootstrap.com',
+              title: 'How to purchase MDB5 package?',
+              message:
+                'Quisque tempor ligula eu lobortis scelerisque. Mauris tristique mi a erat egestas, quis dictum nibh iaculis. Sed gravida sodales egestas. In tempus mollis libero sit amet lacinia. Duis non augue sed leo imperdiet efficitur faucibus vitae elit. Mauris eu cursus ligula. Praesent posuere efficitur cursus.',
+              date: '10/12/2019',
+            },
+            {
+              from: 'user@mdbootstrap.com',
+              title: 'Licence renewal',
+              message:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed metus ultricies, sollicitudin est nec, blandit turpis. Fusce venenatis nisi volutpat, pharetra elit eu, ullamcorper metus. Vestibulum dapibus laoreet aliquam. Maecenas sed magna ut libero consequat elementum. Maecenas euismod pellentesque pulvinar. Morbi sit amet turpis eget dolor rutrum eleifend. Sed bibendum diam nec diam posuere pulvinar. Cras ac bibendum arcu.',
+              date: '09/12/2019',
+            },
+            {
+              from: 'admin@mdbootstrap.com',
+              title: 'Black friday offer',
+              message:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed metus ultricies, sollicitudin est nec, blandit turpis. Fusce venenatis nisi volutpat, pharetra elit eu, ullamcorper metus. Vestibulum dapibus laoreet aliquam. Maecenas sed magna ut libero consequat elementum. Maecenas euismod pellentesque pulvinar. Morbi sit amet turpis eget dolor rutrum eleifend. Sed bibendum diam nec diam posuere pulvinar. Cras ac bibendum arcu.',
+              date: '08/12/2019',
+            },
+          ];
+
+          const rows = messages.map((email, i) => {
+            const getPreview = (message, length) => {
+              if (message.length <= length) return message;
+
+              return `${message.slice(0, length)}...`;
+            };
+
+            return {
+              ...email,
+              preview: getPreview(email.message, 20),
+              actions: `
+              &lt;a role="button" class="star-email-button text-warning" data-index="${i}"
+                >&lt;i class="far fa-star">&lt;/i
+              >&lt;/a>
+              &lt;a role="button" class="delete-email-button text-muted ml-2" data-index="${i}"
+                >&lt;i class="fa fa-trash-alt">&lt;/i
+              >&lt;/a>
+              `,
+            };
+          });
+
+          table.addEventListener('rowClick.mdb.datatable', (e) => {
+            const { index } = e;
+
+            const { message, title, from } = messages[index];
+
+            modalHeader.innerText = title;
+
+            modalBody.innerHTML = `
+            &lt;h6 class="mb-4">From: &lt;strong>${from}&lt;/strong>&lt;/h6>
+            &lt;p>${message}&lt;/p>
+            `;
+
+            modalInstance.show();
+          });
+
+          table.addEventListener('render.mdb.datatable', () => {
+            setupButtons('star');
+            setupButtons('delete');
+          })
+
+          const datatableInstance = new mdb.Datatable(table, {
+            columns,
+            rows,
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Clickable rows-->
 
   <hr class="my-5" />
 </section>

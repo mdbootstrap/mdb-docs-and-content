@@ -1,18 +1,37 @@
+<link
+  rel="stylesheet"
+  href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/treeview.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/vector-maps.min.css"
+/>
+
 <!--Section: Docs content-->
 <section>
   <!--Section: Introduction-->
   <section id="section-introduction">
     <!-- Main title -->
-    <h2 class="h1 font-weight-bold"><?= $data_var['main_title']; ?>
-      <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button">MDB Pro component <i
-          class="far fa-gem ml-1"></i></a>
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button"
+        >MDB Pro component <i class="far fa-gem ml-1"></i
+      ></a>
     </h2>
 
     <!-- Seo title -->
     <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
 
     <!-- Description -->
-    <p></p>
+    <p>
+      Data Parser is a JavaScript plugin which helps to display your data (.json, .csv) in MDB5
+      components.
+    </p>
+    <p>
+      It comes with a <code>parse()</code> method which can transform your data based on selected
+      options into the required format and set of useful functions for more complicated data
+      operations.
+    </p>
 
     <p class="note note-light">
       <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
@@ -25,28 +44,1152 @@
 
   <hr class="my-5" />
 
-  <!--Section: Basic example-->
-  <section id="section-basic-example">
+  <!--Section: Datatable-->
+  <section id="section-datatable">
     <!-- Section title -->
-    <h2 class="mb-4">Basic example</h2>
+    <h2 class="mb-4">Datatable</h2>
 
-    <!--Section: Demo-->
-    <section class="border p-4 text-center mb-4"></section>
-    <!--Section: Demo-->
+    <!-- description -->
+    <p class="mb-4"></p>
 
-    <!--Section: Code-->
-    <section>
-      <mdbsnippet>
-        <code data-lang="html" data-name="HTML"> </code>
+    <section id="subsection-datatable-csv">
+      <!-- Subsection title -->
+      <h3 class="mb-4">CSV</h3>
 
-        <code data-lang="css" data-name="CSS"> </code>
+      <!-- description -->
+      <p class="mb-4">
+        When parsing CSV into Datatables format (rows and columns), by default all lines are treated
+        as rows (there is no header included). You can change that by setting
+        <code>headerIndex</code> to the position of a header row.
+      </p>
+      <p>
+        You can customize both columns and rows (values between start/end or only selected indexes).
+      </p>
 
-        <code data-lang="js" data-name="JavaScript"> </code>
-      </mdbsnippet>
+      <p class="note note-light">
+        <strong>Note:</strong> When you set a <code>headerIndex</code>, remember to exclude this
+        value from rows (for example by setting <code>rows.start</code> to a next index).
+      </p>
+
+      <p class="note note-info">
+        Data used in this example:
+        <a
+          rel="nofollow"
+          target="_blank"
+          href="https://datahub.io/JohnSnowLabs/population-figures-by-country"
+          >Population Figures</a
+        >
+      </p>
+
+      <!--Section: Live Preview-->
+      <section class="border p-4">
+        <div id="datatable-csv"></div>
+      </section>
+      <!--Section: Live Preview-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <div id="datatable-csv"></div>
+          </code>
+          <code data-lang="JS" data-name="JavaScript">
+            const table = document.getElementById('datatable-csv');
+      
+            const columns = ['Country', 'Code', 'Population 2015', 'Population 2016'];
+      
+            const datatableInstance = new mdb.Datatable(table, { columns }, { loading: true });
+      
+            fetch('data.csv')
+              .then((data) => data.text())
+              .then((data) => {
+                const parser = new DataParser('datatable', 'csv', {
+                  rows: { start: 10, end: 14 },
+                  columns: {
+                    indexes: [0, 1, 57, 58],
+                  },
+                });
+      
+                const { rows } = parser.parse(data);
+      
+                datatableInstance.update({ rows }, { loading: false });
+              });
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
     </section>
-    <!--Section: Code-->
+
+    <hr class="my-5" />
+
+    <section id="subsection-datatable-json">
+      <!-- Subsection title -->
+      <h3 class="mb-4">JSON</h3>
+
+      <!-- description -->
+      <p class="mb-4">
+        You can define options for <code>rows</code> in exactly the same way as in CSV format
+        (start, end / indexes). Instead of doing the same for columns, provide an array of selected
+        keys to the <code>keys</code> options.
+      </p>
+
+      <p class="note note-info">
+        Data used in this example:
+        <a
+          rel="nofollow"
+          target="_blank"
+          href="https://datahub.io/JohnSnowLabs/population-figures-by-country"
+          >Population Figures</a
+        >
+      </p>
+
+      <!--Section: Live Preview-->
+      <section class="border p-4" style="background-color: rgb(7 43 49)">
+        <div id="datatable-json" data-dark="true" style="background-color: rgb(7 43 49)"></div>
+      </section>
+      <!--Section: Live Preview-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <div
+              id="datatable-json"
+              data-dark="true"
+              style="background-color: rgb(7 43 49);"
+            ></div>
+          </code>
+          <code data-lang="JS" data-name="JavaScript">
+            const table = document.getElementById('datatable-json');
+
+            const columns = [
+              { label: 'Country', field: 'Country' },
+              { label: 'Code', field: 'Country_Code' },
+              { label: 'Population 2015', field: 'Year_2015' },
+              { label: 'Population 2016', field: 'Year_2016' },
+            ];
+
+            const datatableInstance = new mdb.Datatable(table, { columns }, { loading: true });
+
+            fetch('data.json')
+              .then((data) => data.json())
+              .then((data) => {
+                const parser = new DataParser('datatable', 'json', {
+                  rows: { start: 30, end: 100 },
+                  keys: columns.map((column) => column.field),
+                });
+
+                const { rows } = parser.parse(data);
+
+                datatableInstance.update({ rows }, { loading: false });
+              });
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
   </section>
-  <!--Section: Basic example-->
+  <!--Section: Datatable-->
+
+  <hr class="my-5" />
+
+  <!--Section: Vector Maps-->
+  <section id="section-vector-maps">
+    <!-- Section title -->
+    <h2 class="mb-4">Vector Maps</h2>
+
+    <!-- description -->
+    <p class="mb-4"></p>
+
+    <section id="subsection-vector-maps-csv">
+      <!-- Subsection title -->
+      <h3 class="mb-4">CSV</h3>
+
+      <!-- description -->
+      <p class="mb-4">
+        Creating a colorMap based on a CSV Data requires identifying the region - Vector Maps uses
+        alpha2Code for IDs, which isn't always convenient. Data Parser can, in most cases, fetch the
+        required identifier based on the country's name or alpha3Code.
+      </p>
+
+      <p class="note note-light">
+        <strong>Note:</strong> If you don't set the <code>step</code> option to a fixed value, Data
+        Parser will compute equal size intervals - it may resolve in empty intervals if values are
+        unevenly distributed.
+      </p>
+
+      <p class="note note-info">
+        Data used in this example:
+        <a
+          rel="nofollow"
+          target="_blank"
+          href="https://datahub.io/JohnSnowLabs/population-figures-by-country"
+          >Population Figures</a
+        >
+      </p>
+
+      <!--Section: Live Preview-->
+      <section class="border">
+        <div id="map-csv"></div>
+      </section>
+      <!--Section: Live Preview-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <div id="map-csv"></div>
+          </code>
+          <code data-lang="JS" data-name="JavaScript">
+            const map = document.getElementById('map-csv');
+
+            const vectorMapInstance = new VectorMap(map, {
+              fill: '#fff',
+              readonly: true,
+              hover: false,
+            });
+      
+            fetch('data.csv')
+              .then((data) => data.text())
+              .then((data) => {
+                const parser = new DataParser('vectorMap', 'csv', {
+                  color: 'lightGreen',
+                  field: 42,
+                  rows: {
+                    start: 1,
+                  },
+                  step: 8000000,
+                  countryIdentifier: 1,
+                });
+      
+                const { colorMap, legend } = parser.parse(data);
+      
+                vectorMapInstance.update({ colorMap });
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="subsection-vector-maps-json">
+      <!-- Subsection title -->
+      <h3 class="mb-4">JSON</h3>
+
+      <!-- description -->
+      <p class="mb-4">
+        Apart from a colorMap, <code>parse()</code> method returns also a legend based on which you
+        can easily display value-color corelations.
+      </p>
+      <p>
+        If you're not satisfied with colors available out of the box, you can pass an array of color
+        strings based on which DataParser will create your colorMap.
+      </p>
+      <p>
+        The <code>getCoordinates()</code> method helps to find x and y map coordinates based on
+        longitude and latitude.
+      </p>
+      <p class="note note-danger">
+        Calculated point is an approximation and might not be accurate.
+      </p>
+
+      <p class="note note-info">
+        Data used in this example:
+        <a
+          rel="nofollow"
+          target="_blank"
+          href="https://datahub.io/JohnSnowLabs/population-figures-by-country"
+          >Population Figures</a
+        >
+      </p>
+
+      <!--Section: Live Preview-->
+      <section class="border" style="background-color: rgb(7 43 49)">
+        <div class="row m-0">
+          <div class="col-lg-3 border-right border-bottom border-light">
+            <h5 class="text-light p-3 mb-1">Population (2016):</h5>
+            <hr />
+            <ul id="legend-json" class="vector-map-legend px-3"></ul>
+          </div>
+          <div class="col-lg-9 p-0">
+            <div id="map-json"></div>
+          </div>
+        </div>
+      </section>
+      <!--Section: Live Preview-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <div class="row m-0" style="background-color: rgb(7 43 49);">
+              <div class="col-lg-3 border-right border-bottom border-light">
+                <h5 class="text-light p-3 mb-1">Population (2016):</h5>
+                <hr />
+                <ul id="legend-json" class="vector-map-legend px-3"></ul>
+              </div>
+              <div class="col-lg-9 p-0">
+                <div id="map-json"></div>
+              </div>
+            </div>
+          </code>
+          <code data-lang="JS" data-name="JavaScript">
+            const map = document.getElementById('map-json');
+            const legendList = document.getElementById('legend-json');
+
+            const getLegend = (legend) => {
+              return legend
+                .map((color, i) => {
+                  let label;
+
+                  if (i === 0) {
+                    label = `< ${color.max}`;
+                  } else if (i === legend.length - 1) {
+                    label = `> ${color.min}`;
+                  } else {
+                    label = `${color.min} - ${color.max}`;
+                  }
+
+                  return `
+                <li class="vector-map-legend__item my-2">
+                  <div class="vector-map-legend__color mr-2 border border-light" style="background-color: \$\{color\.color\}"></div>
+                  <small>${label}</small>
+                </li>
+                `;
+                })
+                .join('\n');
+            };
+
+            const vectorMapInstance = new VectorMap(map, {
+              fill: 'rgb(7 43 49)',
+              tooltips: true,
+              stroke: '#fff',
+              btnClass: 'btn-light',
+              readonly: true,
+              hover: false,
+            });
+
+            fetch('data.json')
+              .then((data) => data.json())
+              .then((data) => {
+                const parser = new DataParser('vectorMap', 'json', {
+                  color: [
+                    'rgba(163, 199, 210, 0.05)',
+                    'rgba(163, 199, 210, 0.1)',
+                    'rgba(163, 199, 210, 0.15)',
+                    'rgba(163, 199, 210, 0.2)',
+                    'rgba(163, 199, 210, 0.25)',
+                    'rgba(163, 199, 210, 0.3)',
+                    'rgba(163, 199, 210, 0.35)',
+                    'rgba(163, 199, 210, 0.4)',
+                    'rgba(163, 199, 210, 0.45)',
+                    'rgba(163, 199, 210, 0.5)',
+                  ],
+                  field: 'Year_2016',
+                  step: 8000000,
+                  countryIdentifier: 'Country_Code',
+                  tooltips: (value) => `Population: ${value}`,
+                });
+
+                const { colorMap, legend } = parser.parse(data);
+
+                legendList.innerHTML = getLegend(legend);
+
+                vectorMapInstance.update({
+                  colorMap,
+                  markers: [
+                    {
+                      ...parser.getMapCoordinates(52.107811, 19.94487),
+                      fill: 'rgb(185, 211, 220)',
+                      type: 'bullet',
+                      label: 'Warsaw',
+                      latitude:  52.2297,
+                      longitude: 21.0122,
+                    },
+                  ],
+                });
+              });
+          </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+  </section>
+  <!--Section: Vector Maps-->
+
+  <hr class="my-5" />
+
+  <!--Section: Charts-->
+  <section id="section-charts">
+    <!-- Section title -->
+    <h2 class="mb-4">Charts</h2>
+
+    <!-- description -->
+    <p class="mb-4"></p>
+
+    <section id="subsection-charts-csv">
+      <!-- Subsection title -->
+      <h3 class="mb-4">CSV</h3>
+
+      <p>
+        Creating datasets for your Chart component requires two kinds of labels - labels for each
+        specific dataset (<code>datasetLabel</code>: column's index) as well as labels for data
+        points (<code>labelsIndex</code>: index of a row with labels).
+      </p>
+
+      <p>
+        Additionally, you can format the <code>datasetLabel</code> using
+        <code>formatLabel</code> option.
+      </p>
+
+      <p class="note note-light">
+        <strong>Note:</strong> Data Parser generates a color for each dataset, which you can later
+        use for background/border color. By default, values comes from <code>mdb</code> palette but
+        you can also use
+        <a
+          target="_blank"
+          href="https://mdbootstrap.com/docs/standard/content-styles/colors/#section-full-palette"
+          >full palette</a
+        >
+        - in this case the <code>color</code> option's value should refer to the intensity (from 50
+        to 900).
+      </p>
+
+      <hr class="my-5" />
+
+      <section>
+        <h4>Basic data</h4>
+
+        <!-- description -->
+        <p class="mb-4">
+          Suitable for most of the chart types (line, bar, horizontal bar, radar, polar, doughnut,
+          pie)
+        </p>
+
+        <p class="note note-info">
+          Data used in this example:
+          <a
+            rel="nofollow"
+            target="_blank"
+            href="https://datahub.io/JohnSnowLabs/population-figures-by-country"
+            >Population Figures</a
+          >
+        </p>
+
+        <!--Section: Live Preview-->
+        <section class="border p-4 d-flex justify-content-center mb-4">
+          <canvas id="chart-csv" height="200"></canvas>
+        </section>
+        <!--Section: Live Preview-->
+
+        <!--Section: Code-->
+        <section>
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+              <canvas id="chart-csv" height="200"></canvas>
+            </code>
+            <code data-lang="JS" data-name="JavaScript">
+              const chart = document.getElementById('chart-csv');
+              const chartInstance = new mdb.Chart(
+                chart,
+                { type: 'line' },
+                {
+                  options: {
+                    tooltips: {
+                      displayColors: false,
+                    },
+                  },
+                }
+              );
+
+              fetch('data.csv')
+                .then((data) => data.text())
+                .then((data) => {
+                  const parser = new DataParser('chart', 'csv', {
+                    rows: { start: 170, end: 176 },
+                    datasetLabel: 0,
+                    labelsIndex: 0,
+                    formatLabel: (label) => {
+                      return label.replace('Year_', '');
+                    },
+                  });
+
+                  const { labels, datasets } = parser.parse(data);
+
+                  chartInstance.update({
+                    labels,
+                    datasets: datasets.map((dataset) => ({
+                      ...dataset,
+                      pointRadius: 0,
+                      borderColor: dataset.color,
+                      color: dataset.color,
+                    })),
+                  });
+                });
+            </code>
+          </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+      </section>
+
+      <hr class="my-5" />
+
+      <section>
+        <h4>Coordinates</h4>
+
+        <p>Parsing data for scatter & bubble charts</p>
+
+        <!--Section: Live Preview-->
+        <section class="border p-4 d-flex justify-content-center mb-4">
+          <canvas id="chart-csv-coordinates" height="200"></canvas>
+        </section>
+        <!--Section: Live Preview-->
+
+        <!--Section: Code-->
+        <section>
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+              <code data-lang="html" data-name="HTML">
+                <canvas id="chart-csv-coordinates" height="200"></canvas>
+              </code>
+              <code data-lang="JS" data-name="JavaScript">
+                const chart = document.getElementById('chart-csv-coordinates');
+                const chartInstance = new mdb.Chart(
+                  chart,
+                  { type: 'bubble' },
+                  {
+                    options: {
+                      tooltips: {
+                        displayColors: false,
+                      },
+                      scales: {
+                        xAxes: [
+                          {
+                            scaleLabel: {
+                              display: true,
+                              labelString: 'Time consumed (%)',
+                            },
+                          },
+                        ],
+                        yAxes: [
+                          {
+                            scaleLabel: {
+                              display: true,
+                              labelString: 'Tasks done (%)',
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  }
+                );
+          
+                fetch('data.csv')
+                  .then((data) => data.text())
+                  .then((data) => {
+                    const parser = new DataParser('chart', 'csv', {
+                      datasetLabel: 0,
+                      labelsIndex: 0,
+                      rows: {
+                        start: 1,
+                      },
+                      getCoordinates: ([departament, done, team, startDate, currentDate, deadline]) => {
+                        const getDayDifference = (firstDate, secondDate) => {
+                          return (
+                            (new Date(secondDate).getTime() - new Date(firstDate).getTime()) /
+                            (1000 * 3600 * 24)
+                          );
+                        };
+          
+                        const timeConsumedPercentage = Math.round(
+                          (getDayDifference(startDate, currentDate) / getDayDifference(startDate, deadline)) *
+                            100
+                        );
+          
+                        const targetPercentage = done * 100;
+          
+                        return {
+                          x: timeConsumedPercentage,
+                          y: targetPercentage,
+                          r: team,
+                        };
+                      },
+                      color: 400,
+                    });
+          
+                    const { labels, datasets } = parser.parse(data);
+          
+                    chartInstance.update({
+                      labels,
+                      datasets: datasets.map((dataset) => ({
+                        ...dataset,
+                        borderColor: dataset.color,
+                        backgroundColor: dataset.color,
+                        color: dataset.color,
+                      })),
+                    });
+                  });
+              </code>
+              <code data-lang="csv" data-name="CSV">
+                departament,done,team,startDate,currentDate,deadline
+                Marketing,0.67,10,2019-03-01,2020-10-23,2020-12-10
+                Business,0.49,12,2019-01-02,2020-10-23,2020-11-30
+                Backend,0.88,32,2019-06-01,2020-10-23,2020-11-23
+                Frontend,0.79,29,2019-08-01,2020-10-23,2020-11-30
+                Design,0.91,7,2019-07-01,2020-10-23,2020-11-01
+              </code>
+            </mdbsnippet>
+        </section>
+      </section>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="subsection-charts-json">
+      <!-- Subsection title -->
+      <h3 class="mb-4">JSON</h3>
+
+      <p class="mb-4">
+        When working with JSON data for you Chart component, you can define which
+        <code>keys</code> should be parsed or select all without those specified in the
+        <code>ignoreKeys</code> options.
+      </p>
+
+      <hr class="my-5" />
+
+      <section>
+        <h4>Basic data</h4>
+
+        <p class="note note-info">
+          Data used in this example:
+          <a
+            rel="nofollow"
+            target="_blank"
+            href="https://datahub.io/JohnSnowLabs/population-figures-by-country"
+            >Population Figures</a
+          >
+        </p>
+
+        <!-- description -->
+        <p class="mb-4">
+          Suitable for most of the chart types (line, bar, horizontal bar, radar, polar, doughnut,
+          pie)
+        </p>
+
+        <!--Section: Live Preview-->
+        <section
+          class="border p-4 d-flex justify-content-center mb-4"
+          style="background-color: rgb(7 43 49)"
+        >
+          <canvas id="chart-json" height="200"></canvas>
+        </section>
+        <!--Section: Live Preview-->
+
+        <!--Section: Code-->
+        <section>
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+              <div
+                style="background-color: rgb(7 43 49);"
+              >
+                <canvas id="chart-json" height="200"></canvas>
+              </div>
+            </code>
+            <code data-lang="JS" data-name="JavaScript">
+              const chart = document.getElementById('chart-json');
+              const chartInstance = new mdb.Chart(
+                chart,
+                { type: 'line' },
+                {
+                  options: {
+                    tooltips: {
+                      displayColors: false,
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      titleFontColor: 'rgb(7, 43, 49)',
+                      bodyFontColor: 'rgb(7, 43, 49)',
+                    },
+                    legend: {
+                      labels: {
+                        fontColor: 'rgba(255, 255, 255, 0.7)',
+                      },
+                    },
+                    scales: {
+                      xAxes: [
+                        {
+                          ticks: {
+                            fontColor: 'rgba(255, 255, 255, 0.7)',
+                          },
+                        },
+                      ],
+                      yAxes: [
+                        {
+                          ticks: {
+                            fontColor: 'rgba(255, 255, 255, 0.7)',
+                          },
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 0.3)',
+                          },
+                        },
+                      ],
+                    },
+                  },
+                }
+              );
+
+              fetch('data.json')
+                .then((data) => data.json())
+                .then((data) => {
+                  const column = [{ label: 'Population 2016', field: 'Year_2016' }];
+
+                  const parser = new DataParser('chart', 'json', {
+                    datasetLabel: 'Country',
+                    ignoreKeys: ['Country', 'Country_Code'],
+                    rows: { start: 9, end: 14 },
+                    formatLabel: (label) => {
+                      return label.replace('Year_', '');
+                    },
+                    color: 100,
+                  });
+
+                  const { labels, datasets } = parser.parse(data);
+
+                  chartInstance.update({
+                    labels,
+                    datasets: datasets.map((dataset) => ({
+                      ...dataset,
+                      pointRadius: 0,
+                      borderColor: dataset.color,
+                      color: dataset.color,
+                    })),
+                  });
+                });
+            </code>
+          </mdbsnippet>
+        </section>
+
+        <hr class="my-5" />
+
+        <section>
+          <h4>Coordinates</h4>
+
+          <p>Parsing data for scatter & bubble charts</p>
+
+          <!--Section: Live Preview-->
+          <section
+            class="border p-4 d-flex justify-content-center mb-4"
+            style="background-color: rgb(7 43 49)"
+          >
+            <canvas id="chart-json-coordinates" height="200"></canvas>
+          </section>
+          <!--Section: Live Preview-->
+
+          <!--Section: Code-->
+          <section>
+            <!-- prettier-ignore -->
+            <mdbsnippet>
+              <code data-lang="html" data-name="HTML">
+                <div
+                  style="background-color: rgb(7 43 49);"
+                >
+                  <canvas id="chart-json-coordinates" height="200"></canvas>
+                </div>
+              </code>
+              <code data-lang="JS" data-name="JavaScript">
+                const chart = document.getElementById('chart-json-coordinates');
+                const chartInstance = new mdb.Chart(
+                  chart,
+                  { type: 'bubble' },
+                  {
+                    options: {
+                      tooltips: {
+                        displayColors: false,
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                        titleFontColor: 'rgb(7, 43, 49)',
+                        bodyFontColor: 'rgb(7, 43, 49)',
+                      },
+                      legend: {
+                        labels: {
+                          fontColor: 'rgba(255, 255, 255, 0.7)',
+                        },
+                      },
+                      scales: {
+                        xAxes: [
+                          {
+                            ticks: {
+                              fontColor: 'rgba(255, 255, 255, 0.7)',
+                            },
+                            scaleLabel: {
+                              display: true,
+                              labelString: 'Time consumed (%)',
+                              fontColor: 'rgba(255, 255, 255, 0.7)',
+                            },
+                          },
+                        ],
+                        yAxes: [
+                          {
+                            ticks: {
+                              fontColor: 'rgba(255, 255, 255, 0.7)',
+                            },
+                            gridLines: {
+                              color: 'rgba(255, 255, 255, 0.3)',
+                            },
+                            scaleLabel: {
+                              display: true,
+                              labelString: 'Tasks done (%)',
+                              fontColor: 'rgba(255, 255, 255, 0.7)',
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  }
+                );
+
+                fetch('data.json')
+                  .then((data) => data.json())
+                  .then((data) => {
+                    const parser = new DataParser('chart', 'json', {
+                      datasetLabel: 'departament',
+                      getCoordinates: ({ done, team, startDate, currentDate, deadline }) => {
+                        const getDayDifference = (firstDate, secondDate) => {
+                          return (
+                            (new Date(secondDate).getTime() - new Date(firstDate).getTime()) /
+                            (1000 * 3600 * 24)
+                          );
+                        };
+
+                        const timeConsumedPercentage = Math.round(
+                          (getDayDifference(startDate, currentDate) / getDayDifference(startDate, deadline)) *
+                            100
+                        );
+
+                        const targetPercentage = done * 100;
+
+                        return {
+                          x: timeConsumedPercentage,
+                          y: targetPercentage,
+                          r: team,
+                        };
+                      },
+                      color: 100,
+                    });
+
+                    const { labels, datasets } = parser.parse(data);
+
+                    chartInstance.update({
+                      labels,
+                      datasets: datasets.map((dataset) => ({
+                        ...dataset,
+                        borderColor: dataset.color,
+                        backgroundColor: dataset.color,
+                        color: dataset.color,
+                      })),
+                    });
+                  });
+              </code>
+              <code data-lang="json" data-name="JSON">
+                [
+                  {
+                    "departament": "Marketing",
+                    "done": 0.67,
+                    "team": 10,
+                    "startDate": "2019-03-01",
+                    "currentDate": "2020-10-23",
+                    "deadline": "2020-12-10"
+                  },
+                  {
+                    "departament": "Business",
+                    "done": 0.49,
+                    "team": 12,
+                    "startDate": "2019-01-02",
+                    "currentDate": "2020-10-23",
+                    "deadline": "2020-11-30"
+                  },
+                  {
+                    "departament": "Backend",
+                    "done": 0.88,
+                    "team": 32,
+                    "startDate": "2019-06-01",
+                    "currentDate": "2020-10-23",
+                    "deadline": "2020-11-23"
+                  },
+                  {
+                    "departament": "Frontend",
+                    "done": 0.79,
+                    "team": 29,
+                    "startDate": "2019-08-01",
+                    "currentDate": "2020-10-23",
+                    "deadline": "2020-11-30"
+                  },
+                  {
+                    "departament": "Design",
+                    "done": 0.91,
+                    "team": 7,
+                    "startDate": "2019-07-01",
+                    "currentDate": "2020-10-23",
+                    "deadline": "2020-11-01"
+                  }
+                ]
+              </code>
+            </mdbsnippet>
+          </section>
+        </section>
+      </section>
+      <!--Section: Code-->
+    </section>
+  </section>
+  <!--Section: Charts-->
+
+  <hr class="my-5" />
+
+  <!--Section: Treeview-->
+  <section id="section-treeview">
+    <!-- Section title -->
+    <h2 class="mb-4">Treeview</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Using the Treeview requires defining name and children properties in your objects - as it can
+      be an inconvenience, Data Parser allows pointing to other fields as their equivalent (f.e.
+      name -> title, children -> content).
+    </p>
+
+    <p>
+      In the same time, you can still make use of other properties (icon, disabled, show) which are
+      not typically defined in data structures. Each of them is a function which takes an object as
+      its argument and returns a field's value depending on your custom logic.
+    </p>
+
+    <section id="subsection-treeview-json">
+      <!-- Subsection title -->
+      <h3 class="mb-4">JSON</h3>
+
+      <!-- description -->
+      <p class="mb-4"></p>
+
+      <p class="note note-warning">
+        <strong>Note:</strong> CSV format is not available for the Treeview component.
+      </p>
+
+      <!--Section: Live Preview-->
+      <section class="border p-4 mb-4" style="background-color: rgb(7 43 49)">
+        <div
+          id="treeview-json"
+          class="treeview-light"
+          style="color: rgba(255, 255, 255, 0.5)"
+        ></div>
+      </section>
+      <!--Section: Live Preview-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <div style="background-color: rgb(7 43 49);">
+              <div id="treeview-json"></div>
+            </div>
+          </code>
+          <code data-lang="JS" data-name="JavaScript">
+            const treeview = document.getElementById('treeview-json');
+
+            const expandFolder = ({ name }) => {
+              const expandedFolders = ['Desktop', 'Programming', 'node_modules'];
+
+              return expandedFolders.includes(name);
+            };
+
+            fetch('data.json')
+              .then((data) => data.json())
+              .then((data) => {
+                const parser = new DataParser('treeview', 'json', {
+                  show: expandFolder,
+                  children: 'content',
+                  name: (el) => {
+                    const getExtensionIcon = (extension) => {
+                      const iconMap = {
+                        doc: 'file-alt',
+                        js: 'file-code',
+                        zip: 'file-archive',
+                        jpg: 'file-image',
+                        pdf: 'file-pdf',
+                      };
+
+                      return iconMap[extension] || 'file';
+                    };
+
+                    const name = el.directory ? el.name : `${el.name}.${el.extension}`;
+
+                    const icon = el.directory ? 'folder' : getExtensionIcon(el.extension);
+
+                    return `<i class="far fa-${icon} mx-2"></i>${name}`;
+                  },
+                });
+
+                const treeviewInstance = new Treeview(treeview, {
+                  structure: parser.parse(data),
+                });
+              });
+          </code>
+          <code data-lang="json" data-name="JSON">
+            [
+            {
+              "name": "Desktop",
+              "directory": true,
+              "content": [
+                {
+                  "name": "Programming",
+                  "directory": true,
+                  "content": [
+                    {
+                      "name": "index",
+                      "extension": "js"
+                    },
+                    {
+                      "name": "README",
+                      "extension": "md"
+                    },
+                    {
+                      "name": "package",
+                      "extension": "json"
+                    },
+                    {
+                      "name": "node_modules",
+                      "directory": true,
+                      "content": [
+                        {
+                          "name": "mdb-ui-kit",
+                          "directory": true
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "avatar",
+                  "extension": "jpg"
+                }
+              ]
+            },
+              {
+                "name": "Downloads",
+                "directory": true,
+                "content": [
+                  {
+                    "name": "lectures",
+                    "extension": "zip"
+                  },
+                  {
+                    "name": "school-trip",
+                    "extension": "zip"
+                  },
+                  {
+                    "name": "physics-assignment",
+                    "extension": "pdf"
+                  },
+                  {
+                    "name": "presentation",
+                    "extension": "pdf"
+                  },
+                  {
+                    "name": "wallpaper",
+                    "extension": "jpg"
+                  }
+                ]
+              },
+              {
+                "name": "Documents",
+                "directory": true,
+                "content": [
+                  {
+                    "name": "Homework",
+                    "directory": true,
+                    "content": [
+                      {
+                        "name": "maths",
+                        "extension": "doc"
+                      },
+                      {
+                        "name": "english",
+                        "extension": "doc"
+                      },
+                      {
+                        "name": "biology",
+                        "extension": "doc"
+                      },
+                      {
+                        "name": "computer-science",
+                        "extension": "js"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Pictures",
+                "directory": true,
+                "content": [
+                  {
+                    "name": "Holiday",
+                    "directory": true,
+                    "content": [
+                      {
+                        "name": "1",
+                        "extension": "jpg"
+                      },
+                      {
+                        "name": "2",
+                        "extension": "jpg"
+                      },
+                      {
+                        "name": "3",
+                        "extension": "jpg"
+                      },
+                      {
+                        "name": "4",
+                        "extension": "jpg"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "School trip",
+                    "directory": true,
+                    "content": [
+                      {
+                        "name": "ABD001",
+                        "extension": "jpg"
+                      },
+                      {
+                        "name": "ADB002",
+                        "extension": "jpg"
+                      },
+                      {
+                        "name": "ADB004",
+                        "extension": "jpg"
+                      },
+                      {
+                        "name": "ADB005",
+                        "extension": "jpg"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+  </section>
+  <!--Section: Treeview-->
 
   <hr class="my-5" />
 </section>
