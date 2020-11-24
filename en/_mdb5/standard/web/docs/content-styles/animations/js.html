@@ -43,9 +43,57 @@
   document.querySelectorAll('button[data-toggle="collapse"]').forEach((el) => {
     const animate = new mdb.Animate(el, {
       animation: 'fade-in-up',
-      delay: '500',
-      duration: '500',
+      animationDelay: '500',
+      animationDuration: '500',
     });
     animate.init();
   });
+</script>
+
+<script>
+  // manually start/stop animation example
+  const manuallyEl = document.getElementById('manually-example');
+  const manuallyBtnStart = document.getElementById('manually-btn-start');
+  const manuallyBtnStop = document.getElementById('manually-btn-stop');
+
+  const manually = new mdb.Animate(manuallyEl, {
+    animation: 'fade-in',
+    animationStart: 'manually',
+    animationRepeat: true,
+  });
+
+  manuallyBtnStart.addEventListener('click', () => {
+    manually.startAnimation();
+  });
+
+  manuallyBtnStop.addEventListener('click', () => {
+    manually.stopAnimation();
+  });
+</script>
+
+<script>
+  // change animation type example
+  const changeAnimationEl = document.getElementById('change-animation-type-example');
+  const changeAnimationBtn = document.getElementById('change-animation-type-btn');
+  let animation = 'zoom-in';
+
+  const changeAnimation = new mdb.Animate(changeAnimationEl, {
+    animation: animation,
+    animationStart: 'onLoad',
+    animationDuration: 1000,
+    animationRepeat: true,
+  });
+
+  changeAnimation.init();
+
+  changeAnimationBtn.addEventListener('click', () => {
+    if (animation === 'zoom-in') {
+      animation = 'zoom-out'
+    } else {
+      animation = 'zoom-in'
+    }
+    changeAnimation.stopAnimation();
+    changeAnimation.changeAnimationType(animation);
+    changeAnimation.startAnimation();
+  })
 </script>
