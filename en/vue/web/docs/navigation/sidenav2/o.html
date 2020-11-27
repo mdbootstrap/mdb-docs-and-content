@@ -2151,13 +2151,19 @@
               >
                 <h4>Chat</h4>
               </div>
-              <div slot="content" class="rgba-white-slight sidenav-content">
+              <div slot="content" class="rgba-white-slight sidenav-content text-center">
+              <div v-if="selected">
                 <p>Selected user:</p>
-                <p v-if="selected">
-                  <strong><u>{{ selected }}</u></strong>
+                <p>
+                  <strong
+                    ><u>{{ selected }}</u></strong
+                  >
                   <mdb-icon class="ml-2" far icon="envelope" />
                 </p>
+                <p>({{ this.status.toLowerCase() }})</p>
               </div>
+              <p v-else>User not selected</p>
+            </div>
             </mdb-side-nav-2>
           </template>
         </code>
@@ -2174,27 +2180,45 @@
               data() {
                 return {
                   show: false,
-                  content: [],
-                  selected: null
+                  content: [
+                    {
+                      name: "Online",
+                      children: [],
+                      icon: 'circle'
+                    },
+                    {
+                      name: "Offline",
+                      children: [],
+                      icon: 'circle',
+                      far: true
+                    }
+                  ],
+                  selected: null,
+                  status: ''
                 };
               },
               mounted() {
-                axios
-                  .get("https://jsonplaceholder.typicode.com/users")
-                  .then(response => {
-                    this.content = response.data.map(user => {
-                      const far = Math.random() < 0.5;
-                      return {
-                        name: user.name,
-                        icon: "circle",
-                        far
-                      };
-                    });
+                axios.get("https://jsonplaceholder.typicode.com/users").then(response => {
+                  const [ online, offline ] = this.content;
+                  response.data.forEach(user => {
+                    const isActive = Math.random() < 0.5;
+
+                    const group = isActive ? online : offline;
+
+                    group.children.push({
+                      name: user.name
+                    })
                   });
+                });
               },
               methods: {
-                selectItem(e) {
-                  this.selected = this.content[e].name;
+                selectItem(category, item) {
+                  if (!item) {
+                    this.status = this.content[category].name;
+                  }
+                  else {
+                    this.selected = this.content[category].children[item].name;
+                  }
                 }
               }
             };

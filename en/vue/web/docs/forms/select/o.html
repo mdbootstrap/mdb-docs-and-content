@@ -564,6 +564,83 @@
   </section>
   <!--Section: Code-->
 </section>
+
+<hr class="mt-4 mb-5" />
+
+<!--Section: -->
+<section id="searchable-custom">
+  <!--Title-->
+  <h2 class="section-heading mb-4">
+    Search with custom filtering
+    <a
+      href="https://mdbootstrap.com/pricing/vue/pro/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      >MDB Pro component
+      <i class="far fa-gem ml-1"></i>
+    </a>
+  </h2>
+
+  <!--Section: Live preview-->
+  <section id="searchable-custom-preview" class="section-preview">
+    <mdb-container>
+      <mdb-row>
+        <mdb-col md="6">
+          <mdb-select
+            search
+            :options="customSearchOptions"
+            label="Custom search"
+            :filter="(text, search) => { return text.includes(search)}"
+          />
+        </mdb-col>
+      </mdb-row>
+    </mdb-container>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Code-->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <mdb-container>
+            <mdb-select
+              search
+              :options="customSearchOptions"
+              label="Custom search"
+              :filter="(text, search) => { return text.includes(search)}"
+            />
+          </mdb-container>
+        </template>
+      </code>
+
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbSelect, mdbContainer } from "mdbvue";
+
+          export default {
+            name: "SelectPage",
+            components: {
+              mdbSelect,
+              mdbContainer
+            },
+            data() {
+              return {
+                customSearchOptions: [
+                  { text: "option", value: "Option 1" },
+                  { text: "Option", value: "Option 2" },
+                  { text: "OPTION", value: "Option 3" },
+                ],
+              };
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Code-->
+</section>
 <!--/Section: -->
 <hr class="mt-4 mb-5" />
 
@@ -1264,6 +1341,119 @@
   <!-- Section: Code -->
 </section>
 <!-- Section: Data from API - seach -->
+
+<hr class="mt-4 mb-5" />
+
+<!-- Section: Data from API - multiple selects -->
+<section id="api-multiple">
+  <!-- Title -->
+  <h2 class="section-heading mb-4">
+    Data from API - multiple selects
+    <a
+      href="https://mdbootstrap.com/pricing/vue/pro/"
+      target="_blank"
+      class="btn btn-danger btn-sm"
+      role="button"
+      >MDB Pro component<i class="far fa-gem ml-1"></i
+    ></a>
+  </h2>
+
+  <!-- Description -->
+  <p class="description">
+    In the example below, the options of the second select are fetched from API depending on the first one's value.
+  </p>
+  <!-- Description -->
+
+  <!-- Section: Code -->
+  <section>
+    <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <div>
+            <mdb-select 
+              v-model="axiosOptions" 
+              label="Choose country" 
+              resetBtn 
+              @change="populateLanguageSelect"/>
+            <mdb-select
+              :disabled="disableLanguageSelect"
+              v-model="languageOptions"
+              label="Choose language"
+            />
+            <p>Selected country code: <strong>{{ selectedData }}</strong></p>
+            <p>Selected language: <strong>{{ selectedLanguage }}</strong></p>
+          </div>
+        </template>
+      </code>
+      <code data-lang="html" data-name="script">
+        <script>
+          import { mdbSelect } from "mdbvue";
+          import axios from "axios";
+
+          export default {
+            name: "SelectPage",
+            components: {
+              mdbSelect
+            },
+            computed: {
+              selectedData() {
+                let response = this.axiosOptions.find(option => {
+                  return option.selected === true;
+                });
+                if (response) {
+                  return response.value;
+                }
+                return "Country is not selected";
+              },
+              selectedLanguage() {
+                const selectedOption = this.languageOptions.find(option => option.selected);
+
+                return selectedOption ? selectedOption.value : "Language not selected";
+              },
+            },
+            data() {
+              return {
+                axiosOptions: [],
+                languageOptions: [],
+                disableLanguageSelect: false,
+              };
+            },
+            methods: {
+              populateLanguageSelect(code) {
+                if (code) {
+                  fetch(`https://restcountries.eu/rest/v2/alpha/${code}`).then(resp => resp.json()).then(resp => {
+                    this.languageOptions = resp.languages.map((language, i) => ({ value: language.name, text: language.name, selected: i === 0 }))  
+                  });
+
+                  this.disableLanguageSelect = false;
+                }
+                else {
+                  this.languageOptions = [];
+
+                  this.disableLanguageSelect = true;
+                }
+              },
+            },
+            mounted() {
+              axios
+              .get("https://restcountries.eu/rest/v2/region/europe")
+              .then(response => {
+                this.axiosOptions = response.data.map(entry => {
+                  return {
+                    text: entry.name,
+                    value: entry.alpha3Code,
+                  }
+                })
+              });
+            }
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+  </section>
+  <!-- Section: Code -->
+</section>
+<!-- Section: Data from API - multiple selects -->
 
 <hr class="mt-4 mb-5" />
 
