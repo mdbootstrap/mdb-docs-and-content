@@ -1,0 +1,753 @@
+<script>
+  /* eslint-disable array-callback-return */
+  /* eslint-disable consistent-return */
+
+  // Fontawesome JSON
+  const ICON_HTTP_API =
+    'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/en/jquery/docs/content/icons-list/fontAwesome.json';
+
+  const ICON_TITLE_CLASS = 'list-item';
+  const UL_LIST_ID = 'mdb-ul-font-list';
+  const ICON_ITEM_CLASS = '.icon-item';
+  const UNICODE_CLASS = '.mdb-unicode-icon';
+
+  class IconSearch {
+    constructor(element) {
+      this.element = document.querySelector(element);
+
+      this.allCheckBoxes = this.element.querySelectorAll('.mdb-filter-checkbox');
+      this.btnLoadMore = this.element.querySelector('.btn-load-more-icon');
+      this.buttonCopy = this.element.querySelector('#mdb-button-copy');
+      this.chipsWrapper = this.element.querySelector('#mdb-chips-wrapper');
+      this.codeWrapper = this.element.querySelector('.mdb-code-wrapper');
+      this.coutingTitle = this.element.querySelector('#mdb-icon-counting');
+      this.iconCode = this.element.querySelector('#mdb-icon-code');
+      this.iconListWrapper = this.element.querySelector('#mdb-icons-wrapper');
+      this.searchInput = this.element.querySelector('#mdb-search-input');
+      this.searchCategoryInput = this.element.querySelector('#mdb-search-category');
+      this.checkboxList = this.element.querySelector('#mdb-filter-list');
+      this.cheatsheetButton = this.element.querySelector('#mdb-cheatsheet-info');
+      this.galleryButton = this.element.querySelector('#mdb-cheatsheet-gallery');
+      this.exampleIcon = this.element.querySelector('#mdb-span-example-icon');
+      this.exampleUnicode = this.element.querySelector('#mdb-span-example-unicode');
+      this.exampleText = this.element.querySelector('#mdb-span-example-text');
+      this.inputsCategory = this.element.querySelectorAll('.mdb-filter-category');
+
+      this.checkedCheckboxes = false;
+      this.fullListIcon = null;
+      this.iconListWithCheckboxes = [];
+      // this.perfectScrollbar = null;
+      this.changedListIcon = null;
+
+      this.arrOfCheckedInputs = [];
+      this.arryOfSearchedValues = [];
+      this.startedNumberIcons = 150;
+    }
+
+    async init() {
+      this._setValueToCheckboxes();
+      this._handleInputSearch();
+      this._handleInputKeyupEventCategory();
+      this._handleCheatsheetBtn();
+      this._handleButtonCopy();
+
+      const wrapperList = await this._handleIconWrapperList();
+
+      this.iconListWrapper.appendChild(wrapperList[0]);
+
+      this._handleCountingTitle(wrapperList[2].length);
+
+      this.fullListIcon = wrapperList[2];
+      this.changedListIcon = wrapperList[2];
+
+      this.list = this.element.querySelector(`#${UL_LIST_ID}`);
+
+      this._bindCheckboxClickEvent();
+      this._handleLoadMoreButton();
+      this._handleGalleryBtn();
+      this._initHandleEvents();
+
+      // this.perfectScrollbar = new PerfectScrollbar(this.list);
+    }
+
+    _setIconTemplate(options) {
+      const { id, prefix, unicode } = options;
+
+      const template = `
+    <i class="icon-item ${prefix} fa-${id}" role="button" data-prefix='${prefix}' data-id='${id}' data-unicode="${unicode}"></i>
+    <div class="icon-text mt-1">
+      <span class="icon-span-text">${id}</span>
+      <div id="unicode-${id}" class="justify-content-center d-none" style="display:flex">
+        <span class="mt-2 mdb-span-unicode flex-row-reverse justify-content-center">
+          <div class="ml-2 mdb-unicode">${unicode}</div>
+          <i class="fas fa-clipboard font-glyph mdb-unicode-icon" data-unicode="${unicode}"></i>
+        </span>
+      </div>
+    </div>
+    <div class="mdb-class-label badge bg-info text-uppercase position-absolute">${prefix}</div>`;
+
+      return template;
+    }
+
+    setChipTemplate(options) {
+      const { text } = options;
+
+      const template = `
+    <span class="chip icon-chip text-white">
+      ${this._capitalizeFirstLetter(text.trim())}
+      <i class="close far fa-times-circle"></i>
+    </span>`;
+
+      return template;
+    }
+
+    appendCustomChipWrapper = () => {
+      const divWrapperChip = document.createElement('div');
+      divWrapperChip.id = 'chip-custom-search';
+      this.chipsWrapper.appendChild(divWrapperChip);
+    };
+
+    _handleInputSearch() {
+      this.searchInput.addEventListener('keyup', (e) => this._handleInputKeyupEvent(e));
+      this.searchInput.addEventListener('keydown', (e) => this.appendCustomChipWrapper(e));
+    }
+
+    _handleInputKeyupEvent = async (e) => {
+      let iconList;
+      const { target } = e;
+      const arrSearchTerms = [];
+      const customChipDOM = document.querySelector('#chip-custom-search');
+
+      let arryOfSearchedValues = [];
+
+      if (this.arrOfCheckedInputs.length > 0 && arryOfSearchedValues.length > 0) {
+        iconList = this.changedListIcon;
+      } else if (arryOfSearchedValues.length > 0 && this.arrOfCheckedInputs.length <= 0) {
+        iconList = arryOfSearchedValues;
+      } else {
+        const [, list] = await this._getIconsList();
+
+        iconList = list;
+      }
+
+      this.btnLoadMore.classList.add('d-none');
+
+      const filteredByValue = iconList.filter(({ id }) => id.includes(target.value.toLowerCase()));
+
+      iconList.forEach((el) => {
+        const { terms } = el.search;
+        if (terms.length > 0) {
+          return terms.filter((e) => {
+            if (e.includes(target.value.toLowerCase())) {
+              arrSearchTerms.push(el);
+            }
+          });
+        }
+      });
+
+      const setData = new Set([...arrSearchTerms, ...filteredByValue]);
+      const [ulListSet, dataArr] = this._handleUIChange([...setData]);
+
+      if (target.value === '') {
+        const [ulList] = this._handleUIChange(dataArr.slice(0, this.startedNumberIcons));
+
+        this.iconListWrapper.innerHTML = '';
+        this.iconListWrapper.appendChild(ulList);
+
+        this.btnLoadMore.classList.remove('d-none');
+      } else if (target.value !== '') {
+        if (dataArr.length > this.startedNumberIcons) {
+          arryOfSearchedValues = dataArr;
+          this.changedListIcon = dataArr;
+
+          this.btnLoadMore.classList.remove('d-none');
+
+          const [ulList] = this._handleUIChange(dataArr.slice(0, this.startedNumberIcons));
+          this.iconListWrapper.innerHTML = '';
+          this.iconListWrapper.appendChild(ulList);
+        } else {
+          this.iconListWrapper.innerHTML = '';
+          this.iconListWrapper.appendChild(ulListSet);
+        }
+      }
+
+      this._handleCountingTitle([...setData].length);
+
+      if (customChipDOM !== null) {
+        customChipDOM.innerHTML = this.setChipTemplate({
+          text: `"${e.target.value}"`,
+        });
+
+        this._handlerCustomChipOnClick();
+
+        if (target.value === '') customChipDOM.remove();
+      }
+
+      this._initHandleEvents();
+    };
+
+    _handlerCustomChipOnClick() {
+      const customChipDOM = document.querySelector('#chip-custom-search');
+
+      if (customChipDOM === null) return;
+
+      customChipDOM.addEventListener('click', ({ currentTarget }) => {
+        currentTarget.remove();
+        this.searchInput.value = '';
+        this.searchInput.classList.remove('active');
+
+        if (this.searchInput.value === '') {
+          this.searchInput.dispatchEvent(new Event('keyup'));
+        }
+      });
+    }
+
+    _handleUIChange(data) {
+      const list = document.createElement('div');
+
+      this._createIconList(list, data);
+
+      return [list, data];
+    }
+
+    _handleFilterEmptyArr() {
+      return this.fullListIcon.map((icon) => {
+        const { filter } = icon.attributes;
+        const { attributes } = icon;
+
+        if (filter === undefined) {
+          return {
+            ...icon,
+            attributes: {
+              ...attributes,
+              filter: [],
+            },
+          };
+        }
+
+        return icon;
+      });
+    }
+
+    _createIconList(list, dataArray) {
+      list.setAttribute('id', UL_LIST_ID);
+      list.classList = 'mdb-icon-wrapper-list';
+
+      dataArray.forEach((e) => {
+        const {
+          id,
+          type,
+          attributes: { prefix, unicode },
+        } = e;
+
+        const listElement = document.createElement('div');
+
+        const [arrayWithPrefixes] = [prefix];
+
+        listElement.setAttribute('id', id);
+        listElement.classList.add(ICON_TITLE_CLASS);
+        listElement.innerHTML = this._setIconTemplate({
+          id,
+          prefix,
+          unicode,
+        });
+
+        list.appendChild(listElement);
+
+        if (arrayWithPrefixes.length === 2) {
+          const clonedlistElement = listElement.cloneNode(true);
+
+          clonedlistElement.setAttribute('id', `${id}-far`);
+
+          listElement.parentNode.insertBefore(clonedlistElement, listElement.nextSibling);
+
+          const iconClonedElement = clonedlistElement.querySelector('i');
+          const iconNormalElement = listElement.querySelector('i');
+          const clonedLabel = clonedlistElement.querySelector('.mdb-class-label');
+          const normalLabel = listElement.querySelector('.mdb-class-label');
+
+          iconClonedElement.classList = `icon-item ${arrayWithPrefixes[1]} ${type}-${id}`;
+          iconNormalElement.classList = `icon-item ${arrayWithPrefixes[0]} ${type}-${id}`;
+          clonedLabel.innerText = 'far';
+          normalLabel.innerText = 'fas';
+          iconClonedElement.setAttribute('data-prefix', 'far');
+          iconNormalElement.setAttribute('data-prefix', 'fas');
+        }
+      });
+    }
+
+    _appendChips(text) {
+      const iconElement = document.createElement('i');
+      const divWrapper = document.createElement('div');
+      const chip = this.setChipTemplate({
+        text,
+      });
+
+      divWrapper.id = `chip-${text}`;
+
+      iconElement.classList = 'close far fa-times-circle';
+
+      if (this.checkedCheckboxes) {
+        divWrapper.innerHTML = chip;
+
+        this.chipsWrapper.appendChild(divWrapper);
+      } else {
+        this._handleChipsToRemove(text);
+      }
+
+      divWrapper.addEventListener('click', ({ currentTarget }) =>
+        this._handleChipsOnClick(currentTarget)
+      );
+    }
+
+    async _handleIconWrapperList(iconsNum) {
+      const [dataArray, allIcon] = await this._getIconsList(iconsNum);
+
+      const ulList = document.createElement('div');
+
+      this._createIconList(ulList, dataArray);
+
+      return [ulList, dataArray, allIcon];
+    }
+
+    async _getIconsList(icons = this.startedNumberIcons) {
+      const request = await fetch(ICON_HTTP_API, { credentials: 'same-origin', mode: 'cors' });
+      const { dataArray } = await request.json();
+
+      return Promise.all([dataArray.slice(0, icons), dataArray]);
+    }
+
+    _addArrayToAttr() {
+      const filteredEmptyAttr = this._handleFilterEmptyArr();
+
+      return filteredEmptyAttr.map((icon) => {
+        const { attributes } = icon;
+
+        if (typeof attributes.filter === 'string') {
+          return {
+            ...icon,
+            attributes: {
+              ...attributes,
+              filter: [attributes.filter],
+            },
+          };
+          // eslint-disable-next-line no-else-return
+        } else if (typeof attributes.styles === 'string') {
+          return {
+            ...icon,
+            attributes: {
+              ...attributes,
+              styles: [attributes.styles],
+            },
+          };
+        }
+
+        return icon;
+      });
+    }
+
+    _getArrayByFilterAttr(arrAtrr, fillterdArr, checkedInputs, arr = []) {
+      arrAtrr.forEach((el) => {
+        return fillterdArr.forEach((icon) => {
+          const { attributes } = icon;
+          let checkArr = typeof attributes[el] === 'string' ? [attributes[el]] : attributes[el];
+
+          if (checkArr === undefined) {
+            checkArr = [];
+          }
+
+          return checkArr.forEach((e) => {
+            const checkInputs =
+              typeof checkedInputs === 'string'
+                ? e.includes(checkedInputs)
+                : checkedInputs.includes(e);
+
+            if (checkInputs) {
+              arr.push(icon);
+            } else if (arr.length === 0) {
+              arr = [];
+            }
+          });
+        });
+      });
+
+      return arr;
+    }
+
+    _handlerOfArrays = (checkedInputs = [], attr = ['filter', 'styles'], arr = []) => {
+      const mapFilteredArr = this._addArrayToAttr();
+      const checkedArrys = this._handleAttrToArray(mapFilteredArr, checkedInputs, arr);
+
+      return new Set([
+        ...this._getArrayByFilterAttr(attr, mapFilteredArr, checkedInputs, checkedArrys),
+      ]);
+    };
+
+    _bindCheckboxClickEvent() {
+      let setData = null;
+
+      const getCheckboxState = ({ target }) => {
+        const dc = document.querySelector(`#${UL_LIST_ID}`);
+
+        // const ps = new PerfectScrollbar(dc, {
+        //   suppressScrollX: true
+        // });
+        // ps.update();
+
+        const customChipDOM = document.querySelector('#chip-custom-search');
+
+        if (target.checked) {
+          this.checkedCheckboxes = true;
+          if (!this.arrOfCheckedInputs.includes(target.value)) {
+            this.arrOfCheckedInputs.push(target.value);
+          }
+        } else {
+          this.checkedCheckboxes = false;
+          const index = this.arrOfCheckedInputs.indexOf(target.value);
+          if (index !== -1) this.arrOfCheckedInputs.splice(index, 1);
+        }
+
+        setData = this._handlerOfArrays(this.arrOfCheckedInputs);
+
+        if (customChipDOM !== null && this.arrOfCheckedInputs.length === 0) {
+          setData = this._handlerOfArrays(this.searchInput.value, ['filter', 'styles', 'id']);
+        }
+
+        if (setData.size > this.startedNumberIcons) {
+          this.btnLoadMore.classList.remove('d-none');
+          this.btnLoadMore.disabled = false;
+
+          this.changedListIcon = [...setData];
+
+          const [ulList] = this._handleUIChange([...setData].slice(0, this.startedNumberIcons));
+
+          this.iconListWrapper.innerHTML = '';
+          this.iconListWrapper.appendChild(ulList);
+
+          this._handleCountingTitle(setData.size);
+        } else if (setData.size === 0) {
+          if (this.arrOfCheckedInputs.length <= 0 && this.searchInput.value.length <= 0) {
+            this.btnLoadMore.classList.remove('d-none');
+
+            const [ulList] = this._handleUIChange(
+              this.fullListIcon.slice(0, this.startedNumberIcons)
+            );
+
+            this.iconListWrapper.innerHTML = '';
+            this.iconListWrapper.appendChild(ulList);
+
+            this._handleCountingTitle(this.fullListIcon.length);
+          }
+        } else if (setData.size < this.startedNumberIcons) {
+          this.changedListIcon = [...setData];
+
+          this.btnLoadMore.classList.add('d-none');
+
+          const [ulListSet] = this._handleUIChange(setData);
+
+          this.iconListWrapper.innerHTML = '';
+          this.iconListWrapper.appendChild(ulListSet);
+
+          this._handleCountingTitle(setData.size);
+        }
+
+        this._appendChips(target.value, this.arrOfCheckedInputs);
+        this._initHandleEvents();
+      };
+
+      this.allCheckBoxes.forEach((input) => input.addEventListener('click', getCheckboxState));
+    }
+
+    _initHandleEvents() {
+      this._handleCopyItem();
+      this._handleCopyUnicode();
+      this._handleShowAlertIcon();
+      this._handlerShowAlertUnicode();
+      this._createTooltips(ICON_ITEM_CLASS, 'Copy icon');
+      this._createTooltips(UNICODE_CLASS, 'Copy glyph');
+    }
+
+    _handleAttrToArray(filteredArr, checkedInputs, arr = []) {
+      filteredArr.forEach((icon) => {
+        return icon.attributes.filter.forEach((e) => {
+          const checkInputs =
+            typeof checkedInputs === 'string'
+              ? e.includes(checkedInputs)
+              : checkedInputs.includes(e);
+
+          if (checkInputs) {
+            arr.push(icon);
+          } else if (arr.length === 0) {
+            arr = [];
+          }
+        });
+      });
+
+      return arr;
+    }
+
+    _handleChipsToRemove(currTarget) {
+      const { textContent } = currTarget;
+
+      const chip = this.chipsWrapper.querySelector(
+        `#chip-${textContent === undefined ? currTarget : textContent.trim().toLowerCase()}`
+      );
+
+      if (chip !== null) chip.remove();
+    }
+
+    _handleChipsOnClick(currTarget) {
+      this._handleChipsToRemove(currTarget);
+      this.checkboxList.querySelector(`#${currTarget.textContent.trim().toLowerCase()}`).click();
+    }
+
+    _handleLoadMoreButton = () => {
+      this.btnLoadMore.addEventListener('click', (e) => handleClick(e));
+
+      const handleClick = ({ target }) => {
+        this.startedNumberIcons += this.startedNumberIcons;
+
+        const [ulListSet] = this._handleUIChange(
+          this.changedListIcon.slice(0, this.startedNumberIcons)
+        );
+
+        this.iconListWrapper.innerHTML = '';
+        this.iconListWrapper.appendChild(ulListSet);
+        this._initHandleEvents();
+
+        if (this.startedNumberIcons >= this.changedListIcon.length) {
+          target.disabled = true;
+          return;
+        }
+      };
+    };
+
+    _handleCheatsheetBtn() {
+      const handleClickCheatsheetBtn = () => {
+        const allUnicodeSpan = document.querySelectorAll('.mdb-span-unicode');
+
+        allUnicodeSpan.forEach((span) => span.parentNode.classList.toggle('d-none'));
+      };
+
+      this.cheatsheetButton.addEventListener('click', handleClickCheatsheetBtn);
+    }
+
+    _handleCountingTitle(data) {
+      if (data === 1390) data = 1541;
+
+      this.coutingTitle.innerHTML = `${data} Awesome Free Icons`;
+
+      if (data === 0) {
+        this.coutingTitle.innerHTML = `${data} matching results`;
+      }
+    }
+
+    _setValueToCheckboxes() {
+      this.allCheckBoxes.forEach((e) => (e.value = e.id));
+    }
+
+    _capitalizeFirstLetter([first, ...rest]) {
+      return [first.toUpperCase(), ...rest].join('');
+    }
+
+    _handleShowAlertIcon() {
+      const items = this.element.querySelectorAll(ICON_ITEM_CLASS);
+
+      const handleClickIcon = ({
+        target: {
+          dataset: { id, prefix },
+        },
+      }) => {
+        const icon = `<i class="fas fa-info-circle mr-1"></i> Copied: <i class="ml-1 ${prefix} fa-${id}"></i>`;
+
+        this._showAlert(icon);
+      };
+
+      items.forEach((item) => item.addEventListener('click', handleClickIcon));
+    }
+
+    _handleCopyItem() {
+      const items = this.element.querySelectorAll(ICON_ITEM_CLASS);
+      const handleCopy = ({
+        target: {
+          dataset: { prefix, id, unicode },
+        },
+      }) => {
+        const icon = `<i class="${prefix} fa-${id}"></i>`;
+
+        this._copyToClipBoard(icon);
+        this.iconCode.innerText = icon;
+        this.exampleText.innerText = id;
+        this.exampleUnicode.innerText = unicode;
+        this.exampleIcon.classList = `${prefix} fa-${id} icon-item active`;
+      };
+
+      items.forEach((item) => item.addEventListener('click', handleCopy));
+    }
+
+    _handleCopyUnicode() {
+      const unicodes = this.element.querySelectorAll(UNICODE_CLASS);
+
+      const handleCopy = ({
+        target: {
+          dataset: { unicode },
+        },
+      }) => this._copyToClipBoard(unicode);
+
+      unicodes.forEach((item) => item.addEventListener('click', handleCopy));
+    }
+
+    _handlerShowAlertUnicode() {
+      const unicodes = this.element.querySelectorAll(UNICODE_CLASS);
+
+      const handleClickUnicode = ({
+        target: {
+          dataset: { unicode },
+        },
+      }) => {
+        this._showAlert(`<i class="fas fa-info-circle mr-1"></i> Copied: ${unicode}`);
+      };
+
+      unicodes.forEach((item) => item.addEventListener('click', handleClickUnicode));
+    }
+
+    _handleGalleryBtn() {
+      this.galleryButton.addEventListener('click', (e) => handleClickGalleryBtn(e));
+
+      const handleClickGalleryBtn = () => {
+        const allIconInList = document.querySelectorAll(`div.${ICON_TITLE_CLASS}`);
+
+        allIconInList.forEach((span) => {
+          const icon = span.querySelector('i');
+          const iconText = span.querySelector('.icon-text');
+
+          span.classList.toggle('mdb-gallery-view-li');
+          icon.classList.toggle('mdb-gallery-view-icon');
+          iconText.classList.toggle('mdb-gallery-view-icon-text');
+        });
+      };
+    }
+
+    _copyToClipBoard(str) {
+      const el = document.createElement('textarea');
+      el.value = str;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
+
+    _showAlert(innerElement) {
+      const ex = document.getElementById('placement-example');
+      ex.innerHTML = innerElement;
+
+      return new mdb.Alert(ex).show();
+    }
+
+    _createTooltips(classes, title) {
+      document.querySelectorAll(classes).forEach(
+        (list) =>
+          new mdb.Tooltip(list, {
+            title,
+          })
+      );
+    }
+
+    _handleInputKeyupEventCategory() {
+      this.searchCategoryInput.addEventListener('keyup', (e) => handleKeyupEvent(e));
+
+      const handleKeyupEvent = ({ target: { value } }) => {
+        this.inputsCategory.forEach((input) => {
+          if (!input.value.includes(value.toLowerCase())) {
+            input.parentNode.classList.add('d-none');
+          } else {
+            input.parentNode.classList.remove('d-none');
+          }
+        });
+      };
+    }
+
+    _handleButtonCopy() {
+      this.buttonCopy.addEventListener('click', () =>
+        this._copyToClipBoard(this.iconCode.textContent)
+      );
+    }
+  }
+
+  const search = new IconSearch('.mdb-icon-list');
+  search.init();
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://mdbootstrap.com/",
+          "name": "MDBootstrap",
+          "image": "https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "https://mdbootstrap.com/docs/jquery/",
+          "name": "MDBootstrap jQuery",
+          "image": "https://mdbootstrap.com/wp-content/uploads/2018/11/mdb-jquery-free.jpg"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https://mdbootstrap.com/docs/jquery/content",
+          "name": "Content",
+          "image": "https://mdbootstrap.com/wp-content/uploads/2015/09/mdb-about2-2.jpg"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@id": "https://mdbootstrap.com/docs/jquery/content/icons-list/",
+          "name": "Icon list",
+          "image": "https://mdbootstrap.com/wp-content/uploads/2016/05/icons1-min.jpg"
+        }
+      }
+    ]
+  }
+</script>
+
+<!-- Structured data: Article -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://mdbootstrap.com/docs/jquery/content/icons-list/"
+    },
+    "headline": "Bootstrap Icons List - examples & tutorial. Basic & advanced usage",
+    "image": ["https://mdbootstrap.com/wp-content/uploads/2016/05/icons1-min.jpg"],
+    "datePublished": "2018-06-25T08:00:00+08:00",
+    "dateModified": "2018-06-25T09:20:00+08:00",
+    "author": {
+      "@type": "Organization",
+      "name": "MDBootstrap"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MDBootstrap",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+      }
+    },
+    "description": "Bootstrap icon list is a number of 600 scalable vector icons called Font Awesome which covers multiple topics and use cases."
+  }
+</script>
