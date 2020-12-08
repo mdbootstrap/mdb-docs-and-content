@@ -699,5 +699,59 @@
     <!--Section: Code-->
   </section>
   <!--Section: Double datasets in a bar chart-->
+
+  <hr class="my-5" />
+
+  <!--Section: Async data-->
+  <section id="section-double-datasets-in-a-bar-chart">
+    <!-- Section title -->
+    <h2 class="mb-4">Async data</h2>
+
+    <p>Example of the Fetching data from the json file.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-async-data-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="chart-bar-double-datasets-example"></div>
+        </code>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          const chart = document.getElementById("chart-async-data-example");
+          const chartInstance = new mdb.Chart(chart, { type: "bar" });
+          fetch(
+            "https://api.covid19api.com/total/country/poland/status/confirmed?from=2020-05-01T00:00:00Z&to=2020-11-01T00:00:00Z"
+          )
+            .then((data) => data.json())
+            .then((data) => {
+              const dataset = data.map((obj) => obj["Cases"]);
+              const labels = data.map((obj) => obj["Date"].substr(0, 10));
+              chartInstance.update({
+                labels,
+                datasets: [
+                  {
+                    color: "#FFCDD2",
+                    data: dataset,
+                    label: "Number of cases",
+                    pointRadius: 0,
+                    borderColor: dataset.color,
+                  },
+                ],
+              });
+            });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Async data-->
 </section>
 <!--Section: Docs content-->
