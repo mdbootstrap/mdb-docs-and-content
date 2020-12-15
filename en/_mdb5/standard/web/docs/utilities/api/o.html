@@ -14,18 +14,19 @@
     <hr />
 
     <p>
-      The bootstrap utilities are generated with the utility API which can be used to change or
-      extend Bootstrap’s utility classes. If you don’t have any idea what Sass maps are, you can
-      consult the
+      Bootstrap utilities are generated with our utility API can be used to modify or
+      extend our default set of utility classes via Sass. Our utility API is based on
+      a series of Sass maps and functions for generating families of classes with various options.
+      If you're unfamiliar with Sass maps, read up on the
       <a rel="nofollow" target="_blank" href="https://sass-lang.com/documentation/values/maps"
-        >official docs</a
+        >official Sass docs</a
       >
       to get started.
     </p>
 
     <p>
-      The <code>$utilities</code> map contains all utilities and is later merged with your custom
-      <code>$utilities</code> map if present. The utility map contains a keyed list of utility
+      The <code>$utilities</code> map contains all our utilities and is later merged with your custom
+      <code>$utilities</code> map, if present. The utility map contains a keyed list of utility
       groups which accept the following options:
     </p>
 
@@ -49,12 +50,17 @@
         of the <code>property</code> array.
       </li>
       <li>
-        <code>values</code>: This can be a list of values or a map if you don’t want the class name
-        to be the same as the value. If null is used as map key, it isn’t rendered.
+        <code>state</code>	<em>(optional)</em>: List of pseudo-class variants like :hover or :focus to generate for the utility. No default value.
+      </li>
+      <li>
+        <code>values</code>: List of values, or a map if you don’t want the class name to be the same as the value. If null is used as map key, it isn’t compiled.
       </li>
       <li>
         <code>print</code> <em>(optional)</em>: Boolean indicating if print classes need to be
         generated. <code>false</code> by default.
+      </li>
+      <li>
+        <code>rtl</code> <em>(optional)</em>:	Boolean indicating if utility should be kept in RTL. true by default.
       </li>
     </ul>
   </section>
@@ -63,13 +69,12 @@
   <hr class="my-5" />
 
   <!--Section: Adding utilities to the utility API-->
-  <section id="section-adding-utilities-to-the-utility-api">
+  <section id="section-api-explained">
     <!-- Section title -->
-    <h2 class="mb-4">Adding utilities to the utility API</h2>
+    <h2 class="mb-4">API explained</h2>
 
     <p>
-      All utility variables are added to the <code>$utilities</code> variable. Custom utility groups
-      can added like this:
+      All utility variables are added to the <code>$utilities</code> variable within our <code>_utilities.scss</code> stylesheet. Each group of utilities looks something like this:
     </p>
     <!--Section: Code-->
     <section class="mb-4">
@@ -83,6 +88,7 @@
                 0: 0,
                 25: .25,
                 50: .5,
+                75: .75,
                 100: 1,
               )
             )
@@ -92,25 +98,18 @@
     </section>
     <!--Section: Code-->
 
-    <p>Output:</p>
+    <p>Which outputs the following:</p>
 
     <!--Section: Code-->
     <section class="mb-4">
       <mdbsnippet>
         <!-- prettier-ignore -->
         <code data-lang="css" data-name="css">
-      .opacity-0 {
-        opacity: 0;
-      }
-      .opacity-25 {
-        opacity: .25;
-      }
-      .opacity-75 {
-        opacity: .75;
-      }
-      .opacity-100 {
-        opacity: 1;
-      }
+      .opacity-0 { opacity: 0; }
+      .opacity-25 { opacity: .25; }
+      .opacity-50 { opacity: .50; }
+      .opacity-75 { opacity: .75; }
+      .opacity-100 { opacity: 1; }
     </code>
       </mdbsnippet>
     </section>
@@ -120,13 +119,13 @@
 
   <hr class="my-5" />
 
-  <!--Section: Changing the class prefix-->
-  <section id="section-changing-the-class-prefix">
+  <!--Section: Custom class prefix-->
+  <section id="section-custom-class-prefix">
     <!--Section title-->
-    <h2 class="mb-4">Changing the class prefix</h2>
+    <h2 class="mb-4">Custom class prefix</h2>
 
     <!-- Section description -->
-    <p>With the <code>class</code> option, the class prefix can be changed:</p>
+    <p>Use the <code>class</code> option to change the class prefix used in the compiled CSS:</p>
 
     <!--Section: Code-->
     <section class="mb-4">
@@ -142,6 +141,7 @@
                 0: 0,
                 25: .25,
                 50: .5,
+                75: .75,
                 100: 1,
               )
             )
@@ -159,19 +159,12 @@
       <mdbsnippet>
         <!-- prettier-ignore -->
         <code data-lang="css" data-name="css">
-      .o-0 {
-        opacity: 0;
-      }
-      .o-25 {
-        opacity: .25;
-      }
-      .o-75 {
-        opacity: .75;
-      }
-      .o-100 {
-        opacity: 1;
-      }
-    </code>
+          .o-0 { opacity: 0; }
+          .o-25 { opacity: .25; }
+          .o-50 { opacity: .50; }
+          .o-75 { opacity: .75; }
+          .o-100 { opacity: 1; }
+        </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
@@ -186,7 +179,10 @@
     <h2 class="mb-4">Responsive utilities</h2>
 
     <!-- Section description -->
-    <p>With the <code>responsive</code> option, responsive utility classes can be generated:</p>
+    <p>Add the <code>responsive</code> boolean to generate responsive utilities (e.g., <code>.opacity-md-25</code>)
+      across <a rel="nofollow" target="_blank" href="https://mdbootstrap.com/docs/standard/layout/breakpoints/"
+      >all breakpoints</a
+    >.</p>
 
     <!--Section: Code-->
     <section class="mb-4">
@@ -202,6 +198,7 @@
                 0: 0,
                 25: .25,
                 50: .5,
+                75: .75,
                 100: 1,
               )
             )
@@ -219,73 +216,50 @@
       <mdbsnippet>
         <!-- prettier-ignore -->
         <code data-lang="css" data-name="css"> 
-      .opacity-0 {
-        opacity: 0;
-      }
-      .opacity-25 {
-        opacity: .25;
-      }
-      .opacity-75 {
-        opacity: .75;
-      }
-      .opacity-100 {
-        opacity: 1;
-      }
+      .opacity-0 { opacity: 0; }
+      .opacity-25 { opacity: .25; }
+      .opacity-50 { opacity: .50; }
+      .opacity-75 { opacity: .75; }
+      .opacity-100 { opacity: 1; }
+
       @media (min-width: 576px) {
-        .opacity-sm-0 {
-          opacity: 0;
-        }
-        .opacity-sm-25 {
-          opacity: .25;
-        }
-        .opacity-sm-75 {
-          opacity: .75;
-        }
-        .opacity-sm-100 {
-          opacity: 1;
-        }
+        .opacity-sm-0 { opacity: 0; }
+        .opacity-sm-25 { opacity: .25; }
+        .opacity-sm-50 { opacity: .50; }
+        .opacity-sm-75 { opacity: .75; }
+        .opacity-sm-100 { opacity: 1; }
       }
+
       @media (min-width: 768px) {
-        .opacity-md-0 {
-          opacity: 0;
-        }
-        .opacity-md-25 {
-          opacity: .25;
-        }
-        .opacity-md-75 {
-          opacity: .75;
-        }
-        .opacity-md-100 {
-          opacity: 1;
-        }
+        .opacity-md-0 { opacity: 0; }
+        .opacity-md-25 { opacity: .25; }
+        .opacity-md-50 { opacity: .50; }
+        .opacity-md-75 { opacity: .75; }
+        .opacity-md-100 { opacity: 1; }
       }
+
       @media (min-width: 992px) {
-        .opacity-lg-0 {
-          opacity: 0;
-        }
-        .opacity-lg-25 {
-          opacity: .25;
-        }
-        .opacity-lg-75 {
-          opacity: .75;
-        }
-        .opacity-lg-100 {
-          opacity: 1;
-        }
+        .opacity-lg-0 { opacity: 0; }
+        .opacity-lg-25 { opacity: .25; }
+        .opacity-lg-50 { opacity: .50; }
+        .opacity-lg-75 { opacity: .75; }
+        .opacity-lg-100 { opacity: 1; }
       }
+
       @media (min-width: 1200px) {
-        .opacity-xl-0 {
-          opacity: 0;
-        }
-        .opacity-xl-25 {
-          opacity: .25;
-        }
-        .opacity-xl-75 {
-          opacity: .75;
-        }
-        .opacity-xl-100 {
-          opacity: 1;
-        }
+        .opacity-xl-0 { opacity: 0; }
+        .opacity-xl-25 { opacity: .25; }
+        .opacity-xl-50 { opacity: .50; }
+        .opacity-xl-75 { opacity: .75; }
+        .opacity-xl-100 { opacity: 1; }
+      }
+
+      @media (min-width: 1200px) {
+        .opacity-xxl-0 { opacity: 0; }
+        .opacity-xxl-25 { opacity: .25; }
+        .opacity-xxl-50 { opacity: .50; }
+        .opacity-xxl-75 { opacity: .75; }
+        .opacity-xxl-100 { opacity: 1; }
       }
     </code>
       </mdbsnippet>
@@ -303,8 +277,7 @@
 
     <!-- Section description -->
     <p>
-      Overriding excising utilities is possible by using the same key. For example if you want more
-      responsive overflow utility classes you can do this:
+      Override existing utilities by using the same key. For example, if you want additional responsive overflow utility classes, you can do this:
     </p>
 
     <!--Section: Code-->
@@ -338,7 +311,7 @@
     <!-- Section description -->
     <p>
       Enabling the <code>print</code> option will <strong>also</strong> generate utility classes for
-      print.
+      print, which are only applied within the <code>@media print { ... }</code> media query.
     </p>
 
     <!--Section: Code-->
@@ -350,12 +323,12 @@
           $utilities: (
             "opacity": (
               property: opacity,
-              class: o,
               print: true,
               values: (
                 0: 0,
                 25: .25,
                 50: .5,
+                75: .75,
                 100: 1,
               )
             )
@@ -372,9 +345,19 @@
     <section class="mb-4">
       <mdbsnippet>
         <code data-lang="css" data-name="css">
-          .o-0 { opacity: 0; } .o-25 { opacity: .25; } .o-75 { opacity: .75; } .o-100 { opacity: 1;
-          } @media print { .o-print-0 { opacity: 0; } .o-print-25 { opacity: .25; } .o-print-75 {
-          opacity: .75; } .o-print-100 { opacity: 1; } }
+          .opacity-0 { opacity: 0; }
+          .opacity-25 { opacity: .25; }
+          .opacity-50 { opacity: .5; }
+          .opacity-75 { opacity: .75; }
+          .opacity-100 { opacity: 1; }
+          
+          @media print {
+            .opacity-print-0 { opacity: 0; }
+            .opacity-print-25 { opacity: .25; }
+            .opacity-print-50 { opacity: .5; }
+            .opacity-print-75 { opacity: .75; }
+            .opacity-print-100 { opacity: 1; }
+          }
         </code>
       </mdbsnippet>
     </section>
@@ -384,29 +367,115 @@
 
   <hr class="my-5" />
 
-  <!--Section: Removing utilities-->
-  <section id="section-removing-utilities">
+  <!--Section: Using the API-->
+  <section id="section-using-the-api">
     <!--Section title-->
-    <h2 class="mb-4">Removing utilities</h2>
+    <h2 class="mb-4">Using the API</h2>
 
     <!-- Section description -->
-    <p>Utilities can also be removed by changing the group key to <code>null</code>:</p>
+    <p>Now that you're familiar with how the utilities API works, learn how to add your own custom classes and modify our default utilities.</p>
+    
+    <!--Subsection: Add utilities-->
+    <section id="subsection-add-utilities">
+      <!--Subsection title-->
+      <h4 class="mt-5">Add utilities</h4>
 
-    <!--Section: Code-->
-    <section class="mb-4">
-      <mdbsnippet>
-        <!-- prettier-ignore -->
-        <code data-lang="scss" data-name="scss">
-  
-          $utilities: (
-            "float": null,
-          );
-  
-     </code>
-      </mdbsnippet>
+      <!--Description-->
+      <p>
+        New utilities can be added to the default <code>$utilities</code> map with a 
+        <code>map-merge</code>. For example, here's how to add a responsive <code>cursor</code> utility with three values.
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet>
+          <code data-lang="scss" data-name="scss">
+            $utilities: map-merge(
+              $utilities,
+              (
+                "cursor": (
+                  property: cursor,
+                  class: cursor
+                  responsive: true,
+                  values: auto pointer grab,
+                )
+              )
+            );
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
     </section>
-    <!--Section: Code-->
+    <!--Subsection: Add utilities-->
+
+    <!--Subsection: Modify utilities-->
+    <section id="subsection-add-utilities">
+      <!--Subsection title-->
+      <h4 class="mt-5">Modify utilities</h4>
+
+      <!--Description-->
+      <p>
+        Modify existing utilities in the default <code>$utilities</code> map with <code>map-get</code> and
+        <code>map-merge</code> functions. In the example below, we're adding an additional value to the
+        <code>width</code> utilities. Start with an initial <code>map-merge</code> and then specify which
+        utility you want to modify. From there, fetch the nested <code>"width"</code> map with 
+        <code>map-get</code> to access and modify the utility's options and values.
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet>
+          <code data-lang="scss" data-name="scss">
+            $utilities: map-merge(
+              $utilities,
+              (
+                "width": map-merge(
+                  map-get($utilities, "width"),
+                  (
+                    values: map-merge(
+                      map-get(map-get($utilities, "width"), "values"),
+                      (10: 10%),
+                    ),
+                  ),
+                ),
+              )
+            );
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Modify utilities-->
+
+    <!--Subsection: Remove utilities-->
+    <section id="subsection-remove-utilities">
+      <!--Subsection title-->
+      <h4 class="mt-5">Remove utilities</h4>
+
+      <!--Description-->
+      <p>
+        Remove any of the default utilities by setting the group key to <code>null</code>.
+        For example, to remove all our <code>width</code> utilities, create a <code>$utilities</code>
+        <code>map-merge</code> and add <code>"width": null</code> within.
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet>
+          <code data-lang="scss" data-name="scss">
+            $utilities: map-merge(
+              $utilities,
+              (
+                "width": null
+              )
+            );
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Remove utilities-->
   </section>
-  <!--/Section: Removing utilities-->
+  <!--/Section: Using the API-->
 </section>
 <!--Section: Docs content-->
