@@ -1,0 +1,306 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="api-section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Usage-->
+  <section id="api-section-usage">
+    <!-- Section title -->
+    <h2 class="mb-4">Usage</h2>
+
+    <h4 class="mt-4">
+      Via data attributes
+    </h4>
+
+    <p>
+      Use data attributes to easily control the position of the carousel.
+      <code>data-slide</code> accepts the keywords <code>prev</code> or <code>next</code>, which
+      alters the slide position relative to its current position. Alternatively, use
+      <code>data-slide-to</code> to pass a raw slide index to the carousel
+      <code>data-slide-to="2"</code>, which shifts the slide position to a particular index
+      beginning with <code>0</code>.
+    </p>
+
+    <p>
+      The <code>data-ride="carousel"</code> attribute is used to mark a carousel as animating
+      starting at page load. If you don’t use <code>data-ride="carousel"</code> to initialize your
+      carousel, you have to initialize it yourself.
+      <strong
+        >It cannot be used in combination with (redundant and unnecessary) explicit JavaScript
+        initialization of the same carousel.</strong
+      >
+    </p>
+
+    <h4 class="mt-4">
+      Via JavaScript
+    </h4>
+
+    <p>Call carousel manually with:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+            <code data-lang="js" data-name="JavaScript">
+            var myCarousel = document.querySelector('#myCarousel')
+            var carousel = new bootstrap.Carousel(myCarousel)
+            </code>
+        </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Usage-->
+
+  <hr class="my-5" />
+
+  <!--Section: Options-->
+  <section id="api-section-options">
+    <!-- Section title -->
+    <h2 class="mb-4">Options</h2>
+
+    <p>
+      Options can be passed via data attributes or JavaScript. For data attributes, append the
+      option name to <code>data-</code>, as in <code>data-interval=""</code>.
+    </p>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 100px;">Name</th>
+          <th style="width: 50px;">Type</th>
+          <th style="width: 50px;">Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>interval</td>
+          <td>number</td>
+          <td>5000</td>
+          <td>
+            The amount of time to delay between automatically cycling an item. If false, carousel
+            will not automatically cycle.
+          </td>
+        </tr>
+        <tr>
+          <td>keyboard</td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Whether the carousel should react to keyboard events.</td>
+        </tr>
+        <tr>
+          <td>pause</td>
+          <td>string | boolean</td>
+          <td>"hover"</td>
+          <td>
+            <p>
+              If set to <code>"hover"</code>, pauses the cycling of the carousel on
+              <code>mouseenter</code> and resumes the cycling of the carousel on
+              <code>mouseleave</code>. If set to <code>false</code>, hovering over the carousel
+              won't pause it.
+            </p>
+            <p>
+              On touch-enabled devices, when set to <code>"hover"</code>, cycling will pause on
+              <code>touchend</code> (once the user finished interacting with the carousel) for two
+              intervals, before automatically resuming. Note that this is in addition to the above
+              mouse behavior.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>slide</td>
+          <td>string | boolean</td>
+          <td>false</td>
+          <td>
+            Autoplays the carousel after the user manually cycles the first item. If "carousel",
+            autoplays the carousel on load.
+          </td>
+        </tr>
+        <tr>
+          <td>wrap</td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Whether the carousel should cycle continuously or have hard stops.</td>
+        </tr>
+        <tr>
+          <td>touch</td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>
+            Whether the carousel should support left/right swipe interactions on touchscreen
+            devices.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <!--Section: Options-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">Methods</h2>
+
+    <p class="note note-danger">
+      <strong>Asynchronous methods and transitions:</strong>
+      <br />
+      All API methods are <strong>asynchronous</strong> and start a <strong>transition</strong>.
+      They return to the caller as soon as the transition is started but
+      <strong>before it ends</strong>. In addition, a method call on a
+      <strong>transitioning component will be ignored</strong>.
+    </p>
+
+    You can create a carousel instance with the carousel constructor, for example, to initialize
+    with additional options and start cycling through items:
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+                  
+        <code data-lang="js" data-name="JavaScript">
+        
+        var myCarousel = document.querySelector('#myCarousel')
+        var carousel = new bootstrap.Carousel(myCarousel, {
+            interval: 2000,
+            wrap: false
+        })
+        
+        </code>
+        
+        </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>cycle</code></td>
+          <td>Cycles through the carousel items from left to right.</td>
+        </tr>
+        <tr>
+          <td><code>pause</code></td>
+          <td>Stops the carousel from cycling through items.</td>
+        </tr>
+        <tr>
+          <td><code>prev</code></td>
+          <td>
+            Cycles to the previous item.
+            <strong>Returns to the caller before the previous item has been shown</strong> (e.g.,
+            before the <code>slid.bs.carousel</code> event occurs).
+          </td>
+        </tr>
+        <tr>
+          <td><code>next</code></td>
+          <td>
+            Cycles to the next item.
+            <strong>Returns to the caller before the next item has been shown</strong> (e.g., before
+            the <code>slid.bs.carousel</code> event occurs).
+          </td>
+        </tr>
+        <tr>
+          <td><code>nextWhenVisible</code></td>
+          <td>
+            Cycles the carousel to a particular frame (0 based, similar to an array).
+            <strong>Returns to the caller before the target item has been shown</strong> (e.g.,
+            before the <code>slid.bs.carousel</code> event occurs).
+          </td>
+        </tr>
+        <tr>
+          <td><code>dispose</code></td>
+          <td>Destroys an element's carousel.</td>
+        </tr>
+        <tr>
+          <td><code>getInstance</code></td>
+          <td>
+            Static method which allows you to get the carousel instance associated with a DOM
+            element.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <!--Section: Methods-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+    <h2 class="mb-4">Events</h2>
+
+    <p>
+      Bootstrap’s carousel class exposes two events for hooking into carousel functionality. Both
+      events have the following additional properties:
+    </p>
+
+    <ul>
+      <li>
+        <code>direction</code>: The direction in which the carousel is sliding (either
+        <code>"left"</code> or <code>"right"</code>).
+      </li>
+      <li>
+        <code>relatedTarget</code>: The DOM element that is being slid into place as the active
+        item.
+      </li>
+      <li><code>from</code>: The index of the current item</li>
+      <li><code>to</code>: The index of the next item</li>
+    </ul>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>slide.bs.carousel</code></td>
+          <td>Fires immediately when the <code>slide</code> instance method is invoked.</td>
+        </tr>
+        <tr>
+          <td><code>slid.bs.carousel</code></td>
+          <td>Fired when the carousel has completed its slide transition.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <!--Section: Events-->
+  <hr class="my-5" />
+
+  <!--Section: Change transition duration-->
+  <section id="api-section-change-transition-duration">
+    <!--Section title-->
+    <h2 class="mb-4">
+      Change transition duration
+    </h2>
+
+    <p>
+      The transition duration of <code>.carousel-item</code> can be changed with the
+      <code>$carousel-transition</code> Sass variable before compiling or custom styles if you’re
+      using the compiled CSS. If multiple transitions are applied, make sure the transform
+      transition is defined first (eg.
+      <code>transition: transform 2s ease, opacity .5s ease-out</code>).
+    </p>
+  </section>
+  <!--/Section: Change transition duration-->
+</section>
+<!--Section: Docs content-->

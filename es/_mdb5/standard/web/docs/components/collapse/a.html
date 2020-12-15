@@ -1,0 +1,248 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="api-section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Usage-->
+  <section id="api-section-usage">
+    <!-- Section title -->
+    <h2 class="mb-4">Uso</h2>
+
+    <p>El complemento de colapso utiliza algunas clases para manejar el trabajo pesado:</p>
+
+    <ul>
+      <li><code>.collapse</code> oculta el contenido</li>
+      <li><code>.collapse.show</code> muestra el contenido</li>
+      <li>
+        <code>.collapsing</code> se agrega cuando comienza la transición y se elimina cuando finaliza
+      </li>
+    </ul>
+
+    <p>Estas clases se pueden encontrar en <code> _transitions.scss </code>.</p>
+
+    <h4 class="mt-4">
+      Via data attributes
+    </h4>
+    <p>Simplemente agregue <code> data-toggle = "collapse" </code> y un <code> data-target </code> al elemento para
+      Asignar automáticamente el control de uno o más elementos plegables. los
+      El atributo <code> data-target </code> acepta un selector de CSS para aplicar el colapso. Asegúrate de
+      agregue la clase <code> collapse </code> al elemento colapsable. Si desea que sea predeterminado
+      open, agregue la clase adicional <code> show </code>.</p>
+    <p>Para agregar una administración de grupo similar a un acordeón a un área plegable, agregue el atributo de datos
+      <code> data-parent = "# selector" </code>. Consulte la demostración para ver esto en acción.</p>
+
+    <h4 class="mt-4">Vía JavaScript</h4>
+    <p>Habilitar manualmente con:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript"> 
+          var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+          var collapseList = collapseElementList.map(function (collapseEl) {
+            return new bootstrap.Collapse(collapseEl)
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Usage-->
+
+  <hr class="my-5" />
+
+  <!--Section: Options-->
+  <section id="api-section-options">
+    <!-- Section title -->
+    <h2 class="mb-4">Opciones</h2>
+    <p>Las opciones se pueden pasar mediante atributos de datos o JavaScript. Para los atributos de datos, agregue el
+      nombre de la opción a <code> data- </code>, como en <code> data-parent = "" </code>.</p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 100px;">name</th>
+          <th style="width: 50px;">Tipo</th>
+          <th style="width: 50px;">Defecto</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>parent</td>
+          <td>selector | jQuery object | DOM element</td>
+          <td>false</td>
+          <td>Si se proporciona un padre, entonces todos los elementos contraíbles bajo el padre especificado serán
+            cerrado cuando se muestra este elemento plegable. (similar al comportamiento tradicional del acordeón -
+            esto depende de la
+            <code> tarjeta </code> clase). El atributo debe establecerse en el área plegable de destino.</td>
+        </tr>
+        <tr>
+          <td>toggle</td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Alterna el elemento plegable en la invocación</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <!--Section: Options-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">Métodos</h2>
+
+    <p class="note note-danger"><strong> Métodos y transiciones asincrónicos: </strong>
+      <br />
+      Todos los métodos de la API son <strong> asíncronos </strong> e inician una <strong> transición </strong>.
+      Vuelven a la persona que llama tan pronto como se inicia la transición, pero
+      <strong> antes de que termine </strong>. Además, una llamada a un método
+      <strong> Se ignorará el componente de transición </strong>.</p>
+    <p>Activa su contenido como un elemento plegable. Acepta opciones opcionales
+      <code> objeto </code>.</p>
+    <p>Puede crear una instancia de contracción con el constructor, por ejemplo:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="javascript">
+          var myCollapse = document.getElementById('myCollapse')
+          var bsCollapse = new bootstrap.Collapse(myCollapse, {
+            toggle: false
+          })  
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Método</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>toggle</code></td>
+          <td>
+            Toggles a collapsible element to shown or hidden.
+            <strong
+              >Returns to the caller before the collapsible element has actually been shown or
+              hidden</strong
+            >
+            (i.e. before the <code>shown.bs.collapse</code> or <code>hidden.bs.collapse</code> event
+            occurs).
+          </td>
+        </tr>
+        <tr>
+          <td><code>show</code></td>
+          <td>
+            Shows a collapsible element.
+            <strong
+              >Returns to the caller before the collapsible element has actually been shown</strong
+            >
+            (e.g., before the <code>shown.bs.collapse</code> event occurs).
+          </td>
+        </tr>
+        <tr>
+          <td><code>hide</code></td>
+          <td>
+            Hides a collapsible element.
+            <strong
+              >Returns to the caller before the collapsible element has actually been hidden</strong
+            >
+            (e.g., before the <code>hidden.bs.collapse</code> event occurs).
+          </td>
+        </tr>
+        <tr>
+          <td><code>dispose</code></td>
+          <td>Destroys an element's collapse.</td>
+        </tr>
+        <tr>
+          <td><code>getInstance</code></td>
+          <td>
+            Static method which allows you to get the collapse instance associated with a DOM
+            element.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <!--Section: Methods-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+    <h2 class="mb-4">Events</h2>
+    <p>
+      Bootstrap’s collapse class exposes a few events for hooking into collapse functionality.
+    </p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>show.bs.collapse</td>
+          <td>
+            This event fires immediately when the <code>show</code> instance method is called.
+          </td>
+        </tr>
+        <tr>
+          <td>shown.bs.collapse</td>
+          <td>
+            This event is fired when a collapse element has been made visible to the user (will wait
+            for CSS transitions to complete).
+          </td>
+        </tr>
+        <tr>
+          <td>hide.bs.collapse</td>
+          <td>
+            This event is fired immediately when the <code>hide</code> method has been called.
+          </td>
+        </tr>
+        <tr>
+          <td>hidden.bs.collapse</td>
+          <td>
+            This event is fired when a collapse element has been hidden from the user (will wait for
+            CSS transitions to complete).
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML"> 
+          var myCollapsible = document.getElementById('myCollapsible')
+          myCollapsible.addEventListener('hidden.bs.collapse', function () {
+            // do something...
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Events-->
+</section>
+<!--Section: Docs content-->
