@@ -49,7 +49,7 @@
 
     const setActiveBtn = (region) => {
       btns.forEach((btn) => {
-        if (btn.getAttribute('data-region') === region) {
+        if (btn.getAttribute('data-mdb-region') === region) {
           btn.classList.remove('btn-outline-primary');
           btn.classList.add('btn-primary');
         } else {
@@ -61,7 +61,7 @@
 
     btns.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const region = btn.getAttribute('data-region');
+        const region = btn.getAttribute('data-mdb-region');
         mapInstance.select(region);
 
         setActiveBtn(region);
@@ -90,7 +90,7 @@
           return `
             <li class="vector-map-legend__item my-2">
               <div
-                class="vector-map-legend__color mr-2 border"
+                class="vector-map-legend__color me-2 border"
                 style="background-color: ${fill}"
               ></div>
               ${min} - ${max}
@@ -160,12 +160,12 @@
 
     document.getElementsByClassName('btn-map-with-pins').forEach((btn) => {
       const coordinates = {
-        x: Number(btn.getAttribute('data-x')),
-        y: Number(btn.getAttribute('data-y')),
+        x: Number(btn.getAttribute('data-mdb-x')),
+        y: Number(btn.getAttribute('data-mdb-y')),
       };
 
-      const region = btn.getAttribute('data-region');
-      const label = btn.getAttribute('data-label');
+      const region = btn.getAttribute('data-mdb-region');
+      const label = btn.getAttribute('data-mdb-label');
 
       btn.addEventListener('click', () => {
         mapInstance.update({
@@ -603,8 +603,8 @@
 
     btns.forEach((btn) => {
       btn.addEventListener('click', () => {
-        ACTIVE_KEY = btn.getAttribute('data-key');
-        ACTIVE_COLOR = btn.getAttribute('data-color');
+        ACTIVE_KEY = btn.getAttribute('data-mdb-key');
+        ACTIVE_COLOR = btn.getAttribute('data-mdb-color');
 
         updateMap();
 
@@ -614,7 +614,7 @@
 
     displayBtns.forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        SHOW_BULLETS = btn.getAttribute('data-bullets') === 'true';
+        SHOW_BULLETS = btn.getAttribute('data-mdb-bullets') === 'true';
 
         updateMap();
 
