@@ -1,0 +1,370 @@
+<!--Section: Docs content-->
+<section>
+  <style>
+    .square {
+      width: 100px;
+      height: 100px;
+      background-color: #f5f5f5;
+      display: inline-block;
+      margin: 10px;
+    }
+  </style>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">The utility API is a Sass-based tool to generate utility classes.</p>
+
+    <hr />
+
+    <p>
+      Bootstrap utilities are generated with our utility API can be used to modify or extend our
+      default set of utility classes via Sass. Our utility API is based on a series of Sass maps and
+      functions for generating families of classes with various options. If you're unfamiliar with
+      Sass maps, read up on the
+      <a rel="nofollow" target="_blank" href="https://sass-lang.com/documentation/values/maps"
+        >official Sass docs</a
+      >
+      to get started.
+    </p>
+
+    <p>
+      The <code>$utilities</code> map contains all our utilities and is later merged with your
+      custom <code>$utilities</code> map, if present. The utility map contains a keyed list of
+      utility groups which accept the following options:
+    </p>
+
+    <ul>
+      <li>
+        <code>property</code>: Name of the property, this can be a string or an array of strings
+        (needed for eg. horizontal paddings or margins).
+      </li>
+      <li>
+        <code>responsive</code> <em>(optional)</em>: Boolean indicating if responsive classes need
+        to be generated. <code>false</code> by default.
+      </li>
+      <li>
+        <code>rfs</code> <em>(optional)</em>: Variable to enable fluid rescaling. Have a look at the
+        RFS page to find out how this works. <code>false</code> by default.
+      </li>
+      <li>
+        <code>class</code> <em>(optional)</em>: Variable to change the class name if you don’t want
+        it to be the same as the property. In case you don’t provide the <code>class</code> key and
+        <code>property</code> key is an array of strings, the class name will be the first element
+        of the <code>property</code> array.
+      </li>
+      <li>
+        <code>state</code> <em>(optional)</em>: List of pseudo-class variants like :hover or :focus
+        to generate for the utility. No default value.
+      </li>
+      <li>
+        <code>values</code>: List of values, or a map if you don’t want the class name to be the
+        same as the value. If null is used as map key, it isn’t compiled.
+      </li>
+      <li>
+        <code>print</code> <em>(optional)</em>: Boolean indicating if print classes need to be
+        generated. <code>false</code> by default.
+      </li>
+      <li>
+        <code>rtl</code> <em>(optional)</em>: Boolean indicating if utility should be kept in RTL.
+        true by default.
+      </li>
+    </ul>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Adding utilities to the utility API-->
+  <section id="section-api-explained">
+    <!-- Section title -->
+    <h2 class="mb-4">API explained</h2>
+
+    <p>
+      All utility variables are added to the <code>$utilities</code> variable within our
+      <code>_utilities.scss</code> stylesheet. Each group of utilities looks something like this:
+    </p>
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="scss" data-name="scss"> 
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                75: .75,
+                100: 1,
+              )
+            )
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Which outputs the following:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="css" data-name="css">
+          .opacity-0 { opacity: 0; }
+          .opacity-25 { opacity: .25; }
+          .opacity-50 { opacity: .50; }
+          .opacity-75 { opacity: .75; }
+          .opacity-100 { opacity: 1; }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Adding utilities to the utility API-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom class prefix-->
+  <section id="section-custom-class-prefix">
+    <!--Section title-->
+    <h2 class="mb-4">Custom class prefix</h2>
+
+    <!-- Section description -->
+    <p>Use the <code>class</code> option to change the class prefix used in the compiled CSS:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="scss" data-name="scss">
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              class: o,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                75: .75,
+                100: 1,
+              )
+            )
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="css" data-name="css">
+          .o-0 { opacity: 0; }
+          .o-25 { opacity: .25; }
+          .o-50 { opacity: .50; }
+          .o-75 { opacity: .75; }
+          .o-100 { opacity: 1; }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Changing the class prefix-->
+
+  <hr class="my-5" />
+
+  <!--Section: Responsive utilities-->
+  <section id="section-responsive-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">Responsive utilities</h2>
+
+    <!-- Section description -->
+    <p>
+      Add the <code>responsive</code> boolean to generate responsive utilities (e.g.,
+      <code>.opacity-md-25</code>) across
+      <a rel="nofollow" target="_blank" href="/docs/b5/angular/layout/breakpoints/"
+        >all breakpoints</a
+      >.
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="scss" data-name="scss">
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              responsive: true,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                75: .75,
+                100: 1,
+              )
+            )
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="css" data-name="css"> 
+          .opacity-0 { opacity: 0; }
+          .opacity-25 { opacity: .25; }
+          .opacity-50 { opacity: .50; }
+          .opacity-75 { opacity: .75; }
+          .opacity-100 { opacity: 1; }
+
+          @media (min-width: 576px) {
+            .opacity-sm-0 { opacity: 0; }
+            .opacity-sm-25 { opacity: .25; }
+            .opacity-sm-50 { opacity: .50; }
+            .opacity-sm-75 { opacity: .75; }
+            .opacity-sm-100 { opacity: 1; }
+          }
+
+          @media (min-width: 768px) {
+            .opacity-md-0 { opacity: 0; }
+            .opacity-md-25 { opacity: .25; }
+            .opacity-md-50 { opacity: .50; }
+            .opacity-md-75 { opacity: .75; }
+            .opacity-md-100 { opacity: 1; }
+          }
+
+          @media (min-width: 992px) {
+            .opacity-lg-0 { opacity: 0; }
+            .opacity-lg-25 { opacity: .25; }
+            .opacity-lg-50 { opacity: .50; }
+            .opacity-lg-75 { opacity: .75; }
+            .opacity-lg-100 { opacity: 1; }
+          }
+
+          @media (min-width: 1200px) {
+            .opacity-xl-0 { opacity: 0; }
+            .opacity-xl-25 { opacity: .25; }
+            .opacity-xl-50 { opacity: .50; }
+            .opacity-xl-75 { opacity: .75; }
+            .opacity-xl-100 { opacity: 1; }
+          }
+
+          @media (min-width: 1200px) {
+            .opacity-xxl-0 { opacity: 0; }
+            .opacity-xxl-25 { opacity: .25; }
+            .opacity-xxl-50 { opacity: .50; }
+            .opacity-xxl-75 { opacity: .75; }
+            .opacity-xxl-100 { opacity: 1; }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Responsive utilities-->
+
+  <hr class="my-5" />
+
+  <!--Section: Changing utilities-->
+  <section id="section-changing-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">Changing utilities</h2>
+
+    <!-- Section description -->
+    <p>
+      Override existing utilities by using the same key. For example, if you want additional
+      responsive overflow utility classes, you can do this:
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="scss" data-name="scss">
+          $utilities: (
+            "overflow": (
+              responsive: true,
+              property: overflow,
+              values: visible hidden scroll auto,
+            ),
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Changing utilities-->
+
+  <hr class="my-5" />
+
+  <!--Section: Print utilities-->
+  <section id="section-print-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">Print utilities</h2>
+
+    <!-- Section description -->
+    <p>
+      Enabling the <code>print</code> option will <strong>also</strong> generate utility classes for
+      print, which are only applied within the <code>@media print &#123; ... &#125;</code> media
+      query.
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="scss" data-name="scss">
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              print: true,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                75: .75,
+                100: 1,
+              )
+            )
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="css" data-name="css">
+          .opacity-0 { opacity: 0; }
+          .opacity-25 { opacity: .25; }
+          .opacity-50 { opacity: .5; }
+          .opacity-75 { opacity: .75; }
+          .opacity-100 { opacity: 1; }
+          
+          @media print { 
+            .opacity-print-0 { opacity: 0; } 
+            .opacity-print-25 { opacity: .25; } 
+            .opacity-print-50 { opacity: .5; }
+            .opacity-print-75 { opacity: .75; } 
+            .opacity-print-100 { opacity: 1; } 
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Print utilities-->
+</section>
+<!--Section: Docs content-->
