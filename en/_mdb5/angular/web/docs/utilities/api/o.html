@@ -9,216 +9,351 @@
     <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
 
     <!-- Description -->
-    <p class="my-4">
-      Use border utilities to quickly style the border and border-radius of an element. Great for
-      images, buttons, or any other element.
+    <p class="my-4">The utility API is a Sass-based tool to generate utility classes.</p>
+
+    <hr />
+
+    <p>
+      Bootstrap utilities are generated with our utility API can be used to modify or extend our
+      default set of utility classes via Sass. Our utility API is based on a series of Sass maps and
+      functions for generating families of classes with various options. If you're unfamiliar with
+      Sass maps, read up on the
+      <a rel="nofollow" target="_blank" href="https://sass-lang.com/documentation/values/maps"
+        >official Sass docs</a
+      >
+      to get started.
     </p>
+
+    <p>
+      The <code>$utilities</code> map contains all our utilities and is later merged with your
+      custom <code>$utilities</code> map, if present. The utility map contains a keyed list of
+      utility groups which accept the following options:
+    </p>
+
+    <ul>
+      <li>
+        <code>property</code>: Name of the property, this can be a string or an array of strings
+        (needed for eg. horizontal paddings or margins).
+      </li>
+      <li>
+        <code>responsive</code> <em>(optional)</em>: Boolean indicating if responsive classes need
+        to be generated. <code>false</code> by default.
+      </li>
+      <li>
+        <code>rfs</code> <em>(optional)</em>: Variable to enable fluid rescaling. Have a look at the
+        RFS page to find out how this works. <code>false</code> by default.
+      </li>
+      <li>
+        <code>class</code> <em>(optional)</em>: Variable to change the class name if you don’t want
+        it to be the same as the property. In case you don’t provide the <code>class</code> key and
+        <code>property</code> key is an array of strings, the class name will be the first element
+        of the <code>property</code> array.
+      </li>
+      <li>
+        <code>state</code> <em>(optional)</em>: List of pseudo-class variants like :hover or :focus
+        to generate for the utility. No default value.
+      </li>
+      <li>
+        <code>values</code>: List of values, or a map if you don’t want the class name to be the
+        same as the value. If null is used as map key, it isn’t compiled.
+      </li>
+      <li>
+        <code>print</code> <em>(optional)</em>: Boolean indicating if print classes need to be
+        generated. <code>false</code> by default.
+      </li>
+      <li>
+        <code>rtl</code> <em>(optional)</em>: Boolean indicating if utility should be kept in RTL.
+        true by default.
+      </li>
+    </ul>
   </section>
   <!--Section: Introduction-->
 
   <hr class="my-5" />
 
-  <!--Section: Basic example-->
-  <section id="section-basic-examples">
+  <!--Section: Adding utilities to the utility API-->
+  <section id="section-api-explained">
     <!-- Section title -->
-    <h2 class="mb-4">Basic examples</h2>
+    <h2 class="mb-4">API explained</h2>
 
     <p>
-      Use border utilities to add or remove an element’s borders. Choose from all borders or one
-      at a time.
+      All utility variables are added to the <code>$utilities</code> variable within our
+      <code>_utilities.scss</code> stylesheet. Each group of utilities looks something like this:
     </p>
-
-    <!--Subsection: Additive-->
-    <section id="subsection-additive">
-      <!--Subsection title-->
-      <h4 class="mt-5">Additive</h4>
-
-      <!--Description-->
-      <p></p>
-
-      <!--Section: Demo-->
-      <section class="border p-4 text-center mb-4">
-        <span class="square border"></span>
-        <span class="square border-top"></span>
-        <span class="square border-end"></span>
-        <span class="square border-bottom"></span>
-        <span class="square border-start"></span>
-      </section>
-      <!--Section: Demo-->
-
-      <!--Section: Code-->
-      <section class="mb-4">
-        <mdbsnippet>
-          <code data-lang="html" data-name="HTML">
-            <span class="border"></span>
-            <span class="border-top"></span>
-            <span class="border-end"></span>
-            <span class="border-bottom"></span>
-            <span class="border-start"></span>
-          </code>
-        </mdbsnippet>
-      </section>
-      <!--Section: Code-->
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="scss" data-name="scss"> 
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                75: .75,
+                100: 1,
+              )
+            )
+          );
+        </code>
+      </mdbsnippet>
     </section>
-    <!--Subsection: Additive-->
+    <!--Section: Code-->
 
-    <!--Subsection: Subtractive-->
-    <section id="subsection-subtractive">
-      <!--Subsection title-->
-      <h4 class="mt-5">Subtractive</h4>
-
-      <!--Description-->
-      <p></p>
-
-      <!--Section: Demo-->
-      <section class="border p-4 text-center mb-4">
-        <span class="square border-0"></span>
-        <span class="square border-top-0"></span>
-        <span class="square border-end-0"></span>
-        <span class="square border-bottom-0"></span>
-        <span class="square border-start-0"></span>
-      </section>
-      <!--Section: Demo-->
-
-      <!--Section: Code-->
-      <section class="mb-4">
-        <mdbsnippet>
-          <code data-lang="html" data-name="HTML">
-            <span class="border-0"></span>
-            <span class="border-top-0"></span>
-            <span class="border-end-0"></span>
-            <span class="border-bottom-0"></span>
-            <span class="border-start-0"></span>
-          </code>
-        </mdbsnippet>
-      </section>
-      <!--Section: Code-->
-    </section>
-    <!--Subsection: Subtractive-->
-  </section>
-  <!--Section: Basic example-->
-
-  <hr class="my-5" />
-
-  <!--Section: Color-->
-  <section id="section-color">
-    <!--Section title-->
-    <h2 class="mb-4">Color</h2>
-
-    <!-- Section description -->
-    <p>Change the border color using utilities built on our theme colors.</p>
-
-    <!--Section: Demo-->
-    <section class="border p-4 text-center mb-4">
-      <span class="square border border-primary"></span>
-      <span class="square border border-secondary"></span>
-      <span class="square border border-success"></span>
-      <span class="square border border-danger"></span>
-      <span class="square border border-warning"></span>
-      <span class="square border border-info"></span>
-      <span class="square border border-light"></span>
-      <span class="square border border-dark"></span>
-      <span class="square border border-white"></span>
-    </section>
-    <!--Section: Demo-->
+    <p>Which outputs the following:</p>
 
     <!--Section: Code-->
     <section class="mb-4">
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <span class="border border-primary"></span>
-          <span class="border border-secondary"></span>
-          <span class="border border-success"></span>
-          <span class="border border-danger"></span>
-          <span class="border border-warning"></span>
-          <span class="border border-info"></span>
-          <span class="border border-light"></span>
-          <span class="border border-dark"></span>
-          <span class="border border-white"></span>
+        <code data-lang="css" data-name="css">
+          .opacity-0 { opacity: 0; }
+          .opacity-25 { opacity: .25; }
+          .opacity-50 { opacity: .50; }
+          .opacity-75 { opacity: .75; }
+          .opacity-100 { opacity: 1; }
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
   </section>
-  <!--/Section: Color-->
+  <!--Section: Adding utilities to the utility API-->
 
   <hr class="my-5" />
 
-  <!--Section: Border-radius-->
-  <section id="section-border-radius">
+  <!--Section: Custom class prefix-->
+  <section id="section-custom-class-prefix">
     <!--Section title-->
-    <h2 class="mb-4">Border-radius</h2>
+    <h2 class="mb-4">Custom class prefix</h2>
 
     <!-- Section description -->
-    <p>Add classes to an element to easily round its corners.</p>
-
-    <!--Section: Demo-->
-    <section class="border p-4 text-center mb-4">
-      <span class="square bg-primary rounded"></span>
-      <span class="square bg-primary rounded-top"></span>
-      <span class="square bg-primary rounded-end"></span>
-      <span class="square bg-primary rounded-bottom"></span>
-      <span class="square bg-primary rounded-start"></span>
-      <span class="square bg-primary rounded-circle"></span>
-      <span class="square bg-primary rounded-pill" style="width: 150px"></span>
-      <span class="square bg-primary rounded-0"></span>
-    </section>
-    <!--Section: Demo-->
+    <p>Use the <code>class</code> option to change the class prefix used in the compiled CSS:</p>
 
     <!--Section: Code-->
     <section class="mb-4">
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <img src="..." class="rounded" alt="..." />
-          <img src="..." class="rounded-top" alt="..." />
-          <img src="..." class="rounded-end" alt="..." />
-          <img src="..." class="rounded-bottom" alt="..." />
-          <img src="..." class="rounded-start" alt="..." />
-          <img src="..." class="rounded-circle" alt="..." />
-          <img src="..." class="rounded-pill" alt="..." />
-          <img src="..." class="rounded-0" alt="..." />
+        <code data-lang="scss" data-name="scss">
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              class: o,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                75: .75,
+                100: 1,
+              )
+            )
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="css" data-name="css">
+          .o-0 { opacity: 0; }
+          .o-25 { opacity: .25; }
+          .o-50 { opacity: .50; }
+          .o-75 { opacity: .75; }
+          .o-100 { opacity: 1; }
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
   </section>
-  <!--/Section: Border-radius-->
+  <!--/Section: Changing the class prefix-->
 
   <hr class="my-5" />
 
-  <!--Section: Sizes-->
-  <section id="section-sizes">
+  <!--Section: Responsive utilities-->
+  <section id="section-responsive-utilities">
     <!--Section title-->
-    <h2 class="mb-4">Sizes</h2>
+    <h2 class="mb-4">Responsive utilities</h2>
 
     <!-- Section description -->
     <p>
-      Use <code>.rounded-lg</code> or <code>.rounded-sm</code> for larger or smaller
-      border-radius.
+      Add the <code>responsive</code> boolean to generate responsive utilities (e.g.,
+      <code>.opacity-md-25</code>) across
+      <a rel="nofollow" target="_blank" href="/docs/b5/angular/layout/breakpoints/"
+        >all breakpoints</a
+      >.
     </p>
-
-    <!--Section: Demo-->
-    <section class="border p-4 text-center mb-4">
-      <span class="square bg-primary rounded-0"></span>
-      <span class="square bg-primary rounded-1"></span>
-      <span class="square bg-primary rounded-2"></span>
-      <span class="square bg-primary rounded-3"></span>
-    </section>
-    <!--Section: Demo-->
 
     <!--Section: Code-->
     <section class="mb-4">
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <img src="..." class="rounded-0" alt="..." />
-          <img src="..." class="rounded-1" alt="..." />
-          <img src="..." class="rounded-2" alt="..." />
-          <img src="..." class="rounded-3" alt="..." />
+        <code data-lang="scss" data-name="scss">
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              responsive: true,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                75: .75,
+                100: 1,
+              )
+            )
+           );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="css" data-name="css"> 
+          .opacity-0 { opacity: 0; }
+          .opacity-25 { opacity: .25; }
+          .opacity-50 { opacity: .50; }
+          .opacity-75 { opacity: .75; }
+          .opacity-100 { opacity: 1; }
+
+          @media (min-width: 576px) {
+            .opacity-sm-0 { opacity: 0; }
+            .opacity-sm-25 { opacity: .25; }
+            .opacity-sm-50 { opacity: .50; }
+            .opacity-sm-75 { opacity: .75; }
+            .opacity-sm-100 { opacity: 1; }
+          }
+
+          @media (min-width: 768px) {
+            .opacity-md-0 { opacity: 0; }
+            .opacity-md-25 { opacity: .25; }
+            .opacity-md-50 { opacity: .50; }
+            .opacity-md-75 { opacity: .75; }
+            .opacity-md-100 { opacity: 1; }
+          }
+
+          @media (min-width: 992px) {
+            .opacity-lg-0 { opacity: 0; }
+            .opacity-lg-25 { opacity: .25; }
+            .opacity-lg-50 { opacity: .50; }
+            .opacity-lg-75 { opacity: .75; }
+            .opacity-lg-100 { opacity: 1; }
+          }
+
+          @media (min-width: 1200px) {
+            .opacity-xl-0 { opacity: 0; }
+            .opacity-xl-25 { opacity: .25; }
+            .opacity-xl-50 { opacity: .50; }
+            .opacity-xl-75 { opacity: .75; }
+            .opacity-xl-100 { opacity: 1; }
+          }
+
+          @media (min-width: 1200px) {
+            .opacity-xxl-0 { opacity: 0; }
+            .opacity-xxl-25 { opacity: .25; }
+            .opacity-xxl-50 { opacity: .50; }
+            .opacity-xxl-75 { opacity: .75; }
+            .opacity-xxl-100 { opacity: 1; }
+          }
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
   </section>
-  <!--/Section: Sizes-->
-</section>
-<!--Section: Docs content-->
+  <!--/Section: Responsive utilities-->
+
+  <hr class="my-5" />
+
+  <!--Section: Changing utilities-->
+  <section id="section-changing-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">Changing utilities</h2>
+
+    <!-- Section description -->
+    <p>
+      Override existing utilities by using the same key. For example, if you want additional
+      responsive overflow utility classes, you can do this:
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="scss" data-name="scss">
+          $utilities: (
+            "overflow": (
+              responsive: true,
+              property: overflow,
+              values: visible hidden scroll auto,
+            ),
+          );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Changing utilities-->
+
+  <hr class="my-5" />
+
+  <!--Section: Print utilities-->
+  <section id="section-print-utilities">
+    <!--Section title-->
+    <h2 class="mb-4">Print utilities</h2>
+
+    <!-- Section description -->
+    <p>
+      Enabling the <code>print</code> option will <strong>also</strong> generate utility classes for
+      print, which are only applied within the <code>@media print &#123; ... &#125;</code> media
+      query.
+    </p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="scss" data-name="scss">
+          $utilities: (
+            "opacity": (
+              property: opacity,
+              print: true,
+              values: (
+                0: 0,
+                25: .25,
+                50: .5,
+                75: .75,
+                100: 1,
+              )
+            )
+            );
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Output:</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="css" data-name="css">
+          .opacity-0 { opacity: 0; }
+          .opacity-25 { opacity: .25; }
+          .opacity-50 { opacity: .5; }
+          .opacity-75 { opacity: .75; }
+          .opacity-100 { opacity: 1; }
+          
+          @media print { 
+            .opacity-print-0 { opacity: 0; } 
+            .opacity-print-25 { opacity: .25; } 
+            .opacity-print-50 { opacity: .5; }
+            .opacity-print-75 { opacity: .75; } 
+            .opacity-print-100 { opacity: 1; } 
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Print utilities-->
