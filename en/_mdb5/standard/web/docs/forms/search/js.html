@@ -1,139 +1,141 @@
 <script type="text/javascript">
-  // search with event
-  const searchButton = document.getElementById('search-button');
-  const searchInput = document.getElementById('search-input');
-  searchButton.addEventListener('click', () => {
-    const inputValue = searchInput.value;
-    alert(inputValue);
-  });
-
-  // search autocomplete
-  const basicAutocomplete = document.querySelector('#search-autocomplete');
-  const data = ['One', 'Two', 'Three', 'Four', 'Five'];
-  const dataFilter = (value) => {
-    return data.filter((item) => {
-      return item.toLowerCase().startsWith(value.toLowerCase());
+  window.addEventListener('load', () => {
+    // search with event
+    const searchButton = document.getElementById('search-button');
+    const searchInput = document.getElementById('search-input');
+    searchButton.addEventListener('click', () => {
+      const inputValue = searchInput.value;
+      alert(inputValue);
     });
-  };
 
-  new mdb.Autocomplete(basicAutocomplete, {
-    filter: dataFilter,
-  });
+    // search autocomplete
+    const basicAutocomplete = document.querySelector('#search-autocomplete');
+    const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+    const dataFilter = (value) => {
+      return data.filter((item) => {
+        return item.toLowerCase().startsWith(value.toLowerCase());
+      });
+    };
 
-  // search focus
-  const searchFocus = document.getElementById('search-focus');
-  const keys = [
-    { keyCode: 'AltLeft', isTriggered: false },
-    { keyCode: 'ControlLeft', isTriggered: false },
-  ];
+    new mdb.Autocomplete(basicAutocomplete, {
+      filter: dataFilter,
+    });
 
-  window.addEventListener('keydown', (e) => {
-    keys.forEach((obj) => {
-      if (obj.keyCode === e.code) {
-        obj.isTriggered = true;
+    // search focus
+    const searchFocus = document.getElementById('search-focus');
+    const keys = [
+      { keyCode: 'AltLeft', isTriggered: false },
+      { keyCode: 'ControlLeft', isTriggered: false },
+    ];
+
+    window.addEventListener('keydown', (e) => {
+      keys.forEach((obj) => {
+        if (obj.keyCode === e.code) {
+          obj.isTriggered = true;
+        }
+      });
+
+      const shortcutTriggered = keys.filter((obj) => obj.isTriggered).length === keys.length;
+
+      if (shortcutTriggered) {
+        searchFocus.focus();
       }
     });
 
-    const shortcutTriggered = keys.filter((obj) => obj.isTriggered).length === keys.length;
+    window.addEventListener('keyup', (e) => {
+      keys.forEach((obj) => {
+        if (obj.keyCode === e.code) {
+          obj.isTriggered = false;
+        }
+      });
+    });
 
-    if (shortcutTriggered) {
-      searchFocus.focus();
-    }
-  });
+    // Navbar
+    const navbarAutocomplete = document.querySelector('#navbar-search-autocomplete');
+    const navbarData = ['One', 'Two', 'Three', 'Four', 'Five'];
+    const navbarDataFilter = (value) => {
+      return navbarData.filter((item) => {
+        return item.toLowerCase().startsWith(value.toLowerCase());
+      });
+    };
 
-  window.addEventListener('keyup', (e) => {
-    keys.forEach((obj) => {
-      if (obj.keyCode === e.code) {
-        obj.isTriggered = false;
+    new mdb.Autocomplete(navbarAutocomplete, {
+      filter: navbarDataFilter,
+    });
+
+    // dropdown
+    const searchInputDropdown = document.getElementById('search-input-dropdown');
+    const dropdownOptions = document.querySelectorAll('.search-dropdown-item');
+
+    searchInputDropdown.addEventListener('input', () => {
+      const filter = searchInputDropdown.value.toLowerCase();
+      showOptions();
+      const valueExist = !!filter.length;
+
+      if (valueExist) {
+        dropdownOptions.forEach((el) => {
+          const elText = el.textContent.trim().toLowerCase();
+          const isIncluded = elText.includes(filter);
+          if (!isIncluded) {
+            el.style.display = 'none';
+          }
+        });
       }
     });
-  });
 
-  // Navbar
-  const navbarAutocomplete = document.querySelector('#navbar-search-autocomplete');
-  const navbarData = ['One', 'Two', 'Three', 'Four', 'Five'];
-  const navbarDataFilter = (value) => {
-    return navbarData.filter((item) => {
-      return item.toLowerCase().startsWith(value.toLowerCase());
-    });
-  };
-
-  new mdb.Autocomplete(navbarAutocomplete, {
-    filter: navbarDataFilter,
-  });
-
-  // dropdown
-  const searchInputDropdown = document.getElementById('search-input-dropdown');
-  const dropdownOptions = document.querySelectorAll('.search-dropdown-item');
-
-  searchInputDropdown.addEventListener('input', () => {
-    const filter = searchInputDropdown.value.toLowerCase();
-    showOptions();
-    const valueExist = !!filter.length;
-
-    if (valueExist) {
+    const showOptions = () => {
       dropdownOptions.forEach((el) => {
-        const elText = el.textContent.trim().toLowerCase();
-        const isIncluded = elText.includes(filter);
-        if (!isIncluded) {
-          el.style.display = 'none';
-        }
+        el.style.display = 'flex';
       });
-    }
-  });
+    };
 
-  const showOptions = () => {
-    dropdownOptions.forEach((el) => {
-      el.style.display = 'flex';
+    // datatable
+    const data2 = {
+      columns: ['Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'],
+      rows: [
+        ['Tiger Nixon', 'System Architect', '	Edinburgh', 61, '2011/04/25', '$320,800'],
+        ['Sonya Frost', 'Software Engineer', 'Edinburgh', 23, '2008/12/13', '$103,600'],
+        ['Jena Gaines', 'Office Manager', 'London', 30, '2008/12/19', '$90,560'],
+        ['Quinn Flynn', 'Support Lead', 'Edinburgh', 22, '2013/03/03', '$342,000'],
+        ['Charde Marshall', 'Regional Director', 'San Francisco', 36, '2008/10/16', '$470,600'],
+        ['Haley Kennedy', 'Senior Marketing Designer', 'London', 43, '2012/12/18', '$313,500'],
+        ['Tatyana Fitzpatrick', 'Regional Director', 'London', 19, '2010/03/17', '$385,750'],
+        ['Michael Silva', 'Marketing Designer', 'London', 66, '2012/11/27', '$198,500'],
+        ['Paul Byrd', 'Chief Financial Officer (CFO)', 'New York', 64, '2010/06/09', '$725,000'],
+        ['Gloria Little', 'Systems Administrator', 'New York', 59, '2009/04/10', '$237,500'],
+      ],
+    };
+
+    const datatableInstance = new mdb.Datatable(document.getElementById('datatable'), data2);
+
+    document.getElementById('datatable-search-input').addEventListener('input', (e) => {
+      datatableInstance.search(e.target.value);
     });
-  };
 
-  // datatable
-  const data2 = {
-    columns: ['Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'],
-    rows: [
-      ['Tiger Nixon', 'System Architect', '	Edinburgh', 61, '2011/04/25', '$320,800'],
-      ['Sonya Frost', 'Software Engineer', 'Edinburgh', 23, '2008/12/13', '$103,600'],
-      ['Jena Gaines', 'Office Manager', 'London', 30, '2008/12/19', '$90,560'],
-      ['Quinn Flynn', 'Support Lead', 'Edinburgh', 22, '2013/03/03', '$342,000'],
-      ['Charde Marshall', 'Regional Director', 'San Francisco', 36, '2008/10/16', '$470,600'],
-      ['Haley Kennedy', 'Senior Marketing Designer', 'London', 43, '2012/12/18', '$313,500'],
-      ['Tatyana Fitzpatrick', 'Regional Director', 'London', 19, '2010/03/17', '$385,750'],
-      ['Michael Silva', 'Marketing Designer', 'London', 66, '2012/11/27', '$198,500'],
-      ['Paul Byrd', 'Chief Financial Officer (CFO)', 'New York', 64, '2010/06/09', '$725,000'],
-      ['Gloria Little', 'Systems Administrator', 'New York', 59, '2009/04/10', '$237,500'],
-    ],
-  };
+    // sidenav
+    const searchInputSidenav = document.getElementById('search-input-sidenav');
+    const sidenavOptions = document.querySelectorAll('li .sidenav-link');
 
-  const instance = new mdb.Datatable(document.getElementById('datatable'), data2);
+    searchInputSidenav.addEventListener('input', () => {
+      const filter = searchInputSidenav.value.toLowerCase();
+      showSidenavOptions();
+      const valueExist = !!filter.length;
 
-  document.getElementById('datatable-search-input').addEventListener('input', (e) => {
-    instance.search(e.target.value);
-  });
+      if (valueExist) {
+        sidenavOptions.forEach((el) => {
+          const elText = el.textContent.trim().toLowerCase();
+          const isIncluded = elText.includes(filter);
+          if (!isIncluded) {
+            el.style.display = 'none';
+          }
+        });
+      }
+    });
 
-  // sidenav
-  const searchInputSidenav = document.getElementById('search-input-sidenav');
-  const sidenavOptions = document.querySelectorAll('li .sidenav-link');
-
-  searchInputSidenav.addEventListener('input', () => {
-    const filter = searchInputSidenav.value.toLowerCase();
-    showSidenavOptions();
-    const valueExist = !!filter.length;
-
-    if (valueExist) {
+    const showSidenavOptions = () => {
       sidenavOptions.forEach((el) => {
-        const elText = el.textContent.trim().toLowerCase();
-        const isIncluded = elText.includes(filter);
-        if (!isIncluded) {
-          el.style.display = 'none';
-        }
+        el.style.display = 'flex';
       });
-    }
+    };
   });
-
-  const showSidenavOptions = () => {
-    sidenavOptions.forEach((el) => {
-      el.style.display = 'flex';
-    });
-  };
 </script>
