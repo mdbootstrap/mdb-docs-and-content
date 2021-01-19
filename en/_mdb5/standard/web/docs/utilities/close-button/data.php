@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Close button',
-  'seo_title' => 'Close button - Bootstrap 5 & Material Design 2.0',
-  'description' => 'A generic close button for dismissing content like modals, toasts and alerts.',
+  'subheading' => 'Bootstrap 5 Close button',
+  'seo_title' => 'Bootstrap Close button - examples & tutorial',
+  'description' => 'Close button built with the latest Bootstrap 5. Multiple code examples: for modal, with icon, with alert & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/utilities/close-button',
   'image' => '',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
