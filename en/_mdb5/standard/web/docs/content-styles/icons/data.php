@@ -2,7 +2,7 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Icons',
-  'subheading' => 'Bootstrap 5 Icons component',
+  'subheading' => 'Bootstrap 5 Icons',
   'seo_title' => 'Bootstrap Icons - examples & tutorial',
   'description' => 'Responsive Icons list built with the latest Bootstrap 5. Multiple code examples: for button, color, size & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/content-styles/icons/',

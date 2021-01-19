@@ -2,7 +2,7 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Flags',
-  'subheading' => 'Bootstrap 5 Flags component',
+  'subheading' => 'Bootstrap 5 Flags',
   'seo_title' => 'Bootstrap Flags - examples & tutorial',
   'description' => 'Flags built with the latest Bootstrap 5. Multiple code examples: with dropdown, selector & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/content-styles/flags/',
