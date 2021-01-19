@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'eCommerce gallery',
-  'seo_title' => 'eCommerce gallery - Bootstrap 5 & Material Design 2.0 plugin',
-  'description' => 'eCommerce gallery built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
+  'subheading' => 'Bootstrap 5 eCommerce gallery plugin',
+  'seo_title' => 'Bootstrap eCommerce gallery - examples & tutorial',
+  'description' => 'Responsive eCommerce gallery built with the latest Bootstrap 5. Multiple examples: image gallery, shop templates, carousel & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/plugins/ecommerce-gallery/',
   'image' => '',
   'video' => '',

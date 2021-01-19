@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Filters',
-  'seo_title' => 'Filters - Bootstrap 5 & Material Design 2.0 plugin',
-  'description' => 'Filters built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
+  'subheading' => 'Bootstrap 5 Filters plugin',
+  'seo_title' => 'Bootstrap Filters - examples & tutorial',
+  'description' => 'Responsive Filters built with the latest Bootstrap 5. Multiple examples: panels, icons, cards, with controls, with select & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/plugins/filters/',
   'image' => '',
   'video' => '',

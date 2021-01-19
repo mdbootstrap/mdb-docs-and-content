@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Data parser',
-  'seo_title' => 'Data parser - Bootstrap 5 & Material Design 2.0 plugin',
-  'description' => 'Data parser built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
+  'subheading' => 'Bootstrap 5 Data parser plugin',
+  'seo_title' => 'Bootstrap Data parser - examples & tutorial',
+  'description' => 'Easy to use Data parser built with the latest Bootstrap 5. Multiple examples: vertical, horizontal, simple, with menu, selectable & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/plugins/data-parser/',
   'image' => '',
   'video' => '',
