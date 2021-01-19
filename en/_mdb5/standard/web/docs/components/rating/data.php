@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Rating',
-  'seo_title' => 'Rating - Bootstrap 5 & Material Design 2.0 components',
-  'description' => 'Rating built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
+  'subheading' => 'Bootstrap 5 Rating component',
+  'seo_title' => 'Bootstrap Rating - examples & tutorial',
+  'description' => 'Responsive Rating built with the latest Bootstrap 5. Multiple code examples: rating bar, input example, scale, stars, form, modal, slider & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/components/rating/',
   'image' => '',
   'video' => '',

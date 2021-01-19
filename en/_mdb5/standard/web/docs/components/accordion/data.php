@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Accordion',
-  'seo_title' => 'Accordion - Bootstrap 5 & Material Design 2.0 components',
-  'description' => 'Accordion built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
+  'subheading' => 'Bootstrap 5 Accordion component',
+  'seo_title' => 'Bootstrap Accordion - examples & tutorial',
+  'description' => 'Responsive Accordion built with the latest Bootstrap 5. Multiple code examples: with arrow, table, menu, horizontal  & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/components/accordion/',
   'image' => '',
   'video' => '',
