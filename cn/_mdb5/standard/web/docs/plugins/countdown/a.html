@@ -1,0 +1,369 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="api-section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Usage-->
+  <section id="api-section-usage">
+    <!-- Section title -->
+    <h2 class="mb-4">用法</h2>
+
+    <p class="mb-4">
+      通过向容器元素添加<code> data-mdb-countdown </code>创建默认的倒计时
+      倒计时到期日期值。日期值应使用
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse#ECMAScript_5_ISO-8601_format_support"
+        >正确的日期格式</a
+      >.
+      <br />
+      将<code> countdown-unit </code>类添加到子元素以指示单元样式和
+      <code> countdown-* </code>类，其中*指示应在其中显示哪些时间单位
+      倒数。
+    </p>
+
+    <h4>通过数据属性</h4>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div data-mdb-countdown="31 December 2021 23:59:59">
+          <div class="countdown-unit countdown-days"></div>
+          <div class="countdown-unit countdown-hours"></div>
+          <div class="countdown-unit countdown-minutes"></div>
+          <div class="countdown-unit countdown-seconds"></div>
+        </div>
+      </code>
+    </mdbsnippet>
+
+    <h4 class="mt-4">通过JavaScript</h4>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div id="countdown-element">
+          <div class="countdown-unit countdown-days"></div>
+          <div class="countdown-unit countdown-hours"></div>
+          <div class="countdown-unit countdown-minutes"></div>
+          <div class="countdown-unit countdown-seconds"></div>
+        </div>
+      </code>
+      <code data-lang="js" data-name="JavaScript">
+        const countdownExample = document.getElementById('countdown-element');
+        new Countdown(countdownExample, {
+        countdown: "31 December 2021 23:59:59",
+        })
+      </code>
+    </mdbsnippet>
+
+    <h4 class="mt-4">通过jQuery</h4>
+
+    <p class="note note-warning"><strong>注意</strong>：默认情况下，MDB <strong>不</strong>包含jQuery，并且您拥有
+      自行添加到项目中。</p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div id="countdown-element">
+          <div class="countdown-unit countdown-days"></div>
+          <div class="countdown-unit countdown-hours"></div>
+          <div class="countdown-unit countdown-minutes"></div>
+          <div class="countdown-unit countdown-seconds"></div>
+        </div>
+      </code>
+      <code data-lang="js" data-name="jQuery">
+        $('#countdown-element').countdown();
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Usage-->
+
+  <hr class="my-5" />
+
+  <!--Section: Options-->
+  <section id="api-section-options">
+    <!-- Section title -->
+    <h2 class="mb-4">选件</h2>
+
+    <p>可以通过数据属性，JavaScript或jQuery传递选项。对于数据属性，附加
+      选项名称为<code> data-mdb-</code>，如<code> data-mdb-</code>所示。每个选项可以是
+      用值或<code> null </code>传递。</p>
+    <p></p>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Type</th>
+            <th class="th-sm">Default</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">countdown</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>''</code></td>
+            <td>
+              Initiates Countdown instance on element. Takes the value of the date to which the
+              timer will be counting.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">'unit'</code>
+            </td>
+            <td><i></i></td>
+            <td><code></code></td>
+            <td>
+              Attached to children element defines time unit to be displayed on element. Possible
+              values:
+              <code>data-mdb-"days | hours | minutes | seconds"</code>.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">'countdownInterval'</code>
+            </td>
+            <td><i>Number</i></td>
+            <td><code>0</code></td>
+            <td>
+              Sets interval in seconds that will reset timer after given amount of time after
+              initial countdown ends.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">countdownLabel</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>''</code></td>
+            <td>
+              Attached to children element defines time unit label to be displayed on element.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">countdownSeparator</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>''</code></td>
+            <td>
+              Attached to container element defines separator used between each time unit value.
+              Separator is not visible in vertical position of the Countdown element.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">countdownPosition</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'horizontal'</code></td>
+            <td>Positions Countdown element horizontally or vertically.</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">countdownLabelPosition</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'vertical'</code></td>
+            <td>Positions the label at the bottom or next to the corresponding time unit value.</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">countdownTextStyle</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>''</code></td>
+            <td>Adds custom styles to all time unit text elements.</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">countdownLabelStyle</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>''</code></td>
+            <td>Adds custom styles to all labels.</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">countdownTextSize</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>''</code></td>
+            <td>
+              Sets size of time unit text element. Text for labels in vertical label position is
+              four times smaller than time unit text.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!--Section: Options-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">方法</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Parameters</th>
+            <th class="th-sm">Description</th>
+            <th class="th-sm">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">stop</code>
+            </td>
+            <td></td>
+            <td>Stops the timer.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.stop()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">start</code>
+            </td>
+            <td></td>
+            <td>Starts stopped timer.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.start()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">setCountdownDate</code>
+            </td>
+            <td>date</td>
+            <td>Dynamically sets new date to count to</td>
+            <td>
+              <code class="language-markup text-nowrap"
+                >instance.setCountdownDate('31 December 2021 23:59:59')</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">dispose</code>
+            </td>
+            <td></td>
+            <td>Disposes a Countdown instance.</td>
+            <td>
+              <code class="language-markup text-nowrap">instance.dispose()</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">getInstance</code>
+            </td>
+            <td>element</td>
+            <td>
+              Static method which allows to get the countdown instance associated with a DOM
+              element.
+            </td>
+            <td>
+              <code class="language-markup text-nowrap"
+                >Countdown.getInstance(couontdownElement)</code
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        const countdownElement = document.getElementById('countdown-element');
+        const instance = Countdown.getInstance(countdownElement);
+        instance.stop();
+        instance.start();
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Methods-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+    <h2 class="mb-4">大事记</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">start.mdb.countdown</code>
+            </td>
+            <td>This event fires immediately when the countdown starts counting.</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">end.mdb.countdown</code>
+            </td>
+            <td>This event fires immediately when the countdown timer stops counting.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          document.addEventListener('start.mdb.countdown', (e)=> {
+          // do something...
+          })
+        </code>
+      </mdbsnippet>
+    </div>
+  </section>
+  <!--Section: Events-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">进口</h2>
+
+    <!-- Description -->
+    <p><strong> MDB UI KIT </strong>也可与模块捆绑器一起使用。使用以下代码导入
+      此组件：</p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        import { Countdown } from 'mdb-countdown';
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+</section>
+<!--Section: Docs content-->

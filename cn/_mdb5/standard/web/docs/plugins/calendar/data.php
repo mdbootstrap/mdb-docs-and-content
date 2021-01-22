@@ -7,7 +7,7 @@ $data_var = array(
   此扩展程序可以轻松创建新事件，管理当前事件
   事件，在其他日期之间移动现有事件，并将所有数据轻松存储
   可读数组',
-  'url' => 'https://mdbootstrap.com/cn docs/standard/plugins/calendar/',
+  'url' => 'https://mdbootstrap.com/docs/standard/plugins/calendar/',
   'image' => '',
   'video' => '',
 );

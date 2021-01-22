@@ -1,0 +1,83 @@
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (() => {
+    'use strict';
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation');
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach((form) => {
+      form.addEventListener(
+        'submit',
+        (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        },
+        false
+      );
+    });
+  })();
+
+  const forms = document.querySelectorAll('form');
+  forms.forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+    });
+  });
+
+  const submitButton = document.getElementById('custom-validation-button');
+
+  submitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const { isDataValid, statusMessage } = validateForm();
+
+    if (!isDataValid) {
+      document.getElementById('status').innerHTML = statusMessage;
+      return;
+    }
+
+    document.getElementById('status').innerHTML = `<p class="note note-success">Sending...</p>`;
+    document.getElementById('custom-validate-form').submit();
+  });
+
+  function validateForm() {
+    let isDataValid = true;
+    let statusMessage = '';
+
+    const name = document.getElementById('custom-validation-name').value;
+    if (name === '') {
+      statusMessage += `<p class="note note-danger"><strong>Name</strong> cannot be empty</p>`;
+      isDataValid = false;
+    }
+
+    const email = document.getElementById('custom-validation-email').value;
+    if (email === '') {
+      statusMessage += `<p class="note note-danger"><strong>Email</strong> cannot be empty</p>`;
+      isDataValid = false;
+    } else {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<p>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      if (!re.test(email)) {
+        statusMessage += `<p class="note note-danger"><strong>Email</strong> is invalid</p>`;
+        isDataValid = false;
+      }
+    }
+
+    const subject = document.getElementById('custom-validation-subject').value;
+    if (subject === '') {
+      statusMessage += `<p class="note note-danger"><strong>Subject</strong> cannot be empty</p>`;
+      isDataValid = false;
+    }
+    const message = document.getElementById('custom-validation-message').value;
+    if (message === '') {
+      statusMessage += `<p class="note note-danger"><strong>Subject</strong> cannot be empty</p>`;
+      isDataValid = false;
+    }
+
+    return { isDataValid, statusMessage };
+  }
+</script>

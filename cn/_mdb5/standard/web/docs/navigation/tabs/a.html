@@ -3,7 +3,7 @@
   <!--Section: Introduction-->
   <section id="api-section-introduction">
     <!-- Main title -->
-    <h2 class="h1 font-weight-bold">
+    <h2 class="h1 fw-bold">
       <?= $data_var['main_title']; ?>
       - API
     </h2>
@@ -17,36 +17,34 @@
     <!-- Section title -->
     <h2 class="mb-4">用法</h2>
 
-    <h4 class="mt-4">Regarding accessibility</h4>
+    <h4 class="mt-4">关于可访问性</h4>
 
     <p>
-      If you’re using navs to provide a navigation bar, be sure to add a
-      <code>role="navigation"</code> to the most logical parent container of the
-      <code>&lt;ul&gt;</code>, or wrap a <code>&lt;nav&gt;</code> element around the whole
-      navigation. Do not add the role to the <code>&lt;ul&gt;</code> itself, as this would prevent
-      it from being announced as an actual list by assistive technologies.
+      如果您使用导航来提供导航栏，请确保添加一个
+      <code>role="navigation"</code> 到最逻辑的父容器
+      <code>&lt;ul&gt;</code>, 或包装一个 <code>&lt;nav&gt;</code> 整个元素
+      导航。不要将角色添加到 <code>&lt;ul&gt;</code>本身，因为这样可以防止
+      不会被辅助技术宣布为实际清单。
     </p>
 
     <p>
-      Note that navigation bars, even if visually styled as tabs with the
-      <code>.nav-tabs</code> class, should <strong>not</strong> be given
-      <code>role="tablist"</code>, <code>role="tab"</code> or
-      <code>role="tabpanel"</code> attributes. These are only appropriate for dynamic tabbed
-      interfaces, as described in the
+      请注意，导航栏即使使用
+      <code> .nav-tabs </code>类，应该<strong>不</strong>
+      <code> role =“ tablist” </code>，<code> role =“ tab” </code>或
+      <code> role =“ tabpanel” </code>属性。这些仅适用于动态选项卡式
+      接口，如
       <a rel="nofollow" target="_blank" href="https://www.w3.org/TR/wai-aria-practices/#tabpanel"
         ><abbr title="Web Accessibility Initiative">WAI</abbr>
-        <abbr title="Accessible Rich Internet Applications">ARIA</abbr> Authoring Practices</a
-      >. The <code>aria-current</code> attribute is not necessary on dynamic tabbed interfaces since
-      our JavaScript handles the selected state by adding <code>aria-selected="true"</code> on the
-      active tab.
+        <abbr title="Accessible Rich Internet Applications">ARIA</abbr> 创作习惯</a
+      >。在动态选项卡式界面上，不需要<code> aria-current </code>属性，因为
+      我们的JavaScript通过在代码中添加<code> aria-selected =“ true” </code>来处理选定状态
+      活动标签。
     </p>
 
     <h4 class="mt-4">通过数据属性</h4>
-    <p>
-      You can activate a tab or pill navigation without writing any JavaScript by simply specifying
-      <code>data-toggle="tab"</code> or <code>data-toggle="pill"</code> on an element. Use these
-      data attributes on <code>.nav-tabs</code> or <code>.nav-pills</code>.
-    </p>
+    <p>您只需指定以下内容即可激活选项卡或药丸导航，而无需编写任何JavaScript
+      元素上的<code> data-mdb-toggle =“标签” </code>或<code> data-mdb-toggle =“ pill” </code>。采用
+      这些数据属性位于<code> .nav-tabs </code>或<code> .nav-pills </code>上。</p>
 
     <!--Section: Code-->
     <section class="mb-4">
@@ -58,7 +56,7 @@
               <a
                 class="nav-link active"
                 id="home-tab"
-                data-toggle="tab"
+                data-mdb-toggle="tab"
                 href="#home"
                 role="tab"
                 aria-controls="home"
@@ -70,7 +68,7 @@
               <a
                 class="nav-link"
                 id="profile-tab"
-                data-toggle="tab"
+                data-mdb-toggle="tab"
                 href="#profile"
                 role="tab"
                 aria-controls="profile"
@@ -82,7 +80,7 @@
               <a
                 class="nav-link"
                 id="messages-tab"
-                data-toggle="tab"
+                data-mdb-toggle="tab"
                 href="#messages"
                 role="tab"
                 aria-controls="messages"
@@ -94,7 +92,7 @@
               <a
                 class="nav-link"
                 id="settings-tab"
-                data-toggle="tab"
+                data-mdb-toggle="tab"
                 href="#settings"
                 role="tab"
                 aria-controls="settings"
@@ -124,52 +122,50 @@
     </section>
     <!--Section: Code-->
 
-    <h4 class="mt-4">通过 JavaScript</h4>
+    <h4 class="mt-4">通过JavaScript</h4>
 
-    <p>Enable tabbable tabs via JavaScript (each tab needs to be activated individually):</p>
-
-    <!--Section: Code-->
-    <section class="mb-4">
-      <mdbsnippet>
-        <!-- prettier-ignore -->
-        <code data-lang="js" data-name="JavaScript">
-          var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
-          triggerTabList.forEach(function (triggerEl) {
-            var tabTrigger = new mdb.Tab(triggerEl)
-
-            triggerEl.addEventListener('click', function (e) {
-              e.preventDefault()
-              tabTrigger.show()
-            })
-          })
-        </code>
-      </mdbsnippet>
-    </section>
-    <!--Section: Code-->
-
-    <p>您可以通过多种方式激活各个标签:</p>
+    <p>通过JavaScript启用可选项卡的选项卡（每个选项卡需要单独激活）：</p>
 
     <!--Section: Code-->
     <section class="mb-4">
       <mdbsnippet>
         <!-- prettier-ignore -->
         <code data-lang="js" data-name="JavaScript">
-          var triggerEl = document.querySelector('#myTab a[href="#profile"]')
-          mdb.Tab.getInstance(triggerEl).show() // Select tab by name
+          const triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'));
+          triggerTabList.forEach((triggerEl) => {
+            const tabTrigger = new mdb.Tab(triggerEl);
 
-          var triggerFirstTabEl = document.querySelector('#myTab li:first-child a')
-          mdb.Tab.getInstance(triggerFirstTabEl).show() // Select first tab
+            triggerEl.addEventListener('click', (event) => {
+              event.preventDefault();
+              tabTrigger.show();
+            });
+          });
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
 
-    <h4 class="mt-4">Via jQuery</h4>
+    <p>您可以通过多种方式激活各个标签：</p>
 
-    <p class="note note-warning">
-      <strong>注意:</strong> By default, MDB <strong>does not</strong> include jQuery and you have
-      to add it to the project on your own.
-    </p>
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          const triggerEl = document.querySelector('#myTab a[href="#profile"]');
+          mdb.Tab.getInstance(triggerEl).show(); // Select tab by name
+
+          const triggerFirstTabEl = document.querySelector('#myTab li:first-child a');
+          mdb.Tab.getInstance(triggerFirstTabEl).show(); // Select first tab
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <h4 class="mt-4">通过jQuery</h4>
+
+    <p class="note note-warning"><strong>注意</strong>：默认情况下，MDB <strong>不</strong>包含jQuery，并且您拥有
+      自行添加到项目中。</p>
 
     <!--Section: Code-->
     <section class="mb-4">
@@ -191,13 +187,12 @@
     <!-- Section title -->
     <h2 class="mb-4">方法</h2>
 
-    <p class="note note-danger">
-      <strong>异步方法和过渡:</strong>
+    <p class="note note-danger"><strong>异步方法和转换：</strong>
       <br />
       所有API方法都是<strong>异步</strong>并开始<strong>过渡</strong>。
       转换开始后，他们会立即返回给呼叫者，但
-      <strong>在结束之前</strong>。此外，在 <strong>转换组件将被忽略</strong>。
-    </p>
+      <strong>在结束之前</strong>。另外，在
+      <strong>转换组件将被忽略</strong>。</p>
 
     <table class="table table-striped table-bordered">
       <thead>
@@ -213,7 +208,8 @@
           <td>
             Selects the given tab and shows its associated pane. Any other tab that was previously
             selected becomes unselected and its associated pane is hidden. Returns to the caller
-            before the tab pane has actually been shown (i.e. before the shown.mdb.tab event occurs).
+            before the tab pane has actually been shown (i.e. before the shown.mdb.tab event
+            occurs).
           </td>
           <td>instance.show()</td>
         </tr>
@@ -228,9 +224,10 @@
     <!--Section: Code-->
     <section class="mb-4">
       <mdbsnippet>
+        <!-- prettier-ignore -->
         <code data-lang="js" data-name="JavaScript">
-          var someTabTriggerEl = document.querySelector('#someTabTrigger') var tab = new
-          mdb.Tab(someTabTriggerEl) tab.show()
+          const someTabTriggerEl = document.querySelector('#someTabTrigger');
+          const tab = new mdb.Tab(someTabTriggerEl) tab.show();
         </code>
       </mdbsnippet>
     </section>
@@ -244,7 +241,7 @@
   <section id="api-section-events">
     <!-- Section title -->
     <h2 class="mb-4">大事记</h2>
-    <p>When showing a new tab, the events fire in the following order:</p>
+    <p>显示新标签时，事件将按以下顺序触发：</p>
     <ol>
       <li><code>hide.mdb.tab</code> (on the current active tab)</li>
       <li><code>show.mdb.tab</code> (on the to-be-shown tab)</li>
@@ -310,10 +307,10 @@
       <mdbsnippet>
         <!-- prettier-ignore -->
         <code data-lang="js" data-name="JavaScript">
-          var tabEl = document.querySelector('a[data-toggle="tab"]')
-          tabEl.addEventListener('shown.mdb.tab', function (e) {
-            e.target // newly activated tab
-            e.relatedTarget // previous active tab
+          const tabEl = document.querySelector('a[data-mdb-toggle="tab"]');
+          tabEl.addEventListener('shown.mdb.tab', (event) => {
+            event.target; // newly activated tab
+            event.relatedTarget; // previous active tab
           })
         </code>
       </mdbsnippet>
@@ -327,10 +324,11 @@
   <!--Section: Import-->
   <section id="api-section-import">
     <!-- Section title -->
-    <h2 class="mb-4">Import</h2>
+    <h2 class="mb-4">进口</h2>
 
     <!-- Description -->
-    <p><strong> MDB UI KIT </strong>也可与模块捆绑器一起使用。使用以下代码导入 此组件:</p>
+    <p><strong> MDB UI KIT </strong>也可与模块捆绑器一起使用。使用以下代码导入
+      此组件：</p>
 
     <!-- prettier-ignore -->
     <mdbsnippet>

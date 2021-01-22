@@ -3,15 +3,14 @@
   <!--Section: Introduction-->
   <section id="section-introduction">
     <!-- Main title -->
-    <h2 class="h1 font-weight-bold"><?= $data_var['main_title']; ?></h2>
+    <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
 
     <!-- Seo title -->
     <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
 
     <!-- Description -->
-    <p class="my-4">
-      根据父对象的宽度创建自适应视频或幻灯片嵌入，方法是创建一个 可在任何设备上缩放的固有比率。
-    </p>
+    <p class="my-4">根据父对象的宽度创建自适应视频或幻灯片嵌入，方法是创建一个
+      可在任何设备上缩放的固有比率。</p>
   </section>
   <!--Section: Introduction-->
 
@@ -23,22 +22,23 @@
     <h2 class="mb-4">基本例子</h2>
 
     <p>
-      规则直接应用于<code>&lt; iframe&gt; </code>，<code>&lt; embed&gt; </code>，
-      <code>&lt; video&gt; </code>和<code>&lt; object&gt; </code>元素；可以选择使用
-      当您想要匹配显式子类<code> .embed-response-item </code> 其他属性的样式。
+     使用比率助手来管理外部内容的长宽比，例如
+      <code>&lt;iframe&gt;</code>s, <code>&lt;embed&gt;</code>s, <code>&lt;video&gt;</code>s, and
+      <code>&lt;object&gt;</code>s.这些帮助程序还可用于任何标准HTML子级
+      元素（例如 <code>&lt;div&gt;</code> 要么 <code>&lt;img&gt;</code>).应用样式
+      从父<code> .ratio </code>类直接到子级。
     </p>
 
     <p>
-      将任何像<code>&lt; iframe&gt; </code>之类的嵌入内容包装在父元素中，
-      <code> .embed-sensitive </code>和宽高比。的 并非强制要求<code> .embed-active-item </code
-      >，但我们鼓励这样做。
+     将任何嵌入（例如<code>＆lt; iframe＆gt; </code>）嵌入到父元素中，
+      <code> .ratio </code>和一个宽高比类。直接子元素是自动的
+      的大小要感谢我们的通用选择器<code> .ratio＆gt;* </code>。
     </p>
 
     <!--Section: Demo-->
     <section class="border p-4 text-center mb-4">
-      <div class="embed-responsive embed-responsive-16by9">
+      <div class="ratio ratio-16x9">
         <iframe
-          class="embed-responsive-item"
           src="https://www.youtube.com/embed/vlDzYIIOYmM"
           title="YouTube video"
           allowfullscreen
@@ -51,9 +51,8 @@
     <section>
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
-          <div class="embed-responsive embed-responsive-16by9">
+          <div class="ratio ratio-16x9">
             <iframe
-              class="embed-responsive-item"
               src="https://www.youtube.com/embed/vlDzYIIOYmM"
               title="YouTube video"
               allowfullscreen
@@ -74,63 +73,50 @@
     <h2 class="mb-4">长宽比</h2>
 
     <!-- Section description -->
-    <p>可以使用修饰符类自定义长宽比。默认情况下，以下比率类 提供:</p>
+    <p>可以使用修饰符类自定义长宽比。默认情况下，以下比率类
+      提供：</p>
 
     <!--Section: Code-->
     <section class="mb-4">
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <!-- 21:9 aspect ratio -->
-          <div class="embed-responsive embed-responsive-21by9">
-            <iframe class="embed-responsive-item" src="..."></iframe>
+          <div class="ratio ratio-21x9">
+            <div>21x9</div>
           </div>
 
           <!-- 16:9 aspect ratio -->
-          <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="..."></iframe>
+          <div class="ratio ratio-16x9">
+            <div>16x9</div>
           </div>
 
           <!-- 4:3 aspect ratio -->
-          <div class="embed-responsive embed-responsive-4by3">
-            <iframe class="embed-responsive-item" src="..."></iframe>
+          <div class="ratio ratio-4x3">
+            <div>4x3</div>
           </div>
 
           <!-- 1:1 aspect ratio -->
-          <div class="embed-responsive embed-responsive-1by1">
-            <iframe class="embed-responsive-item" src="..."></iframe>
+          <div class="ratio ratio-1x1">
+            <div>1x1</div>
           </div>
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
 
-    <p>
-      在<code> _variables.scss </code>中，您可以更改要使用的宽高比。这是
-      <code> $ embed-sensitive-aspect-ratios </code>地图的示例:
-    </p>
+    <p>在<code> _variables.scss </code>中，您可以更改要使用的宽高比。这是
+      <code> $ aspect-ratios </code>地图的示例：</p>
 
     <!--Section: Code-->
     <section class="mb-4">
       <mdbsnippet>
         <!-- prettier-ignore -->
         <code data-lang="scss" data-name="scss">
-          $embed-responsive-aspect-ratios: (
-            "21by9": (
-              x: 21,
-              y: 9
-            ),
-            "16by9": (
-              x: 16,
-              y: 9
-            ),
-            "4by3": (
-              x: 4,
-              y: 3
-            ),
-            "1by1": (
-              x: 1,
-              y: 1
-            )
+          $aspect-ratios: (
+            "1x1": 100%,
+            "4x3": calc(3 / 4 * 100%),
+            "16x9": calc(9 / 16 * 100%),
+            "21x9": calc(9 / 21 * 100%)
           );
         </code>
       </mdbsnippet>

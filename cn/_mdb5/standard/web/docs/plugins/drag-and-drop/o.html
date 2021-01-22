@@ -1,12 +1,89 @@
+<link
+  rel="stylesheet"
+  href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/drag-and-drop.min.css?v=
+  <?= STANDARD_DOCS_BUNDLE_VERSION; ?>"
+/>
+
+<style>
+  .draggable-element {
+    display: flex;
+    width: 200px;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+  }
+
+  .draggable-drag-ico {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: grey;
+  }
+
+  .sortable-list {
+    width: 500px;
+    max-width: 100%;
+    border: solid 1px #ccc;
+    min-height: 60px;
+    display: block;
+    background: #fff;
+    border-radius: 4px;
+  }
+
+  .sortable-item {
+    padding: 20px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+  }
+
+  #sortable-horizontal .sortable-item {
+    width: 100%;
+    border-bottom: none;
+    border-left: 1px solid #ccc;
+    border-end: 1px solid #ccc;
+  }
+
+  #sortable-grid {
+    border: none;
+  }
+
+  #sortable-grid .sortable-item {
+    width: 125px;
+    height: 125px;
+    margin: 15px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+
+  #sortable-condition-1,
+  #sortable-condition-2 {
+    width: 500px;
+    max-width: 100%;
+    border: solid 1px #ccc;
+    min-height: 60px;
+    display: block;
+    background: #fff;
+    border-radius: 4px;
+  }
+</style>
+
 <!--Section: Docs content-->
-<section>
+<section class="mdb-docs-content-pro">
   <!--Section: Introduction-->
   <section id="section-introduction">
     <!-- Main title -->
-    <h2 class="h1 font-weight-bold">
+    <h2 class="h1 fw-bold">
       <?= $data_var['main_title']; ?>
-      <a class="btn btn-danger" href="https://mdbootstrap.com/cn/docs/standard/pro/" role="button"
-        >MDB Pro 组件<i class="far fa-gem ml-1"></i
+      <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button"
+        >MDB Pro component <i class="far fa-gem ms-1"></i
       ></a>
     </h2>
 
@@ -16,9 +93,8 @@
     <!-- Description -->
     <p></p>
 
-    <p class="note note-light">
-      <strong>注意</strong>:阅读<strong> API </strong>标签以找到所有可用选项，并 高级定制
-    </p>
+    <p class="note note-light"><strong>注意</strong>：阅读<strong> API </strong>标签以找到所有可用选项，然后
+      高级定制</p>
 
     <span class="dpl-newmdb-docs-alert-advanced"></span>
   </section>
@@ -29,20 +105,29 @@
   <!--Section: Basic example-->
   <section id="section-basic-example">
     <!-- Section title -->
-    <h2 class="mb-4">基本例子</h2>
+    <h2 class="mb-4">可拖动的基本示例</h2>
 
-    <!--Section: Demo-->
-    <section class="border p-4 text-center mb-4"></section>
-    <!--Section: Demo-->
+    <!-- description -->
+    <p class="mb-4">通过添加<code> draggable-element </code>类名，您可以创建自定义元素
+      可拖动的。</p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4" style="height: 400px">
+      <div class="draggable-element shadow-1-strong">
+        <p>Drag me!</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
 
     <!--Section: Code-->
     <section>
+      <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML"> </code>
-
-        <code data-lang="css" data-name="CSS"> </code>
-
-        <code data-lang="js" data-name="JavaScript"> </code>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-3">
+          <p>Drag me!</p>
+        </div>
+      </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
@@ -50,5 +135,780 @@
   <!--Section: Basic example-->
 
   <hr class="my-5" />
+
+  <!--Section: Draggable with container-->
+  <section id="section-draggable-with-container-example">
+    <!-- Section title -->
+    <h2 class="mb-4">定制容器</h2>
+
+    <!-- description -->
+    <p class="mb-4">如果要将可拖动组件放在容器中，只需添加
+      <code> data-mdb-container </code>
+      带有选择器的属性。</p>
+
+    <!--Section: Live Preview-->
+    <section
+      id="draggable-container"
+      class="border p-4 mb-4"
+      style="height: 400px; overflow: hidden"
+    >
+      <div class="draggable-element shadow-1-strong" data-mdb-container="#draggable-container">
+        <p>Drag me!</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-1-strong" data-mdb-container="#draggable-container">
+          <p>Drag me!</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Draggable with container-->
+
+  <hr class="my-5" />
+
+  <!--Section: Draggable with blocked axis-->
+  <section id="section-draggable-with-blocked-axis">
+    <!-- Section title -->
+    <h2 class="mb-4">轴阻塞</h2>
+
+    <!-- description -->
+    <p class="mb-4">感谢<code> data-mdb-block-x-axis </code>属性或
+      <code> data-mdb-block-y-axis </code>属性可以禁用x或y轴。</p>
+
+    <!--Section: Live Preview-->
+    <section
+      id="draggable-container-2"
+      class="border p-4 d-flex justify-content-center mb-4"
+      style="height: 400px; overflow: hidden"
+    >
+      <div
+        class="draggable-element shadow-1-strong"
+        data-mdb-block-x-axis="true"
+        data-mdb-container="#draggable-container-2"
+      >
+        <p>Drag me!</p>
+      </div>
+
+      <div
+        class="draggable-element shadow-1-strong"
+        data-mdb-block-y-axis="true"
+        data-mdb-container="#draggable-container-2"
+      >
+        <p>Drag me!</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-1-strong" data-mdb-block-x-axis="true" data-mdb-container="#draggable-container-2">
+          <p>Drag me!</p>
+        </div>
+
+        <div class="draggable-element shadow-1-strong" data-mdb-block-y-axis="true" data-mdb-container="#draggable-container-2">
+          <p>Drag me!</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Draggable with blocked axis-->
+
+  <hr class="my-5" />
+
+  <!--Section: Draggable with delay-->
+  <section id="section-draggable-with-delay">
+    <!-- Section title -->
+    <h2 class="mb-4">延迟</h2>
+
+    <!-- description -->
+    <p class="mb-4">您可以通过添加具有毫秒值的<code> data-mdb-delay </code>属性来设置开始拖动的延迟。</p>
+
+    <!--Section: Live Preview-->
+    <section
+      id="draggable-container-3"
+      class="border p-4 d-flex justify-content-center mb-4"
+      style="height: 400px"
+    >
+      <div class="draggable-element shadow-1-strong" data-mdb-delay="1000">
+        <p>Drag me after one second!</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-1-strong"  data-mdb-delay="1000">
+          <p>Drag me after one second!</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Draggable with delay-->
+
+  <hr class="my-5" />
+
+  <!--Section: Disabled draggable-->
+  <section id="section-draggable-disabled">
+    <!-- Section title -->
+    <h2 class="mb-4">残障人士</h2>
+
+    <!-- description -->
+    <p class="mb-4">您可以通过添加将可拖动元素设置为禁用
+      具有<code> true </code>值的<code> data-mdb-disabled </code>。</p>
+
+    <!--Section: Live Preview-->
+    <section
+      id="draggable-container-4"
+      class="border p-4 d-flex justify-content-center mb-4"
+      style="height: 400px"
+    >
+      <div class="draggable-element shadow-1-strong" data-mdb-disabled="true">
+        <p>Disabled</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-1-strong" data-mdb-disabled="true">
+          <p>Disabled</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Disabled draggable-->
+
+  <hr class="my-5" />
+
+  <!--Section: Draggable with custom drag button-->
+  <section id="section-draggable-with-custom-drag-button">
+    <!-- Section title -->
+    <h2 class="mb-4">自定义拖动按钮</h2>
+
+    <!-- description -->
+    <p class="mb-4">通过使用选择器添加<code> data-mdb-drag-handle </code>，您可以设置自己的拖动处理程序
+      元件。请注意，拖动处理程序必须在元素内部。</p>
+
+    <!--Section: Live Preview-->
+    <section
+      id="draggable-container-5"
+      class="border p-4 d-flex justify-content-center mb-4"
+      style="height: 400px"
+    >
+      <div class="draggable-element shadow-1-strong" data-mdb-drag-handle=".draggable-drag-ico">
+        <i class="fas fa-arrows-alt draggable-drag-ico"></i>
+        <p>Drag only on button!</p>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div class="draggable-element shadow-1-strong" data-mdb-drag-handle=".draggable-drag-ico">
+          <i class="fas fa-arrows-alt draggable-drag-ico"></i>
+          <p>Drag only on button!</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Draggable with custom drag button-->
+
+  <hr class="my-5" />
+
+  <!--Section: Draggable with scrolling option-->
+  <section id="section-draggable-with-scroll">
+    <!-- Section title -->
+    <h2 class="mb-4">滚动选项</h2>
+
+    <!-- description -->
+    <p class="mb-4">当您的可拖动元素位于可滚动容器内时，您的组件将滚动其
+      而您将接近边缘。</p>
+
+    <!--Section: Live Preview-->
+    <section
+      id="draggable-container-6"
+      class="border p-4 mb-4"
+      style="height: 400px; overflow: auto"
+    >
+      <div
+        id="draggable-scroll"
+        class="draggable-element shadow-1-strong"
+        data-mdb-container="#draggable-container-6"
+      >
+        <p>Drag!</p>
+      </div>
+
+      <div style="height: 800px; width: 2000px"></div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="draggable-scroll" class="draggable-element shadow-1-strong" data-mdb-container="#draggable-container-6">
+          <p>Drag!</p>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Draggable with scrolling option-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable Basic example-->
+  <section id="section-sortable-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Sortable basic example</h2>
+
+    <!-- description -->
+    <p class="mb-4">通过将具有<code> sortable </code>值的<code> data-mdb-sortable </code>添加到列表中，您可以
+      将使其可排序。请注意，只有具有<code> sortable-item </code>类名称的元素才是
+      能够排序。</p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div data-mdb-sortable="sortable" class="sortable-list">
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div data-mdb-sortable="sortable" class="sortable-list">
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable horizontal example-->
+  <section id="section-sortable-horizontal-example">
+    <!-- Section title -->
+    <h2 class="mb-4">水平的例子</h2>
+
+    <!-- description -->
+    <p class="mb-4">无论列表如何旋转，它都会创建。</p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="sortable-horizontal" data-mdb-sortable="sortable" class="sortable-list d-flex">
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div data-mdb-sortable="sortable" class="sortable-list d-flex">
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable horizontal example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable grid example-->
+  <section id="section-sortable-grid-example">
+    <!-- Section title -->
+    <h2 class="mb-4">网格示例</h2>
+
+    <!-- description -->
+    <p class="mb-4">可排序列表也适用于网格。</p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex mb-4 d-flex justify-content-center">
+      <div id="sortable-grid" data-mdb-sortable="sortable" class="sortable-list d-flex flex-wrap">
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+        <div class="sortable-item">Item 6</div>
+        <div class="sortable-item">Item 7</div>
+        <div class="sortable-item">Item 8</div>
+        <div class="sortable-item">Item 9</div>
+        <div class="sortable-item">Item 10</div>
+        <div class="sortable-item">Item 11</div>
+        <div class="sortable-item">Item 12</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="sortable-grid" data-mdb-sortable="sortable" class="sortable-list d-flex flex-wrap">
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+          <div class="sortable-item">Item 6</div>
+          <div class="sortable-item">Item 7</div>
+          <div class="sortable-item">Item 8</div>
+          <div class="sortable-item">Item 9</div>
+          <div class="sortable-item">Item 10</div>
+          <div class="sortable-item">Item 11</div>
+          <div class="sortable-item">Item 12</div>
+        </div>
+      </code>
+
+        <code data-lang="css" data-name="CSS">
+        #sortable-grid .sortable-item {
+          width: 125px;
+          height: 125px;
+          margin: 15px;
+          display: flex;
+          justify-content: center;
+          border: 1px solid #ccc;
+          text-align: center;
+        }
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable grid example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable multiple tables-->
+  <section id="section-multiple-tables">
+    <!-- Section title -->
+    <h2 class="mb-4">多个表</h2>
+
+    <!-- description -->
+    <p class="mb-4">通过添加<code> data-mdb-connected-list </code>属性，您可以将列表与其他列表连接。
+      注意，通过数据属性初始化组件时，必须将值设置为选择器。</p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div
+        id="sortable-multi-tables-1"
+        data-mdb-sortable="sortable"
+        class="sortable-list"
+        data-mdb-connected-list="#sortable-multi-tables-2"
+      >
+        <h4 class="text-center pt-2">To do</h4>
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+        <div class="sortable-item" data-mdb-disabled="true">Disabled</div>
+      </div>
+
+      <div
+        id="sortable-multi-tables-2"
+        data-mdb-sortable="sortable"
+        class="sortable-list"
+        data-mdb-connected-list="#sortable-multi-tables-1"
+      >
+        <h4 class="text-center pt-2">Done</h4>
+        <div class="sortable-item">Item 6</div>
+        <div class="sortable-item">Item 7</div>
+        <div class="sortable-item">Item 8</div>
+        <div class="sortable-item">Item 9</div>
+        <div class="sortable-item">Item 10</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="sortable-multi-tables-1" data-mdb-sortable="sortable" class="sortable-list" data-mdb-connected-list="#sortable-multi-tables-2">
+          <h4 class="text-center pt-2">To do</h4>
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+          <div class="sortable-item" data-mdb-disabled="true">Disabled</div>
+        </div>
+
+        <div id="sortable-multi-tables-2" data-mdb-sortable="sortable" class="sortable-list" data-mdb-connected-list="#sortable-multi-tables-1">
+          <h4 class="text-center pt-2">Done</h4>
+          <div class="sortable-item">Item 6</div>
+          <div class="sortable-item">Item 7</div>
+          <div class="sortable-item">Item 8</div>
+          <div class="sortable-item">Item 9</div>
+          <div class="sortable-item">Item 10</div>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable multiple tables-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable with coping items-->
+  <section id="subsection-sortable-with-coping-items">
+    <!-- Section title -->
+    <h2 class="mb-4">应对项目</h2>
+
+    <!-- description -->
+    <p class="mb-4">通过添加值为<code> true </code>的<code> data-mdb-copy </code>，您可以将项目复制到
+      连接表。</p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div
+        id="sortable-copy-1"
+        data-mdb-sortable="sortable"
+        class="sortable-list"
+        data-mdb-connected-list="#sortable-copy-2"
+        data-mdb-copy="true"
+        data-mdb-sorting="false"
+      >
+        <h4 class="text-center pt-2">Elements</h4>
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+      </div>
+
+      <div
+        id="sortable-copy-2"
+        data-mdb-sortable="sortable"
+        class="sortable-list"
+        data-mdb-connected-list="#sortable-copy-1"
+      >
+        <h4 class="text-center pt-2">Copy</h4>
+        <div class="sortable-item">Item 6</div>
+        <div class="sortable-item">Item 7</div>
+        <div class="sortable-item">Item 8</div>
+        <div class="sortable-item">Item 9</div>
+        <div class="sortable-item">Item 10</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="sortable-copy-1" data-mdb-sortable="sortable" class="sortable-list" data-mdb-connected-list="#sortable-copy-2" data-mdb-copy="true" data-mdb-sorting="false">
+          <h4 class="text-center pt-2">Elements</h4>
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+        </div>
+
+        <div id="sortable-copy-2" data-mdb-sortable="sortable" class="sortable-list" data-mdb-connected-list="#sortable-copy-1">
+          <h4 class="text-center pt-2">Copy</h4>
+          <div class="sortable-item">Item 6</div>
+          <div class="sortable-item">Item 7</div>
+          <div class="sortable-item">Item 8</div>
+          <div class="sortable-item">Item 9</div>
+          <div class="sortable-item">Item 10</div>
+        </div>
+      </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable with coping items-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable with conditions-->
+  <section id="subsection-sortable-with-conditions">
+    <!-- Section title -->
+    <h2 class="mb-4">条件</h2>
+
+    <!-- description -->
+    <p class="mb-4">您可以设置自己的条件，以允许向关联表发送或应对项目
+      通过使用<code> true </code> / <code> false </code>添加自定义函数返回
+      <code> enterPredicate </code>属性。请注意，您只能通过JavaScript对其进行初始化。</p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="sortable-condition-1" class="sortable-list">
+        <h4 class="text-center pt-2">Numbers</h4>
+        <div class="sortable-item" data-mdb-value="1">1</div>
+        <div class="sortable-item" data-mdb-value="2">2</div>
+        <div class="sortable-item" data-mdb-value="3">3</div>
+        <div class="sortable-item" data-mdb-value="4">4</div>
+        <div class="sortable-item" data-mdb-value="5">5</div>
+      </div>
+
+      <div id="sortable-condition-2" class="sortable-list">
+        <h4 class="text-center pt-2">Only odd numbers</h4>
+        <div class="sortable-item" data-mdb-value="7">7</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="sortable-condition-1" class="sortable-list">
+          <h4 class="text-center pt-2">Numbers</h4>
+          <div class="sortable-item" data-mdb-value="1">1</div>
+          <div class="sortable-item" data-mdb-value="2">2</div>
+          <div class="sortable-item" data-mdb-value="3">3</div>
+          <div class="sortable-item" data-mdb-value="4">4</div>
+          <div class="sortable-item" data-mdb-value="5">5</div>
+        </div>
+
+        <div id="sortable-condition-2" class="sortable-list">
+          <h4 class="text-center pt-2">Only odd numbers</h4>
+          <div class="sortable-item" data-mdb-value="7">7</div>
+        </div>
+      </code>
+
+        <code data-lang="js" data-name="JavaScript">
+        // Your custom function with true/false return
+        const accessOddNumbers = (value) => {
+          return parseInt(value) % 2;
+        }
+
+        const sortableCondition1 = document.getElementById('sortable-condition-1');
+        const sortableCondition2 = document.getElementById('sortable-condition-2');
+
+        const instanceSortableCondition1 = new DragAndDrop.Sortable(sortableCondition1, {
+          connectedList: sortableCondition2,
+          enterPredicate: accessOddNumbers,
+        });
+        const instanceSortableCondition2 = new DragAndDrop.Sortable(sortableCondition2);
+      </code>
+
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable with disabled sorting-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="subsection-sortable-with-disabled-sorting">
+    <!-- Section title -->
+    <h2 class="mb-4">禁用排序</h2>
+
+    <!-- description -->
+    <p class="mb-4">通过添加具有<code> false </code>值的<code> data-mdb-sorting </code>，您可以禁用排序
+      在桌子上。</p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div
+        id="sortable-disabled-1"
+        data-mdb-sortable="sortable"
+        class="sortable-list"
+        data-mdb-connected-list="#sortable-disabled-2"
+      >
+        <h4 class="text-center pt-2">Sorting available</h4>
+        <div class="sortable-item">Item 1</div>
+        <div class="sortable-item">Item 2</div>
+        <div class="sortable-item">Item 3</div>
+        <div class="sortable-item">Item 4</div>
+        <div class="sortable-item">Item 5</div>
+      </div>
+
+      <div
+        id="sortable-disabled-2"
+        data-mdb-sortable="sortable"
+        class="sortable-list"
+        data-mdb-connected-list="#sortable-disabled-1"
+        data-mdb-sorting="false"
+      >
+        <h4 class="text-center pt-2">Sorting not available</h4>
+        <div class="sortable-item">item 6</div>
+        <div class="sortable-item">item 7</div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+        <div id="sortable-disabled-1" data-mdb-sortable="sortable" class="sortable-list" data-mdb-connected-list="#sortable-disabled-2">
+          <h4 class="text-center pt-2">Sorting available</h4>
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+        </div>
+
+        <div id="sortable-disabled-2" data-mdb-sortable="sortable" class="sortable-list" data-mdb-connected-list="#sortable-disabled-1" data-mdb-sorting="false">
+          <h4 class="text-center pt-2">Sorting not available</h4>
+          <div class="sortable-item">item 6</div>
+          <div class="sortable-item">item 7</div>
+        </div>
+      </code>
+
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable with disabled sorting-->
+
+  <hr class="my-5" />
+
+  <!--Section: Sortable nested-->
+  <section id="subsection-sortable-nested">
+    <!-- Section title -->
+    <h2 class="mb-4">巢状</h2>
+
+    <!-- description -->
+    <p class="mb-4">通过添加<code> data-mdb-item-class </code>，您可以设置列表项中必须包含的类
+      使它们可排序。因此，您可以创建嵌套列表。</p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div
+        id="sortable-multi-1-1"
+        data-mdb-sortable="sortable"
+        class="sortable-list d-flex align-items-start"
+        data-mdb-item-class="sortable-item-nested"
+      >
+        <div
+          id="sortable-multi-2-2"
+          data-mdb-sortable="sortable"
+          class="sortable-list sortable-item-nested"
+          data-mdb-connected-list="#sortable-multi-2-1"
+          data-mdb-drag-handle=".drag-handler"
+        >
+          <h4 class="text-center pt-2 drag-handler">To do</h4>
+          <div class="sortable-item">Item 1</div>
+          <div class="sortable-item">Item 2</div>
+          <div class="sortable-item">Item 3</div>
+          <div class="sortable-item">Item 4</div>
+          <div class="sortable-item">Item 5</div>
+        </div>
+
+        <div
+          id="sortable-multi-2-1"
+          data-mdb-sortable="sortable"
+          class="sortable-list sortable-item-nested"
+          data-mdb-connected-list="#sortable-multi-2-2"
+          data-mdb-drag-handle=".drag-handler"
+        >
+          <h4 class="text-center pt-2 drag-handler">Done</h4>
+          <div class="sortable-item">item 6</div>
+          <div class="sortable-item">item 7</div>
+          <div class="sortable-item">item 8</div>
+          <div class="sortable-item">item 9</div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Live Preview-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="sortable-multi-1-1" data-mdb-sortable="sortable" class="sortable-list d-flex align-items-start"
+            data-mdb-item-class="sortable-item-nested">
+
+            <div id="sortable-multi-2-2" data-mdb-sortable="sortable" class="sortable-item-nested"
+              data-mdb-connected-list="#sortable-multi-2-1" data-mdb-drag-handle=".drag-handler">
+              <h4 class="text-center pt-2 drag-handler">To do</h4>
+              <div class="sortable-item">Item 1</div>
+              <div class="sortable-item">Item 2</div>
+              <div class="sortable-item">Item 3</div>
+              <div class="sortable-item">Item 4</div>
+              <div class="sortable-item">Item 5</div>
+            </div>
+
+            <div id="sortable-multi-2-1" data-mdb-sortable="sortable" class="sortable-item-nested"
+              data-mdb-connected-list="#sortable-multi-2-2" data-mdb-drag-handle=".drag-handler">
+              <h4 class="text-center pt-2 drag-handler">Done</h4>
+              <div class="sortable-item">item 6</div>
+              <div class="sortable-item">item 7</div>
+              <div class="sortable-item">item 8</div>
+              <div class="sortable-item">item 9</div>
+            </div>
+
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Sortable nested-->
 </section>
 <!--Section: Docs content-->
