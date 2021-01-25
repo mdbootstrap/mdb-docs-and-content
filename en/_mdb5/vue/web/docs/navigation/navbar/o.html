@@ -80,6 +80,26 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
               </li>
+              <!-- Navbar dropdown -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dropdown
+                </a>
+                <!-- Dropdown menu -->
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
               <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
                   >Disabled</a
@@ -96,7 +116,9 @@
                 placeholder="Type query"
                 aria-label="Search"
               />
-              <button class="btn btn-outline-primary" type="button">Search</button>
+              <button class="btn btn-outline-primary" type="button" data-mdb-ripple-color="dark">
+                Search
+              </button>
             </form>
           </div>
           <!-- Collapsible wrapper -->
@@ -113,49 +135,102 @@
       <mdbsnippet>
         <code data-lang="html" data-name="template">
           <template>
-            <MDBNavbar light bg="light" container>
+            <MDBNavbar expand="lg" light bg="light" container>
               <MDBNavbarBrand href="#">Brand</MDBNavbarBrand>
-              <MDBNavbarToggler></MDBNavbarToggler>
-              <MDBNavbarNav collapse>
-                <MDBNavbarItem to="#"> Home </MDBNavbarItem>
-                <MDBNavbarItem href="#"> Link </MDBNavbarItem>
-                <MDBNavbarItem to="#"> Disabled </MDBNavbarItem>
-                <template v-slot:contentRight>
-                  <!-- Search form -->
-                  <form class="d-flex input-group w-auto">
-                    <input
-                      type="search"
-                      class="form-control"
-                      placeholder="Type query"
-                      aria-label="Search"
-                    />
-                    <MDBBtn outline="primary"> Search </MDBBtn>
-                  </form>
-                </template>
-              </MDBNavbarNav>
+              <MDBNavbarToggler
+                @click="collapse1 = !collapse1"
+                target="#navbarSupportedContent"
+              ></MDBNavbarToggler>
+              <MDBCollapse v-model="collapse1" id="navbarSupportedContent">
+                <MDBNavbarNav class="mb-2 mb-lg-0">
+                  <MDBNavbarItem to="#" active>
+                    Home
+                  </MDBNavbarItem>
+                  <MDBNavbarItem href="#">
+                    Link
+                  </MDBNavbarItem>
+                  <MDBNavbarItem>
+                    <!-- Navbar dropdown -->
+                    <MDBDropdown class="nav-item">
+                      <MDBDropdownToggle
+                        tag="a"
+                        class="nav-link"
+                        @click="dropdown1 = !dropdown1"
+                        >Dropdown</MDBDropdownToggle
+                      >
+                      <MDBDropdownMenu
+                        aria-labelledby="dropdownMenuButton"
+                        v-model="dropdown1"
+                      >
+                        <MDBDropdownItem href="#">Action</MDBDropdownItem>
+                        <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+                        <MDBDropdownItem href="#"
+                          >Something else here</MDBDropdownItem
+                        >
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </MDBNavbarItem>
+                  <MDBNavbarItem to="#" disabled>
+                    Disabled
+                  </MDBNavbarItem>
+                </MDBNavbarNav>
+                <!-- Search form -->
+                <form class="d-flex input-group w-auto">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Type query"
+                    aria-label="Search"
+                  />
+                  <MDBBtn outline="primary">
+                    Search
+                  </MDBBtn>
+                </form>
+              </MDBCollapse>
             </MDBNavbar>
           </template>
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import {
-              MDBBtn,
-              MDBNavbar,
-              MDBNavbarToggler,
-              MDBNavbarBrand,
-              DBNavbarNav,
-              MDBNavbarItem,
+            import { 
+              MDBBtn, 
+              MDBNavbar, 
+              MDBNavbarToggler, 
+              MDBNavbarBrand, 
+              MDBNavbarNav, 
+              MDBNavbarItem, 
+              MDBCollapse,    
+              MDBDropdown,
+              MDBDropdownToggle,
+              MDBDropdownMenu,
+              MDBDropdownItem
             } from 'mdb-vue-ui-kit';
 
             export default {
               components: {
-                MDBBtn,
-                MDBNavbar,
-                MDBNavbarToggler,
-                MDBNavbarBrand,
-                MDBNavbarNav,
-                MDBNavbarItem,
+                MDBBtn, 
+                MDBNavbar, 
+                MDBNavbarToggler, 
+                MDBNavbarBrand, 
+                MDBNavbarNav, 
+                MDBNavbarItem, 
+                MDBCollapse,    
+                MDBDropdown,
+                MDBDropdownToggle,
+                MDBDropdownMenu,
+                MDBDropdownItem
               },
+              setup() {
+                import { ref } from 'vue';
+
+                const collapse1 = ref(false);
+                const dropdown1 = ref(false);
+
+                return {
+                  collapse1,
+                  dropdown1
+                }
+              }
             };
           </script>
         </code>
@@ -894,6 +969,136 @@
     </section>
     <!--Subsection: Text-->
 
+    <!--Subsection: Dropdown-->
+    <section id="subsection-dropdown">
+      <!--Subsection title-->
+      <h4 class="mt-5">Dropdown</h4>
+
+      <!--Description-->
+      <p>
+        You may also utilize dropdowns in your navbar nav. Dropdown menus require a wrapping element
+        for positioning, so be sure to use separate and nested elements for
+        <code>MDBNavbarItem</code> and <code>.nav-link</code> as shown below.
+      </p>
+
+      <p>
+        Learn more about dropdowns in our
+        <a href="/docs/b5/vue/components/dropdowns/">dropdown docs</a>.
+      </p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 mb-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <ul class="navbar-nav">
+              <!-- Dropdown -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dropdown link
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <MDBNavbar expand="lg" light bg="light" container>
+              <MDBNavbarNav>
+                <!-- Dropdown -->
+                <MDBDropdown>
+                  <MDBDropdownToggle tag="a" class="nav-link" @click="dropdown2 = !dropdown2"
+                    >Dropdown</MDBDropdownToggle
+                  >
+                  <MDBDropdownMenu v-model="dropdown2">
+                    <MDBDropdownItem href="#">Action</MDBDropdownItem>
+                    <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+                    <MDBDropdownItem href="#">Something else here</MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown>
+              </MDBNavbarNav>
+            </MDBNavbar>
+          </code>
+          <code data-lang="html" data-name="template">
+            <template>
+              <MDBNavbar expand="lg" light bg="light" container>
+                <MDBNavbarNav>
+                  <!-- Dropdown -->
+                  <MDBDropdown>
+                    <MDBDropdownToggle tag="a" class="nav-link" v-on:click="dropdown2 = !dropdown2"
+                      >Dropdown</MDBDropdownToggle
+                    >
+                    <MDBDropdownMenu v-model="dropdown2">
+                      <MDBDropdownItem href="#">Action</MDBDropdownItem>
+                      <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+                      <MDBDropdownItem href="#">Something else here</MDBDropdownItem>
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                </MDBNavbarNav>
+              </MDBNavbar>
+            </template>
+          </code>
+          <code data-lang="javascript" data-name="script">
+            <script>
+              import {
+                MDBNavbar,
+                MDBNavbarToggler,
+                MDBNavbarBrand,
+                MDBNavbarNav,
+                MDBNavbarItem,
+                MDBCollapse,
+                MDBDropdown,
+                MDBDropdownToggle,
+                MDBDropdownMenu,
+                MDBDropdownItem,
+              } from 'mdb-vue-ui-kit';
+              import { ref } from 'vue';
+
+              export default {
+                components: {
+                  MDBNavbar,
+                  MDBNavbarToggler,
+                  MDBNavbarBrand,
+                  MDBNavbarNav,
+                  MDBNavbarItem,
+                  MDBCollapse,
+                  MDBDropdown,
+                  MDBDropdownToggle,
+                  MDBDropdownMenu,
+                  MDBDropdownItem,
+                },
+                setup() {
+                  const dropdown2 = ref(false);
+
+                  return {
+                    dropdown2,
+                  };
+                },
+              };
+            </script>
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Dropdown-->
+
     <!--Subsection: Breadcrumb-->
     <section id="subsection-breadcrumb">
       <!--Subsection title-->
@@ -991,7 +1196,7 @@
                 </a>
               </li>
               <!-- Icon dropdown -->
-              <!-- <li class="nav-item me-3 me-lg-0 dropdown">
+              <li class="nav-item me-3 me-lg-0 dropdown">
                 <a
                   class="nav-link dropdown-toggle"
                   href="#"
@@ -1012,7 +1217,7 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                   </li>
                 </ul>
-              </li> -->
+              </li>
             </ul>
           </div>
         </nav>
@@ -1034,20 +1239,65 @@
                   <MDBNavbarItem href="#" class="me-3 me-lg-0">
                     <MDBIcon iconStyle="fab" icon="twitter"></MDBIcon>
                   </MDBNavbarItem>
-                   </MDBNavbarNav>
+                  <!-- Icon dropdown -->
+                  <MDBNavbarItem class="me-3 me-lg-0 dropdown">
+                    <MDBDropdown>
+                      <MDBDropdownToggle
+                        tag="a"
+                        class="nav-link"
+                        @click="dropdown3 = !dropdown3"
+                      >
+                        <MDBIcon icon="user" />
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu v-model="dropdown3">
+                        <MDBDropdownItem href="#">Action</MDBDropdownItem>
+                        <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+                        <MDBDropdownItem href="#"
+                          >Something else here</MDBDropdownItem
+                        >
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </MDBNavbarItem>
+                </MDBNavbarNav>
               </MDBNavbar>
             </template>
           </code>
           <code data-lang="javascript" data-name="script">
             <script>
-              import { MDBNavbar, MDBNavbarNav, MDBNavbarItem } from 'mdb-vue-ui-kit';
+             import { 
+                MDBIcon,
+                MDBNavbar, 
+                MDBNavbarToggler, 
+                MDBNavbarBrand, 
+                MDBNavbarNav, 
+                MDBNavbarItem, 
+                MDBDropdown,
+                MDBDropdownToggle,
+                MDBDropdownMenu,
+                MDBDropdownItem
+              } from 'mdb-vue-ui-kit';
+              import { ref } from 'vue';
 
               export default {
                 components: {
-                  MDBNavbar,
-                  MDBNavbarNav,
-                  MDBNavbarItem,
+                  MDBIcon,
+                  MDBNavbar, 
+                  MDBNavbarToggler, 
+                  MDBNavbarBrand, 
+                  MDBNavbarNav, 
+                  MDBNavbarItem, 
+                  MDBDropdown,
+                  MDBDropdownToggle,
+                  MDBDropdownMenu,
+                  MDBDropdownItem
                 },
+                setup() {
+                  const dropdown3 = ref(false);
+
+                  return {
+                    dropdown3
+                  }
+                }
               };
             </script>
           </code>
@@ -1123,628 +1373,43 @@
     </section>
     <!--Subsection: Badges-->
 
-    <hr class="my-5" />
+    <!--Subsection: Notifications-->
+    <section id="subsection-notifications">
+      <!--Subsection title-->
+      <h4 class="mt-5">Notifications</h4>
 
-    <!--Section:Content alignment -->
-    <section id="section-content-alignment">
-      <!--Section title-->
-      <h2 class="mb-4">Content alignment</h2>
-
-      <!-- Section description -->
+      <!--Description-->
       <p>
-        Navbar content is aligned left by default. To align navbar content to the right use
-        <code>right</code> prop. For other alignments check API section or
-        <a href="/docs/b5/vue/layout/flex/">flexbox</a> utilities.
+        You can mix icon with dropdown and create a notification dropdown to indicate important news
+        for visitors.
       </p>
-
-      <!--Subsection: Left aligned-->
-      <section id="subsection-left-aligned">
-        <!--Subsection title-->
-        <h4 class="mt-5">Left aligned</h4>
-
-        <!--Description-->
-        <p>Content is left aligned by default</p>
-
-        <!--Section: Demo-->
-        <section class="border p-4 mb-4">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-              <!-- Toggle button -->
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarLeftAlignExample"
-                aria-controls="navbarLeftAlignExample"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <i class="fas fa-bars"></i>
-              </button>
-
-              <!-- Collapsible wrapper -->
-              <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                  </li>
-                  <!-- Navbar dropdown -->
-                  <!-- <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Dropdown
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Another action</a>
-                    </li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </li>
-                  </ul>
-                </li> -->
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
-                      >Disabled</a
-                    >
-                  </li>
-                </ul>
-                <!-- Left links -->
-              </div>
-              <!-- Collapsible wrapper -->
-            </div>
-            <!-- Container wrapper -->
-          </nav>
-        </section>
-        <!--Section: Demo-->
-
-        <!--Section: Code-->
-        <section class="mb-4">
-          <!-- prettier-ignore -->
-          <mdbsnippet>
-          <code data-lang="html" data-name="template">
-            <template>
-              <MDBNavbar expand="lg" light bg="light" container>
-                <!-- Toggle button -->
-                <MDBNavbarToggler target="#navbarLeftAlignExample"></MDBNavbarToggler>
-
-                <!-- Collapsible wrapper -->
-                <MDBNavbarNav collapse="navbarLeftAlignExample" class="mb-lg-0">
-                  <!-- Left links -->
-                  <MDBNavbarItem to="#" active> Home </MDBNavbarItem>
-                  <MDBNavbarItem href="#" active> Link </MDBNavbarItem>
-                  <MDBNavbarItem to="#" disabled tabindex="-1" aria-disabled="true">
-                    Disabled
-                  </MDBNavbarItem>
-                  <!-- Left links -->
-                </MDBNavbarNav>
-                <!-- Collapsible wrapper -->
-              </MDBNavbar>
-            </template>
-          </code>
-          <code data-lang="javascript" data-name="script">
-            <script>
-              import {
-                MDBNavbar,
-                MDBNavbarToggler,
-                MDBNavbarNav,
-                MDBNavbarItem,
-              } from 'mdb-vue-ui-kit';
-
-              export default {
-                components: {
-                  MDBNavbar,
-                  MDBNavbarToggler,
-                  MDBNavbarNav,
-                  MDBNavbarItem,
-                },
-              };
-            </script>
-          </code>
-        </mdbsnippet>
-        </section>
-        <!--Section: Code-->
-      </section>
-      <!--Subsection: Left aligned-->
-
-      <!--Subsection: Right aligned-->
-      <section id="subsection-contentRighted">
-        <!--Subsection title-->
-        <h4 class="mt-5">Right aligned</h4>
-
-        <!--Description-->
-        <p>
-          Add <code>right</code> props next to the <code>MDBNavbarNac</code> to align the content to
-          the right.
-        </p>
-
-        <!--Section: Demo-->
-        <section class="border p-4 mb-4">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-              <!-- Toggle button -->
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarRightAlignExample"
-                aria-controls="navbarRightAlignExample"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <i class="fas fa-bars"></i>
-              </button>
-
-              <!-- Collapsible wrapper -->
-              <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-                <!-- Left links -->
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                  </li>
-                  <!-- Navbar dropdown -->
-                  <!-- <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Dropdown
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Another action</a>
-                    </li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </li>
-                  </ul>
-                </li> -->
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
-                      >Disabled</a
-                    >
-                  </li>
-                </ul>
-                <!-- Left links -->
-              </div>
-              <!-- Collapsible wrapper -->
-            </div>
-            <!-- Container wrapper -->
-          </nav>
-        </section>
-        <!--Section: Demo-->
-
-        <!--Section: Code-->
-        <section class="mb-4">
-          <!-- prettier-ignore -->
-          <mdbsnippet>
-          <code data-lang="html" data-name="template">
-            <template>
-              <MDBNavbar expand="lg" light bg="light" container>
-                <!-- Toggle button -->
-                <MDBNavbarToggler target="#navbarRightAlignExample"></MDBNavbarToggler>
-                <!-- Collapsible wrapper -->
-                <MDBNavbarNav collapse="navbarRightAlignExample" right class="mb-2 mb-lg-0">
-                  <!-- Right links -->
-                  <MDBNavbarItem to="#" active> Home </MDBNavbarItem>
-                  <MDBNavbarItem href="#" active> Link </MDBNavbarItem>
-                  <MDBNavbarItem to="#" disabled tabindex="-1" aria-disabled="true">
-                    Disabled
-                  </MDBNavbarItem>
-                  <!-- Right links -->
-                </MDBNavbarNav>
-                <!-- Collapsible wrapper -->
-              </MDBNavbar>
-            </template>
-          </code>
-          <code data-lang="javascript" data-name="script">
-            <script>
-              import {
-                MDBNavbar,
-                MDBNavbarToggler,
-                MDBNavbarNav,
-                MDBNavbarItem,
-              } from 'mdb-vue-ui-kit';
-
-              export default {
-                components: {
-                  MDBNavbar,
-                  MDBNavbarToggler,
-                  MDBNavbarNav,
-                  MDBNavbarItem,
-                },
-              };
-            </script>
-          </code>
-        </mdbsnippet>
-        </section>
-        <!--Section: Code-->
-      </section>
-      <!--Subsection: Right aligned-->
-
-      <!--Subsection: Centered-->
-      <section id="subsection-centered">
-        <!--Subsection title-->
-        <h4 class="mt-5">Centered</h4>
-
-        <!--Description-->
-        <p>
-          Use <code>center</code> and <code>collapse</code> props next to the
-          <code>MDBNavbarNav</code> to center the content.
-        </p>
-
-        <!--Section: Demo-->
-        <section class="border p-4 mb-4">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-              <!-- Toggle button -->
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarCenteredExample"
-                aria-controls="navbarCenteredExample"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <i class="fas fa-bars"></i>
-              </button>
-
-              <!-- Collapsible wrapper -->
-              <div
-                class="collapse navbar-collapse justify-content-center"
-                id="navbarCenteredExample"
-              >
-                <!-- Left links -->
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                  </li>
-                  <!-- Navbar dropdown -->
-                  <!-- <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Dropdown
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Another action</a>
-                    </li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </li>
-                  </ul>
-                </li> -->
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
-                      >Disabled</a
-                    >
-                  </li>
-                </ul>
-                <!-- Left links -->
-              </div>
-              <!-- Collapsible wrapper -->
-            </div>
-            <!-- Container wrapper -->
-          </nav>
-        </section>
-        <!--Section: Demo-->
-
-        <!--Section: Code-->
-        <section class="mb-4">
-          <!-- prettier-ignore -->
-          <mdbsnippet>
-          <code data-lang="html" data-name="template">
-            <template>
-              <MDBNavbar expand="lg" light bg="light" container>
-                <!-- Toggle button -->
-                <MDBNavbarToggler target="#navbarCenterAlignExample"></MDBNavbarToggler>
-                <!-- Collapsible wrapper -->
-                <MDBNavbarNav collapse="navbarCenterAlignExample" center class="mb-2 mb-lg-0">
-                  <!-- Center links -->
-                  <MDBNavbarItem to="#" active> Home </MDBNavbarItem>
-                  <MDBNavbarItem href="#" active> Link </MDBNavbarItem>
-                  <MDBNavbarItem to="#" disabled tabindex="-1" aria-disabled="true">
-                    Disabled
-                  </MDBNavbarItem>
-                  <!-- Center links -->
-                </MDBNavbarNav>
-                <!-- Collapsible wrapper -->
-              </MDBNavbar>
-            </template>
-          </code>
-          <code data-lang="javascript" data-name="script">
-            <script>
-              import {
-                MDBNavbar,
-                MDBNavbarToggler,
-                MDBNavbarNav,
-                MDBNavbarItem,
-              } from 'mdb-vue-ui-kit';
-
-              export default {
-                components: {
-                  MDBNavbar,
-                  MDBNavbarToggler,
-                  MDBNavbarNav,
-                  MDBNavbarItem,
-                },
-              };
-            </script>
-          </code>
-        </mdbsnippet>
-        </section>
-        <!--Section: Code-->
-      </section>
-      <!--Subsection: Centered-->
-    </section>
-    <!--/Section: Content alignment-->
-
-    <hr class="my-5" />
-
-    <!--Section: Colors-->
-    <section id="section-colors">
-      <!--Section title-->
-      <h2 class="mb-4">Colors</h2>
-
-      <!-- Section description -->
-      <p>
-        Theming the navbar has never been easier thanks to the combination of theming classes and
-        <code>background-color</code> utilities. Choose from <code>light</code> prop for use with
-        light background colors, or <code>dark</code> for dark background colors. Then, customize
-        with <code>bg="*"</code> utilities.
-      </p>
-
-      <p>
-        See also our
-        <a href="/docs/b5/vue/content-styles/colors/">color docs</a> to learn more about colors.
-      </p>
-
-      <!--Section: Demo-->
-      <section class="border p-4 mb-4">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarColor02"
-              aria-controls="navbarColor02"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor02">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item active">
-                  <a class="nav-link" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">About</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
-        <br />
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarColor02"
-              aria-controls="navbarColor02"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor02">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item active">
-                  <a class="nav-link" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">About</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
-        <br />
-
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarColor02"
-              aria-controls="navbarColor02"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor02">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item active">
-                  <a class="nav-link" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">About</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </section>
-      <!--Section: Demo-->
-
-      <!--Section: Code-->
-      <section>
-        <!-- prettier-ignore -->
-        <mdbsnippet>
-        <code data-lang="html" data-name="template">
-          <template>
-            <MDBNavbar dark bg="primary">
-              <!-- Navbar content -->
-            </MDBNavbar>
-
-            <MDBNavbar dark bg="dark">
-              <!-- Navbar content -->
-            </MDBNavbar>
-
-            <MDBNavbar light style="background-color: #e3f2fd">
-              <!-- Navbar content -->
-            </MDBNavbar>
-          </template>
-        </code>
-        <code data-lang="javascript" data-name="script">
-          <script>
-            import { MDBNavbar } from 'mdb-vue-ui-kit';
-
-            export default {
-              components: {
-                MDBNavbar,
-              },
-            };
-          </script>
-        </code>
-      </mdbsnippet>
-      </section>
-      <!--Section: Code-->
-    </section>
-    <!--/Section: Colors-->
-
-    <hr class="my-5" />
-
-    <!--Section: Containers-->
-    <section id="section-containers">
-      <!--Section title-->
-      <h2 class="mb-4">Containers</h2>
-
-      <!-- Section description -->
-      <p>
-        Although it’s not required, you can wrap a navbar in a
-        <code>MDBContainer</code> to center it on a page or add one within to only center the
-        contents of a <a href="#section-placement">fixed or static top navbar</a>. Note that an
-        inner container is still required. To set inner container use <code>container</code> props
-        next to <code>MDBNavbar</code>. You can use it as boolean, without any value (<code
-          >container-fluid will be set</code
-        >), or with any value that <code>MDBContainer</code> would take.
-      </p>
-
-      <!--Section: Demo-->
-      <section class="border p-4 mb-4">
-        <div class="container">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Navbar</a>
-            </div>
-          </nav>
-        </div>
-      </section>
-      <!--Section: Demo-->
-
-      <!--Section: Code-->
-      <section class="mb-4">
-        <!-- prettier-ignore -->
-        <mdbsnippet>
-        <code data-lang="html" data-name="template">
-          <template>
-            <MDBContainer>
-              <MDBNavbar expand="lg" light bg="light" container>
-                <MDBNavbarBrand href="#">Navbar</MDBNavbarBrand>
-              </MDBNavbar>
-            </MDBContainer>
-          </template>
-        </code>
-        <code data-lang="javascript" data-name="script">
-          <script>
-            import { MDBContainer, MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
-
-            export default {
-              components: {
-                MDBContainer,
-                MDBNavbar,
-                MDBNavbarBrand,
-              },
-            };
-          </script>
-        </code>
-      </mdbsnippet>
-      </section>
-      <!--Section: Code-->
-
-      <p>Use any of the responsive containers to change how wide the content in your navbar.</p>
 
       <!--Section: Demo-->
       <section class="border p-4 mb-4">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-md">
-            <a class="navbar-brand" href="#">Navbar</a>
+          <div class="container-fluid">
+            <ul class="navbar-nav">
+              <!-- Notification dropdown -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle hidden-arrow"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-bell"></i>
+                  <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" href="#">Some news</a></li>
+                  <li><a class="dropdown-item" href="#">Another news</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <!-- Notification dropdown -->
+            </ul>
           </div>
         </nav>
       </section>
@@ -1752,66 +1417,138 @@
 
       <!--Section: Code-->
       <section class="mb-4">
-        <!-- prettier-ignore -->
         <mdbsnippet>
-        <code data-lang="html" data-name="template">
-          <template>
-            <MDBNavbar expand="lg" light bg="light" container="md">
-              <MDBNavbarBrand href="#">Navbar</MDBNavbarBrand>
-            </MDBNavbar>
-          </template>
-        </code>
-        <code data-lang="javascript" data-name="script">
-          <script>
-            import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
-
-            export default {
-              components: {
+          <code data-lang="html" data-name="HTML">
+            <template>
+              <MDBNavbar expan="lg" light bg="light" container>
+                <MDBNavbarNav>
+                  <!-- Notification dropdown -->
+                  <MDBDropdown class="nav-item">
+                    <MDBDropdownToggle tag="a" class="nav-link" @click="dropdown4 = !dropdown4"
+                      ><MDBIcon icon="bell" />
+                      <MDBBadge notification color="danger" pill>1</MDBBadge>
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu v-model="dropdown4">
+                      <MDBDropdownItem href="#">Action</MDBDropdownItem>
+                      <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+                      <MDBDropdownItem href="#">Something else here</MDBDropdownItem>
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                  <!-- Notification dropdown -->
+                </MDBNavbarNav>
+              </MDBNavbar>
+            </template>
+          </code>
+          <code data-lang="javascript" data-name="script">
+            <script>
+              import {
+                MDBIcon,
+                MDBBadge,
                 MDBNavbar,
+                MDBNavbarToggler,
                 MDBNavbarBrand,
-              },
-            };
-          </script>
-        </code>
-      </mdbsnippet>
+                MDBNavbarNav,
+                MDBNavbarItem,
+                MDBDropdown,
+                MDBDropdownToggle,
+                MDBDropdownMenu,
+                MDBDropdownItem,
+              } from 'mdb-vue-ui-kit';
+              import { ref } from 'vue';
+
+              export default {
+                components: {
+                  MDBIcon,
+                  MDBBadge,
+                  MDBNavbar,
+                  MDBNavbarToggler,
+                  MDBNavbarBrand,
+                  MDBNavbarNav,
+                  MDBNavbarItem,
+                  MDBDropdown,
+                  MDBDropdownToggle,
+                  MDBDropdownMenu,
+                  MDBDropdownItem,
+                },
+                setup() {
+                  const dropdown4 = ref(false);
+
+                  return {
+                    dropdown4,
+                  };
+                },
+              };
+            </script>
+          </code>
+        </mdbsnippet>
       </section>
       <!--Section: Code-->
     </section>
-    <!--/Section: Containers-->
+    <!--Subsection: Notifications-->
 
-    <hr class="my-5" />
+    <!--Subsection: Flags-->
+    <section id="subsection-flags">
+      <!--Subsection title-->
+      <h4 class="mt-5">Flags</h4>
 
-    <!--Section: Placement-->
-    <section id="section-placement">
-      <!--Section title-->
-      <h2 class="mb-4">Placement</h2>
-
-      <!-- Section description -->
+      <!--Description-->
       <p>
-        Use our
-        <a href="/docs/b5/vue/utilities/position/">position utilities</a> to place navbars in
-        non-static positions. Choose from fixed to the top, fixed to the bottom, or stickied to the
-        top (scrolls with the page until it reaches the top, then stays there). Fixed navbars use
-        <code>position: fixed</code>, meaning they’re pulled from the normal flow of the DOM and may
-        require custom CSS (e.g., <code>padding-top</code> on the <code>&lt;body&gt;</code>) to
-        prevent overlap with other elements.
-      </p>
-
-      <p>
-        Also note that
-        <strong
-          ><code>position="sticky"</code> uses <code>position: sticky</code>, which
-          <a rel="nofollow" target="_blank" href="https://caniuse.com/#feat=css-sticky"
-            >isn’t fully supported in every browser</a
-          ></strong
-        >.
+        Use dropdown together with
+        <a href="/docs/b5/vue/content-styles/flags/">flags</a> to create a language switch.
       </p>
 
       <!--Section: Demo-->
       <section class="border p-4 mb-4">
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">Default</a>
+            <ul class="navbar-nav">
+              <!-- Icon dropdown -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="united kingdom flag m-0"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="united kingdom flag"></i>English
+                      <i class="fa fa-check text-success ms-2"></i
+                    ></a>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="poland flag"></i>Polski</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="china flag"></i>中文</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="japan flag"></i>日本語</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="germany flag"></i>Deutsch</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="france flag"></i>Français</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="spain flag"></i>Español</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="russia flag"></i>Русский</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"><i class="portugal flag"></i>Português</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </div>
         </nav>
       </section>
@@ -1819,567 +1556,1599 @@
 
       <!--Section: Code-->
       <section class="mb-4">
-        <!-- prettier-ignore -->
         <mdbsnippet>
-        <code data-lang="html" data-name="template">
-          <template>
-            <MDBNavbar light bg="light" container>
-              <MDBNavbarBrand href="#">Default</MDBNavbarBrand>
-            </MDBNavbar>
-          </template>
-        </code>
-        <code data-lang="javascript" data-name="script">
-          <script>
-            import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
-
-            export default {
-              components: {
+          <code data-lang="html" data-name="HTML">
+            <template>
+              <MDBNavbar expand="lg" light bg="light" container>
+                <MDBNavbarNav>
+                  <!-- Icon dropdown -->
+                  <MDBDropdown class="nav-item">
+                    <MDBDropdownToggle tag="a" class="nav-link" @click="dropdown5 = !dropdown5">
+                      <i class="united kingdom flag m-0"></i>
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu v-model="dropdown5">
+                      <MDBDropdownItem href="#"
+                        ><i class="united kingdom flag"></i>English
+                        <i class="fa fa-check text-success ms-2"></i>
+                      </MDBDropdownItem>
+                      <MDBDropdownItem divider />
+                      <MDBDropdownItem href="#"><i class="poland flag"></i>Polski </MDBDropdownItem>
+                      <MDBDropdownItem href="#"><i class="china flag"></i>中文 </MDBDropdownItem>
+                      <MDBDropdownItem href="#"><i class="japan flag"></i>日本語 </MDBDropdownItem>
+                      <MDBDropdownItem href="#"
+                        ><i class="germany flag"></i>Deutsch
+                      </MDBDropdownItem>
+                      <MDBDropdownItem href="#"
+                        ><i class="france flag"></i>Français
+                      </MDBDropdownItem>
+                      <MDBDropdownItem href="#"><i class="spain flag"></i>Español </MDBDropdownItem>
+                      <MDBDropdownItem href="#"
+                        ><i class="russia flag"></i>Русский
+                      </MDBDropdownItem>
+                      <MDBDropdownItem href="#"
+                        ><i class="portugal flag"></i>Português
+                      </MDBDropdownItem>
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                </MDBNavbarNav>
+              </MDBNavbar>
+            </template>
+          </code>
+          <code data-lang="javascript" data-name="script">
+            <script>
+              import {
                 MDBNavbar,
-                MDBNavbarBrand,
-              },
-            };
-          </script>
-        </code>
-      </mdbsnippet>
-      </section>
-      <!--Section: Code-->
+                MDBNavbarNav,
+                MDBNavbarItem,
+                MDBDropdown,
+                MDBDropdownToggle,
+                MDBDropdownMenu,
+                MDBDropdownItem,
+              } from 'mdb-vue-ui-kit';
+              import { ref } from 'vue';
 
-      <!--Section: Demo-->
-      <section class="border pb-5 text-center mb-4">
-        <nav class="navbar navbar-light bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Fixed top</a>
-          </div>
-        </nav>
-      </section>
-      <!--Section: Demo-->
+              export default {
+                components: {
+                  MDBNavbar,
+                  MDBNavbarNav,
+                  MDBNavbarItem,
+                  MDBDropdown,
+                  MDBDropdownToggle,
+                  MDBDropdownMenu,
+                  MDBDropdownItem,
+                },
+                setup() {
+                  const dropdown5 = ref(false);
 
-      <!--Section: Code-->
-      <section class="mb-4">
-        <!-- prettier-ignore -->
-        <mdbsnippet>
-        <code data-lang="html" data-name="template">
-          <template>
-            <MDBNavbar light bg="light" position="top" container>
-              <MDBNavbarBrand href="#">Fixed Top</MDBNavbarBrand>
-            </MDBNavbar>
-          </template>
-        </code>
-        <code data-lang="javascript" data-name="script">
-          <script>
-            import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
-
-            export default {
-              components: {
-                MDBNavbar,
-                MDBNavbarBrand,
-              },
-            };
-          </script>
-        </code>
-      </mdbsnippet>
-      </section>
-      <!--Section: Code-->
-
-      <!--Section: Demo-->
-      <section class="border pt-5 text-center mb-4">
-        <nav class="navbar navbar-light bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Fixed bottom</a>
-          </div>
-        </nav>
-      </section>
-      <!--Section: Demo-->
-
-      <!--Section: Code-->
-      <section class="mb-4">
-        <!-- prettier-ignore -->
-        <mdbsnippet>
-        <code data-lang="html" data-name="template">
-          <template>
-            <MDBNavbar light bg="light" position="bottom" container>
-              <MDBNavbarBrand href="#">Fixed Bottom</MDBNavbarBrand>
-            </MDBNavbar>
-          </template>
-        </code>
-        <code data-lang="javascript" data-name="script">
-          <script>
-            import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
-
-            export default {
-              components: {
-                MDBNavbar,
-                MDBNavbarBrand,
-              },
-            };
-          </script>
-        </code>
-      </mdbsnippet>
-      </section>
-      <!--Section: Code-->
-
-      <!--Section: Demo-->
-      <section class="border pb-5 text-center mb-4">
-        <nav class="navbar navbar-light bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Sticky top</a>
-          </div>
-        </nav>
-      </section>
-      <!--Section: Demo-->
-
-      <!--Section: Code-->
-      <section class="mb-4">
-        <!-- prettier-ignore -->
-        <mdbsnippet>
-        <code data-lang="html" data-name="template">
-          <template>
-            <MDBNavbar light bg="light" position="sticky" container>
-              <MDBNavbarBrand href="#">Sticky Top</MDBNavbarBrand>
-            </MDBNavbar>
-          </template>
-        </code>
-        <code data-lang="javascript" data-name="script">
-          <script>
-            import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
-
-            export default {
-              components: {
-                MDBNavbar,
-                MDBNavbarBrand,
-              },
-            };
-          </script>
-        </code>
-      </mdbsnippet>
+                  return {
+                    dropdown5,
+                  };
+                },
+              };
+            </script>
+          </code>
+        </mdbsnippet>
       </section>
       <!--Section: Code-->
     </section>
-    <!--/Section: Placement-->
+    <!--Subsection: Flags-->
 
-    <hr class="my-5" />
+    <!--Subsection: Avatar-->
+    <section id="subsection-avatar">
+      <!--Subsection title-->
+      <h4 class="mt-5">Avatar</h4>
 
-    <!--Section: Responsive behaviors-->
-    <section id="section-responsive-behaviors">
-      <!--Section title-->
-      <h2 class="mb-4">Responsive behaviors</h2>
-
-      <!-- Section description -->
+      <!--Description-->
       <p>
-        Navbars with <code>MDBNavbarToggler</code> can utilize <code>collapse</code>, and
-        <code>expand={sm|md|lg|xl|xxl}</code> props to change when their content collapses behind a
-        button. In combination with other utilities, you can easily choose when to show or hide
-        particular elements.
+        By combining simple image and dropdown you can create an avatar with typical user options.
       </p>
 
-      <p>
-        For navbars that never collapse, add the
-        <code>expand</code> prop on the MDBNavbar. For navbars that always collapse, don’t add any
-        <code>expand</code> prop.
-      </p>
-
-      <!--Subsection: Toggler-->
-      <section id="subsection-toggler">
-        <!--Subsection title-->
-        <h4 class="mt-5">Toggler</h4>
-
-        <!--Description-->
-        <p>
-          Navbar togglers are left-aligned by default, but should they follow a sibling element like
-          a
-          <code>MDBNavbarBrand</code>, they’ll automatically be aligned to the far right. Reversing
-          your markup will reverse the placement of the toggler. Below are examples of different
-          toggle styles.
-        </p>
-
-        <p>With no <code>MDBNavbarBrand</code> shown in lowest breakpoint:</p>
-
-        <!--Section: Demo-->
-        <section class="border p-4 mb-4">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarTogglerDemo01"
-                aria-controls="navbarTogglerDemo01"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <i class="fas fa-bars"></i>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="#">Hidden brand</a>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
-                      >Disabled</a
-                    >
-                  </li>
-                </ul>
-                <form class="d-flex input-group w-auto">
-                  <input
-                    type="search"
-                    class="form-control"
-                    placeholder="Type query"
-                    aria-label="Search"
+      <!--Section: Demo-->
+      <section class="border p-4 mb-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <ul class="navbar-nav">
+              <!-- Avatar -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle d-flex align-items-center"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
+                    class="rounded-circle"
+                    height="22"
+                    alt=""
+                    loading="lazy"
                   />
-                  <button
-                    class="btn btn-outline-primary"
-                    type="button"
-                    data-mdb-ripple-color="dark"
-                  >
-                    Search
-                  </button>
-                </form>
-              </div>
-            </div>
-          </nav>
-        </section>
-        <!--Section: Demo-->
-
-        <!--Section: Code-->
-        <section class="mb-4">
-          <!-- prettier-ignore -->
-          <mdbsnippet>
-          <code data-lang="html" data-name="template">
-            <template>
-              <MDBNavbar expand="lg" light bg="light" container>
-                <MDBNavbarToggler target="#navbarTogglerDemo01"></MDBNavbarToggler>
-                <MDBNavbarNav collapse="navbarTogglerDemo01">
-                  <MDBNavbarBrand link href="#">Hidden brand</MDBNavbarBrand>
-                  <MDBNavbarItem to="#"> Home </MDBNavbarItem>
-                  <MDBNavbarItem href="#"> Link </MDBNavbarItem>
-                  <MDBNavbarItem to="#" disabled tabindex="-1" aria-disabled="true">
-                    Disabled
-                  </MDBNavbarItem>
-                  <template v-slot:contentRight>
-                    <form class="d-flex input-group w-auto">
-                      <input
-                        type="search"
-                        class="form-control"
-                        placeholder="Type query"
-                        aria-label="Search"
-                      />
-                      <MDBBtn outline="primary"> Search </MDBBtn>
-                    </form>
-                  </template>
-                </MDBNavbarNav>
-              </MDBNavbar>
-            </template>
-          </code>
-          <code data-lang="javascript" data-name="script">
-            <script>
-              import {
-                MDBBtn,
-                MDBNavbar,
-                MDBNavbarToggler,
-                MDBNavbarBrand,
-                MDBNavbarItem,
-              } from 'mdb-vue-ui-kit';
-
-              export default {
-                components: {
-                  MDBBtn,
-                  MDBNavbar,
-                  MDBNavbarToggler,
-                  MDBNavbarBrand,
-                  MDBNavbarItem,
-                },
-              };
-            </script>
-          </code>
-        </mdbsnippet>
-        </section>
-        <!--Section: Code-->
-
-        <p>With a brand name shown on the left and toggler on the right:</p>
-
-        <!--Section: Demo-->
-        <section class="border p-4 mb-4">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Navbar</a>
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <i class="fas fa-bars"></i>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
-                      >Disabled</a
-                    >
-                  </li>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" href="#">My profile</a></li>
+                  <li><a class="dropdown-item" href="#">Settings</a></li>
+                  <li><a class="dropdown-item" href="#">Logout</a></li>
                 </ul>
-                <form class="d-flex input-group w-auto">
-                  <input
-                    type="search"
-                    class="form-control"
-                    placeholder="Type query"
-                    aria-label="Search"
-                  />
-                  <button class="btn btn-outline-primary" type="button">Search</button>
-                </form>
-              </div>
-            </div>
-          </nav>
-        </section>
-        <!--Section: Demo-->
-
-        <!--Section: Code-->
-        <section class="mb-4">
-          <!-- prettier-ignore -->
-          <mdbsnippet>
-          <code data-lang="html" data-name="template">
-            <template>
-              <MDBNavbar expand="lg" light bg="light" container>
-                <MDBNavbarBrand link href="#">Navbar</MDBNavbarBrand>
-                <MDBNavbarToggler target="#navbarTogglerDemo02"></MDBNavbarToggler>
-                <MDBNavbarNav collapse="navbarTogglerDemo02">
-                  <MDBNavbarItem to="#"> Home </MDBNavbarItem>
-                  <MDBNavbarItem href="#"> Link </MDBNavbarItem>
-                  <MDBNavbarItem to="#" disabled tabindex="-1" aria-disabled="true">
-                    Disabled
-                  </MDBNavbarItem>
-                  <template v-slot:contentRight>
-                    <form class="d-flex input-group w-auto">
-                      <input
-                        type="search"
-                        class="form-control"
-                        placeholder="Type query"
-                        aria-label="Search"
-                      />
-                      <MDBBtn outline="primary"> Search </MDBBtn>
-                    </form>
-                  </template>
-                </MDBNavbarNav>
-              </MDBNavbar>
-            </template>
-          </code>
-          <code data-lang="javascript" data-name="script">
-            <script>
-              import {
-                MDBBtn,
-                MDBNavbar,
-                MDBNavbarToggler,
-                MDBNavbarBrand,
-                MDBNavbarItem,
-              } from 'mdb-vue-ui-kit';
-
-              export default {
-                components: {
-                  MDBBtn,
-                  MDBNavbar,
-                  MDBNavbarToggler,
-                  MDBNavbarBrand,
-                  MDBNavbarItem,
-                },
-              };
-            </script>
-          </code>
-        </mdbsnippet>
-        </section>
-        <!--Section: Code-->
-
-        <p>With a toggler on the left and brand name on the right:</p>
-
-        <!--Section: Demo-->
-        <section class="border p-4 mb-4">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarTogglerDemo03"
-                aria-controls="navbarTogglerDemo03"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <i class="fas fa-bars"></i>
-              </button>
-              <a class="navbar-brand" href="#">Navbar</a>
-              <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
-                      >Disabled</a
-                    >
-                  </li>
-                </ul>
-                <form class="d-flex input-group w-auto">
-                  <input
-                    type="search"
-                    class="form-control"
-                    placeholder="Type query"
-                    aria-label="Search"
-                  />
-                  <button class="btn btn-outline-primary" type="button">Search</button>
-                </form>
-              </div>
-            </div>
-          </nav>
-        </section>
-        <!--Section: Demo-->
-
-        <!--Section: Code-->
-        <section class="mb-4">
-          <!-- prettier-ignore -->
-          <mdbsnippet>
-          <code data-lang="html" data-name="template">
-            <template>
-              <MDBNavbar expand="lg" light bg="light" container>
-                <MDBNavbarToggler target="#navbarTogglerDemo03"></MDBNavbarToggler>
-                <MDBNavbarBrand link href="#">Navbar</MDBNavbarBrand>
-                <MDBNavbarNav collapse="navbarTogglerDemo03">
-                  <MDBNavbarItem to="#"> Home </MDBNavbarItem>
-                  <MDBNavbarItem href="#"> Link </MDBNavbarItem>
-                  <MDBNavbarItem to="#" disabled tabindex="-1" aria-disabled="true">
-                    Disabled
-                  </MDBNavbarItem>
-                  <template v-slot:contentRight>
-                    <form class="d-flex input-group w-auto">
-                      <input
-                        type="search"
-                        class="form-control"
-                        placeholder="Type query"
-                        aria-label="Search"
-                      />
-                      <MDBBtn outline="primary"> Search </MDBBtn>
-                    </form>
-                  </template>
-                </MDBNavbarNav>
-              </MDBNavbar>
-            </template>
-          </code>
-          <code data-lang="javascript" data-name="script">
-            <script>
-              import {
-                MDBBtn,
-                MDBNavbar,
-                MDBNavbarToggler,
-                MDBNavbarBrand,
-                MDBNavbarItem,
-              } from 'mdb-vue-ui-kit';
-
-              export default {
-                components: {
-                  MDBBtn,
-                  MDBNavbar,
-                  MDBNavbarToggler,
-                  MDBNavbarBrand,
-                  MDBNavbarItem,
-                },
-              };
-            </script>
-          </code>
-        </mdbsnippet>
-        </section>
-        <!--Section: Code-->
-      </section>
-      <!--Subsection: Toggler-->
-
-      <!--Subsection: External content-->
-      <section id="subsection-external-content">
-        <!--Subsection title-->
-        <h4 class="mt-5">External content</h4>
-
-        <!--Description-->
-        <p>
-          Sometimes you want to use the collapse plugin to trigger hidden content elsewhere on the
-          page. Because our plugin works on the
-          <code>id</code> and <code>data-mdb-target</code> matching, that’s easily done!
-        </p>
-
-        <!--Section: Demo-->
-        <section class="border p-4 mb-4">
-          <div class="collapse" id="navbarToggleExternalContent">
-            <div class="bg-dark p-4">
-              <h5 class="text-white h4">Collapsed content</h5>
-              <span class="text-muted">Toggleable via the navbar brand.</span>
-            </div>
+              </li>
+            </ul>
           </div>
-          <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarToggleExternalContent"
-                aria-controls="navbarToggleExternalContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <i class="fas fa-bars"></i>
-              </button>
-            </div>
-          </nav>
-        </section>
-        <!--Section: Demo-->
+        </nav>
+      </section>
+      <!--Section: Demo-->
 
-        <!--Section: Code-->
-        <section class="mb-4">
-          <!-- prettier-ignore -->
-          <mdbsnippet>
-          <code data-lang="html" data-name="template">
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
             <template>
-              <div class="collapse" id="navbarToggleExternalContent">
-                <div class="bg-dark p-4">
-                  <h5 class="text-white h4">Collapsed content</h5>
-                  <span class="text-muted">Toggleable via the navbar brand.</span>
-                </div>
-              </div>
-              <MDBNavbar dark bg="dark" container>
-                <MDBNavbarToggler target="#navbarToggleExternalContent"> </MDBNavbarToggler>
+              <MDBNavbar expand="lg" light bg="light" container>
+                <MDBNavbarNav>
+                  <!-- Avatar -->
+                  <MDBDropdown class="nav-item">
+                    <MDBDropdownToggle tag="a" class="nav-link" @click="dropdown6 = !dropdown6"
+                      ><img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
+                        class="rounded-circle"
+                        height="22"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu v-model="dropdown6">
+                      <MDBDropdownItem href="#">My profile</MDBDropdownItem>
+                      <MDBDropdownItem href="#">Settings</MDBDropdownItem>
+                      <MDBDropdownItem href="#">Logout</MDBDropdownItem>
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                </MDBNavbarNav>
               </MDBNavbar>
             </template>
           </code>
           <code data-lang="javascript" data-name="script">
             <script>
-              import { MDBBtn, MDBContainer } from 'mdb-vue-ui-kit';
+              import {
+                MDBNavbar,
+                MDBNavbarNav,
+                MDBNavbarItem,
+                MDBDropdown,
+                MDBDropdownToggle,
+                MDBDropdownMenu,
+                MDBDropdownItem,
+              } from 'mdb-vue-ui-kit';
+              import { ref } from 'vue';
 
               export default {
                 components: {
-                  MDBBtn,
-                  MDBContainer,
+                  MDBNavbar,
+                  MDBNavbarNav,
+                  MDBNavbarItem,
+                  MDBDropdown,
+                  MDBDropdownToggle,
+                  MDBDropdownMenu,
+                  MDBDropdownItem,
+                },
+                setup() {
+                  const dropdown5 = ref(false);
+
+                  return {
+                    dropdown5,
+                  };
                 },
               };
             </script>
           </code>
         </mdbsnippet>
-        </section>
-        <!--Section: Code-->
       </section>
-      <!--Subsection: External content-->
+      <!--Section: Code-->
     </section>
-    <!--/Section: Responsive behaviors-->
+    <!--Subsection: Avatar-->
   </section>
-  <!--Section: Docs content-->
+  <!--/Section: -->
+
+  <!--Section:Content alignment -->
+  <section id="section-content-alignment">
+    <!--Section title-->
+    <h2 class="mb-4">Content alignment</h2>
+
+    <!-- Section description -->
+    <p>
+      Navbar content is aligned left by default. To align navbar content to the right use
+      <code>right</code> prop. For other alignments check API section or
+      <a href="/docs/b5/vue/layout/flex/">flexbox</a> utilities.
+    </p>
+
+    <!--Subsection: Left aligned-->
+    <section id="subsection-left-aligned">
+      <!--Subsection title-->
+      <h4 class="mt-5">Left aligned</h4>
+
+      <!--Description-->
+      <p>Content is left aligned by default</p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 mb-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <!-- Container wrapper -->
+          <div class="container-fluid">
+            <!-- Toggle button -->
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarLeftAlignExample"
+              aria-controls="navbarLeftAlignExample"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+              <!-- Left links -->
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <!-- Navbar dropdown -->
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Dropdown
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Another action</a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+                    >Disabled</a
+                  >
+                </li>
+              </ul>
+              <!-- Left links -->
+            </div>
+            <!-- Collapsible wrapper -->
+          </div>
+          <!-- Container wrapper -->
+        </nav>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBNavbar expand="lg" light bg="light" container>
+              <!-- Toggle button -->
+              <MDBNavbarToggler
+                target="#navbarLeftAlignExample"
+                @click="collapse4 = !collapse4"
+              ></MDBNavbarToggler>
+
+              <!-- Collapsible wrapper -->
+              <MDBCollapse v-model="collapse4" id="navbarLeftAlignExample">
+                <MDBNavbarNav class="mb-lg-0">
+                  <!-- Left links -->
+                  <MDBNavbarItem to="#" active>
+                    Home
+                  </MDBNavbarItem>
+                  <MDBNavbarItem href="#" active>
+                    Link
+                  </MDBNavbarItem>
+                  <!-- Navbar dropdown -->
+                  <MDBDropdown class="nav-item">
+                    <MDBDropdownToggle
+                      tag="a"
+                      class="nav-link"
+                      @click="dropdown7 = !dropdown7"
+                      >Dropdown</MDBDropdownToggle
+                    >
+                    <MDBDropdownMenu v-model="dropdown7">
+                      <MDBDropdownItem href="#">Action</MDBDropdownItem>
+                      <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+                      <MDBDropdownItem href="#"
+                        >Something else here</MDBDropdownItem
+                      >
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                  <MDBNavbarItem
+                    to="#"
+                    disabled
+                    tabindex="-1"
+                    aria-disabled="true"
+                  >
+                    Disabled
+                  </MDBNavbarItem>
+                  <!-- Left links -->
+                </MDBNavbarNav>
+              </MDBCollapse>
+              <!-- Collapsible wrapper -->
+            </MDBNavbar>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { 
+              MDBNavbar, 
+              MDBNavbarToggler, 
+              MDBNavbarBrand, 
+              MDBNavbarNav, 
+              MDBNavbarItem, 
+              MDBCollapse,    
+              MDBDropdown,
+              MDBDropdownToggle,
+              MDBDropdownMenu,
+              MDBDropdownItem
+            } from 'mdb-vue-ui-kit';
+            import { ref } from 'vue';
+
+            export default {
+              components: {
+                MDBNavbar, 
+                MDBNavbarToggler, 
+                MDBNavbarBrand, 
+                MDBNavbarNav, 
+                MDBNavbarItem, 
+                MDBCollapse,    
+                MDBDropdown,
+                MDBDropdownToggle,
+                MDBDropdownMenu,
+                MDBDropdownItem
+              },
+              setup() {
+                const collapse4 = ref(false);
+                const dropdown7 = ref(false);
+
+                return {
+                  collapse4,
+                  dropdown7
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Left aligned-->
+
+    <!--Subsection: Right aligned-->
+    <section id="subsection-contentRighted">
+      <!--Subsection title-->
+      <h4 class="mt-5">Right aligned</h4>
+
+      <!--Description-->
+      <p>
+        Add <code>right</code> props next to the <code>MDBNavbarNac</code> to align the content to
+        the right.
+      </p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 mb-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <!-- Container wrapper -->
+          <div class="container-fluid">
+            <!-- Toggle button -->
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarRightAlignExample"
+              aria-controls="navbarRightAlignExample"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+              <!-- Left links -->
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <!-- Navbar dropdown -->
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Dropdown
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Another action</a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+                    >Disabled</a
+                  >
+                </li>
+              </ul>
+              <!-- Left links -->
+            </div>
+            <!-- Collapsible wrapper -->
+          </div>
+          <!-- Container wrapper -->
+        </nav>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBNavbar expand="lg" light bg="light" container>
+              <!-- Toggle button -->
+              <MDBNavbarToggler
+                target="#navbarRightAlignExample"
+                @click="collapse5 = !collapse5"
+              ></MDBNavbarToggler>
+              <!-- Collapsible wrapper -->
+              <MDBCollapse v-model="collapse5" id="navbarRightAlignExample">
+                <MDBNavbarNav right class="mb-2 mb-lg-0">
+                  <!-- Right links -->
+                  <MDBNavbarItem to="#" active>
+                    Home
+                  </MDBNavbarItem>
+                  <MDBNavbarItem href="#" active>
+                    Link
+                  </MDBNavbarItem>
+                  <!-- Navbar dropdown -->
+                  <MDBDropdown class="nav-item">
+                    <MDBDropdownToggle
+                      tag="a"
+                      class="nav-link"
+                      @click="dropdown8 = !dropdown8"
+                      >Dropdown</MDBDropdownToggle
+                    >
+                    <MDBDropdownMenu v-model="dropdown8">
+                      <MDBDropdownItem href="#">Action</MDBDropdownItem>
+                      <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+                      <MDBDropdownItem href="#"
+                        >Something else here</MDBDropdownItem
+                      >
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                  <MDBNavbarItem
+                    to="#"
+                    disabled
+                    tabindex="-1"
+                    aria-disabled="true"
+                  >
+                    Disabled
+                  </MDBNavbarItem>
+                  <!-- Right links -->
+                </MDBNavbarNav>
+              </MDBCollapse>
+              <!-- Collapsible wrapper -->
+            </MDBNavbar>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { 
+              MDBNavbar, 
+              MDBNavbarToggler, 
+              MDBNavbarBrand, 
+              MDBNavbarNav, 
+              MDBNavbarItem, 
+              MDBCollapse,    
+              MDBDropdown,
+              MDBDropdownToggle,
+              MDBDropdownMenu,
+              MDBDropdownItem
+            } from 'mdb-vue-ui-kit';
+            import { ref } from 'vue';
+
+            export default {
+              components: {
+                MDBNavbar, 
+                MDBNavbarToggler, 
+                MDBNavbarBrand, 
+                MDBNavbarNav, 
+                MDBNavbarItem, 
+                MDBCollapse,    
+                MDBDropdown,
+                MDBDropdownToggle,
+                MDBDropdownMenu,
+                MDBDropdownItem
+              },
+              setup() {
+                const collapse5 = ref(false);
+                const dropdown8 = ref(false);
+
+                return {
+                  collapse5,
+                  dropdown8
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Right aligned-->
+
+    <!--Subsection: Centered-->
+    <section id="subsection-centered">
+      <!--Subsection title-->
+      <h4 class="mt-5">Centered</h4>
+
+      <!--Description-->
+      <p>
+        Use <code>center</code> and <code>collapse</code> props next to the
+        <code>MDBNavbarNav</code> to center the content.
+      </p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 mb-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <!-- Container wrapper -->
+          <div class="container-fluid">
+            <!-- Toggle button -->
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarCenteredExample"
+              aria-controls="navbarCenteredExample"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarCenteredExample">
+              <!-- Left links -->
+              <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <!-- Navbar dropdown -->
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Dropdown
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Another action</a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+                    >Disabled</a
+                  >
+                </li>
+              </ul>
+              <!-- Left links -->
+            </div>
+            <!-- Collapsible wrapper -->
+          </div>
+          <!-- Container wrapper -->
+        </nav>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBNavbar expand="lg" light bg="light" container>
+              <!-- Toggle button -->
+              <MDBNavbarToggler
+                target="#navbarCenterAlignExample"
+                @click="collapse6 = !collapse6"
+              ></MDBNavbarToggler>
+              <!-- Collapsible wrapper -->
+              <MDBCollapse id="navbarCenterAlignExample" v-model="collapse6">
+                <MDBNavbarNav center class="mb-2 mb-lg-0">
+                  <!-- Center links -->
+                  <MDBNavbarItem to="#" active>
+                    Home
+                  </MDBNavbarItem>
+                  <MDBNavbarItem href="#" active>
+                    Link
+                  </MDBNavbarItem>
+                  <!-- Navbar dropdown -->
+                  <MDBDropdown class="nav-item">
+                    <MDBDropdownToggle
+                      tag="a"
+                      class="nav-link"
+                      @click="dropdown9 = !dropdown9"
+                      >Dropdown</MDBDropdownToggle
+                    >
+                    <MDBDropdownMenu v-model="dropdown9">
+                      <MDBDropdownItem href="#">Action</MDBDropdownItem>
+                      <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+                      <MDBDropdownItem href="#"
+                        >Something else here</MDBDropdownItem
+                      >
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                  <MDBNavbarItem
+                    to="#"
+                    disabled
+                    tabindex="-1"
+                    aria-disabled="true"
+                  >
+                    Disabled
+                  </MDBNavbarItem>
+                  <!-- Center links -->
+                </MDBNavbarNav>
+              </MDBCollapse>
+              <!-- Collapsible wrapper -->
+            </MDBNavbar>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { 
+              MDBNavbar, 
+              MDBNavbarToggler, 
+              MDBNavbarBrand, 
+              MDBNavbarNav, 
+              MDBNavbarItem, 
+              MDBCollapse,    
+              MDBDropdown,
+              MDBDropdownToggle,
+              MDBDropdownMenu,
+              MDBDropdownItem
+            } from 'mdb-vue-ui-kit';
+            import { ref } from 'vue';
+
+            export default {
+              components: {
+                MDBNavbar, 
+                MDBNavbarToggler, 
+                MDBNavbarBrand, 
+                MDBNavbarNav, 
+                MDBNavbarItem, 
+                MDBCollapse,    
+                MDBDropdown,
+                MDBDropdownToggle,
+                MDBDropdownMenu,
+                MDBDropdownItem
+              },
+              setup() {
+                const collapse6 = ref(false);
+                const dropdown9 = ref(false);
+
+                return {
+                  collapse6,
+                  dropdown9
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Centered-->
+  </section>
+  <!--/Section: Content alignment-->
+
+  <hr class="my-5" />
+
+  <!--Section: Colors-->
+  <section id="section-colors">
+    <!--Section title-->
+    <h2 class="mb-4">Colors</h2>
+
+    <!-- Section description -->
+    <p>
+      Theming the navbar has never been easier thanks to the combination of theming classes and
+      <code>background-color</code> utilities. Choose from <code>light</code> prop for use with
+      light background colors, or <code>dark</code> for dark background colors. Then, customize with
+      <code>bg="*"</code> utilities.
+    </p>
+
+    <p>
+      See also our
+      <a href="/docs/b5/vue/content-styles/colors/">color docs</a> to learn more about colors.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarColor02"
+            aria-controls="navbarColor02"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <br />
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarColor02"
+            aria-controls="navbarColor02"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <br />
+
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarColor02"
+            aria-controls="navbarColor02"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <MDBNavbar dark bg="primary">
+            <!-- Navbar content -->
+          </MDBNavbar>
+
+          <MDBNavbar dark bg="dark">
+            <!-- Navbar content -->
+          </MDBNavbar>
+
+          <MDBNavbar light style="background-color: #e3f2fd">
+            <!-- Navbar content -->
+          </MDBNavbar>
+        </template>
+      </code>
+      <code data-lang="javascript" data-name="script">
+        <script>
+          import { MDBNavbar } from 'mdb-vue-ui-kit';
+
+          export default {
+            components: {
+              MDBNavbar,
+            },
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Colors-->
+
+  <hr class="my-5" />
+
+  <!--Section: Containers-->
+  <section id="section-containers">
+    <!--Section title-->
+    <h2 class="mb-4">Containers</h2>
+
+    <!-- Section description -->
+    <p>
+      Although it’s not required, you can wrap a navbar in a
+      <code>MDBContainer</code> to center it on a page or add one within to only center the contents
+      of a <a href="#section-placement">fixed or static top navbar</a>. Note that an inner container
+      is still required. To set inner container use <code>container</code> props next to
+      <code>MDBNavbar</code>. You can use it as boolean, without any value (<code
+        >container-fluid will be set</code
+      >), or with any value that <code>MDBContainer</code> would take.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+          </div>
+        </nav>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <MDBContainer>
+            <MDBNavbar expand="lg" light bg="light" container>
+              <MDBNavbarBrand href="#">Navbar</MDBNavbarBrand>
+            </MDBNavbar>
+          </MDBContainer>
+        </template>
+      </code>
+      <code data-lang="javascript" data-name="script">
+        <script>
+          import { MDBContainer, MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
+
+          export default {
+            components: {
+              MDBContainer,
+              MDBNavbar,
+              MDBNavbarBrand,
+            },
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>Use any of the responsive containers to change how wide the content in your navbar.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-md">
+          <a class="navbar-brand" href="#">Navbar</a>
+        </div>
+      </nav>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <MDBNavbar expand="lg" light bg="light" container="md">
+            <MDBNavbarBrand href="#">Navbar</MDBNavbarBrand>
+          </MDBNavbar>
+        </template>
+      </code>
+      <code data-lang="javascript" data-name="script">
+        <script>
+          import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
+
+          export default {
+            components: {
+              MDBNavbar,
+              MDBNavbarBrand,
+            },
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Containers-->
+
+  <hr class="my-5" />
+
+  <!--Section: Placement-->
+  <section id="section-placement">
+    <!--Section title-->
+    <h2 class="mb-4">Placement</h2>
+
+    <!-- Section description -->
+    <p>
+      Use our
+      <a href="/docs/b5/vue/utilities/position/">position utilities</a> to place navbars in
+      non-static positions. Choose from fixed to the top, fixed to the bottom, or stickied to the
+      top (scrolls with the page until it reaches the top, then stays there). Fixed navbars use
+      <code>position: fixed</code>, meaning they’re pulled from the normal flow of the DOM and may
+      require custom CSS (e.g., <code>padding-top</code> on the <code>&lt;body&gt;</code>) to
+      prevent overlap with other elements.
+    </p>
+
+    <p>
+      Also note that
+      <strong
+        ><code>position="sticky"</code> uses <code>position: sticky</code>, which
+        <a rel="nofollow" target="_blank" href="https://caniuse.com/#feat=css-sticky"
+          >isn’t fully supported in every browser</a
+        ></strong
+      >.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Default</a>
+        </div>
+      </nav>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <MDBNavbar light bg="light" container>
+            <MDBNavbarBrand href="#">Default</MDBNavbarBrand>
+          </MDBNavbar>
+        </template>
+      </code>
+      <code data-lang="javascript" data-name="script">
+        <script>
+          import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
+
+          export default {
+            components: {
+              MDBNavbar,
+              MDBNavbarBrand,
+            },
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <!--Section: Demo-->
+    <section class="border pb-5 text-center mb-4">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Fixed top</a>
+        </div>
+      </nav>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <MDBNavbar light bg="light" position="top" container>
+            <MDBNavbarBrand href="#">Fixed Top</MDBNavbarBrand>
+          </MDBNavbar>
+        </template>
+      </code>
+      <code data-lang="javascript" data-name="script">
+        <script>
+          import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
+
+          export default {
+            components: {
+              MDBNavbar,
+              MDBNavbarBrand,
+            },
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <!--Section: Demo-->
+    <section class="border pt-5 text-center mb-4">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Fixed bottom</a>
+        </div>
+      </nav>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <MDBNavbar light bg="light" position="bottom" container>
+            <MDBNavbarBrand href="#">Fixed Bottom</MDBNavbarBrand>
+          </MDBNavbar>
+        </template>
+      </code>
+      <code data-lang="javascript" data-name="script">
+        <script>
+          import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
+
+          export default {
+            components: {
+              MDBNavbar,
+              MDBNavbarBrand,
+            },
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <!--Section: Demo-->
+    <section class="border pb-5 text-center mb-4">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Sticky top</a>
+        </div>
+      </nav>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+      <code data-lang="html" data-name="template">
+        <template>
+          <MDBNavbar light bg="light" position="sticky" container>
+            <MDBNavbarBrand href="#">Sticky Top</MDBNavbarBrand>
+          </MDBNavbar>
+        </template>
+      </code>
+      <code data-lang="javascript" data-name="script">
+        <script>
+          import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
+
+          export default {
+            components: {
+              MDBNavbar,
+              MDBNavbarBrand,
+            },
+          };
+        </script>
+      </code>
+    </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Placement-->
+
+  <hr class="my-5" />
+
+  <!--Section: Responsive behaviors-->
+  <section id="section-responsive-behaviors">
+    <!--Section title-->
+    <h2 class="mb-4">Responsive behaviors</h2>
+
+    <!-- Section description -->
+    <p>
+      Navbars with <code>MDBNavbarToggler</code> can utilize <code>collapse</code>, and
+      <code>expand={sm|md|lg|xl|xxl}</code> props to change when their content collapses behind a
+      button. In combination with other utilities, you can easily choose when to show or hide
+      particular elements.
+    </p>
+
+    <p>
+      For navbars that never collapse, add the
+      <code>expand</code> prop on the MDBNavbar. For navbars that always collapse, don’t add any
+      <code>expand</code> prop.
+    </p>
+
+    <!--Subsection: Toggler-->
+    <section id="subsection-toggler">
+      <!--Subsection title-->
+      <h4 class="mt-5">Toggler</h4>
+
+      <!--Description-->
+      <p>
+        Navbar togglers are left-aligned by default, but should they follow a sibling element like a
+        <code>MDBNavbarBrand</code>, they’ll automatically be aligned to the far right. Reversing
+        your markup will reverse the placement of the toggler. Below are examples of different
+        toggle styles.
+      </p>
+
+      <p>With no <code>MDBNavbarBrand</code> shown in lowest breakpoint:</p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 mb-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarTogglerDemo01"
+              aria-controls="navbarTogglerDemo01"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <a class="navbar-brand" href="#">Hidden brand</a>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+                    >Disabled</a
+                  >
+                </li>
+              </ul>
+              <form class="d-flex input-group w-auto">
+                <input
+                  type="search"
+                  class="form-control"
+                  placeholder="Type query"
+                  aria-label="Search"
+                />
+                <button class="btn btn-outline-primary" type="button" data-mdb-ripple-color="dark">
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBNavbar expand="lg" light bg="light" container>
+              <MDBNavbarToggler target="#navbarTogglerDemo01"></MDBNavbarToggler>
+              <MDBNavbarNav collapse="navbarTogglerDemo01">
+                <MDBNavbarBrand link href="#">Hidden brand</MDBNavbarBrand>
+                <MDBNavbarItem to="#"> Home </MDBNavbarItem>
+                <MDBNavbarItem href="#"> Link </MDBNavbarItem>
+                <MDBNavbarItem to="#" disabled tabindex="-1" aria-disabled="true">
+                  Disabled
+                </MDBNavbarItem>
+                <template v-slot:contentRight>
+                  <form class="d-flex input-group w-auto">
+                    <input
+                      type="search"
+                      class="form-control"
+                      placeholder="Type query"
+                      aria-label="Search"
+                    />
+                    <MDBBtn outline="primary"> Search </MDBBtn>
+                  </form>
+                </template>
+              </MDBNavbarNav>
+            </MDBNavbar>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import {
+              MDBBtn,
+              MDBNavbar,
+              MDBNavbarToggler,
+              MDBNavbarBrand,
+              MDBNavbarItem,
+            } from 'mdb-vue-ui-kit';
+
+            export default {
+              components: {
+                MDBBtn,
+                MDBNavbar,
+                MDBNavbarToggler,
+                MDBNavbarBrand,
+                MDBNavbarItem,
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>With a brand name shown on the left and toggler on the right:</p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 mb-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarTogglerDemo02"
+              aria-controls="navbarTogglerDemo02"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+                    >Disabled</a
+                  >
+                </li>
+              </ul>
+              <form class="d-flex input-group w-auto">
+                <input
+                  type="search"
+                  class="form-control"
+                  placeholder="Type query"
+                  aria-label="Search"
+                />
+                <button class="btn btn-outline-primary" type="button">Search</button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBNavbar expand="lg" light bg="light" container>
+              <MDBNavbarBrand link href="#">Navbar</MDBNavbarBrand>
+              <MDBNavbarToggler target="#navbarTogglerDemo02"></MDBNavbarToggler>
+              <MDBNavbarNav collapse="navbarTogglerDemo02">
+                <MDBNavbarItem to="#"> Home </MDBNavbarItem>
+                <MDBNavbarItem href="#"> Link </MDBNavbarItem>
+                <MDBNavbarItem to="#" disabled tabindex="-1" aria-disabled="true">
+                  Disabled
+                </MDBNavbarItem>
+                <template v-slot:contentRight>
+                  <form class="d-flex input-group w-auto">
+                    <input
+                      type="search"
+                      class="form-control"
+                      placeholder="Type query"
+                      aria-label="Search"
+                    />
+                    <MDBBtn outline="primary"> Search </MDBBtn>
+                  </form>
+                </template>
+              </MDBNavbarNav>
+            </MDBNavbar>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import {
+              MDBBtn,
+              MDBNavbar,
+              MDBNavbarToggler,
+              MDBNavbarBrand,
+              MDBNavbarItem,
+            } from 'mdb-vue-ui-kit';
+
+            export default {
+              components: {
+                MDBBtn,
+                MDBNavbar,
+                MDBNavbarToggler,
+                MDBNavbarBrand,
+                MDBNavbarItem,
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>With a toggler on the left and brand name on the right:</p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 mb-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarTogglerDemo03"
+              aria-controls="navbarTogglerDemo03"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="#">Navbar</a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+                    >Disabled</a
+                  >
+                </li>
+              </ul>
+              <form class="d-flex input-group w-auto">
+                <input
+                  type="search"
+                  class="form-control"
+                  placeholder="Type query"
+                  aria-label="Search"
+                />
+                <button class="btn btn-outline-primary" type="button">Search</button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBNavbar expand="lg" light bg="light" container>
+              <MDBNavbarToggler target="#navbarTogglerDemo03"></MDBNavbarToggler>
+              <MDBNavbarBrand link href="#">Navbar</MDBNavbarBrand>
+              <MDBNavbarNav collapse="navbarTogglerDemo03">
+                <MDBNavbarItem to="#"> Home </MDBNavbarItem>
+                <MDBNavbarItem href="#"> Link </MDBNavbarItem>
+                <MDBNavbarItem to="#" disabled tabindex="-1" aria-disabled="true">
+                  Disabled
+                </MDBNavbarItem>
+                <template v-slot:contentRight>
+                  <form class="d-flex input-group w-auto">
+                    <input
+                      type="search"
+                      class="form-control"
+                      placeholder="Type query"
+                      aria-label="Search"
+                    />
+                    <MDBBtn outline="primary"> Search </MDBBtn>
+                  </form>
+                </template>
+              </MDBNavbarNav>
+            </MDBNavbar>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import {
+              MDBBtn,
+              MDBNavbar,
+              MDBNavbarToggler,
+              MDBNavbarBrand,
+              MDBNavbarItem,
+            } from 'mdb-vue-ui-kit';
+
+            export default {
+              components: {
+                MDBBtn,
+                MDBNavbar,
+                MDBNavbarToggler,
+                MDBNavbarBrand,
+                MDBNavbarItem,
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Toggler-->
+
+    <!--Subsection: External content-->
+    <section id="subsection-external-content">
+      <!--Subsection title-->
+      <h4 class="mt-5">External content</h4>
+
+      <!--Description-->
+      <p>
+        Sometimes you want to use the collapse plugin to trigger hidden content elsewhere on the
+        page. Because our plugin works on the
+        <code>id</code> and <code>data-mdb-target</code> matching, that’s easily done!
+      </p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 mb-4">
+        <div class="collapse" id="navbarToggleExternalContent">
+          <div class="bg-dark p-4">
+            <h5 class="text-white h4">Collapsed content</h5>
+            <span class="text-muted">Toggleable via the navbar brand.</span>
+          </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+          <div class="container-fluid">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarToggleExternalContent"
+              aria-controls="navbarToggleExternalContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </nav>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div class="collapse" id="navbarToggleExternalContent">
+              <div class="bg-dark p-4">
+                <h5 class="text-white h4">Collapsed content</h5>
+                <span class="text-muted">Toggleable via the navbar brand.</span>
+              </div>
+            </div>
+            <MDBNavbar dark bg="dark" container>
+              <MDBNavbarToggler target="#navbarToggleExternalContent"> </MDBNavbarToggler>
+            </MDBNavbar>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBBtn, MDBContainer } from 'mdb-vue-ui-kit';
+
+            export default {
+              components: {
+                MDBBtn,
+                MDBContainer,
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: External content-->
+  </section>
+  <!--/Section: Responsive behaviors-->
 </section>
+<!--Section: Docs content-->

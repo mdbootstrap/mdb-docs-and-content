@@ -1,9 +1,9 @@
 <!--Section: API content-->
 <section>
   <!--Section: Introduction-->
-  <section id="section-introduction">
+  <section id="api-section-introduction">
     <!-- Main title -->
-    <h2 class="h1 font-weight-bold">
+    <h2 class="h1 fw-bold">
       <?= $data_var['main_title']; ?>
       - API
     </h2>
@@ -17,18 +17,20 @@
     <!-- Section title -->
     <h2 class="mb-4">Import</h2>
 
+    <h4 class="mt-5">Via JavaScript:</h4>
+
     <!-- prettier-ignore -->
     <mdbsnippet>
-        <code data-lang="js" data-name="app.module.ts">
-          import { MdbCollapseModule } from 'mdb-angular-ui-kit';
-          …
-          @NgModule ({
-            ...
-            imports: [MdbCollapseModule],
-            ...
-          })
-        </code>
-      </mdbsnippet>
+      <code data-lang="js" data-name="javascript">
+        import { MdbPopoverModule } from 'mdb-angular-ui-kit';
+        …
+        @NgModule ({
+          ...
+          imports: [MdbPopoverModule],
+          ...
+        })
+      </code>
+    </mdbsnippet>
   </section>
   <!--Section: Import-->
 
@@ -51,10 +53,52 @@
         </thead>
         <tbody>
           <tr>
-            <td><code>collapsed</code></td>
+            <td><code>animation</code></td>
             <td><em>Boolean</em></td>
             <td><code>true</code></td>
-            <td>Changes default collapsed state</td>
+            <td>Apply a fade transition to the popover</td>
+          </tr>
+          <tr>
+            <td><code>mdbPopover</code></td>
+            <td><em>String</em></td>
+            <td><code>''</code></td>
+            <td>Default content value if mdbPopover input isn't present.</td>
+          </tr>
+          <tr>
+            <td><code>mdbPopoverTitle</code></td>
+            <td><em>String</em></td>
+            <td><code>''</code></td>
+            <td>Default title value if mdbPopoverTitle input isn't present.</td>
+          </tr>
+          <tr>
+            <td><code>delayShow</code></td>
+            <td><em>Number</em></td>
+            <td><code>0</code></td>
+            <td>Delay showing the popover (ms)</td>
+          </tr>
+          <tr>
+            <td><code>delayHide</code></td>
+            <td><em>Number</em></td>
+            <td><code>0</code></td>
+            <td>Delay hiding the popover (ms)</td>
+          </tr>
+          <tr>
+            <td><code>placement</code></td>
+            <td><em>String</em></td>
+            <td><code>'top'</code></td>
+            <td>How to position the popover - top | bottom | left | right</td>
+          </tr>
+          <tr>
+            <td><code>trigger</code></td>
+            <td><em>String</em></td>
+            <td><code>'click'</code></td>
+            <td>How popover is triggered - click | hover | focus | manual. You may pass multiple triggers; separate them with a space. manual cannot be combined with any other trigger.</td>
+          </tr>
+          <tr>
+            <td><code>offset</code></td>
+            <td><em>Number</em></td>
+            <td><code>0</code></td>
+            <td>Offset of the popover relative to its target</td>
           </tr>
         </tbody>
       </table>
@@ -79,25 +123,25 @@
         </thead>
         <tbody>
           <tr>
-            <td><code>collapseShow</code></td>
+            <td><code>popoverShow</code></td>
             <td>
               Fires when show animation starts.
             </td>
           </tr>
           <tr>
-            <td><code>collapseShown</code></td>
+            <td><code>popoverShown</code></td>
             <td>
               Fires when show animation ends.
             </td>
           </tr>
           <tr>
-            <td><code>collapseHide</code></td>
+            <td><code>popoverHide</code></td>
             <td>
               Fires when hide animation starts.
             </td>
           </tr>
           <tr>
-            <td><code>collapseHidden</code></td>
+            <td><code>popoverHidden</code></td>
             <td>
               Fires when hide animation ends.
             </td>
@@ -127,17 +171,17 @@
         <tbody>
           <tr>
             <td class="text-nowrap"><code class="highlighter-rouge">hide</code></td>
-            <td>Manually closes a collapse</td>
+            <td>Manually closes a popover</td>
             <td>
-              <code class="language-markup text-nowrap">collapse.hide()</code>
+              <code class="language-markup text-nowrap">popover.hide()</code>
             </td>
           </tr>
 
           <tr>
             <td class="text-nowrap"><code class="highlighter-rouge">show</code></td>
-            <td>Manually opens a collapse</td>
+            <td>Manually opens a popover</td>
             <td>
-              <code class="language-markup text-nowrap">collapse.show()</code>
+              <code class="language-markup text-nowrap">popover.show()</code>
             </td>
           </tr>
 
@@ -145,9 +189,9 @@
             <td class="text-nowrap">
               <code class="highlighter-rouge">toggle</code>
             </td>
-            <td>Manually toggle a collapse</td>
+            <td>Manually toggle a popover</td>
             <td>
-              <code class="language-markup text-nowrap">collapse.toggle()</code>
+              <code class="language-markup text-nowrap">popover.toggle()</code>
             </td>
           </tr>
         </tbody>
@@ -159,27 +203,20 @@
         <mdbsnippet>
           <code data-lang="html" data-name="HTML">
             <button
-              class="btn btn-primary"
               type="button"
-              (click)="collapse.toggle()"
-              aria-expanded="false"
-              aria-controls="collapseExample"
+              class="btn btn-lg btn-danger"
+              mdbPopover="And here's some amazing content. It's very engaging. Right?"
+              mdbPopoverTitle="Popover title"
+              #popover="mdbPopover"
             >
-              Button
+              Click to toggle popover
             </button>
-
-            <!--Collapsed content-->
-            <div class="mt-3" id="collapseExample" mdbCollapse #collapse="mdbCollapse">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
-              ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-              sapiente ea proident.
-            </div>
           </code>
           <code data-lang="js" data-name="TS">
-            @ViewChild('collapse') collapse: MdbCollapseDirective;
+            @ViewChild('popover') popover: MdbPopoverDirective;
 
             ngAfterViewInit(): void {
-              this.collapse.toggle();
+              this.popover.show();
             }
           </code>
         </mdbsnippet>
@@ -190,3 +227,4 @@
   <!--Section: Methods-->
 </section>
 <!--Section: API content-->
+
