@@ -2,7 +2,7 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Shadows',
-  'subheading' => 'Vue Bootstrap 5 Shadows component',
+  'subheading' => 'Vue Bootstrap 5 Shadows',
   'seo_title' => 'Vue Shadows - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Shadows built with the latest Bootstrap 5. Multiple code examples, a user-friendly guide, extensive API, and customization tools.',
   'url' => 'https://mdbootstrap.com/docs/standard/content-styles/shadows/',

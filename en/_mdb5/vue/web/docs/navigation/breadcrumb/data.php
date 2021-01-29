@@ -1,7 +1,7 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'Breadcrumb',
+  'main_title' => 'Breadcrumbs',
   'subheading' => 'Vue Bootstrap 5 Breadcrumb component',
   'seo_title' => 'Vue Breadcrumb - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Breadcrumb built with the latest Bootstrap 5. Multiple code examples, a user-friendly guide, extensive API, and customization tools.',

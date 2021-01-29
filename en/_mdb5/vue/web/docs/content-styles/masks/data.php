@@ -2,7 +2,7 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Masks',
-  'subheading' => 'Vue Bootstrap 5 Masks component',
+  'subheading' => 'Vue Bootstrap 5 Masks',
   'seo_title' => 'Vue Masks - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Masks built with the latest Bootstrap 5. Multiple code examples, a user-friendly guide, extensive API, and customization tools.',
   'url' => 'https://mdbootstrap.com/docs/standard/content-styles/masks/',

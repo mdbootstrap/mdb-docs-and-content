@@ -2,7 +2,7 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Colors',
-  'subheading' => 'Vue Bootstrap 5 Colors component',
+  'subheading' => 'Vue Bootstrap 5 Colors',
   'seo_title' => 'Vue Colors - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Vue Colors built with the latest Bootstrap 5. Multiple code examples, a user-friendly guide, extensive API, and customization tools.',
   'url' => 'https://mdbootstrap.com/docs/b5/vue/content-styles/colors/',

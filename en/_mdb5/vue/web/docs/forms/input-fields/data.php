@@ -2,7 +2,7 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Input fields',
-  'subheading' => 'Vue Bootstrap 5 Input fields component',
+  'subheading' => 'Vue Bootstrap 5 Input fields',
   'seo_title' => 'Vue Input fields - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Input fields built with the latest Bootstrap 5. Multiple code examples: textarea, box, password, dynamic form fields, material input & many more.',
   'url' => 'https://mdbootstrap.com/docs/b5/vue/forms/input-fields/',

@@ -2,7 +2,7 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Typography',
-  'subheading' => 'Vue Bootstrap 5 Typography component',
+  'subheading' => 'Vue Bootstrap 5 Typography',
   'seo_title' => 'Vue Typography - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Typography built with the latest Bootstrap 5. Multiple code examples, a user-friendly guide, extensive API, and customization tools.',
   'url' => 'https://mdbootstrap.com/docs/standard/content-styles/typography/',

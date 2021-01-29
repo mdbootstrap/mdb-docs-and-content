@@ -2,7 +2,7 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Images',
-  'subheading' => 'Vue Bootstrap 5 Images component',
+  'subheading' => 'Vue Bootstrap 5 Images',
   'seo_title' => 'Vue Images - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Images built with the latest Bootstrap 5. Multiple code examples, a user-friendly guide, extensive API, and customization tools.',
   'url' => 'https://mdbootstrap.com/docs/standard/content-styles/images/',

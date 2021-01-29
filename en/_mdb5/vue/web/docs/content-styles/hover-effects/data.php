@@ -2,7 +2,7 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Hover effects',
-  'subheading' => 'Vue Bootstrap 5 Hover effects component',
+  'subheading' => 'Vue Bootstrap 5 Hover effects',
   'seo_title' => 'Vue Hover effects - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Hover effects built with the latest Bootstrap 5. Multiple code examples, a user-friendly guide, extensive API, and customization tools.',
   'url' => 'https://mdbootstrap.com/docs/standard/content-styles/hover-effects/',
