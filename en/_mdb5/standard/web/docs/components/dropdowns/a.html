@@ -70,10 +70,10 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="js" data-name="javascript">
-          const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+          const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
           const dropdownList = dropdownElementList.map((dropdownToggleEl) => {
-            return new mdb.Dropdown(dropdownToggleEl)
-          })
+            return new mdb.Dropdown(dropdownToggleEl);
+          });
         </code>
       </mdbsnippet>
     </section>
@@ -112,7 +112,7 @@
       <tbody>
         <tr>
           <td><code>offset</code></td>
-          <td>number | string | function</td>
+          <td>array | string | function</td>
           <td><code>0</code></td>
           <td>
             <p>Offset of the dropdown relative to its target.</p>
@@ -141,25 +141,26 @@
         <tr>
           <td><code>boundary</code></td>
           <td>string | element</td>
-          <td><code>'scrollParent'</code></td>
+          <td><code>'clippingParents'</code></td>
           <td>
-            Overflow constraint boundary of the dropdown menu. Accepts the values of
-            <code>'viewport'</code>, <code>'window'</code>, <code>'scrollParent'</code>, or an
-            HTMLElement reference (JavaScript only). For more information refer to Popper's
-            <a href="https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement"
+            Overflow constraint boundary of the dropdown menu. By default it's
+            <code>'clippingParents'</code> and can accept an HTMLElement reference (JavaScript
+            only). For more information refer to Popper's
+            <a href="https://popper.js.org/docs/v2/utils/detect-overflow/#boundary"
               >preventOverflow docs</a
             >.
           </td>
         </tr>
         <tr>
           <td><code>reference</code></td>
-          <td>string | element</td>
+          <td>string | element | object</td>
           <td><code>'toggle'</code></td>
           <td>
-            Reference element of the dropdown menu. Accepts the values of
-            <code>'toggle'</code>, <code>'parent'</code>, or an HTMLElement reference. For more
-            information refer to Popper's
-            <a href="https://popper.js.org/docs/v1/#referenceObject">referenceObject docs</a>.
+            Reference element of the dropdown menu. Accepts the values of <code>'toggle'</code>,
+            <code>'parent'</code>, an HTMLElement reference or an object providing
+            <code>getBoundingClientRect</code>. For more information refer to Popper's
+            <a href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</a>
+            and <a href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</a>.
           </td>
         </tr>
         <tr>
@@ -173,11 +174,21 @@
         </tr>
         <tr>
           <td><code>popperConfig</code></td>
-          <td>null | object</td>
+          <td>null | object | function</td>
           <td><code>null</code></td>
           <td>
-            To change Bootstrap's default Popper config, see
-            <a href="https://popper.js.org/docs/v1/#Popper.Defaults">Popper's configuration</a>
+            <p>
+              To change Bootstrap's default Popper config, see
+              <a href="https://popper.js.org/docs/v2/constructors/#options"
+                >Popper's configuration</a
+              >.
+            </p>
+            <p>
+              When a function is used to create the Popper configuration, it's called with an object
+              that contains the Bootstrap's default Popper configuration. It helps you use and merge
+              the default with your own configuration. The function must return a configuration
+              object for Popper.
+            </p>
           </td>
         </tr>
         <tr>
@@ -245,9 +256,9 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="js" data-name="javascript">
-          const myDropdown = document.getElementById('myDropdown')
-          const bsDropdown = new mdb.Dropdown(myDropdown)
-          bsDropdown.show()
+          const myDropdown = document.getElementById('myDropdown');
+          const myDropdownInstance = new mdb.Dropdown(myDropdown);
+          myDropdownInstance.show();
         </code>
       </mdbsnippet>
     </section>
@@ -262,8 +273,8 @@
     <!-- Section title -->
     <h2 class="mb-4">Events</h2>
     <p>
-      All dropdown events are fired at the <code>.dropdown-menu</code>'s parent element and have a
-      <code>relatedTarget</code> property, whose value is the toggling anchor element.
+      All dropdown events are fired at the toggling element and then bubbled up. So you can also add
+      event listeners on the <code>.dropdown-menu</code>’s parent element.
       <code>hide.mdb.dropdown</code> and <code>hidden.mdb.dropdown</code> events have a
       <code>clickEvent</code> property (only when the original Event type is <code>click</code>)
       that contains an Event Object for the click event.
@@ -315,10 +326,10 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="js" data-name="javascript">
-          const myDropdown = document.getElementById('myDropdown')
+          const myDropdown = document.getElementById('myDropdown');
           myDropdown.addEventListener('show.mdb.dropdown', () => {
             // do something...
-          })
+          });
         </code>
       </mdbsnippet>
     </section>
