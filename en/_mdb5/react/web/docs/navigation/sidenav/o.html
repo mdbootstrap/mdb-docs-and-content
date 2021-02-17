@@ -1,0 +1,2418 @@
+<!--Section: Docs content-->
+<section class="documentation mdb-docs-content-pro">
+  <style>
+    /* z-index fix for conflicted navbar and sidenavs in demos */
+    .documentation .sidenav {
+      z-index: 1029;
+    }
+
+    .scroll-section {
+      max-height: 100px;
+      overflow-y: auto;
+      margin-right: 10px;
+    }
+  </style>
+
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+      <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button"
+        >MDB Pro component <i class="far fa-gem ms-1"></i
+      ></a>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <div class="row">
+      <div class="col-md-7 mb-4">
+        <!-- Description -->
+        <p class="my-4">
+          The side navigation component provides an easy way to navigate through your website. Its
+          appearance & behaviour are easily adjustable with data-mdb-attributes and methods -
+          additional functionality such as touch events and focus trap (in an over mode) are
+          available out of the box.
+        </p>
+
+        <p class="note note-light">
+          <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+          advanced customization
+        </p>
+      </div>
+
+      <div class="col-md-5 mb-4 text-center">
+        <p><strong>Video tutorial</strong></p>
+
+        <div class="bg-image classy hover-overlay shadow-1-strong rounded ripple" data-mdb-ripple-color="light">
+          <picture>
+            <source srcset="https://mdbootstrap.com/img/Marketing/templates/tutorial/sidenav.webp" type="image/webp">
+            <img src="https://mdbootstrap.com/img/Marketing/templates/tutorial/sidenav.jpg" class="w-100"
+              alt="MDB 5 - Bootstrap 5 &amp; Material Design 2.0">
+          </picture>
+          <a rel="nofollow" target="_blank" href="https://www.youtube.com/watch?v=yFfkA9-0YIQ">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <!--Section: Live preview-->
+  <section class="border p-4 d-flex justify-content-center my-5">
+    <a
+      class="btn btn-primary"
+      role="button"
+      target="_blank"
+      href="https://mdbootstrap.com/previews/mdb-ui-kit/sidenav/2.html"
+      >View full screen demo<i class="far fa-eye ps-2"></i
+    ></a>
+  </section>
+  <!--Section: Live preview-->
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <p>
+      In the basic version, the side navigation will appear over your website's content after
+      clicking on a toggler.
+    </p>
+
+    <p class="note note-primary">
+      Note: Use <code>show</code> and <code>hide</code> methods to toggle navigation with
+      JavaScript.
+    </p>
+
+    <p class="note note-primary">
+      Note: Adding the <code>show</code> class to a sidenav collapse element will expand this
+      category on render.
+    </p>
+
+    <!--Section: Demo-->
+
+    <section
+      style="position: relative; overflow: hidden; min-height: 400px"
+      class="border p-4 d-flex justify-content-center mb-4"
+    >
+      <!-- Sidenav-->
+      <nav
+        id="sidenav-1"
+        data-mdb-close-on-esc="false"
+        class="sidenav"
+        data-mdb-hidden="false"
+        data-mdb-position="absolute"
+        data-mdb-focus-trap="false"
+      >
+        <ul class="sidenav-menu">
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 1</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin fa-fw me-3"></i><span>Category 1</span></a
+            >
+            <ul class="sidenav-collapse show">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 2</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 3</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 2</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 4</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 5</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidenav-->
+      <div style="padding: 20px" class="text-center">
+        <button
+          data-mdb-toggle="sidenav"
+          data-mdb-target="#sidenav-1"
+          class="btn btn-primary"
+          aria-controls="#sidenav-1"
+          aria-haspopup="true"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="d-flex justify-content-center my-5"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBSideNavCollapse, MDBBtn, MDBIcon from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const [basicOpen, setBasicOpen] = useState(true);
+            const [basicCollapse1, setBasicCollapse1] = useState(true);
+            const [basicCollapse2, setBasicCollapse2] = useState(false);
+          
+            return (
+              <>
+                <MDBSideNav isOpen={basicOpen} absolute getOpenState={(e: any) => setBasicOpen(e)}>
+                  <MDBSideNavMenu>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        Link 1
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink icon='angle-down' iconAngle={180} onClick={() => setBasicCollapse1(!basicCollapse1)}>
+                        <MDBIcon fas icon='grin' className='fa-fw me-3' />
+                        Category 1
+                      </MDBSideNavLink>
+                      <MDBSideNavCollapse show={basicCollapse1}>
+                        <MDBSideNavLink>Link 2</MDBSideNavLink>
+                        <MDBSideNavLink>Link 3</MDBSideNavLink>
+                      </MDBSideNavCollapse>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink icon='angle-down' onClick={() => setBasicCollapse2(!basicCollapse2)}>
+                        <MDBIcon fas icon='grin' className='fa-fw me-3' />
+                        Category 2
+                      </MDBSideNavLink>
+                      <MDBSideNavCollapse show={basicCollapse2}>
+                        <MDBSideNavLink>Link 4</MDBSideNavLink>
+                        <MDBSideNavLink>Link 5</MDBSideNavLink>
+                      </MDBSideNavCollapse>
+                    </MDBSideNavItem>
+                  </MDBSideNavMenu>
+                </MDBSideNav>
+    
+                <div style={{ padding: '20px' }} className='text-center'>
+                  <MDBBtn onClick={() => setBasicOpen(!basicOpen)}>
+                    <MDBIcon fas icon='bars' />
+                  </MDBBtn>
+                </div>  
+              </>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Mode example-->
+  <section id="section-sidenav-positioning">
+    <!-- Section title -->
+    <h2 class="mb-4">Positioning</h2>
+
+    <p>
+      While using the <code>side</code> and <code>push</code> modes, you can specify the selector
+      for your page's content - this way, the component will automatically update paddings and
+      margins. To customize this behaviour in a non-standard way, use a combination of media queries
+      & <code>update.mdb.sidenav</code> event
+    </p>
+
+    <!--Section: Demo-->
+
+    <p>Select mode:</p>
+    <div class="d-flex my-4">
+      <button id="push" class="btn btn-outline-primary me-3">Push</button>
+      <button id="side" class="btn btn-primary me-3">Side</button>
+      <button id="over" class="btn btn-outline-primary me-3">Over</button>
+    </div>
+
+    <section
+      style="position: relative; overflow-y: hidden; min-height: 400px"
+      class="border p-4 d-flex justify-content-center mb-4"
+    >
+      <!-- Sidenav-->
+      <nav
+        id="sidenav-2"
+        data-mdb-close-on-esc="false"
+        class="sidenav"
+        data-mdb-position="absolute"
+        data-mdb-mode="side"
+        data-mdb-content="#content"
+        data-mdb-focus-trap="false"
+      >
+        <ul class="sidenav-menu">
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 1</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin fa-fw me-3"></i><span>Category 1</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 2</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 3</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 2</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 4</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 5</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidenav-->
+      <div style="padding: 20px" class="text-center" id="content">
+        <button
+          data-mdb-toggle="sidenav"
+          data-mdb-target="#sidenav-2"
+          class="btn btn-primary"
+          aria-controls="#sidenav-2"
+          aria-haspopup="true"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="d-flex my-5 text-start">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc magna massa, ornare quis
+          interdum a, cursus in quam. Quisque risus libero, cursus eget eros vitae, aliquam placerat
+          velit. Vivamus luctus eros id sagittis luctus. Pellentesque felis nulla, rhoncus viverra
+          nunc vitae, viverra aliquam ante. Ut feugiat mattis tempor.
+        </div>
+      </div>
+    </section>
+
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState, useRef, useEffect } from 'react';
+          import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBSideNavCollapse, MDBBtn, MDBIcon from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const [modeOpen, setModeOpen] = useState(true);
+            const [modeCollapse1, setModeCollapse1] = useState(true);
+            const [modeCollapse2, setModeCollapse2] = useState(false);
+            const [mode, setMode] = useState('push');
+            const [activeBtn, setActiveBtn] = useState('first');
+            const sidenavContent = useRef(null);
+            const [container, setContainer] = useState<any>();
+          
+            useEffect(() => {
+              setContainer(sidenavContent.current);
+            }, []);
+          
+          
+            return (
+              <>
+                <div className='d-flex my-4'>
+                  <MDBBtn
+                    onClick={() => {
+                      setMode('push');
+                      setActiveBtn('first');
+                    }}
+                    outline={activeBtn !== 'first'}
+                    className='me-3'
+                  >
+                    Push
+                  </MDBBtn>
+                  <MDBBtn
+                    onClick={() => {
+                      setMode('side');
+                      setActiveBtn('second');
+                    }}
+                    outline={activeBtn !== 'second'}
+                    className='me-3'
+                  >
+                    Side
+                  </MDBBtn>
+                  <MDBBtn
+                    onClick={() => {
+                      setMode('over');
+                      setActiveBtn('third');
+                    }}
+                    outline={activeBtn !== 'third'}
+                    className='me-3'
+                  >
+                    Over
+                  </MDBBtn>
+                </div>
+    
+                <MDBSideNav
+                  mode={mode}
+                  isOpen={modeOpen}
+                  contentRef={container}
+                  absolute
+                  getOpenState={(e: any) => setModeOpen(e)}
+                >
+                  <MDBSideNavMenu>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 1</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink icon='angle-down' iconAngle={180} onClick={() => setModeCollapse1(!modeCollapse1)}>
+                        <MDBIcon fas icon='grin' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Category 1</span>
+                      </MDBSideNavLink>
+                      <MDBSideNavCollapse show={modeCollapse1}>
+                        <MDBSideNavLink>Link 2</MDBSideNavLink>
+                        <MDBSideNavLink>Link 3</MDBSideNavLink>
+                      </MDBSideNavCollapse>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink icon='angle-down' onClick={() => setModeCollapse2(!modeCollapse2)}>
+                        <MDBIcon fas icon='grin' className='fa-fw me-3' />
+                        Category 1
+                      </MDBSideNavLink>
+                      <MDBSideNavCollapse show={modeCollapse2}>
+                        <MDBSideNavLink>Link 4</MDBSideNavLink>
+                        <MDBSideNavLink>Link 5</MDBSideNavLink>
+                      </MDBSideNavCollapse>
+                    </MDBSideNavItem>
+                  </MDBSideNavMenu>
+                </MDBSideNav>
+
+                <div style={{ padding: '20px' }} className='text-center'>
+                  <div style={{ padding: '20px' }} className='text-center'>
+                    <MDBBtn onClick={() => setModeOpen(!modeOpen)}>
+                      <MDBIcon fas icon='bars' />
+                    </MDBBtn>
+                  </div>
+
+                  <div ref={sidenavContent} className='d-flex my-5 text-start'>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc magna massa, ornare quis interdum a,
+                    cursus in quam. Quisque risus libero, cursus eget eros vitae, aliquam placerat velit. Vivamus luctus
+                    eros id sagittis luctus. Pellentesque felis nulla, rhoncus viverra nunc vitae, viverra aliquam ante. Ut
+                    feugiat mattis tempor.
+                  </div>
+                </div>
+              </>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Mode example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Colors example-->
+  <section id="section-sidenav-colors">
+    <!-- Section title -->
+    <h2 class="mb-4">Colors example</h2>
+
+    <p>
+      Setting the <code>color</code> attribute will change the background and font color of
+      active/hovered links and categories.
+    </p>
+
+    <p class="note note-primary">
+      Note: This option works for MDB 5 main colors - primary, secondary, warning, danger, success,
+      info, dark and light.
+    </p>
+
+    <!--Section: Demo-->
+    <p>Select color:</p>
+    <div class="my-3">
+      <button id="sidenav-primary" class="btn btn-primary">Primary</button>
+      <button id="sidenav-secondary" class="btn btn-secondary">Secondary</button>
+      <button id="sidenav-warning" class="btn btn-warning">Warning</button>
+      <button id="sidenav-danger" class="btn btn-danger">Danger</button>
+      <button id="sidenav-success" class="btn btn-success">Success</button>
+      <button id="sidenav-info" class="btn btn-info">Info</button>
+      <button id="sidenav-dark" class="btn btn-dark">Dark</button>
+      <button id="sidenav-light" class="btn btn-light">Light</button>
+    </div>
+
+    <section
+      style="position: relative; overflow: hidden; min-height: 400px"
+      class="border p-4 d-flex justify-content-center mb-4"
+    >
+      <!-- Sidenav-->
+      <nav
+        id="sidenav-colors"
+        data-mdb-close-on-esc="false"
+        class="sidenav"
+        data-mdb-color="secondary"
+        data-mdb-hidden="false"
+        data-mdb-position="absolute"
+        data-mdb-focus-trap="false"
+      >
+        <ul class="sidenav-menu">
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 1</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin fa-fw me-3"></i><span>Category 1</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 2</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 3</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 2</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 4</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 5</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidenav-->
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBSideNavCollapse, MDBBtn, MDBIcon from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const [colorOpen, setColorOpen] = useState(true);
+            const [colorCollapse1, setColorCollapse1] = useState(true);
+            const [colorCollapse2, setColorCollapse2] = useState(false);
+            const [color, setColor] = useState('primary');
+          
+            const changeColor = (color: string) => setColor(color);
+          
+          
+            return (
+              <>
+                <div className='my-3'>
+                  <MDBBtn>Primary</MDBBtn>
+                  <MDBBtn onClick={() => changeColor('primary')} color='secondary'>
+                    Secondary
+                  </MDBBtn>
+                  <MDBBtn onClick={() => changeColor('warning')} color='warning'>
+                    Warning
+                  </MDBBtn>
+                  <MDBBtn onClick={() => changeColor('danger')} color='danger'>
+                    Danger
+                  </MDBBtn>
+                  <MDBBtn onClick={() => changeColor('success')} color='success'>
+                    Success
+                  </MDBBtn>
+                  <MDBBtn onClick={() => changeColor('info')} color='info'>
+                    Info
+                  </MDBBtn>
+                  <MDBBtn onClick={() => changeColor('dark')} color='dark'>
+                    Dark
+                  </MDBBtn>
+                  <MDBBtn onClick={() => changeColor('light')} color='light'>
+                    Light
+                  </MDBBtn>
+                </div>
+    
+                <MDBSideNav isOpen={colorOpen} color={color} absolute getOpenState={(e: any) => setColorOpen(e)}>
+                  <MDBSideNavMenu>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 1</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink icon='angle-down' iconAngle={180} onClick={() => setColorCollapse1(!colorCollapse1)}>
+                        <MDBIcon fas icon='grin' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Category 1</span>
+                      </MDBSideNavLink>
+                      <MDBSideNavCollapse show={colorCollapse1}>
+                        <MDBSideNavLink>Link 2</MDBSideNavLink>
+                        <MDBSideNavLink>Link 3</MDBSideNavLink>
+                      </MDBSideNavCollapse>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink icon='angle-down' onClick={() => setColorCollapse2(!colorCollapse2)}>
+                        <MDBIcon fas icon='grin' className='fa-fw me-3' />
+                        Category 1
+                      </MDBSideNavLink>
+                      <MDBSideNavCollapse show={colorCollapse2}>
+                        <MDBSideNavLink>Link 4</MDBSideNavLink>
+                        <MDBSideNavLink>Link 5</MDBSideNavLink>
+                      </MDBSideNavCollapse>
+                    </MDBSideNavItem>
+                  </MDBSideNavMenu>
+                </MDBSideNav>
+    
+                <div style={{ padding: '20px' }} className='text-center'>
+                  <MDBBtn onClick={() => setColorOpen(!colorOpen)}>
+                    <MDBIcon fas icon='bars' />
+                  </MDBBtn>
+                </div>    
+              </>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Colors example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Dark example-->
+  <section id="section-sidenav-dark">
+    <!-- Section title -->
+    <h2 class="mb-4">Dark example</h2>
+    <p>
+      When using the darker background with the side navigation, we recommend setting the
+      <code>color</code> attribute to "light" for better contrast.
+    </p>
+
+    <!--Section: Demo-->
+
+    <section
+      style="position: relative; overflow: hidden; min-height: 400px"
+      class="border p-4 d-flex justify-content-center mb-4"
+    >
+      <!-- Sidenav-->
+      <nav
+        id="sidenav-1"
+        data-mdb-close-on-esc="false"
+        class="sidenav"
+        data-mdb-position="absolute"
+        data-mdb-hidden="false"
+        data-mdb-focus-trap="false"
+        data-mdb-color="light"
+        style="background-color: #2d2c2c"
+      >
+        <ul class="sidenav-menu">
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 1</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin fa-fw me-3"></i><span>Category 1</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 2</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 3</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 2</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 4</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 5</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidenav-->
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBSideNavCollapse, MDBBtn, MDBIcon from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const [darkOpen, setDarkOpen] = useState(true);
+            const [darkCollapse1, setDarkCollapse1] = useState(true);
+            const [darkCollapse2, setDarkCollapse2] = useState(false);          
+          
+            return (
+              <>
+                <MDBSideNav
+                  isOpen={darkOpen}
+                  color='light'
+                  bgColor='dark'
+                  absolute
+                  getOpenState={(e: any) => setDarkOpen(e)}
+                >
+                  <MDBSideNavMenu>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 1</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink icon='angle-down' iconAngle={180} onClick={() => setDarkCollapse1(!darkCollapse1)}>
+                        <MDBIcon fas icon='grin' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Category 1</span>
+                      </MDBSideNavLink>
+                      <MDBSideNavCollapse show={darkCollapse1}>
+                        <MDBSideNavLink>Link 2</MDBSideNavLink>
+                        <MDBSideNavLink>Link 3</MDBSideNavLink>
+                      </MDBSideNavCollapse>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink icon='angle-down' onClick={() => setDarkCollapse2(!darkCollapse2)}>
+                        <MDBIcon fas icon='grin' className='fa-fw me-3' />
+                        Category 1
+                      </MDBSideNavLink>
+                      <MDBSideNavCollapse show={darkCollapse2}>
+                        <MDBSideNavLink>Link 4</MDBSideNavLink>
+                        <MDBSideNavLink>Link 5</MDBSideNavLink>
+                      </MDBSideNavCollapse>
+                    </MDBSideNavItem>
+                  </MDBSideNavMenu>
+                </MDBSideNav>
+
+                <div style={{ padding: '20px' }} className='text-center'>
+                  <MDBBtn onClick={() => setDarkOpen(!darkOpen)}>
+                    <MDBIcon fas icon='bars' />
+                  </MDBBtn>
+                </div>
+              </>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Dark example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Inner Inner-->
+  <section id="section-inner-scroll">
+    <!-- Section title -->
+    <h2 class="mb-4">Inner scroll</h2>
+
+    <p>
+      Passing a selector of an inner element to the
+      <code>scrollContainer</code> option will initialize MDB scrollbar only on this container (by
+      default it's initialized on the sidenav's main element).
+    </p>
+
+    <!--Section: Demo-->
+
+    <section
+      style="position: relative; overflow: hidden; min-height: 400px"
+      class="border p-4 d-flex justify-content-center mb-4"
+    >
+      <!-- Sidenav-->
+
+      <nav
+        id="sidenav-3"
+        data-mdb-close-on-esc="false"
+        class="sidenav"
+        data-mdb-hidden="false"
+        data-mdb-position="absolute"
+        data-mdb-focus-trap="false"
+        data-mdb-scroll-container="#scroll-container"
+      >
+        <div class="text-center">
+          <h3 class="py-4">Examples</h3>
+          <hr class="m-0" />
+        </div>
+        <ul id="scroll-container" class="sidenav-menu">
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 1</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 2</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 3</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 4</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 5</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 6</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 7</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 8</span></a>
+          </li>
+        </ul>
+
+        <div class="text-center" style="min-height: 3rem">
+          <hr class="mt-0 mb-2" />
+          <small>mdbootstrap.com</small>
+        </div>
+      </nav>
+
+      <!-- Sidenav-->
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBSideNavCollapse, MDBBtn, MDBIcon from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const [innerOpen, setInnerOpen] = useState(true);         
+          
+            return (
+              <>
+                <MDBSideNav isOpen={innerOpen} absolute getOpenState={(e: any) => setInnerOpen(e)}>
+                  <div className='text-center'>
+                    <h3 className='py-4'>Examples</h3>
+                    <hr className='m-0' />
+                  </div>
+                  <MDBPerfectScrollbar sidenav tag='ul' suppressScrollX style={{ height: '260px' }}>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 1</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 2</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 3</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 4</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 5</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 6</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 7</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>
+                        <MDBIcon far icon='smile' className='fa-fw me-3' />
+                        <span className='sidenav-non-slim'>Link 8</span>
+                      </MDBSideNavLink>
+                    </MDBSideNavItem>
+                  </MDBPerfectScrollbar>
+                  {/* </MDBSideNavMenu> */}
+                  <div className='text-center' style={{ minHeight: '3rem' }}>
+                    <hr className='mt-0 mb-2' />
+                    <small>mdbootstrap.com</small>
+                  </div>
+                </MDBSideNav>
+    
+                <div style={{ padding: '20px' }} className='text-center'>
+                  <MDBBtn onClick={() => setInnerOpen(!innerOpen)}>
+                    <MDBIcon fas icon='bars' />
+                  </MDBBtn>
+                </div>
+              </>
+            );
+          }
+        </code>
+      </mdbsnippet>
+  </section>
+  <!--Section: Inner Inner-->
+
+  <hr class="my-5" />
+
+  <!--Section: Slim example-->
+  <section id="section-sidenav-slim">
+    <!-- Section title -->
+    <h2 class="mb-4">Slim example</h2>
+
+    <p>
+      You can hide/show elements in the slim mode by setting
+      <code>data-mdb-slim</code> attribute on them - depending on value they will be either visible
+      only in a slim or an expanded mode. Elements without this attribute will appear in both modes.
+    </p>
+
+    <!--Section: Demo-->
+    <section
+      style="position: relative; overflow-x: hidden; min-height: 400px"
+      class="border p-4 d-flex justify-content-center mb-4"
+    >
+      <!-- Sidenav-->
+      <nav
+        id="sidenav-4"
+        data-mdb-close-on-esc="false"
+        class="sidenav"
+        data-mdb-position="absolute"
+        data-mdb-hidden="false"
+        data-mdb-mode="side"
+        data-mdb-slim="true"
+        data-mdb-slim-collapsed="true"
+        data-mdb-content="#slim-content"
+        data-mdb-focus-trap="false"
+      >
+        <ul class="sidenav-menu">
+          <li class="sidenav-item">
+            <a class="sidenav-link">
+              <i class="far fa-smile fa-fw me-3"></i><span data-mdb-slim="false">Link 1</span></a
+            >
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin fa-fw me-3"></i
+              ><span data-mdb-slim="false">Category 1</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 2</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 3</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin-wink fa-fw me-3"></i
+              ><span data-mdb-slim="false">Category 2</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 4</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 5</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- Sidenav-->
+      <div style="padding: 20px" class="text-center" id="slim-content">
+        <button
+          data-mdb-toggle="sidenav"
+          data-mdb-target="#sidenav-4"
+          class="btn btn-primary"
+          aria-controls="#sidenav-4"
+          aria-haspopup="true"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <button id="slim-toggler" class="btn btn-primary">Toggle slim</button>
+        <div class="d-flex justify-content-center my-5"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <!-- Sidenav-->
+            <nav
+              id="sidenav-4"
+              class="sidenav"
+              data-mdb-mode="side"
+              data-mdb-slim="true"
+              data-mdb-slim-collapsed="true"
+              data-mdb-content="#slim-content"
+            >
+            <ul class="sidenav-menu">
+              <li class="sidenav-item">
+                <a class="sidenav-link">
+                  <i class="far fa-smile fa-fw me-3"></i
+                  ><span data-mdb-slim="false">Link 1</span></a
+                >
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link"
+                  ><i class="fas fa-grin fa-fw me-3"></i
+                  ><span data-mdb-slim="false">Category 1</span></a
+                >
+                <ul class="sidenav-collapse">
+                  <li class="sidenav-item">
+                    <a class="sidenav-link">Link 2</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link">Link 3</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link"
+                  ><i class="fas fa-grin-wink fa-fw me-3"></i
+                  ><span data-mdb-slim="false">Category 2</span></a
+                >
+                <ul class="sidenav-collapse">
+                  <li class="sidenav-item">
+                    <a class="sidenav-link">Link 4</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link">Link 5</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <!-- Sidenav-->
+
+          <!-- Togglers -->
+          <div id="slim-content">
+            <button
+              data-mdb-toggle="sidenav"
+              data-mdb-target="#sidenav-4"
+              class="btn btn-primary"
+              aria-controls="#sidenav-4"
+              aria-haspopup="true"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <button id="slim-toggler" class="btn btn-primary">
+              Toggle slim
+            </button>
+          </div>
+          <!-- Togglers -->
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          //Initialize it with JS to make it instantly visible
+
+          const slimInstance = new mdb.Sidenav(document.getElementById('sidenav-4'));
+          slimInstance.show();
+
+          document.getElementById('slim-toggler').addEventListener('click', () => {
+            slimInstance.toggleSlim();
+          })
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Slim example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Accordion example-->
+  <section id="section-sidenav-accordion">
+    <!-- Section title -->
+    <h2 class="mb-4">Accordion example</h2>
+
+    <p>Using <code>accordion</code> option will allow expanding only one category at once.</p>
+
+    <!--Section: Demo-->
+    <section
+      style="position: relative; overflow-x: hidden; min-height: 400px"
+      class="border p-4 d-flex justify-content-center mb-4"
+    >
+      <!-- Sidenav-->
+      <nav
+        id="sidenav-5"
+        data-mdb-close-on-esc="false"
+        class="sidenav"
+        data-mdb-hidden="false"
+        data-mdb-position="absolute"
+        data-mdb-focus-trap="false"
+        data-mdb-accordion="true"
+      >
+        <ul class="sidenav-menu">
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 1</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin fa-fw me-3"></i><span>Category 1</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 2</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 3</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 2</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 4</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 5</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidenav-->
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <!-- Sidenav-->
+          <nav
+            id="sidenav-5"
+            class="sidenav"
+            data-mdb-accordion="true"
+          >
+            <ul class="sidenav-menu">
+              <li class="sidenav-item">
+                <a class="sidenav-link">
+                  <i class="far fa-smile fa-fw me-3"></i><span>Link 1</span></a
+                >
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link"
+                  ><i class="fas fa-grin fa-fw me-3"></i><span>Category 1</span></a
+                >
+                <ul class="sidenav-collapse">
+                  <li class="sidenav-item">
+                    <a class="sidenav-link">Link 2</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link">Link 3</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link"
+                  ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 2</span></a
+                >
+                <ul class="sidenav-collapse">
+                  <li class="sidenav-item">
+                    <a class="sidenav-link">Link 4</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link">Link 5</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <!-- Sidenav-->
+
+          <!-- Toggler -->
+            <button
+              data-mdb-toggle="sidenav"
+              data-mdb-target="#sidenav-5"
+              class="btn btn-primary"
+              aria-controls="#sidenav-5"
+              aria-haspopup="true"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+          <!-- Toggler -->
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Accordion example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Groups example-->
+  <section id="section-sidenav-groups">
+    <!-- Section title -->
+    <h2 class="mb-4">Groups</h2>
+
+    <p>
+      You can use more than one menu inside the side navigation - in this case, accordions will be
+      independent of one another.
+    </p>
+
+    <!--Section: Demo-->
+    <section
+      style="position: relative; overflow-x: hidden; min-height: 600px"
+      class="border p-4 d-flex justify-content-center mb-4"
+    >
+      <!-- Sidenav-->
+      <nav
+        id="sidenav-6"
+        data-mdb-close-on-esc="false"
+        class="sidenav"
+        data-mdb-position="absolute"
+        data-mdb-hidden="false"
+        data-mdb-accordion="true"
+        data-mdb-focus-trap="false"
+      >
+        <ul class="sidenav-menu">
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 1</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin fa-fw me-3"></i><span>Category 1</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 2</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 3</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 2</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 4</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 5</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <hr />
+        <ul class="sidenav-menu">
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 6</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin fa-fw me-3"></i><span>Category 3</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 7</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 8</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 4</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 9</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 10</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <!-- Sidenav-->
+          <nav
+            id="sidenav-6"
+            class="sidenav"
+            data-mdb-accordion="true"
+            data-mdb-mode="side"
+          >
+          <ul class="sidenav-menu">
+            <li class="sidenav-item">
+              <a class="sidenav-link">
+                <i class="far fa-smile fa-fw me-3"></i><span>Link 1</span></a
+              >
+            </li>
+            <li class="sidenav-item">
+              <a class="sidenav-link"
+                ><i class="fas fa-grin fa-fw me-3"></i><span>Category 1</span></a
+              >
+              <ul class="sidenav-collapse">
+                <li class="sidenav-item">
+                  <a class="sidenav-link">Link 2</a>
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">Link 3</a>
+                </li>
+              </ul>
+            </li>
+            <li class="sidenav-item">
+              <a class="sidenav-link"
+                ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 2</span></a
+              >
+              <ul class="sidenav-collapse">
+                <li class="sidenav-item">
+                  <a class="sidenav-link">Link 4</a>
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">Link 5</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <hr />
+          <ul class="sidenav-menu">
+            <li class="sidenav-item">
+              <a class="sidenav-link">
+                <i class="far fa-smile fa-fw me-3"></i><span>Link 6</span></a
+              >
+            </li>
+            <li class="sidenav-item">
+              <a class="sidenav-link"
+                ><i class="fas fa-grin fa-fw me-3"></i><span>Category 3</span></a
+              >
+              <ul class="sidenav-collapse">
+                <li class="sidenav-item">
+                  <a class="sidenav-link">Link 7</a>
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">Link 8</a>
+                </li>
+              </ul>
+            </li>
+            <li class="sidenav-item">
+              <a class="sidenav-link"
+                ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 4</span></a
+              >
+              <ul class="sidenav-collapse">
+                <li class="sidenav-item">
+                  <a class="sidenav-link">Link 9</a>
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">Link 10</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          </nav>
+
+          <!-- Sidenav-->
+
+          <!-- Toggler -->
+          <button
+            data-mdb-toggle="sidenav"
+            data-mdb-target="#sidenav-6"
+            class="btn btn-primary"
+            aria-controls="#sidenav-6"
+            aria-haspopup="true"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <!-- Toggler -->
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Groups example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Right example-->
+  <section id="section-sidenav-right">
+    <!-- Section title -->
+    <h2 class="mb-4">Right</h2>
+
+    <p>
+      Place the navigation on the other side by setting the
+      <code>right</code> attribute to <code>true</code>.
+    </p>
+
+    <!--Section: Demo-->
+    <section
+      style="position: relative; overflow-x: hidden; min-height: 600px"
+      class="border p-4 d-flex justify-content-center mb-4"
+    >
+      <!-- Sidenav-->
+      <nav
+        id="sidenav-7"
+        data-mdb-close-on-esc="false"
+        class="sidenav"
+        data-mdb-position="absolute"
+        data-mdb-right="true"
+        data-mdb-hidden="false"
+        data-mdb-focus-trap="false"
+      >
+        <ul class="sidenav-menu">
+          <li class="sidenav-item">
+            <a class="sidenav-link"> <i class="far fa-smile fa-fw me-3"></i><span>Link 1</span></a>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin fa-fw me-3"></i><span>Category 1</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 2</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 3</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidenav-item">
+            <a class="sidenav-link"
+              ><i class="fas fa-grin-wink fa-fw me-3"></i><span>Category 2</span></a
+            >
+            <ul class="sidenav-collapse">
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 4</a>
+              </li>
+              <li class="sidenav-item">
+                <a class="sidenav-link">Link 5</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div style="padding: 20px" class="text-center">
+        <button
+          data-mdb-toggle="sidenav"
+          data-mdb-target="#sidenav-7"
+          class="btn btn-primary"
+          aria-controls="#sidenav-7"
+          aria-haspopup="true"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <!-- Sidenav-->
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <nav
+            class="sidenav"
+            data-mdb-right="true"
+          >
+            ...
+          </nav>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Right example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Right example-->
+  <section id="section-full-screen">
+    <!-- Section title -->
+    <h2 class="mb-4">Full-screen examples</h2>
+
+    <p>
+      The following examples show various settings of the side navigation component in a full-screen
+      mode.
+    </p>
+
+    <hr class="my-5" />
+
+    <section id="subsection-basic-navigation">
+      <h4 class="my-3"><strong>1. </strong>Basic side navigation</h4>
+
+      <p>Click the toggler to show the navigation (over mode).</p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 d-flex justify-content-center my-5">
+        <a
+          class="btn btn-primary"
+          role="button"
+          target="_blank"
+          href="https://mdbootstrap.com/previews/mdb-ui-kit/sidenav/1.html"
+          >View full screen demo<i class="far fa-eye ps-2"></i
+        ></a>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <!-- Sidenav -->
+
+            <nav
+              id="full-screen-example"
+              class="sidenav"
+            >
+              <div class="mt-4">
+                <div id="header-content" class="ps-3">
+                  <img
+                    src="https://mdbootstrap.com/img/Photos/Avatars/img%20(26).jpg"
+                    alt="avatar"
+                    class="rounded-circle img-fluid mb-3"
+                    style="max-width: 50px;"
+                  />
+
+                  <h4>
+                    Ann Smith
+                  </h4>
+                  <p>ann_s@mdbootstrap.com</p>
+                </div>
+                <hr class="mb-0" />
+              </div>
+              <div>
+                <ul class="sidenav-menu">
+                  <li class="sidenav-item">
+                    <a class="sidenav-link" href="/"> <i class="fas fa-envelope fa-fw me-3"></i>Inbox</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link" href="#test-link">
+                      <i class="fas fa-paper-plane fa-fw me-3"></i>Outbox</a
+                    >
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-address-book fa-fw me-3"></i>Contacts</a>
+                    <ul class="sidenav-collapse">
+                      <li class="sidenav-item">
+                        <a class="sidenav-link">Family</a>
+                      </li>
+                      <li class="sidenav-item">
+                        <a class="sidenav-link" href="/previews/mdb-ui-kit/sidenav/1.html">Friends</a>
+                      </li>
+                      <li class="sidenav-item">
+                        <a class="sidenav-link">Work</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-file fa-fw me-3"></i>Drafts</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-heart fa-fw me-3"></i>Favourites</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-star fa-fw me-3"></i>Starred</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-trash fa-fw me-3"></i>Trash</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-ban fa-fw me-3"></i>Spam</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"><i class="fas fa-tag fa-fw me-3"></i>Categories</a>
+                    <ul class="sidenav-collapse">
+                      <li class="sidenav-item">
+                        <a class="sidenav-link">Social</a>
+                      </li>
+                      <li class="sidenav-item">
+                        <a class="sidenav-link">Notifications</a>
+                      </li>
+                      <li class="sidenav-item">
+                        <a class="sidenav-link">Recent</a>
+                      </li>
+                      <li class="sidenav-item">
+                        <a class="sidenav-link">Uploads</a>
+                      </li>
+                      <li class="sidenav-item">
+                        <a class="sidenav-link">Backups</a>
+                      </li>
+                      <li class="sidenav-item">
+                        <a class="sidenav-link">Offers</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-sticky-note fa-fw me-3"></i>Notes</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-user-circle fa-fw me-3"></i>Personal</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-ellipsis-h fa-fw me-3"></i>More</a>
+                  </li>
+                </ul>
+                <hr class="m-0" />
+                <ul class="sidenav-menu">
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-cogs fa-fw me-3"></i>Settings</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-user fa-fw me-3"></i>Profile</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-shield-alt fa-fw me-3"></i>Privacy</a>
+                  </li>
+                  <li class="sidenav-item">
+                    <a class="sidenav-link"> <i class="fas fa-user-astronaut fa-fw me-3"></i>Log out</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="text-center" style="height: 100px;">
+                <hr class="mb-4 mt-0" />
+                <p>MDBootstrap.com</p>
+              </div>
+            </nav>
+
+            <!-- Sidenav -->
+
+            <!-- Content -->
+
+            <div class="mdb-page-content text-center page-intro bg-light">
+              <div class="mask text-center py-5">
+                <button
+                  id="toggler"
+                  class="btn btn-primary m-5"
+                  data-mdb-toggle="sidenav"
+                  data-mdb-target="#full-screen-example"
+                >
+                  <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                  <img class="rounded" src="https://mdbootstrap.com/img/Photos/Others/img%20(45).jpg" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Content -->
+          </code>
+          <code data-lang="css" data-name="CSS">
+            .page-intro {
+              background-color: white;
+              width: 100vw;
+              height: 100vh;
+            }
+
+            mask {
+              width: 100%;
+            }
+
+            .mask img {
+              max-width: 80%;
+            }
+
+            @media (max-width: 660px) {
+              .mask img {
+                width: 100%;
+              }
+            }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="subsection-mode-transition">
+      <h4 class="my-3"><strong>2.</strong> Side navigation with a mode transition</h4>
+
+      <p>Resize the window to change the mode from <code>side</code> to <code>over</code>.</p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 d-flex justify-content-center my-5">
+        <a
+          class="btn btn-primary"
+          role="button"
+          target="_blank"
+          href="https://mdbootstrap.com/previews/mdb-ui-kit/sidenav/2.html"
+          >View full screen demo<i class="far fa-eye ps-2"></i
+        ></a>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <!-- Sidenav -->
+
+          <nav
+            id="full-screen-example"
+            class="sidenav bg-light"
+            data-mdb-color="dark"
+            data-mdb-mode="side"
+            data-mdb-hidden="false"
+            data-mdb-scroll-container="#scrollContainer"
+          >
+            <div class="mt-4">
+              <div id="header-content" class="ps-3">
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Avatars/img%20(23).jpg"
+                  alt="avatar"
+                  class="rounded-circle img-fluid mb-3"
+                  style="max-width: 50px;"
+                />
+
+                <h4>
+                  <span style="white-space: nowrap;">Ann Smith</span>
+                </h4>
+                <p>ann_s@mdbootstrap.com</p>
+              </div>
+              <hr class="mb-0" />
+            </div>
+            <div id="scrollContainer">
+              <ul class="sidenav-menu">
+                <li class="sidenav-item">
+                  <a class="sidenav-link" href="/">
+                    <i class="fas fa-envelope fa-fw me-3"></i>Inbox</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-paper-plane fa-fw me-3"></i>Outbox</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-address-book fa-fw me-3"></i>Contacts</a
+                  >
+                  <ul class="sidenav-collapse">
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Family</a>
+                    </li>
+                    <li class="sidenav-item">
+                      <a class="sidenav-link" href="/previews/mdb-ui-kit/sidenav/2.html">Friends</a>
+                    </li>
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Work</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-file fa-fw me-3"></i>Drafts</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-heart fa-fw me-3"></i>Favourites</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-star fa-fw me-3"></i>Starred</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-trash fa-fw me-3"></i>Trash</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-ban fa-fw me-3"></i>Spam</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link"
+                    ><i class="fas fa-tag fa-fw me-3"></i>Categories</a
+                  >
+                  <ul class="sidenav-collapse">
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Social</a>
+                    </li>
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Notifications</a>
+                    </li>
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Recent</a>
+                    </li>
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Uploads</a>
+                    </li>
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Backups</a>
+                    </li>
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Offers</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-sticky-note fa-fw me-3"></i>Notes</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-user-circle fa-fw me-3"></i>Personal</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-ellipsis-h fa-fw me-3"></i>More</a
+                  >
+                </li>
+              </ul>
+              <hr class="m-0" />
+              <ul class="sidenav-menu">
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-cogs fa-fw me-3"></i>Settings</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-user fa-fw me-3"></i>Profile</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-shield-alt fa-fw me-3"></i>Privacy</a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link">
+                    <i class="fas fa-user-astronaut fa-fw me-3"></i>Log out</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="text-center" style="height: 100px;">
+              <hr class="mb-4 mt-0" />
+              <p>MDBootstrap.com</p>
+            </div>
+          </nav>
+
+          <!-- Sidenav -->
+
+          <!-- Content -->
+
+          <div class="mdb-page-content text-center page-intro bg-light">
+            <div class="text-center py-5">
+              <h3 class="my-5">Resize to change the mode</h3>
+              <div>
+                <img class="rounded" src="https://mdbootstrap.com/img/Photos/Others/img%20(53).jpg" />
+              </div>
+              <button
+                id="toggler"
+                class="btn btn-dark mt-5"
+                data-mdb-toggle="sidenav"
+                data-mdb-target="#full-screen-example"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Content -->
+        </code>
+        <code data-lang="javascript" data-name="JavaScript">
+          const sidenav = document.getElementById('full-screen-example');
+          const sidenavInstance = mdb.Sidenav.getInstance(sidenav);
+
+          let innerWidth = null;
+
+          const setMode = (e) => {
+            // Check necessary for Android devices
+            if (window.innerWidth === innerWidth) {
+              return;
+            }
+
+            innerWidth = window.innerWidth;
+
+            if (window.innerWidth < 660) {
+              sidenavInstance.changeMode('over');
+              sidenavInstance.hide();
+            } else {
+              sidenavInstance.changeMode('side');
+              sidenavInstance.show();
+            }
+          };
+
+          setMode();
+
+          // Event listeners
+
+          window.addEventListener('resize', setMode);
+        </code>
+        <code data-lang="css" data-name="CSS">
+          .page-intro {
+            background-color: white;
+            width: 100vw;
+            min-height: 100vh;
+          }
+
+          img {
+            max-width: 80%;
+          }
+
+          .mdb-page-content {
+            padding-left: 240px;
+            transition: padding 0.3s linear;
+          }
+
+          #toggler {
+            display: none;
+          }
+
+          @media (max-width: 660px) {
+            .mdb-page-content {
+              padding-left: 0px;
+            }
+
+            #toggler {
+              display: unset;
+            }
+
+            .mask img {
+              width: 100%;
+            }
+
+            .sidenav[data-mdb-hidden='false'] {
+              transform: translateX(-100%);
+            }
+          }
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="subsection-dark">
+      <h4 class="my-3"><strong>3.</strong> Slim side navigation (dark)</h4>
+
+      <p>Non-expandable slim sidenav with a dark background and custom width.</p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 d-flex justify-content-center my-5">
+        <a
+          class="btn btn-primary"
+          role="button"
+          target="_blank"
+          href="https://mdbootstrap.com/previews/mdb-ui-kit/sidenav/3.html"
+          >View full screen demo<i class="far fa-eye ps-2"></i
+        ></a>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <!-- Sidenav -->
+
+          <nav
+            id="full-screen-example"
+            class="sidenav bg-dark"
+            data-mdb-color="light"
+            data-mdb-slim="true"
+            data-mdb-expandable="false"
+            data-mdb-slim-collapsed="true"
+            data-mdb-slim-width="90"
+            data-mdb-mode="side"
+            data-mdb-content="#content"
+          >
+            <div class="text-center mt-4">
+              <a class="ripple rounded-circle" data-mdb-color="light" href="#">
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Avatars/img%20(29).jpg"
+                  alt="avatar"
+                  class="rounded-circle img-fluid"
+                  style="max-width: 60px;"
+                />
+              </a>
+            </div>
+
+            <hr />
+            <ul class="sidenav-menu">
+              <li class="sidenav-item my-3">
+                <a class="sidenav-link p-0 d-flex justify-content-center">
+                  <i class="far fa-heart fa-2x"></i
+                ></a>
+              </li>
+              <li class="sidenav-item my-3">
+                <a class="sidenav-link p-0 d-flex justify-content-center">
+                  <i class="far fa-envelope fa-2x"></i
+                ></a>
+              </li>
+              <li class="sidenav-item my-3">
+                <a class="sidenav-link p-0 d-flex justify-content-center">
+                  <i class="far fa-user fa-2x"></i
+                ></a>
+              </li>
+              <li class="sidenav-item my-3">
+                <a class="sidenav-link p-0 d-flex justify-content-center">
+                  <i class="fa fa-cogs fa-2x"></i
+                ></a>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Sidenav -->
+
+          <!-- Content -->
+
+          <div id="content" class="page-intro">
+            <div class="mask p-4 text-center">
+              <h1>Natalie Smith</h1>
+              <h2>Portfolio</h2>
+            </div>
+          </div>
+
+          <!-- Content -->
+        </code>
+        <code data-lang="javascript" data-name="JavaScript">
+          window.addEventListener('load', () => {
+            const sidenav = document.getElementById('full-screen-example');
+            const sidenavInstance = mdb.Sidenav.getInstance(sidenav);
+
+            sidenavInstance.show();
+          });
+        </code>
+        <code data-lang="css" data-name="CSS">
+          .sidenav[data-mdb-slim-width='90'] {
+            width: 90px;
+          }
+
+          .page-intro {
+            background-image: url('https://mdbootstrap.com/img/Photos/Others/img%20(52).jpg');
+            background-size: cover;
+            background-position-x: center;
+            background-color: white;
+            width: 100vw;
+            height: 100vh;
+          }
+
+          .mask {
+            background-color: rgba(66, 66, 66, 0.4);
+            width: 100%;
+            height: 100%;
+            color: rgba(255, 255, 255, 0.8);
+          }
+
+          .mask h1 {
+            margin-top: 220px;
+            font-size: 6rem;
+          }
+
+          .mask h2 {
+            font-size: 2.8rem;
+          }
+
+          @media (max-width: 500px) {
+            .mask h1 {
+              font-size: 4rem;
+            }
+
+            .mask h2 {
+              font-size: 2rem;
+            }
+          }
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="subsection-mdb-navigation">
+      <h4 class="my-3"><strong>4.</strong> MDB Navigation</h4>
+
+      <p>Navigation template based on MDB documentation with the following settings:</p>
+
+      <ul>
+        <li>Hidden on screens smaller then <code>1400px</code></li>
+        <li>
+          <code>padding-left: 240px</code> added via CSS to the <code>header</code> and
+          <code>main</code> on the screens larger then <code>1400px</code> to push the content out
+          of the sidenav area
+        </li>
+        <li>
+          Sidenav toggler added to the Navbar and hidden on screen larger then <code>1400px</code>
+        </li>
+        <li>
+          On screens smaller then <code>1400px</code> sidenav mode changes from <code>side</code> to
+          <code>over</code>.
+        </li>
+      </ul>
+
+      <!--Section: Demo-->
+      <section class="border p-4 d-flex justify-content-center my-5">
+        <a
+          class="btn btn-primary"
+          role="button"
+          target="_blank"
+          href="https://mdbootstrap.com/previews/mdb-ui-kit/sidenav/4.html"
+          >View full screen demo<i class="far fa-eye ps-2"></i
+        ></a>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <!--Main Navigation-->
+          <header>
+            <!-- Sidenav -->
+            <nav
+              id="sidenav-1"
+              class="sidenav"
+              data-mdb-hidden="false"
+              data-mdb-accordion="true"
+            >
+              <a
+                class="ripple d-flex justify-content-center py-4"
+                href="#!"
+                data-mdb-ripple-color="primary"
+              >
+                <img
+                  id="MDB-logo"
+                  src="https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+                  alt="MDB Logo"
+                  draggable="false"
+                />
+              </a>
+
+              <ul class="sidenav-menu">
+                <li class="sidenav-item">
+                  <a class="sidenav-link" href="">
+                    <i class="fas fa-chart-area fa-fw me-3"></i
+                    ><span>Webiste traffic</span></a
+                  >
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link"
+                    ><i class="fas fa-cogs fa-fw me-3"></i><span>Settings</span></a
+                  >
+                  <ul class="sidenav-collapse">
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Profile</a>
+                    </li>
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Account</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="sidenav-item">
+                  <a class="sidenav-link"
+                    ><i class="fas fa-lock fa-fw me-3"></i><span>Password</span></a
+                  >
+                  <ul class="sidenav-collapse">
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Request password</a>
+                    </li>
+                    <li class="sidenav-item">
+                      <a class="sidenav-link">Reset password</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+            <!-- Sidenav -->
+
+            <!-- Navbar -->
+            <nav
+              id="main-navbar"
+              class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+            >
+              <!-- Container wrapper -->
+              <div class="container-fluid">
+                <!-- Toggler -->
+                <button
+                  data-mdb-toggle="sidenav"
+                  data-mdb-target="#sidenav-1"
+                  class="btn shadow-0 p-0 me-3 d-block d-xxl-none"
+                  aria-controls="#sidenav-1"
+                  aria-haspopup="true"
+                >
+                  <i class="fas fa-bars fa-lg"></i>
+                </button>
+
+                <!-- Search form -->
+                <form class="d-none d-md-flex input-group w-auto my-auto">
+                  <input
+                    autocomplete="off"
+                    type="search"
+                    class="form-control rounded"
+                    placeholder='Search (ctrl + "/" to focus)'
+                    style="min-width: 225px"
+                  />
+                  <span class="input-group-text border-0"
+                    ><i class="fas fa-search"></i
+                  ></span>
+                </form>
+
+                <!-- Right links -->
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                  <!-- Notification dropdown -->
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-mdb-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="fas fa-bell"></i>
+                      <span class="badge rounded-pill badge-notification bg-danger"
+                        >1</span
+                      >
+                    </a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end"
+                      aria-labelledby="navbarDropdownMenuLink"
+                    >
+                      <li><a class="dropdown-item" href="#">Some news</a></li>
+                      <li><a class="dropdown-item" href="#">Another news</a></li>
+                      <li>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- Icon -->
+                  <li class="nav-item">
+                    <a class="nav-link me-3 me-lg-0" href="#">
+                      <i class="fas fa-fill-drip"></i>
+                    </a>
+                  </li>
+                  <!-- Icon -->
+                  <li class="nav-item me-3 me-lg-0">
+                    <a class="nav-link" href="#">
+                      <i class="fab fa-github"></i>
+                    </a>
+                  </li>
+
+                  <!-- Icon dropdown -->
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
+                      href="#"
+                      id="navbarDropdown"
+                      role="button"
+                      data-mdb-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="united kingdom flag m-0"></i>
+                    </a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end"
+                      aria-labelledby="navbarDropdown"
+                    >
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="united kingdom flag"></i>English
+                          <i class="fa fa-check text-success ms-2"></i
+                        ></a>
+                      </li>
+                      <li><hr class="dropdown-divider" /></li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="poland flag"></i>Polski</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="china flag"></i>中文</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="japan flag"></i>日本語</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="germany flag"></i>Deutsch</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="france flag"></i>Français</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="spain flag"></i>Español</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="russia flag"></i>Русский</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="portugal flag"></i>Português</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- Avatar -->
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-mdb-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
+                        class="rounded-circle"
+                        height="22"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end"
+                      aria-labelledby="navbarDropdownMenuLink"
+                    >
+                      <li><a class="dropdown-item" href="#">My profile</a></li>
+                      <li><a class="dropdown-item" href="#">Settings</a></li>
+                      <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <!-- Container wrapper -->
+            </nav>
+            <!-- Navbar -->
+          </header>
+          <!--Main Navigation-->
+
+          <!--Main layout-->
+          <main style="margin-top: 58px">
+            <div class="container">
+
+            </div>
+          </main>
+          <!--Main layout-->
+
+          <!--Footer-->
+          <footer></footer>
+          <!--Footer-->
+        </code>
+        <code data-lang="javascript" data-name="JavaScript">
+          const sidenav = document.getElementById("sidenav-1");
+          const sidenavInstance = mdb.Sidenav.getInstance(sidenav);
+
+          let innerWidth = null;
+
+          const setMode = (e) => {
+            // Check necessary for Android devices
+            if (window.innerWidth === innerWidth) {
+              return;
+            }
+
+            innerWidth = window.innerWidth;
+
+            if (window.innerWidth < 1400) {
+              sidenavInstance.changeMode("over");
+              sidenavInstance.hide();
+            } else {
+              sidenavInstance.changeMode("side");
+              sidenavInstance.show();
+            }
+          };
+
+          setMode();
+
+          // Event listeners
+          window.addEventListener("resize", setMode);
+        </code>
+        <code data-lang="css" data-name="CSS">
+          @media (min-width: 1400px) {
+            main,
+            header,
+            #main-navbar {
+              padding-left: 240px;
+            }
+          }
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+  </section>
+  <!--Section: Right example-->
+</section>
+<!--Section: Docs content-->
