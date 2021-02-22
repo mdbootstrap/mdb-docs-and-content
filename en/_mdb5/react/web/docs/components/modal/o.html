@@ -1069,30 +1069,29 @@
 
     <!-- Section description -->
     <p>
-      To change the position of the modal add one of the following classes to the
-      <code>.modal-dialog</code>
+      To change the position of the modal add one of the following props to the <code>MDBModalDialog</code>
     </p>
     <p>
-      <strong>Top right: </strong><code>.modal-side</code> +
-      <code> .modal-top-right</code>
+      <strong>Top right: </strong>
+      <code>side</code> +<code> position="top-right"</code>
     </p>
     <p>
-      <strong>Top left: </strong><code>.modal-side</code> +
-      <code> .modal-top-left</code>
+      <strong>Top left: </strong>
+      <code>side</code> +<code> position="top-left"</code>
     </p>
     <p>
-      <strong>Bottom right: </strong><code>.modal-side</code> +
-      <code> .modal-bottom-right</code>
+      <strong>Bottom right: </strong>
+      <code>side</code> +<code> position="bottom-right"</code>
     </p>
     <p>
-      <strong>Bottom left: </strong><code>.modal-side</code> +
-      <code> .modal-bottom-right</code>
+      <strong>Bottom left: </strong>
+      <code>side</code> +<code> position="bottom-left"</code>
     </p>
 
-    <p class="note note-info">
-      <strong>Note:</strong> If you want to change the direction of modal animation, add the class
-      <code>.top</code>, <code>.right</code>, <code>bottom</code> or <code>.left</code> to the
-      <code>.modal</code> div.
+    <p className='note note-info'>
+      <strong>Note:</strong> If you want to change the direction of modal animation, add the prop{' '}
+      <code>animationDirection</code>, <code>top</code>, <code>bottom</code> or <code>left</code> to the{' '}
+      <code>Modal</code> component.
     </p>
 
     <!--Section: Demo-->
@@ -1221,9 +1220,9 @@
 
     <!-- Section description -->
     <p>
-      To make the modal "frame-like" add <code>.modal-frame</code> class to the
-      <code>.modal-dialog</code> element. You also need to specify the direction by adding
-      <code>.modal-bottom</code> or <code>.modal-top</code> to the <code>..modal-dialog</code>.
+      To make the modal "frame-like" add <code>frame</code> prop to the
+      <code>MDBModalDialog</code> element. You also need to specify the direction by adding
+      <code>position="bottom"</code> or <code>position="top"</code> to the <code>MDBModalDialog</code>.
     </p>
 
     <!--Section: Demo-->
@@ -1424,8 +1423,7 @@
 
     <!-- Section description -->
     <p>
-      Add <code>.modal-dialog-centered</code> to <code>.modal-dialog</code> to vertically center the
-      modal.
+      Add <code>centered</code> to <code>MDBModalDialog</code> to vertically center the modal.
     </p>
 
     <!--Section: Demo-->
@@ -1635,29 +1633,69 @@
     <section class="mb-4">
       <mdbsnippet>
         <code data-lang="js" data-name="JSX">
-          <MDBModalBody>
-            <h5>Popover in a modal</h5>
-            <p>
-              This
-              <MDBPopover color='secondary' btnChildren='button' placement='right'>
-                <MDBPopoverHeader>Popover title</MDBPopoverHeader>
-                <MDBPopoverBody>Popover body content is set in this attribute.</MDBPopoverBody>
-              </MDBPopover>
-              triggers a popover on click.
-            </p>
-            <hr />
-            <h5>Tooltips in a modal</h5>
-            <p>
-              <MDBTooltip tag='a' wrapperProps={{ href: '#!' }} title='Tooltip'>
-                This link
-              </MDBTooltip>{' '}
-              and{' '}
-              <MDBTooltip tag='a' wrapperProps={{ href: '#!' }} title='Tooltip'>
-                that link
-              </MDBTooltip>{' '}
-              have tooltips on hover.
-            </p>
-          </MDBModalBody>
+          import React, { useState } from 'react';
+          import { MDBBtn,
+            MDBModal,
+            MDBModalDialog,
+            MDBModalContent,
+            MDBModalHeader,
+            MDBModalTitle,
+            MDBModalBody,
+            MDBModalFooter, 
+          } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+            const [popoverModal, setPopoverModal] = useState(false);
+
+            const toggleShow = () => setPopoverModal(!popoverModal);
+
+            return (
+              <>
+                <MDBBtn onClick={toggleShow}>Launch demo modal</MDBBtn>
+
+                <MDBModal tabIndex='-1' show={popoverModal} getOpenState={(e: any) => setPopoverModal(e)}>
+                  <MDBModalDialog>
+                    <MDBModalContent>
+                      <MDBModalHeader>
+                        <MDBModalTitle>Modal title</MDBModalTitle>
+                        <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+                      </MDBModalHeader>
+                      <MDBModalBody>
+                        <h5>Popover in a modal</h5>
+                        <p>
+                          This
+                          <MDBPopover color='secondary' btnChildren='button' placement='right'>
+                            <MDBPopoverHeader>Popover title</MDBPopoverHeader>
+                            <MDBPopoverBody>Popover body content is set in this attribute.</MDBPopoverBody>
+                          </MDBPopover>
+                          triggers a popover on click.
+                        </p>
+                        <hr />
+                        <h5>Tooltips in a modal</h5>
+                        <p>
+                          <MDBTooltip tag='a' wrapperProps={{ href: '#!' }} title='Tooltip'>
+                            This link
+                          </MDBTooltip>{' '}
+                          and{' '}
+                          <MDBTooltip tag='a' wrapperProps={{ href: '#!' }} title='Tooltip'>
+                            that link
+                          </MDBTooltip>{' '}
+                          have tooltips on hover.
+                        </p>
+                      </MDBModalBody>
+
+                      <MDBModalFooter>
+                        <MDBBtn color='secondary' onClick={toggleShow}>
+                          Close
+                        </MDBBtn>
+                        <MDBBtn>Save changes</MDBBtn>
+                      </MDBModalFooter>
+                    </MDBModalContent>
+                  </MDBModalDialog>
+                </MDBModal>
+              </>
+            );
+          }
         </code>
       </mdbsnippet>
     </section>
@@ -1758,30 +1796,74 @@
     <section class="mb-4">
       <mdbsnippet>
         <code data-lang="js" data-name="JSX">
-          <MDBModalBody>
-            <div className='container-fluid bd-example-row'>
-              <div className='row'>
-                <div className='col-md-4 col-example'>.col-md-4</div>
-                <div className='col-md-4 ms-auto col-example'>.col-md-4 .ms-auto</div>
-              </div>
-              <div className='row'>
-                <div className='col-md-3 ms-auto col-example'>.col-md-3 .ms-auto</div>
-                <div className='col-md-2 ms-auto col-example'>.col-md-2 .ms-auto</div>
-              </div>
-              <div className='row'>
-                <div className='col-md-6 ms-auto col-example'>.col-md-6 .ms-auto</div>
-              </div>
-              <div className='row'>
-                <div className='col-sm-9 col-example'>
-                  Level 1: .col-sm-9
-                  <div className='row'>
-                    <div className='col-8 col-sm-6 col-example'>Level 2: .col-8 .col-sm-6</div>
-                    <div className='col-4 col-sm-6 col-example'>Level 2: .col-4 .col-sm-6</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </MDBModalBody>
+          import React, { useState } from 'react';
+          import { MDBBtn,
+            MDBModal,
+            MDBModalDialog,
+            MDBModalContent,
+            MDBModalHeader,
+            MDBModalTitle,
+            MDBModalBody,
+            MDBModalFooter, 
+          } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+            const [gridModal, setGridModal] = useState(false);
+
+            const toggleShow = () => setGridModal(!gridModal);
+
+            return (
+              <>
+                <MDBBtn onClick={toggleShow}>Launch demo modal</MDBBtn>
+
+                <MDBModal tabIndex='-1' show={gridModal} getOpenState={(e: any) => setGridModal(e)}>
+                  <MDBModalDialog>
+                    <MDBModalContent>
+                      <MDBModalHeader>
+                        <MDBModalTitle>Grids in modals</MDBModalTitle>
+                        <MDBBtn
+                          type='button'
+                          className='btn-close'
+                          color='none'
+                          onClick={toggleShow}
+                        ></MDBBtn>
+                      </MDBModalHeader>
+                      <MDBModalBody>
+                        <div className='container-fluid bd-example-row'>
+                          <div className='row'>
+                            <div className='col-md-4 col-example'>.col-md-4</div>
+                            <div className='col-md-4 ms-auto col-example'>.col-md-4 .ms-auto</div>
+                          </div>
+                          <div className='row'>
+                            <div className='col-md-3 ms-auto col-example'>.col-md-3 .ms-auto</div>
+                            <div className='col-md-2 ms-auto col-example'>.col-md-2 .ms-auto</div>
+                          </div>
+                          <div className='row'>
+                            <div className='col-md-6 ms-auto col-example'>.col-md-6 .ms-auto</div>
+                          </div>
+                          <div className='row'>
+                            <div className='col-sm-9 col-example'>
+                              Level 1: .col-sm-9
+                              <div className='row'>
+                                <div className='col-8 col-sm-6 col-example'>Level 2: .col-8 .col-sm-6</div>
+                                <div className='col-4 col-sm-6 col-example'>Level 2: .col-4 .col-sm-6</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </MDBModalBody>
+                      <MDBModalFooter>
+                        <MDBBtn color='secondary' onClick={toggleShow}>
+                          Close
+                        </MDBBtn>
+                        <MDBBtn>Save changes</MDBBtn>
+                      </MDBModalFooter>
+                    </MDBModalContent>
+                  </MDBModalDialog>
+                </MDBModal>
+              </>
+            );
+          }
         </code>
       </mdbsnippet>
     </section>
@@ -1797,23 +1879,22 @@
 
     <!-- Section description -->
     <p>
-      Modals have three optional sizes, available via modifier classes to be placed on a
-      <code>.modal-dialog</code>. These sizes kick in at certain breakpoints to avoid horizontal
-      scrollbars on narrower viewports.
+      Modals have three optional sizes, available via modifier props to be placed on a<code>MDBModalDialog</code>.
+      These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports.
     </p>
 
     <table class="table table-striped">
       <thead>
         <tr>
           <th>Size</th>
-          <th>Class</th>
+          <th>Prop</th>
           <th>Modal max-width</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>Small</td>
-          <td><code>.modal-sm</code></td>
+          <td><code>size="sm"</code></td>
           <td><code>300px</code></td>
         </tr>
         <tr>
@@ -1823,12 +1904,12 @@
         </tr>
         <tr>
           <td>Large</td>
-          <td><code>.modal-lg</code></td>
+          <td><code>size="lg"</code></td>
           <td><code>800px</code></td>
         </tr>
         <tr>
           <td>Extra large</td>
-          <td><code>.modal-xl</code></td>
+          <td><code>size="xl"</code></td>
           <td><code>1140px</code></td>
         </tr>
       </tbody>
@@ -1937,9 +2018,39 @@
     <section class="mb-4">
       <mdbsnippet>
         <code data-lang="js" data-name="JSX">
-          <MDBModalDialog size='xl'>...</MDBModalDialog>
-          <MDBModalDialog size='lg'>...</MDBModalDialog>
-          <MDBModalDialog size='sm'>...</MDBModalDialog>
+          import React, { useState } from 'react';
+          import { MDBBtn,
+            MDBModal,
+            MDBModalDialog,
+            MDBModalContent,
+            MDBModalHeader,
+            MDBModalTitle,
+            MDBModalBody,
+            MDBModalFooter, 
+          } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+            const [optSmModal, setOptSmModal] = useState(false);
+
+            const toggleShow = () => setOptSmModal(!optSmModal);
+
+            return (
+              <>
+                <MDBBtn onClick={toggleShow}>Small modal</MDBBtn>
+                <MDBModal show={optSmModal} tabIndex='-1' getOpenState={(e: any) => setOptSmModal(e)}>
+                  <MDBModalDialog size='sm'>
+                    <MDBModalContent>
+                      <MDBModalHeader>
+                        <MDBModalTitle>Small modal</MDBModalTitle>
+                        <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+                      </MDBModalHeader>
+                      <MDBModalBody>...</MDBModalBody>
+                    </MDBModalContent>
+                  </MDBModalDialog>
+                </MDBModal>
+              </>
+            );
+          }
         </code>
       </mdbsnippet>
     </section>
@@ -1957,39 +2068,39 @@
     <!-- Section description -->
     <p>
       Another override is the option to pop up a modal that covers the user viewport, available via
-      modifier classes that are placed on a <code>.modal-dialog</code>.
+      modifier props that are placed on a <code>MDBModalDialog</code>.
     </p>
 
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Class</th>
+          <th>Prop</th>
           <th>Availability</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><code>.modal-fullscreen</code></td>
+          <td><code>size="fullscreen"</code></td>
           <td>Always</td>
         </tr>
         <tr>
-          <td><code>.modal-fullscreen-sm-down</code></td>
+          <td><code>size="fullscreen-sm-down"</code></td>
           <td><code>Below 576px</code></td>
         </tr>
         <tr>
-          <td><code>.modal-fullscreen-md-down</code></td>
+          <td><code>size="fullscreen-md-down"</code></td>
           <td><code>Below 768px</code></td>
         </tr>
         <tr>
-          <td><code>.modal-fullscreen-lg-down</code></td>
+          <td><code>size="fullscreen-lg-down"</code></td>
           <td><code>Below 992px</code></td>
         </tr>
         <tr>
-          <td><code>.modal-fullscreen-xl-down</code></td>
+          <td><code>size="fullscreen-xl-down"</code></td>
           <td><code>Below 1200px</code></td>
         </tr>
         <tr>
-          <td><code>.modal-fullscreen-xxl-down</code></td>
+          <td><code>size="fullscreen-xxl-down"</code></td>
           <td>Below <code>1400px</code></td>
         </tr>
       </tbody>
@@ -2314,8 +2425,49 @@
     <section class="mb-4">
       <mdbsnippet>
         <code data-lang="js" data-name="JSX">
-          <!-- Full screen modal -->
-          <MDBModalDialog size='fullscreen-sm-down'>...</MDBModalDialog>
+          import React, { useState } from 'react';
+          import { MDBBtn,
+            MDBModal,
+            MDBModalDialog,
+            MDBModalContent,
+            MDBModalHeader,
+            MDBModalTitle,
+            MDBModalBody,
+            MDBModalFooter, 
+          } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+            const [fullscreenXlModal, setFullscreenXlModal] = useState(false);
+
+            const toggleShow = () => setFullscreenXlModal(!fullscreenXlModal);
+
+            return (
+              <> 
+                <MDBBtn onClick={toggleShow}>Full screen below xl</MDBBtn>
+                <MDBModal tabIndex='-1' show={fullscreenXlModal} getOpenState={(e: any) => setFullscreenXlModal(e)}>
+                  <MDBModalDialog size='fullscreen-xl-down'>
+                    <MDBModalContent>
+                      <MDBModalHeader>
+                        <MDBModalTitle>Full screen below xl</MDBModalTitle>
+                        <MDBBtn
+                          type='button'
+                          className='btn-close'
+                          color='none'
+                          onClick={toggleShow}
+                        ></MDBBtn>
+                      </MDBModalHeader>
+                      <MDBModalBody>...</MDBModalBody>
+                      <MDBModalFooter>
+                        <MDBBtn type='button' color='secondary' onClick={toggleShow}>
+                          Close
+                        </MDBBtn>
+                      </MDBModalFooter>
+                    </MDBModalContent>
+                  </MDBModalDialog>
+                </MDBModal>
+              </>
+            );
+          }
         </code>
       </mdbsnippet>
     </section>
