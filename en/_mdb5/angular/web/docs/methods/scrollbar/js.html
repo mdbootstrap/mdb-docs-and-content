@@ -1,0 +1,33 @@
+<script>
+  const btn = document.querySelector('[data-mdb-toggle="modal"]');
+  const btnID = document.querySelector('#exampleModalLabel');
+  const modalBody = document.querySelector('.modal-body');
+
+  const toggleBtn = (text) => {
+    btnID.innerHTML = `Scroll${text} example`;
+    modalBody.innerHTML = `You scrolled with scroll${text} event`;
+    btn.click();
+  };
+
+  const initByJS = document.querySelector('#init-by-js');
+  const psInitbyJS = new mdb.PerfectScrollbar(initByJS);
+
+  let scrollX = document.querySelector('#scroll-x');
+  let initscrollX = new mdb.PerfectScrollbar(scrollX);
+
+  const select = document.querySelector('.select');
+
+  const dispatchEvent = ({ target }) => {
+    const events = target.value.split('scroll').join('');
+    scrollX.addEventListener(`${target.value}.mdb.ps`, (e) => toggleBtn(events));
+  };
+
+  select.addEventListener('valueChange.mdb.select', (e) => {
+    dispatchEvent(e);
+  });
+
+  select.addEventListener('open.mdb.select', (e) => {
+    scrollX.removeEventListener(`${e.target.value}.mdb.ps`, dispatchEvent);
+    scrollX.removeEventListener(`ps-scroll-y`, dispatchEvent);
+  });
+</script>
