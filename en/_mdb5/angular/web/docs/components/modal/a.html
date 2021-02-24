@@ -12,54 +12,25 @@
 
   <hr class="my-5" />
 
-  <!--Section: Usage-->
-  <section id="api-section-usage">
+  <!--Section: Import-->
+  <section id="api-section-import">
     <!-- Section title -->
-    <h2 class="mb-4">Usage</h2>
+    <h2 class="mb-4">Import</h2>
 
-    <p>
-      The modal plugin toggles your hidden content on demand, via data attributes or JavaScript. It
-      also adds <code>.modal-open</code> to the <code>&lt;body&gt;</code> to override default
-      scrolling behavior and generates a <code>.modal-backdrop</code> to provide a click area for
-      dismissing shown modals when clicking outside the modal.
-    </p>
-
-    <h4 class="mt-4">Via data attributes</h4>
-
-    <p>
-      Activate a modal without writing JavaScript. Set
-      <code>data-mdb-toggle="modal"</code> on a controller element, like a button, along with a
-      <code>data-mdb-target="#foo"</code> or <code>href="#foo"</code> to target a specific modal to
-      toggle.
-    </p>
-
-    <!--Section: Code-->
-    <section>
-      <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <button type="button" data-mdb-toggle="modal" data-mdb-target="#myModal">
-            Launch modal
-          </button>
-        </code>
-      </mdbsnippet>
-    </section>
-    <!--Section: Code-->
-
-    <h4 class="mt-4">Via JavaScript</h4>
-
-    <p>Create a modal with a single line of JavaScript:</p>
-
-    <!--Section: Code-->
-    <section class="mb-4">
-      <mdbsnippet>
-        <code data-lang="js" data-name="JavaScript">
-          const myModal = new mdb.Modal(document.getElementById('myModal'), options)
-        </code>
-      </mdbsnippet>
-    </section>
-    <!--Section: Code-->
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="app.module.ts">
+        import { MdbModalModule } from 'mdb-angular-ui-kit';
+        …
+        @NgModule ({
+          ...
+          imports: [MdbModalModule],
+          ...
+        })
+      </code>
+    </mdbsnippet>
   </section>
-  <!--Section: Usage-->
+  <!--Section: Import-->
 
   <hr class="my-5" />
 
@@ -69,8 +40,7 @@
     <h2 class="mb-4">Options</h2>
 
     <p>
-      Options can be passed via data attributes or JavaScript. For data attributes, append the
-      option name to <code>data-mdb-</code>, as in <code>data-mdb-backdrop=""</code>.
+      Options can be passed to the <code>open</code> method of <code>MdbModalService</code>.
     </p>
 
     <table class="table table-striped table-bordered">
@@ -84,28 +54,102 @@
       </thead>
       <tbody>
         <tr>
+          <td><code>animation</code></td>
+          <td><em>boolean</em></td>
+          <td><code>true</code></td>
+          <td>Turns modal animation on/off</td>
+        </tr>
+
+        <tr>
           <td><code>backdrop</code></td>
-          <td>boolean or the string <code>'static'</code></td>
+          <td><em>boolean</em></td>
           <td><code>true</code></td>
           <td>
-            Includes a modal-backdrop element. Alternatively, specify
-            <code>static</code> for a backdrop which doesn't close the modal on click.
+            Includes a modal-backdrop element.
           </td>
         </tr>
+
+        <tr>
+          <td><code>containerClass</code></td>
+          <td><em>string</em></td>
+          <td><code>''</code></td>
+          <td>Adds new class to modal container.</td>
+        </tr>
+
+        <tr>
+          <td><code>data</code></td>
+          <td><em>any</em></td>
+          <td><code>{}</code></td>
+          <td>Passes data to a modal component.</td>
+        </tr>
+
+        <tr>
+          <td><code>ignoreBackdropClick</code></td>
+          <td><em>boolean</em>></td>
+          <td><code>false</code></td>
+          <td>
+            Specifies whether to close modal on backdrop click.
+          </td>
+        </tr>
+
         <tr>
           <td><code>keyboard</code></td>
-          <td>boolean</td>
+          <td><em>boolean</em></td>
           <td><code>true</code></td>
-          <td>Closes the modal when escape key is pressed</td>
+          <td>Closes the modal when escape key is pressed.</td>
         </tr>
+
         <tr>
-          <td><code>focus</code></td>
-          <td>boolean</td>
-          <td><code>true</code></td>
-          <td>Puts the focus on the modal when initialized.</td>
+          <td><code>modalClass</code></td>
+          <td><em>string</em></td>
+          <td><code>''</code></td>
+          <td>Adds new class to element with <code>.modal-dialog</code> class.</td>
         </tr>
       </tbody>
     </table>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <button class="btn btn-primary" (click)="openModal()">Open modal</button>
+        </code>
+
+        <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+          import { ModalComponent } from 'your-path-to-modal-component';
+          import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit';
+
+          @Component(
+            { selector: 'create-dynamic-modal',
+            templateUrl: './create-dynamic-modal.component.html',
+          })
+          export class AppComponent {
+            modalRef: MdbModalRef<ModalComponent>;
+
+            config = {
+              animation: true,
+              backdrop: true,
+              containerClass: 'right',
+              data: {
+                title: 'Custom title'
+              },
+              ignoreBackdropClick: false,
+              keyboard: true,
+              modalClass: 'modal-top-right'
+            }
+
+            constructor(private modalService: MdbModalService) {}
+
+            openModal() {
+              this.modalRef = this.modalService.open(ModalComponent, this.config);
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
   </section>
   <!--Section: Options-->
 
@@ -116,20 +160,7 @@
     <!-- Section title -->
     <h2 class="mb-4">Methods</h2>
 
-    <p class="note note-danger">
-      <strong>Asynchronous methods and transitions:</strong>
-      <br />
-      All API methods are <strong>asynchronous</strong> and start a <strong>transition</strong>.
-      They return to the caller as soon as the transition is started but
-      <strong>before it ends</strong>. In addition, a method call on a
-      <strong>transitioning component will be ignored</strong>.
-    </p>
-
-    <h4 class="mt-4">Passing options</h4>
-    <p>
-      Activates your content as a modal. Accepts an optional options
-      <code>object</code>.
-    </p>
+    <h4 class="mb-4">MdbModalService</h4>
 
     <table class="table table-striped table-bordered">
       <thead>
@@ -140,164 +171,94 @@
       </thead>
       <tbody>
         <tr>
-          <td><code>dispose</code></td>
-          <td>Destroys an element’s modal.</td>
-        </tr>
-        <tr>
-          <td><code>getInstance</code></td>
-          <td>
-            <em>Static</em> method which allows you to get the modal instance associated with a DOM
-            element
-          </td>
-        </tr>
-        <tr>
-          <td><code>handleUpdate</code></td>
-          <td>
-            Manually readjust the modal’s position if the height of a modal changes while it is open
-            (i.e. in case a scrollbar appears).
-          </td>
-        </tr>
-        <tr>
-          <td><code>hide</code></td>
-          <td>
-            Manually hides a modal.
-            <strong>Returns to the caller before the modal has actually been hidden</strong>
-            (i.e. before the <code>hidden.mdb.modal</code> event occurs).
-          </td>
-        </tr>
-        <tr>
-          <td><code>show</code></td>
-          <td>
-            Manually opens a modal.
-            <strong>Returns to the caller before the modal has actually been shown</strong>
-            (i.e. before the <code>shown.mdb.modal</code> event occurs).
-          </td>
-        </tr>
-        <tr>
-          <td><code>toggle</code></td>
-          <td>
-            Manually toggles a modal.
-            <strong
-              >Returns to the caller before the modal has actually been shown or hidden</strong
-            >
-            (i.e. before the <code>shown.mdb.modal</code> or <code>hidden.mdb.modal</code> event
-            occurs).
-          </td>
+          <td><code>open(componentType, config?: MdbModalConfig&lt;D&gt;)</code></td>
+          <td>Opens modal.</td>
         </tr>
       </tbody>
     </table>
 
     <!--Section: Code-->
     <section class="mb-4">
-      <!-- prettier-ignore -->
+      <!--prettier-ignore-->
       <mdbsnippet>
-        <code data-lang="js" data-name="javascript">
-          const myModalEl = document.getElementById('myModal')
-          const modal = new mdb.Modal(myModalEl)
-          modal.show()
+        <code data-lang="html" data-name="HTML">
+          <button class="btn btn-primary" (click)="openModal()">Open modal</button>
+        </code>
+
+        <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+          import { ModalComponent } from 'your-path-to-modal-component';
+          import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit';
+
+          @Component(
+            { selector: 'create-dynamic-modal',
+            templateUrl: './create-dynamic-modal.component.html',
+          })
+          export class AppComponent {
+            modalRef: MdbModalRef<ModalComponent>;
+
+            constructor(private modalService: MdbModalService) {}
+
+            openModal() {
+              this.modalRef = this.modalService.open(ModalComponent);
+            }
+          }
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
-  </section>
-  <!--Section: Methods-->
 
-  <hr class="my-5" />
+    <h4 class="mb-4">MdbModalRef</h4>
 
-  <!--Section: Events-->
-  <section id="api-section-events">
-    <!-- Section title -->
-    <h2 class="mb-4">Events</h2>
-    <p>
-      Bootstrap’s modal class exposes a few events for hooking into modal functionality. All modal
-      events are fired at the modal itself (i.e. at the
-      <code>&lt;div class="modal"&gt;</code>).
-    </p>
     <table class="table table-striped table-bordered">
       <thead>
         <tr>
-          <th style="width: 150px;">Event type</th>
+          <th>Method</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><code>show.mdb.modal</code></td>
-          <td>
-            This event fires immediately when the <code>show</code> instance method is called. If
-            caused by a click, the clicked element is available as the
-            <code>relatedTarget</code> property of the event.
-          </td>
-        </tr>
-        <tr>
-          <td><code>shown.mdb.modal</code></td>
-          <td>
-            This event is fired when the modal has been made visible to the user (will wait for CSS
-            transitions to complete). If caused by a click, the clicked element is available as the
-            <code>relatedTarget</code> property of the event.
-          </td>
-        </tr>
-        <tr>
-          <td><code>hide.mdb.modal</code></td>
-          <td>
-            This event is fired immediately when the <code>hide</code> instance method has been
-            called.
-          </td>
-        </tr>
-        <tr>
-          <td><code>hidden.mdb.modal</code></td>
-          <td>
-            This event is fired when the modal has finished being hidden from the user (will wait
-            for CSS transitions to complete).
-          </td>
-        </tr>
-        <tr>
-          <td><code>hidePrevented.mdb.modal</code></td>
-          <td>
-            This event is fired when the modal is shown, its backdrop is
-            <code>static</code> and a click outside the modal or an escape key press is performed
-            with the keyboard option or <code>data-mdb-keyboard</code> set to <code>false</code>.
-          </td>
+          <td><code>onClose: Observable&lt;any&gt;</code></td>
+          <td>Returns observable on modal close.</td>
         </tr>
       </tbody>
     </table>
 
     <!--Section: Code-->
     <section class="mb-4">
-      <mdbsnippet>
-        <!-- prettier-ignore -->
-        <code data-lang="js" data-name="JavaScript">
-          const myModalEl = document.getElementById('myModal')
-          myModalEl.addEventListener('hidden.mdb.modal', (event) => {
-            // do something...
-          })
-        </code>
-      </mdbsnippet>
+    <!--prettier-ignore-->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <button class="btn btn-primary" (click)="openModal()">Open modal</button>
+      </code>
+
+      <code data-lang="javascript" data-name="TS">
+        import { Component } from '@angular/core';
+        import { ModalComponent } from 'your-path-to-modal-component';
+        import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit';
+
+        @Component(
+          { selector: 'create-dynamic-modal',
+          templateUrl: './create-dynamic-modal.component.html',
+        })
+        export class AppComponent {
+          modalRef: MdbModalRef<ModalComponent>;
+
+          constructor(private modalService: MdbModalService) {}
+
+          openModal() {
+            this.modalRef = this.modalService.open(ModalComponent);
+            this.modalRef.onClose.subscribe((message: any) => {
+              console.log(message);
+            });
+          }
+        }
+      </code>
+    </mdbsnippet>
     </section>
     <!--Section: Code-->
   </section>
-  <!--Section: Events-->
-
-  <hr class="my-5" />
-
-  <!--Section: Import-->
-  <section id="api-section-import">
-    <!-- Section title -->
-    <h2 class="mb-4">Import</h2>
-
-    <!-- Description -->
-    <p>
-      <strong>MDB UI KIT</strong> also works with module bundlers. Use the following code to import
-      this component:
-    </p>
-
-    <!-- prettier-ignore -->
-    <mdbsnippet>
-      <code data-lang="js" data-name="JavaScript">
-        import { Modal } from 'mdb-ui-kit';
-      </code>
-    </mdbsnippet>
-  </section>
-  <!--Section: Import-->
+  <!--Section: Methods-->
 </section>
 <!--Section: Docs content-->
