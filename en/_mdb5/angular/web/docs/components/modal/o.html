@@ -117,7 +117,7 @@
           })
           export class ModalComponent {
 
-            constructor(public modalRef: MdbModalRef) {}
+            constructor(public modalRef: MdbModalRef&lt;ModalComponent&gt;) {}
 
           }
         </code>
@@ -146,7 +146,7 @@
             styleUrls: ['./app.component.scss'],
           })
           export class AppComponent {
-            modalRef: MdbModalRef;
+            modalRef: MdbModalRef&lt;ModalComponent&gt;;
 
             constructor(private modalService: MdbModalService) {}
 
@@ -171,24 +171,36 @@
       options.
     </p>
 
+    <!--prettier-ignore-->
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <button class="btn btn-primary" (click)="openModal()">Open modal</button>
       </code>
       <!--pretier-ignore-->
       <code data-lang="javascript" data-name="TS">
-        import { Component } from '@angular/core'; import { ModalComponent } from
-        'your-path-to-modal-component'; import { MdbModalRef, MdbModalService } from
-        'mdb-angular-ui-kit'; @Component({ selector: 'app-root', templateUrl:
-        './app.component.html', styleUrls: ['./app.component.scss'], }) export class AppComponent {
-        modalRef: MdbModalRef; constructor(private modalService: MdbModalService) {} openModal() {
-        this.modalRef = this.modalService.open(ModalComponent, { data: { title: 'Custom title' } });
-        } }
+        import { Component } from '@angular/core';
+        import { ModalComponent } from 'your-path-to-modal-component';
+        import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit';
+
+        @Component(
+          { selector: 'app-root',
+          templateUrl: './app.component.html',
+          styleUrls: ['./app.component.scss'],
+        })
+        export class AppComponent {
+          modalRef: MdbModalRef&lt;ModalComponent&gt;;
+
+          constructor(private modalService: MdbModalService) {} openModal() {
+            this.modalRef = this.modalService.open(ModalComponent, { data: { title: 'Custom title' }
+            });
+          }
+        }
       </code>
     </mdbsnippet>
 
     <p>Here is an example showing how to use injected data in the modal component:</p>
 
+    <!--prettier-ignore-->
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <div class="modal-header">
@@ -208,17 +220,27 @@
           <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </code>
-      <!--pretier-ignore-->
+
       <code data-lang="javascript" data-name="TS">
-        import { Component } from '@angular/core'; import { MdbModalRef } from 'mdb-angular-ui-kit';
-        @Component({ selector: 'app-modal', templateUrl: './modal.component.html', }) export class
-        ModalComponent { title: string; constructor(public modalRef: MdbModalRef) {} }
+        import { Component } from '@angular/core';
+        import { MdbModalRef } from 'mdb-angular-ui-kit';
+
+        @Component(
+          { selector: 'app-modal',
+          templateUrl: './modal.component.html',
+        })
+        export class ModalComponent {
+          title: string;
+
+          constructor(public modalRef: MdbModalRef&lt;ModalComponent&gt;) {}
+        }
       </code>
     </mdbsnippet>
 
     <h4 class="secondary-heading mt-5 mb-2" id="receive-data">Receive data from the modal</h4>
     <p>You can receive data from the modal to use it in other components:</p>
 
+    <!--prettier-ignore-->
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <div class="modal-content">
@@ -235,30 +257,55 @@
           </div>
         </div>
       </code>
-      <!--pretier-ignore-->
+
       <code data-lang="javascript" data-name="TS">
-        import { Component } from '@angular/core'; import { MdbModalRef } from 'mdb-angular-ui-kit';
-        @Component({ selector: 'app-modal', templateUrl: './modal.component.html', }) export class
-        ModalComponent { constructor(public modalRef: MdbModalRef) {} close() { const closeMessage =
-        'Modal closed'; this.modalRef.close(closeMessage) } }
+        import { Component } from '@angular/core';
+        import { MdbModalRef } from 'mdb-angular-ui-kit';
+
+        @Component(
+          { selector: 'app-modal',
+          templateUrl: './modal.component.html',
+        })
+        export class ModalComponent {
+          constructor(public modalRef: MdbModalRef&lt;ModalComponent&gt;) {}
+
+          close(): void {
+            const closeMessage = 'Modal closed';
+            this.modalRef.close(closeMessage)
+          }
+        }
       </code>
     </mdbsnippet>
 
     <p>Here is an example showing how to use data received from modal in other components</p>
 
+    <!--prettier-ignore-->
     <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <button class="btn btn-primary" (click)="openModal()">Open modal</button>
       </code>
-      <!--pretier-ignore-->
+
       <code data-lang="javascript" data-name="TS">
-        import { Component } from '@angular/core'; import { ModalComponent } from
-        'your-path-to-modal-component'; import { MdbModalRef, MdbModalService } from
-        'mdb-angular-ui-kit'; @Component({ selector: 'create-dynamic-modal', templateUrl:
-        './create-dynamic-modal.component.html', }) export class AppComponent { modalRef:
-        MdbModalRef; constructor(private modalService: MdbModalService) {} openModal() {
-        this.modalRef = this.modalService.open(ModalComponent);
-        this.modalRef.onClose.subscribe((message: any) => { console.log(message); }); } }
+        import { Component } from '@angular/core';
+        import { ModalComponent } from 'your-path-to-modal-component';
+        import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit';
+
+        @Component(
+          { selector: 'create-dynamic-modal',
+          templateUrl: './create-dynamic-modal.component.html',
+        })
+        export class AppComponent {
+          modalRef: MdbModalRef&lt;ModalComponent&gt;;
+
+          constructor(private modalService: MdbModalService) {}
+
+          openModal() {
+            this.modalRef = this.modalService.open(ModalComponent);
+            this.modalRef.onClose.subscribe((message: any) => {
+              console.log(message);
+            });
+          }
+        }
       </code>
     </mdbsnippet>
   </section>
@@ -1206,6 +1253,7 @@
     <!--Section: Code-->
     <section class="mb-4">
       <pro>
+        <!--prettier-ignore-->
         <mdbsnippet>
           <code data-lang="html" data-name="HTML">
             <button class="btn btn-primary" (click)="openModal()">Open modal</button>
@@ -1222,7 +1270,7 @@
                 styleUrls: ['./app.component.scss'],
               })
               export class AppComponent {
-                modalRef: MdbModalRef;
+                modalRef: MdbModalRef&lt;ModalComponent&gt;;
 
                 constructor(private modalService: MdbModalService) {}
 
@@ -1232,7 +1280,6 @@
                     modalClass: 'modal-side modal-top-right'
                   })
                 }
-
               }
             </code>
         </mdbsnippet>
@@ -1287,6 +1334,7 @@
     <!--Section: Code-->
     <section class="mb-4">
       <pro>
+        <!--prettier-ignore-->
         <mdbsnippet>
           <code data-lang="html" data-name="HTML">
             <button class="btn btn-primary" (click)="openModal()">Open modal</button>
@@ -1303,7 +1351,7 @@
                 styleUrls: ['./app.component.scss'],
               })
               export class AppComponent {
-                modalRef: MdbModalRef;
+                modalRef: MdbModalRef&lt;ModalComponent&gt;;
 
                 constructor(private modalService: MdbModalService) {}
 
@@ -1598,6 +1646,7 @@
 
     <!--Section: Code-->
     <section class="mb-4">
+      <!--prettier-ignore-->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <button class="btn btn-primary" (click)="openModal()">Open modal</button>
@@ -1614,7 +1663,7 @@
               styleUrls: ['./app.component.scss'],
             })
             export class AppComponent {
-              modalRef: MdbModalRef;
+              modalRef: MdbModalRef&lt;ModalComponent&gt;;
 
               constructor(private modalService: MdbModalService) {}
 
@@ -1757,6 +1806,7 @@
 
     <!--Section: Code-->
     <section class="mb-4">
+      <!--prettier-ignore-->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <button class="btn btn-primary" (click)="openModal()">Open modal</button>
@@ -1773,7 +1823,7 @@
               styleUrls: ['./app.component.scss'],
             })
             export class AppComponent {
-              modalRef: MdbModalRef;
+              modalRef: MdbModalRef&lt;ModalComponent&gt;;
 
               constructor(private modalService: MdbModalService) {}
 
@@ -1782,7 +1832,6 @@
                   modalClass: 'modal-dialog-centered'
                 })
               }
-
             }
           </code>
       </mdbsnippet>
@@ -1892,6 +1941,7 @@
 
     <!--Section: Code-->
     <section class="mb-4">
+      <!--prettier-ignore-->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <div class="modal-header">
@@ -1943,7 +1993,7 @@
             })
             export class ModalComponent {
 
-              constructor(public modalRef: MdbModalRef) {}
+              constructor(public modalRef: MdbModalRef&lt;ModalComponent&gt;) {}
 
             }
           </code>
@@ -2097,7 +2147,7 @@
             })
             export class ModalComponent {
 
-              constructor(public modalRef: MdbModalRef) {}
+              constructor(public modalRef: MdbModalRef&lt;ModalComponent&gt;) {}
 
             }
           </code>
@@ -2144,6 +2194,7 @@
 
     <!--Section: Code-->
     <section class="mb-4">
+      <!--prettier-ignore-->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <button class="btn btn-primary" (click)="openModal()">Open modal</button>
@@ -2160,7 +2211,7 @@
               styleUrls: ['./app.component.scss'],
             })
             export class AppComponent {
-              modalRef: MdbModalRef;
+              modalRef: MdbModalRef&lt;ModalComponent&gt;;
 
               constructor(private modalService: MdbModalService) {}
 
@@ -2169,7 +2220,6 @@
                   animation: false
                 })
               }
-
             }
           </code>
       </mdbsnippet>
@@ -2325,6 +2375,7 @@
 
     <!--Section: Code-->
     <section class="mb-4">
+      <!--prettier-ignore-->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <button class="btn btn-primary" (click)="openModal()">Open modal</button>
@@ -2341,7 +2392,7 @@
               styleUrls: ['./app.component.scss'],
             })
             export class AppComponent {
-              modalRef: MdbModalRef;
+              modalRef: MdbModalRef&lt;ModalComponent&gt;;
 
               constructor(private modalService: MdbModalService) {}
 
@@ -2723,6 +2774,7 @@
 
     <!--Section: Code-->
     <section class="mb-4">
+      <!--prettier-ignore-->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <button class="btn btn-primary" (click)="openModal()">Open modal</button>
@@ -2739,7 +2791,7 @@
               styleUrls: ['./app.component.scss'],
             })
             export class AppComponent {
-              modalRef: MdbModalRef;
+              modalRef: MdbModalRef&lt;ModalComponent&gt;;
 
               constructor(private modalService: MdbModalService) {}
 
@@ -2748,7 +2800,6 @@
                   modalClass: 'modal-fullscreen'
                 })
               }
-
             }
           </code>
       </mdbsnippet>
