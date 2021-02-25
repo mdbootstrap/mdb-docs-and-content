@@ -1021,29 +1021,37 @@
         <!-- prettier-ignore -->
         <code data-lang="HTML" data-name="template">
           <template>
-            <MDBModal v-on:shown="setFocus">
+            <MDBModal v-on:shown="setFocus" v-model="show">
               <MDBModalBody>
                 <MDBInput id="myInput" />
               </MDBModalBody>
             </MDBModal>
+            <MDBBtn @click="show = true">Open modal</MDBBtn>
           </template>
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import { MDBModal } from 'mdb-vue-ui-kit';
+            import { MDBModal, MDBModalBody, MDBInput, MDBBtn } from 'mdb-vue-ui-kit';
 
             export default {
               components: {
                 MDBModal,
                 MDBModalBody,
                 MDBInput,
+                MDBBtn,
               },
               setup() {
-                function setFocus(el) {
-                  const myInput = el.getElementById('#myInput');
-
+                function setFocus() {
+                  const myInput = document.getElementById('myInput');
                   myInput.focus();
                 }
+
+                const show = ref(false);
+
+                return {
+                  setFocus,
+                  show,
+                };
               },
             };
           </script>
@@ -1132,6 +1140,7 @@
               MDBModalTitle,
               MDBModalBody,
               MDBModalFooter,
+              MDBBtn,
             } from 'mdb-vue-ui-kit';
 
             export default {
@@ -1141,6 +1150,7 @@
                 MDBModalTitle,
                 MDBModalBody,
                 MDBModalFooter,
+                MDBBtn,
               },
             };
           </script>
@@ -2067,11 +2077,13 @@
                 const exampleModalPopovers = ref(false);
                 const popover1 = ref(false);
                 const tooltip1 = ref(false);
+                const tooltip2 = ref(false);
 
                 return {
                   exampleModalPopovers,
                   popover1,
                   tooltip1,
+                  tooltip2,
                 };
               },
             };

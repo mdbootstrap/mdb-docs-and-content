@@ -303,87 +303,148 @@
       <mdbsnippet>
         <code data-lang="html" data-name="template">
           <template>
-            <!-- Sidenav-->
-            <MDBSideNav
-            v-model="sidenavPositions"
-            id="sidenavPositions"
-            :over="positions.over1"
-            :side="positions.side1"
-            :push="positions.push1"
-            contentSelector="#content"
-            >
-              <MDBSideNavMenu>
-                <MDBSideNavItem>
-                  <MDBSideNavLink>
-                    <MDBIcon iconStyle="far" icon="smile" class="fa-fw me-3" />
-                    <span>Link 1</span>
-                  </MDBSideNavLink>
-                </MDBSideNavItem>
-                <MDBSideNavItem collapse icon="grin" title="Category 1" show>
-                  <MDBSideNavItem>
-                    <MDBSideNavLink>Link 2</MDBSideNavLink>
-                  </MDBSideNavItem>
-                  <MDBSideNavItem>
-                    <MDBSideNavLink>Link 3</MDBSideNavLink>
-                  </MDBSideNavItem>
-                </MDBSideNavItem>
-                <MDBSideNavItem collapse icon="grin-wink" title="Category 2" show>
-                  <MDBSideNavItem>
-                    <MDBSideNavLink>Link 4</MDBSideNavLink>
-                  </MDBSideNavItem>
-                  <MDBSideNavItem>
-                    <MDBSideNavLink>Link 5</MDBSideNavLink>
-                  </MDBSideNavItem>
-                </MDBSideNavItem>
-              </MDBSideNavMenu>
-            </MDBSideNav>
-            <!-- Sidenav-->
-  
-            <!-- Content -->
-            <div style="padding: 20px" class="text-center" id="content">
-              <!-- Toggler -->
+            <div class="d-flex my-4">
               <MDBBtn
-                color="primary"
-                aria-controls="#sidenavPositions"
-                @click="sidenavPositions = !sidenavPositions"
+                @click="setPosition('push1')"
+                :class="{
+                  btn: true,
+                  'btn-outline-primary': !positions.push1,
+                  'btn-primary': positions.push1,
+                  'me-3': true,
+                }"
+                >Push</MDBBtn
               >
-                <MDBIcon icon="bars" />
-              </MDBBtn>
-              <!-- Toggler -->
-  
-              <div class="d-flex my-5 text-start">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                magna massa, ornare quis interdum a, cursus in quam. Quisque risus
-                libero, cursus eget eros vitae, aliquam placerat velit. Vivamus
-                luctus eros id sagittis luctus. Pellentesque felis nulla, rhoncus
-                viverra nunc vitae, viverra aliquam ante. Ut feugiat mattis
-                tempor.
-              </div>
+              <MDBBtn
+                @click="setPosition('side1')"
+                :class="{
+                  btn: true,
+                  'btn-outline-primary': !positions.side1,
+                  'btn-primary': positions.side1,
+                  'me-3': true,
+                }"
+                >Side</MDBBtn
+              >
+              <MDBBtn
+                @click="setPosition('over1')"
+                :class="{
+                  btn: true,
+                  'btn-outline-primary': !positions.over1,
+                  'btn-primary': positions.over1,
+                  'me-3': true,
+                }"
+                >Over</MDBBtn
+              >
             </div>
-            <!-- Content -->
+          
+            <section
+              style="position: relative; overflow-y: hidden; min-height: 400px"
+              class="border p-4 d-flex justify-content-center mb-4"
+            >
+              <!-- Sidenav-->
+              <MDBSideNav
+                v-model="sidenavPositions"
+                absolute
+                id="sidenavPositions"
+                :over="positions.over1"
+                :side="positions.side1"
+                :push="positions.push1"
+                contentSelector="#content"
+              >
+                <MDBSideNavMenu>
+                  <MDBSideNavItem>
+                    <MDBSideNavLink>
+                      <MDBIcon iconStyle="far" icon="smile" class="fa-fw me-3" />
+                      <span>Link 1</span>
+                    </MDBSideNavLink>
+                  </MDBSideNavItem>
+                  <MDBSideNavItem collapse icon="grin" title="Category 1" show>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>Link 2</MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>Link 3</MDBSideNavLink>
+                    </MDBSideNavItem>
+                  </MDBSideNavItem>
+                  <MDBSideNavItem collapse icon="grin-wink" title="Category 2" show>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>Link 4</MDBSideNavLink>
+                    </MDBSideNavItem>
+                    <MDBSideNavItem>
+                      <MDBSideNavLink>Link 5</MDBSideNavLink>
+                    </MDBSideNavItem>
+                  </MDBSideNavItem>
+                </MDBSideNavMenu>
+              </MDBSideNav>
+              <!-- Sidenav-->
+          
+              <!-- Content -->
+              <div style="padding: 20px" class="text-center" id="content">
+                <!-- Toggler -->
+                <MDBBtn
+                  color="primary"
+                  aria-controls="#sidenavPositions"
+                  @click="sidenavPositions = !sidenavPositions"
+                >
+                  <MDBIcon icon="bars" />
+                </MDBBtn>
+                <!-- Toggler -->
+          
+                <div class="d-flex my-5 text-start">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc magna
+                  massa, ornare quis interdum a, cursus in quam. Quisque risus libero,
+                  cursus eget eros vitae, aliquam placerat velit. Vivamus luctus eros id
+                  sagittis luctus. Pellentesque felis nulla, rhoncus viverra nunc vitae,
+                  viverra aliquam ante. Ut feugiat mattis tempor.
+                </div>
+              </div>
+              <!-- Content -->
+            </section>
           </template>
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
-            import { ref } from 'vue';
+            import {
+              MDBSideNav,
+              MDBSideNavMenu,
+              MDBSideNavItem,
+              MDBSideNavLink,
+              MDBBtn,
+              MDBIcon,
+            } from 'mdb-vue-ui-kit';
+            import { ref, reactive } from 'vue';
 
             export default {
               components: {
-                MDBSideNav, 
-                MDBSideNavMenu, 
-                MDBSideNavItem, 
-                MDBSideNavLink, 
+                MDBSideNav,
+                MDBSideNavMenu,
+                MDBSideNavItem,
+                MDBSideNavLink,
                 MDBBtn,
-                MDBIcon
+                MDBIcon,
               },
               setup() {
                 const sidenavPositions = ref(true);
+                const positions = reactive({
+                  push1: false,
+                  side1: false,
+                  over1: true,
+                });
+                const setPosition = (position) => {
+                  for (const key of Object.keys(positions)) {
+                    if (key === position) {
+                      positions[key] = true;
+                    } else {
+                      positions[key] = false;
+                    }
+                  }
+                };
 
                 return {
-                  sidenavPositions
-                }
-              }
+                  sidenavPositions,
+                  positions,
+                  setPosition,
+                };
+              },
             };
           </script>
         </code>
@@ -485,6 +546,7 @@
             v-model="sidenavColors"
             id="sidenavColors"
             :color="sidenavColor"
+            contentSelector="#content"
             >
               <MDBSideNavMenu>
                 <MDBSideNavItem>
@@ -512,6 +574,39 @@
               </MDBSideNavMenu>
             </MDBSideNav>
             <!-- Sidenav-->
+
+            <!-- Content -->
+            <div class="my-3" id="content">
+              <MDBBtn id="sidenav-primary" color="primary" @click="setSidenavColor"
+                >Primary</MDBBtn
+              >
+              <MDBBtn
+                id="sidenav-secondary"
+                color="secondary"
+                @click="setSidenavColor"
+              >
+                Secondary
+              </MDBBtn>
+              <MDBBtn id="sidenav-warning" color="warning" @click="setSidenavColor"
+                >Warning</MDBBtn
+              >
+              <MDBBtn id="sidenav-danger" color="danger" @click="setSidenavColor"
+                >Danger</MDBBtn
+              >
+              <MDBBtn id="sidenav-success" color="success" @click="setSidenavColor"
+                >Success</MDBBtn
+              >
+              <MDBBtn id="sidenav-info" color="info" @click="setSidenavColor"
+                >Info</MDBBtn
+              >
+              <MDBBtn id="sidenav-dark" color="dark" @click="setSidenavColor"
+                >Dark</MDBBtn
+              >
+              <MDBBtn id="sidenav-light" color="light" @click="setSidenavColor"
+                >Light</MDBBtn
+              >
+            </div>            
+            <!-- Content -->
   
             <!-- Toggler-->
             <div style="padding: 20px" class="text-center">
@@ -541,10 +636,16 @@
                 MDBIcon
               },
               setup() {
-                const sidenavPositions = ref(true);
+                const sidenavColors = ref(true);
+                const sidenavColor = ref("primary");
+                const setSidenavColor = e => {
+                  sidenavColor.value = e.target.id.split("-")[1];
+                };
 
                 return {
-                  sidenavPositions
+                  sidenavColors,
+                  sidenavColor,
+                  setSidenavColor
                 }
               }
             };
@@ -676,7 +777,7 @@
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBIcon, MDBBtn } from "mdb-vue-ui-kit";
             import { ref } from 'vue';
 
             export default {
@@ -685,7 +786,8 @@
                 MDBSideNavMenu, 
                 MDBSideNavItem, 
                 MDBSideNavLink, 
-                MDBIcon
+                MDBIcon, 
+                MDBBtn
               },
               setup() {
                 const sidenavDark = ref(true);
@@ -858,7 +960,7 @@
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBIcon, MDBBtn } from "mdb-vue-ui-kit";
             import { ref } from 'vue';
   
             export default {
@@ -867,7 +969,8 @@
                 MDBSideNavMenu, 
                 MDBSideNavItem, 
                 MDBSideNavLink, 
-                MDBIcon
+                MDBIcon, 
+                MDBBtn
               },
               setup() {
                 const sidenavScroll = ref(true);
@@ -1204,7 +1307,7 @@
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBIcon, MDBBtn } from "mdb-vue-ui-kit";
             import { ref } from 'vue';
 
             export default {
@@ -1213,7 +1316,8 @@
                 MDBSideNavMenu, 
                 MDBSideNavItem, 
                 MDBSideNavLink,
-                MDBIcon
+                MDBIcon, 
+                MDBBtn
               },
               setup() {
                 const sidenavAccordion = ref(true);
@@ -1400,7 +1504,7 @@
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBIcon, MDBBtn } from "mdb-vue-ui-kit";
             import { ref } from 'vue';
 
             export default {
@@ -1409,7 +1513,8 @@
                 MDBSideNavMenu, 
                 MDBSideNavItem, 
                 MDBSideNavLink,
-                MDBIcon
+                MDBIcon, 
+                MDBBtn
               },
               setup() {
                 const sidenavGroups = ref(true);
@@ -1553,7 +1658,7 @@
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBIcon, MDBBtn } from "mdb-vue-ui-kit";
             import { ref } from 'vue';
 
             export default {
@@ -1562,7 +1667,8 @@
                 MDBSideNavMenu, 
                 MDBSideNavItem, 
                 MDBSideNavLink, 
-                MDBIcon
+                MDBIcon, 
+                MDBBtn
               },
               setup() {
                 const sidenavRight = ref(true);
