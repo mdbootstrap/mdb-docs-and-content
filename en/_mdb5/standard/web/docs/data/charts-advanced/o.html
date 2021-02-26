@@ -11,12 +11,10 @@
     </h2>
 
     <!-- Seo title -->
-    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
 
     <!-- Description -->
-    <p class="my-4">
-      This documentation provides examples of advanced chart usage.
-    </p>
+    <p class="my-4">This documentation provides examples of advanced chart usage.</p>
 
     <p class="note note-light">
       <strong>Note:</strong> Read the
@@ -37,9 +35,7 @@
     <!-- Section title -->
     <h2 class="mb-4">Options</h2>
 
-    <p>
-      In most cases, working with advanced charts is related to the handling of options.
-    </p>
+    <p>In most cases, working with advanced charts is related to the handling of options.</p>
 
     <p>
       MDB provides default options for each chart - you can easily change that by passing an object
@@ -396,9 +392,7 @@
       integers numbers into percentages).
     </p>
 
-    <p>
-      This data visualization is often used to visualize the flow of the website traffic.
-    </p>
+    <p>This data visualization is often used to visualize the flow of the website traffic.</p>
 
     <!--Section: Demo-->
     <section class="border p-4 mb-4 d-flex justify-content-center">
@@ -560,9 +554,7 @@
     <!-- Section title -->
     <h2 class="mb-4">Formatting values in the tooltips</h2>
 
-    <p>
-      In the example below we simply add "$" before each value displayed in the tooltips.
-    </p>
+    <p>In the example below we simply add "$" before each value displayed in the tooltips.</p>
 
     <p>Hover the line of the chart to see the tooltip.</p>
 
@@ -699,5 +691,59 @@
     <!--Section: Code-->
   </section>
   <!--Section: Double datasets in a bar chart-->
+
+  <hr class="my-5" />
+
+  <!--Section: Async data-->
+  <section id="section-async-data">
+    <!-- Section title -->
+    <h2 class="mb-4">Async data</h2>
+
+    <p>Example of the fetching data from the JSON file.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-async-data-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <canvas id="chart-async-data-example"></canvas>
+        </code>
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="JavaScript">
+          const chart = document.getElementById('chart-async-data-example');
+          const chartInstance = new mdb.Chart(chart, { type: 'bar' });
+          fetch(
+            'https://api.covid19api.com/total/country/poland/status/confirmed?from=2020-10-01T00:00:00Z&to=2020-12-01T00:00:00Z'
+          )
+            .then((data) => data.json())
+            .then((data) => {
+              const dataset = data.map((obj) => obj['Cases']);
+              const labels = data.map((obj) => obj['Date'].substr(0, 10));
+              chartInstance.update({
+                labels,
+                datasets: [
+                  {
+                    color: '#FFCDD2',
+                    data: dataset,
+                    label: 'Number of cases',
+                    pointRadius: 0,
+                    borderColor: dataset.color,
+                  },
+                ],
+              });
+            });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Async data-->
 </section>
 <!--Section: Docs content-->

@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Sticky',
-  'seo_title' => 'Sticky - Bootstrap 5 & Material Design 2.0',
-  'description' => 'Sticky built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
+  'subheading' => 'Bootstrap 5 Sticky',
+  'seo_title' => 'Bootstrap Sticky - examples & tutorial',
+  'description' => 'Sticky built with the latest Bootstrap 5. Multiple examples, a user-friendly guide, extensive API, and customization tools',
   'url' => 'https://mdbootstrap.com/docs/standard/methods/sticky/',
   'image' => '',
   'video' => '',

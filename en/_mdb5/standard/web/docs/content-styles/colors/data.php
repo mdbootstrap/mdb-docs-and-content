@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Colors',
-  'seo_title' => 'Colors - Bootstrap 5 & Material Design 2.0',
-  'description' => 'Material Design color palette for Bootstrap 5. Multiple examples, a user-friendly guide and customization tools',
+  'subheading' => 'Bootstrap 5 Colors',
+  'seo_title' => 'Bootstrap 5 Colors - examples & tutorial',
+  'description' => 'Colors designed with the latest Bootstrap 5. Multiple code examples: color picker, style form, colors palette, hex, guide & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/content-styles/colors/',
   'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/content-styles/colors/colors.jpg',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',

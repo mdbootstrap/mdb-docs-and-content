@@ -1,0 +1,433 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">
+      Documentation and examples for adding popovers, like those found in iOS, to any element on
+      your site.
+    </p>
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 text-center mb-4">
+      <button
+        type="button"
+        class="btn btn-lg btn-danger"
+        data-mdb-toggle="popover"
+        title="Popover title"
+        data-mdb-content="And here's some amazing content. It's very engaging. Right?"
+      >
+        Click to toggle popover
+      </button>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBPopover v-model="popover1">
+              <template #reference>
+                <MDBBtn color="danger" size="lg" @click="popover1 = !popover1"
+                  >Click to toggle popover</MDBBtn
+                >
+              </template>
+              <template #header>Popover header</template>
+              <template #body
+                >And here's some amazing content. It's very engaging.
+                Right?</template
+              >
+            </MDBPopover>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBPopover, MDBBtn} from "mdb-vue-ui-kit";
+            import { ref } from 'vue';
+  
+            export default {
+              components: {
+                MDBPopover, 
+                MDBBtn
+              },
+              setup() {
+                const popover1 = ref(false);
+  
+                return {
+                  popover1
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Overview-->
+  <section id="section-overview">
+    <!--Section title-->
+    <h2 class="mb-4">Overview</h2>
+
+    <p>Things to know when using the popovers:</p>
+
+    <ul>
+      <li>
+        Zero-length <code>header</code> and <code>body</code> slots values will never show a
+        popover.
+      </li>
+      <li>Triggering popovers on hidden elements will not work.</li>
+      <li>
+        Popovers for <code>.disabled</code> or <code>disabled</code> elements must be triggered on a
+        wrapper element.
+      </li>
+      <li>
+        When referenced from anchors that wrap across multiple lines, popovers will be centered
+        between the anchors’ overall width. Use
+        <code>.text-nowrap</code> on your <code>#reference</code> slot content to avoid this
+        behavior.
+      </li>
+      <li>
+        Popovers must be hidden before their corresponding elements have been removed from the DOM.
+      </li>
+      <li>Popovers can be triggered thanks to an element inside a shadow DOM.</li>
+    </ul>
+  </section>
+  <!--/Section: Overview-->
+
+  <hr class="my-5" />
+
+  <!--Section: Four directions-->
+  <section id="section-four-directions">
+    <!--Section title-->
+    <h2 class="mb-4">Four directions</h2>
+
+    <!-- Section description -->
+    <p>
+      Four options are available: top, right, bottom, and left aligned for
+      <code>direction</code> property.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 text-center mb-4">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-mdb-container="body"
+        data-mdb-toggle="popover"
+        data-mdb-placement="top"
+        data-mdb-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+      >
+        Popover on top
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-mdb-container="body"
+        data-mdb-toggle="popover"
+        data-mdb-placement="right"
+        data-mdb-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+      >
+        Popover on right
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-mdb-container="body"
+        data-mdb-toggle="popover"
+        data-mdb-placement="bottom"
+        data-mdb-content="Vivamus
+      sagittis lacus vel augue laoreet rutrum faucibus."
+      >
+        Popover on bottom
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-mdb-container="body"
+        data-mdb-toggle="popover"
+        data-mdb-placement="left"
+        data-mdb-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+      >
+        Popover on left
+      </button>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBPopover v-model="popover2" direction="top">
+              <template #reference>
+                <MDBBtn color="secondary" @click="popover2 = !popover2"
+                  >Popover on top</MDBBtn
+                >
+              </template>
+              <template #body
+                >Vivamus sagittis lacus vel augue laoreet rutrum
+                faucibus.</template
+              >
+            </MDBPopover>
+            <MDBPopover v-model="popover3" direction="right">
+              <template #reference>
+                <MDBBtn color="secondary" @click="popover3 = !popover3"
+                  >Popover on right</MDBBtn
+                >
+              </template>
+              <template #body
+                >Vivamus sagittis lacus vel augue laoreet rutrum
+                faucibus.</template
+              >
+            </MDBPopover>
+            <MDBPopover v-model="popover4">
+              <template #reference>
+                <MDBBtn color="secondary" @click="popover4 = !popover4"
+                  >Popover on bottom</MDBBtn
+                >
+              </template>
+              <template #body
+                >Vivamus sagittis lacus vel augue laoreet rutrum
+                faucibus.</template
+              >
+            </MDBPopover>
+            <MDBPopover v-model="popover5" direction="left">
+              <template #reference>
+                <MDBBtn color="secondary" @click="popover5 = !popover5"
+                  >Popover on left</MDBBtn
+                >
+              </template>
+              <template #body
+                >Vivamus sagittis lacus vel augue laoreet rutrum
+                faucibus.</template
+              >
+            </MDBPopover>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBPopover, MDBBtn} from "mdb-vue-ui-kit";
+            import { ref } from 'vue';
+  
+            export default {
+              components: {
+                MDBPopover, 
+                MDBBtn
+              },
+              setup() {
+                const popover2 = ref(false);
+                const popover3 = ref(false);
+                const popover4 = ref(false);
+                const popover5 = ref(false);
+  
+                return {
+                  popover2,
+                  popover3,
+                  popover4,
+                  popover5,
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Four directions-->
+
+  <hr class="my-5" />
+
+  <!--Section: Dismiss on next click-->
+  <section id="section-dismiss-on-next-click">
+    <!--Section title-->
+    <h2 class="mb-4">Dismiss on next click</h2>
+
+    <!-- Section description -->
+    <p>
+      Use the <code>dismissible</code> property to dismiss popovers on the user’s next click of a
+      different element than the toggle element.
+    </p>
+
+    <p class="note note-danger">
+      <strong>Specific markup required for dismiss-on-next-click:</strong>
+      <br />
+      For proper cross-browser and cross-platform behavior, you must use the
+      <code>anchor</code> element, <em>not</em> the <code>button</code> element, and you also must
+      include a
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex"
+        rel="nofollow"
+        target="_blank"
+        ><code>tabindex</code></a
+      >
+      attribute.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 text-center mb-4">
+      <a
+        tabindex="0"
+        class="btn btn-lg btn-danger"
+        role="button"
+        data-mdb-toggle="popover"
+        data-mdb-trigger="focus"
+        title="Dismissible popover"
+        data-mdb-content="And here's some amazing content. It's very engaging. Right?"
+        >Dismissible popover</a
+      >
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBPopover v-model="popover6" dismissible>
+              <template #reference>
+                <a
+                  class="btn btn-secondary"
+                  tabindex="0"
+                  @click="popover6 = !popover6"
+                  >Dismissible popover</a
+                >
+              </template>
+              <template #header>Dismissible popover</template>
+              <template #body
+                >And here's some amazing content. It's very engaging.
+                Right?</template
+              >
+            </MDBPopover>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBPopover } from "mdb-vue-ui-kit";
+            import { ref } from 'vue';
+  
+            export default {
+              components: {
+                MDBPopover
+              },
+              setup() {
+                const popover6 = ref(false);
+  
+                return {
+                  popover6
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Dismiss on next click-->
+
+  <hr class="my-5" />
+
+  <!--Section: Disabled elements-->
+  <section id="section-disabled-elements">
+    <!--Section title-->
+    <h2 class="mb-4">Disabled elements</h2>
+
+    <!-- Section description -->
+    <p>
+      Elements with the <code>disabled</code> attribute aren’t interactive, meaning users cannot
+      hover or click them to trigger a popover (or tooltip). As a workaround, you’ll want to trigger
+      the popover from a wrapper <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> and override
+      the <code>pointer-events</code> on the disabled element.
+    </p>
+
+    <p>
+      For disabled popover triggers, you may also prefer to use
+      <code>hover</code> property so that the popover appears as immediate visual feedback to your
+      users as they may not expect to <em>click</em> on a disabled element.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 text-center mb-4">
+      <span class="d-inline-block" data-mdb-toggle="popover" data-mdb-content="Disabled popover">
+        <button class="btn btn-primary" style="pointer-events: none" type="button" disabled>
+          Disabled button
+        </button>
+      </span>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBPopover v-model="popover7">
+              <template #reference>
+                <span @click="popover7 = !popover7">
+                  <MDBBtn color="secondary" disabled>Disabled button</MDBBtn>
+                </span>
+              </template>
+              <template #body>Disabled popover</template>
+            </MDBPopover>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBPopover, MDBBtn } from "mdb-vue-ui-kit";
+            import { ref } from 'vue';
+  
+            export default {
+              components: {
+                MDBPopover, 
+                MDBBtn
+              },
+              setup() {
+                const popover7 = ref(false);
+  
+                return {
+                  popover7
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Disabled elements-->
+</section>
+<!--Section: Docs content-->

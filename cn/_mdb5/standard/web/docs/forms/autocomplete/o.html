@@ -1,0 +1,478 @@
+<style>
+  .autocomplete-custom-item-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .autocomplete-custom-item-title {
+    font-weight: 500;
+  }
+
+  .autocomplete-custom-item-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .autocomplete-custom-content {
+    padding: 6.5px 16px;
+  }
+</style>
+
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+      <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button"
+        >MDB Pro组件 <i class="far fa-gem ms-1"></i
+      ></a>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p>自动填充组件会根据给出的前几个字母来预测要输入的单词
+      用户。您可以使用基本滚动条和键盘箭头搜索列表</p>
+
+    <p class="note note-light"><strong>注意</strong>：阅读<strong> API </strong>标签以找到所有可用选项，然后
+      高级定制</p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">基本例子</h2>
+
+    <p>为了使组件正常工作，需要<code> filter </code>选项。选项
+      接受预期返回结果数组或函数的函数
+      <code> Promise </code>可以解析为结果数组。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="basic" class="form-outline" style="width: 22rem">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="basic" class="form-outline">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Example label</label>
+          </div>
+        </code>
+
+        <code data-lang="js" data-name="Javascript">
+          const basicAutocomplete = document.querySelector('#basic');
+          const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(basicAutocomplete, {
+            filter: dataFilter
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Display value-->
+  <section id="section-display-value">
+    <!-- Section title -->
+    <h2 class="mb-4">显示值</h2>
+
+    <p><code> displayValue </code>选项允许将原始结果值与该值分开
+      将显示在结果列表或输入中（选择后）。当数据有用时
+      <code> filter </code>函数返回的是一个对象数组。您可以指定
+      应该显示对象的参数。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="displayValue" class="form-outline" style="width: 22rem">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="displayValue" class="form-outline">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Example label</label>
+            <div class="autocomplete-custom-content"></div>
+          </div>
+        </code>
+
+        <code data-lang="js" data-name="Javascript">
+          const displayValueAutocomplete = document.querySelector('#displayValue');
+          const data = [
+            { title: 'One', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+            { title: 'Two', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+            { title: 'Three', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+            { title: 'Four', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+            { title: 'Five', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' }
+          ];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.title.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(displayValueAutocomplete, {
+            filter: dataFilter,
+            displayValue: (value) => value.title,
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Display value-->
+
+  <hr class="my-5" />
+
+  <!--Section: Async search-->
+  <section id="section-async-search">
+    <!-- Section title -->
+    <h2 class="mb-4">异步搜索</h2>
+
+    <p>传递给<code> filter </code>选项的函数可以返回一个<code> Promise </code>
+      解析为一系列结果。默认情况下，组件希望以数组形式接收数据
+      的字符串。如果您想返回一个对象数组，则可以使用
+      <code> displayValue </code>选项，用于指定将哪个参数用作显示值
+      具体结果。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="async" class="form-outline" style="width: 22rem">
+        <input type="text" id="form2" class="form-control" />
+        <label class="form-label" for="form2">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="async" class="form-outline autocomplete">
+            <input type="text" id="form2" class="form-control" />
+            <label class="form-label" for="form2">Example label</label>
+          </div>
+        </code>
+
+        <code data-lang="javascript" data-name="Javascript">
+          const asyncAutocomplete = document.querySelector('#async');
+          const asyncFilter = async (query) => {
+            const url = `https://swapi.py4e.com/api/people/?search=${encodeURI(query)}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.results;
+          };
+
+          new mdb.Autocomplete(asyncAutocomplete, {
+            filter: asyncFilter,
+            displayValue: (value) => value.name
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Async search-->
+
+  <hr class="my-5" />
+
+  <!--Section: Threshold-->
+  <section id="section-threshold">
+    <!-- Section title -->
+    <h2 class="mb-4">阈</h2>
+
+    <p>使用<code> threshold </code>选项指定输入中的最少字符数
+      执行搜索操作所需的字段。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="threshold" class="form-outline" style="width: 22rem">
+        <input
+          type="text"
+          id="form3"
+          class="form-control"
+          placeholder="Type 2 characters to search"
+        />
+        <label class="form-label" for="form3">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="threshold" class="form-outline">
+            <input
+              type="text"
+              id="form3"
+              class="form-control"
+              placeholder="Type 2 characters to search"
+            />
+            <label class="form-label" for="form3">Example label</label>
+          </div>
+        </code>
+
+        <code data-lang="javascript" data-name="Javascript">
+          const thresholdAutocomplete = document.querySelector('#threshold');
+          const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(thresholdAutocomplete, {
+            filter: dataFilter,
+            threshold: 2
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Threshold-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom item template-->
+  <section id="section-custom-item">
+    <!-- Section title -->
+    <h2 class="mb-4">自定义项目模板</h2>
+
+    <p><code> itemContent </code>选项允许在结果列表中显示自定义HTML。您可以
+      当您要使用<code> listHeight </code>选项修改结果列表高度时，
+      在组件下拉列表中显示更多内容。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="customItem" class="form-outline" style="width: 22rem" data-mdb-list-height="290">
+        <input type="text" id="form4" class="form-control" />
+        <label class="form-label" for="form4">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="customItem" class="form-outline" data-mdb-list-height="290">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Example label</label>
+          </div>
+        </code>
+
+        <code data-lang="js" data-name="Javascript">
+          const customItemAutocomplete = document.querySelector('#customItem');
+          const data = [
+            { title: 'One', subtitle: 'Secondary text' },
+            { title: 'Two', subtitle: 'Secondary text' },
+            { title: 'Three', subtitle: 'Secondary text' },
+            { title: 'Four', subtitle: 'Secondary text' },
+            { title: 'Five', subtitle: 'Secondary text' },
+            { title: 'Six', subtitle: 'Secondary text' },
+          ];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.title.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(customItem, {
+            filter: dataFilter,
+            displayValue: (value) => value.title,
+            itemContent: (result) => {
+              return `
+                <div class="autocomplete-custom-item-content">
+                  <div class="autocomplete-custom-item-title">${result.title}</div>
+                  <div class="autocomplete-custom-item-subtitle">${result.subtitle}</div>
+                </div>
+              `;
+            },
+          });
+        </code>
+
+        <code data-lang="css" data-name="SCSS">
+          .autocomplete-custom-item-content {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .autocomplete-custom-item-title {
+            font-weight: 500;
+          }
+
+          .autocomplete-custom-item-subtitle {
+            font-size: 0.8rem;
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom item template-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom content-->
+  <section id="section-custom-content">
+    <!-- Section title -->
+    <h2 class="mb-4">自订内容</h2>
+
+    <p>具有类.autocomplete-custom-content的自定义内容容器将显示在
+      autocomplete-custom-item-subtitle下拉菜单的末尾。您可以使用它来显示许多
+      搜索结果。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="customContent" class="form-outline" style="width: 22rem">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="customContent" class="form-outline">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Example label</label>
+            <div class="autocomplete-custom-content"></div>
+          </div>
+        </code>
+
+        <code data-lang="js" data-name="Javascript">
+          const customContentAutocomplete = document.querySelector('#customContent');
+          const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(customContent, {
+            filter: dataFilter,
+            customContent: `
+              <div class="autocomplete-custom-content"></div>
+            `,
+          });
+
+          customContent.addEventListener('update.mdb.autocomplete', (event) => {
+            const resultsLength = event.results.length;
+
+            setTimeout(() => {
+              customContentContainer = document.querySelector('.autocomplete-custom-content');
+              customContentContainer.innerHTML = `Search results: ${resultsLength}`;
+            }, 0);
+          });
+        </code>
+
+        <code data-lang="css" data-name="SCSS">
+          .autocomplete-custom-content {
+            padding: 6.5px 16px;
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom content-->
+
+  <hr class="my-5" />
+
+  <!--Section: Validation-->
+  <section id="section-validation">
+    <!-- Section title -->
+    <h2 class="mb-4">验证方式</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <form class="needs-validation" novalidate style="width: 22rem">
+        <div id="validation" class="form-outline">
+          <input type="text" id="form6" class="form-control" required />
+          <label class="form-label" for="form6">Example label</label>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Input value is required</div>
+        </div>
+
+        <button type="submit" id="submit" class="btn btn-primary btn-sm mt-3">Submit</button>
+      </form>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form class="needs-validation" novalidate style="width: 22rem;">
+            <div id="validation" class="form-outline">
+              <input type="text" id="form6" class="form-control" required />
+              <label class="form-label" for="form6">Example label</label>
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Input value is required</div>
+            </div>
+
+            <button type="submit" id="submit" class="btn btn-primary btn-sm mt-3">
+              Submit
+            </button>
+          </form>
+        </code>
+
+        <code data-lang="js" data-name="Javascript">
+          const validationAutocomplete = document.querySelector('#validation');
+          const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+          const dataFilter = (value) => {
+            return data.filter((item) => {
+              return item.toLowerCase().startsWith(value.toLowerCase());
+            });
+          };
+
+          new mdb.Autocomplete(validationAutocomplete, {
+            filter: dataFilter
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Validation-->
+</section>
+<!--Section: Docs content-->

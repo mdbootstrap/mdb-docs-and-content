@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Containers',
-  'seo_title' => 'Vue Containers - Bootstrap 5 & Material Design 2.0',
-  'description' => 'Containers utilities built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
+  'subheading' => 'Vue Bootstrap 5 Containers',
+  'seo_title' => 'Vue Containers - examples & tutorial. Bootstrap & Material Design',
+  'description' => 'Responsive Vue Containers with the latest Bootstrap 5. Multiple code examples: fluid container, responsive containers, grid system & many more.',
   'url' => 'https://mdbootstrap.com/docs/b5/vue/layout/containers/',
   'image' => '',
   'video' => '',

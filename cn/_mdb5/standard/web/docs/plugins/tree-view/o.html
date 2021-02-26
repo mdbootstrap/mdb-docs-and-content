@@ -1,12 +1,17 @@
+<link
+  rel="stylesheet"
+  href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/treeview.min.css?v=
+  <?= STANDARD_DOCS_BUNDLE_VERSION; ?>"
+/>
 <!--Section: Docs content-->
-<section>
+<section class="mdb-docs-content-pro">
   <!--Section: Introduction-->
   <section id="section-introduction">
     <!-- Main title -->
-    <h2 class="h1 font-weight-bold">
+    <h2 class="h1 fw-bold">
       <?= $data_var['main_title']; ?>
-      <a class="btn btn-danger" href="https://mdbootstrap.com/cn/docs/standard/pro/" role="button"
-        >MDB Pro 组件<i class="far fa-gem ml-1"></i
+      <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button"
+        >MDB Pro component <i class="far fa-gem ms-1"></i
       ></a>
     </h2>
 
@@ -14,11 +19,15 @@
     <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
 
     <!-- Description -->
-    <p></p>
+    <p>MDB treeview插件用于显示从根项开始的层次结构信息
+      并继续其子孙及其子女。除根以外的每个项目都有一个
+      父母，可以有孩子。</p>
 
-    <p class="note note-light">
-      <strong>注意</strong>:阅读<strong> API </strong>标签以找到所有可用选项，并 高级定制
-    </p>
+    <p>父节点是层次结构中较高的节点，子节点是层次结构中较低的节点。
+      兄弟姐妹是具有相同父代的项。项目可以展开和折叠。</p>
+
+    <p class="note note-light"><strong>注意</strong>：阅读<strong> API </strong>标签以找到所有可用选项，然后
+      高级定制</p>
 
     <span class="dpl-newmdb-docs-alert-advanced"></span>
   </section>
@@ -26,28 +35,1463 @@
 
   <hr class="my-5" />
 
-  <!--Section: Basic example-->
-  <section id="section-basic-example">
+  <!--Section: Basic example - DOM-->
+  <section id="section-basic-example-dom">
     <!-- Section title -->
-    <h2 class="mb-4">基本例子</h2>
+    <h2 class="mb-4">基本示例-DOM</h2>
+
+    <!-- Description -->
+    <p>将<code> .treeview </code>类与列表一起添加到容器中以初始化组件
+      结构体。如果您想嵌套列表，请在其中包裹<code> li </code>标记的文本
+      <code> a </code>标记，并在其后定义其他<code> ul </code>。将<code> .show </code>类添加到
+      您要从头开始扩展的列表。</p>
 
     <!--Section: Demo-->
-    <section class="border p-4 text-center mb-4"></section>
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-treeview-duration="1">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
     <!--Section: Demo-->
 
     <!--Section: Code-->
     <section>
+      <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML"> </code>
-
-        <code data-lang="css" data-name="CSS"> </code>
-
-        <code data-lang="js" data-name="JavaScript"> </code>
+        <code data-lang="html" data-name="HTML">
+          <div class="treeview">
+            <ul>
+              <li>One</li>
+              <li>Two</li>
+              <li>
+                <a>Three</a>
+                <ul class="show">
+                  <li>Second-one</li>
+                  <li>Second-two</li>
+                  <li>
+                    <a>Second-three</a>
+                    <ul>
+                      <li>
+                        <a>Third-one</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                      <li>Third-two</li>
+                      <li>
+                        <a>Third-three</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
   </section>
-  <!--Section: Basic example-->
+  <!--Section: Basic example - DOM-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example - JavaScript-->
+  <section id="section-basic-example-javascript">
+    <!-- Section title -->
+    <h2 class="mb-4">基本示例-JavaScript</h2>
+
+    <div>
+      <p>您可以仅使用JavaScript定义树的整体结构。数据中有一些道具
+        您可以用来自定义它：</p>
+      <ul>
+        <li> <code>名称</code>-为项目定义文本</li>
+        <li> <code> children </code>-定义一个嵌套列表及其子级</li>
+        <li> <code> icon </code>-为嵌套列表定义自定义展开图标</li>
+        <li> <code> show </code>-定义列表是否从头开始扩展</li>
+        <li> <code> disabled </code>-定义列表项是否被禁用</li>
+      </ul>
+    </div>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div id="sample-element"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="sample-element"></div>
+        </code>
+        <code data-lang="javascript" data-name="JavaScript">
+          const jsTreeview = document.getElementById('sample-element');
+
+          const jsInstance = new mdb.Treeview(jsTreeview, {
+            structure: [
+              {name: 'One'},
+              {name: 'Two'},
+              {name: 'Three', children: [
+                {name: 'Second-one'},
+                {name: 'Second-two'},
+                {name: 'Second-three', children: [
+                  {name: 'Third-one', children: [
+                    {name: 'Fourth-one'},
+                    {name: 'Fourth-two'},
+                    {name: 'Fourth-three'}
+                  ]},
+                  {name: 'Third-two'},
+                  {name: 'Third-three', children: [
+                    {name: 'Fourth-one'},
+                    {name: 'Fourth-two'},
+                    {name: 'Fourth-three'}
+                  ]}
+                ]}
+              ]}
+            ],
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example - JavaScript-->
+
+  <hr class="my-5" />
+
+  <!--Section: Open on click-->
+  <section id="section-open-on-click">
+    <!-- Section title -->
+    <h2 class="mb-4">打开项目单击</h2>
+
+    <p>使用<code> data-mdb-open-on-click </code>来定义Treeview的打开列表，方法是仅单击
+      箭头或整个列表项。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-open-on-click="false">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="treeview" data-mdb-open-on-click="false">
+            <ul>
+              <li>One</li>
+              <li>Two</li>
+              <li>
+                <a>Three</a>
+                <ul class="show">
+                  <li>Second-one</li>
+                  <li>Second-two</li>
+                  <li>
+                    <a>Second-three</a>
+                    <ul>
+                      <li>
+                        <a>Third-one</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                      <li>Third-two</li>
+                      <li>
+                        <a>Third-three</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Open on click-->
+
+  <hr class="my-5" />
+
+  <!--Section: Accordion-->
+  <section id="section-accordion">
+    <!-- Section title -->
+    <h2 class="mb-4">手风琴</h2>
+
+    <p>使用<code> data-mdb-accordion </code>属性在以下位置启用或禁用仅打开一个列表
+      同一级别。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-accordion="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="treeview" data-mdb-accordion="true">
+            <ul>
+              <li>One</li>
+              <li>Two</li>
+              <li>
+                <a>Three</a>
+                <ul class="show">
+                  <li>Second-one</li>
+                  <li>Second-two</li>
+                  <li>
+                    <a>Second-three</a>
+                    <ul>
+                      <li>
+                        <a>Third-one</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                      <li>Third-two</li>
+                      <li>
+                        <a>Third-three</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Accordion-->
+
+  <hr class="my-5" />
+
+  <!--Section: Selectable-->
+  <section id="section-selectable">
+    <!-- Section title -->
+    <h2 class="mb-4">可选择的</h2>
+
+    <p>使用<code> data-mdb-selectable </code>属性在每个列表项中设置复选框。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-selectable="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="treeview" data-mdb-selectable="true">
+            <ul>
+              <li>One</li>
+              <li>Two</li>
+              <li>
+                <a>Three</a>
+                <ul class="show">
+                  <li>Second-one</li>
+                  <li>Second-two</li>
+                  <li>
+                    <a>Second-three</a>
+                    <ul>
+                      <li>
+                        <a>Third-one</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                      <li>Third-two</li>
+                      <li>
+                        <a>Third-three</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Selectable-->
+
+  <hr class="my-5" />
+
+  <!--Section: Expand-->
+  <section id="section-expand">
+    <!-- Section title -->
+    <h2 class="mb-4">扩大</h2>
+
+    <p>使用展开树视图到特定列表
+      <code> expand（ID）</code>方法。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary" id="expand-example-button">
+            Expand first list
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="expand-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul id="expand-example-item">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="row justify-content-center mb-3">
+            <div class="col-md-3">
+              <button type="button" class="btn btn-primary" id="expand-example-button">
+                Expand first list
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="treeview" id="expand-example">
+              <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>
+                  <a>Three</a>
+                  <ul id="expand-example-item">
+                    <li>Second-one</li>
+                    <li>Second-two</li>
+                    <li>
+                      <a>Second-three</a>
+                      <ul>
+                        <li>
+                          <a>Third-one</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                        <li>Third-two</li>
+                        <li>
+                          <a>Third-three</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </code>
+        <code data-lang="javascript" data-name="JavaScript">
+          const expandTreeview = document.getElementById('expand-example');
+          const expandButton = document.getElementById('expand-example-button');
+
+          const expandInstance = mdb.Treeview.getInstance(expandTreeview);
+
+          expandButton.addEventListener('click', () => {
+            expandInstance.expand('level-expand-example-item');
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Expand-->
+
+  <hr class="my-5" />
+
+  <!--Section: Collapse-->
+  <section id="section-collapse">
+    <!-- Section title -->
+    <h2 class="mb-4">坍方</h2>
+
+    <p>使用<code> collapse（）</code>方法折叠树视图。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary" id="collapse-example-button">
+            Collapse treeview
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="collapse-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul class="show">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul class="show">
+                    <li>
+                      <a>Third-one</a>
+                      <ul class="show">
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul class="show">
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="row justify-content-center mb-3">
+            <div class="col-md-3">
+              <button type="button" class="btn btn-primary" id="collapse-example-button">
+                Collapse treeview
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="treeview" id="collapse-example">
+              <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>
+                  <a>Three</a>
+                  <ul class="show">
+                    <li>Second-one</li>
+                    <li>Second-two</li>
+                    <li>
+                      <a>Second-three</a>
+                      <ul class="show">
+                        <li>
+                          <a>Third-one</a>
+                          <ul class="show">
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                        <li>Third-two</li>
+                        <li>
+                          <a>Third-three</a>
+                          <ul class="show">
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </code>
+        <code data-lang="javascript" data-name="JavaScript">
+          const collapseTreeview = document.getElementById('collapse-example');
+          const collapseButton = document.getElementById('collapse-example-button');
+
+          const collapseInstance = mdb.Treeview.getInstance(collapseTreeview);
+
+          collapseButton.addEventListener('click', () => {
+            collapseInstance.collapse();
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Collapse-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom icons - DOM-->
+  <section id="section-custom-icons-dom">
+    <!-- Section title -->
+    <h2 class="mb-4">自定义图标-DOM</h2>
+
+    <p>您可以将自定义图标添加到树视图中。对于非嵌套元素-粘贴代码
+      项目中的图标。对于嵌套元素-使用以下命令声明<code> span </code>标签
+      在<code> a </code>元素内的<code> aria-label =“ toggle” </code>属性并将其粘贴到
+      您的图标的代码。</p>
+
+    <p>使用<code> data-mdb-rotation-angle </code>属性定义嵌套的旋转角度
+      列出图标。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="treeview">
+        <ul>
+          <li><i class="fas fa-dot-circle"></i> One</li>
+          <li><i class="fas fa-dot-circle"></i> Two</li>
+          <li>
+            <a>
+              <span
+                aria-label="toggle"
+                class="ripple"
+                data-mdb-ripple-unbound="true"
+                data-mdb-ripple-centered="true"
+                data-mdb-ripple-color="dark"
+                ><i class="fas fa-angle-double-right"></i
+              ></span>
+              Three
+            </a>
+            <ul class="show" id="custom-icon-list">
+              <li><i class="fas fa-dot-circle"></i> Second-one</li>
+              <li><i class="fas fa-dot-circle"></i> Second-two</li>
+              <li>
+                <a
+                  ><span
+                    aria-label="toggle"
+                    class="ripple"
+                    data-mdb-ripple-unbound="true"
+                    data-mdb-ripple-centered="true"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fas fa-angle-double-right"></i
+                  ></span>
+                  Second-three</a
+                >
+                <ul>
+                  <li><i class="fas fa-dot-circle"></i> Third-one</li>
+                  <li><i class="fas fa-dot-circle"></i> Third-two</li>
+                  <li><i class="fas fa-dot-circle"></i> Third-three</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="treeview">
+            <ul>
+              <li><i class="fas fa-dot-circle"></i> One</li>
+              <li><i class="fas fa-dot-circle"></i> Two</li>
+              <li>
+                <a>
+                  <span
+                    aria-label="toggle"
+                    class="ripple"
+                    data-mdb-ripple-unbound="true"
+                    data-mdb-ripple-centered="true"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fas fa-angle-double-right"></i
+                  ></span>
+                  Three
+                </a>
+                <ul class="show" id="custom-icon-list">
+                  <li><i class="fas fa-dot-circle"></i> Second-one</li>
+                  <li><i class="fas fa-dot-circle"></i> Second-two</li>
+                  <li>
+                    <a
+                      ><span
+                        aria-label="toggle"
+                        class="ripple"
+                        data-mdb-ripple-unbound="true"
+                        data-mdb-ripple-centered="true"
+                        data-mdb-ripple-color="dark"
+                        ><i class="fas fa-angle-double-right"></i
+                      ></span>
+                      Second-three</a
+                    >
+                    <ul>
+                      <li><i class="fas fa-dot-circle"></i> Third-one</li>
+                      <li><i class="fas fa-dot-circle"></i> Third-two</li>
+                      <li><i class="fas fa-dot-circle"></i> Third-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom icons - DOM-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Custom icons - JavaScript-->
+  <section id="subsection-custom-icons-javascript">
+    <!-- Section title -->
+    <h2 class="mb-4">自定义图标-JavaScript</h2>
+
+    <p>通过将图标代码粘贴到列表元素中，将图标添加到列表元素
+      <code> name </code>属性。如果要更改嵌套列表中的可旋转图标，请使用
+      改为使用<code> icon </code>属性。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="custom-icons-js"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="custom-icons-js"></div>
+        </code>
+        <code data-lang="javascript" data-name="JavaScript">
+          const customIconsTreeview = document.getElementById('custom-icons-js');
+
+          const customIconsInstance = new mdb.Treeview(customIconsTreeview, {
+            structure: [
+              { name: '<i class="fas fa-dot-circle"></i> One' },
+              { name: '<i class="fas fa-dot-circle"></i> Two' },
+              {
+                name: ' Three',
+                show: true,
+                icon: '<i class="fas fa-angle-double-right"></i>',
+                children: [
+                  { name: '<i class="fas fa-dot-circle"></i> Second-one' },
+                  { name: '<i class="fas fa-dot-circle"></i> Second-two' },
+                  {
+                    name: ' Second-three',
+                    icon: '<i class="fas fa-angle-double-right"></i>',
+                    children: [
+                      {
+                        name: ' Third-one',
+                        icon: '<i class="fas fa-angle-double-right"></i>',
+                        children: [
+                          { name: '<i class="fas fa-dot-circle"></i> Fourth-one' },
+                          { name: '<i class="fas fa-dot-circle"></i> Fourth-two' },
+                          { name: '<i class="fas fa-dot-circle"></i> Fourth-three' },
+                        ],
+                      },
+                      { name: '<i class="fas fa-dot-circle"></i> Third-two' },
+                      {
+                        name: ' Third-three',
+                        icon: '<i class="fas fa-angle-double-right"></i>',
+                        children: [
+                          { name: '<i class="fas fa-dot-circle"></i> Fourth-one' },
+                          { name: '<i class="fas fa-dot-circle"></i> Fourth-two' },
+                          { name: '<i class="fas fa-dot-circle"></i> Fourth-three' },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Custom icons - JavaScript-->
+
+  <hr class="my-5" />
+
+  <!--Section: Color-->
+  <section id="section-color">
+    <!-- Section title -->
+    <h2 class="mb-4">颜色</h2>
+
+    <p>使用设置活动项目的颜色
+      <code> data-mdb-treeview-color </code>属性。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="text-center mb-5">
+        <button type="button" class="btn btn-primary" id="primary">Primary</button>
+        <button type="button" class="btn btn-secondary" id="secondary">Secondary</button>
+        <button type="button" class="btn btn-warning" id="warning">Warning</button>
+        <button type="button" class="btn btn-danger" id="danger">Danger</button>
+        <button type="button" class="btn btn-info" id="info">Info</button>
+        <button type="button" class="btn btn-success" id="success">Success</button>
+        <button type="button" class="btn btn-dark" id="dark">Dark</button>
+      </div>
+
+      <div class="row text-center">
+        <h5>Current color: <span id="current-color">primary</span></h5>
+      </div>
+
+      <div class="row mt-4">
+        <div class="treeview" id="color-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul class="show">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="text-center mb-5">
+            <button type="button" class="btn btn-primary" id="primary">
+              Primary
+            </button>
+            <button type="button" class="btn btn-secondary" id="secondary">
+              Secondary
+            </button>
+            <button type="button" class="btn btn-warning" id="warning">
+              Warning
+            </button>
+            <button type="button" class="btn btn-danger" id="danger">
+              Danger
+            </button>
+            <button type="button" class="btn btn-info" id="info">
+              Info
+            </button>
+            <button type="button" class="btn btn-success" id="success">
+              Success
+            </button>
+            <button type="button" class="btn btn-dark" id="dark">
+              Dark
+            </button>
+          </div>
+
+          <div class="row text-center">
+            <h5>Current color: <span id="current-color">primary</span></h5>
+          </div>
+
+          <div class="row mt-4">
+            <div class="treeview" id="color-example">
+              <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>
+                  <a>Three</a>
+                  <ul class="show">
+                    <li>Second-one</li>
+                    <li>Second-two</li>
+                    <li>
+                      <a>Second-three</a>
+                      <ul>
+                        <li>
+                          <a>Third-one</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                        <li>Third-two</li>
+                        <li>
+                          <a>Third-three</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </code>
+        <code data-lang="javascript" data-name="JavaScript">
+          const buttonsID = [
+          'primary',
+          'secondary',
+          'warning',
+          'danger',
+          'info',
+          'success',
+          'dark',
+        ];
+
+        const currentColor = document.getElementById('current-color');
+
+        const colorTreeviewEl = document.getElementById('color-example');
+
+        buttonsID.forEach((id) => {
+          const button = document.getElementById(id);
+
+          button.addEventListener('click', () => {
+            buttonsID.forEach((color) => {
+              colorTreeviewEl.classList.remove(`treeview-${color}`);
+            });
+
+            colorTreeviewEl.classList.add(`treeview-${id}`);
+            currentColor.innerText = id;
+          })
+        });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Color-->
+
+  <hr class="my-5" />
+
+  <!--Section: Line-->
+  <section id="section-line">
+    <!-- Section title -->
+    <h2 class="mb-4">线</h2>
+
+    <p>使用<code> data-mdb-line </code>属性在每个嵌套列表中设置另一行。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-line="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="treeview" data-mdb-line="true">
+            <ul>
+              <li>One</li>
+              <li>Two</li>
+              <li>
+                <a>Three</a>
+                <ul class="show">
+                  <li>Second-one</li>
+                  <li>Second-two</li>
+                  <li>
+                    <a>Second-three</a>
+                    <ul>
+                      <li>
+                        <a>Third-one</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                      <li>Third-two</li>
+                      <li>
+                        <a>Third-three</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Line-->
+
+  <hr class="my-5" />
+
+  <!--Section: Disabled - DOM-->
+  <section id="section-disabled-dom">
+    <!-- Section title -->
+    <h2 class="mb-4">禁用-DOM</h2>
+
+    <p>将<code> .treeview-disabled </code>类添加到<code> a </code>（如果嵌套）中，或者
+      <code> li </code>标记可禁用您的列表项。您可以展开禁用的项目，但不能
+      选择它们。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-selectable="true">
+        <ul>
+          <li>One</li>
+          <li class="treeview-disabled">Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a class="treeview-disabled">Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="treeview">
+            <ul>
+              <li>One</li>
+              <li class="treeview-disabled">Two</li>
+              <li>
+                <a>Three</a>
+                <ul class="show">
+                  <li>Second-one</li>
+                  <li>Second-two</li>
+                  <li>
+                    <a class="treeview-disabled">Second-three</a>
+                    <ul>
+                      <li>
+                        <a>Third-one</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                      <li>Third-two</li>
+                      <li>
+                        <a>Third-three</a>
+                        <ul>
+                          <li>Fourth-one</li>
+                          <li>Fourth-two</li>
+                          <li>Fourth-three</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Disabled - DOM-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Disabled - JavaScript-->
+  <section id="subsection-disabled-javascript">
+    <!-- Section title -->
+    <h2 class="mb-4">禁用-JavaScript</h2>
+
+    <p>要生成禁用的列表项，请使用<code> disabled </code>属性。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div id="disabled-element"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="disabled-element"></div>
+        </code>
+        <code data-lang="javascript" data-name="JavaScript">
+          const disabledTreeview = document.getElementById('disabled-element');
+
+          const disabledTreeviewInstance = new Treeview(disabledTreeview, {
+            structure: [
+              { name: 'One', disabled: true },
+              { name: 'Two' },
+              {
+                name: ' Three',
+                show: true,
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: ' Second-three',
+                    disabled: true,
+                    children: [
+                      {
+                        name: ' Third-one',
+                        children: [
+                          { name: 'Fourth-one' },
+                          { name: 'Fourth-two' },
+                          { name: 'Fourth-three' },
+                        ],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: ' Third-three',
+                        children: [
+                          { name: 'Fourth-one' },
+                          { name: 'Fourth-two' },
+                          { name: 'Fourth-three' },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Disabled - JavaScript-->
+
+  <hr class="my-5" />
+
+  <!--Section: Filter-->
+  <section id="section-filter">
+    <!-- Section title -->
+    <h2 class="mb-4">过滤</h2>
+
+    <p>使用<code> .filter（string）</code>方法来展开满足您要求的列表项。</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row mb-4 justify-content-center">
+        <div class="col-md-6">
+          <div class="form-outline">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Find in the treeview</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="filter-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul>
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="row mb-4 justify-content-center">
+            <div class="col-md-6">
+              <div class="form-outline">
+                <input type="text" id="form1" class="form-control" />
+                <label class="form-label" for="form1">Find in the treeview</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="treeview" id="filter-example">
+              <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>
+                  <a>Three</a>
+                  <ul>
+                    <li>Second-one</li>
+                    <li>Second-two</li>
+                    <li>
+                      <a>Second-three</a>
+                      <ul>
+                        <li>
+                          <a>Third-one</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                        <li>Third-two</li>
+                        <li>
+                          <a>Third-three</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </code>
+        <code data-lang="javascript" data-name="JavaScript">
+          const filterTreeview = document.getElementById('filter-example');
+          const filteringInput = document.getElementById('form1');
+
+          const filterTreeviewInstance = Treeview.getInstance(filterTreeview);
+
+          filteringInput.addEventListener('change', () => {
+            const value = filteringInput.value;
+
+            filterTreeviewInstance.filter(value);
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Filter-->
 
   <hr class="my-5" />
 </section>

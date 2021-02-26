@@ -3,7 +3,7 @@
   <!--Section: Introduction-->
   <section id="api-section-introduction">
     <!-- Main title -->
-    <h2 class="h1 font-weight-bold">
+    <h2 class="h1 fw-bold">
       <?= $data_var['main_title']; ?>
       - API
     </h2>
@@ -17,13 +17,11 @@
     <!-- Section title -->
     <h2 class="mb-4">用法</h2>
 
-    <!--Section: Code-->
-    <section>
-      <mdbsnippet>
-        <code data-lang="html" data-name="HTML"> </code>
-      </mdbsnippet>
-    </section>
-    <!--Section: Code-->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        const dataParser = new DataParser('datatable', 'csv', options); dataParser.parse(data);
+      </code>
+    </mdbsnippet>
   </section>
   <!--Section: Usage-->
 
@@ -33,25 +31,1542 @@
   <section id="api-section-options">
     <!-- Section title -->
     <h2 class="mb-4">选件</h2>
+
+    <p>构造函数接受三个参数：</p>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Type</th>
+            <th class="th-sm">Default</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">strategy</code>
+            </td>
+            <td><i>String</i></td>
+            <td><code>'datatable'</code></td>
+            <td>Available values: datatable, vectorMap, treeview, chart</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">format</code></td>
+            <td><i>String</i></td>
+            <td><code>'csv'</code></td>
+            <td>Available values: csv, json</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">options</code>
+            </td>
+            <td><i>Object</i></td>
+            <td><code></code></td>
+            <td>Available options depend on selected strategy</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
   <!--Section: Options-->
 
   <hr class="my-5" />
 
-  <!--Section: Methods-->
-  <section id="api-section-methods">
+  <!--Section: Datatable-->
+  <section id="api-section-datatable">
     <!-- Section title -->
-    <h2 class="mb-4">方法</h2>
+    <h2 class="mb-4">数据表</h2>
+
+    <p></p>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-datatable-csv">
+      <h3 class="my-4">CSV options</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows</code>
+              </td>
+              <td><i>Object</i></td>
+              <td><code>{ start: 0 }</code></td>
+              <td>
+                Defines which rows should be parsed - either with start/end values or an array of
+                indexes.
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.start</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>Index of the first data row</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.end</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>
+                Index of the last data row (when undefined it will be the last available index)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.indexes</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>Set of row's indexes to parse</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">columns</code>
+              </td>
+              <td><i>Object</i></td>
+              <td><code>{ start: 0 }</code></td>
+              <td>
+                Defines which columns should be parsed - either with start/end values or an array of
+                indexes.
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">columns.start</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>Index of the first data column</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">columns.end</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>
+                Index of the last data column (when undefined it will be the last available index)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">columns.indexes</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>Set of column indexes to parse</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">headerIndex</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>-1</code></td>
+              <td>
+                Index of the line containing headers (f.e. when set to 0, rows.start should be 1)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">delimiter</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>,</code></td>
+              <td>Character separating values in a file</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-datatable-json">
+      <h3 class="my-4">JSON options</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows</code>
+              </td>
+              <td><i>Object</i></td>
+              <td><code>{ start: 0 }</code></td>
+              <td>
+                Defines which rows should be parsed - either with start/end values or an array of
+                indexes.
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.start</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>Index of the first data row</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.end</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>
+                Index of the last data row (when undefined it will be the last available index)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.indexes</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>Set of row's indexes to parse</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">keys</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>Array of keys (columns) to parse (by default all)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-datatable-methods">
+      <h3 class="my-4">方法</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Parameters</th>
+              <th class="th-sm">Description</th>
+              <th class="th-sm">Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">parse</code>
+              </td>
+              <td>data (csv/json)</td>
+              <td>
+                Returns data parsed into the format required by the component (depends on strategy
+              </td>
+              <td>
+                <code class="language-markup text-nowrap">dataParser.parse(csvData)</code>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">getValueExtrema</code>
+              </td>
+              <td>data (csv/json), field (index/key)</td>
+              <td>Returns maximum and minimum values in a row</td>
+              <td>
+                <code class="language-markup text-nowrap"
+                  >dataParser.getValueExtrema(csvData, 3)</code
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </section>
-  <!--Section: Methods-->
+  <!--Section: Datatable-->
 
   <hr class="my-5" />
 
-  <!--Section: Events-->
-  <section id="api-section-events">
+  <!--Section: Vector Maps-->
+  <section id="api-section-maps">
     <!-- Section title -->
-    <h2 class="mb-4">大事记</h2>
+    <h2 class="mb-4">矢量地图</h2>
+
+    <p></p>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-maps-csv">
+      <h3 class="my-4">CSV options</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows</code>
+              </td>
+              <td><i>Object</i></td>
+              <td><code>{ start: 0 }</code></td>
+              <td>
+                Defines which rows should be parsed - either with start/end values or an array of
+                indexes.
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.start</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>Index of the first data row</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.end</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>
+                Index of the last data row (when undefined it will be the last available index)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.indexes</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>Set of row's indexes to parse</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">headerIndex</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>-1</code></td>
+              <td>
+                Index of a line containing headers (if set, rows' start should be moved to the next
+                index)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">delimiter</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>,</code></td>
+              <td>Character separating values in a file</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">color</code>
+              </td>
+              <td><i>String, Array</i></td>
+              <td><code>'blue'</code></td>
+              <td>
+                Name of the color palette (see more in section below) or an array of custom colors
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">field</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>Index of a value based on which a region should be colored</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">countryIdentifier</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>
+                Index of a field containing country identifier (alpha2code, alpha3code, country's
+                name)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">countries</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>
+                Array of identifiers - if defined, only those countries will appear in the colorMap
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">tooltips</code>
+              </td>
+              <td><i>Function</i></td>
+              <td><code></code></td>
+              <td>Allows generating custom tooltips</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-maps-json">
+      <h3 class="my-4">JSON选项</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows</code>
+              </td>
+              <td><i>Object</i></td>
+              <td><code>{ start: 0 }</code></td>
+              <td>
+                Defines which rows should be parsed - either with start/end values or an array of
+                indexes.
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.start</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>Index of the first data row</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.end</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>
+                Index of the last data row (when undefined it will be the last available index)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.indexes</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>Set of row's indexes to parse</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">color</code>
+              </td>
+              <td><i>String, Array</i></td>
+              <td><code>'blue'</code></td>
+              <td>
+                Name of the color palette (see more in section below) or an array of custom colors
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">field</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code></code></td>
+              <td>Key based on which a region should be colored</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">countryIdentifier</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code></code></td>
+              <td>Key containing country identifier (alpha2code, alpha3code, country's name)</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">countries</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>
+                Array of identifiers - if set, only those countries will appear in the colorMap
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">tooltips</code>
+              </td>
+              <td><i>Function</i></td>
+              <td><code></code></td>
+              <td>Allows generating custom tooltips</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-maps-colors">
+      <h3 class="my-4">彩色图</h3>
+
+      <p>
+        从我们的颜色中选择一种
+        <a
+          target="_blank"
+          href="https://mdbootstrap.com/docs/standard/content-styles/colors/#section-full-palette"
+          >完整的调色板</a
+        >
+        为您的颜色图：
+      </p>
+
+      <ul>
+        <li><code>red</code></li>
+        <li><code>pink</code></li>
+        <li><code>purple</code></li>
+        <li><code>deepPurple</code></li>
+        <li><code>indigo</code></li>
+        <li><code>lightBlue</code></li>
+        <li><code>cyan</code></li>
+        <li><code>teal</code></li>
+        <li><code>green</code></li>
+        <li><code>lightGreen</code></li>
+        <li><code>lime</code></li>
+        <li><code>yellow</code></li>
+        <li><code>amber</code></li>
+        <li><code>orange</code></li>
+        <li><code>deepOrange</code></li>
+        <li><code>gray</code></li>
+        <li><code>blueGray</code></li>
+      </ul>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-maps-methods">
+      <h3 class="my-4">方法</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Parameters</th>
+              <th class="th-sm">Description</th>
+              <th class="th-sm">Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">parse</code>
+              </td>
+              <td>data (csv/json)</td>
+              <td>
+                Returns data parsed into the format required by the component (depends on strategy
+              </td>
+              <td>
+                <code class="language-markup text-nowrap">dataParser.parse(csvData)</code>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">getValueExtrema</code>
+              </td>
+              <td>data (csv/json), field (index/key)</td>
+              <td>Returns maximum and minimum values in a row</td>
+              <td>
+                <code class="language-markup text-nowrap"
+                  >dataParser.getValueExtrema(csvData, 3)</code
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </section>
-  <!--Section: Events-->
+  <!--Section: Vector Maps-->
+
+  <hr class="my-5" />
+
+  <!--Section: Charts-->
+  <section id="api-section-charts">
+    <!-- Section title -->
+    <h2 class="mb-4">图表</h2>
+
+    <p></p>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-charts-csv">
+      <h3 class="my-4">CSV options</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows</code>
+              </td>
+              <td><i>Object</i></td>
+              <td><code>{ start: 0 }</code></td>
+              <td>
+                Defines which rows should be parsed - either with start/end values or an array of
+                indexes.
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.start</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>Index of the first data row</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.end</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>
+                Index of the last data row (when undefined it will be the last available index)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.indexes</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>Set of row's indexes to parse</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">columns</code>
+              </td>
+              <td><i>Object</i></td>
+              <td><code>{ start: 0 }</code></td>
+              <td>
+                Defines which columns should be parsed - either with start/end values or an array of
+                indexes.
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">columns.start</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>Index of the first data column</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">columns.end</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>
+                Index of the last data column (when undefined it will be the last available index)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">columns.indexes</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>Set of column indexes to parse</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">datasetLabel</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>
+                Index of a value in each entry which should be treated as a label for a dataset
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">delimiter</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>,</code></td>
+              <td>Character separating values in a file</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">labelsIndex</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>-1</code></td>
+              <td>Index of a row in .csv file containing value labels</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">formatLabel</code>
+              </td>
+              <td><i>Function</i></td>
+              <td><code>(label) => label</code></td>
+              <td>Function formatting labels (per value, not dataset)</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">color</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>mdb</code></td>
+              <td>Color palette from which values will be assigned to datasets</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">getCoordinates</code>
+              </td>
+              <td><i>function</i></td>
+              <td><code></code></td>
+              <td>
+                Function which takes an entry as its parameter and should return an object with
+                coordinates (bubble, scatter chart)
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-charts-json">
+      <h3 class="my-4">JSON选项</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows</code>
+              </td>
+              <td><i>Object</i></td>
+              <td><code>{ start: 0 }</code></td>
+              <td>
+                Defines which rows should be parsed - either with start/end values or an array of
+                indexes.
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.start</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code>0</code></td>
+              <td>Index of the first data row</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.end</code>
+              </td>
+              <td><i>Number</i></td>
+              <td><code></code></td>
+              <td>
+                Index of the last data row (when undefined it will be the last available index)
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">rows.indexes</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>Set of row's indexes to parse</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">keys</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code></code></td>
+              <td>Set of keys which should be parsed</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">ignoreKeys</code>
+              </td>
+              <td><i>Array</i></td>
+              <td><code>[]</code></td>
+              <td>Set of keys which should be ignored when parsing</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">datasetLabel</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code></code></td>
+              <td>Key which value should be treated as a label for a dataset</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">formatLabel</code>
+              </td>
+              <td><i>Function</i></td>
+              <td><code>(label) => label</code></td>
+              <td>Function formatting labels (per value, not dataset)</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">color</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>mdb</code></td>
+              <td>Color palette from which values will be assigned to datasets</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">getCoordinates</code>
+              </td>
+              <td><i>function</i></td>
+              <td><code></code></td>
+              <td>
+                Function which takes an entry as its parameter and should return an object with
+                coordinates (bubble, scatter chart)
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-charts-colors">
+      <h3 class="my-4">色彩</h3>
+
+      <p>
+       将<code> color </code>属性设置为<code>'mdb'</code>将分配MDB之一
+        <a
+          target="_blank"
+          href="https://mdbootstrap.com/docs/standard/content-styles/colors/#section-theme"
+          >主题颜色</a
+        >
+       到每个数据集（主要，次要），而使用数字值将遍历整个
+        <a
+          target="_blank"
+          href="https://mdbootstrap.com/docs/standard/content-styles/colors/#section-full-palette"
+          >调色板</a
+        >
+       给定强度（50，100，... 900）。
+      </p>
+
+      <p>可用值：</p>
+
+      <ul>
+        <li><code>mdb</code></li>
+        <li><code>50</code></li>
+        <li><code>100</code></li>
+        <li><code>200</code></li>
+        <li><code>300</code></li>
+        <li><code>400</code></li>
+        <li><code>500</code></li>
+        <li><code>600</code></li>
+        <li><code>700</code></li>
+        <li><code>800</code></li>
+        <li><code>900</code></li>
+      </ul>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-charts-methods">
+      <h3 class="my-4">方法</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Parameters</th>
+              <th class="th-sm">Description</th>
+              <th class="th-sm">Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">parse</code>
+              </td>
+              <td>data (csv/json)</td>
+              <td>
+                Returns data parsed into the format required by the component (depends on strategy
+              </td>
+              <td>
+                <code class="language-markup text-nowrap">dataParser.parse(csvData)</code>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">getValueExtrema</code>
+              </td>
+              <td>data (csv/json), field (index/key)</td>
+              <td>Returns maximum and minimum values in a row</td>
+              <td>
+                <code class="language-markup text-nowrap"
+                  >dataParser.getValueExtrema(csvData, 3)</code
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+  <!--Section: Charts-->
+
+  <hr class="my-5" />
+
+  <!--Section: Treeview-->
+  <section id="api-section-treeview">
+    <!-- Section title -->
+    <h2 class="mb-4">树视图</h2>
+
+    <p></p>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-treeview-json">
+      <h3 class="my-4">JSON选项</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Type</th>
+              <th class="th-sm">Default</th>
+              <th class="th-sm">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">name</code>
+              </td>
+              <td><i>String / Function</i></td>
+              <td><code>'name'</code></td>
+              <td>
+                Reference to the JSON fields that should be a 'name' Treeview structure parameter
+                for items
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">children</code>
+              </td>
+              <td><i>String</i></td>
+              <td><code>'children'</code></td>
+              <td>
+                Reference to the JSON fields that should be a 'children' Treeview structure
+                parameter for items
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">icon</code>
+              </td>
+              <td><i>String / Function / null</i></td>
+              <td><code>'null'</code></td>
+              <td>
+                Reference to the JSON fields that should be an 'icon' Treeview structure parameter
+                for items
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">show</code>
+              </td>
+              <td><i>Function / Boolean</i></td>
+              <td><code>'false'</code></td>
+              <td>
+                Reference to the JSON fields or a static value that should be a 'show' Treeview
+                structure parameter for items
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">disabled</code>
+              </td>
+              <td><i>Function / Boolean</i></td>
+              <td><code>'false'</code></td>
+              <td>
+                Reference to the JSON fields or a static value that should be a 'disabled' Treeview
+                structure parameter for items
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">id</code>
+              </td>
+              <td><i>String / Number / null</i></td>
+              <td><code>'null'</code></td>
+              <td>
+                Reference to the JSON fields or a static value that should be an 'id' Treeview
+                structure parameter for items
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-treeview-methods">
+      <h3 class="my-4">方法</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="th-sm">Name</th>
+              <th class="th-sm">Parameters</th>
+              <th class="th-sm">Description</th>
+              <th class="th-sm">Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-nowrap">
+                <code class="highlighter-rouge">parse</code>
+              </td>
+              <td>data (json)</td>
+              <td>
+                Returns data parsed into the format required by the component (depends on strategy
+              </td>
+              <td>
+                <code class="language-markup text-nowrap">dataParser.parse(jsonData)</code>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+  <!--Section: Treeview-->
+
+  <hr class="my-5" />
+
+  <!--Section: Util functions-->
+  <section id="api-section-utils">
+    <!-- Section title -->
+    <h2 class="mb-4">有用的功能</h2>
+
+    <p></p>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-utils-arrays">
+      <h3 class="my-4">Arrays</h3>
+
+      <h5><code>flattenDeep(array)</code></h5>
+
+      <p>Flattens a multi-level array into single-level one.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.flattenDeep([1, [2, [3, [4]], 5]]);
+          // output: [1, 2, 3, 4, 5]
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>pullAll(array, array)</code></h5>
+
+      <p>Pulls particular elements from an array.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.pullAll(['a', 'b', 'c', 'a', 'b', 'c'], ['a', 'c']);
+          // output: ['b', 'b']
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>take(array, number)</code></h5>
+
+      <p>Returns a particular amount of items from the start of an array.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.take([1, 2, 3, 4, 5], 2);
+          // output: [1, 2]
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>takeRight(array, number)</code></h5>
+
+      <p>Returns a particular amount of items from the end of an array.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.takeRight([1, 2, 3, 4, 5], 2);
+          // output: [4, 5]
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>union(set of arrays)</code></h5>
+
+      <p>Concatenates many arrays into one, single-level and removes duplicates.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.union([1, 2], [3, ['four', [5]]], ['six']);
+          // output: [1, 2, 3, 'four', 5, 'six']
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5">
+        <code>unionBy(function / string, set of arrays / objects)</code>
+      </h5>
+
+      <p>
+        Concatenates many arrays into one, single-level by particular criterium and removes
+        duplicates.
+      </p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.unionBy(Math.floor, [2.1], [1.2, 2.3]);
+          // output: [2.1, 1.2]
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>uniq(array)</code></h5>
+
+      <p>Returns an array without duplicates.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.uniq([1, 2, 1, 3]);
+          // output: [1, 2, 3]
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>uniqBy(function / string, array / object)</code></h5>
+
+      <p>Returns an array without duplicates set by a particular criterium.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.uniqBy(Math.floor, [2.1, 1.2, 2.3]);
+          // output: [2.1, 1.2]
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>zip(arrays)</code></h5>
+
+      <p>Zips first items of a set of arrays into one array, second ones into second and so on.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.DataParser.zip(['a', 'b'], [1, 2], [true, false]);
+          // output: [['a', 1, true], ['b', 2, false]]
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>zipObject(array, array)</code></h5>
+
+      <p>Creates an object with keys from the first array and values from the second one.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.zipObject(['a', 'b'], [1, 2]);
+          // output: { 'a': 1, 'b': 2 }
+        </code>
+      </mdbsnippet>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-utils-collections">
+      <h3 class="my-4">Collections</h3>
+
+      <h5 class="mt-5"><code>countBy(array / object, function / string)</code></h5>
+
+      <p>
+        Returns an object with values converted using the second parameter as a key and number of
+        items that it matches as a value.
+      </p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.countBy([6.1, 4.2, 6.3], Math.floor);
+          // output: { 6: 2, 4: 1 }
+
+          DataParser.countBy({ x: 'one', y: 'two', z: 'three', a: 'one' }, 'length');
+          // output: { 3: 3, 5: 1 }
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>groupBy(array / object, function / string)</code></h5>
+
+      <p>
+        Returns an object with values converted using the second parameter as a key and an array of
+        items that it matches as a value.
+      </p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.groupBy([6.1, 4.2, 6.3], Math.floor);
+          // output: { 6: [6.1, 6.3], 4: [4.2] }
+
+          DataParser.groupBy({ x: 'one', y: 'two', z: 'three', a: 'one' }, 'length');
+          // output: { 3: ['one', 'two', 'one'], 5: ['three'] }
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>sortBy(array / object, array)</code></h5>
+
+      <p>Returns a sorted array by values from the second parameter.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          const vehicles = [
+            { name: 'car', id: 1 },
+            { name: 'airplane', id: 4 },
+            { name: 'bike', id: 2 },
+            { name: 'boat', id: 3 },
+          ];
+
+          DataParser.sortBy(vehicles, ['name', 'id']);
+
+          // output:     
+          // [
+          //  { name: 'airplane', id: 4 },
+          //  { name: 'bike', id: 2 },
+          //  { name: 'boat', id: 3 },
+          //  { name: 'car', id: 1 }
+          // ]
+    
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>orderBy(array / object, array, array)</code></h5>
+
+      <p>
+        Returns a sorted array by values from the second parameter and order from the third one.
+      </p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          const vehicles = [
+            { name: 'car', id: 1 },
+            { name: 'airplane', id: 4 },
+            { name: 'bike', id: 2 },
+            { name: 'boat', id: 3 },
+          ];
+
+          DataParser.orderBy(vehicles, ['name', 'id'], ['desc', 'desc']);
+
+          // output:     
+          // [
+          //  { name: 'car', id: 1 },
+          //  { name: 'boat', id: 3 },
+          //  { name: 'bike', id: 2 },
+          //  { name: 'airplane', id: 4 }
+          // ]                  
+        </code>
+      </mdbsnippet>
+    </section>
+
+    <hr class="my-5" />
+
+    <section id="api-subsection-utils-objects">
+      <h3 class="my-4">Objects</h3>
+
+      <h5 class="mt-5"><code>invert(object)</code></h5>
+
+      <p>Inverts object keys with their values and overwrites duplicates.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.invert({ '1': 'a', '2': 'b', '1': 'c' });
+
+          // output: { 'c': '1', 'b': '2' }             
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>invertBy(object, function(optional))</code></h5>
+
+      <p>Inverts object keys with their values and puts duplicates into the array.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.invertBy({ 'a': '1', 'b': '2', 'c': '1' });
+
+          // output: { '1': ['a', 'c'], '2': ['b'] }   
+          
+          DataParser.invertBy({ 'a': '1', 'b': '2', 'c': '1' }, (key) => `group${key}`);
+
+          // output: { 'group1': ['a', 'c'], 'group2': ['b'] }   
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>omit(object, array / string)</code></h5>
+
+      <p>Returns object without particular elements.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.omit({ 'a': '1', 'b': '2', 'c': '3' }, ['a', 'c']);
+
+          // output: { 'b': '2' } 
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>omitBy(object, function)</code></h5>
+
+      <p>Returns object without particular elements that are the function result.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.omitBy({ 'a': 1, 'b': '2', 'c': 3 }, (item) => typeof item !== 'number');
+
+          // output: { 'a': 1, 'c': 3 } 
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>pick(object, array)</code></h5>
+
+      <p>Returns particular elements from an object.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.pick({ 'a': 1, 'b': '2', 'c': 3 }, ['a', 'c']);
+
+          // output: { 'a': 1, 'c': 3 } 
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>pickBy(object, function)</code></h5>
+
+      <p>Returns particular elements that are function result from an object.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.pickBy({ 'a': 1, 'b': '2', 'c': 3 }, (item) => typeof item !== 'number');
+
+          // output: { 'b': '2' } 
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5"><code>transform(object, function, accelerator)</code></h5>
+
+      <p>Transforms object using a function parameter and accelerator as a start value.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          DataParser.transform(
+            { a: 1, b: 2, c: 1 },
+            function (result, value, key) {
+              (result[value] || (result[value] = [])).push(key);
+            },
+            {}
+          );
+
+          // output: { '1': ['a', 'c'], '2': ['b'] } 
+        </code>
+      </mdbsnippet>
+    </section>
+
+    <section id="api-subsection-utils-more">
+      <h3 class="my-4">More</h3>
+
+      <h5 class="mt-5">
+        <code>colorGenerator(array / string / number, number (iterator))</code>
+      </h5>
+
+      <p>Allows to generate colors from an array.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          const colorIterator = DataParser.colorGenerator(
+            [
+              '#FFEBEE',
+              '#FCE4EC',
+              '#F3E5F5',
+              '#EDE7F6',
+              '#E8EAF6',
+              '#E3F2FD',
+              '#E1F5FE',
+              '#E0F7FA',
+              '#E0F2F1',
+              '#E8F5E9',
+              '#F1F8E9',
+              '#F9FBE7',
+              '#FFFDE7',
+              '#FFF8E1',
+              '#FFF3E0',
+              '#FBE9E7',
+              '#EFEBE9',
+              '#FAFAFA',
+              '#ECEFF1',
+            ],
+            0
+          );
+
+        const color = colorIterator.next().value;
+        const color2 = colorIterator.next().value;
+
+        // 'color' variable is equal to: '#FFEBEE'
+        // 'color2' variable is equal to: '#FCE4EC'
+
+        // You can also use our predefined arrays:
+
+        const colorIterator2 = DataParser.colorGenerator(100, 0);
+
+        const color3 = colorIterator2.next().value;
+
+        // 'color3' variable is equal to: '#FFCDD2'
+
+        const colorIterator3 = DataParser.colorGenerator('lightGreen', 0);
+
+        const color4 = colorIterator3.next().value;
+
+        // 'color4' variable is equal to: '#F1F8E9'
+        </code>
+      </mdbsnippet>
+
+      <h5 class="mt-5">
+        <code>getCSVDataArray(data (csv), string (delimiter))</code>
+      </h5>
+
+      <p>Allows to parse a CSV data to an array.</p>
+
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          fetch('data.csv')
+          .then((data) => data.text())
+          .then((data) => {
+            const parsedData = DataParser.getCSVDataArray(data, ',');
+
+            // 'parsedData' variable is equal to: 
+            //  [
+            //    ['departament', 'done', 'team', 'startDate', 'currentDate', 'deadline'],
+            //    ['Marketing', '0.67', '10', '2019-03-01', '2020-10-23', '2020-12-10'],
+            //    ['Business', '0.49', '12', '2019-01-02', '2020-10-23', '2020-11-30'],
+            //    ['Backend', '0.88','32', '2019-06-01', '2020-10-23', '2020-11-23'],
+            //    ['Frontend', '0.79','29', '2019-08-01', '2020-10-23', '2020-11-30'],
+            //    ['Design', '0.91', '7', '2019-07-01', '2020-10-23', '2020-11-01']
+            //  ]
+            });
+        </code>
+        <code data-lang="csv" data-name="CSV">
+          departament,done,team,startDate,currentDate,deadline
+          Marketing,0.67,10,2019-03-01,2020-10-23,2020-12-10
+          Business,0.49,12,2019-01-02,2020-10-23,2020-11-30
+          Backend,0.88,32,2019-06-01,2020-10-23,2020-11-23
+          Frontend,0.79,29,2019-08-01,2020-10-23,2020-11-30
+          Design,0.91,7,2019-07-01,2020-10-23,2020-11-01
+        </code>
+      </mdbsnippet>
+    </section>
+  </section>
+  <!--Section: Util functions-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">进口</h2>
+
+    <!-- Description -->
+    <p><strong> MDB UI KIT </strong>也可与模块捆绑器一起使用。使用以下代码导入
+      此组件：</p>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="JavaScript">
+        import { DataParser } from 'mdb-data-parser';
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
 </section>
 <!--Section: Docs content-->

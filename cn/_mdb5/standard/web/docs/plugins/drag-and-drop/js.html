@@ -1,1 +1,17 @@
-<script></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/mdb5/plugins/drag-and-drop.min.js?v=
+<?= STANDARD_DOCS_BUNDLE_VERSION; ?>"></script>
+<script>
+  // Sortable with conditions
+  const accessOddNumbers = (value) => {
+    return parseInt(value) % 2;
+  };
+
+  const sortableCondition1 = document.getElementById('sortable-condition-1');
+  const sortableCondition2 = document.getElementById('sortable-condition-2');
+
+  const instanceSortableCondition1 = new DragAndDrop.Sortable(sortableCondition1, {
+    connectedList: sortableCondition2,
+    enterPredicate: accessOddNumbers,
+  });
+  const instanceSortableCondition2 = new DragAndDrop.Sortable(sortableCondition2);
+</script>

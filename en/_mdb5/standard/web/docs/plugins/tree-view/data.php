@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Tree view',
-  'seo_title' => 'Tree view - Bootstrap 5 & Material Design 2.0 plugin',
-  'description' => 'Tree view built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
+  'subheading' => 'Bootstrap 5 Tree view plugin',
+  'seo_title' => 'Bootstrap Tree view - examples & tutorial',
+  'description' => 'Responsive Tree view built with the latest Bootstrap 5. Multiple examples: vertical, horizontal, simple, with menu, selectable & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/plugins/tree-view/',
   'image' => '',
   'video' => '',

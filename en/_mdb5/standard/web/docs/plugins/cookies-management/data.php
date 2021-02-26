@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Cookies management',
-  'seo_title' => 'Cookies management - Bootstrap 5 & Material Design 2.0 plugin',
-  'description' => 'Cookies management built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
+  'subheading' => 'Bootstrap 5 Cookies management plugin',
+  'seo_title' => 'Bootstrap Cookies management - examples & tutorial',
+  'description' => 'Easy to use Cookies management built with the latest Bootstrap 5. Multiple examples: vertical, horizontal, simple, with menu, selectable & many more',
   'url' => 'https://mdbootstrap.com/docs/standard/plugins/cookies-management/',
   'image' => '',
   'video' => '',

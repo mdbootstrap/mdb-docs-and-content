@@ -584,7 +584,7 @@
     };
 
     const basicDatatables = [
-      'datatable-basic-data-structure',
+      'datatable-basic-data-mdb-structure',
       'datatable-scroll',
       'datatable-fixed',
       'datatable-search',
@@ -593,7 +593,7 @@
     const advancedDatatables = [
       'datatable-multi',
       'datatable-advanced-search',
-      'datatable-advanced-data-structure',
+      'datatable-advanced-data-mdb-structure',
     ];
 
     basicDatatables.forEach((datatable) => {
@@ -657,13 +657,13 @@
     const setActions = () => {
       document.getElementsByClassName('call-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          console.log(`call ${btn.attributes['data-number'].value}`);
+          console.log(`call ${btn.attributes['data-mdb-number'].value}`);
         });
       });
 
       document.getElementsByClassName('message-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          console.log(`send a message to ${btn.attributes['data-email'].value}`);
+          console.log(`send a message to ${btn.attributes['data-mdb-email'].value}`);
         });
       });
     };
@@ -702,14 +702,13 @@
       ].map((row) => {
         return {
           ...row,
-          contact: `<button class="call-btn btn btn-outline-primary btn-floating btn-sm" data-number="${row.phone}"><i class="fa fa-phone"></i></button>
-                <button class="message-btn btn ml-2 btn-primary btn-floating btn-sm" data-email="${row.email}"><i class="fa fa-envelope"></i></button>`,
+          contact: `<button class="call-btn btn btn-outline-primary btn-floating btn-sm" data-mdb-number="${row.phone}"><i class="fa fa-phone"></i></button>
+                <button class="message-btn btn ms-2 btn-primary btn-floating btn-sm" data-mdb-email="${row.email}"><i class="fa fa-envelope"></i></button>`,
         };
       }),
     });
 
     // Custom HTML content
-
 
     // Async Data
     const asyncCols = [
@@ -749,6 +748,156 @@
     document.getElementById('reload-button').addEventListener('click', () => {
       asyncTable.update(null, { loading: true });
       setTimeout(loadData, 3000);
+    });
+  })();
+
+  // format
+
+  (() => {
+    const rows = [
+      ['Product 1', 10, 103],
+      ['Product 2', 45, 110],
+      ['Product 3', 76, 56],
+      ['Product 4', 89, 230],
+      ['Product 5', 104, 240],
+      ['Product 6', 97, 187],
+      ['Product 7', 167, 130],
+      ['Product 8', 50, 199],
+      ['Product 9', 4, 206],
+      ['Product 10', 120, 88],
+      ['Product 11', 22, 100],
+    ];
+
+    const maxValue = Math.max(...rows.map((row) => row[2]));
+    const minValue = Math.min(...rows.map((row) => row[2]));
+
+    const colors = ['#E3F2FD', '#BBDEFB', '#90CAF9', '#64B5F6', '#42A5F5'];
+
+    const step = (maxValue - minValue) / (colors.length - 1);
+
+    const formatCell = (cell, value) => {
+      const colorIndex = Math.floor((value - minValue) / step);
+
+      cell.style.backgroundColor = colors[colorIndex];
+      cell.style.fontWeight = 400;
+    };
+
+    const columns = [
+      { label: 'Product', field: 'product' },
+      { label: 'Quantity', field: 'quantity' },
+      { label: 'Purchases', field: 'purchases', format: formatCell },
+    ];
+
+    const datatableInstance = new mdb.Datatable(document.getElementById('datatable-cell-format'), {
+      rows,
+      columns,
+    });
+  })();
+  // clickable rows
+
+  (() => {
+    const table = document.getElementById('datatable-clickable-rows');
+    const modal = document.getElementById('modal-clickable-rows');
+    const modalBody = document.getElementById('modal-body-clickable-rows');
+    const modalHeader = document.getElementById('modal-header-clickable-rows');
+
+    const modalInstance = new mdb.Modal(modal);
+
+    const setupButtons = (action) => {
+      document.getElementsByClassName(`${action}-email-button`).forEach((button) => {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
+
+          const index = button.getAttribute('data-mdb-index');
+
+          console.log(`${action} message: ${index}`, messages[index]);
+        });
+      });
+    };
+
+    const columns = [
+      { label: 'Actions', field: 'actions', sort: false },
+      { label: 'From', field: 'from' },
+      { label: 'Title', field: 'title' },
+      { label: 'Message', field: 'preview', sort: false },
+      { label: 'Date', field: 'date' },
+    ];
+
+    const messages = [
+      {
+        from: 'admin@mdbootstrap.com',
+        title: 'MDBootstrap spring sale',
+        message:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed metus ultricies, sollicitudin est nec, blandit turpis. Fusce venenatis nisi volutpat, pharetra elit eu, ullamcorper metus. Vestibulum dapibus laoreet aliquam. Maecenas sed magna ut libero consequat elementum. Maecenas euismod pellentesque pulvinar. Morbi sit amet turpis eget dolor rutrum eleifend. Sed bibendum diam nec diam posuere pulvinar. Cras ac bibendum arcu.',
+        date: '11/12/2019',
+      },
+      {
+        from: 'user@mdbootstrap.com',
+        title: 'How to purchase MDB5 package?',
+        message:
+          'Quisque tempor ligula eu lobortis scelerisque. Mauris tristique mi a erat egestas, quis dictum nibh iaculis. Sed gravida sodales egestas. In tempus mollis libero sit amet lacinia. Duis non augue sed leo imperdiet efficitur faucibus vitae elit. Mauris eu cursus ligula. Praesent posuere efficitur cursus.',
+        date: '10/12/2019',
+      },
+      {
+        from: 'user@mdbootstrap.com',
+        title: 'Licence renewal',
+        message:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed metus ultricies, sollicitudin est nec, blandit turpis. Fusce venenatis nisi volutpat, pharetra elit eu, ullamcorper metus. Vestibulum dapibus laoreet aliquam. Maecenas sed magna ut libero consequat elementum. Maecenas euismod pellentesque pulvinar. Morbi sit amet turpis eget dolor rutrum eleifend. Sed bibendum diam nec diam posuere pulvinar. Cras ac bibendum arcu.',
+        date: '09/12/2019',
+      },
+      {
+        from: 'admin@mdbootstrap.com',
+        title: 'Black friday offer',
+        message:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed metus ultricies, sollicitudin est nec, blandit turpis. Fusce venenatis nisi volutpat, pharetra elit eu, ullamcorper metus. Vestibulum dapibus laoreet aliquam. Maecenas sed magna ut libero consequat elementum. Maecenas euismod pellentesque pulvinar. Morbi sit amet turpis eget dolor rutrum eleifend. Sed bibendum diam nec diam posuere pulvinar. Cras ac bibendum arcu.',
+        date: '08/12/2019',
+      },
+    ];
+
+    const rows = messages.map((email, i) => {
+      const getPreview = (message, length) => {
+        if (message.length <= length) return message;
+
+        return `${message.slice(0, length)}...`;
+      };
+
+      return {
+        ...email,
+        preview: getPreview(email.message, 20),
+        actions: `
+        <a role="button" class="star-email-button text-warning" data-mdb-index="${i}"
+          ><i class="far fa-star"></i
+        ></a>
+        <a role="button" class="delete-email-button text-muted ms-2" data-mdb-index="${i}"
+          ><i class="fa fa-trash-alt"></i
+        ></a>
+        `,
+      };
+    });
+
+    table.addEventListener('rowClick.mdb.datatable', (e) => {
+      const { index } = e;
+
+      const { message, title, from } = messages[index];
+
+      modalHeader.innerText = title;
+
+      modalBody.innerHTML = `
+      <h6 class="mb-4">From: <strong>${from}</strong></h6>
+      <p>${message}</p>
+      `;
+
+      modalInstance.show();
+    });
+
+    table.addEventListener('render.mdb.datatable', () => {
+      setupButtons('star');
+      setupButtons('delete');
+    });
+
+    const datatableInstance = new mdb.Datatable(table, {
+      columns,
+      rows,
     });
   })();
 </script>

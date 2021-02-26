@@ -1,1 +1,190 @@
-<script></script>
+<script src="<?php echo get_template_directory_uri() ?>/js/mdb5/plugins/treeview.min.js?v=
+<?= STANDARD_DOCS_BUNDLE_VERSION; ?>"></script>
+<script>
+  (function () {
+    const jsTreeview = document.getElementById('sample-element');
+
+    const jsInstance = new Treeview(jsTreeview, {
+      structure: [
+        { name: 'One' },
+        { name: 'Two' },
+        {
+          name: 'Three',
+          children: [
+            { name: 'Second-one' },
+            { name: 'Second-two' },
+            {
+              name: 'Second-three',
+              children: [
+                {
+                  name: 'Third-one',
+                  children: [
+                    { name: 'Fourth-one' },
+                    { name: 'Fourth-two' },
+                    { name: 'Fourth-three' },
+                  ],
+                },
+                { name: 'Third-two' },
+                {
+                  name: 'Third-three',
+                  children: [
+                    { name: 'Fourth-one' },
+                    { name: 'Fourth-two' },
+                    { name: 'Fourth-three' },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+  })();
+
+  (function () {
+    const expandTreeview = document.getElementById('expand-example');
+    const expandButton = document.getElementById('expand-example-button');
+
+    const expandInstance = Treeview.getInstance(expandTreeview);
+
+    expandButton.addEventListener('click', () => {
+      expandInstance.expand('level-expand-example-item');
+    });
+  })();
+
+  (function () {
+    const collapseTreeview = document.getElementById('collapse-example');
+    const collapseButton = document.getElementById('collapse-example-button');
+
+    const collapseInstance = Treeview.getInstance(collapseTreeview);
+
+    collapseButton.addEventListener('click', () => {
+      collapseInstance.collapse();
+    });
+
+    collapseTreeview.addEventListener('collapsed.mdb.treeview', () => {
+      console.log('xd');
+    });
+  })();
+
+  (function () {
+    const customIconsTreeview = document.getElementById('custom-icons-js');
+
+    const customIconsInstance = new Treeview(customIconsTreeview, {
+      structure: [
+        { name: '<i class="fas fa-dot-circle"></i> One' },
+        { name: '<i class="fas fa-dot-circle"></i> Two' },
+        {
+          name: ' Three',
+          show: true,
+          icon: '<i class="fas fa-angle-double-right"></i>',
+          children: [
+            { name: '<i class="fas fa-dot-circle"></i> Second-one' },
+            { name: '<i class="fas fa-dot-circle"></i> Second-two' },
+            {
+              name: ' Second-three',
+              icon: '<i class="fas fa-angle-double-right"></i>',
+              children: [
+                {
+                  name: ' Third-one',
+                  icon: '<i class="fas fa-angle-double-right"></i>',
+                  children: [
+                    { name: '<i class="fas fa-dot-circle"></i> Fourth-one' },
+                    { name: '<i class="fas fa-dot-circle"></i> Fourth-two' },
+                    { name: '<i class="fas fa-dot-circle"></i> Fourth-three' },
+                  ],
+                },
+                { name: '<i class="fas fa-dot-circle"></i> Third-two' },
+                {
+                  name: ' Third-three',
+                  icon: '<i class="fas fa-angle-double-right"></i>',
+                  children: [
+                    { name: '<i class="fas fa-dot-circle"></i> Fourth-one' },
+                    { name: '<i class="fas fa-dot-circle"></i> Fourth-two' },
+                    { name: '<i class="fas fa-dot-circle"></i> Fourth-three' },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+  })();
+
+  (function () {
+    const buttonsID = ['primary', 'secondary', 'warning', 'danger', 'info', 'success', 'dark'];
+
+    const currentColor = document.getElementById('current-color');
+
+    const colorTreeviewEl = document.getElementById('color-example');
+
+    buttonsID.forEach((id) => {
+      const button = document.getElementById(id);
+
+      button.addEventListener('click', () => {
+        buttonsID.forEach((color) => {
+          colorTreeviewEl.classList.remove(`treeview-${color}`);
+        });
+
+        colorTreeviewEl.classList.add(`treeview-${id}`);
+        currentColor.innerText = id;
+      });
+    });
+  })();
+
+  (function () {
+    const disabledTreeview = document.getElementById('disabled-element');
+
+    const disabledTreeviewInstance = new Treeview(disabledTreeview, {
+      structure: [
+        { name: 'One', disabled: true },
+        { name: 'Two' },
+        {
+          name: ' Three',
+          show: true,
+          children: [
+            { name: 'Second-one' },
+            { name: 'Second-two' },
+            {
+              name: ' Second-three',
+              disabled: true,
+              children: [
+                {
+                  name: ' Third-one',
+                  children: [
+                    { name: 'Fourth-one' },
+                    { name: 'Fourth-two' },
+                    { name: 'Fourth-three' },
+                  ],
+                },
+                { name: 'Third-two' },
+                {
+                  name: ' Third-three',
+                  children: [
+                    { name: 'Fourth-one' },
+                    { name: 'Fourth-two' },
+                    { name: 'Fourth-three' },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+  })();
+
+  (function () {
+    const filterTreeview = document.getElementById('filter-example');
+    const filteringInput = document.getElementById('form1');
+
+    const filterTreeviewInstance = Treeview.getInstance(filterTreeview);
+
+    filteringInput.addEventListener('change', () => {
+      const value = filteringInput.value;
+
+      filterTreeviewInstance.filter(value);
+    });
+  })();
+</script>

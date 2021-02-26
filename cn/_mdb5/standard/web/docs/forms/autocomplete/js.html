@@ -1,0 +1,110 @@
+<script>
+  const basic = document.querySelector('#basic');
+  const displayValue = document.querySelector('#displayValue');
+  const async = document.querySelector('#async');
+  const threshold = document.querySelector('#threshold');
+  const customItem = document.querySelector('#customItem');
+  const customContent = document.querySelector('#customContent');
+  const validation = document.querySelector('#validation');
+
+  const data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+  const customData = [
+    { title: 'One', subtitle: 'Secondary text' },
+    { title: 'Two', subtitle: 'Secondary text' },
+    { title: 'Three', subtitle: 'Secondary text' },
+    { title: 'Four', subtitle: 'Secondary text' },
+    { title: 'Five', subtitle: 'Secondary text' },
+    { title: 'Six', subtitle: 'Secondary text' },
+  ];
+
+  const basicFilter = (query) => {
+    return data.filter((item) => {
+      return item.toLowerCase().startsWith(query.toLowerCase());
+    });
+  };
+  const customFilter = (query) => {
+    return customData.filter((item) => {
+      return item.title.toLowerCase().startsWith(query.toLowerCase());
+    });
+  };
+  const asyncFilter = async (query) => {
+    const url = `https://swapi.py4e.com/api/people/?search=${encodeURI(query)}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results;
+  };
+
+  new mdb.Autocomplete(basic, {
+    filter: basicFilter,
+  });
+
+  new mdb.Autocomplete(displayValue, {
+    filter: customFilter,
+    displayValue: (value) => value.title,
+  });
+
+  new mdb.Autocomplete(async, {
+    filter: asyncFilter,
+    displayValue: (value) => value.name,
+  });
+
+  new mdb.Autocomplete(threshold, {
+    filter: basicFilter,
+    threshold: 2,
+  });
+
+  new mdb.Autocomplete(customItem, {
+    filter: customFilter,
+    displayValue: (value) => value.title,
+    itemContent: (result) => {
+      return `
+            <div class="autocomplete-custom-item-content">
+              <div class="autocomplete-custom-item-title">${result.title}</div>
+              <div class="autocomplete-custom-item-subtitle">${result.subtitle}</div>
+            </div>
+          `;
+    },
+  });
+
+  new mdb.Autocomplete(customContent, {
+    filter: basicFilter,
+    customContent: `
+          <div class="autocomplete-custom-content"></div>
+        `,
+  });
+
+  new mdb.Autocomplete(validation, {
+    filter: basicFilter,
+  });
+
+  customContent.addEventListener('update.mdb.autocomplete', (event) => {
+    const resultsLength = event.results.length;
+
+    setTimeout(() => {
+      customContentContainer = document.querySelector('.autocomplete-custom-content');
+      customContentContainer.innerHTML = `Search results: ${resultsLength}`;
+    }, 0);
+  });
+
+  (function () {
+    'use strict';
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation');
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        'submit',
+        function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          form.classList.add('was-validated');
+        },
+        false
+      );
+    });
+  })();
+</script>

@@ -3,7 +3,7 @@
   <!--Section: Introduction-->
   <section id="api-section-introduction">
     <!-- Main title -->
-    <h2 class="h1 font-weight-bold">
+    <h2 class="h1 fw-bold">
       <?= $data_var['main_title']; ?>
       - API
     </h2>
@@ -16,36 +16,40 @@
   <section id="api-section-usage">
     <!-- Section title -->
     <h2 class="mb-4">用法</h2>
+
     <p>
-      通过数据属性或JavaScript，下拉插件可切换隐藏的内容（下拉菜单） 通过在父列表项上切换<code>
-        .show </code
-      >类。的 依赖<code> data-toggle =" dropdown" </code>属性在以下位置关闭下拉菜单
+      通过数据属性或JavaScript，下拉插件可切换隐藏的内容（下拉菜单）
+      通过在父列表项上切换<code> .show </code>类。的
+      <code>data-mdb-toggle="dropdown"</code>依靠属性可以在以下位置关闭下拉菜单
       应用程序级别，因此始终使用它是一个好主意。
     </p>
 
     <p class="note note-info">
-      <strong>注意:</strong>
+      <strong>注意：</strong>
       <br />
-      在支持触摸功能的设备上，打开下拉菜单会添加空白 将<code> mouseover </code>处理函数传递给
-      <code>&lt;body&gt; </code>元素。这种公认的难看的骇客对于解决
+      在支持触摸功能的设备上，打开下拉菜单会添加空白
+      将<code> mouseover </code>处理函数传递给
+      <code>&lt;body&gt;</code>元件。这种公认的难看的骇客对于解决
       <a
-        target=" _ blank"
-        rel=" nofollow"
-        href=" https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html"
-        >在iOS的事件委派方面很奇怪</a
-      >，否则将阻止下拉菜单之外的任何位置的点击触发
-      关闭下拉菜单的代码。下拉菜单关闭后，这些额外的空白 <code> mouseover </code>处理程序已删除。
+        target="_blank"
+        rel="nofollow"
+        href="https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html"
+        >iOS事件委派中的怪癖</a
+      >,否则会阻止下拉菜单之外的任何位置的点击触发
+      关闭下拉菜单的代码。下拉菜单关闭后，这些额外的空白
+      <code> mouseover </code>处理程序已删除。
     </p>
 
     <h4 class="mt-4">通过数据属性</h4>
 
-    <p>将<code> data-toggle =" dropdown" </code>添加到链接或按钮以切换下拉菜单。</p>
+    <p>加 <code>data-mdb-toggle="dropdown"</code> 链接或按钮以切换下拉菜单。</p>
+
     <!--Section: Code-->
     <section>
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <div class="dropdown">
-            <button id="dLabel" type="button" data-toggle="dropdown" aria-expanded="false">
+            <button id="dLabel" type="button" data-mdb-toggle="dropdown" aria-expanded="false">
               Dropdown trigger
             </button>
             <ul class="dropdown-menu" aria-labelledby="dLabel">
@@ -57,16 +61,17 @@
     </section>
     <!--Section: Code-->
 
-    <h4 class="mt-4">通过 JavaScript</h4>
+    <h4 class="mt-4">通过JavaScript</h4>
 
-    <p>通过JavaScript调用下拉列表:</p>
+    <p>通过JavaScript调用下拉菜单：</p>
+
     <!--Section: Code-->
     <section class="mb-4">
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="js" data-name="javascript">
-          var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
-          var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+          const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+          const dropdownList = dropdownElementList.map((dropdownToggleEl) => {
             return new mdb.Dropdown(dropdownToggleEl)
           })
         </code>
@@ -75,11 +80,11 @@
     <!--Section: Code-->
 
     <p class="note note-info">
-      <strong><code>data-toggle="dropdown"</code> still required:</strong>
+      <strong><code>data-mdb-toggle="dropdown"</code>仍然需要：</strong>
       <br />
-      Regardless of whether you call your dropdown via JavaScript or instead use the data-api,
-      <code>data-toggle="dropdown"</code> is always required to be present on the dropdown’s trigger
-      element.
+      无论您是通过JavaScript调用下拉菜单还是使用data-mdb-api，
+      <code>data-mdb-toggle="dropdown"</code>始终要求出现在下拉菜单的
+      触发元素。
     </p>
   </section>
   <!--Section: Usage-->
@@ -87,255 +92,256 @@
   <hr class="my-5" />
 
   <!--Section: Options-->
-
   <section id="api-section-options">
     <!-- Section title -->
     <h2 class="mb-4">选件</h2>
+    <p>
+      可以通过数据属性或JavaScript传递选项。对于数据属性，请附加
+      选项名称为<code> data-mdb-</code>，如 <code>data-mdb-offset=""</code>.
+    </p>
 
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 100px">Name</th>
+          <th style="width: 100px">Type</th>
+          <th style="width: 50px">Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>offset</code></td>
+          <td>number | string | function</td>
+          <td><code>0</code></td>
+          <td>
+            <p>Offset of the dropdown relative to its target.</p>
+            <p>
+              When a function is used to determine the offset, it is called with an object
+              containing the offset data as its first argument. The function must return an object
+              with the same structure. The triggering element DOM node is passed as the second
+              argument.
+            </p>
+            <p>
+              For more information refer to Popper's
+              <a href="https://popper.js.org/docs/v1/#modifiers..offset.offset">offset docs</a>.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>flip</code></td>
+          <td>boolean</td>
+          <td><code>true</code></td>
+          <td>
+            Allow Dropdown to flip in case of an overlapping on the reference element. For more
+            information refer to Popper's
+            <a href="https://popper.js.org/docs/v1/#modifiers..flip.enabled">flip docs</a>.
+          </td>
+        </tr>
+        <tr>
+          <td><code>boundary</code></td>
+          <td>string | element</td>
+          <td><code>'scrollParent'</code></td>
+          <td>
+            Overflow constraint boundary of the dropdown menu. Accepts the values of
+            <code>'viewport'</code>, <code>'window'</code>, <code>'scrollParent'</code>, or an
+            HTMLElement reference (JavaScript only). For more information refer to Popper's
+            <a href="https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement"
+              >preventOverflow docs</a
+            >.
+          </td>
+        </tr>
+        <tr>
+          <td><code>reference</code></td>
+          <td>string | element</td>
+          <td><code>'toggle'</code></td>
+          <td>
+            Reference element of the dropdown menu. Accepts the values of
+            <code>'toggle'</code>, <code>'parent'</code>, or an HTMLElement reference. For more
+            information refer to Popper's
+            <a href="https://popper.js.org/docs/v1/#referenceObject">referenceObject docs</a>.
+          </td>
+        </tr>
+        <tr>
+          <td><code>display</code></td>
+          <td>string</td>
+          <td><code>'dynamic'</code></td>
+          <td>
+            By default, we use Popper for dynamic positioning. Disable this with
+            <code>static</code>.
+          </td>
+        </tr>
+        <tr>
+          <td><code>popperConfig</code></td>
+          <td>null | object</td>
+          <td><code>null</code></td>
+          <td>
+            To change Bootstrap's default Popper config, see
+            <a href="https://popper.js.org/docs/v1/#Popper.Defaults">Popper's configuration</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>dropdownAnimation</code></td>
+          <td>string</td>
+          <td><code>'on'</code></td>
+          <td>Turn on / off dropdown animation.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Note when <code>boundary</code> is set to any value other than <code>'scrollParent'</code>,
+      the style <code>position: static</code> is applied to the <code>.dropdown</code> container.
+    </p>
+  </section>
+  <!--Section: Options-->
 
-      <p>
-        可以通过数据属性或JavaScript传递选项。对于数据属性，请附加 选项名称为<code> data-</code
-        >，如<code> data-offset ="" </code>中一样。
-      </p>
+  <hr class="my-5" />
 
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th style="width: 100px">Name</th>
-            <th style="width: 100px">Type</th>
-            <th style="width: 50px">Default</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>offset</code></td>
-            <td>number | string | function</td>
-            <td><code>0</code></td>
-            <td>
-              <p>Offset of the dropdown relative to its target.</p>
-              <p>
-                When a function is used to determine the offset, it is called with an object
-                containing the offset data as its first argument. The function must return an object
-                with the same structure. The triggering element DOM node is passed as the second
-                argument.
-              </p>
-              <p>
-                For more information refer to Popper.js's
-                <a href="https://popper.js.org/docs/v1/#modifiers..offset.offset">offset docs</a>.
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td><code>flip</code></td>
-            <td>boolean</td>
-            <td><code>true</code></td>
-            <td>
-              Allow Dropdown to flip in case of an overlapping on the reference element. For more
-              information refer to Popper.js's
-              <a href="https://popper.js.org/docs/v1/#modifiers..flip.enabled">flip docs</a>.
-            </td>
-          </tr>
-          <tr>
-            <td><code>boundary</code></td>
-            <td>string | element</td>
-            <td><code>'scrollParent'</code></td>
-            <td>
-              Overflow constraint boundary of the dropdown menu. Accepts the values of
-              <code>'viewport'</code>, <code>'window'</code>, <code>'scrollParent'</code>, or an
-              HTMLElement reference (JavaScript only). For more information refer to Popper.js's
-              <a href="https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement"
-                >preventOverflow docs</a
-              >.
-            </td>
-          </tr>
-          <tr>
-            <td><code>reference</code></td>
-            <td>string | element</td>
-            <td><code>'toggle'</code></td>
-            <td>
-              Reference element of the dropdown menu. Accepts the values of
-              <code>'toggle'</code>, <code>'parent'</code>, or an HTMLElement reference. For more
-              information refer to Popper.js's
-              <a href="https://popper.js.org/docs/v1/#referenceObject">referenceObject docs</a>.
-            </td>
-          </tr>
-          <tr>
-            <td><code>display</code></td>
-            <td>string</td>
-            <td><code>'dynamic'</code></td>
-            <td>
-              By default, we use Popper.js for dynamic positioning. Disable this with
-              <code>static</code>.
-            </td>
-          </tr>
-          <tr>
-            <td><code>popperConfig</code></td>
-            <td>null | object</td>
-            <td><code>null</code></td>
-            <td>
-              To change Bootstrap's default Popper.js config, see
-              <a href="https://popper.js.org/docs/v1/#Popper.Defaults">Popper.js's configuration</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <p>
-        Note when <code>boundary</code> is set to any value other than <code>'scrollParent'</code>,
-        the style <code>position: static</code> is applied to the <code>.dropdown</code> container.
-      </p>
-    </section>
-    <!--Section: Options-->
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">方法</h2>
 
-    <hr class="my-5" />
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>toggle</code></td>
+          <td>Toggles the dropdown menu of a given navbar or tabbed navigation.</td>
+        </tr>
+        <tr>
+          <td><code>show</code></td>
+          <td>Shows the dropdown menu of a given navbar or tabbed navigation.</td>
+        </tr>
+        <tr>
+          <td><code>hide</code></td>
+          <td>Hides the dropdown menu of a given navbar or tabbed navigation.</td>
+        </tr>
+        <tr>
+          <td><code>update</code></td>
+          <td>Updates the position of an element's dropdown.</td>
+        </tr>
+        <tr>
+          <td><code>dispose</code></td>
+          <td>Destroys an element's dropdown.</td>
+        </tr>
+        <tr>
+          <td><code>getInstance</code></td>
+          <td>
+            Static method which allows you to get the dropdown instance associated with a DOM
+            element.
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-    <!--Section: Methods-->
-    <section id="api-section-methods">
-      <!-- Section title -->
-      <h2 class="mb-4">方法</h2>
-
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Method</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>toggle</code></td>
-            <td>Toggles the dropdown menu of a given navbar or tabbed navigation.</td>
-          </tr>
-          <tr>
-            <td><code>show</code></td>
-            <td>Shows the dropdown menu of a given navbar or tabbed navigation.</td>
-          </tr>
-          <tr>
-            <td><code>hide</code></td>
-            <td>Hides the dropdown menu of a given navbar or tabbed navigation.</td>
-          </tr>
-          <tr>
-            <td><code>update</code></td>
-            <td>Updates the position of an element's dropdown.</td>
-          </tr>
-          <tr>
-            <td><code>dispose</code></td>
-            <td>Destroys an element's dropdown.</td>
-          </tr>
-          <tr>
-            <td><code>getInstance</code></td>
-            <td>
-              Static method which allows you to get the dropdown instance associated with a DOM
-              element.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!--Section: Code-->
-      <section class="mb-4">
-        <!-- prettier-ignore -->
-        <mdbsnippet>
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
         <code data-lang="js" data-name="javascript">
-          var myDropdown = document.getElementById('myDropdown')
-          var bsDropdown = new mdb.Dropdown(myDropdown)
+          const myDropdown = document.getElementById('myDropdown')
+          const bsDropdown = new mdb.Dropdown(myDropdown)
           bsDropdown.show()
         </code>
       </mdbsnippet>
-      </section>
-      <!--Section: Code-->
     </section>
-    <!--Section: Methods-->
+    <!--Section: Code-->
+  </section>
+  <!--Section: Methods-->
 
-    <hr class="my-5" />
+  <hr class="my-5" />
 
-    <!--Section: Events-->
-    <section id="api-section-events">
-      <!-- Section title -->
-      <h2 class="mb-4">大事记</h2>
-      <p>
-        所有下拉事件均在<code> .dropdown-menu </code>的父元素上触发，并具有一个
-        <code> relatedTarget </code>属性，其值是切换锚元素。 <code> hide.mdb.dropdown </code>和<code>
-          hidden.mdb.dropdown </code
-        >事件有一个 <code> clickEvent </code>属性（仅当原始事件类型为<code> click </code>时）
-        其中包含click事件的事件对象。
-      </p>
+  <!--Section: Events-->
+  <section id="api-section-events">
+    <!-- Section title -->
+    <h2 class="mb-4">大事记</h2>
+    <p>所有下拉事件均在<code> .dropdown-menu </code>的父元素上触发，并具有一个
+      <code> relatedTarget </code>属性，其值是切换锚元素。
+      <code> hide.mdb.dropdown </code>和<code> hidden.mdb.dropdown </code>事件有一个
+      <code> clickEvent </code>属性（仅当原始事件类型为<code> click </code>时）
+      包含点击事件的事件对象。</p>
 
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Method</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <code>show.mdb.dropdown</code>
-            </td>
-            <td>Fires immediately when the show instance method is called.</td>
-          </tr>
-          <tr>
-            <td>
-              <code>shown.mdb.dropdown</code>
-            </td>
-            <td>
-              Fired when the dropdown has been made visible to the user and CSS transitions have
-              completed.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <code>hide.mdb.dropdown</code>
-            </td>
-            <td>Fires immediately when the hide instance method has been called.</td>
-          </tr>
-          <tr>
-            <td>
-              <code>hidden.mdb.dropdown</code>
-            </td>
-            <td>
-              Fired when the dropdown has finished being hidden from the user and CSS transitions
-              have completed.
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code>show.mdb.dropdown</code>
+          </td>
+          <td>Fires immediately when the show instance method is called.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>shown.mdb.dropdown</code>
+          </td>
+          <td>
+            Fired when the dropdown has been made visible to the user and CSS transitions have
+            completed.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>hide.mdb.dropdown</code>
+          </td>
+          <td>Fires immediately when the hide instance method has been called.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>hidden.mdb.dropdown</code>
+          </td>
+          <td>
+            Fired when the dropdown has finished being hidden from the user and CSS transitions have
+            completed.
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-      <!--Section: Code-->
-      <section class="mb-4">
-        <!-- prettier-ignore -->
-        <mdbsnippet>
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
         <code data-lang="js" data-name="javascript">
-          var myDropdown = document.getElementById('myDropdown')
-          myDropdown.addEventListener('show.mdb.dropdown', function () {
+          const myDropdown = document.getElementById('myDropdown')
+          myDropdown.addEventListener('show.mdb.dropdown', () => {
             // do something...
           })
         </code>
       </mdbsnippet>
-      </section>
-      <!--Section: Code-->
     </section>
-    <!--Section: Events-->
+    <!--Section: Code-->
+  </section>
+  <!--Section: Events-->
 
-    <hr class="my-5" />
+  <hr class="my-5" />
 
-    <!--Section: Import-->
-    <section id=" api-section-import">
-      <h2 class="mb-4">导入</h2>
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
 
-      <!-- Description -->
-      <p><strong> MDB UI KIT </strong>也可与模块捆绑器一起使用。使用以下代码导入 此组件:</p>
+    <!-- Description -->
+    <p><strong> MDB UI KIT </strong>也可与模块捆绑器一起使用。使用以下代码导入
+      此组件：</p>
 
-
-      <!-- prettier-ignore -->
-      <mdbsnippet>
+    <!-- prettier-ignore -->
+    <mdbsnippet>
       <code data-lang="js" data-name="JavaScript">
         import { Dropdown } from 'mdb-ui-kit';
       </code>
     </mdbsnippet>
-    </section>
-    <!--Section: Import-->
   </section>
-  <!--Section: Docs content-->
+  <!--Section: Import-->
 </section>
+<!--Section: Docs content-->

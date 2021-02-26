@@ -1,0 +1,1020 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+      <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button"
+        >MDB Pro组件 <i class="far fa-gem ms-1"></i
+      ></a>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p class="description"><?= $data_var['description']; ?></p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+
+    <p class="note note-light">
+      用于使用创建联系表单 <strong>NodeJS</strong> 环境请遵循
+      <a
+        href="https://mdbootstrap.com/docs/standard/integrations/contact-form-nodejs/"
+        target="_blank"
+        >链接</a
+      >
+    </p>
+
+    <p>
+      您可以在<code> integrations </code>文件夹中找到本教程示例的最终代码
+      的
+      <a href="https://mdbootstrap.com/docs/standard/pro/" target="_blank">MDB高级软件包</a>
+    </p>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Form HTML-->
+  <section id="section-form-html">
+    <!-- Section title -->
+    <h2 class="mb-4">表格HTML</h2>
+
+    <!-- description -->
+    <p class="mb-4">首先，创建基本的联系表格，这将成为我们验证和发送数据的基础。</p>
+
+    <p class="note note-danger">
+      在本教程中，我们使用的是Bootstrap的Material Design库，您可以下载
+      它是免费的
+      <a href="https://mdbootstrap.com/docs/standard/getting-started/installation/"
+        ><strong>这里</strong></a
+      >.如果没有该库，该表单仍然可以使用-但是它的外观和行为可能会有所不同。
+      建议将此库与本教程一起使用。
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <form id="contact-form" class="text-center" style="width: 100%; max-width: 300px">
+        <h2>Contact us</h2>
+
+        <!-- Name input -->
+        <div class="form-outline mb-4">
+          <input type="text" id="name" name="name" class="form-control" />
+          <label class="form-label" for="name">Name</label>
+        </div>
+
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input type="email" id="email" name="email" class="form-control" />
+          <label class="form-label" for="email">Email address</label>
+        </div>
+
+        <!-- Subject input -->
+        <div class="form-outline mb-4">
+          <input type="text" id="subject" name="subject" class="form-control" />
+          <label class="form-label" for="subject">Subject</label>
+        </div>
+
+        <!-- Message input -->
+        <div class="form-outline mb-4">
+          <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+          <label class="form-label" for="message">Message</label>
+        </div>
+
+        <!-- Submit button -->
+        <button class="btn btn-primary btn-block mb-4">Send</button>
+      </form>
+    </section>
+    <!--Section: Live Preview-->
+
+    <p class="mt-4">将以下HTML和JavaScript代码复制并粘贴到您的文件中（例如
+      <code> index.html </code>）：</p>
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form id="contact-form" action="mail.php" method="POST">
+            <h2>Contact us</h2>
+
+            <!-- Name input -->
+            <div class="form-outline mb-4">
+              <input type="text" id="name" name="name" class="form-control" />
+              <label class="form-label" for="name">Name</label>
+            </div>
+
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="email" id="email" name="email" class="form-control" />
+              <label class="form-label" for="email">Email address</label>
+            </div>
+
+            <!-- Subject input -->
+            <div class="form-outline mb-4">
+              <input type="text" id="subject" name="subject" class="form-control" />
+              <label class="form-label" for="subject">Subject</label>
+            </div>
+
+            <!-- Message input -->
+            <div class="form-outline mb-4">
+              <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+              <label class="form-label" for="message">Message</label>
+            </div>
+
+            <!-- Submit button -->
+            <button id="submit-form" type="submit" class="btn btn-primary btn-block mb-4">
+              Send
+            </button>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Form HTML-->
+
+  <hr class="my-5" />
+
+  <!--Section: Send via PHP -->
+  <section id="section-create-php-file">
+    <!-- Section title -->
+    <h2 class="mb-4">创建PHP文件</h2>
+
+    <!-- description -->
+    <p class="mb-4">在联系表格所在的文件夹中创建一个名为<code> mail.php </code>的新文件，然后
+      在其中放置以下代码：</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="php" data-name="PHP">
+
+          <?php
+          $name    = (isset($_POST['name'])) ? $_POST['name'] : '';
+          $email   = (isset($_POST['email'])) ? $_POST['email'] : '';
+          $message = (isset($_POST['message'])) ? $_POST['message'] : '';
+          $subject = (isset($_POST['subject'])) ? $_POST['subject'] : '';
+
+          $content    = "From: $name \n Email: $email \n Message: $message";
+          $recipient  = "youremail@here.com";
+
+          $mailheader = array(
+            'From' => $email,
+            'Content-Type' => 'text/html;charset=UTF-8',
+          );
+          mail($recipient, $subject, $content, $mailheader) or die("Error!");
+          echo "Email sent!";
+          ?>
+
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>现在，只需用您的电子邮件地址替换youremail@here.com即可。记住
+      为了使脚本正常工作，您需要将其保存在支持PHP的服务器（例如Apache）上。</p>
+  </section>
+  <!--Section: Send via PHP -->
+
+  <hr class="my-5" />
+
+  <!--Section: Frontend validation -->
+  <section id="section-frontend-validation">
+    <!-- Section title -->
+    <h2 class="mb-4">前端验证</h2>
+
+    <!-- description -->
+    <p class="mb-4">我们的表格现在可以正常工作了。但是当前，如果用户通过单击发送犯了一个错误
+      无需先填写表格，这将导致发送空电子邮件。另一个
+      潜在的问题是用户可能会在电子邮件地址中输入错误，因此他永远都不会
+      我们的回应。</p>
+
+    <!--Section: MDB validation -->
+    <section id="subsection-mdb" class="mb-4">
+      <!-- Section title -->
+      <h4 class="mb-4">MDB验证</h4>
+
+      <!-- description -->
+      <p class="mb-4">MDBootstrap表单组件提供了内置验证，可用于验证用户
+        数据，然后通过PHP脚本发送电子邮件。阅读有关MDBootstrap表单验证的更多信息
+        <a href="https://mdbootstrap.com/docs/standard/forms/validation/" targe="_blank">此处</a>。</p>
+      <p class="mb-4">在下面的示例中，所有输入均标记为必填，并且JavaScript代码启用了自定义
+        MDB表单验证已添加。</p>
+
+      <!--Section: Live Preview-->
+      <section class="border p-4 d-flex justify-content-center mb-4">
+        <form
+          id="mdb-validate-form"
+          class="text-center needs-validation"
+          style="width: 100%; max-width: 300px"
+          novalidate
+        >
+          <h2>Contact us</h2>
+
+          <!-- Name input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="mdb-validation-name" name="name" class="form-control" required />
+            <label class="form-label" for="mdb-validation-name">Name</label>
+            <div class="invalid-feedback">Please provide your name.</div>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input
+              type="email"
+              id="mdb-validation-email"
+              name="email"
+              class="form-control"
+              required
+            />
+            <label class="form-label" for="mdb-validation-email">Email address</label>
+            <div class="invalid-feedback">Please provide your email.</div>
+          </div>
+
+          <!-- Subject input -->
+          <div class="form-outline mb-4">
+            <input
+              type="text"
+              id="subject"
+              name="mdb-validation-subject"
+              name="subject"
+              class="form-control"
+              required
+            />
+            <label class="form-label" for="mdb-validation-subject">Subject</label>
+            <div class="invalid-feedback">Please provide mail subject.</div>
+          </div>
+
+          <!-- Message input -->
+          <div class="form-outline mb-4">
+            <textarea
+              class="form-control"
+              id="mdb-validation-message"
+              name="message"
+              rows="4"
+              required
+            ></textarea>
+            <label class="form-label" for="mdb-validation-message">Message</label>
+            <div class="invalid-feedback">Please provide a message text.</div>
+          </div>
+
+          <!-- Submit button -->
+          <button class="btn btn-primary btn-block mb-4">Send</button>
+        </form>
+      </section>
+      <!--Section: Live Preview-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <form id="mdb-validate-form" action="mail.php" method="POST" class="needs-validation"
+              novalidate>
+              <h2>Contact us</h2>
+
+              <!-- Name input -->
+              <div class="form-outline mb-4">
+                <input type="text" id="name" name="name" class="form-control" />
+                <label class="form-label" for="name">Name</label>
+                <div class="invalid-feedback">
+                  Please provide your name.
+                </div>
+              </div>
+
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input type="email" id="email" name="email" class="form-control" />
+                <label class="form-label" for="email">Email address</label>
+                <div class="invalid-feedback">
+                  Please provide your email.
+                </div>
+              </div>
+
+              <!-- Subject input -->
+              <div class="form-outline mb-4">
+                <input type="text" id="subject" name="subject" class="form-control" />
+                <label class="form-label" for="subject">Subject</label>
+                <div class="invalid-feedback">
+                  Please provide mail subject.
+                </div>
+              </div>
+
+              <!-- Message input -->
+              <div class="form-outline mb-4">
+                <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+                <label class="form-label" for="message">Message</label>
+                <div class="invalid-feedback">
+                  Please provide a message text.
+                </div>
+              </div>
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-primary btn-block mb-4">
+                Send
+              </button>
+            </form>
+          </code>
+          <code data-lang="js" data-name="JavaScript">
+            (() => {
+              'use strict';
+
+              const forms = document.querySelectorAll('.needs-validation');
+
+              Array.prototype.slice.call(forms).forEach((form) => {
+                form.addEventListener('submit', (event) => {
+                  if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }
+                  form.classList.add('was-validated');
+                }, false);
+              });
+            })();
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Section: MDB validation -->
+
+    <hr class="my-5" />
+
+    <!--Section: Custom validation -->
+    <section id="subsection-custom" class="mb-4">
+      <!-- Section title -->
+      <h4 class="mb-4">自定义验证</h4>
+
+      <p>如果您不想使用MDB默认验证并且想要创建自己的功能
+        相反，您必须更改表单提交的行为。所以先改变
+        JavaScript中的现有代码</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="js" data-name="Javascript">
+
+            submitButton.addEventListener('click', function(){
+              document.getElementById('contact-form').submit()
+            };
+
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>使用以下代码，而不是直接提交表单，它将调用我们的
+        验证功能：</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="js" data-name="Javascript">
+
+            submitButton.addEventListener('click', validateForm);
+
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>现在我们必须创建验证功能。自定义表格的示例
+        验证功能可能如下所示：
+
+        <！-部分：实时预览-></p>
+
+      <section class="border p-4 d-flex justify-content-center mb-4">
+        <form
+          id="custom-validate-form"
+          class="text-center needs-validation"
+          style="width: 100%; max-width: 300px"
+          novalidate
+        >
+          <h2>Contact us</h2>
+
+          <!-- Name input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="custom-validation-name" name="name" class="form-control" />
+            <label class="form-label" for="custom-validation-name">Name</label>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="custom-validation-email" name="email" class="form-control" />
+            <label class="form-label" for="custom-validation-email">Email address</label>
+          </div>
+
+          <!-- Subject input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="custom-validation-subject" name="subject" class="form-control" />
+            <label class="form-label" for="custom-validation-subject">Subject</label>
+          </div>
+
+          <!-- Message input -->
+          <div class="form-outline mb-4">
+            <textarea
+              class="form-control"
+              id="custom-validation-message"
+              name="message"
+              rows="4"
+            ></textarea>
+            <label class="form-label" for="custom-validation-message">Message</label>
+          </div>
+
+          <!-- Submit button -->
+          <button id="custom-validation-button" class="btn btn-primary btn-block mb-4">Send</button>
+
+          <!-- Status message -->
+          <div id="status"></div>
+        </form>
+      </section>
+      <!--Section: Live Preview-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+              <form id="custom-validate-form" action="mail.php" method="POST" class="needs-validation"
+                novalidate>
+                <h2>Contact us</h2>
+
+                <!-- Name input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="name" name="name" class="form-control" />
+                  <label class="form-label" for="name">Name</label>
+                  <div class="invalid-feedback">
+                    Please provide your name.
+                  </div>
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <input type="email" id="email" name="email" class="form-control" />
+                  <label class="form-label" for="email">Email address</label>
+                  <div class="invalid-feedback">
+                    Please provide your email.
+                  </div>
+                </div>
+
+                <!-- Subject input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="subject" name="subject" class="form-control" />
+                  <label class="form-label" for="subject">Subject</label>
+                  <div class="invalid-feedback">
+                    Please provide mail subject.
+                  </div>
+                </div>
+
+                <!-- Message input -->
+                <div class="form-outline mb-4">
+                  <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+                  <label class="form-label" for="message">Message</label>
+                  <div class="invalid-feedback">
+                    Please provide a message text.
+                  </div>
+                </div>
+
+                <!-- Submit button -->
+                <button id="custom-validation-button" type="submit" class="btn btn-primary btn-block mb-4">
+                  Send
+                </button>
+
+                <!-- Status message -->
+                <div id="status"></div>
+              </form>
+            </code>
+            <code data-lang="js" data-name="JavaScript">
+
+              submitButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                const {isDataValid, statusMessage} = validateForm();
+
+                if (!isDataValid) {
+                  document.getElementById('status').innerHTML = statusMessage;
+                  return;
+                }
+
+                document.getElementById('status').innerHTML = `<p class="note note-success">Sending...</p>`;
+                document.getElementById('custom-validate-form').submit();
+              });
+
+              function validateForm() {
+                let isDataValid = true;
+                let statusMessage = '';
+
+                const name = document.getElementById('custom-validation-name').value;
+                if (name === "") {
+                  statusMessage += `<p class="note note-danger"><strong>Name</strong> cannot be empty</p>`;
+                  isDataValid = false;
+                };
+
+                const email = document.getElementById('custom-validation-email').value;
+                if (email === "") {
+                  statusMessage += `<p class="note note-danger"><strong>Email</strong> cannot be empty</p>`;
+                  isDataValid = false;
+                } else {
+                  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<p>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                  if(!re.test(email)){
+                    statusMessage += `<p class="note note-danger"><strong>Email</strong> is invalid</p>`;
+                    isDataValid = false;
+                  }
+                }
+
+                const subject = document.getElementById('custom-validation-subject').value;
+                if (subject === "") {
+                  statusMessage += `<p class="note note-danger"><strong>Subject</strong> cannot be empty</p>`;
+                  isDataValid = false;
+                }
+                const message = document.getElementById('custom-validation-message').value;
+                  if (message === "") {
+                  statusMessage += `<p class="note note-danger"><strong>Subject</strong> cannot be empty</p>`;
+                  isDataValid = false;
+                }
+
+                return {isDataValid, statusMessage};
+              }
+            </code>
+          </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Section: Custom validation -->
+  </section>
+  <!--Section: Frontend validation -->
+
+  <hr class="my-5" />
+
+  <!--Section: Server-side validation -->
+  <section id="section-server-side-validation" class="mb-4">
+    <!-- Section title -->
+    <h2 class="mb-4">服务器端验证</h2>
+
+    <!--Description-->
+    <p>由于用户可以轻松禁用Java脚本，因此验证
+      在服务器端提交表单。为了像我们在
+      通过添加以下代码，更新<code> mail.php </code>文件：</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="php" data-name="PHP">
+
+          <?php
+          $name    = (isset($_POST['name'])) ? $_POST['name'] : '';
+          $email   = (isset($_POST['email'])) ? $_POST['email'] : '';
+          $message = (isset($_POST['message'])) ? $_POST['message'] : '';
+          $subject = (isset($_POST['subject'])) ? $_POST['subject'] : '';
+
+          if ($name === '') {
+            die("Name cannot be empty.");
+          }
+          if ($email === '') {
+            die("Email cannot be empty.");
+          } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            die("Email format invalid.");
+          }
+          if ($subject === '') {
+            die("Subject cannot be empty.");
+          }
+          if ($message === '') {
+            die("Message cannot be empty.");
+          }
+
+          $content    = "From: $name \n Email: $email \n Message: $message";
+          $recipient  = "youremail@here.com";
+
+          $mailheader = array(
+            'From' => $email,
+            'Content-Type' => 'text/html;charset=UTF-8',
+          );
+          mail($recipient, $subject, $content, $mailheader) or die("Error!");
+          echo "Email sent!";
+          ?>
+
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Server-side validation -->
+
+  <hr class="my-5" />
+
+  <!--Section: Send AJAX -->
+  <section id="section-sending-with-ajax">
+    <!-- Section title -->
+    <h2 class="mb-4">发送电子邮件而无需使用AJAX重新加载页面</h2>
+
+    <!--Description-->
+    <p>我们的联系表格工作正常，但是用户体验尚不理想。
+      除了重新加载页面外，我们还希望在同一页面上发送联系表。让我们
+      替换以下JavaScript代码</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+
+            const {isDataValid, statusMessage} = validateForm();
+
+            if (!isDataValid) {
+              document.getElementById('status').innerHTML = statusMessage;
+              return;
+            }
+
+            fetch('mail.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then((response) => {
+              response.json();
+            })
+            .then((response) => {
+              if (response.code) {
+                // If mail was sent successfully, reset the form;
+                const values = document.querySelectorAll('.form-control');
+                values.forEach( value => {
+                  value.textContent = '';
+                });
+
+                document.getElementById('status').innerHTML = `<p class="note note-success">${response.message}</p>`;
+                setTimeout(()=> {
+                  document.getElementById('status').innerHTML = '';
+                }, 2000)
+              } else {
+                document.getElementById('status').innerHTML = `<p class="note note-danger">${response.message}</p>`;
+              }
+            })
+            .catch((err) => {
+              document.getElementById('status').innerHTML = `<p class="note note-danger">An unexpected error occured. Please try again</p>`;
+            });
+          });
+
+        </code>
+
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p class="mb-4">我们还需要调整我们的PHP代码。我们没有在消息中发送简单的字符串，而是
+      将发送一个稍微复杂一点的对象，该对象将同时包含状态和消息。如果
+      一切正常，电子邮件已成功发送。我们将返回状态1并进行清理
+      我们的表单，以确保用户不会多次发送该表单。验证错误时
+      我们将返回0并将数据保留在表单中。</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="php" data-name="PHP">
+          <?php
+          $name    = (isset($_POST['name'])) ? $_POST['name'] : '';
+          $email   = (isset($_POST['email'])) ? $_POST['email'] : '';
+          $message = (isset($_POST['message'])) ? $_POST['message'] : '';
+          $subject = (isset($_POST['subject'])) ? $_POST['subject'] : '';
+
+          header('Content-Type: application/json');
+          if ($name === '') {
+            $response =  json_encode(array(
+              'message' => 'Name cannot be empty',
+              'code' => 0
+            ));
+            die($response);
+          }
+          if ($email === '') {
+            $response =  json_encode(array(
+              'message' => 'Email cannot be empty',
+              'code' => 0
+            ));
+            die($response);
+          } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $response =  json_encode(array(
+              'message' => 'Email format invalid.',
+              'code' => 0
+            ));
+            die($response);
+          }
+          if ($subject === '') {
+            $response =  json_encode(array(
+              'message' => 'Subject cannot be empty',
+              'code' => 0
+            ));
+            die($response);
+          }
+          if ($message === '') {
+            $response =  json_encode(array(
+              'message' => 'Message cannot be empty',
+              'code' => 0
+            ));
+            die($response);
+          }
+
+          $content    = "From: $name \n Email: $email \n Message: $message";
+          $recipient  = "youremail@here.com";
+
+          $mailheader = array(
+            'From' => $email,
+            'Content-Type' => 'text/html;charset=UTF-8',
+          );
+          mail($recipient, $subject, $content, $mailheader) or die("Error!");
+          $response =  json_encode(array(
+            'message' => 'Email successfully sent!',
+            'code' => 1
+          ));
+          die($response);
+          ?>
+
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Send AJAX -->
+
+  <hr class="my-5" />
+
+  <!--Section: Anti-spam -->
+  <section id="section-anti-spam-security">
+    <!-- Section title -->
+    <h2 class="mb-4">我加入</h2>
+
+    <!--Description-->
+    <p>创建联系表格后，值得添加一个反垃圾邮件机制。不幸，
+      每秒都有成千上万的垃圾邮件浏览者在寻找互联网
+      无抵押表格并提交。它们如何工作？他们只需填写名称等典型输入
+      或发送电子邮件，然后自动提交表单。在最好的情况下，您会偶尔遇到
+      令人沮丧的垃圾邮件。最糟糕的是，他们可以通过提交联系人来关闭您的网站
+      每秒形成数百次。</p>
+
+    <p>确保联系表单最简单（也是最弱）的方法是添加自定义字段，
+      然后要求客户以某种方式填写并提交表格
+      <strong>仅</strong>（如果输入的值正确）。真正的人类将轻松执行此操作
+      任务，但漫游器很可能无法通过检查。</p>
+
+    <!--Section: Live preview-->
+    <section class="section-preview mb-4">
+      <!--Grid column-->
+      <div class="col-md-6">
+        <div class="md-form">
+          <input type="text" id="anti" name="anti" class="form-control" />
+          <label for="anti" class="">六点之后是多少？</label>
+        </div>
+      </div>
+      <!--Grid column-->
+    </section>
+    <!--Section: Live preview-->
+
+    <p>其他问题</p>
+
+    <ul>
+      <li>Q: How many eyes does a typical person have? (ex: 1) A: 2</li>
+      <li>Q: How many legs on a typical dog? (ex: 5) A: 4</li>
+      <li>Q: How many units in a dozen? (ex: 11) A: 12</li>
+      <li>Q: Name of the actor Di Caprio? (ex: Rafaelo) A:Leonardo</li>
+      <li>Q: How many days in a week? (ex: 8) A: 7</li>
+      <li>Q: How many days in July? (ex: 28) A: 31</li>
+    </ul>
+
+    <p>如果您想要更复杂的解决方案，请阅读有关Google reCAPTCHA服务的信息</p>
+  </section>
+  <!--Section: Anti-spam -->
+
+  <hr class="my-5" />
+
+  <!--Section: Other inputs -->
+  <section id="section-other-inputs">
+    <!-- Section title -->
+    <h2 class="mb-4">其他投入</h2>
+
+    <!--Description-->
+    <p class="mb-4">我们已经使用了文本输入以及用于较大文本的文本区域，但是
+      是我们可以用来增强联系方式的更有用的输入类型。</p>
+
+    <!--Section: Checkbox -->
+    <section id="subsection-checkbox" class="mb-4">
+      <!-- Section title -->
+      <h4 class="mb-4">Checkbox</h4>
+
+      <!--Section: Live preview-->
+      <section class="border p-4 d-flex justify-content-center mb-4">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" name="updates" id="updates" value="1" />
+          <label for="updates" class="form-check-label">Notify me about new updates</label>
+        </div>
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="php" data-name="PHP">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" name="updates" id="updates" value="1">
+              <label for="updates" class="form-check-label">Notify me about new updates</label>
+            </div>
+          </code>
+          <code data-lang="js" data-name="Javascript">
+            submitButton.addEventListener('click', (e) => {
+              e.preventDefault();
+
+              const form = document.querySelector('form');
+              const data = new FormData(form);
+
+              form.submit();
+            });
+          </code>
+          <code data-lang="php" data-name="PHP">
+            $updates = if(isset( $_POST['updates'])) ? $_POST['updates'] : '';
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Section: Checkbox -->
+
+    <!--Section: Multiple checkboxes -->
+    <section id="subsection-multiple-checkboxes" class="mb-4">
+      <!-- Section title -->
+      <h4 class="mb-4">多个复选框</h4>
+
+      <!--Section: Live preview-->
+      <section class="border p-4 d-flex justify-content-center mb-4">
+        <div>
+          <h5 class="h5 mb-3">How did you get to know about us?</h5>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              name="channel[]"
+              id="checkbox1"
+              value="nl"
+            />
+            <label for="checkbox1" class="form-check-label">Newsletter</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              name="channel[]"
+              id="checkbox2"
+              value="ad"
+            />
+            <label for="checkbox2" class="form-check-label">Advertisement</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              name="channel[]"
+              id="checkbox3"
+              value="ot"
+            />
+            <label for="checkbox3" class="form-check-label">Other</label>
+          </div>
+        </div>
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="HTML" data-name="HTML">
+            <h5 class="h5 mb-3">How did you get to know about us?</h5>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="channel[]" id="checkbox1" value="nl">
+                <label for="checkbox1" class="form-check-label">Newsletter</label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="channel[]" id="checkbox2" value="ad">
+                <label for="checkbox2" class="form-check-label">Advertisement</label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="channel[]" id="checkbox3" value="ot">
+                <label for="checkbox3" class="form-check-label">Other</label>
+            </div>
+          </code>
+          <code data-lang="js" data-name="Javascript">
+            submitButton.addEventListener('click', (e) => {
+              e.preventDefault();
+
+              const form = document.querySelector('form');
+              const data = new FormData(form);
+
+              form.submit();
+            });
+          </code>
+          <code data-lang="php" data-name="PHP">
+            if(isset( $_POST['channel'])){
+              foreach ($_POST['channel'] as $value) {
+                //loop through all checked checkboxes and do logic
+              }
+            }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Section: Multiple checkboxes -->
+
+    <!--Section: Radio/Option buttons -->
+    <section id="subsection-option-buttons" class="mb-4">
+      <!-- Section title -->
+      <h4 class="mb-4">单选/选项按钮</h4>
+
+      <!--Section: Live preview-->
+      <section class="border p-4 d-flex justify-content-center mb-4">
+        <div>
+          <h5 class="h5 mb-3">What is your preferred contact method?</h5>
+
+          <div class="form-check mb-4">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="radio1"
+              name="cmethod"
+              value="phone"
+              checked
+            />
+            <label class="form-check-label" for="radio1">Phone</label>
+          </div>
+
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" id="radio2" name="cmethod" value="mail" />
+            <label class="form-check-label" for="radio2">Email</label>
+          </div>
+
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" id="radio3" name="cmethod" value="post" />
+            <label class="form-check-label" for="radio3">Post</label>
+          </div>
+        </div>
+      </section>
+      <!--Section: Live preview-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="HTML" data-name="HTML">
+            <h5 class="h5 mb-3">What is your preferred contact method?</h5>
+
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="radio" id="radio1" name="cmethod" value="phone" checked>
+                <label class="form-check-label" for="radio1">Phone</label>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" id="radio2" name="cmethod" value="mail">
+                <label class="form-check-label" for="radio2">Email</label>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" id="radio3" name="cmethod" value="post">
+                <label class="form-check-label" for="radio3">Post</label>
+            </div>
+          </code>
+          <code data-lang="js" data-name="Javascript">
+            submitButton.addEventListener('click', (e) => {
+              e.preventDefault();
+
+              const form = document.querySelector('form');
+              const data = new FormData(form);
+
+              form.submit();
+            });
+          </code>
+          <code data-lang="php" data-name="PHP">
+            $updates = if(isset( $_POST['cmethod'])) ? $_POST['cmethod'] : '';
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Section: Radio/Option buttons -->
+  </section>
+  <!-- Section: Other inputs -->
+</section>
+<!--Section: Docs content-->

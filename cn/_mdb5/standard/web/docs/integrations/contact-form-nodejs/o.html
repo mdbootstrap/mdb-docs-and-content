@@ -1,0 +1,735 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+      <a class="btn btn-danger" href="https://mdbootstrap.com/docs/standard/pro/" role="button"
+        >MDB Pro component <i class="far fa-gem ms-1"></i
+      ></a>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p class="description"><?= $data_var['description']; ?></p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+
+    <p class="note note-light">
+     要使用<strong> PHP </strong>环境创建联系表单，请遵循
+      <a href="https://mdbootstrap.com/docs/standard/integrations/contact-form-php/" target="_blank"
+        >link</a
+      >
+    </p>
+
+    <p>
+      您可以在其中找到带有NodeJS Starter的联系表的最终代码
+      <code> integrations </code>文件夹的
+      <a href="https://mdbootstrap.com/docs/standard/pro/" target="_blank">MDB高级软件包</a>
+    </p>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Prerequisites-->
+  <section id="section-prerequisites">
+    <!-- Section title -->
+    <h2 class="mb-4">先决条件</h2>
+
+    <p>在启动项目之前，请确保安装以下实用程序：</p>
+
+    <ul>
+      <li>
+        <a href="https://nodejs.org/en/" target="_blank">Node LTS</a> environment (12.x.x
+        recomennded)
+      </li>
+      <li><a href="https://www.npmjs.com/package/express">Express</a>- setting the server</li>
+      <li>
+        <a href="https://www.npmjs.com/package/express-validator">Express-validator</a> - for
+        validating the form
+      </li>
+      <li><a href="https://www.npmjs.com/package/nodemailer">Nodemailer</a> - for sending mails</li>
+      <li>
+        <a href="https://www.npmjs.com/package/multer">Multer</a> - for handling multiparts request
+        (reading FormData)
+      </li>
+      <li>
+        <a href="https://www.npmjs.com/package/dotenv">Dotenv</a> - for loading environment
+        variables
+      </li>
+      <li>
+        <a href="https://www.npmjs.com/package/cors">Cors</a> - for enabling CORS (Cross-origin
+        resource sharing)
+      </li>
+    </ul>
+
+    <p class="note note-danger mb-4">
+     在本教程中，我们使用的是Bootstrap的Material Design库，您可以下载
+      它是免费的
+      <a href="https://mdbootstrap.com/docs/standard/getting-started/installation/"
+        ><strong>这里</strong></a
+      >. 如果没有该库，该表单仍然可以使用-但是它的外观和行为可能会有所不同。
+      建议将此库与本教程一起使用。
+    </p>
+  </section>
+  <!--Section: Prerequisites-->
+
+  <hr class="my-5" />
+
+  <!--Section: Form HTML-->
+  <section id="section-form-html">
+    <!-- Section title -->
+    <h2 class="mb-4">表格HTML</h2>
+
+    <!-- description -->
+    <p class="mb-4">首先，创建基本的联系表格，这将成为我们验证和发送数据的基础。</p>
+
+    <!--Section: Live Preview-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <form id="form" class="text-center" style="width: 100%; max-width: 300px">
+        <h2>Contact us</h2>
+
+        <!-- Name input -->
+        <div class="form-outline mb-4">
+          <input type="text" id="name" name="name" class="form-control" />
+          <label class="form-label" for="name">Name</label>
+        </div>
+
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input type="email" id="email" name="email" class="form-control" />
+          <label class="form-label" for="email">Email address</label>
+        </div>
+
+        <!-- Subject input -->
+        <div class="form-outline mb-4">
+          <input type="text" id="subject" name="subject" class="form-control" />
+          <label class="form-label" for="subject">Subject</label>
+        </div>
+
+        <!-- Message input -->
+        <div class="form-outline mb-4">
+          <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+          <label class="form-label" for="message">Message</label>
+        </div>
+
+        <!-- Mail copy -->
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" name="mailCopy" id="mailCopy" value="1" />
+          <label for="mailCopy" class="form-check-label">Send me copy</label>
+        </div>
+
+        <!-- Submit button -->
+        <button class="btn btn-primary btn-block my-4">Send</button>
+      </form>
+    </section>
+    <!--Section: Live Preview-->
+
+    <p class="mt-4">将以下HTML和JavaScript代码复制并粘贴到您的文件中（例如
+      <code> index.html </code>）：</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form id="contact-form">
+            <h2>Contact us</h2>
+
+            <!-- Name input -->
+            <div class="form-outline mb-4">
+              <input type="text" id="name" name="name" class="form-control" />
+              <label class="form-label" for="name">Name</label>
+            </div>
+
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="email" id="email" name="email" class="form-control" />
+              <label class="form-label" for="email">Email address</label>
+            </div>
+
+            <!-- Subject input -->
+            <div class="form-outline mb-4">
+              <input type="text" id="subject" name="subject" class="form-control" />
+              <label class="form-label" for="subject">Subject</label>
+            </div>
+
+            <!-- Message input -->
+            <div class="form-outline mb-4">
+              <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+              <label class="form-label" for="message">Message</label>
+            </div>
+
+            <!-- Mail copy -->
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" name="mailCopy" id="mailCopy" value="1">
+              <label for="mailCopy" class="form-check-label">Send me copy</label>
+            </div>
+
+            <!-- Submit button -->
+            <button id="submit-form" type="submit" class="btn btn-primary btn-block mb-4">
+              Send
+            </button>
+          </form>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p class="note note-warning">
+      其余的用于使用NodeJS发送联系表单的前端代码，例如验证表单
+      前端或使用AJAX发送表单与
+      <strong
+        ><a href="https://mdbootstrap.com/docs/standard/forms/contact-form-php/" target="_blank"
+          >PHP联系表格</a
+        ></strong
+      >
+     教程，因此这里仅在NodeJS相关部分进行讨论。
+    </p>
+  </section>
+  <!--Section: Form HTML-->
+
+  <hr class="my-5" />
+
+  <!--Section: Node server -->
+  <section id="section-node-server">
+    <!-- Section title -->
+    <h2 class="mb-4">创建NodeJS服务器文件</h2>
+
+    <!-- description -->
+    <p class="mb-4">在应用程序的根目录内创建一个名为<code> server.js </code>的新文件。</p>
+
+    <p class="mb-4">如果尚未安装express，nodemailer，body-parser和其他必要的软件包
+      从到目前为止的npm存储库中，请立即在您的计算机中使用以下命令
+      应用程序终端：</p>
+    <section class="mb-4">
+      <mdbsnippet class="mb-4">
+        <code data-lang="js" data-name="terminal">npm install express nodemailer表达验证器multer dotenv cors</code>
+      </mdbsnippet>
+    </section>
+
+    <p class="mb-4">完成所有设置后，让我们创建服务器。将以下代码粘贴到文件中</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JavaScript">
+          const express = require("express");
+          const multer = require("multer");
+          const cors = require("cors");
+
+          const app = express();
+          const upload = multer();
+
+          const port = process.env.PORT || 3000;
+
+          app.use(cors());
+          app.use(upload.none());
+
+          app.listen(port, () => {
+            console.log('Express started on port: ', port);
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p>这将导入所有必要的依赖项，将应用程序初始化为Express实例，
+      允许跨域资源共享（CORS）在前端和
+      后端开发服务器，最后启动服务器。
+      <code> const upload = multer（）</code>和<code> app.use（upload.none（））</code>创建
+      middlewarae用于处理多部分请求，这将允许使用以下方式发送联系表数据
+      FormData对象。</p>
+
+    <p class="note note-warning">在此示例中，我们使用<code> app.use（upload.none（））</code>展示如何进行多部分请求
+      处理（关闭文件上传），但是不建议全局使用它
+      范围。在您的生产应用中使用例如<code> upload.any（）</code>表示特定端点
+      您希望可以处理多部分请求。</p>
+  </section>
+  <!--Section: Node server -->
+
+  <hr class="my-5" />
+
+  <!--Section: Server structure -->
+  <section id="section-server-structure">
+    <h2 class="mb-4">创建邮件发送服务器的文件结构</h2>
+
+    <!-- description -->
+    <p class="mb-4">设置好服务器后，您就可以创建用于邮件发送路径和
+      中间件。就我们的课程而言，没有必要，但是如果您想
+      扩展示例功能，值得了解文件结构
+      看起来像在使用NodeJS环境和Express服务器的应用程序中。</p>
+
+    <!--Section: Environment variables -->
+    <section id="subsection-environment-variables">
+      <!-- Section title -->
+      <h4 class="mb-4">创建和读取环境变量文件</h4>
+
+      <p>首先，在根目录中创建<code> .env </code>文件。该文件将包含
+        您在NodeJS项目中使用的所有私有数据。满足我们的目的会
+        看起来像这样：</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="json" data-name=".env">
+            NODE_ENV=development
+            PORT=3000
+            MAIL_USERNAME=your_smtp_email_address
+            MAIL_PASSWORD=your_smtp_email_password
+            MAIL_HOST=your_smtp_host
+            MAIL_PORT=your_smtp_port
+            MAIL_TO=email_address_to_which_you_want_mails_to_be_sent
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>Example <code>.env</code> file for Gmail SMTP</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="json" data-name=".env">
+            NODE_ENV=development
+            PORT=3000
+            MAIL_USERNAME=your_email_address_here
+            MAIL_PASSWORD=your_email_password
+            MAIL_HOST=smtp.gmail.com
+            MAIL_PORT=465
+            MAIL_TO=email_address_to_which_you_want_mails_to_be_sent
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p class="mb-4">
+       请注意，我们在这里将SMTP用于Gmail。如果您想使用其他提供商
+        您的 <code>HOST, PORT and PROVIDER</code> 会有所不同。另外，如果您想发送
+        在开发模式下测试邮件，您可能希望对假SMTP服务器感兴趣，例如
+        <a href="https://mailtrap.io/" target="_blank">邮件陷阱</a>。也用于生产目的
+        建议使用许多SMTP提供程序之一。
+      </p>
+
+      <p class="note note-danger mb-4">
+        <strong>Never</strong> publish your environment variable files. Include all your
+        <code>.env</code> files inside <code>.gitignore</code> file when you publish your code.
+      </p>
+
+      <p>
+        Now add <code>/config/index.js</code> file that will read all your environment variables.
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            require('dotenv').config();
+
+            module.exports = {
+              PORT: process.env.PORT || 3000,
+              NODE_ENV,
+              MAIL_HOST: process.env.MAIL_HOST,
+              MAIL_PORT: process.env.MAIL_PORT,
+              MAIL_USERNAME: process.env.MAIL_USERNAME,
+              MAIL_PASSWORD: process.env.MAIL_PASSWORD,
+              MAIL_TO: process.env.MAIL_TO
+            };
+
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p class="mb-4">...并更改您的<code> server.js </code>文件，以便配置可以将变量公开给
+        服务器：</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            const express = require("express");
+            const multer = require("multer");
+            const cors = require("cors");
+            const config = require("./config");
+            const routes = require("./routes");
+
+            const upload = multer();
+            const app = express();
+
+            app.use(cors());
+            app.use(upload.none());
+
+            app.use("/api", routes);
+
+            app.listen(config.PORT, () => {
+              console.log(`Server is running on port ${config.PORT}.`);
+            });
+
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>还要注意，我们添加了<code> app.use（“ / api”，route）; </code>，它将使用我们的路由器
+        从下一节开始。</p>
+    </section>
+    <!--Section: Environment variables -->
+
+    <hr class="my-4" />
+
+    <!--Section: Router -->
+    <section id="subsection-router">
+      <!-- Section title -->
+      <h4 class="mb-4">创建路由器并联系表单路由。</h4>
+
+      <p class="mb-4">创建<code> / routes </code>文件夹，并在其中创建两个文件。第一
+        <code> index.js </code>将控制您的所有项目路线：</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            const router = require("express").Router({ mergeParams: true });
+            const contactRoutes = require("./contact.routes");
+
+            router.use("/contact", contactRoutes);
+
+            module.exports = router;
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p class="mb-4">...和<code> contact.routes.js </code>文件，其中将包含您所有与之相关的联系表单
+        路线。</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            // express server specific imports
+            const router = require("express").Router({ mergeParams: true });
+
+            // import for contact form routes controller
+            const { ContactController } = require("../controllers/contact.controller");
+
+            router.post("/", (req, res) => {
+              const controller = new ContactController(req, res);
+              controller.sendContactForm();
+            });
+
+            module.exports = router;
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p class="mb-4">感谢<code> express.Router（{mergeParams：true}）</code>，我们可以访问
+        子路由器内部的父路由器的<code> params </code>。在我们的情况下创建
+        <code> router.post（'/'，...）</code>等于<code> router.post（'/ contact'，...）</code>。
+        此结构对于深度嵌套的路由结构非常有帮助。</p>
+
+      <p class="mb-4">我们的联系路由器还使用<code> sendContactForm </code>方法从
+        contactController。让我们创建这个文件。</p>
+    </section>
+    <!--Section: Router -->
+
+    <hr class="my-4" />
+
+    <!--Section: Contact controller -->
+    <section id="subsection-contact-controller"><!-- Section title -->
+      <h4 class="mb-4">接触控制器</h4>
+
+      <p class="mb-4">控制器是传递给路由器方法的回调，该方法处理对路由的请求
+        并生成响应。</p>
+
+      <p class="mb-4">
+        Create <code>/controllers</code> folder inside which you will create
+        <code>contact.controllers.js</code> file. Controller for <code>/contact</code> route will
+        look as follows:
+      </p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            const nodemailer = require("nodemailer");
+
+            const { MAIL_HOST, MAIL_PORT, MAIL_PROVIDER, MAIL_USERNAME, MAIL_PASSWORD, MAIL_TO } = require('../config');
+
+            const transporter = nodemailer.createTransport({
+              host: MAIL_HOST,
+              port: MAIL_PORT,
+              auth: {
+                user: MAIL_USERNAME,
+                pass: MAIL_PASSWORD,
+              },
+            });
+
+            class ContactController {
+              constructor(request, response) {
+                this.request = request;
+                this.response = response;
+              }
+
+              sendContactForm() {
+
+                const { name, email, subject, message, mailCopy } = this.request.body;
+
+                const mailOptions = {
+                  to: [MAIL_TO], // Enter here the email address on which you want to send emails from your customers
+                  from: name,
+                  subject,
+                  text: message,
+                };
+
+                if (mailCopy) {
+                  mailOptions.to.push(email);
+                }
+
+                transporter
+                  .sendMail(mailOptions)
+                  .then(() => {
+                    return this.response
+                      .status(200)
+                      .json({ msg: "Email sent successfully" });
+                  })
+                  .catch((error) => {
+                    return this.response
+                      .status(400)
+                      .json({ errors: [{ msg: `Something went wrong: ${error}` }] });
+                  });
+              }
+            }
+
+            module.exports = ContactController;
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>Controller基于类实例，以提高应用程序的可伸缩性。你可以
+        也使用基于功能的控制器。</p>
+
+      <p>第5行-<code> const transporter = nodemailer.createTransport（{}）</code>用于创建
+        该函数将包含传输器配置的对象作为
+        参数。在此配置中，您可以定义发送电子邮件的主机
+        端口，授权以及要发送的许多其他设置。</p>
+
+      <p>第14行-创建控制器的类实例，在此示例中它将接受请求
+        以及来自rserver的响应作为其构造函数参数。</p>
+
+      <p>第20行-声明用于处理<code> POST </code>方法的<code> sendContactForm </code>方法
+        在<code> / contact </code>路线上。</p>
+
+      <p>第22-33行-定义发送到sendMail（）的<code> mailOptions </code>对象
+        运输方法。我们正是在此对象中定义要向谁发送电子邮件，
+        从谁，它的主题，文本是什么，到电子邮件中的回复是谁
+        已解决。在此对象中，您可以使用更多选项。你会发现他们
+        <a gref="https://nodemailer.com/message/" target="_blank">此处</a>。</p>
+
+      <p>第35-48行-负责使用内部定义的参数发送邮件的代码
+        <code> mailOptions </code>。将发送成功或失败响应消息到
+        前端。</p></section>
+    <!--Section: Contact controller -->
+
+    <hr class="my-4" />
+
+    <!--Section: Validation middleware-->
+    <section id="subsection-validation-middleware">
+      <!-- Section title -->
+      <h4 class="mb-4">创建验证中间件</h4>
+
+      <p>中间件是可以访问服务器请求和响应对象的功能。在
+        在我们的示例中，我们将创建中间件功能，该功能将验证联系表单数据。</p>
+
+      <p class="mb-4">创建<code> / middleware </code>文件夹，并在其中创建<code> validate.js </code>文件。</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            const { body, validationResult } = require("express-validator");
+
+            module.exports = [
+              body("name").notEmpty().withMessage("You must supply a name"),
+              body("email").isEmail().normalizeEmail().withMessage("Email is not valid"),
+              body("subject").notEmpty().withMessage("You must supply a subject"),
+              body("message").notEmpty().withMessage("You must supply a message"),
+              body("mailCopy").toBoolean(),
+              function (req, res, next) {
+                const errors = validationResult(req);
+
+                if (!errors.isEmpty()) {
+                  return res.status(400).json({ errors: errors.array() });
+                }
+
+                next();
+              },
+            ];
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p class="mb-4">我们在这里使用<code> express-validator </code>软件包，它将帮助我们进行验证
+        <code> request.body </code>，如果出现问题，请提供正确的服务器响应
+        错误信息。如果请求中的所有内容都正常，则<code> next（）</code>函数将
+        允许服务器调用下一个函数（控制器）被调用。</p>
+
+      <p class="mb-4">现在，使用我们的验证器更新<code> contact.routes.js </code>文件。注意中间件
+        函数添加在路由和控制器回调之间。</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="JavaScript">
+            // express server specific imports
+            const router = require("express").Router({ mergeParams: true });
+
+            // import validation middleware
+            const validate = require("../middleware/validate");
+
+            // import for contact form routes controller
+            const { ContactController } = require("../controllers/contact.controller");
+
+            // add validator to the route callback
+            router.post("/", validate, (req, res) => {
+              const controller = new ContactController(req, res);
+              controller.sendContactForm();
+            });
+
+            module.exports = router;
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Section: Validation middleware -->
+
+    <hr class="my-4" />
+
+    <!--Section: Run server -->
+    <section id="subsection-run-server">
+      <!-- Section title -->
+      <h4 class="mb-4">运行服务器</h4>
+
+      <p>在您的<code> package.json </code>文件中，添加将运行服务器的脚本：</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="package.json">
+            "start": "node server.js",
+            "start:dev" : "nodemon server.js"
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+
+      <p>您也可以添加<code> start：dev </code>脚本以用于开发目的，该脚本将重新启动
+        您随时更改代码的服务器。为此，添加<code> nodemon </code>包
+        到您的应用程序。</p>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet class="mb-4">
+          <code data-lang="js" data-name="terminal">
+            npm install nodemon --save-dev
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Section: Run server -->
+  </section>
+  <!--Section: Server structure -->
+
+  <hr class="my-5" />
+
+  <!--Section: Connect frontend with backend-->
+  <section id="section-connect-frontend-with-backend">
+    <!-- Section title -->
+    <h2 class="mb-4">将前端表单与后端服务器连接</h2>
+
+    <!-- description -->
+    <p class="mb-4">要将前端联系表单与后端服务器连接，我们将使用AJAX。</p>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet class="mb-4">
+        <code data-lang="js" data-name="JavaScript">
+          const form = document.getElementById('form');
+
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch('/api/contact', {
+                method: 'POST',
+                body: formData,
+                mode: 'cors'
+              })
+              .then((response) => {
+                response.json();
+              })
+              .then((response) => {
+                // handle errors
+                if (response.errors) {
+                  response.errors.forEach(({ msg }) => {
+                    document.getElementById('status').innerHTML += `<p class="note note-danger">${msg}</p>`
+                  });
+                  return;
+                }
+                // If mail was sent successfully, reset all elements with attribute 'name'
+                const values = document.querySelectorAll('[name]');
+                values.forEach( value => {
+                  value.textContent = '';
+                });
+
+                document.getElementById('status').innerHTML = `<p class="note note-success">${response.msg}</p>`;
+              })
+              .catch((err) => {
+                document.getElementById('status').innerHTML += `<p class="note note-danger">${err}</p>`
+              })
+              .finally(()=> {
+                setTimeout(()=> {
+                  document.getElementById('status').innerHTML = '';
+                }, 2000)
+              })
+          });
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <p class="mb-4">现在是时候运行后端服务器和前端应用程序并开始发送了
+      您的联系表格。</p>
+
+    <p class="mb-4">上面提供的信息只是发送联系表的示例
+      使用NodeJS服务器。如有任何疑问，请随时在
+      我们的<a href="https://mdbootstrap.com/support/" target="_blank">支持论坛</a>。</p>
+  </section>
+
+  <!--Section: Connect frontend with backend-->
+</section>
+<!--Section: Docs content-->

@@ -2,8 +2,9 @@
 global $data_var;
 $data_var = array(
   'main_title' => 'Gutters',
-  'seo_title' => 'React Gutters - Bootstrap 5 & Material Design 2.0',
-  'description' => 'Gutters are the padding between your columns, used to responsively space and align content in the Bootstrap grid system.',
+  'subheading' => 'React Bootstrap 5 Gutters component',
+  'seo_title' => 'React Gutters - examples & tutorial. Bootstrap & Material Design',
+  'description' => 'Responsive React Gutters built with the latest Bootstrap 5. Multiple code examples, a user-friendly guide, extensive API, and customization tools.',
   'url' => 'https://mdbootstrap.com/docs/b5/react/layout/gutters/',
   'image' => '',
   'video' => '',
