@@ -21,5 +21,35 @@
         false
       );
     });
+
+    const inputs = document.querySelectorAll('[data-input-event]');
+    inputs.forEach((input) => {
+      input.addEventListener('input', (e) => {
+        const isInputValid = e.target.checkValidity();
+        if (isInputValid) {
+          e.target.classList.remove('is-invalid');
+          e.target.classList.add('is-valid');
+        } else {
+          e.target.classList.remove('is-valid');
+          const invalidMessage = e.target.validationMessage;
+          e.target.parentNode.querySelector('.invalid-feedback').textContent = invalidMessage;
+          e.target.classList.add('is-invalid');
+        }
+      });
+    });
+
+    const checkbox = document.querySelector('[data-checkbox-event');
+    checkbox.addEventListener('change', (e) => {
+      const isCheckboxValid = e.target.checkValidity();
+      if (isCheckboxValid) {
+        e.target.classList.remove('is-invalid');
+        e.target.classList.add('is-valid');
+      } else {
+        e.target.classList.remove('is-valid');
+        const invalidMessage = e.target.validationMessage;
+        e.target.parentNode.querySelector('.invalid-feedback').textContent = invalidMessage;
+        e.target.classList.add('is-invalid');
+      }
+    });
   })();
 </script>

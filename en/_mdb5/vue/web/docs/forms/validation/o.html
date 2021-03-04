@@ -978,6 +978,256 @@
 
   <hr class="my-5" />
 
+  <!--Section: Validation on event-->
+  <section id="section-validation-on-event">
+    <!-- Section title -->
+    <h2 class="mb-4">Validation on event</h2>
+
+    <p>
+      Use <code>validationEvent="event name"</code> property for input and textarea or
+      <code>validateOnChange</code> property for checkbox and radio inputs to validate elements on
+      specific event instead of submit.
+    </p>
+    <p>
+      Adding validation attributes to input element such as
+      <code>minLength</code> or <code>pattern</code> will show validation message based on your
+      default browser validation response for invalid element. Add proper information about
+      validation requirements in <code>title</code> attribute for better accessibility.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <form class="row g-3 needs-validation" novalidate>
+        <div class="col-md-4">
+          <div class="form-outline">
+            <input
+              type="text"
+              class="form-control"
+              id="eventInput1"
+              value=""
+              required
+              title="Must contain between 5 and 30 characters"
+              minlength="5"
+              maxlength="30"
+              data-input-event
+            />
+            <label for="eventInput1" class="form-label">First name</label>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please provide your first name</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-outline">
+            <input
+              type="text"
+              class="form-control"
+              id="eventInput2"
+              value=""
+              required
+              title="Must contain between 5 and 30 characters"
+              minlength="5"
+              maxlength="30"
+              data-input-event
+            />
+            <label for="eventInput2" class="form-label">Last name</label>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please provide your last name</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-outline">
+            <span class="input-group-text" id="inputGroupPrepend">@</span>
+            <input
+              type="text"
+              class="form-control"
+              id="eventInput3"
+              aria-describedby="inputGroupPrepend"
+              required
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
+              data-input-event
+            />
+            <label for="eventInput3" class="form-label">Username</label>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please choose a username.</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-outline">
+            <input type="text" class="form-control" id="eventInput4" required data-input-event />
+            <label for="eventInput4" class="form-label">City</label>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please provide a valid city.</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-outline">
+            <input
+              type="text"
+              class="form-control"
+              id="eventInput5"
+              required
+              pattern="^[0-9]{5}(?:-[0-9]{4})?$"
+              title="Should match 12345 and 12345-6789 patterns"
+              data-input-event
+            />
+            <label for="eventInput5" class="form-label">Zip</label>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please provide a valid zip.</div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="eventCheckbox1"
+              required
+              data-checkbox-event
+            />
+            <label class="form-check-label" for="eventCheckbox1">
+              Agree to terms and conditions
+            </label>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">You must agree before submitting.</div>
+          </div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">Submit form</button>
+        </div>
+      </form>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <pre v-pre>
+        <mdbsnippet>
+          <code data-lang="html" data-name="template">
+            <template>
+              <MDBRow
+                tag="form"
+                class="g-3 needs-validation"
+                novalidate
+                v-on:submit.prevent="checkForm"
+              >
+                <MDBCol md="6">
+                  <MDBInput
+                    label="First name"
+                    v-model="eventInput1"
+                    invalidFeedback="Please provide your first name"
+                    validFeedback="Looks good!"
+                    validationEvent="input"
+                    required
+                    title="Must contain between 5 and 30 characters"
+                    minLength="5"
+                    maxLength="30"
+                  />
+                </MDBCol>
+                <MDBCol md="6">
+                  <MDBInput
+                    label="Last name"
+                    v-model="eventInput2"
+                    invalidFeedback="Please provide your last name"
+                    validFeedback="Looks good!"
+                    validationEvent="input"
+                    required
+                    title="Must contain between 5 and 30 characters"
+                    minLength="5"
+                    maxLength="30"
+                  />
+                </MDBCol>
+                <MDBCol md="6">
+                  <MDBInput
+                    label="Username"
+                    v-model="eventInput3"
+                    invalidFeedback="Please choose a unique and valid username."
+                    validFeedback="Looks good!"
+                    validationEvent="input"
+                    required
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
+                  />
+                </MDBCol>
+                <MDBCol md="6">
+                  <MDBInput
+                    label="City"
+                    v-model="eventInput4"
+                    invalidFeedback="Please provide a valid city."
+                    validFeedback="Looks good!"
+                    validationEvent="input"
+                    required
+                  />
+                </MDBCol>
+                <MDBCol md="6">
+                  <MDBInput
+                    label="Zip"
+                    v-model="eventInput5"
+                    invalidFeedback="Please provide a valid zip."
+                    validFeedback="Looks good!"
+                    validationEvent="input"
+                    required
+                    pattern="^[0-9]{5}(?:-[0-9]{4})?$"
+                    title="Should match 12345 and 12345-6789 patterns"
+                  />
+                </MDBCol>
+                <MDBCol col="12">
+                  <MDBCheckbox
+                    label="Agree to terms and conditions"
+                    v-model="eventCheckbox1"
+                    invalidFeedback="You must agree before submitting."
+                    validFeedback="Looks good!"
+                    validateOnChange
+                    required
+                  />
+                </MDBCol>
+                <MDBCol col="12">
+                  <MDBBtn color="primary" type="submit">Submit form</MDBBtn>
+                </MDBCol>
+              </MDBRow>
+            </template>
+          </code>
+          <code data-lang="javascript" data-name="script">
+            <script>
+              import { MMDBCol, MDBRow, MDBInput, MDBBtn, MDBCheckbox } from "mdb-vue-ui-kit";
+              import { ref } from "vue";
+              export default {
+                components: {
+                  MDBCol,
+                  MDBRow,
+                  MDBInput,
+                  MDBBtn, 
+                  MDBCheckbox
+                },
+                setup() {
+                  const eventInput1 = ref("");
+                  const eventInput2 = ref("");
+                  const eventInput3 = ref("");
+                  const eventInput4 = ref("");
+                  const eventInput5 = ref("");
+                  const eventCheckbox1 = ref(false);
+                  return {
+                    eventInput1,
+                    eventInput2,
+                    eventInput3,
+                    eventInput4,
+                    eventInput5,
+                    eventCheckbox1
+                  };
+                }
+              };
+            </script>
+          </code>
+        </mdbsnippet>
+      </pre>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Validation on events-->
+
+  <hr class="my-5" />
+
   <!--Section: Customizing-->
   <section id="section-customizing">
     <!-- Section title -->
