@@ -109,12 +109,7 @@
       <mdbsnippet>
         <code data-lang="html" data-name="template">
           <template>
-            <MDBRow
-              tag="form"
-              class="g-3 needs-validation"
-              novalidate
-              v-on:submit.prevent="checkForm"
-            >
+            <MDBRow tag="form" class="g-3 needs-validation" novalidate @submit.prevent="checkForm">
               <MDBCol md="4">
                 <MDBInput
                   label="First name"
@@ -880,12 +875,7 @@
       <mdbsnippet>
         <code data-lang="html" data-name="template">
           <template>
-            <MDBRow
-              tag="form"
-              class="g-3 needs-validation"
-              novalidate
-              v-on:submit.prevent="checkForm"
-            >
+            <MDBRow tag="form" class="g-3 needs-validation" novalidate @submit.prevent="checkForm">
               <MDBCol md="4">
                 <MDBInput
                   label="First name"
@@ -944,7 +934,7 @@
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import { MMDBCol, MDBRow, MDBInput, MDBBtn } from 'mdb-vue-ui-kit';
+            import { MDBCol, MDBRow, MDBInput, MDBBtn } from 'mdb-vue-ui-kit';
             import { ref } from 'vue';
             export default {
               components: {
@@ -954,12 +944,16 @@
                 MDBBtn,
               },
               setup() {
+                const checkForm = (e) => {
+                  e.target.classList.add('was-validated');
+                };
                 const input17 = ref('Mark');
                 const input18 = ref('Otto');
                 const input19 = ref('');
                 const input20 = ref('');
                 const input21 = ref('');
                 return {
+                  checkForm,
                   input17,
                   input18,
                   input19,
@@ -1102,125 +1096,122 @@
 
     <!--Section: Code-->
     <section>
-      <pre v-pre>
-        <mdbsnippet>
-          <code data-lang="html" data-name="template">
-            <template>
-              <MDBRow
-                tag="form"
-                class="g-3 needs-validation"
-                novalidate
-                v-on:submit.prevent="checkForm"
-              >
-                <MDBCol md="6">
-                  <MDBInput
-                    label="First name"
-                    v-model="eventInput1"
-                    invalidFeedback="Please provide your first name"
-                    validFeedback="Looks good!"
-                    validationEvent="input"
-                    required
-                    title="Must contain between 5 and 30 characters"
-                    minLength="5"
-                    maxLength="30"
-                  />
-                </MDBCol>
-                <MDBCol md="6">
-                  <MDBInput
-                    label="Last name"
-                    v-model="eventInput2"
-                    invalidFeedback="Please provide your last name"
-                    validFeedback="Looks good!"
-                    validationEvent="input"
-                    required
-                    title="Must contain between 5 and 30 characters"
-                    minLength="5"
-                    maxLength="30"
-                  />
-                </MDBCol>
-                <MDBCol md="6">
-                  <MDBInput
-                    label="Username"
-                    v-model="eventInput3"
-                    invalidFeedback="Please choose a unique and valid username."
-                    validFeedback="Looks good!"
-                    validationEvent="input"
-                    required
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                    title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
-                  />
-                </MDBCol>
-                <MDBCol md="6">
-                  <MDBInput
-                    label="City"
-                    v-model="eventInput4"
-                    invalidFeedback="Please provide a valid city."
-                    validFeedback="Looks good!"
-                    validationEvent="input"
-                    required
-                  />
-                </MDBCol>
-                <MDBCol md="6">
-                  <MDBInput
-                    label="Zip"
-                    v-model="eventInput5"
-                    invalidFeedback="Please provide a valid zip."
-                    validFeedback="Looks good!"
-                    validationEvent="input"
-                    required
-                    pattern="^[0-9]{5}(?:-[0-9]{4})?$"
-                    title="Should match 12345 and 12345-6789 patterns"
-                  />
-                </MDBCol>
-                <MDBCol col="12">
-                  <MDBCheckbox
-                    label="Agree to terms and conditions"
-                    v-model="eventCheckbox1"
-                    invalidFeedback="You must agree before submitting."
-                    validFeedback="Looks good!"
-                    validateOnChange
-                    required
-                  />
-                </MDBCol>
-                <MDBCol col="12">
-                  <MDBBtn color="primary" type="submit">Submit form</MDBBtn>
-                </MDBCol>
-              </MDBRow>
-            </template>
-          </code>
-          <code data-lang="javascript" data-name="script">
-            <script>
-              import { MMDBCol, MDBRow, MDBInput, MDBBtn, MDBCheckbox } from "mdb-vue-ui-kit";
-              import { ref } from "vue";
-              export default {
-                components: {
-                  MDBCol,
-                  MDBRow,
-                  MDBInput,
-                  MDBBtn, 
-                  MDBCheckbox
-                },
-                setup() {
-                  const eventInput1 = ref("");
-                  const eventInput2 = ref("");
-                  const eventInput3 = ref("");
-                  const eventInput4 = ref("");
-                  const eventInput5 = ref("");
-                  const eventCheckbox1 = ref(false);
-                  return {
-                    eventInput1,
-                    eventInput2,
-                    eventInput3,
-                    eventInput4,
-                    eventInput5,
-                    eventCheckbox1
-                  };
-                }
-              };
-            </script>
-          </code>
-        </mdbsnippet>
-      </pre>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBRow tag="form" class="g-3 needs-validation" novalidate @submit.prevent="checkForm">
+              <MDBCol md="6">
+                <MDBInput
+                  label="First name"
+                  v-model="eventInput1"
+                  invalidFeedback="Please provide your first name"
+                  validFeedback="Looks good!"
+                  validationEvent="input"
+                  required
+                  title="Must contain between 5 and 30 characters"
+                  minLength="5"
+                  maxLength="30"
+                />
+              </MDBCol>
+              <MDBCol md="6">
+                <MDBInput
+                  label="Last name"
+                  v-model="eventInput2"
+                  invalidFeedback="Please provide your last name"
+                  validFeedback="Looks good!"
+                  validationEvent="input"
+                  required
+                  title="Must contain between 5 and 30 characters"
+                  minLength="5"
+                  maxLength="30"
+                />
+              </MDBCol>
+              <MDBCol md="6">
+                <MDBInput
+                  label="Username"
+                  v-model="eventInput3"
+                  invalidFeedback="Please choose a unique and valid username."
+                  validFeedback="Looks good!"
+                  validationEvent="input"
+                  required
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
+                />
+              </MDBCol>
+              <MDBCol md="6">
+                <MDBInput
+                  label="City"
+                  v-model="eventInput4"
+                  invalidFeedback="Please provide a valid city."
+                  validFeedback="Looks good!"
+                  validationEvent="input"
+                  required
+                />
+              </MDBCol>
+              <MDBCol md="6">
+                <MDBInput
+                  label="Zip"
+                  v-model="eventInput5"
+                  invalidFeedback="Please provide a valid zip."
+                  validFeedback="Looks good!"
+                  validationEvent="input"
+                  required
+                  pattern="^[0-9]{5}(?:-[0-9]{4})?$"
+                  title="Should match 12345 and 12345-6789 patterns"
+                />
+              </MDBCol>
+              <MDBCol col="12">
+                <MDBCheckbox
+                  label="Agree to terms and conditions"
+                  v-model="eventCheckbox1"
+                  invalidFeedback="You must agree before submitting."
+                  validFeedback="Looks good!"
+                  validateOnChange
+                  required
+                />
+              </MDBCol>
+              <MDBCol col="12">
+                <MDBBtn color="primary" type="submit">Submit form</MDBBtn>
+              </MDBCol>
+            </MDBRow>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBCol, MDBRow, MDBInput, MDBBtn, MDBCheckbox } from 'mdb-vue-ui-kit';
+            import { ref } from 'vue';
+            export default {
+              components: {
+                MDBCol,
+                MDBRow,
+                MDBInput,
+                MDBBtn,
+                MDBCheckbox,
+              },
+              setup() {
+                const checkForm = (e) => {
+                  e.target.classList.add('was-validated');
+                };
+                const eventInput1 = ref('');
+                const eventInput2 = ref('');
+                const eventInput3 = ref('');
+                const eventInput4 = ref('');
+                const eventInput5 = ref('');
+                const eventCheckbox1 = ref(false);
+                return {
+                  checkForm,
+                  eventInput1,
+                  eventInput2,
+                  eventInput3,
+                  eventInput4,
+                  eventInput5,
+                  eventCheckbox1,
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
     </section>
     <!--Section: Code-->
   </section>
