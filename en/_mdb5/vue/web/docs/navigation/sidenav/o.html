@@ -213,9 +213,9 @@
     <h2 class="mb-4">Positioning</h2>
 
     <p>
-      While using the <code>side</code> and <code>push</code> modes, you can specify the
-      <code>contentSelector</code> propserty for your page's content - this way, the component will
-      automatically update paddings and margins.
+      While using the <code>mode="side"</code> and <code>mode="push"</code> properties, you can
+      specify the <code>contentSelector</code> property for your page's content - this way, the
+      component will automatically update paddings and margins.
     </p>
 
     <!--Section: Demo-->
@@ -305,37 +305,37 @@
           <template>
             <div class="d-flex my-4">
               <MDBBtn
-                @click="setPosition('push1')"
+                @click="setMode('push')"
                 :class="{
                   btn: true,
-                  'btn-outline-primary': !positions.push1,
-                  'btn-primary': positions.push1,
-                  'me-3': true,
+                  'btn-outline-primary': !mode === 'push',
+                  'btn-primary': mode === 'push',
+                  'me-3': true
                 }"
                 >Push</MDBBtn
               >
               <MDBBtn
-                @click="setPosition('side1')"
+                @click="setMode('side')"
                 :class="{
                   btn: true,
-                  'btn-outline-primary': !positions.side1,
-                  'btn-primary': positions.side1,
-                  'me-3': true,
+                  'btn-outline-primary': !mode === 'side',
+                  'btn-primary': mode === 'side',
+                  'me-3': true
                 }"
                 >Side</MDBBtn
               >
               <MDBBtn
-                @click="setPosition('over1')"
+                @click="setMode('over')"
                 :class="{
                   btn: true,
-                  'btn-outline-primary': !positions.over1,
-                  'btn-primary': positions.over1,
-                  'me-3': true,
+                  'btn-outline-primary': !mode === 'over',
+                  'btn-primary': mode === 'over',
+                  'me-3': true
                 }"
                 >Over</MDBBtn
               >
             </div>
-          
+    
             <section
               style="position: relative; overflow-y: hidden; min-height: 400px"
               class="border p-4 d-flex justify-content-center mb-4"
@@ -343,11 +343,9 @@
               <!-- Sidenav-->
               <MDBSideNav
                 v-model="sidenavPositions"
-                absolute
                 id="sidenavPositions"
-                :over="positions.over1"
-                :side="positions.side1"
-                :push="positions.push1"
+                absolute
+                :mode="mode"
                 contentSelector="#content"
               >
                 <MDBSideNavMenu>
@@ -376,7 +374,7 @@
                 </MDBSideNavMenu>
               </MDBSideNav>
               <!-- Sidenav-->
-          
+    
               <!-- Content -->
               <div style="padding: 20px" class="text-center" id="content">
                 <!-- Toggler -->
@@ -388,13 +386,14 @@
                   <MDBIcon icon="bars" />
                 </MDBBtn>
                 <!-- Toggler -->
-          
+    
                 <div class="d-flex my-5 text-start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc magna
-                  massa, ornare quis interdum a, cursus in quam. Quisque risus libero,
-                  cursus eget eros vitae, aliquam placerat velit. Vivamus luctus eros id
-                  sagittis luctus. Pellentesque felis nulla, rhoncus viverra nunc vitae,
-                  viverra aliquam ante. Ut feugiat mattis tempor.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                  magna massa, ornare quis interdum a, cursus in quam. Quisque risus
+                  libero, cursus eget eros vitae, aliquam placerat velit. Vivamus
+                  luctus eros id sagittis luctus. Pellentesque felis nulla, rhoncus
+                  viverra nunc vitae, viverra aliquam ante. Ut feugiat mattis
+                  tempor.
                 </div>
               </div>
               <!-- Content -->
@@ -409,9 +408,9 @@
               MDBSideNavItem,
               MDBSideNavLink,
               MDBBtn,
-              MDBIcon,
-            } from 'mdb-vue-ui-kit';
-            import { ref, reactive } from 'vue';
+              MDBIcon
+            } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
 
             export default {
               components: {
@@ -420,31 +419,22 @@
                 MDBSideNavItem,
                 MDBSideNavLink,
                 MDBBtn,
-                MDBIcon,
+                MDBIcon
               },
               setup() {
                 const sidenavPositions = ref(true);
-                const positions = reactive({
-                  push1: false,
-                  side1: false,
-                  over1: true,
-                });
-                const setPosition = (position) => {
-                  for (const key of Object.keys(positions)) {
-                    if (key === position) {
-                      positions[key] = true;
-                    } else {
-                      positions[key] = false;
-                    }
-                  }
+                const mode = ref("over");
+
+                const setMode = value => {
+                  mode.value = value;
                 };
 
                 return {
                   sidenavPositions,
-                  positions,
-                  setPosition,
+                  mode,
+                  setMode
                 };
-              },
+              }
             };
           </script>
         </code>
@@ -543,10 +533,12 @@
           <template>
             <!-- Sidenav-->
             <MDBSideNav
-            v-model="sidenavColors"
-            id="sidenavColors"
-            :color="sidenavColor"
-            contentSelector="#content"
+              v-model="sidenavColors"
+              id="sidenavColors"
+              :color="sidenavColor"
+              contentSelector="#content"
+              mode="side"
+              closeOnEsc
             >
               <MDBSideNavMenu>
                 <MDBSideNavItem>
@@ -574,46 +566,40 @@
               </MDBSideNavMenu>
             </MDBSideNav>
             <!-- Sidenav-->
-
             <!-- Content -->
             <div class="my-3" id="content">
-              <MDBBtn id="sidenav-primary" color="primary" @click="setSidenavColor"
+              <MDBBtn id="sidenav-primary" color="primary" v-on:click="setSidenavColor"
                 >Primary</MDBBtn
               >
-              <MDBBtn
-                id="sidenav-secondary"
-                color="secondary"
-                @click="setSidenavColor"
-              >
+              <MDBBtn id="sidenav-secondary" color="secondary" v-on:click="setSidenavColor">
                 Secondary
               </MDBBtn>
-              <MDBBtn id="sidenav-warning" color="warning" @click="setSidenavColor"
+              <MDBBtn id="sidenav-warning" color="warning" v-on:click="setSidenavColor"
                 >Warning</MDBBtn
               >
-              <MDBBtn id="sidenav-danger" color="danger" @click="setSidenavColor"
+              <MDBBtn id="sidenav-danger" color="danger" v-on:click="setSidenavColor"
                 >Danger</MDBBtn
               >
-              <MDBBtn id="sidenav-success" color="success" @click="setSidenavColor"
+              <MDBBtn id="sidenav-success" color="success" v-on:click="setSidenavColor"
                 >Success</MDBBtn
               >
-              <MDBBtn id="sidenav-info" color="info" @click="setSidenavColor"
+              <MDBBtn id="sidenav-info" color="info" v-on:click="setSidenavColor"
                 >Info</MDBBtn
               >
-              <MDBBtn id="sidenav-dark" color="dark" @click="setSidenavColor"
+              <MDBBtn id="sidenav-dark" color="dark" v-on:click="setSidenavColor"
                 >Dark</MDBBtn
               >
-              <MDBBtn id="sidenav-light" color="light" @click="setSidenavColor"
+              <MDBBtn id="sidenav-light" color="light" v-on:click="setSidenavColor"
                 >Light</MDBBtn
               >
-            </div>            
+            </div>
             <!-- Content -->
-  
             <!-- Toggler-->
             <div style="padding: 20px" class="text-center">
               <MDBBtn
                 color="primary"
                 aria-controls="#sidenavColors"
-                @click="sidenavColors = !sidenavColors"
+                v-on:click="sidenavColors = !sidenavColors"
               >
                 <MDBIcon icon="bars" />
               </MDBBtn>
@@ -623,15 +609,21 @@
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import { MDBSideNav, MDBSideNavMenu, MDBSideNavItem, MDBSideNavLink, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
-            import { ref } from 'vue';
-
+            import {
+              MDBSideNav,
+              MDBSideNavMenu,
+              MDBSideNavItem,
+              MDBSideNavLink,
+              MDBBtn,
+              MDBIcon
+            } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
             export default {
               components: {
-                MDBSideNav, 
-                MDBSideNavMenu, 
-                MDBSideNavItem, 
-                MDBSideNavLink, 
+                MDBSideNav,
+                MDBSideNavMenu,
+                MDBSideNavItem,
+                MDBSideNavLink,
                 MDBBtn,
                 MDBIcon
               },
@@ -641,12 +633,11 @@
                 const setSidenavColor = e => {
                   sidenavColor.value = e.target.id.split("-")[1];
                 };
-
                 return {
                   sidenavColors,
                   sidenavColor,
                   setSidenavColor
-                }
+                };
               }
             };
           </script>
@@ -730,10 +721,10 @@
           <template>
             <!-- Sidenav-->
             <MDBSideNav
-            v-model="sidenavDark"
-            id="sidenavDark"
-            color="light"
-            dark
+              v-model="sidenavDark"
+              id="sidenavDark"
+              color="light"
+              dark
             >
               <MDBSideNavMenu>
                 <MDBSideNavItem>
