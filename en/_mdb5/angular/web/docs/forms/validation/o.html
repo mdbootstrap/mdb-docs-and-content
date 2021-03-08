@@ -1,0 +1,491 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">
+      Provide valuable, actionable feedback to your users with Angular form validation.
+    </p>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <p>
+      Use <code>mdbValidate</code> directive to enable validation styles and
+      <code>mdb-error</code> and <code>mdb-success</code> components to display validation messages.
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form [formGroup]="validationForm">
+            <div class="row">
+              <div class="col-md-6">
+                <mdb-form-control>
+                  <input
+                    mdbValidate
+                    mdbInput
+                    type="text"
+                    id="form1"
+                    class="form-control"
+                    formControlName="firstName"
+                    required
+                  />
+                  <label mdbLabel class="form-label" for="form1">First name</label>
+                  <mdb-error
+                    *ngIf="
+                    firstName?.invalid && (firstName?.dirty || firstName?.touched)
+                    "
+                    >First name is required</mdb-error
+                  >
+                  <mdb-success
+                    *ngIf="
+                    firstName?.valid && (firstName?.dirty || firstName?.touched)
+                    "
+                    >Looks good!</mdb-success
+                  >
+                </mdb-form-control>
+              </div>
+
+              <div class="col-md-6">
+                <mdb-form-control>
+                  <input
+                    mdbValidate
+                    mdbInput
+                    type="text"
+                    id="form2"
+                    class="form-control"
+                    formControlName="lastName"
+                    required
+                  />
+                  <label mdbLabel class="form-label" for="form2">Last name</label>
+                  <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
+                    >Last name is required</mdb-error
+                  >
+                  <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)"
+                    >Looks good!</mdb-success
+                  >
+                </mdb-form-control>
+              </div>
+            </div>
+          </form>
+        </code>
+
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="Typescript">
+          import { Component, OnInit } from '@angular/core';
+          import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+            styleUrls: ['./app.component.scss'],
+          })
+          export class AppComponent implements OnInit {
+            validationForm: FormGroup;
+
+            constructor() {}
+
+            ngOnInit(): void {
+              this.validationForm = new FormGroup({
+                firstName: new FormControl(null, Validators.required),
+                lastName: new FormControl(null, Validators.required),
+              });
+            }
+
+            get firstName(): AbstractControl {
+              return this.basicValidationForm.get('firstName');
+            }
+
+            get lastName(): AbstractControl {
+              return this.basicValidationForm.get('lastName');
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Supported elements-->
+  <section id="section-supported-elements">
+    <!-- Section title -->
+    <h2 class="mb-4">Supported elements</h2>
+
+    <p>Validation styles are available for the following form controls and components:</p>
+
+    <ul>
+      <li>
+        <code>&lt;input&gt;</code>s and <code>&lt;textarea&gt;</code>s with
+        <code>.form-control</code> (including up to one <code>.form-control</code> in input groups)
+      </li>
+      <li><code>.form-check</code>s</li>
+      <li><code>mdb-select</code></li>
+    </ul>
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form [formGroup]="validationForm">
+            <div class="mb-3 pb-1">
+              <mdb-form-control>
+                <input
+                  mdbValidate
+                  mdbInput
+                  type="text"
+                  id="form1"
+                  class="form-control"
+                  formControlName="input"
+                  required
+                />
+                <label mdbLabel class="form-label" for="form1">Example label</label>
+                <mdb-error *ngIf="input?.invalid && (input?.dirty || input?.touched)"
+                  >Input invalid</mdb-error
+                >
+                <mdb-success *ngIf="input?.valid && (input?.dirty || input?.touched)"
+                  >Input valid</mdb-success
+                >
+              </mdb-form-control>
+            </div>
+
+            <div class="mb-3 pb-1">
+              <mdb-form-control>
+                <textarea
+                  mdbValidate
+                  mdbInput
+                  type="text"
+                  id="form1"
+                  class="form-control"
+                  formControlName="textarea"
+                  required
+                ></textarea>
+                <label mdbLabel class="form-label" for="form1">Example label</label>
+                <mdb-error *ngIf="textarea?.invalid && (textarea?.dirty || textarea?.touched)"
+                  >Input invalid</mdb-error
+                >
+                <mdb-success *ngIf="textarea?.valid && (textarea?.dirty || textarea?.touched)"
+                  >Input valid</mdb-success
+                >
+              </mdb-form-control>
+            </div>
+
+            <div class="mb-3 pb-1">
+              <mdb-form-control>
+                <mdb-select mdbValidate [required]="true" formControlName="select">
+                  <mdb-select-option *ngFor="let option of options" [value]="option.value"
+                    >{{ option.label }}</mdb-select-option
+                  >
+                </mdb-select>
+                <label mdbLabel class="form-label">Example label</label>
+                <mdb-error *ngIf="select?.invalid && (select?.dirty || select?.touched)"
+                  >Input invalid</mdb-error
+                >
+                <mdb-success *ngIf="select?.valid && (select?.dirty || select?.touched)"
+                  >Input valid</mdb-success
+                >
+              </mdb-form-control>
+            </div>
+
+            <div class="form-check mt-5 mb-3 ms-2 pb-1">
+              <input
+                mdbValidate
+                mdbCheckbox
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+                formControlName="checkbox"
+              />
+              <label class="form-check-label" for="flexCheckDefault"> Default checkbox </label>
+              <mdb-error *ngIf="checkbox?.invalid && (checkbox?.dirty || checkbox?.touched)"
+                >Input invalid</mdb-error
+              >
+              <mdb-success *ngIf="checkbox?.valid && (checkbox?.dirty || checkbox?.touched)"
+                >Input valid</mdb-success
+              >
+            </div>
+          </form>
+        </code>
+
+        <!-- prettier-ignore -->
+        <code data-lang="js" data-name="Typescript">
+          import { Component, OnInit } from '@angular/core';
+          import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+            styleUrls: ['./app.component.scss'],
+          })
+          export class AppComponent implements OnInit {
+            validationForm: FormGroup;
+
+            options = [
+            { value: '1', label: 'One' },
+            { value: '2', label: 'Two' },
+            { value: '3', label: 'Three' },
+            { value: '4', label: 'Four' },
+            { value: '5', label: 'Five' },
+            { value: '6', label: 'Six' },
+            { value: '7', label: 'Seven' },
+            { value: '8', label: 'Eigth' },
+          ];
+
+            constructor() {}
+
+            ngOnInit(): void {
+              this.validationForm = new FormGroup({
+                input: new FormControl(null, Validators.required),
+                textarea: new FormControl(null, Validators.required),
+                select: new FormControl(null, Validators.required),
+                checkbox: new FormControl(null, Validators.requiredTrue),
+              });
+            }
+
+            get input(): AbstractControl {
+              return this.validationForm.get('input');
+            }
+
+            get textarea(): AbstractControl {
+              return this.validationForm.get('textarea');
+            }
+
+            get select(): AbstractControl {
+              return this.validationForm.get('select');
+            }
+
+            get checkbox(): AbstractControl {
+              return this.validationForm.get('checkbox');
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Supported elements-->
+
+  <hr class="my-5" />
+
+  <!--Section: On blur validation-->
+  <section id="section-blur-validation">
+    <!-- Section title -->
+    <h2 class="mb-4">On blur validation</h2>
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <form [formGroup]="validationForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <mdb-form-control>
+                    <input
+                      mdbValidate
+                      mdbInput
+                      type="text"
+                      id="form1"
+                      class="form-control"
+                      formControlName="firstName"
+                      required
+                    />
+                    <label mdbLabel class="form-label" for="form1">First name</label>
+                    <mdb-error
+                      *ngIf="
+                      firstName?.invalid && (firstName?.dirty || firstName?.touched)
+                      "
+                      >First name is required</mdb-error
+                    >
+                    <mdb-success
+                      *ngIf="
+                      firstName?.valid && (firstName?.dirty || firstName?.touched)
+                      "
+                      >Looks good!</mdb-success
+                    >
+                  </mdb-form-control>
+                </div>
+
+                <div class="col-md-6">
+                  <mdb-form-control>
+                    <input
+                      mdbValidate
+                      mdbInput
+                      type="text"
+                      id="form2"
+                      class="form-control"
+                      formControlName="lastName"
+                      required
+                    />
+                    <label mdbLabel class="form-label" for="form2">Last name</label>
+                    <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
+                      >Last name is required</mdb-error
+                    >
+                    <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)"
+                      >Looks good!</mdb-success
+                    >
+                  </mdb-form-control>
+                </div>
+              </div>
+            </form>
+          </code>
+
+          <!-- prettier-ignore -->
+          <code data-lang="js" data-name="Typescript">
+            import { Component, OnInit } from '@angular/core';
+            import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+
+            @Component({
+              selector: 'app-root',
+              templateUrl: './app.component.html',
+              styleUrls: ['./app.component.scss'],
+            })
+            export class AppComponent implements OnInit {
+              validationForm: FormGroup;
+
+              constructor() {}
+
+              ngOnInit(): void {
+                this.validationForm = new FormGroup({
+                  firstName: new FormControl(null, { validators: Validators.required, updateOn: 'blur' }),
+                  lastName: new FormControl(null, { validators: Validators.required, updateOn: 'blur' }),
+                });
+              }
+
+              get firstName(): AbstractControl {
+                return this.basicValidationForm.get('firstName');
+              }
+
+              get lastName(): AbstractControl {
+                return this.basicValidationForm.get('lastName');
+              }
+            }
+          </code>
+        </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: On blur validation-->
+
+  <hr class="my-5" />
+
+  <!--Section: On submit validation-->
+  <section id="section-submit-validation">
+    <!-- Section title -->
+    <h2 class="mb-4">On submit validation</h2>
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+            <code data-lang="html" data-name="HTML">
+              <form [formGroup]="validationForm">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mdb-form-control>
+                      <input
+                        mdbValidate
+                        mdbInput
+                        type="text"
+                        id="form1"
+                        class="form-control"
+                        formControlName="firstName"
+                        required
+                      />
+                      <label mdbLabel class="form-label" for="form1">First name</label>
+                      <mdb-error
+                        *ngIf="
+                        firstName?.invalid && (firstName?.dirty || firstName?.touched)
+                        "
+                        >First name is required</mdb-error
+                      >
+                      <mdb-success
+                        *ngIf="
+                        firstName?.valid && (firstName?.dirty || firstName?.touched)
+                        "
+                        >Looks good!</mdb-success
+                      >
+                    </mdb-form-control>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mdb-form-control>
+                      <input
+                        mdbValidate
+                        mdbInput
+                        type="text"
+                        id="form2"
+                        class="form-control"
+                        formControlName="lastName"
+                        required
+                      />
+                      <label mdbLabel class="form-label" for="form2">Last name</label>
+                      <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
+                        >Last name is required</mdb-error
+                      >
+                      <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)"
+                        >Looks good!</mdb-success
+                      >
+                    </mdb-form-control>
+                  </div>
+                </div>
+              </form>
+            </code>
+
+            <!-- prettier-ignore -->
+            <code data-lang="js" data-name="Typescript">
+              import { Component, OnInit } from '@angular/core';
+              import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+
+              @Component({
+                selector: 'app-root',
+                templateUrl: './app.component.html',
+                styleUrls: ['./app.component.scss'],
+              })
+              export class AppComponent implements OnInit {
+                validationForm: FormGroup;
+
+                constructor() {}
+
+                ngOnInit(): void {
+                  this.validationForm = new FormGroup({
+                    firstName: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+                    lastName: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+                  });
+                }
+
+                get firstName(): AbstractControl {
+                  return this.basicValidationForm.get('firstName');
+                }
+
+                get lastName(): AbstractControl {
+                  return this.basicValidationForm.get('lastName');
+                }
+              }
+            </code>
+          </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: On submit validation-->
+</section>
+<!--Section: Docs content-->
