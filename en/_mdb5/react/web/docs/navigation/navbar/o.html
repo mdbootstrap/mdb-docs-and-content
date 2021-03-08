@@ -146,7 +146,12 @@
             MDBNavbarNav,
             MDBNavbarItem,
             MDBNavbarLink,
-            MDBBtn
+            MDBBtn,
+            MDBDropdown,
+            MDBDropdownToggle,
+            MDBDropdownMenu,
+            MDBDropdownItem,
+            MDBDropdownLink
           } from 'mdb-react-ui-kit';
           
           export default function App() {
@@ -159,12 +164,13 @@
                     aria-controls='navbarSupportedContent'
                     aria-expanded='false'
                     aria-label='Toggle navigation'
+                    onClick={() => setShowBasic(!showBasic)}
                   >
                     <MDBIcon icon='bars' fas />
                   </MDBNavbarToggler>
   
-                  <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-                    <MDBNavbarNav right className=' mb-2 mb-lg-0'>
+                  <MDBCollapse navbar show={showBasic}>
+                    <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
                       <MDBNavbarItem>
                         <MDBNavbarLink active aria-current='page' href='#'>
                           Home
@@ -173,38 +179,26 @@
                       <MDBNavbarItem>
                         <MDBNavbarLink href='#'>Link</MDBNavbarLink>
                       </MDBNavbarItem>
-                      <MDBNavbarItem className='dropdown'>
-                        <a
-                          className='nav-link dropdown-toggle'
-                          href='#'
-                          id='navbarDropdown'
-                          role='button'
-                          data-toggle='dropdown'
-                          aria-expanded='false'
-                        >
-                          Dropdown
-                        </a>
-                        <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
-                          <li>
-                            <a className='dropdown-item' href='#'>
-                              Action
-                            </a>
-                          </li>
-                          <li>
-                            <a className='dropdown-item' href='#'>
-                              Another action
-                            </a>
-                          </li>
-                          <li>
-                            <hr className='dropdown-divider' />
-                          </li>
-                          <li>
-                            <a className='dropdown-item' href='#'>
-                              Something else here
-                            </a>
-                          </li>
-                        </ul>
+  
+                      <MDBNavbarItem>
+                        <MDBDropdown>
+                          <MDBDropdownToggle tag='a' className='nav-link'>
+                            Dropdown
+                          </MDBDropdownToggle>
+                          <MDBDropdownMenu>
+                            <MDBDropdownItem>
+                              <MDBDropdownLink>Action</MDBDropdownLink>
+                            </MDBDropdownItem>
+                            <MDBDropdownItem>
+                              <MDBDropdownLink>Another action</MDBDropdownLink>
+                            </MDBDropdownItem>
+                            <MDBDropdownItem>
+                              <MDBDropdownLink>Something else here</MDBDropdownLink>
+                            </MDBDropdownItem>
+                          </MDBDropdownMenu>
+                        </MDBDropdown>
                       </MDBNavbarItem>
+  
                       <MDBNavbarItem>
                         <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
                           Disabled
@@ -216,7 +210,7 @@
                       <input type='search' className='form-control' placeholder='Type query' aria-label='Search' />
                       <MDBBtn color='primary'>Search</MDBBtn>
                     </form>
-                  </div>
+                  </MDBCollapse>
                 </MDBContainer>
               </MDBNavbar>
             );
@@ -563,7 +557,7 @@
         <mdbsnippet>
           <!--prettier-ignore-->
           <code data-lang="js" data-name="JSX">
-            import React from 'react';
+            import React, { useState } from 'react';
             import { 
               MDBContainer,
               MDBNavbar, 
@@ -571,18 +565,26 @@
               MDBNavbarToggler,
               MDBNavbarNav,
               MDBNavbarItem,
-              MDBNavbarLink
+              MDBNavbarLink,
+              MDBCollapse
             } from 'mdb-react-ui-kit';
             
             export default function App() {
+              const [showNav, setShowNav] = useState(false);
+
               return (
                 <MDBNavbar expand='lg' light bgColor='light'>
                   <MDBContainer fluid>
                     <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
-                    <MDBNavbarToggler type='button' aria-expanded='false' aria-label='Toggle navigation'>
+                    <MDBNavbarToggler
+                      type='button'
+                      aria-expanded='false'
+                      aria-label='Toggle navigation'
+                      onClick={() => setShowNav(!showNav)}
+                    >
                       <MDBIcon icon='bars' fas />
                     </MDBNavbarToggler>
-                    <div className='collapse navbar-collapse' id='navbarNav'>
+                    <MDBCollapse navbar show={showNav}>
                       <MDBNavbarNav>
                         <MDBNavbarItem>
                           <MDBNavbarLink active aria-current='page' href='#'>
@@ -601,7 +603,7 @@
                           </MDBNavbarLink>
                         </MDBNavbarItem>
                       </MDBNavbarNav>
-                    </div>
+                    </MDBCollapse>
                   </MDBContainer>
                 </MDBNavbar>
               );
@@ -652,7 +654,7 @@
         <mdbsnippet>
           <!--prettier-ignore-->
           <code data-lang="js" data-name="JSX">
-            import React from 'react';
+            import React, { useState } from 'react';
             import { 
               MDBContainer,
               MDBNavbar, 
@@ -661,24 +663,26 @@
               MDBNavbarNav,
               MDBNavbarItem,
               MDBNavbarLink,
-              MDBIcon
+              MDBIcon,
+              MDBCollapse
             } from 'mdb-react-ui-kit';
             
             export default function App() {
+              const [showNavSecond, setShowNavSecond] = useState(false);
+
               return (
                 <MDBNavbar expand='lg' light bgColor='light'>
                   <MDBContainer fluid>
                     <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
                     <MDBNavbarToggler
-                      type='button'
-                      aria-controls='navbarNavAltMarkup'
                       aria-expanded='false'
                       aria-label='Toggle navigation'
+                      onClick={() => setShowNavSecond(!showNavSecond)}
                     >
                       <MDBIcon icon='bars' fas />
                     </MDBNavbarToggler>
-                    <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
-                      <div className='navbar-nav'>
+                    <MDBCollapse navbar show={showNavSecond}>
+                      <MDBNavbarNav>
                         <MDBNavbarLink active aria-current='page' href='#'>
                           Home
                         </MDBNavbarLink>
@@ -687,8 +691,8 @@
                         <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
                           Disabled
                         </MDBNavbarLink>
-                      </div>
-                    </div>
+                      </MDBNavbarNav>
+                    </MDBCollapse>
                   </MDBContainer>
                 </MDBNavbar>
               );
@@ -1006,7 +1010,7 @@
         <mdbsnippet>
           <!--prettier-ignore-->
           <code data-lang="js" data-name="JSX">
-            import React from 'react';
+            import React, { useState } from 'react';
             import { 
               MDBNavbar, 
               MDBContainer,
@@ -1016,24 +1020,29 @@
               MDBNavbarItem,
               MDBNavbarLink,
               MDBNavbarToggler,
-              MDBIcon
+              MDBIcon,
+              MDBCollapse
             } from 'mdb-react-ui-kit';
             
             export default function App() {
+              const [showNavText, setShowNavText] = useState(false);
+
               return (
                 <MDBNavbar expand='lg' light bgColor='light'>
                   <MDBContainer fluid>
                     <MDBNavbarBrand href='#'>Navbar w/ text</MDBNavbarBrand>
                     <MDBNavbarToggler
                       type='button'
+                      data-target='#navbarText'
                       aria-controls='navbarText'
                       aria-expanded='false'
                       aria-label='Toggle navigation'
+                      onClick={() => setShowNavText(!showNavText)}
                     >
                       <MDBIcon icon='bars' fas />
                     </MDBNavbarToggler>
-                    <div className='collapse navbar-collapse' id='navbarText'>
-                      <MDBNavbarNav right className=' mb-2 mb-lg-0'>
+                    <MDBCollapse navbar show={showNavText}>
+                      <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
                         <MDBNavbarItem>
                           <MDBNavbarLink active aria-current='page' href='#'>
                             Home
@@ -1047,7 +1056,7 @@
                         </MDBNavbarItem>
                       </MDBNavbarNav>
                       <span className='navbar-text'> Navbar text with an inline element </span>
-                    </div>
+                    </MDBCollapse>
                   </MDBContainer>
                 </MDBNavbar>
               );
@@ -1186,12 +1195,12 @@
                     <MDBNavbarNav className='d-flex flex-row'>
                       <MDBNavbarItem className='me-3 me-lg-0'>
                         <MDBNavbarLink href='#'>
-                          <MDBIcon fas icon='shopping-cart'></MDBIcon>
+                          <MDBIcon fas icon='shopping-cart' />
                         </MDBNavbarLink>
                       </MDBNavbarItem>
                       <MDBNavbarItem className='me-3 me-lg-0'>
                         <MDBNavbarLink href='#'>
-                          <i className='fab fa-twitter'></i>
+                          <MDBIcon fab icon='twitter' />
                         </MDBNavbarLink>
                       </MDBNavbarItem>
                     </MDBNavbarNav>
@@ -1247,7 +1256,8 @@
               MDBIcon,
               MDBNavbarNav,
               MDBNavbarItem,
-              MDBNavbarLink
+              MDBNavbarLink,
+              MDBBadge
             } from 'mdb-react-ui-kit';
             
             export default function App() {
@@ -1257,7 +1267,7 @@
                     <MDBNavbarNav>
                       <MDBNavbarItem>
                         <MDBNavbarLink href='#'>
-                          <span className='badge badge-pill bg-danger'>1</span>
+                          <MDBBadge pill color='danger'>!</MDBBadge>
                           <span>
                             <MDBIcon fas icon='shopping-cart'></MDBIcon>
                           </span>
@@ -1350,7 +1360,7 @@
         <mdbsnippet>
           <!--prettier-ignore-->
           <code data-lang="js" data-name="JSX">
-            import React from 'react';
+            import React, { useState } from 'react';
             import { 
               MDBNavbar, 
               MDBContainer,
@@ -1358,24 +1368,34 @@
               MDBNavbarNav,
               MDBNavbarItem,
               MDBNavbarLink,
-              MDBNavbarToggler
+              MDBNavbarToggler,
+              MDBCollapse,
+              MDBDropdown,
+              MDBDropdownMenu,
+              MDBDropdownToggle,
+              MDBDropdownItem,
+              MDBDropdownLink
             } from 'mdb-react-ui-kit';
             
             export default function App() {
+              const [showNavLeft, setShowNavLeft] = useState(false);
+
               return (
                 <MDBNavbar expand='lg' light bgColor='light'>
                   <MDBContainer fluid>
                     <MDBNavbarToggler
                       type='button'
+                      data-target='#navbarLeftAlignExample'
                       aria-controls='navbarLeftAlignExample'
                       aria-expanded='false'
                       aria-label='Toggle navigation'
+                      onClick={() => setShowNavLeft(!showNavLeft)}
                     >
                       <MDBIcon icon='bars' fas />
                     </MDBNavbarToggler>
   
-                    <div className='collapse navbar-collapse'>
-                      <MDBNavbarNav right className=' mb-2 mb-lg-0'>
+                    <MDBCollapse navbar show={showNavLeft}>
+                      <MDBNavbarNav className='me-auto mb-2 mb-lg-0'>
                         <MDBNavbarItem>
                           <MDBNavbarLink active aria-current='page' href='#'>
                             Home
@@ -1384,13 +1404,32 @@
                         <MDBNavbarItem>
                           <MDBNavbarLink href='#'>Link</MDBNavbarLink>
                         </MDBNavbarItem>
+  
+                        <MDBNavbarItem>
+                          <MDBDropdown>
+                            <MDBDropdownToggle tag='a' className='nav-link'>
+                              Dropdown
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu>
+                              <MDBDropdownItem>
+                                <MDBDropdownLink>Action</MDBDropdownLink>
+                              </MDBDropdownItem>
+                              <MDBDropdownItem>
+                                <MDBDropdownLink>Another action</MDBDropdownLink>
+                              </MDBDropdownItem>
+                              <MDBDropdownItem>
+                                <MDBDropdownLink>Something else here</MDBDropdownLink>
+                              </MDBDropdownItem>
+                            </MDBDropdownMenu>
+                          </MDBDropdown>
+                        </MDBNavbarItem>
                         <MDBNavbarItem>
                           <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
                             Disabled
                           </MDBNavbarLink>
                         </MDBNavbarItem>
                       </MDBNavbarNav>
-                    </div>
+                    </MDBCollapse>
                   </MDBContainer>
                 </MDBNavbar>
               );
@@ -1469,23 +1508,34 @@
               MDBNavbarNav,
               MDBNavbarItem,
               MDBNavbarLink,
-              MDBNavbarToggler
+              MDBNavbarToggler,
+              MDBCollapse,
+              MDBDropdown,
+              MDBDropdownMenu,
+              MDBDropdownToggle,
+              MDBDropdownItem,
+              MDBDropdownLink
             } from 'mdb-react-ui-kit';
             
             export default function App() {
+              const [showNavRight, setShowNavRight] = useState(false);
+
               return (
                 <MDBNavbar expand='lg' light bgColor='light'>
                   <MDBContainer fluid>
                     <MDBNavbarToggler
                       type='button'
+                      data-target='#navbarRightAlignExample'
+                      aria-controls='navbarRightAlignExample'
                       aria-expanded='false'
                       aria-label='Toggle navigation'
+                      onClick={() => setShowNavRight(!showNavRight)}
                     >
                       <MDBIcon icon='bars' fas />
                     </MDBNavbarToggler>
-  
-                    <div className='collapse navbar-collapse' >
-                      <MDBNavbarNav className='ms-auto mb-2 mb-lg-0'>
+
+                    <MDBCollapse navbar show={showNavRight}>
+                      <MDBNavbarNav right fullWidth={false} className='mb-2 mb-lg-0'>
                         <MDBNavbarItem>
                           <MDBNavbarLink active aria-current='page' href='#'>
                             Home
@@ -1494,13 +1544,32 @@
                         <MDBNavbarItem>
                           <MDBNavbarLink href='#'>Link</MDBNavbarLink>
                         </MDBNavbarItem>
+
+                        <MDBNavbarItem>
+                          <MDBDropdown>
+                            <MDBDropdownToggle tag='a' className='nav-link'>
+                              Dropdown
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu>
+                              <MDBDropdownItem>
+                                <MDBDropdownLink>Action</MDBDropdownLink>
+                              </MDBDropdownItem>
+                              <MDBDropdownItem>
+                                <MDBDropdownLink>Another action</MDBDropdownLink>
+                              </MDBDropdownItem>
+                              <MDBDropdownItem>
+                                <MDBDropdownLink>Something else here</MDBDropdownLink>
+                              </MDBDropdownItem>
+                            </MDBDropdownMenu>
+                          </MDBDropdown>
+                        </MDBNavbarItem>
                         <MDBNavbarItem>
                           <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
                             Disabled
                           </MDBNavbarLink>
                         </MDBNavbarItem>
                       </MDBNavbarNav>
-                    </div>
+                    </MDBCollapse>
                   </MDBContainer>
                 </MDBNavbar>
               );
@@ -1572,7 +1641,7 @@
         <mdbsnippet>
           <!--prettier-ignore-->
           <code data-lang="js" data-name="JSX">
-            import React from 'react';
+            import React, { useState } from 'react';
             import { 
               MDBNavbar, 
               MDBContainer,
@@ -1580,24 +1649,34 @@
               MDBNavbarNav,
               MDBNavbarItem,
               MDBNavbarLink,
-              MDBNavbarToggler
+              MDBNavbarToggler,
+              MDBCollapse,
+              MDBDropdown,
+              MDBDropdownMenu,
+              MDBDropdownToggle,
+              MDBDropdownItem,
+              MDBDropdownLink
             } from 'mdb-react-ui-kit';
             
             export default function App() {
+              const [showNavCentred, setShowNavCentred] = useState(false);
+
               return (
                 <MDBNavbar expand='lg' light bgColor='light'>
                   <MDBContainer fluid>
                     <MDBNavbarToggler
                       type='button'
+                      data-target='#navbarCenteredExample'
                       aria-controls='navbarCenteredExample'
                       aria-expanded='false'
                       aria-label='Toggle navigation'
+                      onClick={() => setShowNavCentred(!showNavCentred)}
                     >
                       <MDBIcon icon='bars' fas />
                     </MDBNavbarToggler>
   
-                    <div className='collapse navbar-collapse justify-content-center'>
-                      <MDBNavbarNav className='mb-2 mb-lg-0'>
+                    <MDBCollapse navbar show={showNavCentred} center id='navbarCenteredExample'>
+                      <MDBNavbarNav fullWidth={false} className='mb-2 mb-lg-0'>
                         <MDBNavbarItem>
                           <MDBNavbarLink active aria-current='page' href='#'>
                             Home
@@ -1606,13 +1685,32 @@
                         <MDBNavbarItem>
                           <MDBNavbarLink href='#'>Link</MDBNavbarLink>
                         </MDBNavbarItem>
+  
+                        <MDBNavbarItem>
+                          <MDBDropdown>
+                            <MDBDropdownToggle tag='a' className='nav-link'>
+                              Dropdown
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu>
+                              <MDBDropdownItem>
+                                <MDBDropdownLink>Action</MDBDropdownLink>
+                              </MDBDropdownItem>
+                              <MDBDropdownItem>
+                                <MDBDropdownLink>Another action</MDBDropdownLink>
+                              </MDBDropdownItem>
+                              <MDBDropdownItem>
+                                <MDBDropdownLink>Something else here</MDBDropdownLink>
+                              </MDBDropdownItem>
+                            </MDBDropdownMenu>
+                          </MDBDropdown>
+                        </MDBNavbarItem>
                         <MDBNavbarItem>
                           <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
                             Disabled
                           </MDBNavbarLink>
                         </MDBNavbarItem>
                       </MDBNavbarNav>
-                    </div>
+                    </MDBCollapse>
                   </MDBContainer>
                 </MDBNavbar>
               );
@@ -1758,7 +1856,7 @@
       <mdbsnippet>
         <!--prettier-ignore-->
         <code data-lang="js" data-name="JSX">
-          import React from 'react';
+          import React, { useState } from 'react';
           import { 
             MDBNavbar, 
             MDBContainer,
@@ -1767,111 +1865,122 @@
             MDBNavbarItem,
             MDBNavbarLink,
             MDBNavbarToggler,
-            MDBNavbarBrand
+            MDBNavbarBrand,
+            MDBCollapse
           } from 'mdb-react-ui-kit';
           
           export default function App() {
+            const [showNavColor, setShowNavColor] = useState(false);
+            const [showNavColorSecond, setShowNavColorSecond] = useState(false);
+            const [showNavColorThird, setShowNavColorThird] = useState(false);
+
             return (
               <>
-                <MDBNavbar expand='lg' dark bgColor='primary'>
-                  <MDBContainer fluid>
-                    <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
-                    <MDBNavbarToggler
-                      type='button'
-                      aria-controls='navbarColor02'
-                      aria-expanded='false'
-                      aria-label='Toggle navigation'
-                    >
-                      <MDBIcon icon='bars' fas />
-                    </MDBNavbarToggler>
-                    <div className='collapse navbar-collapse'>
-                      <MDBNavbarNav right className=' mb-2 mb-lg-0'>
-                        <MDBNavbarItem className='active'>
-                          <MDBNavbarLink aria-current='page' href='#'>
-                            Home
-                          </MDBNavbarLink>
-                        </MDBNavbarItem>
-                        <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>Features</MDBNavbarLink>
-                        </MDBNavbarItem>
-                        <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
-                        </MDBNavbarItem>
-                        <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>About</MDBNavbarLink>
-                        </MDBNavbarItem>
-                      </MDBNavbarNav>
-                    </div>
-                  </MDBContainer>
-                </MDBNavbar>
+              <MDBNavbar expand='lg' dark bgColor='primary'>
+                <MDBContainer fluid>
+                  <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
+                  <MDBNavbarToggler
+                    type='button'
+                    data-target='#navbarColor02'
+                    aria-controls='navbarColor02'
+                    aria-expanded='false'
+                    aria-label='Toggle navigation'
+                    onClick={() => setShowNavColor(!showNavColor)}
+                  >
+                    <MDBIcon icon='bars' fas />
+                  </MDBNavbarToggler>
+                  <MDBCollapse show={showNavColor} navbar>
+                    <MDBNavbarNav className='me-auto mb-2 mb-lg-0'>
+                      <MDBNavbarItem className='active'>
+                        <MDBNavbarLink aria-current='page' href='#'>
+                          Home
+                        </MDBNavbarLink>
+                      </MDBNavbarItem>
+                      <MDBNavbarItem>
+                        <MDBNavbarLink href='#'>Features</MDBNavbarLink>
+                      </MDBNavbarItem>
+                      <MDBNavbarItem>
+                        <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
+                      </MDBNavbarItem>
+                      <MDBNavbarItem>
+                        <MDBNavbarLink href='#'>About</MDBNavbarLink>
+                      </MDBNavbarItem>
+                    </MDBNavbarNav>
+                  </MDBCollapse>
+                </MDBContainer>
+              </MDBNavbar>
 
-                <br />
+              <br />
 
-                <MDBNavbar expand='lg' dark bgColor='dark'>
-                  <MDBContainer fluid>
-                    <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
-                    <MDBNavbarToggler
-                      type='button'
-                      aria-controls='navbarColor02'
-                      aria-expanded='false'
-                      aria-label='Toggle navigation'
-                    >
-                      <MDBIcon icon='bars' fas />
-                    </MDBNavbarToggler>
-                    <div className='collapse navbar-collapse'>
-                      <MDBNavbarNav right className=' mb-2 mb-lg-0'>
-                        <MDBNavbarItem className='active'>
-                          <MDBNavbarLink aria-current='page' href='#'>
-                            Home
-                          </MDBNavbarLink>
-                        </MDBNavbarItem>
-                        <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>Features</MDBNavbarLink>
-                        </MDBNavbarItem>
-                        <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
-                        </MDBNavbarItem>
-                        <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>About</MDBNavbarLink>
-                        </MDBNavbarItem>
-                      </MDBNavbarNav>
-                    </div>
-                  </MDBContainer>
-                </MDBNavbar>
+              <MDBNavbar expand='lg' dark bgColor='dark'>
+                <MDBContainer fluid>
+                  <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
+                  <MDBNavbarToggler
+                    type='button'
+                    data-target='#navbarColor02'
+                    aria-controls='navbarColor02'
+                    aria-expanded='false'
+                    aria-label='Toggle navigation'
+                    onClick={() => setShowNavColorSecond(!showNavColorSecond)}
+                  >
+                    <MDBIcon icon='bars' fas />
+                  </MDBNavbarToggler>
+                  <MDBCollapse show={showNavColorSecond} navbar id='navbarColor02'>
+                    <MDBNavbarNav className='me-auto mb-2 mb-lg-0'>
+                      <MDBNavbarItem className='active'>
+                        <MDBNavbarLink aria-current='page' href='#'>
+                          Home
+                        </MDBNavbarLink>
+                      </MDBNavbarItem>
+                      <MDBNavbarItem>
+                        <MDBNavbarLink href='#'>Features</MDBNavbarLink>
+                      </MDBNavbarItem>
+                      <MDBNavbarItem>
+                        <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
+                      </MDBNavbarItem>
+                      <MDBNavbarItem>
+                        <MDBNavbarLink href='#'>About</MDBNavbarLink>
+                      </MDBNavbarItem>
+                    </MDBNavbarNav>
+                  </MDBCollapse>
+                </MDBContainer>
+              </MDBNavbar>
 
-                <br />
+              <br />
 
-                <MDBNavbar expand='lg' light style={{ backgroundColor: '#e3f2fd' }}>
-                  <MDBContainer fluid>
-                    <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
-                    <MDBNavbarToggler
-                      type='button'
-                      aria-controls='navbarColor02'
-                      aria-expanded='false'
-                      aria-label='Toggle navigation'
-                    >
-                      <MDBIcon icon='bars' fas />
-                    </MDBNavbarToggler>
-                    <div className='collapse navbar-collapse'>
-                      <MDBNavbarNav right className=' mb-2 mb-lg-0'>
-                        <MDBNavbarItem className='active'>
-                          <MDBNavbarLink aria-current='page' href='#'>
-                            Home
-                          </MDBNavbarLink>
-                        </MDBNavbarItem>
-                        <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>Features</MDBNavbarLink>
-                        </MDBNavbarItem>
-                        <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
-                        </MDBNavbarItem>
-                        <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>About</MDBNavbarLink>
-                        </MDBNavbarItem>
-                      </MDBNavbarNav>
-                    </div>
-                  </MDBContainer>
-                </MDBNavbar>
+              <MDBNavbar expand='lg' light style={{ backgroundColor: '#e3f2fd' }}>
+                <MDBContainer fluid>
+                  <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
+                  <MDBNavbarToggler
+                    type='button'
+                    data-target='#navbarColor02'
+                    aria-controls='navbarColor02'
+                    aria-expanded='false'
+                    aria-label='Toggle navigation'
+                    onClick={() => setShowNavColorThird(!showNavColorThird)}
+                  >
+                    <MDBIcon icon='bars' fas />
+                  </MDBNavbarToggler>
+                  <MDBCollapse show={showNavColorThird} navbar>
+                    <MDBNavbarNav className='me-auto mb-2 mb-lg-0'>
+                      <MDBNavbarItem className='active'>
+                        <MDBNavbarLink aria-current='page' href='#'>
+                          Home
+                        </MDBNavbarLink>
+                      </MDBNavbarItem>
+                      <MDBNavbarItem>
+                        <MDBNavbarLink href='#'>Features</MDBNavbarLink>
+                      </MDBNavbarItem>
+                      <MDBNavbarItem>
+                        <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
+                      </MDBNavbarItem>
+                      <MDBNavbarItem>
+                        <MDBNavbarLink href='#'>About</MDBNavbarLink>
+                      </MDBNavbarItem>
+                    </MDBNavbarNav>
+                  </MDBCollapse>
+                </MDBContainer>
+              </MDBNavbar>
               </>
             );
           }
@@ -2250,31 +2359,38 @@
         <mdbsnippet>
           <!--prettier-ignore-->
           <code data-lang="js" data-name="JSX">
-            import React from 'react';
+            import React, { useState } from 'react';
             import { 
               MDBNavbar, 
               MDBContainer,
               MDBNavbarBrand,
               MDBNavbarToggler,
               MDBNavbarItem,
-              MDBNavbarLink
+              MDBNavbarLink,
+              MDBCollapse,
+              MDBBtn
             } from 'mdb-react-ui-kit';
           
           export default function App() {
+            const [showNavNoToggler, setShowNavNoToggler] = useState(false);
+
             return (
               <>
                 <MDBNavbar expand='lg' light bgColor='light'>
                   <MDBContainer fluid>
                     <MDBNavbarToggler
                       type='button'
+                      data-target='#navbarTogglerDemo01'
+                      aria-controls='navbarTogglerDemo01'
                       aria-expanded='false'
                       aria-label='Toggle navigation'
+                      onClick={() => setShowNavNoToggler(!showNavNoToggler)}
                     >
                       <MDBIcon icon='bars' fas />
                     </MDBNavbarToggler>
-                    <div className='collapse navbar-collapse'>
+                    <MDBCollapse navbar show={showNavNoToggler}>
                       <MDBNavbarBrand href='#'>Hidden brand</MDBNavbarBrand>
-                      <MDBNavbarNav right className=' mb-2 mb-lg-0'>
+                      <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
                         <MDBNavbarItem>
                           <MDBNavbarLink active aria-current='page' href='#'>
                             Home
@@ -2293,7 +2409,7 @@
                         <input type='search' className='form-control' placeholder='Type query' aria-label='Search' />
                         <MDBBtn color='primary'>Search</MDBBtn>
                       </form>
-                    </div>
+                    </MDBCollapse>
                   </MDBContainer>
                 </MDBNavbar>
               </>
@@ -2356,17 +2472,21 @@
         <mdbsnippet>
           <!--prettier-ignore-->
           <code data-lang="js" data-name="JSX">
-            import React from 'react';
+            import React, { useState } from 'react';
             import { 
               MDBNavbar, 
               MDBContainer,
               MDBNavbarBrand,
               MDBNavbarToggler,
               MDBNavbarItem,
-              MDBNavbarLink
+              MDBNavbarLink,
+              MDBCollapse,
+              MDBBtn
             } from 'mdb-react-ui-kit';
           
           export default function App() {
+            const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
+
             return (
               <>
                 <MDBNavbar expand='lg' light bgColor='light'>
@@ -2374,14 +2494,16 @@
                     <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
                     <MDBNavbarToggler
                       type='button'
+                      data-target='#navbarTogglerDemo02'
                       aria-controls='navbarTogglerDemo02'
                       aria-expanded='false'
                       aria-label='Toggle navigation'
+                      onClick={() => setShowNavNoTogglerSecond(!showNavNoTogglerSecond)}
                     >
                       <MDBIcon icon='bars' fas />
                     </MDBNavbarToggler>
-                    <div className='collapse navbar-collapse'>
-                      <MDBNavbarNav right className=' mb-2 mb-lg-0'>
+                    <MDBCollapse navbar show={showNavNoTogglerSecond}>
+                      <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
                         <MDBNavbarItem>
                           <MDBNavbarLink active aria-current='page' href='#'>
                             Home
@@ -2400,7 +2522,7 @@
                         <input type='search' className='form-control' placeholder='Type query' aria-label='Search' />
                         <MDBBtn color='primary'>Search</MDBBtn>
                       </form>
-                    </div>
+                    </MDBCollapse>
                   </MDBContainer>
                 </MDBNavbar>
               </>
@@ -2463,31 +2585,38 @@
         <mdbsnippet>
           <!--prettier-ignore-->
           <code data-lang="js" data-name="JSX">
-            import React from 'react';
+            import React, { useState } from 'react';
             import { 
               MDBNavbar, 
               MDBContainer,
               MDBNavbarBrand,
               MDBNavbarToggler,
               MDBNavbarItem,
-              MDBNavbarLink
+              MDBNavbarLink,
+              MDBCollapse,
+              MDBBtn
             } from 'mdb-react-ui-kit';
           
           export default function App() {
+            const [showNavNoTogglerThird, setShowNavNoTogglerThird] = useState(false);
+
             return (
               <>
                 <MDBNavbar expand='lg' light bgColor='light'>
                   <MDBContainer fluid>
                     <MDBNavbarToggler
                       type='button'
+                      data-target='#navbarTogglerDemo03'
+                      aria-controls='navbarTogglerDemo03'
                       aria-expanded='false'
                       aria-label='Toggle navigation'
+                      onClick={() => setShowNavNoTogglerThird(!showNavNoTogglerThird)}
                     >
                       <MDBIcon icon='bars' fas />
                     </MDBNavbarToggler>
                     <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
-                    <div className='collapse navbar-collapse'>
-                      <MDBNavbarNav right className=' mb-2 mb-lg-0'>
+                    <MDBCollapse navbar show={showNavNoTogglerThird}>
+                      <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
                         <MDBNavbarItem>
                           <MDBNavbarLink active aria-current='page' href='#'>
                             Home
@@ -2506,13 +2635,12 @@
                         <input type='search' className='form-control' placeholder='Type query' aria-label='Search' />
                         <MDBBtn color='primary'>Search</MDBBtn>
                       </form>
-                    </div>
+                    </MDBCollapse>
                   </MDBContainer>
                 </MDBNavbar>
               </>
             );
           }
-
           </code>
         </mdbsnippet>
       </section>
@@ -2563,7 +2691,7 @@
         <mdbsnippet>
           <!--prettier-ignore-->
           <code data-lang="js" data-name="JSX">
-            import React from 'react';
+            import React, { useState } from 'react';
             import { 
               MDBNavbar, 
               MDBContainer,
@@ -2571,24 +2699,30 @@
               MDBNavbarToggler,
               MDBNavbarItem,
               MDBNavbarLink,
-              MDBIcon
+              MDBIcon,
+              MDBCollapse
             } from 'mdb-react-ui-kit';
           
           export default function App() {
+            const [showNavExternal, setShowNavExternal] = useState(false);
+
             return (
               <>
-                <div className='collapse'>
+                <MDBCollapse show={showNavExternal}>
                   <div className='bg-dark p-4'>
                     <h5 className='text-white h4'>Collapsed content</h5>
                     <span className='text-muted'>Toggleable via the navbar brand.</span>
                   </div>
-                </div>
+                </MDBCollapse>
                 <MDBNavbar dark bgColor='dark'>
                   <MDBContainer fluid>
                     <MDBNavbarToggler
                       type='button'
+                      data-target='#navbarToggleExternalContent'
+                      aria-controls='navbarToggleExternalContent'
                       aria-expanded='false'
                       aria-label='Toggle navigation'
+                      onClick={() => setShowNavExternal(!showNavExternal)}
                     >
                       <MDBIcon icon='bars' fas />
                     </MDBNavbarToggler>
