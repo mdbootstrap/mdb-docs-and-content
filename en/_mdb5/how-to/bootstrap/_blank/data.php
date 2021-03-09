@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => '[Name]',
-  'seo_title' => '[Name] - Bootstrap 5 & Material Design 2.0 [category]',
-  'description' => '[Name] built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
-  'url' => 'https://mdbootstrap.com/docs/standard/',
-  'image' => '',
+  'main_title' => 'How to: Bootstrap image center',
+  'seo_title' => 'How to: Bootstrap image center - code helpers',
+  'description' => 'To center the image horizontally or vertically use flexbox utilities. Add .d-flex .justify-content-center classes to the parent element of the image to center it horizontally.',
+  'url' => 'https://mdbootstrap.com/how-to/bootstrap/image-center/',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/how-to/bootstrap/howto.jpg',
   'video' => '',
 );
