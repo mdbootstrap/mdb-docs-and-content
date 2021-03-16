@@ -7,5 +7,5 @@ $data_var = array(
   'description' => 'A stunning collection of Animations templates built with the newest Bootstrap 5. ',
   'url' => '',
   'image' => '',
-  'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
+  'video' => 'https://www.youtube.com/watch?v=Aab6byRaGf0',
 );
