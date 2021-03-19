@@ -18,7 +18,7 @@
 
   <section id="mysql">
     <!-- Section title -->
-    <h2 class="mb-4">Database - MySQL</h2>
+    <h2 class="mb-4">Create database - MySQL</h2>
 
     <div class="row">
       <div class="col-md-12">
@@ -108,9 +108,394 @@ con.connect(function(err) {
   </section>
 
   <hr class="my-5" />
+
+
+
+  <section id="mysql-php">
+    <!-- Section title -->
+    <h2 class="mb-4">Connect to MySQL using PHP </h2>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Connect to your database using PHP</h3>
+
+          <p>Check following examples where you will find 3 different ways to connect to database using PHP using:</p>
+          <ul>
+            <li>MySQLi - object-oriented</li>
+            <li>MySQLi - procedural</li>
+            <li>PDO (PHP Data Objects)</li>
+          </ul>
+
+          <p>Each use case consist sample code for:</p>
+          <ul>
+            <li>Database connection</li>
+            <li>Table creation</li>
+            <li>Data insertion</li>
+            <li>Data selection (SELECT statement)</li>
+            <li>Table deletion</li>
+          </ul>
+
+
+          <!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a
+      class="nav-link active"
+      id="ex1-tab-1"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-1"
+      role="tab"
+      aria-controls="ex1-tabs-1"
+      aria-selected="true"
+      >MySQLi-OO</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      class="nav-link"
+      id="ex1-tab-2"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-2"
+      role="tab"
+      aria-controls="ex1-tabs-2"
+      aria-selected="false"
+      >MySQL-P</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      class="nav-link"
+      id="ex1-tab-3"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-3"
+      role="tab"
+      aria-controls="ex1-tabs-3"
+      aria-selected="false"
+      >PDO</a
+    >
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="ex1-content">
+  <div
+    class="tab-pane fade show active"
+    id="ex1-tabs-1"
+    role="tabpanel"
+    aria-labelledby="ex1-tab-1"
+  >
+    
+          <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+      <code data-lang="php" data-name="php">
+<!-- MySQLi  Object-Oriented -->
+
+<?php
+$servername = "mysql.db.mdbgo.com";
+$username = "your_username";
+$password = "your_password";
+$dbname = "db_name";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully  <br>";
+
+
+// Create Table 
+$sql = "CREATE TABLE MyGuests (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR(30) NOT NULL,
+lastname VARCHAR(30) NOT NULL,
+email VARCHAR(50),
+reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table MyGuests created successfully <br>";
+} else {
+    echo "Error creating table:  <br>" . $conn->error . "<br>";
+}
+
+
+// Insert data
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully  <br>";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+
+
+
+// Query data
+
+
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while ($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"] . " - Name: " . $row["firstname"] . " " . $row["lastname"] . "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+//Drop table
+$sql = "DROP TABLE MyGuests";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table MyGuests dropped successfully <br>";
+} else {
+    echo "Error dropping table:  <br>" . $conn->error . "<br>";
+}
+
+
+$conn->close();
+
+            </code>
+    </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+
+
+  </div>
+  <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+  <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+      <code data-lang="php" data-name="php">
+<!-- MySQLi  Object-Oriented -->
+
+<?php
+$servername = "mysql.db.mdbgo.com";
+$username = "your_username";
+$password = "your_password";
+$dbname = "db_name";
+
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error() . "<br>");
+}
+echo "Connected successfully <br>";
+
+//Create table
+$sql = "CREATE TABLE MyGuests (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR(30) NOT NULL,
+lastname VARCHAR(30) NOT NULL,
+email VARCHAR(50),
+reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)";
+
+if (mysqli_query($conn, $sql)) {
+  echo "Table MyGuests created successfully <br>";
+} else {
+  echo "Error creating table: " . mysqli_error($conn) . "<br>";
+}
+
+
+// Insert data
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com')";
+
+if (mysqli_query($conn, $sql)) {
+  echo "New record created successfully <br>";
+} else {
+  echo "Error: " . $sql . "<br>" . mysqli_error($conn) . "<br>";
+}
+
+// Query data
+
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+  // output data of each row
+  while ($row = mysqli_fetch_assoc($result)) {
+    echo "id: " . $row["id"] . " - Name: " . $row["firstname"] . " " . $row["lastname"] . "<br>";
+  }
+} else {
+  echo "0 results <br>";
+}
+
+
+//Drop table
+$sql = "DROP TABLE MyGuests";
+
+if (mysqli_query($conn, $sql)) {
+  echo "Table MyGuests dropped successfully <br>";
+} else {
+  echo "Error dropping table: " . mysqli_error($conn) . "<br>";
+}
+
+mysqli_close($conn);
+
+            </code>
+    </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+  </div>
+  <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+  <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+      <code data-lang="php" data-name="php">
+<!-- MySQLi  Object-Oriented -->
+
+<?php
+$servername = "mysql.db.mdbgo.com";
+$username = "your_username";
+$password = "your_password";
+$dbname = "db_name";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+  // Create table
+
+  $sql = "CREATE TABLE MyGuests (
+  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  firstname VARCHAR(30) NOT NULL,
+  lastname VARCHAR(30) NOT NULL,
+  email VARCHAR(50),
+  reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  )";
+
+  if ($conn->query($sql)) {
+    echo "Table MyGuests created successfully <br>";
+  } else {
+    echo "Error creating table. <br> ";
+  }
+
+  //Insert data
+  $sql = "INSERT INTO MyGuests (firstname, lastname, email)
+  VALUES ('John', 'Doe', 'john@example.com')";
+  // use exec() because no results are returned
+  $conn->exec($sql);
+  echo "New record created successfully";
+
+
+
+  //Query data
+
+  $sql = "SELECT id, firstname, lastname FROM MyGuests";
+  $result = $conn->query($sql);
+  if ($result->rowCount() > 0) {
+    echo "<table><tr><th>ID</th><th>Name</th></tr>";
+    // output data of each row
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+      echo "<tr><td>" . $row["id"] . "</td><td>" . $row["firstname"] . " " . $row["lastname"] . "</td></tr>";
+    }
+    echo "</table>";
+  } else {
+    echo "0 results";
+  }
+
+  //Drop table
+  $sql = "DROP TABLE MyGuests";
+  if ($conn->query($sql)) {
+    echo "Table MyGuests dropped successfully <br>";
+  } else {
+    echo "Error dropping table. <br> ";
+  }
+} catch (PDOException $e) {
+  echo $sql . "<br>" . $e->getMessage();
+}
+
+$conn = null;
+
+            </code>
+    </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+  </div>
+</div>
+<!-- Tabs content -->
+
+
+
+
+
+
+
+      </div>
+      <div class="col-md-6">
+                                <h3>Video tutorial:</h3>
+
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="https://www.youtube.com/embed/bN3s5RiH6gk"
+            title="MDB GO - Git"
+            allowfullscreen
+          ></iframe>
+        </div>
+    </div>
+  </section>
+
+  <hr class="my-5" />
+
+
+
+  <section id="phpmyadmin">
+    <!-- Section title -->
+    <h2 class="mb-4">PHPMyAdmin access </h2>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3>MDB GO allows you to access your database using Graphical User Interface (GUI) - PHPMyAdmin. </h3>
+
+        <p>1. In order to use it navigate to: <a href="https://phpmyadmin.mdbgo.com/">phpmyadmin.mdbgo.com</a></p>
+
+        <p>2. Provide your <code>username</code> and <code>password</code> for the database you want to connect.</p>
+        
+
+                <p class="note note-info">
+          <strong>Note:</strong> You can check your username in your <a href="https://mdbgo.com/#/databases">databases panel.</a> If you forget your password you can also reset it here.
+        </p>
+
+      </div>
+      <div class="col-md-6">
+                                <h3>Video tutorial:</h3>
+
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="https://www.youtube.com/embed/MDUEYsWiz84"
+            title="MDB GO - Git"
+            allowfullscreen
+          ></iframe>
+        </div>
+    </div>
+  </section>
+
+  <hr class="my-5" />
+
+
+  
+
+
+
   <section id="mongo">
     <!-- Section title -->
-    <h2 class="mb-4">Database - MySQL</h2>
+    <h2 class="mb-4">Create database - Mongo</h2>
 
     <div class="row">
       <div class="col-md-12">
@@ -204,6 +589,83 @@ main().catch(console.error);
     </div>
   </section>
 
+  <hr class="my-5" />
+
+
+
+  <section id="reset-password-gui">
+    <!-- Section title -->
+    <h2 class="mb-4"> </h2>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Reset database password - GUI</h3>
+
+        <p>If you forget password your database you can easily set a new one. </p>
+
+        <p>1. Navigate to: <a href="https://mdbgo.com/#/databases">databases panel</a></p>
+
+        <p>2. Find database which you want to update and click <code>Edit</code> button next to it</p>
+
+        <p>3. Provide a new password (and re-type new password), then submit.</p>
+      </div>
+      <div class="col-md-6">
+                                <h3>Video tutorial:</h3>
+
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="https://www.youtube.com/embed/5op3Y8S604E"
+            title="MDB GO - Git"
+            allowfullscreen
+          ></iframe>
+        </div>
+    </div>
+  </section>
+
+  <hr class="my-5" />
+
+
+
+  <section id="reset-password-cli">
+    <!-- Section title -->
+    <h2 class="mb-4"> </h2>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Reset database password - CLI</h3>
+
+        <p>If you forget password your database you can easily set a new one. </p>
+
+        <p>1. Open terminal and type the following command:</p>
+
+        <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+      <code data-lang="shell" data-name="Shell">
+            $ mdb database config password
+      </code>
+    </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+
+
+<p>2. Choose a database from the list</p>
+
+        <p>3. Provide a new password (and re-type new password), then submit.</p>
+      </div>
+      <div class="col-md-6">
+                                <h3>Video tutorial:</h3>
+
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="https://www.youtube.com/embed/DvFY99Jnd6E"
+            title="MDB GO - Git"
+            allowfullscreen
+          ></iframe>
+        </div>
+    </div>
+  </section>
 
   <!--Section: Docs content-->
 </section>
