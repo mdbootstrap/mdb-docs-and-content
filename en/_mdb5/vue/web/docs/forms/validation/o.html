@@ -130,12 +130,19 @@
               </MDBCol>
               <MDBCol md="4">
                 <MDBInput
-                  label="Username"
+                  inputGroup
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  placeholder="Username"
                   v-model="input3"
-                  invalidFeedback="Please choose a unique and valid username."
+                  invalidFeedback="Please choose a username."
                   validFeedback="Looks good!"
                   required
-                />
+                >
+                  <template v-slot:prepend>
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                  </template></MDBInput
+                >
               </MDBCol>
               <MDBCol md="6">
                 <MDBInput
@@ -239,7 +246,7 @@
         <code>.was-validated</code> class from the <code>&lt;form&gt;</code> again after submission.
       </li>
       <li>
-        As a fallback, <code>.isInvalid</code> and <code>.isValid</code> properties may be used on
+        As a fallback, <code>isValid</code> and <code>isValidated</code> properties may be used on
         validated components instead of the pseudo-classes for
         <a href="#section-server-side">server-side validation</a>. They do not require a
         <code>.was-validated</code> parent class.
@@ -375,7 +382,17 @@
                 <MDBInput label="Last name" v-model="input7" required />
               </MDBCol>
               <MDBCol md="4">
-                <MDBInput label="Username" v-model="input8" required />
+                <MDBInput
+                  inputGroup
+                  aria-label="Username"
+                  aria-describedby="basic-addon2"
+                  v-model="input8"
+                  required
+                >
+                  <template v-slot:prepend>
+                    <span class="input-group-text" id="basic-addon2">@</span>
+                  </template>
+                </MDBInput>
               </MDBCol>
               <MDBCol md="6">
                 <MDBInput label="City" v-model="input9" required />
@@ -439,8 +456,9 @@
     <p>
       We recommend using client-side validation, but in case you require server-side validation, you
       can indicate invalid and valid form fields with
-      <code>isInvalid</code> and <code>isValid</code>. Note that <code>invalidFeedback</code> and
-      <code>validFeedback</code> are also supported with these properties.
+      <code>isValid</code> and <code>isValidated</code> properties. Note that
+      <code>invalidFeedback</code> and <code>validFeedback</code> are also supported with these
+      properties.
     </p>
 
     <!--Section: Demo-->
@@ -535,6 +553,7 @@
                   invalidFeedback="Please provide your first name"
                   validFeedback="Looks good!"
                   isValid
+                  isValidated
                   required
                 />
               </MDBCol>
@@ -545,18 +564,27 @@
                   invalidFeedback="Please provide your last name"
                   validFeedback="Looks good!"
                   isValid
+                  isValidated
                   required
                 />
               </MDBCol>
               <MDBCol md="4">
                 <MDBInput
-                  label="Username"
+                  inputGroup
+                  aria-describedby="basic-addon3"
+                  aria-label="Username"
+                  placeholder="Username"
                   v-model="input13"
                   invalidFeedback="Please choose a unique and valid username."
                   validFeedback="Looks good!"
-                  isInvalid
+                  :isValid="false"
+                  isValidated
                   required
-                />
+                >
+                  <template v-slot:prepend>
+                    <span class="input-group-text" id="basic-addon3">@</span>
+                  </template>
+                </MDBInput>
               </MDBCol>
               <MDBCol md="6">
                 <MDBInput
@@ -564,7 +592,8 @@
                   v-model="input14"
                   invalidFeedback="Please provide a valid city."
                   validFeedback="Looks good!"
-                  isInvalid
+                  :isValid="false"
+                  isValidated
                   required
                 />
               </MDBCol>
@@ -574,7 +603,8 @@
                   v-model="input15"
                   invalidFeedback="Please provide a valid zip."
                   validFeedback="Looks good!"
-                  isInvalid
+                  :isValid="false"
+                  isValidated
                   required
                 />
               </MDBCol>
@@ -584,7 +614,8 @@
                   v-model="checkbox3"
                   invalidFeedback="You must agree before submitting."
                   validFeedback="Looks good!"
-                  isInvalid
+                  :isValid="false"
+                  isValidated
                   required
                 />
               </MDBCol>
@@ -898,13 +929,20 @@
               </MDBCol>
               <MDBCol md="4">
                 <MDBInput
-                  label="Username"
+                  inputGroup
+                  aria-describedby="basic-addon4"
+                  aria-label="Username"
+                  placeholder="Username"
                   v-model="input19"
                   invalidFeedback="Please choose a unique and valid username."
                   validFeedback="Looks good!"
                   tooltipFeedback
                   required
-                />
+                >
+                  <template v-slot:prepend>
+                    <span class="input-group-text" id="basic-addon4">@</span>
+                  </template>
+                </MDBInput>
               </MDBCol>
               <MDBCol md="6">
                 <MDBInput
@@ -1126,9 +1164,12 @@
                   maxLength="30"
                 />
               </MDBCol>
-              <MDBCol md="6">
+              <MDBCol md="4">
                 <MDBInput
-                  label="Username"
+                  inputGroup
+                  aria-describedby="basic-addon1"
+                  aria-label="Username"
+                  placeholder="Username"
                   v-model="eventInput3"
                   invalidFeedback="Please choose a unique and valid username."
                   validFeedback="Looks good!"
@@ -1136,7 +1177,11 @@
                   required
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                   title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
-                />
+                >
+                  <template v-slot:prepend>
+                    <span class="input-group-text" id="basic-addon5">@</span>
+                  </template>
+                </MDBInput>
               </MDBCol>
               <MDBCol md="6">
                 <MDBInput
