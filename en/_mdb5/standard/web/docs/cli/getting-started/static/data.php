@@ -1,8 +1,8 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'Getting Started - MDB',
-  'seo_title' => 'Getting Started - MDB',
+  'main_title' => 'AngularGetting Started - Static',
+  'seo_title' => 'AngularGetting Started - Static',
   'description' => 'Create, deploy and host your MDB project with a single command',
   'url' => 'https://mdbootstrap.com/docs/standard/cli/about/',
   'image' => 'https://mdbootstrap.com/img/Marketing/products/cli/cli-free.jpg',
