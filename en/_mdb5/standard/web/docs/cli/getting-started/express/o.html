@@ -1,148 +1,364 @@
-        <!--Section: Docs content-->
-        <section>
-          <section id="intro">
-            <!-- Main title -->
-            <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
+<!--Section: Docs content-->
+<section>
+  <section id="intro">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
 
-            <!-- Seo title -->
-            <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
 
-            <!-- Description -->
-            <p>
-              This guide will take you step by step on how to create your
-              project and deploy using MDB CLI.
-            </p>
-          </section>
+    <!-- Description -->
+    <p>
+      After reading this tutorial you will know what is Node.js and one of the most popular web
+      frameworks built for Node.js - Express.js. You will also learn how to create and deploy your
+      Node.js app on MDB GO hosting for free.
+    </p>
+  </section>
 
-          <hr class="my-5" />
+  <hr class="my-5" />
 
-          <section id="backend-node">
-            <!-- Section title -->
-            <h2 class="mb-4">Express</h2>
+  <section id="introduction">
+    <h2 class="mb-4">Introduction</h2>
 
-            <p>
-              MDB GO allows you to host <strong>any</strong> npm project /
-              library
-            </p>
+    <p>
+      Web is powered by JavaScript. Period. It's hard to imagine a serious web app that do not use
+      JavaScript. In fact, JavaScript is so popular that it's used not only on frontend side of web
+      apps. You can use it to write server-side code. You can achieve it thanks to Node.js.
+    </p>
+    <p>
+      Similarly as it is hard to write advanced UI using plain JS, it is hard to write advanced API
+      using plain JS. That's why we have frameworks. One of such frameworks is Express.js which
+      allows you to build web APIs more easily.
+    </p>
+    <p>Let's find out what are these technologies.</p>
+  </section>
+  <section id="whatis-nodejs">
+    <!-- Section title -->
+    <h2 class="mb-4">What is Node.js?</h2>
 
-            <div class="row">
-              <div class="col-md-6">
-                <h3>Initialize</h3>
-                <p>Let's initialize npm project first:</p>
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          Simply put, Node.js is a multi-platform JavaScript runtime. It's built on V8 JavaScript
+          engine and its main purpose is to allow building fast and scalable event-driven web
+          servers. "Event-driven" in terms of Node.js means that we need to use callbacks to act
+          when an event is completed.
+        </p>
+        <p>
+          Node.js is single-threaded and utilizes an event loop with asynchronous I/O calls which
+          allows to handle enormous amount of concurrent connections. Another thing is that Node.js
+          supports the "JavaScript everywhere" paradigm. It's about applying a single programming
+          language across entire web application. While we can argue that it's not always the best
+          option, we can definitely say that in many scenarios (no, seriously, MANY) it's the best
+          bet.
+        </p>
+        <p>
+          So we can build web servers using Node.js - but how? Well, using JavaScript of course! But
+          also using some built-in modules provided by Node.js environment. However, even with these
+          modules writing web servers using plain JS is at least tough. The reason is pretty much
+          the same as why we are using Angular, React or Vue on frontend side - the bigger the app
+          the harder it is to maintain the code and we need to organize it somehow and frameworks
+          help us to do so.
+        </p>
+        <p>One of such frameworks is Express.js. Let's see what is it.</p>
+      </div>
+    </div>
+  </section>
 
-                <!--Section: Code-->
-                <section class="mb-4">
-                  <!-- prettier-ignore -->
-                  <mdbsnippet>
-        <code data-lang="shell" data-name="Shell">
-              $ mdb blank init 
-        </code>
-      </mdbsnippet>
-                </section>
-                <!--Section: Code-->
+  <section id="whatis-express">
+    <!-- Section title -->
+    <h2 class="mb-4">What is Express.js?</h2>
 
-                <p>
-                  Specify project name (i.e. my-express-app) and choose an
-                  <code>npm</code> and . You can also add other meta
-                  descriptions or accept default values.
-                </p>
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          As previously mentioned, Express.js is a web framework built for Node.js. There is not
+          much to tell here really. It has a ton of useful features for web apps. It makes it very
+          easy to built APIs thanks to its flexibility and middleware.
+        </p>
+        <p>
+          Express is essentially a thin layer of features that do not mask the core Node.js features
+          which makes it even better choice. You can use Express and utilize Node.js features that
+          you already know. Quite convenient.
+        </p>
 
-                <img
-                  src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/cli/docs/img/initblank.gif"
-                  alt="project initalization"
-                  class="img-fluid"
-                />
+        <p>Alright, enough talking. Let's get our hands dirty.</p>
+      </div>
+    </div>
+  </section>
 
-                <p>Enter project location</p>
+  <section id="creating-api">
+    <!-- Section title -->
+    <h2 class="mb-4">Creating Node.js API with Express.js using MDB GO</h2>
 
-                <!--Section: Code-->
-                <section class="mb-4">
-                  <!-- prettier-ignore -->
-                  <mdbsnippet>
-        <code data-lang="shell" data-name="Shell">
-              $ cd my-express-app 
-        </code>
-      </mdbsnippet>
-                </section>
-                <!--Section: Code-->
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          Before you create the project you need to have MDB CLI installed. If you don't have it yet
+          go to the
+          <a href="/docs/standard/cli/quick-start/" target="_blank">installation guide</a> and do
+          so. It is a very useful tool that will allow you to create the database with a single
+          command.
+        </p>
+        <p>
+          If you already have our CLI tool you can initialize your API project. First, make sure you
+          are logged in:
+        </p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb login
+          </code>
+        </mdbsnippet>
 
-                <p>Install express</p>
-                <!--Section: Code-->
-                <section class="mb-4">
-                  <!-- prettier-ignore -->
-                  <mdbsnippet>
-        <code data-lang="shell" data-name="Shell">
-              $ npm install express --save
-        </code>
-      </mdbsnippet>
-                </section>
-                <!--Section: Code-->
-                <p>
-                  Open project in editor (ie. VS Code), create index.js and
-                  create your app. You can use sample code:
-                </p>
+        <p>Next, run the following command:</p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb backend init
+          </code>
+        </mdbsnippet>
 
-                <!--Section: Code-->
-                <section class="mb-4">
-                  <!-- prettier-ignore -->
-                  <mdbsnippet>
-        <code data-lang="javascript" data-name="javascript">
-const express = require('express')
-const app = express()
-const port = 3000
+        <p>
+          You'll be asked to choose project to initialize. There are a few starters available, but
+          for the sake of this tutorial pick <code>Simple Express.js API</code> and hit
+          <code>Enter</code>.
+        </p>
+        <p>
+          The initialization process shouldn't take long. It depends on your Internet connection
+          speed. After a while you should see the output similar to the following:
+        </p>
+        <pre><code>? Choose project to initialize node-free-express
+[====================================================================================================] 0.0 s
+Project starter will be downloaded to /tmp/node-free-express folder
+Success Download completed.
+</code></pre>
+        <p class="note note-warning">
+          <strong>Note:</strong> MDB CLI will create a folder inside your current directory and will
+          extract the files inside of it.
+        </p>
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+        <p>And that's it. You just initialized a Node.js API with Express.js.</p>
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
-                  </code>
-      </mdbsnippet>
-                </section>
-                <!--Section: Code-->
+        <p>Now let's have a look at the project contents.</p>
 
-                <h3>Publish</h3>
+        <h3>Starter project file structure</h3>
 
-                <p>
-                  Once you finish building your project, use the following
-                  command do deploy it:
-                </p>
+        <p>
+          As you may have noticed there are a few files and directories in the starter project.
+          Let's quickly walk through them.
+        </p>
 
-                <!--Section: Code-->
-                <section class="mb-4">
-                  <!-- prettier-ignore -->
-                  <mdbsnippet>
-        <code data-lang="shell" data-name="Shell">
-              $ mdb backend publish -p node12 
+        <ul>
+          <li>
+            <code>index.js</code> - this file is the main entry point of the app. You can find the
+            Express initialization there
+          </li>
+          <li>
+            <code>app/</code> - you'll find the <code>config/</code> directory there where env
+            variables are loaded as well as the <code>routes</code> folder where an example endpoint
+            is defined
+          </li>
+          <li>
+            <code>public/</code> - here is prepared an example view which is displayed by default
+          </li>
+        </ul>
 
-        </code>
-      </mdbsnippet>
-                </section>
-                <!--Section: Code-->
-                <p>
-                  Done! Your project will be ready. If you want to check project
-                  console use
-                  <code>mdb logs</code> command.
-                </p>
-              </div>
-              <div class="col-md-6">
-                <h3>Video tutorial:</h3>
+        <p>Now it's time to publish the app using MDB GO.</p>
+      </div>
+    </div>
+  </section>
 
-                <div class="ratio ratio-16x9">
-                  <iframe
-                    src="https://www.youtube.com/embed/1aVrFJ5ave0"
-                    title="MDB GO Backend - Node.js"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </section>
+  <section id="deploying-api">
+    <!-- Section title -->
+    <h2 class="mb-4">Deploying Node.js API on MDB GO servers</h2>
 
-          <hr class="my-5" />
-          <!--Section: Docs content-->
-        </section>
+    <div class="row">
+      <div class="col-md-12">
+        <p>In order to deploy your newly created API you need to run only one command:</p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb publish -p node12
+          </code>
+        </mdbsnippet>
 
-        <!-- End docs here -->
+        <p>After your files get uploaded you will see something similar to this:</p>
+        <pre><code>Info In order for your app to run properly you need to configure it so that it listens on port 3000. It is required for internal port mapping. The URL that your app is available at, will be provided to you after successful publish.
+✔ Uploading files | 0.459 Mb
+Sent 0.459 Mb
+Success. Your app is running at https://express-starter.mdbgo.io
+Info Since we need to install dependencies and run your app, it may take a few moments until it will be available.
+</code></pre>
+        <p>
+          That's it. You just uploaded your project to the Internet! You can access your app under
+          the address shown in the output.
+        </p>
+
+        <p class="note note-danger">
+          <strong>Note:</strong> You may see an error saying that the domain name is already taken.
+          It means that you can't use the default project name because someone else already took it
+          (well, I just did it). You can change the domain name using the following command:
+          <br />
+          <code>$ mdb config domain &lt;your-name&gt;.mdbgo.io</code>
+          <br />
+          where <code>&lt;your-name&gt;</code> should be the domain name of your choice.
+          <strong
+            >Do not add the <code>http(s)://</code> part and don't omit the .mdbgo.io part as it
+            won't work without it.</strong
+          >
+        </p>
+
+        <p class="note note-danger">
+          <strong>Note:</strong> You can use your own domain if you have one. You need to set the
+          DNS A record pointing to <code>93.105.88.243</code> and then run the following command:
+          <br />
+          <code>$ mdb config domain &lt;your-domain-name&gt;</code>
+          <br />
+          where <code>&lt;your-domain-name&gt;</code> can be any domain name, for example
+          <code>example.com</code>. <strong>Do not add the <code>http(s)://</code> part.</strong>
+        </p>
+
+        <p class="note note-warning">
+          <strong>Note:</strong> Since we need to install dependencies and run your app, it may take
+          a few moments until it will be available under the provided URL.
+        </p>
+
+        <p>Alright, let's see how to "talk" with our fresh API.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="playing-with-api">
+    <!-- Section title -->
+    <h2 class="mb-4">Playing with Node.js API - CRUD requests</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          Before we jump into "talking" stuff, firstly let's find out what endpoints do we have.
+        </p>
+        <p>
+          In the <code>./app/routes/tasks.js</code> file there are a few endpoints defined to show
+          you how to get started.
+        </p>
+        <p>
+          By default on the <code>/</code> route there is the <code>index.html</code> file served
+          (located in <code>./public/</code> folder). There are also four additional endpoints
+          defined:
+        </p>
+        <ul>
+          <li>
+            <code>GET /tasks</code> - reads the <code>tasks</code> array and sends it as a response
+          </li>
+          <li>
+            <code>POST /tasks</code> - creates a new task and appends it to the
+            <code>tasks</code> array
+          </li>
+          <li><code>PUT /tasks/:taskId</code> - updates a specific task</li>
+          <li><code>DELETE /tasks/:taskId</code> - deletes a specific task</li>
+        </ul>
+
+        <p>
+          And these are the ones we are going to talk to. In order to do that I recommend you
+          install some REST client - like Postman for example - because it'll make your life way
+          easier. Alternatively, you can utilize <code>curl</code> command available in Linux/MacOS
+          terminals. However, in this tutorial we will go with Postman.
+        </p>
+        <p>
+          Go ahead and install it using
+          <a
+            href="https://learning.postman.com/docs/getting-started/installation-and-updates/"
+            target="_blank"
+            >official docs</a
+          >.
+        </p>
+
+        <h3>Talking to our API</h3>
+        <p>
+          Once you download and install Postman you can start making requests. We will cover all of
+          the above requests.
+        </p>
+
+        <h4>GET</h4>
+        <p>
+          In order to make a GET request you need to create a new request in Postman and do two
+          things:
+        </p>
+        <ul>
+          <li>First, select the request method - GET</li>
+          <li>
+            Then provide the request URL. In our case it's going to be:
+            <code>https://express-starter.mdbgo.io/tasks</code>
+          </li>
+        </ul>
+
+        <p>
+          Once you hit <code>Send</code> you will see the response - an empty array. Let's add an
+          item there.
+        </p>
+
+        <h4>POST</h4>
+        <p>
+          In order to create a task we need to make a POST request. In order to do that you need to:
+        </p>
+        <ul>
+          <li>Select the request method - POST</li>
+          <li>Provide request URL: <code>https://express-starter.mdbgo.io/tasks</code></li>
+          <li>
+            Click the <i>Body</i> tab and select <i>raw</i> | <i>JSON (application/json)</i> and
+            provide the following content:
+            <pre><code>{
+"name": "Do laundry",
+"desc": "Boring but necessary..."
+}</code></pre>
+          </li>
+        </ul>
+
+        <p>
+          Once you hit <code>Send</code> you will see the response - a new task with
+          <code>id</code> 1. Go ahead and run the <code>GET</code> request again to see it. Now
+          let's try to update it.
+        </p>
+
+        <h4>PUT</h4>
+        <p>Updating the task requires the following steps:</p>
+        <ul>
+          <li>Select the request method - PUT</li>
+          <li>Provide the request URL: <code>https://express-starter.mdbgo.io/tasks/1</code></li>
+          <li>
+            Click the <i>Body</i> tab and select <i>raw</i> | <i>JSON (application/json)</i> and
+            provide the following content:
+            <pre><code>{
+"name": "Do ironing",
+"desc": "Boring but necessary... and also quite dangerous!"
+}</code></pre>
+          </li>
+        </ul>
+
+        <p>
+          Once you hit <code>Send</code> you will see the response - the updated task with the new
+          values. Go ahead and run the <code>GET</code> request again to see it. Alright, let's
+          delete it.
+        </p>
+
+        <h4>DELETE</h4>
+        <p>In order to delete a task you need to do the following:</p>
+        <ul>
+          <li>Select the request method - DELETE</li>
+          <li>Provide the request URL: <code>https://express-starter.mdbgo.io/tasks/1</code></li>
+          <li>
+            <strong>Do not</strong> provide any body. Select <i>none</i> in the <i>Body</i> tab.
+          </li>
+        </ul>
+
+        <p>
+          Once you hit <code>Send</code> you will see the <code>OK</code> response - it means the
+          task has been deleted. If you run the <code>GET</code> request again you will see that the
+          task is gone.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="my-5" />
+  <!--Section: Docs content-->
+</section>
+<!-- End docs here -->

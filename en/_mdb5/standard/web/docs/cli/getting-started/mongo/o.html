@@ -1,110 +1,284 @@
-      <!--Section: Docs content-->
-        <section>
-          <section id="intro">
-            <!-- Main title -->
-            <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
+<!--Section: Docs content-->
+<section>
+  <section id="intro">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
 
-            <!-- Seo title -->
-            <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
 
-            <!-- Description -->
-            <p>
-              This guide will take you step by step on how to create your
-              project and deploy using MDB CLI.
-            </p>
-          </section>
-
+    <!-- Description -->
+    <p>
+      After reading this tutorial you'll have a basic knowledge about MongoDB and will know how to
+      create a free MongoDB instance using MDB GO.
+    </p>
+  </section>
 
   <hr class="my-5" />
 
+  <section id="introduction">
+    <h2 class="mb-4">Introduction</h2>
 
-  <section id="mongo">
+    <p>
+      If you have even little experience with backend technologies you may have noticed that there
+      is a lot of options when it comes to data storage. There is a whole variety of database
+      systems and each of them has its strong sides. It's not possible to explain all of them in a
+      single article - it would probably take a few books to do so. Instead, we will focus on one
+      specific database here - MongoDB. Let's dive in!
+    </p>
+  </section>
+  <section id="understanding-mongodb">
     <!-- Section title -->
-    <h2 class="mb-4">Create database - Mongo</h2>
+    <h2 class="mb-4">Understanding MongoDB</h2>
 
     <div class="row">
       <div class="col-md-12">
-        <h3>Create database</h3>
-        <p>1. Run the following command in the terminal:</p>
-
-        <!--Section: Code-->
-        <section class="mb-4">
-          <!-- prettier-ignore -->
-          <mdbsnippet>
-        <code data-lang="shell" data-name="Shell">
-              $ mdb database init
-        </code>
-      </mdbsnippet>
-        </section>
-        <!--Section: Code-->
-
-        <p>2. Choose <code>mongodb</code></p>
-
-        <p>3. You will be asked to create new user. Hit <kbd>Enter</kbd> to accept.</p>
-        <p>4. Provide <code>username</code>, <code>password</code>, <code>database name</code> and <code>description.</code>
-         
+        <p>
+          What's so special about MongoDB? Well, it's one of the most popular NoSQL databases out
+          there. In case you are wondering what NoSQL is, here's a short explanation for you:
         </p>
-
-
-        <p>CLI will display your username, password, database name and connections string.</p>
-
-       <p class="note note-warning">
-          <strong>Note:</strong> Your final username and database name may differ from your inputs. MDB GO may add some characters to randomize username and database name. 
+        <p class="note note-info">
+          <strong>NoSQL</strong> database is a type of database that provides non-tabular way of
+          storing data. It refers to non-relational databases which means that you can store data in
+          other way than tables with relations (typical for MySQL database for instance).
         </p>
-
-        <p>5. Your database is ready to use. </p>
-
-      
-        <h3>Connect</h3>
-
-
-
-
-               <h4>Node.js</h4>
-
-        <!--Section: Code-->
-        <section class="mb-4">
-          <!-- prettier-ignore -->
-          <mdbsnippet>
-        <code data-lang="node" data-name="node">
-async function main(){
-    /**
-     * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
-     * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
-     */
-    const uri = "mongodb://username:password@mongo.db.mdbgo.com:port/database_name";
- 
-
-    const client = new MongoClient(uri);
- 
-    try {
-        // Connect to the MongoDB cluster
-        await client.connect();
- 
-        // Make the appropriate DB calls
-        await  listDatabases(client);
- 
-    } catch (e) {
-        console.error(e);
-    } finally {
-        await client.close();
-    }
-}
-
-main().catch(console.error);
-        </code>
-      </mdbsnippet>
-        </section>
-        <!--Section: Code-->
-
-
+        <p>
+          MongoDB is document-oriented. The data is stored in JSON-like <strong>documents</strong>.
+          A document is a key-value structure capable of storing any data scheme. It's a very
+          convenient concept as it allows you to represent real data very accurately.
+        </p>
+        <p>
+          Documents are stored in <strong>collections</strong>. They fulfill a similar role as
+          tables in relational databases <strong>but</strong> with a very important difference.
+          Collections do not enforce any common scheme for the documents stored in a given
+          collection. It means that you can have documents with different keys and values (including
+          number of keys and the document structure in general) stored in the same collection. Quite
+          convenient.
+        </p>
+        <p>Let's see how to create an example MongoDB instance using MDB GO.</p>
       </div>
+    </div>
+  </section>
 
+  <section id="creating-mongodb">
+    <!-- Section title -->
+    <h2 class="mb-4">Creating MongoDB database using MDB GO</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          Before you create the MongoDB database you need to have MDB CLI installed. If you don't
+          have it yet go to the
+          <a href="/docs/standard/cli/quick-start/" target="_blank">installation guide</a> and do
+          so. It is a very useful tool that will allow you to create the database with a single
+          command.
+        </p>
+        <p>
+          If you already have our CLI tool you can create your first MDB GO hosted MongoDB instance.
+          First, make sure you are logged in:
+        </p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb login
+          </code>
+        </mdbsnippet>
+
+        <p>Next, run the following command:</p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb database init -db mongodb
+          </code>
+        </mdbsnippet>
+
+        <p>
+          You'll be informed that before you create your database you need to create a database
+          user. Hit <kbd>Enter</kbd>.
+        </p>
+        <p>
+          Now you need to provide your user data and then the database details. Please provide the
+          values of your choice. For example:
+        </p>
+        <pre><code>? Enter username peter
+? Enter password Parker_1
+? Repeat password Parker_1
+? Enter database name spider_shop
+? Enter description Test database
+</code></pre>
+        <p class="note note-warning">
+          <strong>Note:</strong> the password must contain <i>at least</i> one uppercase letter, one
+          lowercase letter, one number, one special symbol and have minimum length of 7.
+        </p>
+
+        <p>
+          Hit <kbd>Enter</kbd> and that's it. You just created your own database. Simple, isn't it?
+        </p>
+
+        <p>If you provided correct data you should now see something similar to this:</p>
+        <pre><code>Warning! Write down the password to your database as we will never show it again.
+
+Info: To connect to this database you need to download Robo3T or another MongoDB client
+
+┌─────────┬─────────────────┬────────────┬───────────────────────┬────────────────────────────────────────────────────────────────────────────────┐
+│ (index) │    Username     │  Password  │     Database Name     │                               Connection String                                │
+├─────────┼─────────────────┼────────────┼───────────────────────┼────────────────────────────────────────────────────────────────────────────────┤
+│    0    │ 'peter68c6924a' │ 'Parker_1' │ 'spider_shopf60cfe72' │ 'mongodb://peter68c6924a:Parker_1@mongo.db.mdbgo.com:8604/spider_shopf60cfe72' │
+└─────────┴─────────────────┴────────────┴───────────────────────┴────────────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+        <p>
+          These are your credentials that you will need to use to connect to your newly created
+          database. It's described in the next section.
+        </p>
+        <p>
+          Before you jump there however, please notice that the username and database name slightly
+          differs from what you provided earlier. Don't worry - it's OK. A few random characters
+          have been added to these values to randomize them and improve security of your database
+          credentials.
+        </p>
+        <p class="note note-danger">
+          <strong>Important:</strong> Do not close your terminal window until you save your
+          credentials somewhere. This is the only time we will show you your database password. If
+          you won't save it you'll loose it.
+        </p>
+        <p>Now let's see how to connect to your database.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="connecting-to-mongodb">
+    <!-- Section title -->
+    <h2 class="mb-4">Connecting to MongoDB</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          In order to connect to your MongoDB instance we will use the official client named Studio
+          3T. You can download and install it from
+          <a href="https://studio3t.com/download/" target="_blank">the official website</a> (click
+          <i>More download options</i> below the form if you don't want to register on the site).
+        </p>
+
+        <p>
+          After you downloaded and installed Studio 3T let's open the client and click
+          <i>Connect</i> | <i>New Connection</i> in the top-left corner of the application window.
+        </p>
+
+        <p>
+          Now provide your <i>Connection name</i> and find the <i>From URI</i> button in the
+          bottom-left part of the window and click it.
+        </p>
+
+        <p>
+          In the text input that popped up paste your <i>Connection String</i> that's been displayed
+          by MDB CLI after your database has been created. In my case it's this one:
+          <code>mongodb://peter68c6924a:Parker_1@mongo.db.mdbgo.com:8604/spider_shopf60cfe72</code>
+        </p>
+
+        <p>
+          Click <code>OK</code> and then click the <i>Test Connection</i> button in the bottom-left
+          corner of the window. If you followed all the steps you should see a few <i>OK</i>s and
+          the <i>Connected</i> text.
+        </p>
+
+        <p>
+          Congratulations! You have configured your connection successfully. You can click
+          <i>Save</i> and then <i>Connect</i> in the window where you can see your connection on the
+          list.
+        </p>
+
+        <p>You can now start using your MongoDB instance. Let's see a few examples.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="playing-with-mongodb">
+    <!-- Section title -->
+    <h2 class="mb-4">Playing with MongoDB - basic queries</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          If you connected to your database you should be able to see available collections under
+          <i>Collections</i> node in the left-hand-side tree view. In our case, you should see the
+          <code>hello</code> collection - double-click it. In the tab on the right hit the green
+          arrow button and see the results. There is a single document here with one key
+          <code>message</code> and the value <code>"Hello, world!"</code>. Let's see what else you
+          can do with your test collection.
+        </p>
+
+        <h3>Querying</h3>
+        <p>
+          In order to read documents you can use the <code>.find()</code> method. It accepts an
+          argument where you can provide query options. In order to find all the documents that have
+          the key <code>message</code> with value <code>"Hello, world!"</code> you can use the
+          following query:
+        </p>
+
+        <pre><code>db.getCollection("hello").find({ message: "Hello, world!" })</code></pre>
+
+        <p>
+          After you run it with the green arrow button you'll see that it shows only one document -
+          the one that you saw earlier. It's hard to tell if the query works if the result is the
+          same as earlier. So let's create more documents to be able to play with querying.
+        </p>
+
+        <h3>Inserting</h3>
+        <p>
+          Inserting a document requires using the <code>.insert()</code> method. It accepts an
+          argument which is a JSON-like document that you wan't to insert. For example to add a few
+          more documents to the <code>hello</code> collection you can run the following queries:
+        </p>
+
+        <pre><code>db.getCollection("hello").insert({ message: "I love spiders!" })
+db.getCollection("hello").insert({ message: "I don't feel so good :(" })
+db.getCollection("hello").insert({ suitType: "Iron-Spider" })
+db.getCollection("hello").insert({ suitType: "standard" })
+</code></pre>
+        <p class="note note-warning">
+          <strong>Note</strong> that you can insert different documents to the same collection. The
+          <code>suitType</code> key does not match with the <code>message</code> key but MongoDB
+          allows you to do that.
+        </p>
+
+        <p>
+          Now if you run the <code>.find()</code> method with different options you'll see how it
+          works.
+        </p>
+
+        <h3>Updating</h3>
+        <p>
+          If you want to update a document you can use the <code>.update()</code> method. You need
+          to provide at least two arguments: first the query which will retrieve the documents that
+          needs to be updated (the same as in <code>.find()</code>) and second argument is a
+          JSON-like object that will provide new values to the document. For example:
+        </p>
+
+        <pre><code>db.getCollection("hello").update({ message: "I love spiders!" }, { message: "I hate spiders." })
+</code></pre>
+        <p>
+          This query will change the <code>message</code> value to <code>"I hate spiders."</code>.
+        </p>
+        <p class="note note-warning">
+          <strong>Note</strong> that you can add new keys to the document using
+          <code>.update()</code> method. Simply pass the new keys in the second argument.
+        </p>
+
+        <h3>Deleting</h3>
+        <p>
+          In order to delete documents you can use one of the two methods:
+          <code>.deleteOne()</code> or <code>.deleteMany()</code>. Both of them accept an argument
+          with query options the same as in <code>.find()</code>. The difference is that the former
+          will delete only one document even if more will match the query while the latter will
+          delete all matching documents. Here's an example:
+        </p>
+
+        <pre><code>db.getCollection("hello").deleteOne({ suitType: "Iron-Spider" })
+</code></pre>
+        <p>Using this query you will delete the first document that matches given criteria.</p>
+      </div>
     </div>
   </section>
 
   <hr class="my-5" />
-          <!--Section: Docs content-->
-        </section>
-
-        <!-- End docs here -->
+  <!--Section: Docs content-->
+</section>
+<!-- End docs here -->
