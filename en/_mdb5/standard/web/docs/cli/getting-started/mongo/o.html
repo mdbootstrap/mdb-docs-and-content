@@ -14,88 +14,96 @@
             </p>
           </section>
 
-          <hr class="my-5" />
 
-          <section id="starter">
-            <!-- Section title -->
-            <h2 class="mb-4">Initialize and publish MDB project</h2>
+  <hr class="my-5" />
 
-            <div class="row">
-              <div class="col-md-12">
-                <h3>Initialize</h3>
-                <p>
-                  In order to initialize project and use predefined starter use
-                  the following command:
-                </p>
 
-                <!--Section: Code-->
-                <section class="mb-4">
-                  <!-- prettier-ignore -->
-                  <mdbsnippet>
+  <section id="mongo">
+    <!-- Section title -->
+    <h2 class="mb-4">Create database - Mongo</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Create database</h3>
+        <p>1. Run the following command in the terminal:</p>
+
+        <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
         <code data-lang="shell" data-name="Shell">
-              $ mdb  init
+              $ mdb database init
         </code>
       </mdbsnippet>
-                </section>
-                <!--Section: Code-->
+        </section>
+        <!--Section: Code-->
 
-                <p>You will list of available starters to choose from.</p>
+        <p>2. Choose <code>mongodb</code></p>
 
-                <h3>Publish</h3>
+        <p>3. You will be asked to create new user. Hit <kbd>Enter</kbd> to accept.</p>
+        <p>4. Provide <code>username</code>, <code>password</code>, <code>database name</code> and <code>description.</code>
+         
+        </p>
 
-                <p>
-                  Once you finish building your project, use the following
-                  command do deploy it:
-                </p>
 
-                <!--Section: Code-->
-                <section class="mb-4">
-                  <!-- prettier-ignore -->
-                  <mdbsnippet>
-        <code data-lang="shell" data-name="Shell">
-              $ mdb frontend publish
+        <p>CLI will display your username, password, database name and connections string.</p>
+
+       <p class="note note-warning">
+          <strong>Note:</strong> Your final username and database name may differ from your inputs. MDB GO may add some characters to randomize username and database name. 
+        </p>
+
+        <p>5. Your database is ready to use. </p>
+
+      
+        <h3>Connect</h3>
+
+
+
+
+               <h4>Node.js</h4>
+
+        <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+        <code data-lang="node" data-name="node">
+async function main(){
+    /**
+     * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
+     * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
+     */
+    const uri = "mongodb://username:password@mongo.db.mdbgo.com:port/database_name";
+ 
+
+    const client = new MongoClient(uri);
+ 
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+ 
+        // Make the appropriate DB calls
+        await  listDatabases(client);
+ 
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+
+main().catch(console.error);
         </code>
       </mdbsnippet>
-                </section>
-                <!--Section: Code-->
+        </section>
+        <!--Section: Code-->
 
-                <p class="note note-warning">
-                  <strong>Note:</strong> Since <code>frontend</code> is a
-                  default value for <code>publish</code> command, you can run
-                  just <code>mdb publish</code> (instead of
-                  <code>mdb frontend publish</code> )
-                </p>
 
-                <p>
-                  If you are publishing for the first time, CLI will ask you few
-                  initial questions like
-                </p>
-                <ul>
-                  <li>Whether you want to use npm or yarn?</li>
-                  <li>
-                    What is your project name, version, description, github
-                    address and license
-                  </li>
-                </ul>
+      </div>
 
-                <p>
-                  Once you successfully publish your project they will be stored
-                  for a future.
-                </p>
-              </div>
-              <div class="col-md-12">
-                <h3>Video tutorial:</h3>
+    </div>
+  </section>
 
-                <div class="ratio ratio-16x9">
-                  <iframe
-                    src="https://www.youtube.com/embed/GcuIt5oqg7E"
-                    title="MDB GO Starter project"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </section>
+  <hr class="my-5" />
           <!--Section: Docs content-->
         </section>
 

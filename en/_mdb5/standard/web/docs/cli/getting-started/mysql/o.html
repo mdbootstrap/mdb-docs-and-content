@@ -16,86 +16,452 @@
 
           <hr class="my-5" />
 
-          <section id="starter">
-            <!-- Section title -->
-            <h2 class="mb-4">Initialize and publish MDB project</h2>
+  <hr class="my-5" />
 
-            <div class="row">
-              <div class="col-md-12">
-                <h3>Initialize</h3>
-                <p>
-                  In order to initialize project and use predefined starter use
-                  the following command:
-                </p>
 
-                <!--Section: Code-->
-                <section class="mb-4">
-                  <!-- prettier-ignore -->
-                  <mdbsnippet>
+  <section id="mysql">
+    <!-- Section title -->
+    <h2 class="mb-4">Create database - MySQL</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Create database</h3>
+        <p>1. Run the following command in the terminal:</p>
+
+        <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
         <code data-lang="shell" data-name="Shell">
-              $ mdb  init
+              $ mdb database init
         </code>
       </mdbsnippet>
-                </section>
-                <!--Section: Code-->
+        </section>
+        <!--Section: Code-->
 
-                <p>You will list of available starters to choose from.</p>
+        <p>2. Choose <code>mysql8</code></p>
 
-                <h3>Publish</h3>
+        <p>3. You will be asked to create new user. Hit <kbd>Enter</kbd> to accept.</p>
+        <p>4. Provide <code>username</code>, <code>password</code>, <code>database name</code> and <code>description.</code>
+         
+        </p>
 
-                <p>
-                  Once you finish building your project, use the following
-                  command do deploy it:
-                </p>
 
-                <!--Section: Code-->
-                <section class="mb-4">
-                  <!-- prettier-ignore -->
-                  <mdbsnippet>
-        <code data-lang="shell" data-name="Shell">
-              $ mdb frontend publish
+        <p>CLI will display your username, password, database name and connections string.</p>
+
+       <p class="note note-warning">
+          <strong>Note:</strong> Your final username and database name may differ from your inputs. MDB GO may add some characters to randomize username and database name. 
+        </p>
+
+        <p>5. Your database is ready to use. </p>
+
+      
+        <h3>Connect</h3>
+
+        <h4>PHP</h4>
+
+        <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+        <code data-lang="php" data-name="php">
+<?php
+$mysqli = new mysqli("mysql.db.mdbgo.com:3306","username","password","database_name");
+
+// Check connection
+if ($mysqli -> connect_errno) {
+  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+  exit();
+}
+?>
         </code>
       </mdbsnippet>
-                </section>
-                <!--Section: Code-->
+        </section>
+        <!--Section: Code-->
 
-                <p class="note note-warning">
-                  <strong>Note:</strong> Since <code>frontend</code> is a
-                  default value for <code>publish</code> command, you can run
-                  just <code>mdb publish</code> (instead of
-                  <code>mdb frontend publish</code> )
-                </p>
 
-                <p>
-                  If you are publishing for the first time, CLI will ask you few
-                  initial questions like
-                </p>
-                <ul>
-                  <li>Whether you want to use npm or yarn?</li>
-                  <li>
-                    What is your project name, version, description, github
-                    address and license
-                  </li>
-                </ul>
+               <h4>Node.js</h4>
 
-                <p>
-                  Once you successfully publish your project they will be stored
-                  for a future.
-                </p>
-              </div>
-              <div class="col-md-12">
-                <h3>Video tutorial:</h3>
+        <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+        <code data-lang="php" data-name="php">
+var mysql = require('mysql');
 
-                <div class="ratio ratio-16x9">
-                  <iframe
-                    src="https://www.youtube.com/embed/GcuIt5oqg7E"
-                    title="MDB GO Starter project"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </section>
+var con = mysql.createConnection({
+  host: "mysql.db.mdbgo.com:3306",
+  user: "username",
+  password: "password"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+        </code>
+      </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+
+
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="my-5" />
+
+
+
+  <section id="mysql-php">
+    <!-- Section title -->
+    <h2 class="mb-4">Connect to MySQL using PHP </h2>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Connect to your database using PHP</h3>
+
+          <p>Check following examples where you will find 3 different ways to connect to database using PHP using:</p>
+          <ul>
+            <li>MySQLi - object-oriented</li>
+            <li>MySQLi - procedural</li>
+            <li>PDO (PHP Data Objects)</li>
+          </ul>
+
+          <p>Each use case consist sample code for:</p>
+          <ul>
+            <li>Database connection</li>
+            <li>Table creation</li>
+            <li>Data insertion</li>
+            <li>Data selection (SELECT statement)</li>
+            <li>Table deletion</li>
+          </ul>
+
+
+
+
+
+
+
+
+      </div>
+      <div class="col-md-6">
+                                <h3>Video tutorial:</h3>
+
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="https://www.youtube.com/embed/bN3s5RiH6gk"
+            title="MDB GO - Git"
+            allowfullscreen
+          ></iframe>
+        </div>
+    </div>
+    <div class="col-md-12">
+      
+          <!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a
+      class="nav-link active"
+      id="ex1-tab-1"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-1"
+      role="tab"
+      aria-controls="ex1-tabs-1"
+      aria-selected="true"
+      >MySQLi-OO</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      class="nav-link"
+      id="ex1-tab-2"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-2"
+      role="tab"
+      aria-controls="ex1-tabs-2"
+      aria-selected="false"
+      >MySQL-P</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      class="nav-link"
+      id="ex1-tab-3"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-3"
+      role="tab"
+      aria-controls="ex1-tabs-3"
+      aria-selected="false"
+      >PDO</a
+    >
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="ex1-content">
+  <div
+    class="tab-pane fade show active"
+    id="ex1-tabs-1"
+    role="tabpanel"
+    aria-labelledby="ex1-tab-1"
+  >
+    
+          <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+      <code data-lang="php" data-name="php">
+<!-- MySQLi  Object-Oriented -->
+
+<?php
+$servername = "mysql.db.mdbgo.com";
+$username = "your_username";
+$password = "your_password";
+$dbname = "db_name";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully  <br>";
+
+
+// Create Table 
+$sql = "CREATE TABLE MyGuests (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR(30) NOT NULL,
+lastname VARCHAR(30) NOT NULL,
+email VARCHAR(50),
+reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table MyGuests created successfully <br>";
+} else {
+    echo "Error creating table:  <br>" . $conn->error . "<br>";
+}
+
+
+// Insert data
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully  <br>";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+
+
+
+// Query data
+
+
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while ($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"] . " - Name: " . $row["firstname"] . " " . $row["lastname"] . "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+//Drop table
+$sql = "DROP TABLE MyGuests";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table MyGuests dropped successfully <br>";
+} else {
+    echo "Error dropping table:  <br>" . $conn->error . "<br>";
+}
+
+
+$conn->close();
+
+            </code>
+    </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+
+
+  </div>
+  <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+  <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+      <code data-lang="php" data-name="php">
+<!-- MySQLi  Object-Oriented -->
+
+<?php
+$servername = "mysql.db.mdbgo.com";
+$username = "your_username";
+$password = "your_password";
+$dbname = "db_name";
+
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error() . "<br>");
+}
+echo "Connected successfully <br>";
+
+//Create table
+$sql = "CREATE TABLE MyGuests (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR(30) NOT NULL,
+lastname VARCHAR(30) NOT NULL,
+email VARCHAR(50),
+reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)";
+
+if (mysqli_query($conn, $sql)) {
+  echo "Table MyGuests created successfully <br>";
+} else {
+  echo "Error creating table: " . mysqli_error($conn) . "<br>";
+}
+
+
+// Insert data
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com')";
+
+if (mysqli_query($conn, $sql)) {
+  echo "New record created successfully <br>";
+} else {
+  echo "Error: " . $sql . "<br>" . mysqli_error($conn) . "<br>";
+}
+
+// Query data
+
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+  // output data of each row
+  while ($row = mysqli_fetch_assoc($result)) {
+    echo "id: " . $row["id"] . " - Name: " . $row["firstname"] . " " . $row["lastname"] . "<br>";
+  }
+} else {
+  echo "0 results <br>";
+}
+
+
+//Drop table
+$sql = "DROP TABLE MyGuests";
+
+if (mysqli_query($conn, $sql)) {
+  echo "Table MyGuests dropped successfully <br>";
+} else {
+  echo "Error dropping table: " . mysqli_error($conn) . "<br>";
+}
+
+mysqli_close($conn);
+
+            </code>
+    </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+  </div>
+  <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+  <!--Section: Code-->
+        <section class="mb-4">
+          <!-- prettier-ignore -->
+          <mdbsnippet>
+      <code data-lang="php" data-name="php">
+<!-- MySQLi  Object-Oriented -->
+
+<?php
+$servername = "mysql.db.mdbgo.com";
+$username = "your_username";
+$password = "your_password";
+$dbname = "db_name";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+  // Create table
+
+  $sql = "CREATE TABLE MyGuests (
+  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  firstname VARCHAR(30) NOT NULL,
+  lastname VARCHAR(30) NOT NULL,
+  email VARCHAR(50),
+  reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  )";
+
+  if ($conn->query($sql)) {
+    echo "Table MyGuests created successfully <br>";
+  } else {
+    echo "Error creating table. <br> ";
+  }
+
+  //Insert data
+  $sql = "INSERT INTO MyGuests (firstname, lastname, email)
+  VALUES ('John', 'Doe', 'john@example.com')";
+  // use exec() because no results are returned
+  $conn->exec($sql);
+  echo "New record created successfully";
+
+
+
+  //Query data
+
+  $sql = "SELECT id, firstname, lastname FROM MyGuests";
+  $result = $conn->query($sql);
+  if ($result->rowCount() > 0) {
+    echo "<table><tr><th>ID</th><th>Name</th></tr>";
+    // output data of each row
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+      echo "<tr><td>" . $row["id"] . "</td><td>" . $row["firstname"] . " " . $row["lastname"] . "</td></tr>";
+    }
+    echo "</table>";
+  } else {
+    echo "0 results";
+  }
+
+  //Drop table
+  $sql = "DROP TABLE MyGuests";
+  if ($conn->query($sql)) {
+    echo "Table MyGuests dropped successfully <br>";
+  } else {
+    echo "Error dropping table. <br> ";
+  }
+} catch (PDOException $e) {
+  echo $sql . "<br>" . $e->getMessage();
+}
+
+$conn = null;
+
+            </code>
+    </mdbsnippet>
+        </section>
+        <!--Section: Code-->
+  </div>
+</div>
+<!-- Tabs content -->
+
+    </div>
+  </section>
+
+  <hr class="my-5" />
+
+          
+
+
           <!--Section: Docs content-->
         </section>
 
