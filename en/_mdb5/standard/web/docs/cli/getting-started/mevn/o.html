@@ -210,7 +210,174 @@
         </p>
 
         <h3>Connecting to the API via Vue app</h3>
-        <p>TODO</p>
+        <p>
+          We won't show how to create the whole Vue app here. Instead, you'll learn how to connect
+          to the API <strong>assuming you already have a working app</strong>.
+        </p>
+
+        <p>
+          It's actually pretty easy. All we need to use if JavaScript Fetch API. Let's jump right
+          into it.
+        </p>
+        <p>
+          First, let's quickly have a look where we are going to place our code. We are assuming you
+          have the <code>App.vue</code> file where you want to put API communication logic. It
+          should look somewhat like this:
+        </p>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+            <code data-lang="javascript" data-name="App.vue">
+                export default {
+                  name: "App",
+                  data() {
+                    return {
+                      tasks: [],
+                    };
+                  },
+                  mounted() {
+                    // ...
+                  },
+                };
+            </code>
+          </mdbsnippet>
+
+        <p>
+          It's also wise to add <code>apiUrl</code> constant in our component so that we don't have
+          to repeat it every time:
+        </p>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+              <code data-lang="javascript" data-name="App.vue">
+                  const apiUrl = 'http://express-mongoose-starter.mdbgo.io'; // in your case it will be different
+              </code>
+          </mdbsnippet>
+
+        <p>
+          We will be adding our methods in the <code>methods</code> field. Add it right after the
+          <code>mounted()</code> method:
+        </p>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+              <code data-lang="javascript" data-name="App.vue">
+                  mounted() {
+                    // ...
+                  },
+                  methods: {
+
+                  }
+              </code>
+          </mdbsnippet>
+
+        <p>
+          In order to read data from the server we need to make a <code>GET /tasks</code> request.
+          You can do it like this:
+        </p>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+              <code data-lang="javascript" data-name="App.vue">
+                  methods: {
+                      getTasks() {
+                          return fetch(`${this.apiUrl}/tasks`)
+                              .then(res => res.json());
+                      }
+                  }
+              </code>
+          </mdbsnippet>
+
+        <p>
+          It's a new method that performs the GET request and returns the result. We will take care
+          of this result later. In a meantime let's add the remaining three methods:
+        </p>
+
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+              <code data-lang="javascript" data-name="App.vue">
+                  methods: {
+                      // ...
+                      createTask(name, desc) {
+                        const data = { name, desc };
+                        return fetch(`${this.apiUrl}/tasks`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data);
+                        })
+                            .then((res) => res.json());
+                      }
+
+                      updateTask(id, name, desc) {
+                        const data = { name, desc };
+                        return fetch(`${this.apiUrl}/tasks/${id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data);
+                        })
+                            .then((res) => res.json());
+                      }
+
+                      deleteTask(id) {
+                        return fetch(`${this.apiUrl}/tasks/${id}`, { method: 'DELETE' })
+                            .then((res) => res.json());
+                      }
+                  }
+              </code>
+          </mdbsnippet>
+
+        <p>Alright, let's find out how to use this.</p>
+
+        <h4>Calling the API from the Vue component</h4>
+
+        <p>
+          In order to use our methods we can call them in the <code>mounted()</code> hook for
+          example like this:
+        </p>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+              <code data-lang="javascript" data-name="App.vue">
+                  mounted() {
+                    this.getTasks()
+                        .then((tasks) => {
+                            this.tasks = tasks
+                        });
+                  }
+              </code>
+          </mdbsnippet>
+
+        <p>It will make an API request and assign the result to the <code>tasks</code> field.</p>
+
+        <p>Making POST, PUT and DELETE requests is just as easy:</p>
+
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+              <code data-lang="javascript" data-name="App.vue">
+                  mounted() {
+                    // Create a task
+                    this.createTask('Wash the dishes', 'will take a while')
+                      .then((task) => {
+                        this.tasks.push(newTask);
+                      });
+
+                    // Update a task
+                    const currentTaskId = 1;
+                    this.updateTask(currentTaskId, 'Wash the dishes', 'will take a while')
+                        .then((updatedTask) => {
+                            const oldTask = this.tasks.find((t => t.id === currentTaskId));
+                            oldTask.id = updatedTask.id;
+                            oldTask.name = updatedTask.name;
+                            oldTask.desc = updatedTask.desc;
+                        });
+
+                    // Delete a task
+                    const currentTaskId = 1;
+                    this.deleteTask(currentTaskId)
+                        .then(() => {
+                            const idx = this.tasks.findIndex(t => t.id === currentTaskId);
+                            this.tasks.splice(idx, 1);
+                        });
+                  }
+              </code>
+          </mdbsnippet>
+
+        <p>And that's how you communicate with your API from the Vue app.</p>
       </div>
     </div>
   </section>
