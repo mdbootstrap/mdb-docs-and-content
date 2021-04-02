@@ -1,0 +1,220 @@
+<!--Section: Docs content-->
+<section>
+  <section id="intro">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p>
+      After reading this tutorial you will know how to create full-stack apps using MERN stack.
+    </p>
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="whatis-mern">
+    <!-- Section title -->
+    <h2 class="mb-4">What does MERN stand for?</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          <strong>MERN</strong> is an acronym for web development tech stack consisting of these
+          four technologies:
+        </p>
+        <ul>
+          <li><strong>M</strong>ongoDB</li>
+          <li><strong>E</strong>xpress.js</li>
+          <li><strong>R</strong>eact</li>
+          <li><strong>N</strong>ode.js</li>
+        </ul>
+
+        <p>Let's quickly recall what are these.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="mern-recap">
+    <!-- Section title -->
+    <h2 class="mb-4">MERN recap</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>Here's a quick recap what are the main technologies used in the MERN stack:</p>
+        <ul>
+          <li>
+            <strong>MongoDB</strong> is a document-oriented NoSQL database mernt to store
+            non-tabular data. If you want to learn more about it check out a
+            <a href="/docs/standard/cli/getting-started/mongo/" target="_blank">separate tutorial</a
+            >.
+          </li>
+          <li>
+            <strong>Express.js</strong> is a web framework built for Node.js that allows you to
+            create web servers in a very convenient way. Learn more about it
+            <a href="https://mdbootstrap.com/docs/standard/cli/getting-started/express/">here</a>.
+          </li>
+          <li>
+            <strong>React</strong> is a JavaScript framework that allows you to create very advanced
+            single-page apps. You can check out how to create an React project in
+            <a href="/docs/standard/cli/getting-started/react/">another tutorial</a>.
+          </li>
+          <li>
+            <strong>Node.js</strong> is a multi-platform JavaScript runtime built on V8 engine. It's
+            used as a backend side of web apps. Read more about it
+            <a href="/docs/standard/cli/getting-started/node/">here</a>.
+          </li>
+        </ul>
+
+        <p>
+          We won't dive deep into details about how to get started with these technologies using MDB
+          GO. Go ahead and check the linked tutorials and once you learn a few things get back here.
+        </p>
+        <p>If you have enough knowledge to get started, let's do this.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="building-mern-app">
+    <!-- Section title -->
+    <h2 class="mb-4">Building the MERN app</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          Our example app will be a TODO list. It's a very popular use-case so let's simply get
+          things done one at a time. We will go through the following steps:
+        </p>
+        <ul>
+          <li>Create a MongoDB database named <code>todo_app</code></li>
+          <li>Create Node.js API with Express and Mongoose</li>
+          <li>Connect our frontend app to the Node.js API.</li>
+        </ul>
+
+        <p>Let's go!</p>
+
+        <h3>Creating MongoDB database</h3>
+        <p>In order to create a new database you need to run the following command:</p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb database init -db mongodb
+          </code>
+        </mdbsnippet>
+        <p>
+          Now you need to provide your user data and then the database details. Please provide the
+          values of your choice. For example:
+        </p>
+        <pre><code>? Enter username tony
+? Enter password Stark_12
+? Repeat password Stark_12
+? Enter database name todo_app
+? Enter description Database for the TODO app
+</code></pre>
+        <p class="note note-warning">
+          <strong>Note:</strong> the password must contain <i>at least</i> one uppercase letter, one
+          lowercase letter, one number, one special symbol and have minimum length of 8.
+        </p>
+
+        <p>Hit <kbd>Enter</kbd> and it's done.</p>
+
+        <p>
+          Please notice that in the command output the username and database name slightly differs
+          from what you provided earlier. Don't worry - it's OK. A few random characters have been
+          added to these values to randomize them and improve security of your database credentials.
+        </p>
+        <p class="note note-danger">
+          <strong>Important:</strong> Do not close your terminal window until you save your
+          credentials somewhere. This is the only time we will show you your database password. If
+          you won't save it you'll loose it.
+        </p>
+
+        <p>
+          That's pretty much it. You can now see how to connect with this database from the Node.js
+          API.
+        </p>
+
+        <p class="note note-warning">
+          <strong>Note:</strong> in MongoDB you don't need to create collections before they are
+          used. MongoDB will create a collection when it's first time accessed.
+        </p>
+
+        <h3>Creating Node.js API with Express and Mongoose</h3>
+        <p>
+          In case you don't know, Mongoose is a MongoDB object modeling tool. It helps managing
+          MongoDB access and models. You can initialize a MDB GO starter that already has configured
+          Mongoose. Simply run the following command:
+        </p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb backend init
+          </code>
+        </mdbsnippet>
+        <p>and choose <code>Express.js + MongoDB API starter</code> from the list that shows up.</p>
+        <p>
+          After initialization just go to the newly created project directory and open the
+          <code>.env</code> file. After that edit the <code>DB_CONNECTION_STRING</code> value. You
+          should paste the connection string that's been shown to you in the previous step. In my
+          case the updated value looks like this:
+        </p>
+        <pre><code>DB_CONNECTION_STRING=mongodb://tonye9c88223:Stark_12@mongo.db.mdbgo.com:8604/todo_appbd2f70e0</code></pre>
+        <p>Save the file and close it.</p>
+        <p>
+          The starter project is ready to use. You don't have to change anything to run the example
+          app for the sake of this tutorial. Simply publish it using the following command:
+        </p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb publish -p node12
+          </code>
+        </mdbsnippet>
+
+        <p>
+          After your files get uploaded you can access your app under the address shown in the
+          output.
+        </p>
+
+        <p class="note note-danger">
+          <strong>Note:</strong> You may want to check
+          <a href="/docs/standard/cli/getting-started/node/">the tutorial</a> where we explain in
+          detail what can go wrong here and how to deal with it.
+        </p>
+
+        <p class="note note-warning">
+          <strong>Note:</strong> Since we need to install dependencies and run your app, it may take
+          a few moments until it will be available under the provided URL.
+        </p>
+
+        <p>
+          When you open the app URL you will see the default view on the <code>/</code> endpoint but
+          when you'll visit <code>/tasks</code> you will see an empty array indicating that the
+          <code>tasks</code> collection has been created and is empty. There are also other
+          endpoints defined like this:
+        </p>
+        <ul>
+          <li><code>GET /tasks/:id</code></li>
+          <li><code>POST /tasks</code></li>
+          <li><code>PUT /tasks/:id</code></li>
+          <li><code>DELETE /tasks/:id</code></li>
+        </ul>
+
+        <p>
+          These are self-explanatory but if you don't know how to operate on that go and check the
+          <a href="/docs/standard/cli/getting-started/node/">tutorial</a> where it is explained.
+        </p>
+
+        <p>
+          Alright, only one step left for the fully-working TODO app - React frontend. Let's create
+          it.
+        </p>
+
+        <h3>Connecting to the API via React app</h3>
+        <p>TODO</p>
+      </div>
+    </div>
+  </section>
+
+  <!--Section: Docs content-->
+</section>
+<!--Section: Docs content-->
