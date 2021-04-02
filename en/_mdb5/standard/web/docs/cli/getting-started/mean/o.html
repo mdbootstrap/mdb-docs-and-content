@@ -237,7 +237,7 @@
             Add the following import at the top of the file:
             <!-- prettier-ignore -->
             <mdbsnippet>
-              <code data-lang="typescript" data-name="TS">
+              <code data-lang="typescript" data-name="app.module.ts">
                 import { HttpClientModule } from '@angular/common/http';
               </code>
             </mdbsnippet>
@@ -246,7 +246,7 @@
             Add <code>HttpClientModule</code> to the <code>imports</code> array like this:
             <!-- prettier-ignore -->
             <mdbsnippet>
-              <code data-lang="typescript" data-name="TS">
+              <code data-lang="typescript" data-name="app.module.ts">
                 // ... imports: [ // ... other modules, HttpClientModule ] // ...
               </code>
             </mdbsnippet>
@@ -278,7 +278,7 @@
         </p>
         <!-- prettier-ignore -->
         <mdbsnippet>
-          <code data-lang="typescript" data-name="TS">
+          <code data-lang="typescript" data-name="todo-api.service.ts">
             import { HttpClient } from '@angular/common/http'; import { Observable, throwError }
             from 'rxjs'; import { catchError, retry } from 'rxjs/operators';
           </code>
@@ -287,7 +287,7 @@
         <p>Now, inject the module into the constructor like this:</p>
         <!-- prettier-ignore -->
         <mdbsnippet>
-          <code data-lang="typescript" data-name="TS">
+          <code data-lang="typescript" data-name="todo-api.service.ts">
             @Injectable({
               providedIn: 'root'
             })
@@ -304,7 +304,7 @@
         </p>
         <!-- prettier-ignore -->
         <mdbsnippet>
-          <code data-lang="typescript" data-name="TS">
+          <code data-lang="typescript" data-name="todo-api.service.ts">
             @Injectable({
               providedIn: 'root'
             })
@@ -322,8 +322,10 @@
         </p>
         <!-- prettier-ignore -->
         <mdbsnippet>
-          <code data-lang="typescript" data-name="TS">
-            getTasks() { return this.http.get(`${this.apiUrl}/tasks`); }
+          <code data-lang="typescript" data-name="todo-api.service.ts">
+            getTasks() {
+              return this.http.get(`${this.apiUrl}/tasks`);
+            }
           </code>
         </mdbsnippet>
 
@@ -333,7 +335,7 @@
         </p>
         <!-- prettier-ignore -->
         <mdbsnippet>
-          <code data-lang="typescript" data-name="TS">
+          <code data-lang="typescript" data-name="todo-api.service.ts">
             addTask(name: string, desc: string) {
               return this.http.post(`${this.apiUrl}/tasks`, { name, desc });
             }
@@ -367,7 +369,7 @@
         </p>
         <!-- prettier-ignore -->
         <mdbsnippet>
-          <code data-lang="typescript" data-name="TS">
+          <code data-lang="typescript" data-name="todo-list.component.ts">
             import { Component, OnInit } from '@angular/core';
             import { TodoApiService } from '../todo-api.service.ts';
 
@@ -389,7 +391,7 @@
         <p>Now you can simply invoke our service method like this:</p>
         <!-- prettier-ignore -->
         <mdbsnippet>
-          <code data-lang="typescript" data-name="TS">
+          <code data-lang="typescript" data-name="todo-list.component.ts">
             ngOnInit() {
                 this.api.getTasks()
                     .subscribe((tasks) => {
@@ -407,7 +409,7 @@
         <p>Making POST, PUT and DELETE requests is just as easy:</p>
         <!-- prettier-ignore -->
         <mdbsnippet>
-          <code data-lang="typescript" data-name="TS">
+          <code data-lang="typescript" data-name="todo-list.component.ts">
             createTask() {
                 this.api.addTask('Wash the dishes', 'will take a while')
                     .subscribe((newTask) => {
