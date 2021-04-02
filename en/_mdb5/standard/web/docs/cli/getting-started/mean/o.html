@@ -235,6 +235,7 @@
         <ul>
           <li>
             Add the following import at the top of the file:
+            <!-- prettier-ignore -->
             <mdbsnippet>
               <code data-lang="typescript" data-name="TS">
                 import { HttpClientModule } from '@angular/common/http';
@@ -243,6 +244,7 @@
           </li>
           <li>
             Add <code>HttpClientModule</code> to the <code>imports</code> array like this:
+            <!-- prettier-ignore -->
             <mdbsnippet>
               <code data-lang="typescript" data-name="TS">
                 // ... imports: [ // ... other modules, HttpClientModule ] // ...
@@ -258,6 +260,7 @@
           In order to do that you can make use of the Angular CLI and generate appropriate class.
           Just run this command:
         </p>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="shell" data-name="Shell">
             $ ng g s todo-api
@@ -273,6 +276,7 @@
           Next step is to add required imports. In order to do that add the following lines at the
           top of the file:
         </p>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="typescript" data-name="TS">
             import { HttpClient } from '@angular/common/http'; import { Observable, throwError }
@@ -281,10 +285,15 @@
         </mdbsnippet>
 
         <p>Now, inject the module into the constructor like this:</p>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="typescript" data-name="TS">
-            @Injectable({ providedIn: 'root' }) export class TodoApiService { constructor(private
-            http: HttpClient) { } }
+            @Injectable({
+              providedIn: 'root'
+            })
+            export class TodoApiService {
+                constructor(private http: HttpClient) { }
+            }
           </code>
         </mdbsnippet>
 
@@ -293,11 +302,17 @@
           let's <code>apiUrl</code> field in our class so that we don't have to repeat it every
           time:
         </p>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="typescript" data-name="TS">
-            @Injectable({ providedIn: 'root' }) export class TodoApiService { apiUrl =
-            'http://express-mongoose-starter.mdbgo.io'; // in your case it will be different
-            constructor(private http: HttpClient) { } }
+            @Injectable({
+              providedIn: 'root'
+            })
+            export class TodoApiService {
+              apiUrl = 'http://express-mongoose-starter.mdbgo.io'; // in your case it will be different
+
+              constructor(private http: HttpClient) { }
+            }
           </code>
         </mdbsnippet>
 
@@ -305,6 +320,7 @@
           In order to read data from the server we need to make a <code>GET /tasks</code> request.
           You can do it like this:
         </p>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="typescript" data-name="TS">
             getTasks() { return this.http.get(`${this.apiUrl}/tasks`); }
@@ -315,12 +331,20 @@
           It's a new method that performs the GET request and returns the result. We will take care
           of this result later. In a meantime let's add the remaining three methods:
         </p>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="typescript" data-name="TS">
-            addTask(name: string, desc: string) { return this.http.post(`${this.apiUrl}/tasks`, {
-            name, desc }); } updateTask(id: number, name: string, desc: string) { return
-            this.http.put(`${this.apiUrl}/tasks/${id}`, { name, desc }); } deleteTask(id: number) {
-            return this.http.delete(`{this.apiUrl}/tasks/${id}`); }
+            addTask(name: string, desc: string) {
+              return this.http.post(`${this.apiUrl}/tasks`, { name, desc });
+            }
+
+            updateTask(id: number, name: string, desc: string) {
+              return this.http.put(`${this.apiUrl}/tasks/${id}`, { name, desc });
+            }
+
+            deleteTask(id: number) {
+              return this.http.delete(`{this.apiUrl}/tasks/${id}`);
+            }
           </code>
         </mdbsnippet>
 
@@ -341,20 +365,37 @@
           This is how you can make use of our service. First, import your service and inject it into
           the constructor:
         </p>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="typescript" data-name="TS">
-            import { Component, OnInit } from '@angular/core'; import { TodoApiService } from
-            '../todo-api.service.ts'; @Component({ selector: 'app-todo-list', templateUrl:
-            './todo-list.component.html', styleUrls: ['./todo-list.component.scss'] }) export class
-            TodoListComponent implements OnInit { constructor(private api: TodoApiService) { }
-            ngOnInit() { } }
+            import { Component, OnInit } from '@angular/core';
+            import { TodoApiService } from '../todo-api.service.ts';
+
+            @Component({
+                selector: 'app-todo-list',
+                templateUrl: './todo-list.component.html',
+                styleUrls: ['./todo-list.component.scss']
+            })
+            export class TodoListComponent implements OnInit {
+
+                constructor(private api: TodoApiService) { }
+
+                ngOnInit() {
+                }
+            }
           </code>
         </mdbsnippet>
 
         <p>Now you can simply invoke our service method like this:</p>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="typescript" data-name="TS">
-            ngOnInit() { this.api.getTasks() .subscribe((tasks) => { this.tasks = tasks; }); }
+            ngOnInit() {
+                this.api.getTasks()
+                    .subscribe((tasks) => {
+                      this.tasks = tasks;
+                    });
+            }
           </code>
         </mdbsnippet>
 
@@ -364,16 +405,35 @@
         </p>
 
         <p>Making POST, PUT and DELETE requests is just as easy:</p>
+        <!-- prettier-ignore -->
         <mdbsnippet>
           <code data-lang="typescript" data-name="TS">
-            createTask() { this.api.addTask('Wash the dishes', 'will take a while')
-            .subscribe((newTask) => { this.tasks.push(newTask); }); } updateTask() { const
-            currentTaskId = 1; this.api.updateTask(currentTaskId, 'Wash the dishes', 'Will take 30
-            mins') .subscribe((updatedTask) => { const oldTask = this.tasks.find((t => t.id ===
-            currentTaskId)); oldTask.id = updatedTask.id; oldTask.name = updatedTask.name;
-            oldTask.desc = updatedTask.desc; }); } deleteTask() { const currentTaskId = 1;
-            this.api.deleteTask(currentTaskId) .subscribe(() => { const idx = this.tasks.findIndex(t
-            => t.id === currentTaskId); this.tasks.splice(idx, 1); }); }
+            createTask() {
+                this.api.addTask('Wash the dishes', 'will take a while')
+                    .subscribe((newTask) => {
+                      this.tasks.push(newTask);
+                    });
+            }
+
+            updateTask() {
+                const currentTaskId = 1;
+                this.api.updateTask(currentTaskId, 'Wash the dishes', 'Will take 30 mins')
+                    .subscribe((updatedTask) => {
+                        const oldTask = this.tasks.find((t => t.id === currentTaskId));
+                        oldTask.id = updatedTask.id;
+                        oldTask.name = updatedTask.name;
+                        oldTask.desc = updatedTask.desc;
+                    });
+            }
+
+            deleteTask() {
+                const currentTaskId = 1;
+                this.api.deleteTask(currentTaskId)
+                    .subscribe(() => {
+                        const idx = this.tasks.findIndex(t => t.id === currentTaskId);
+                        this.tasks.splice(idx, 1);
+                    });
+            }
           </code>
         </mdbsnippet>
 
