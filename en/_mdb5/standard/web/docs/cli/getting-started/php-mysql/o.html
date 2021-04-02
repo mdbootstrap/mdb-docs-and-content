@@ -1,0 +1,395 @@
+<!--Section: Docs content-->
+<section>
+  <section id="intro">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['seo_title']; ?></h1>
+
+    <!-- Description -->
+    <p>
+      After reading this tutorial you will know how to create simple PHP API with PDO and MySQL
+      database using MDB GO.
+    </p>
+  </section>
+
+  <hr class="my-5" />
+
+  <section id="introduction">
+    <!-- Section title -->
+    <h2 class="mb-4">Introduction</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          These days in order to create an API using PHP we use frameworks such as Symfony or
+          Laravel. However in a very simple scenarios you don't need all of this features. Instead
+          you simply need to read, create, update or delete a few things and that's all. In this
+          tutorial we will show you how to create such simple PHP API with MySQL database.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tech-recap">
+    <!-- Section title -->
+    <h2 class="mb-4">Technology recap</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>Here's a quick recap what are the main technologies used in this tutorial:</p>
+        <ul>
+          <li>
+            <strong>MySQL</strong> is an open-source relational database management system. If you
+            want to learn more about it check out a
+            <a href="/docs/standard/cli/getting-started/mysql/" target="_blank">separate tutorial</a
+            >.
+          </li>
+          <li>
+            <strong>PDO</strong> is a PHP extension which is an abstraction layer used for accessing
+            databases.
+          </li>
+          <li>
+            <strong>PHP</strong> is a general-purpose scripting language created for web
+            development. Read more about it
+            <a href="/docs/standard/cli/getting-started/php/">here</a>.
+          </li>
+        </ul>
+
+        <p>
+          We won't dive deep into details about how to get started with these technologies using MDB
+          GO. Go ahead and check the linked tutorials and once you learn a few things get back here.
+        </p>
+        <p>If you have enough knowledge to get started, let's do this.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="building-mean-app">
+    <!-- Section title -->
+    <h2 class="mb-4">Building the API</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          Our example app will be a TODO list. It's a very popular use-case so let's simply get
+          things done one at a time. We will go through the following steps:
+        </p>
+        <ul>
+          <li>Create a MySQL database named <code>todo_app</code></li>
+          <li>Create PHP API with PDO</li>
+        </ul>
+
+        <p>Let's go!</p>
+
+        <h3>Creating MySQL database</h3>
+        <p>In order to create a new database you need to run the following command:</p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb database init -db mysql8
+          </code>
+        </mdbsnippet>
+        <p>
+          Now you need to provide your user data and then the database details. Please provide the
+          values of your choice. For example:
+        </p>
+        <pre><code>? Enter username thor
+? Enter password Mjolnir_1
+? Repeat password Mjolnir_1
+? Enter database name todo_app
+? Enter description Database for the TODO app
+</code></pre>
+        <p class="note note-warning">
+          <strong>Note:</strong> the password must contain <i>at least</i> one uppercase letter, one
+          lowercase letter, one number, one special symbol and have minimum length of 8.
+        </p>
+
+        <p>Hit <kbd>Enter</kbd> and it's done.</p>
+
+        <p>
+          Please notice that in the command output the username and database name slightly differs
+          from what you provided earlier. Don't worry - it's OK. A few random characters have been
+          added to these values to randomize them and improve security of your database credentials.
+        </p>
+        <p class="note note-danger">
+          <strong>Important:</strong> Do not close your terminal window until you save your
+          credentials somewhere. This is the only time we will show you your database password. If
+          you won't save it you'll loose it.
+        </p>
+
+        <p>
+          The next step is to create the <code>tasks</code> table. In order to do that you need to
+          visit <a href="https://phpmyadmin.mdbgo.com/">https://phpmyadmin.mdbgo.com/</a> and log in
+          using credentials displayed in your terminal. In my case the username is
+          <code>thor83ad51bf</code> and password is <code>Mjolnir_1</code>.
+        </p>
+        <p>
+          After you're logged in you need to select your database (<code>todo_app48a0ca47</code> in
+          my case) and create a new table. Please select the <i>SQL</i> tab and run the following
+          query:
+        </p>
+        <mdbsnippet>
+          <code data-lang="sql" data-name="SQL">
+            CREATE TABLE IF NOT EXISTS `tasks` ( `id` INT(11) NOT NULL AUTO_INCREMENT, `name`
+            VARCHAR(255) NOT NULL, `desc` VARCHAR(255) DEFAULT NULL, PRIMARY KEY (`id`) )
+          </code>
+        </mdbsnippet>
+
+        <p>
+          That's pretty much it. You can now see how to connect with this database from the Node.js
+          API.
+        </p>
+
+        <h3>Creating PHP API with PDO</h3>
+        <p>
+          In case you don't know, PDO is an extension built for PHP. It helps managing database
+          access. You can initialize a MDB GO starter that already has configured PDO. Simply run
+          the following command:
+        </p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb backend init
+          </code>
+        </mdbsnippet>
+        <p>and choose <code>Simple PHP PDO starter</code> from the list that shows up.</p>
+        <p>
+          After initialization just go to the newly created project directory and open the
+          <code>db-connect.php</code> file. After that edit the <code>$dsn</code>,
+          <code>$user</code> and <code>$password</code> values. You should make use of credentials
+          that's been shown to you in the previous step. In my case the updated values look like
+          this:
+        </p>
+        <pre><code>$dsn = 'mysql:host=mysql.db.mdbgo.com;port=3306;dbname=todo_app48a0ca47';
+$user = 'thor83ad51bf';
+$password = 'Mjolnir_1';
+</code></pre>
+        <p>Save the file and close it.</p>
+
+        <p>Now let's implement CRUD operations. Here's what we are going to do:</p>
+        <ul>
+          <li>
+            Create <code>tasks.php</code> file responsible for retrieving tasks from the database
+          </li>
+          <li>
+            Create <code>create.php</code> file responsible for inserting new tasks to our table
+          </li>
+          <li>Create <code>update.php</code> file responsible for updating a task</li>
+          <li>Create <code>delete.php</code> file responsible for deleting a task</li>
+        </ul>
+
+        <p>
+          Let's start with the first one - <code>tasks.php</code>. Create a new file and paste the
+          following content:
+        </p>
+        <mdbsnippet>
+          <code data-lang="php" data-name="tasks.php">
+            &lt;?php require_once 'db-connect.php'; $pdo = new DBConnect(); $conn = $pdo->connect();
+            if ( $conn ) { $read_query = $conn->prepare( 'SELECT * FROM `tasks`' );
+            $read_query->execute(); $results = $read_query->fetch(); print_r($results); } ?&gt;
+          </code>
+        </mdbsnippet>
+
+        <p>It will select all the tasks from the database and print them as a response.</p>
+
+        <p>Now let's implement the rest of the operations:</p>
+        <ul>
+          <li>
+            <code>create.php</code> - creating a task
+            <mdbsnippet>
+              <code data-lang="php" data-name="create.php">
+                &lt;?php require_once 'db-connect.php'; $pdo = new DBConnect(); $conn =
+                $pdo->connect(); if ( $conn ) { $name = $_REQUEST['name']; $desc =
+                $_REQUEST['desc']; $insert_query = $conn->prepare( 'INSERT INTO `tasks` (`name`,
+                `desc`) VALUES (?, ?)' ); $insert_query->execute([$name, $desc]); echo 'OK'; } ?&gt;
+              </code>
+            </mdbsnippet>
+          </li>
+          <li>
+            <code>update.php</code> - updating a task
+            <mdbsnippet>
+              <code data-lang="php" data-name="update.php">
+                &lt;?php require_once 'db-connect.php'; $pdo = new DBConnect(); $conn =
+                $pdo->connect(); if ( $conn ) { $id = $_REQUEST['id']; $name = $_REQUEST['name'];
+                $desc = $_REQUEST['desc']; $update_query = $conn->prepare( 'UPDATE `tasks` SET
+                `name` = ?, `desc` = ? WHERE id = ?' ); $update_query->execute([$name, $desc, $id]);
+                echo 'OK'; } ?&gt;
+              </code>
+            </mdbsnippet>
+          </li>
+          <li>
+            <code>delete.php</code> - deleting task
+            <mdbsnippet>
+              <code data-lang="php" data-name="delete.php">
+                &lt;?php require_once 'db-connect.php'; $pdo = new DBConnect(); $conn =
+                $pdo->connect(); if ( $conn ) { $id = $_REQUEST['id']; $delete_query =
+                $conn->prepare( 'DELETE FROM `tasks` WHERE `id` = ?' );
+                $delete_query->execute([$id]); echo 'OK'; } ?&gt;
+              </code>
+            </mdbsnippet>
+          </li>
+        </ul>
+
+        <p>The project is ready to use. Now publish it using the following command:</p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ mdb publish -p php7.4
+          </code>
+        </mdbsnippet>
+
+        <p>
+          After your files get uploaded you can access your app under the address shown in the
+          output.
+        </p>
+
+        <p class="note note-danger">
+          <strong>Note:</strong> You may want to check
+          <a href="/docs/standard/cli/getting-started/node/">the tutorial</a> where we explain in
+          detail what can go wrong here and how to deal with it.
+        </p>
+
+        <p>Alright, let's see how to "talk" with our fresh API.</p>
+
+        <section id="playing-with-api">
+          <!-- Section title -->
+          <h2 class="mb-4">Playing with PHP API - CRUD requests</h2>
+
+          <div class="row">
+            <div class="col-md-12">
+              <p>
+                Before we jump into "talking" stuff, firstly let's find out what endpoints do we
+                have.
+              </p>
+              <p>
+                By default on the <code>/</code> route there is the default view. There are also
+                four additional endpoints defined:
+              </p>
+              <ul>
+                <li>
+                  <code>GET /tasks.php</code> - reads the <code>tasks</code> array and sends it as a
+                  response
+                </li>
+                <li>
+                  <code>POST /create.php</code> - creates a new task and appends it to the
+                  <code>tasks</code> array
+                </li>
+                <li><code>POST /update.php</code> - updates a specific task</li>
+                <li><code>POST /delete.php </code> - deletes a specific task</li>
+              </ul>
+
+              <p>
+                And these are the ones we are going to talk to. In order to do that I recommend you
+                install some REST client - like Postman for example - because it'll make your life
+                way easier. Alternatively, you can utilize <code>curl</code> command available in
+                Linux/MacOS terminals. However, in this tutorial we will go with Postman.
+              </p>
+              <p>
+                Go ahead and install it using
+                <a
+                  href="https://learning.postman.com/docs/getting-started/installation-and-updates/"
+                  target="_blank"
+                  >official docs</a
+                >.
+              </p>
+
+              <h3>Talking to our API</h3>
+              <p>
+                Once you download and install Postman you can start making requests. We will cover
+                all of the above requests.
+              </p>
+
+              <h4>Read tasks</h4>
+              <p>
+                In order to make a GET request you need to create a new request in Postman and do
+                two things:
+              </p>
+              <ul>
+                <li>First, select the request method - GET</li>
+                <li>
+                  Then provide the request URL. In our case it's going to be:
+                  <code>https://php-free-pdo.mdbgo.io/tasks.php</code>
+                </li>
+              </ul>
+
+              <p>
+                Once you hit <code>Send</code> you will see the response - an empty array. Let's add
+                an item there.
+              </p>
+
+              <h4>Creating a task</h4>
+              <p>
+                In order to create a task we need to make a POST request. In order to do that you
+                need to:
+              </p>
+              <ul>
+                <li>Select the request method - POST</li>
+                <li>Provide request URL: <code>https://php-free-pdo.mdbgo.io/create.php</code></li>
+                <li>
+                  Click the <i>Body</i> tab and select <i>x-www-form-urlencoded</i> and provide the
+                  following content:
+                  <pre><code>
+"name" = "Do laundry",
+"desc" = "Boring but necessary..."
+</code></pre>
+                </li>
+              </ul>
+
+              <p>
+                Once you hit <code>Send</code> you will see the <code>OK</code> response. Go ahead
+                and run the <code>GET</code> request again to see it. Now let's try to update it.
+              </p>
+
+              <h4>Updating a task</h4>
+              <p>Updating the task requires the following steps:</p>
+              <ul>
+                <li>Select the request method - POST</li>
+                <li>
+                  Provide the request URL: <code>https://php-free-pdo.mdbgo.io/update.php</code>
+                </li>
+                <li>
+                  Click the <i>Body</i> tab and select <i>x-www-form-urlencoded</i> and provide the
+                  following content:
+                  <pre><code>
+"id" = "1",
+"name" = "Do laundry",
+"desc" = "Boring but necessary... and also quite dangerous!"
+</code></pre>
+                </li>
+              </ul>
+
+              <p>
+                Once you hit <code>Send</code> you will see the OK response. Go ahead and run the
+                <code>GET</code> request again to see it. Alright, let's delete it.
+              </p>
+
+              <h4>Deleting a task</h4>
+              <p>In order to delete a task you need to do the following:</p>
+              <ul>
+                <li>Select the request method - POST</li>
+                <li>
+                  Provide the request URL: <code>https://php-free-pdo.mdbgo.io/delete.php</code>
+                </li>
+                <li>
+                  Click the <i>Body</i> tab and select <i>x-www-form-urlencoded</i> and provide the
+                  following content:
+                  <pre><code>
+"id" = "1"
+</code></pre>
+                </li>
+              </ul>
+
+              <p>
+                Once you hit <code>Send</code> you will see the <code>OK</code> response - it means
+                the task has been deleted. If you run the <code>GET</code> request again you will
+                see that the task is gone.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!--Section: Docs content-->
+</section>
+<!--Section: Docs content-->
