@@ -85,11 +85,12 @@
 
         <h3>Creating MySQL database</h3>
         <p>In order to create a new database you need to run the following command:</p>
+        <!--prettier-ignore-->
         <mdbsnippet>
-          <code data-lang="shell" data-name="Shell">
-            $ mdb database init -db mysql8
-          </code>
-        </mdbsnippet>
+              <code data-lang="shell" data-name="Shell">
+                  $ mdb database init -db mysql8
+              </code>
+          </mdbsnippet>
         <p>
           Now you need to provide your user data and then the database details. Please provide the
           values of your choice. For example:
@@ -129,12 +130,17 @@
           my case) and create a new table. Please select the <i>SQL</i> tab and run the following
           query:
         </p>
+        <!--prettier-ignore-->
         <mdbsnippet>
-          <code data-lang="sql" data-name="SQL">
-            CREATE TABLE IF NOT EXISTS `tasks` ( `id` INT(11) NOT NULL AUTO_INCREMENT, `name`
-            VARCHAR(255) NOT NULL, `desc` VARCHAR(255) DEFAULT NULL, PRIMARY KEY (`id`) )
-          </code>
-        </mdbsnippet>
+              <code data-lang="sql" data-name="SQL">
+                  CREATE TABLE IF NOT EXISTS `tasks` (
+                      `id` INT(11) NOT NULL AUTO_INCREMENT,
+                      `name` VARCHAR(255) NOT NULL,
+                      `desc` VARCHAR(255) DEFAULT NULL,
+                      PRIMARY KEY (`id`)
+                  )
+              </code>
+          </mdbsnippet>
 
         <p>
           That's pretty much it. You can now see how to connect with this database from the Node.js
@@ -147,11 +153,12 @@
           access. You can initialize a MDB GO starter that already has configured PDO. Simply run
           the following command:
         </p>
+        <!--prettier-ignore-->
         <mdbsnippet>
-          <code data-lang="shell" data-name="Shell">
-            $ mdb backend init
-          </code>
-        </mdbsnippet>
+              <code data-lang="shell" data-name="Shell">
+                  $ mdb backend init
+              </code>
+          </mdbsnippet>
         <p>and choose <code>Simple PHP PDO starter</code> from the list that shows up.</p>
         <p>
           After initialization just go to the newly created project directory and open the
@@ -182,13 +189,25 @@ $password = 'Mjolnir_1';
           Let's start with the first one - <code>tasks.php</code>. Create a new file and paste the
           following content:
         </p>
+        <!--prettier-ignore-->
         <mdbsnippet>
-          <code data-lang="php" data-name="tasks.php">
-            &lt;?php require_once 'db-connect.php'; $pdo = new DBConnect(); $conn = $pdo->connect();
-            if ( $conn ) { $read_query = $conn->prepare( 'SELECT * FROM `tasks`' );
-            $read_query->execute(); $results = $read_query->fetch(); print_r($results); } ?&gt;
-          </code>
-        </mdbsnippet>
+              <code data-lang="php" data-name="tasks.php">
+                  <?php require_once 'db-connect.php';
+
+                  $pdo = new DBConnect();
+                  $conn = $pdo->connect();
+
+                  if ( $conn ) {
+
+                      $read_query = $conn->prepare( 'SELECT * FROM `tasks`' );
+                      $read_query->execute();
+                      $results = $read_query->fetch();
+
+                      print_r($results);
+                  }
+                  ?>
+              </code>
+          </mdbsnippet>
 
         <p>It will select all the tasks from the database and print them as a response.</p>
 
@@ -196,46 +215,82 @@ $password = 'Mjolnir_1';
         <ul>
           <li>
             <code>create.php</code> - creating a task
+            <!--prettier-ignore-->
             <mdbsnippet>
-              <code data-lang="php" data-name="create.php">
-                &lt;?php require_once 'db-connect.php'; $pdo = new DBConnect(); $conn =
-                $pdo->connect(); if ( $conn ) { $name = $_REQUEST['name']; $desc =
-                $_REQUEST['desc']; $insert_query = $conn->prepare( 'INSERT INTO `tasks` (`name`,
-                `desc`) VALUES (?, ?)' ); $insert_query->execute([$name, $desc]); echo 'OK'; } ?&gt;
-              </code>
-            </mdbsnippet>
+                    <code data-lang="php" data-name="create.php">
+                      <?php require_once 'db-connect.php';
+
+                      $pdo = new DBConnect();
+                      $conn = $pdo->connect();
+
+                      if ( $conn ) {
+
+                          $name = $_REQUEST['name'];
+                          $desc = $_REQUEST['desc'];
+                          $insert_query = $conn->prepare( 'INSERT INTO `tasks` (`name`, `desc`) VALUES (?, ?)' );
+                          $insert_query->execute([$name, $desc]);
+
+                          echo 'OK';
+                      }
+                      ?>
+                  </code>
+              </mdbsnippet>
           </li>
           <li>
             <code>update.php</code> - updating a task
+            <!--prettier-ignore-->
             <mdbsnippet>
-              <code data-lang="php" data-name="update.php">
-                &lt;?php require_once 'db-connect.php'; $pdo = new DBConnect(); $conn =
-                $pdo->connect(); if ( $conn ) { $id = $_REQUEST['id']; $name = $_REQUEST['name'];
-                $desc = $_REQUEST['desc']; $update_query = $conn->prepare( 'UPDATE `tasks` SET
-                `name` = ?, `desc` = ? WHERE id = ?' ); $update_query->execute([$name, $desc, $id]);
-                echo 'OK'; } ?&gt;
-              </code>
-            </mdbsnippet>
+                    <code data-lang="php" data-name="update.php">
+                      <?php require_once 'db-connect.php';
+
+                      $pdo = new DBConnect();
+                      $conn = $pdo->connect();
+
+                      if ( $conn ) {
+
+                          $id = $_REQUEST['id'];
+                          $name = $_REQUEST['name'];
+                          $desc = $_REQUEST['desc'];
+                          $update_query = $conn->prepare( 'UPDATE `tasks` SET `name` = ?, `desc` = ? WHERE id = ?' );
+                          $update_query->execute([$name, $desc, $id]);
+
+                          echo 'OK';
+                      }
+                      ?>
+                  </code>
+              </mdbsnippet>
           </li>
           <li>
             <code>delete.php</code> - deleting task
+            <!--prettier-ignore-->
             <mdbsnippet>
-              <code data-lang="php" data-name="delete.php">
-                &lt;?php require_once 'db-connect.php'; $pdo = new DBConnect(); $conn =
-                $pdo->connect(); if ( $conn ) { $id = $_REQUEST['id']; $delete_query =
-                $conn->prepare( 'DELETE FROM `tasks` WHERE `id` = ?' );
-                $delete_query->execute([$id]); echo 'OK'; } ?&gt;
-              </code>
-            </mdbsnippet>
+                    <code data-lang="php" data-name="delete.php">
+                      <?php require_once 'db-connect.php';
+
+                      $pdo = new DBConnect();
+                      $conn = $pdo->connect();
+
+                      if ( $conn ) {
+
+                        $id = $_REQUEST['id'];
+                        $delete_query = $conn->prepare( 'DELETE FROM `tasks` WHERE `id` = ?' );
+                        $delete_query->execute([$id]);
+
+                        echo 'OK';
+                      }
+                      ?>
+                  </code>
+              </mdbsnippet>
           </li>
         </ul>
 
         <p>The project is ready to use. Now publish it using the following command:</p>
+        <!--prettier-ignore-->
         <mdbsnippet>
-          <code data-lang="shell" data-name="Shell">
-            $ mdb publish -p php7.4
-          </code>
-        </mdbsnippet>
+              <code data-lang="shell" data-name="Shell">
+                  $ mdb publish -p php7.4
+              </code>
+          </mdbsnippet>
 
         <p>
           After your files get uploaded you can access your app under the address shown in the
