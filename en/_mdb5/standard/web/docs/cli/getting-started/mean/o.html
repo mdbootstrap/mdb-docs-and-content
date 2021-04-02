@@ -210,7 +210,174 @@
         </p>
 
         <h3>Connecting to the API via Angular app</h3>
-        <p>TODO</p>
+        <p>
+          We won't show how to create the whole Angular app here. Instead, you'll learn how to
+          connect to the API <strong>assuming you already have a working app</strong>.
+        </p>
+        <p>Here's what we are going to do:</p>
+        <ul>
+          <li>Import <code>HttpClientModule</code> in the <code>app/app.module.ts</code> file</li>
+          <li>Create an <code>TodoApiService</code> that will perform requests</li>
+          <li>
+            Demonstrate how to use our service in an example
+            <code>app/todo-list.component.ts</code> component
+          </li>
+        </ul>
+
+        <p>So the first thing is quite quick - let's see how to do it</p>
+
+        <h4>Importing <code>HttpClientModule</code></h4>
+
+        <p>
+          You surely have the <code>app/app.module.ts</code> file in your app. Open it and do two
+          things:
+        </p>
+        <ul>
+          <li>
+            Add the following import at the top of the file:
+            <mdbsnippet>
+              <code data-lang="typescript" data-name="TS">
+                import { HttpClientModule } from '@angular/common/http';
+              </code>
+            </mdbsnippet>
+          </li>
+          <li>
+            Add <code>HttpClientModule</code> to the <code>imports</code> array like this:
+            <mdbsnippet>
+              <code data-lang="typescript" data-name="TS">
+                // ... imports: [ // ... other modules, HttpClientModule ] // ...
+              </code>
+            </mdbsnippet>
+          </li>
+        </ul>
+
+        <p>Now let's create the <code>TodoApiService</code> service.</p>
+
+        <h4>Creating <code>TodoApiService</code></h4>
+        <p>
+          In order to do that you can make use of the Angular CLI and generate appropriate class.
+          Just run this command:
+        </p>
+        <mdbsnippet>
+          <code data-lang="shell" data-name="Shell">
+            $ ng g s todo-api
+          </code>
+        </mdbsnippet>
+
+        <p>
+          It will generate necessary files and add required imports where necessary. Open the
+          <code>app/todo-api.service.ts</code> file.
+        </p>
+
+        <p>
+          Next step is to add required imports. In order to do that add the following lines at the
+          top of the file:
+        </p>
+        <mdbsnippet>
+          <code data-lang="typescript" data-name="TS">
+            import { HttpClient } from '@angular/common/http'; import { Observable, throwError }
+            from 'rxjs'; import { catchError, retry } from 'rxjs/operators';
+          </code>
+        </mdbsnippet>
+
+        <p>Now, inject the module into the constructor like this:</p>
+        <mdbsnippet>
+          <code data-lang="typescript" data-name="TS">
+            @Injectable({ providedIn: 'root' }) export class TodoApiService { constructor(private
+            http: HttpClient) { } }
+          </code>
+        </mdbsnippet>
+
+        <p>
+          Alright, let's add CRUD operations so that we could talk to our API. Before we do that
+          let's <code>apiUrl</code> field in our class so that we don't have to repeat it every
+          time:
+        </p>
+        <mdbsnippet>
+          <code data-lang="typescript" data-name="TS">
+            @Injectable({ providedIn: 'root' }) export class TodoApiService { apiUrl =
+            'http://express-mongoose-starter.mdbgo.io'; // in your case it will be different
+            constructor(private http: HttpClient) { } }
+          </code>
+        </mdbsnippet>
+
+        <p>
+          In order to read data from the server we need to make a <code>GET /tasks</code> request.
+          You can do it like this:
+        </p>
+        <mdbsnippet>
+          <code data-lang="typescript" data-name="TS">
+            getTasks() { return this.http.get(`${this.apiUrl}/tasks`); }
+          </code>
+        </mdbsnippet>
+
+        <p>
+          It's a new method that performs the GET request and returns the result. We will take care
+          of this result later. In a meantime let's add the remaining three methods:
+        </p>
+        <mdbsnippet>
+          <code data-lang="typescript" data-name="TS">
+            addTask(name: string, desc: string) { return this.http.post(`${this.apiUrl}/tasks`, {
+            name, desc }); } updateTask(id: number, name: string, desc: string) { return
+            this.http.put(`${this.apiUrl}/tasks/${id}`, { name, desc }); } deleteTask(id: number) {
+            return this.http.delete(`{this.apiUrl}/tasks/${id}`); }
+          </code>
+        </mdbsnippet>
+
+        <p>
+          These are very simple methods that work the same way as the first one - performing POST,
+          PUT and DELETE requests and returning the result.
+        </p>
+
+        <p>Alright, let's find out how to use this.</p>
+
+        <h4>Using the <code>TodoApiService</code> in an example component</h4>
+
+        <p>
+          Assume you have a component named <code>TodoListComponent</code> where you want to display
+          a list of tasks from the database. You need to make an API request to fetch the real data.
+        </p>
+        <p>
+          This is how you can make use of our service. First, import your service and inject it into
+          the constructor:
+        </p>
+        <mdbsnippet>
+          <code data-lang="typescript" data-name="TS">
+            import { Component, OnInit } from '@angular/core'; import { TodoApiService } from
+            '../todo-api.service.ts'; @Component({ selector: 'app-todo-list', templateUrl:
+            './todo-list.component.html', styleUrls: ['./todo-list.component.scss'] }) export class
+            TodoListComponent implements OnInit { constructor(private api: TodoApiService) { }
+            ngOnInit() { } }
+          </code>
+        </mdbsnippet>
+
+        <p>Now you can simply invoke our service method like this:</p>
+        <mdbsnippet>
+          <code data-lang="typescript" data-name="TS">
+            ngOnInit() { this.api.getTasks() .subscribe((tasks) => { this.tasks = tasks; }); }
+          </code>
+        </mdbsnippet>
+
+        <p>
+          It will make an API request and assign the result to the <code>tasks</code> field in your
+          component (we did not show how to create one).
+        </p>
+
+        <p>Making POST, PUT and DELETE requests is just as easy:</p>
+        <mdbsnippet>
+          <code data-lang="typescript" data-name="TS">
+            createTask() { this.api.addTask('Wash the dishes', 'will take a while')
+            .subscribe((newTask) => { this.tasks.push(newTask); }); } updateTask() { const
+            currentTaskId = 1; this.api.updateTask(currentTaskId, 'Wash the dishes', 'Will take 30
+            mins') .subscribe((updatedTask) => { const oldTask = this.tasks.find((t => t.id ===
+            currentTaskId)); oldTask.id = updatedTask.id; oldTask.name = updatedTask.name;
+            oldTask.desc = updatedTask.desc; }); } deleteTask() { const currentTaskId = 1;
+            this.api.deleteTask(currentTaskId) .subscribe(() => { const idx = this.tasks.findIndex(t
+            => t.id === currentTaskId); this.tasks.splice(idx, 1); }); }
+          </code>
+        </mdbsnippet>
+
+        <p>And that's how you communicate with your API from the Angular app.</p>
       </div>
     </div>
   </section>
