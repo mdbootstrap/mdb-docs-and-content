@@ -210,7 +210,117 @@
         </p>
 
         <h3>Connecting to the API via React app</h3>
-        <p>TODO</p>
+        <p>
+          We won't show how to create the whole React app here. Instead, you'll learn how to connect
+          to the API <strong>assuming you already have a working app</strong>.
+        </p>
+
+        <p>
+          It's actually pretty easy. All we need to use if JavaScript Fetch API. Let's jump right
+          into it.
+        </p>
+        <p>
+          First, let's create our state. We are assuming you have the <code>App.js</code> file where
+          you want to put API communication logic. Open this file and add the following state
+          definition:
+        </p>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+            <code data-lang="javascript" data-name="App.js">
+                import React, { Component } from 'react';
+
+                class App extends Component {
+
+                  state = {
+                    tasks: []
+                  }
+                  // ...
+                }
+            </code>
+        </mdbsnippet>
+
+        <p>
+          It's also wise to add <code>apiUrl</code> field in our class so that we don't have to
+          repeat it every time:
+        </p>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+            <code data-lang="javascript" data-name="App.js">
+                apiUrl = 'http://express-mongoose-starter.mdbgo.io'; // in your case it will be different
+            </code>
+        </mdbsnippet>
+
+        <p>
+          In order to read data from the server we need to make a <code>GET /tasks</code> request.
+          You can do it like this:
+        </p>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+            <code data-lang="javascript" data-name="App.js">
+                componentDidMount() {
+                    fetch(`${this.apiUrl}/tasks`)
+                        .then(res => res.json())
+                        .then((data) => {
+                          this.setState({ tasks: data })
+                        })
+                        .catch(console.log)
+                }
+            </code>
+        </mdbsnippet>
+
+        <p>
+          We are utilizing the <code>fetch</code> function to read tasks from our API and then
+          setting the state. Creating, updating and deleting tasks is just as easy:
+        </p>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+            <code data-lang="javascript" data-name="App.js">
+                createTask() {
+                  const data = { name: 'Wash the dishes', desc: 'will take a while' };
+                  fetch(`${this.apiUrl}/tasks`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(data);
+                  })
+                      .then((res) => res.json())
+                      .then((task) => {
+                          this.setState({ tasks: this.state.tasks.push(task) });
+                      })
+                      .catch(console.log);
+                }
+
+                updateTask() {
+                  const currentTaskId = 1;
+                  const data = { name: 'Wash the dishes', desc: 'will take a while' };
+                  fetch(`${this.apiUrl}/tasks/${currentTaskId}`, {
+                      method: 'PUT',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(data);
+                  })
+                      .then((res) => res.json())
+                      .then((task) => {
+                          const oldTask = this.state.tasks.find((t => t.id === currentTaskId));
+                          oldTask.id = updatedTask.id;
+                          oldTask.name = updatedTask.name;
+                          oldTask.desc = updatedTask.desc;
+                      })
+                      .catch(console.log);
+                }
+
+                deleteTask() {
+                  const currentTaskId = 1;
+                  fetch(`${this.apiUrl}/tasks/${currentTaskId}`, { method: 'DELETE' })
+                      .then((res) => res.json())
+                      .then(() => {
+                          const tasks = this.state.tasks.splice(idx, 1);
+                          this.setState({ tasks });
+                      })
+                      .catch(console.log);
+                }
+            </code>
+        </mdbsnippet>
+
+        <p>And that's how you communicate with your API from the React app.</p>
       </div>
     </div>
   </section>
