@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'MDB GO Getting Started - React',
-  'seo_title' => 'MDB GO Getting Started - React',
-  'description' => 'Create, deploy and host your MDB project with a single command',
-  'url' => 'https://mdbootstrap.com/docs/standard/cli/about/',
-  'image' => 'https://mdbootstrap.com/img/Marketing/products/cli/cli-free.jpg',
-  'video' => 'https://www.youtube.com/watch?v=-pIJnQQMexg',
+  'main_title' => 'React - create & deploy the project on MDB GO',
+  'seo_title' => ' How to deploy & host React app - tutorial & free hosting',
+  'description' => 'Create, deploy and host your React project with a single command using MDB GO - open source deployment tool & free hosting',
+  'url' => 'https://mdbootstrap.com/docs/standard/cli/getting-started/react/',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/cli/about/assets/featured.jpg',
+  'video' => 'https://youtu.be/Bjeewt8K-to',
 );
