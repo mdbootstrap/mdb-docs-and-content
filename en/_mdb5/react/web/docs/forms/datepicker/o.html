@@ -160,7 +160,6 @@
                 cancelBtnText='Schließen'
                 value={datepickerTranslate}
                 setValue={setDatepickerTranslate}
-                icon={<MDBIcon fas icon='calendar' />}
               />
             );
           }
@@ -206,7 +205,7 @@
             const [datepickerFormat, setDatepickerFormat] = useState('');
             
             return (
-              <MDBDatepicker format='dd-mm-yyyy' value={datepickerFormat} setValue={setDatepickerFormat} inputStyle={{width: '22rem'}} />
+              <MDBDatepicker format='dd, mm, yyyy' value={datepickerFormat} setValue={setDatepickerFormat} inputStyle={{width: '22rem'}} />
             );
           }
         </code>
@@ -322,7 +321,7 @@
               <MDBDatepicker
                 inputStyle={{width: '22rem'}}
                 min={new Date(2020, 5, 10)}
-                max={new Date(2021, 10, 14)}
+                max={new Date(2022, 5, 20)}
                 value={datepickerMinMax}
                 setValue={setDatepickerMinMax}
               />
@@ -374,12 +373,13 @@
                 inputStyle={{width: '22rem'}}
                 value={datepickerFilter}
                 setValue={setDatepickerFilter}
-                filter={(date: Date) => {
-                  const isSaturday = date.getDay() === 6;
-                  const isSunday = date.getDay() === 0;
-                  const isBeforeToday = date < new Date();
-
-                  return isSaturday || isSunday || isBeforeToday;
+                filter={function filterFunction(date: Date) {
+                  var isSaturday = date.getDay() === 6;
+                  var isSunday = date.getDay() === 0;
+  
+                  if (isSaturday || isSunday) {
+                    return false;
+                  }
                 }}
               />
             );
@@ -468,7 +468,7 @@
       <mdbsnippet>
         <code data-lang="javascript" data-name="JSX">
           import React, { useState } from 'react';
-          import { MDBDatepicker } from 'mdb-react-ui-kit';
+          import { MDBDatepicker, MDBIcon } from 'mdb-react-ui-kit';
   
           export default function App() {
             const [datepickerIcon, setDatepickerIcon] = useState('');
@@ -483,5 +483,41 @@
     <!--Section: Code-->
   </section>
   <!--Section: Input toggle--> 
+
+  <hr class="my-5" />
+
+  <!--Section: Accessibility-->
+  <section id="section-accessibility">
+    <!-- Section title -->
+    <h2 class="mb-4">Accessibility</h2>
+
+    <p>
+      We added proper aria attributes to the datepicker controls to make the component accessible.
+      It's possible to change the values of those attributes by modyfing the component options:
+    </p>
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+          <code data-lang="javascript" data-name="Javascript">
+            okBtnLabel: 'Confirm selection',
+            clearBtnLabel: 'Clear selection',
+            cancelBtnLabel: 'Cancel selection',
+            nextMonthLabel: 'Next month',
+            prevMonthLabel: 'Previous month',
+            nextYearLabel: 'Next year',
+            prevYearLabel: 'Previous year',
+            nextMultiYearLabel: 'Next 24 years',
+            prevMultiYearLabel: 'Previous 24 years',
+            switchToMultiYearViewLabel: 'Choose year and month',
+            switchToMonthViewLabel: 'Choose date',
+            switchToDayViewLabel: 'Choose date',
+          </code>
+        </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Accessibility-->
 </section>
 <!--Section: Docs content-->
