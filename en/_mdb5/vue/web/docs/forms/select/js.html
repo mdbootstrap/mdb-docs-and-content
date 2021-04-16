@@ -1,30 +1,482 @@
+<script src="https://unpkg.com/vue@next"></script>
+<script
+  src="<?php echo get_template_directory_uri() ?>/js/vue/mdb5/select/MDBSelect.umd.min.js?v=<?= VU_DOCS_BUNDLE_VERSION; ?>"></script>
+
 <script>
-  (function () {
-    'use strict';
+  const { createApp, ref } = Vue;
 
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation');
+  const select1 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: '<MDBSelect v-model:options="options1" v-model:selected="selected1" />',
+    setup() {
+      const options1 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 },
+        { text: "Six", value: 6 },
+        { text: "Seven", value: 7 },
+        { text: "Eight", value: 8 }
+      ]);
+      const selected1 = ref("");
 
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms).forEach(function (form) {
-      form.addEventListener(
-        'submit',
-        function (event) {
-          event.preventDefault();
-          event.stopPropagation();
+      return {
+        options1,
+        selected1
+      };
+    }
+  };
+  createApp(select1).mount('#select1');
 
-          form.classList.add('was-validated');
+  const select2 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+      <MDBSelect
+        v-model:options="options2"
+        v-model:selected="selected2"
+        multiple
+        label="Example label"
+      />
+    `,
+    setup() {
+      const options2 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 },
+        { text: "Six", value: 6 },
+        { text: "Seven", value: 7 },
+        { text: "Eight", value: 8 }
+      ]);
+      const selected2 = ref([]);
+
+      return {
+        options2,
+        selected2
+      };
+    }
+  };
+  createApp(select2).mount('#select2');
+
+  const select3 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+      <MDBSelect v-model:options="options3" label="Example label" />
+    `,
+    setup() {
+      const options3 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 }
+      ]);
+
+      return {
+        options3
+      };
+    }
+  };
+  createApp(select3).mount('#select3');
+
+  const select4 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+      <MDBSelect
+        v-model:options="options4"
+        multiple
+        placeholder="Example placeholder"
+      />
+    `,
+    setup() {
+      const options4 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 }
+      ]);
+
+      return {
+        options4
+      };
+    }
+  };
+  createApp(select4).mount('#select4');
+
+  const select5 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect
+    v-model:options="options5"
+    disabled
+  />
+    `,
+    setup() {
+      const options5 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 }
+      ]);
+
+      return {
+        options5
+      };
+    }
+  };
+  createApp(select5).mount('#select5');
+
+  const select6 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+<MDBSelect v-model:options="options6" />
+    `,
+    setup() {
+      const options6 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2, disabled: true },
+        { text: "Three", value: 3, disabled: true },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 }
+      ]);
+
+      return {
+        options6
+      };
+    }
+  };
+  createApp(select6).mount('#select6');
+
+  const select7 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect
+    v-model:options="options7"
+    clearButton
+  />
+    `,
+    setup() {
+      const options7 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 }
+      ]);
+
+      return {
+        options7
+      };
+    }
+  };
+  createApp(select7).mount('#select7');
+
+  const select9 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect v-model:options="options9">
+    <button class="btn btn-primary" size="sm">Save</button>
+  </MDBSelect>
+    `,
+    setup() {
+      const options9 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 }
+      ]);
+
+      return {
+        options9
+      };
+    }
+  };
+  createApp(select9).mount('#select9');
+
+  const select10 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect v-model:options="options10" :visibleOptions="3" />
+    `,
+    setup() {
+      const options10 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 }
+      ]);
+
+      return {
+        options10
+      };
+    }
+  };
+  createApp(select10).mount('#select10');
+
+  const select11 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect v-model:options="options11" :optionHeight="44" />
+    `,
+    setup() {
+      const options11 = ref([
+        { text: "One", secondaryText: "Secondary text", value: 1 },
+        { text: "Two", secondaryText: "Secondary text", value: 2 },
+        { text: "Three", secondaryText: "Secondary text", value: 3 },
+        { text: "Four", secondaryText: "Secondary text", value: 4 },
+        { text: "Five", secondaryText: "Secondary text", value: 5 }
+      ]);
+
+      return {
+        options11
+      };
+    }
+  };
+  createApp(select11).mount('#select11');
+
+  const select12 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect v-model:options="options12" filter />
+    `,
+    setup() {
+      const options12 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 },
+        { text: "Six", value: 6 },
+        { text: "Seven", value: 7 },
+        { text: "Eight", value: 8 },
+        { text: "Nine", value: 9 },
+        { text: "Ten", value: 10 },
+      ]);
+
+      return {
+        options12
+      };
+    }
+  };
+  createApp(select12).mount('#select12');
+
+  const select14 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect v-model:options="options14" />
+    `,
+    setup() {
+      const options14 = ref([
+        { text: "Label 1", optgroup: true, disabled: true },
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Label 2", optgroup: true, disabled: true },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 },
+        { text: "Six", value: 6 }
+      ]);
+
+      return {
+        options14
+      };
+    }
+  };
+  createApp(select14).mount('#select14');
+
+  const select15 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect v-model:options="options15" />
+    `,
+    setup() {
+      const options15 = ref([
+        {
+          text: "One",
+          value: 1,
+          icon: "https://mdbootstrap.com/img/Photos/Avatars/avatar-1.jpg"
         },
-        false
-      );
-    });
+        {
+          text: "Two",
+          value: 2,
+          icon: "https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"
+        },
+        {
+          text: "Three",
+          value: 3,
+          icon: "https://mdbootstrap.com/img/Photos/Avatars/avatar-3.jpg"
+        },
+        {
+          text: "Four",
+          value: 4,
+          icon: "https://mdbootstrap.com/img/Photos/Avatars/avatar-4.jpg"
+        },
+        {
+          text: "Five",
+          value: 5,
+          icon: "https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+        }
+      ]);
 
-    var singleSelect = document.querySelector('#singleSelection');
-    var singleSelectInstance = mdb.Select.getInstance(singleSelect);
-    singleSelectInstance.setValue('4');
+      return {
+        options15
+      };
+    }
+  };
+  createApp(select15).mount('#select15');
 
-    var multiSelect = document.querySelector('#multiSelection');
-    var multiSelectInstance = mdb.Select.getInstance(multiSelect);
-    multiSelectInstance.setValue(['3', '4', '5']);
-  })();
+  const select8 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect
+    v-model:options="options8"
+    v-model:selected="selected8"
+    clearButton
+    :isValidated="isValidated"
+    :isValid="isValid"
+    required
+    validFeedback="This value is valid"
+    invalidFeedback="This value is invalid"
+    @change="validate"
+  />
+  <button
+    @click="
+      validate();
+      isValidated = true;
+    "
+    class="btn btn-primary btn-sm mt-3"
+  >
+    Submit
+  </button>
+    `,
+    setup() {
+      const options8 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 }
+      ]);
+      const selected8 = ref("");
+      const isValidated = ref(false);
+      const isValid = ref(false);
+      const validate = () => {
+        if (selected8.value === "") {
+          isValid.value = false;
+        } else {
+          isValid.value = true;
+        }
+      };
+
+      return {
+        options8,
+        selected8,
+        isValid,
+        isValidated,
+        validate
+      };
+    }
+  };
+  createApp(select8).mount('#select8');
+
+  const select16 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect
+    v-model:options="options16"
+    v-model:selected="selected16"
+    ref="select16"
+  />
+  <button
+    class="btn btn-primary btn-sm mt-2"
+    @click="$refs.select16.setValue(4)"
+    >Select four
+  </button>
+    `,
+    setup() {
+      const options16 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 },
+        { text: "Six", value: 6 },
+        { text: "Seven", value: 7 },
+        { text: "Eight", value: 8 }
+      ]);
+      const selected16 = ref("");
+
+      return {
+        options16,
+        selected16
+      };
+    }
+  };
+  createApp(select16).mount('#select16');
+
+  const select17 = {
+    components: {
+      MDBSelect: window.MDBSelect
+    },
+    template: `
+  <MDBSelect v-model:options="options17" v-model:selected="selected17" multiple ref="select17" />
+  <button class="btn btn-primary btn-sm mt-2" @click="$refs.select17.setValue([3, 4, 5])">Select three, four, five
+  </button>
+    `,
+    setup() {
+      const options17 = ref([
+        { text: "One", value: 1 },
+        { text: "Two", value: 2 },
+        { text: "Three", value: 3 },
+        { text: "Four", value: 4 },
+        { text: "Five", value: 5 },
+        { text: "Six", value: 6 },
+        { text: "Seven", value: 7 },
+        { text: "Eight", value: 8 }
+      ]);
+      const selected17 = ref("");
+
+      return {
+        options17,
+        selected17
+      };
+    }
+  };
+  createApp(select17).mount('#select17');
 </script>
