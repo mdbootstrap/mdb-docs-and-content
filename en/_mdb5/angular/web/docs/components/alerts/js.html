@@ -1,0 +1,120 @@
+<script>
+  // Basic examples
+  const triggersBasic = [
+    'primary',
+    'secondary',
+    'success',
+    'danger',
+    'warning',
+    'info',
+    'light',
+    'dark',
+  ];
+  const instancesBasic = [
+    'alert-primary',
+    'alert-secondary',
+    'alert-success',
+    'alert-danger',
+    'alert-warning',
+    'alert-info',
+    'alert-light',
+    'alert-dark',
+  ];
+
+  triggersBasic.forEach(function (trigger, index) {
+    let instance = mdb.Alert.getInstance(document.getElementById(instancesBasic[index]));
+    document.getElementById(trigger).addEventListener('click', function () {
+      instance.show();
+    });
+  });
+</script>
+
+<script>
+  const triggers = [
+    'placement-trigger-example',
+    'offset-trigger-example',
+  ];
+  const instances = ['placement-example', 'offset-example'];
+
+  triggers.forEach(function (trigger, index) {
+    let instance = mdb.Alert.getInstance(document.getElementById(instances[index]));
+    document.getElementById(trigger).addEventListener('click', function () {
+      instance.show();
+    });
+  });
+
+  let position = {
+    y: 'top',
+    x: 'right',
+  };
+
+  const positionTrigger = document.getElementById('placement-trigger-example');
+  const positionAlert = mdb.Alert.getInstance(document.getElementById('placement-example'));
+  const display = document.getElementById('positionDisplay');
+
+  ['left', 'right', 'top', 'bottom', 'center'].forEach((trigger) => {
+    document.getElementById(trigger).addEventListener('click', function () {
+      const axis = trigger === 'top' || trigger === 'bottom' ? 'y' : 'x';
+      position[axis] = trigger;
+      positionAlert.update({
+        position: `${position.y}-${position.x}`,
+      });
+      display.textContent = `${position.y}-${position.x}`;
+    });
+  });
+
+  // Stacking
+
+  (function () {
+    let alertCount = 0;
+
+    function* colorGenerator(i) {
+      const colors = ['primary', 'warning', 'info', 'success', 'secondary', 'danger', 'light'];
+
+      while (true) {
+        yield colors[i];
+
+        i++;
+
+        if (i > colors.length - 1) {
+          i = 0;
+        }
+      }
+    }
+
+    const colorIterator = colorGenerator(0);
+
+    document.getElementById('stacking-trigger-example').addEventListener('click', () => {
+      alertCount++;
+      color = colorIterator.next().value;
+
+      const alert = document.createElement('div');
+      alert.innerHTML = `
+    <div class="d-flex justify-content-between">
+      <p class="mb-0"><strong>${alertCount}.</strong> Stacking alert</p>
+      <button
+        type="button"
+        class="btn-close"
+        data-mdb-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    `;
+      alert.classList.add('alert', 'fade');
+
+      document.body.appendChild(alert);
+
+      const alertInstance = new mdb.Alert(alert, {
+        color,
+        stacking: true,
+        hidden: true,
+        width: '450px',
+        position: 'bottom-right',
+        autohide: true,
+        delay: 5000,
+      });
+
+      alertInstance.show();
+    });
+  })();
+</script>
