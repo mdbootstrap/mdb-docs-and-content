@@ -1,426 +1,135 @@
-<script src="https://unpkg.com/vue@next"></script>
-<script
-  src="<?php echo get_template_directory_uri() ?>/js/vue/mdb5/timepicker/MDBTimepicker.umd.min.js?v=<?= VU_DOCS_BUNDLE_VERSION; ?>"></script>
+<script type="module" type="text/javascript">
+  // Increment
+  const pickerInc = document.querySelector('.timepicker-inc');
+  const timepickerInc = new mdb.Timepicker(pickerInc, {
+    increment: true,
+  });
 
-<script>
-  const { createApp, ref } = Vue;
+  //Max/Min
+  const pickerMaxMin = document.querySelector('.timepicker-max-min');
+  const timepickerMaxMin = new mdb.Timepicker(pickerMaxMin, {
+    maxHour: '12',
+    minHour: '5',
+  });
 
-  const timepicker1 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: '<MDBTimepicker label="Select a time" v-model="picker1"/>',
-    setup() {
-      const picker1 = ref("");
+  //Max hour
+  const pickerMax = document.querySelector('.timepicker-max');
+  const timepickerMax = new mdb.Timepicker(pickerMax, {
+    maxHour: '16',
+    format24: true,
+  });
 
-      return {
-        picker1
-      };
-    }
-  };
-  createApp(timepicker1).mount('#timepicker1');
+  //Min hour
+  const pickerMin = document.querySelector('.timepicker-min');
+  const timepickerMin = new mdb.Timepicker(pickerMin, {
+    minHour: '14',
+    format24: true,
+  });
 
-  const timepicker2 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: '<MDBTimepicker inline label="Select a time" v-model="picker2"/>',
-    setup() {
-      const picker2 = ref("");
+  //Max time
+  const pickerMaxTime = document.querySelector('.timepicker-max-time');
+  const timepickerMaxTime = new mdb.Timepicker(pickerMaxTime, {
+    maxTime: '6:35',
+  });
 
-      return {
-        picker2
-      };
-    }
-  };
-  createApp(timepicker2).mount('#timepicker2');
+  //Min time
+  const pickerMinTime = document.querySelector('.timepicker-min-time');
+  const timepickerMinTime = new mdb.Timepicker(pickerMinTime, {
+    minTime: '10:15',
+  });
 
-  const timepicker3 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        inline
-        :hoursFormat = "24"
-        label="Select a time"
-        v- model="picker3" 
-      />`,
-    setup() {
-      const picker3 = ref("");
+  //Inline 12h
+  const pickerInline12 = document.querySelector('.timepicker-inline-12');
+  const timepickerInline12 = new mdb.Timepicker(pickerInline12, {
+    inline: true,
+    format12: true,
+  });
 
-      return {
-        picker3
-      };
-    }
-  };
-  createApp(timepicker3).mount('#timepicker3');
+  //Inline 24h
+  const pickerInline24 = document.querySelector('.timepicker-inline-24');
+  const timepickerInline24 = new mdb.Timepicker(pickerInline24, {
+    inline: true,
+    format24: true,
+  });
 
-  const timepicker4 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker4"
-        iconClass="fab fa-vuejs fa-2x"
-      />`,
-    setup() {
-      const picker4 = ref("");
+  //Max time PM/AM
+  const pickerMaxTimePM = document.querySelector('.timepicker-max-time-pm');
+  const pickerMaxTimeAM = document.querySelector('.timepicker-max-time-am');
 
-      return {
-        picker4
-      };
-    }
-  };
-  createApp(timepicker4).mount('#timepicker4');
+  const tmMaxPm = new mdb.Timepicker(pickerMaxTimePM, {
+    maxTime: '6:35 PM',
+  });
+  const tmMaxAm = new mdb.Timepicker(pickerMaxTimeAM, {
+    maxTime: '6:35 AM',
+  });
 
-  const timepicker5 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <div class="row">
-        <MDBTimepicker
-          label="Select a time"
-          v-model="picker5"
-          :icon="false"
-          ref="picker5Ref"
-        />
-        <button
-          class="btn btn-primary mt-2"
-          @click="picker5Ref.togglePicker()"
-        >
-          Toggle Timepicker
-        </button>
-      </div>`,
-    setup() {
-      const picker5 = ref("");
-      const picker5Ref = ref(null);
+  //Min time PM/AM
+  const pickerMinTimePM = document.querySelector('.timepicker-min-time-pm');
+  const pickerMinTimeAM = document.querySelector('.timepicker-min-time-am');
 
-      return {
-        picker5,
-        picker5Ref
-      };
-    }
-  };
-  createApp(timepicker5).mount('#timepicker5');
+  const tmMinPm = new mdb.Timepicker(pickerMinTimePM, {
+    minTime: '6:35 PM',
+  });
+  const tmMinAm = new mdb.Timepicker(pickerMinTimeAM, {
+    minTime: '6:35 AM',
+  });
 
-  const timepicker6 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <div class="p-2">
-        <MDBTimepicker
-          label="With string PM"
-          v-model="picker6"
-        />
-      </div>
-      <div class="p-2">
-        <MDBTimepicker
-          label="With string AM"
-          v-model="picker7"
-        />
-      </div>
-      <div class="p-2">
-        <MDBTimepicker
-          label="With string without AM/PM"
-          v-model="picker8"
-          :hoursFormat="24"
-        />
-      </div>
-      <div class="p-2">
-        <MDBTimepicker
-          label="With string 24h"
-          v-model="picker9"
-          :hoursFormat="24"
-        />
-      </div>
-      <div class="p-2">
-        <MDBTimepicker
-          label="With new Date with 12h"
-          v-model="picker10"
-        />
-      </div>
-      <div class="p-2">
-        <MDBTimepicker
-          label="With new Date with 24h"
-          v-model="picker11"
-          :hoursFormat="24"
-        />
-      </div>`,
-    setup() {
-      const picker6 = ref("02:12 PM");
-      const picker7 = ref("05:12 AM");
-      const picker8 = ref("05:12");
-      const picker9 = ref("23:44");
-      const picker10 = ref(new Date());
-      const picker11 = ref(
-        new Date().toLocaleTimeString([], { timeStyle: "short" })
-      );
-      return {
-        picker6,
-        picker7,
-        picker8,
-        picker9,
-        picker10,
-        picker11,
-      };
-    }
-  };
-  createApp(timepicker6).mount('#timepicker6');
+  //Default time string PM
+  const pickerStartedPM = document.querySelector('.timepicker-default-time-string-pm');
+  const tmStartedPM = new mdb.Timepicker(pickerStartedPM, {
+    defaultTime: '02:12 PM',
+  });
 
-  const timepicker12 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker12"
-        :hoursFormat="24"
-      />
-      <div class="my-2">
-        Input value: <span>{{ picker12 }}</span>
-      </div>`,
-    setup() {
-      const picker12 = ref("");
-      return {
-        picker12
-      };
-    }
-  };
-  createApp(timepicker12).mount('#timepicker12');
+  //Default time string AM
+  const pickerStartedAM = document.querySelector('.timepicker-default-time-string-am');
+  const tmStartedAM = new mdb.Timepicker(pickerStartedAM, {
+    defaultTime: '05:12 AM',
+  });
 
-  const timepicker13 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker13"
-        :hoursFormat="24"
-      />`,
-    setup() {
-      const picker13 = ref("");
-      return {
-        picker13
-      };
-    }
-  };
-  createApp(timepicker13).mount('#timepicker13');
+  //Default time without PM/AM
+  const pickerStartedWithoutPmAm = document.querySelector(
+    '.timepicker-default-time-string-without-pm-am'
+  );
+  const tmStartedWithoutPmAm = new mdb.Timepicker(pickerStartedWithoutPmAm, {
+    defaultTime: '05:12',
+  });
 
-  const timepicker14 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker14"
-        :icon="false"
-        selfOpen
-      />`,
-    setup() {
-      const picker14 = ref("");
-      return {
-        picker14
-      };
-    }
-  };
-  createApp(timepicker14).mount('#timepicker14');
+  //Default time with 24h
+  const pickerStartedWith24h = document.querySelector('.timepicker-default-time-string-24h');
+  const tmStartedWith24h = new mdb.Timepicker(pickerStartedWith24h, {
+    defaultTime: '23:44',
+    format24: true,
+  });
 
-  const timepicker15 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker15"
-        :increment="5"
-      />`,
-    setup() {
-      const picker15 = ref("");
-      return {
-        picker15
-      };
-    }
-  };
-  createApp(timepicker15).mount('#timepicker15');
+  //Default time date 12h
+  const pickerStartedWithDate12h = document.querySelector(
+    '.timepicker-default-time-with-new-date-12h'
+  );
+  const tmStartedWithDate12h = new mdb.Timepicker(pickerStartedWithDate12h, {
+    defaultTime: new Date(),
+  });
 
-  const timepicker16 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker16"
-        max="6:35"
-      />`,
-    setup() {
-      const picker16 = ref("");
-      return {
-        picker16
-      };
-    }
-  };
-  createApp(timepicker16).mount('#timepicker16');
+  //Default time date 24h
+  const pickerStartedWithDate24h = document.querySelector(
+    '.timepicker-default-time-with-new-date-24h'
+  );
+  const tmStartedWithDate24h = new mdb.Timepicker(pickerStartedWithDate24h, {
+    defaultTime: new Date(),
+    format24: true,
+  });
 
-  const timepicker17 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker17"
-        max="6:35 PM"
-      />`,
-    setup() {
-      const picker17 = ref("");
-      return {
-        picker17
-      };
-    }
-  };
-  createApp(timepicker17).mount('#timepicker17');
+  const timepickerValue = document.querySelector('#timepicker-value');
+  const tminputValue = new mdb.Timepicker(timepickerValue);
 
-  const timepicker18 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker18"
-        max="6:35 AM"
-      />`,
-    setup() {
-      const picker18 = ref("");
-      return {
-        picker18
-      };
-    }
-  };
-  createApp(timepicker18).mount('#timepicker18');
+  timepickerValue.addEventListener('input.mdb.timepicker', (input) => {
+    const valueDiv = document.querySelector('#span-input-value');
 
-  const timepicker19 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker19"
-        min="10:15"
-      />`,
-    setup() {
-      const picker19 = ref("");
-      return {
-        picker19
-      };
-    }
-  };
-  createApp(timepicker19).mount('#timepicker19');
+    valueDiv.innerText = input.target.value;
+  });
 
-  const timepicker20 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker20"
-        min="6:35 PM"
-      />`,
-    setup() {
-      const picker20 = ref("");
-      return {
-        picker20
-      };
-    }
-  };
-  createApp(timepicker20).mount('#timepicker20');
-
-  const timepicker21 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker21"
-        min="6:35 AM"
-      />`,
-    setup() {
-      const picker21 = ref("");
-      return {
-        picker21
-      };
-    }
-  };
-  createApp(timepicker21).mount('#timepicker21');
-
-  const timepicker22 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker22"
-        min="5"
-        max="12"
-      />`,
-    setup() {
-      const picker22 = ref("");
-      return {
-        picker22
-      };
-    }
-  };
-  createApp(timepicker22).mount('#timepicker22');
-
-  const timepicker23 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker23"
-        max="5"
-      />`,
-    setup() {
-      const picker23 = ref("");
-      return {
-        picker23
-      };
-    }
-  };
-  createApp(timepicker23).mount('#timepicker23');
-
-  const timepicker24 = {
-    components: {
-      MDBTimepicker: window.MDBTimepicker
-    },
-    template: `
-      <MDBTimepicker
-        label="Select a time"
-        v-model="picker24"
-        min="8"
-      />`,
-    setup() {
-      const picker24 = ref("");
-      return {
-        picker24
-      };
-    }
-  };
-  createApp(timepicker24).mount('#timepicker24');
+  //Without icon
+  const wiTimepicker = document.querySelector('#timepicer-without-icon');
+  const wiInitTimepicker = new mdb.Timepicker(wiTimepicker, {
+    withIcon: false,
+  });
 </script>
