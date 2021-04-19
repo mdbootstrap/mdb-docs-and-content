@@ -1,57 +1,202 @@
+<script src="https://unpkg.com/vue@next"></script>
+<script
+  src="<?php echo get_template_directory_uri() ?>/js/vue/mdb5/datepicker/MDBDatepicker.umd.min.js?v=<?= VU_DOCS_BUNDLE_VERSION; ?>"></script>
+
 <script>
-  var datepickerTranslated = document.querySelector('.datepicker-translated');
-  new mdb.Datepicker(datepickerTranslated, {
-    title: 'Datum auswählen',
-    monthsFull: [
-      'Januar',
-      'Februar',
-      'März',
-      'April',
-      'Mai',
-      'Juni',
-      'Juli',
-      'August',
-      'September',
-      'Oktober',
-      'November',
-      'Dezember',
-    ],
-    monthsShort: [
-      'Jan',
-      'Feb',
-      'Mär',
-      'Apr',
-      'Mai',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Okt',
-      'Nov',
-      'Dez',
-    ],
-    weekdaysFull: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-    weekdaysShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
-    weekdaysNarrow: ['S', 'M', 'D', 'M', 'D', 'F', 'S'],
-    okBtnText: 'Ok',
-    clearBtnText: 'Klar',
-    cancelBtnText: 'Schließen',
-  });
+  const { createApp, ref } = Vue;
 
-  var datepickerWithLimits = document.querySelector('.datepicker-with-limits');
-  new mdb.Datepicker(datepickerWithLimits, {
-    min: new Date(2020, 5, 10),
-    max: new Date(2022, 5, 20),
-  });
+  const datepicker1 = {
+    components: {
+      MDBDatepicker: window.MDBDatepicker
+    },
+    template: '<MDBDatepicker v-model="picker1" label="Select a date" />',
+    setup() {
+      const picker1 = ref("");
 
-  var datepickerWithFilter = document.querySelector('.datepicker-with-filter');
-  function filterFunction(date) {
-    var isSaturday = date.getDay() === 6;
-    var isSunday = date.getDay() === 0;
-
-    if (isSaturday || isSunday) {
-      return false;
+      return {
+        picker1
+      };
     }
-  }
-  new mdb.Datepicker(datepickerWithFilter, { filter: filterFunction });
+  };
+  createApp(datepicker1).mount('#datepicker1');
+
+  const datepicker2 = {
+    components: {
+      MDBDatepicker: window.MDBDatepicker
+    },
+    template: '<MDBDatepicker v-model="picker2" inline label="Select a date" />',
+    setup() {
+      const picker2 = ref("");
+
+      return {
+        picker2
+      };
+    }
+  };
+  createApp(datepicker2).mount('#datepicker2');
+
+  const datepicker3 = {
+    components: {
+      MDBDatepicker: window.MDBDatepicker
+    },
+    template: `
+      <MDBDatepicker
+        v-model="picker3"
+        label="Select a date"
+        title="Datum auswählen"
+        :monthsFull="[
+          'Januar',
+          'Februar',
+          'März',
+          'April',
+          'Mai',
+          'Juni',
+          'Juli',
+          'August',
+          'September',
+          'Oktober',
+          'November',
+          'Dezember'
+        ]"
+        :monthsShort="[
+          'Jan',
+          'Feb',
+          'Mär',
+          'Apr',
+          'Mai',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Okt',
+          'Nov',
+          'Dez'
+        ]"
+        :weekdaysFull="[
+          'Sonntag',
+          'Montag',
+          'Dienstag',
+          'Mittwoch',
+          'Donnerstag',
+          'Freitag',
+          'Samstag'
+        ]"
+        :weekdaysShort="['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam']"
+        :weekdaysNarrow="['S', 'M', 'D', 'M', 'D', 'F', 'S']"
+        okBtnText="Ok"
+        clearBtnText="Klar"
+        cancelBtnText="Schließen"
+      />`,
+    setup() {
+      const picker3 = ref("");
+
+      return {
+        picker3
+      };
+    }
+  };
+  createApp(datepicker3).mount('#datepicker3');
+
+  const datepicker4 = {
+    components: {
+      MDBDatepicker: window.MDBDatepicker
+    },
+    template: `
+      <MDBDatepicker
+        v-model="picker4"
+        label="Select a date"
+        format="DD, MMM, YYYY"
+        placeholder="DD, MMM, YYYY"
+      />`,
+    setup() {
+      const picker4 = ref("");
+
+      return {
+        picker4
+      };
+    }
+  };
+  createApp(datepicker4).mount('#datepicker4');
+
+  const datepicker5 = {
+    components: {
+      MDBDatepicker: window.MDBDatepicker
+    },
+    template: `
+      <MDBDatepicker
+        v-model="picker5"
+        label="Select a date"
+        min="10/06/2020"
+        max="10/06/2022"
+      />`,
+    setup() {
+      const picker5 = ref("");
+
+      return {
+        picker5
+      };
+    }
+  };
+  createApp(datepicker5).mount('#datepicker5');
+
+  const datepicker6 = {
+    components: {
+      MDBDatepicker: window.MDBDatepicker
+    },
+    template: `
+      <MDBDatepicker
+        v-model="picker6"
+        label="Select a date"
+        :filter="date => date.day() === 0 || date.day() === 6"
+      />`,
+    setup() {
+      const picker6 = ref("");
+
+      return {
+        picker6
+      };
+    }
+  };
+  createApp(datepicker6).mount('#datepicker6');
+
+  const datepicker7 = {
+    components: {
+      MDBDatepicker: window.MDBDatepicker
+    },
+    template: `
+      <MDBDatepicker
+        v-model="picker7"
+        label="Select a date"
+        inputToggle
+        :toggleButton="false"
+      />`,
+    setup() {
+      const picker7 = ref("");
+
+      return {
+        picker7
+      };
+    }
+  };
+  createApp(datepicker7).mount('#datepicker7');
+
+  const datepicker8 = {
+    components: {
+      MDBDatepicker: window.MDBDatepicker
+    },
+    template: `
+      <MDBDatepicker
+        v-model="picker8"
+        label="Select a date"
+        toggleIcon="<i class='fas fa-calendar datepicker-toggle-icon'></i>"
+      />`,
+    setup() {
+      const picker8 = ref("");
+
+      return {
+        picker8
+      };
+    }
+  };
+  createApp(datepicker8).mount('#datepicker8');
 </script>
