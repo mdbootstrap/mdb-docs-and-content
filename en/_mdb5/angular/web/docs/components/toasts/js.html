@@ -1,0 +1,98 @@
+<script>
+  const instances = [
+    'basic-primary-example',
+    'basic-secondary-example',
+    'basic-success-example',
+    'basic-danger-example',
+    'basic-warning-example',
+    'basic-info-example',
+    'basic-light-example',
+    'basic-dark-example',
+    'placement-toast',
+    'offset-toast',
+  ];
+
+  const triggerID = [
+    'basic-primary-trigger',
+    'basic-secondary-trigger',
+    'basic-success-trigger',
+    'basic-danger-trigger',
+    'basic-warning-trigger',
+    'basic-info-trigger',
+    'basic-light-trigger',
+    'basic-dark-trigger',
+    'placement-trigger',
+    'offset-trigger',
+  ];
+
+  let position = {
+    y: 'top',
+    x: 'right',
+  };
+
+  triggerID.forEach(function (trigger, index) {
+    let instance = mdb.Toast.getInstance(document.getElementById(instances[index]));
+    document.getElementById(trigger).addEventListener('click', function () {
+      instance.show();
+    });
+  });
+
+  const positionTrigger = document.getElementById(triggerID[8]);
+  const positionToast = mdb.Toast.getInstance(document.getElementById(instances[8]));
+  const display = document.getElementById('positionDisplay');
+
+  ['left', 'right', 'top', 'bottom', 'center'].forEach((trigger) => {
+    document.getElementById(trigger).addEventListener('click', function () {
+      const axis = trigger === 'top' || trigger === 'bottom' ? 'y' : 'x';
+      position[axis] = trigger;
+      positionToast.update({
+        position: `${position.y}-${position.x}`,
+      });
+      display.textContent = `${position.y}-${position.x}`;
+    });
+  });
+
+  // Stacking
+
+  (function () {
+    let stackCount = 0;
+
+    document.getElementById('stacking-trigger').addEventListener('click', () => {
+      stackCount++;
+
+      const toast = document.createElement('div');
+      toast.innerHTML = `
+    <div class="toast-header">
+      <strong class="me-auto">${stackCount}</strong>
+      <small>11 mins ago</small>
+      <button
+        type="button"
+        class="btn-close"
+        data-mdb-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body">
+      Stacking element
+    </div>
+    `;
+
+      toast.classList.add('toast', 'fade');
+
+      document.body.appendChild(toast);
+
+      const toastInstance = new mdb.Toast(toast, {
+        stacking: true,
+        hidden: true,
+        width: '450px',
+        position: 'top-right',
+        autohide: true,
+        delay: 5000,
+      });
+
+      toastInstance.show();
+    });
+  })();
+
+  
+</script>
