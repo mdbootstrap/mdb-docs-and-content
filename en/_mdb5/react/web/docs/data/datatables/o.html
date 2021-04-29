@@ -1,0 +1,1346 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8;">
+      <?= $data_var['main_title']; ?>
+      <span id="dpl-newmdb-pro-component-marker"></span>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <div class="row">
+      <div class="col-md-7 mb-4">
+        <!-- Description -->
+        <p class="my-4">
+          The Datatable is a component which mix tables with advanced options like searching,
+          sorting and pagination.
+        </p>
+        <p class="note note-light">
+          <strong>Note:</strong> Read the <strong>API tab</strong> to find all available options and
+          advanced customization
+        </p>
+      </div>
+
+      <div class="col-md-5 mb-4 text-center">
+        <div
+          class="bg-image classy hover-overlay shadow-1-strong rounded ripple mb-4"
+          data-mdb-ripple-color="light"
+        >
+          <picture>
+            <source
+              srcset="https://mdbootstrap.com/img/Marketing/templates/tutorial/datatables.webp"
+              type="image/webp"
+            />
+            <img
+              src="https://mdbootstrap.com/img/Marketing/templates/tutorial/datatables.jpg"
+              class="w-100"
+              alt="MDB 5 - Bootstrap 5 &amp; Material Design 2.0"
+            />
+          </picture>
+          <a rel="nofollow" target="_blank" href="https://www.youtube.com/watch?v=9zHuZXMhMrA">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+          </a>
+        </div>
+        <p><strong>Video tutorial</strong></p>
+      </div>
+    </div>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="mt-4 mb-5" />
+
+  <!--Section: Basic data structure-->
+  <section id="section-basic-data-mdb-structure">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic data structure</h2>
+
+    <p>
+      The second option is a very basic data structure, where columns are represented by an array of
+      strings and so is each row. The table will match each string in a row to a corresponding index
+      in a columns array. This data structure, as it's based on indexes, not key-value pairs, can be
+      easily used for displaying data from the CSV format.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="datatable-basic-data-mdb-structure"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet> 
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBDatatable } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [basicData, setBasicData] = useState({
+              columns: ['Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'],
+              rows: [
+                ['Tiger Nixon', 'System Architect', 'Edinburgh', '61', '2011/04/25', '$320,800'],
+                ['Garrett Winters', 'Accountant', 'Tokyo', '63', '2011/07/25', '$170,750'],
+                ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000'],
+                ['Cedric Kelly', 'Senior Javascript Developer', 'Edinburgh', '22', '2012/03/29', '$433,060'],
+                ['Airi Satou', 'Accountant', 'Tokyo', '33', '2008/11/28', '$162,700'],
+                ['Brielle Williamson', 'Integration Specialist', 'New York', '61', '2012/12/02', '$372,000'],
+                ['Herrod Chandler', 'Sales Assistant', 'San Francisco', '59', '2012/08/06', '$137,500'],
+                ['Rhona Davidson', 'Integration Specialist', 'Tokyo', '55', '2010/10/14', '$327,900'],
+                ['Colleen Hurst', 'Javascript Developer', 'San Francisco', '39', '2009/09/15', '$205,500'],
+                ['Sonya Frost', 'Software Engineer', 'Edinburgh', '23', '2008/12/13', '$103,600'],
+                ['Jena Gaines', 'Office Manager', 'London', '30', '2008/12/19', '$90,560'],
+                ['Quinn Flynn', 'Support Lead', 'Edinburgh', '22', '2013/03/03', '$342,000'],
+                ['Charde Marshall', 'Regional Director', 'San Francisco', '36', '2008/10/16', '$470,600'],
+                ['Haley Kennedy', 'Senior Marketing Designer', 'London', '43', '2012/12/18', '$313,500'],
+              ],
+            });
+
+            return (
+              <MDBDatatable data={basicData} />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic data structure-->
+
+  <hr class="my-5" />
+
+  <!--Section: Advanced data structure-->
+  <section id="section-advanced-data-mdb-structure">
+    <!-- Section title -->
+    <h2 class="mb-4">Advanced data structure</h2>
+
+    <p>
+      The last and most advanced data structure allows customizing each column (sort, width, fixed,
+      field) and matches values from each row to a column in which the `field` equals to a given key
+      value. This data format can be easily used to display JSON data.
+    </p>
+
+    <p class="note note-primary">
+      You can also use a mixed version, where columns are an array of object and each row is an
+      array of strings.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="datatable-advanced-data-mdb-structure"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBDatatable } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [advancedData, setAdvancedData] = useState({
+              columns: [
+                { label: 'Name', field: 'name', sort: true },
+                { label: 'Position', field: 'position', sort: false },
+                { label: 'Office', field: 'office', sort: false },
+                { label: 'Age', field: 'age', sort: false },
+                { label: 'Start date', field: 'date', sort: true },
+                { label: 'Salary', field: 'salary', sort: false },
+              ],
+              rows: [
+                {
+                  name: 'Tiger Nixon',
+                  position: 'System Architect',
+                  office: 'Edinburgh',
+                  age: 61,
+                  date: '2011/04/25',
+                  salary: '$320,800',
+                },
+                {
+                  name: 'Garrett Winters',
+                  position: 'Accountant',
+                  office: 'Tokyo',
+                  age: 63,
+                  date: '2011/07/25',
+                  salary: '$170,750',
+                },
+                {
+                  name: 'Ashton Cox',
+                  position: 'Junior Technical Author',
+                  office: 'San Francisco',
+                  age: 66,
+                  date: '2009/01/12',
+                  salary: '$86,000',
+                },
+                {
+                  name: 'Cedric Kelly',
+                  position: 'Senior Javascript Developer',
+                  office: 'Edinburgh',
+                  age: 22,
+                  date: '2012/03/29',
+                  salary: '$433,060',
+                },
+                { name: 'Airi Satou', position: 'Accountant', office: 'Tokyo', age: 33, date: '2008/11/28', salary: '$162,700' },
+                {
+                  name: 'Brielle Williamson',
+                  position: 'Integration Specialist',
+                  office: 'New York',
+                  age: 61,
+                  date: '2012/12/02',
+                  salary: '$372,000',
+                },
+                {
+                  name: 'Herrod Chandler',
+                  position: 'Sales Assistant',
+                  office: 'San Francisco',
+                  age: 59,
+                  date: '2012/08/06',
+                  salary: '$137,500',
+                },
+                {
+                  name: 'Rhona Davidson',
+                  position: 'Integration Specialist',
+                  office: 'Tokyo',
+                  age: 55,
+                  date: '2010/10/14',
+                  salary: '$327,900',
+                },
+                {
+                  name: 'Colleen Hurst',
+                  position: 'Javascript Developer',
+                  office: 'San Francisco',
+                  age: 39,
+                  date: '2009/09/15',
+                  salary: '$205,500',
+                },
+                {
+                  name: 'Sonya Frost',
+                  position: 'Software Engineer',
+                  office: 'Edinburgh',
+                  age: 23,
+                  date: '2008/12/13',
+                  salary: '$103,600',
+                },
+                {
+                  name: 'Jena Gaines',
+                  position: 'Office Manager',
+                  office: 'London',
+                  age: 30,
+                  date: '2008/12/19',
+                  salary: '$90,560',
+                },
+                {
+                  name: 'Quinn Flynn',
+                  position: 'Support Lead',
+                  office: 'Edinburgh',
+                  age: 22,
+                  date: '2013/03/03',
+                  salary: '$342,000',
+                },
+                {
+                  name: 'Charde Marshall',
+                  position: 'Regional Director',
+                  office: 'San Francisco',
+                  age: 36,
+                  date: '2008/10/16',
+                  salary: '$470,600',
+                },
+                {
+                  name: 'Haley Kennedy',
+                  position: 'Senior Marketing Designer',
+                  office: 'London',
+                  age: 43,
+                  date: '2012/12/18',
+                  salary: '$313,500',
+                },
+              ],
+            });
+
+            return (
+              <MDBDatatable advancedData data={advancedData} />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Advanced data structure-->
+
+  <hr class="my-5" />
+
+  <!--Section: Search -->
+  <section id="section-search">
+    <!-- Section title -->
+    <h2 class="mb-4">Search</h2>
+    <p>
+      The search field is not a part of the Datatable - place an input field on your page and use
+      <code>.search()</code> method to filter entries.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="form-outline mb-4">
+        <input type="text" class="form-control" id="datatable-search-input" />
+        <label class="form-label" for="datatable-search-input">Search</label>
+      </div>
+      <div id="datatable-search"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>     
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBDatatable } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [basicData, setBasicData] = useState({
+              columns: ['Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'],
+              rows: [
+                ['Tiger Nixon', 'System Architect', 'Edinburgh', '61', '2011/04/25', '$320,800'],
+                ['Garrett Winters', 'Accountant', 'Tokyo', '63', '2011/07/25', '$170,750'],
+                ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000'],
+                ['Cedric Kelly', 'Senior Javascript Developer', 'Edinburgh', '22', '2012/03/29', '$433,060'],
+                ['Airi Satou', 'Accountant', 'Tokyo', '33', '2008/11/28', '$162,700'],
+                ['Brielle Williamson', 'Integration Specialist', 'New York', '61', '2012/12/02', '$372,000'],
+                ['Herrod Chandler', 'Sales Assistant', 'San Francisco', '59', '2012/08/06', '$137,500'],
+                ['Rhona Davidson', 'Integration Specialist', 'Tokyo', '55', '2010/10/14', '$327,900'],
+                ['Colleen Hurst', 'Javascript Developer', 'San Francisco', '39', '2009/09/15', '$205,500'],
+                ['Sonya Frost', 'Software Engineer', 'Edinburgh', '23', '2008/12/13', '$103,600'],
+                ['Jena Gaines', 'Office Manager', 'London', '30', '2008/12/19', '$90,560'],
+                ['Quinn Flynn', 'Support Lead', 'Edinburgh', '22', '2013/03/03', '$342,000'],
+                ['Charde Marshall', 'Regional Director', 'San Francisco', '36', '2008/10/16', '$470,600'],
+                ['Haley Kennedy', 'Senior Marketing Designer', 'London', '43', '2012/12/18', '$313,500'],
+              ],
+            });
+
+            return (
+              <MDBDatatable search data={basicData} />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Search -->
+
+  <hr class="my-5" />
+
+  <!--Section: Advanced Search -->
+  <section id="section-advanced-search">
+    <!-- Section title -->
+    <h2 class="mb-4">Advanced search</h2>
+    <p>
+      When using the searching method, you can specify which columns it should take under
+      consideration - pass as a second argument a field (or array of fields). By default, searching
+      will apply to all columns.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="input-group mb-4">
+        <input
+          type="text"
+          class="form-control"
+          id="advanced-search-input"
+          placeholder="phrase in:field1,field2"
+        />
+        <button
+          class="btn btn-primary"
+          id="advanced-search-button"
+          type="button"
+          id="button-addon1"
+        >
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+
+      <div id="datatable-advanced-search"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBDatatable } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [advancedData, setAdvancedData] = useState({
+              columns: [
+                { label: 'Name', field: 'name', sort: true },
+                { label: 'Position', field: 'position', sort: false },
+                { label: 'Office', field: 'office', sort: false },
+                { label: 'Age', field: 'age', sort: false },
+                { label: 'Start date', field: 'date', sort: true },
+                { label: 'Salary', field: 'salary', sort: false },
+              ],
+              rows: [
+                {
+                  name: 'Tiger Nixon',
+                  position: 'System Architect',
+                  office: 'Edinburgh',
+                  age: 61,
+                  date: '2011/04/25',
+                  salary: '$320,800',
+                },
+                {
+                  name: 'Garrett Winters',
+                  position: 'Accountant',
+                  office: 'Tokyo',
+                  age: 63,
+                  date: '2011/07/25',
+                  salary: '$170,750',
+                },
+                {
+                  name: 'Ashton Cox',
+                  position: 'Junior Technical Author',
+                  office: 'San Francisco',
+                  age: 66,
+                  date: '2009/01/12',
+                  salary: '$86,000',
+                },
+                {
+                  name: 'Cedric Kelly',
+                  position: 'Senior Javascript Developer',
+                  office: 'Edinburgh',
+                  age: 22,
+                  date: '2012/03/29',
+                  salary: '$433,060',
+                },
+                { name: 'Airi Satou', position: 'Accountant', office: 'Tokyo', age: 33, date: '2008/11/28', salary: '$162,700' },
+                {
+                  name: 'Brielle Williamson',
+                  position: 'Integration Specialist',
+                  office: 'New York',
+                  age: 61,
+                  date: '2012/12/02',
+                  salary: '$372,000',
+                },
+                {
+                  name: 'Herrod Chandler',
+                  position: 'Sales Assistant',
+                  office: 'San Francisco',
+                  age: 59,
+                  date: '2012/08/06',
+                  salary: '$137,500',
+                },
+                {
+                  name: 'Rhona Davidson',
+                  position: 'Integration Specialist',
+                  office: 'Tokyo',
+                  age: 55,
+                  date: '2010/10/14',
+                  salary: '$327,900',
+                },
+                {
+                  name: 'Colleen Hurst',
+                  position: 'Javascript Developer',
+                  office: 'San Francisco',
+                  age: 39,
+                  date: '2009/09/15',
+                  salary: '$205,500',
+                },
+                {
+                  name: 'Sonya Frost',
+                  position: 'Software Engineer',
+                  office: 'Edinburgh',
+                  age: 23,
+                  date: '2008/12/13',
+                  salary: '$103,600',
+                },
+                {
+                  name: 'Jena Gaines',
+                  position: 'Office Manager',
+                  office: 'London',
+                  age: 30,
+                  date: '2008/12/19',
+                  salary: '$90,560',
+                },
+                {
+                  name: 'Quinn Flynn',
+                  position: 'Support Lead',
+                  office: 'Edinburgh',
+                  age: 22,
+                  date: '2013/03/03',
+                  salary: '$342,000',
+                },
+                {
+                  name: 'Charde Marshall',
+                  position: 'Regional Director',
+                  office: 'San Francisco',
+                  age: 36,
+                  date: '2008/10/16',
+                  salary: '$470,600',
+                },
+                {
+                  name: 'Haley Kennedy',
+                  position: 'Senior Marketing Designer',
+                  office: 'London',
+                  age: 43,
+                  date: '2012/12/18',
+                  salary: '$313,500',
+                },
+              ],
+            });
+
+            return (
+              <MDBDatatable
+                advancedData
+                data={advancedData}
+                advancedSearch={(value: any) => {
+                  const string = value.split(' in:').map((str: string) => str.trim());
+                  const phrase = string[0];
+                  let columns = string[1];
+
+                  if (columns) {
+                    columns = columns.split(',').map((str: string) => str.toLowerCase().trim());
+                  }
+
+                  return { phrase: phrase, columns: columns };
+                }}
+              />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Advancec Search -->
+
+  <hr class="my-5" />
+
+  <!--Section: Multi -->
+  <section id="section-multi">
+    <!-- Section title -->
+    <h2 class="mb-4">Selectable rows</h2>
+
+    <p>
+      When the selectable option is set to <code>true</code>, user can interact with your table by
+      selecting rows - you can get the selected rows by listening to the
+      <code>selectRows.mdb.datatable</code> event.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="datatable-multi" data-mdb-selectable="true" data-mdb-multi="true"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBDatatable } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [selectedRows, setSelectedRows] = useState([]);
+
+            const [basicData, setBasicData] = useState({
+              columns: ['Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'],
+              rows: [
+                ['Tiger Nixon', 'System Architect', 'Edinburgh', '61', '2011/04/25', '$320,800'],
+                ['Garrett Winters', 'Accountant', 'Tokyo', '63', '2011/07/25', '$170,750'],
+                ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000'],
+                ['Cedric Kelly', 'Senior Javascript Developer', 'Edinburgh', '22', '2012/03/29', '$433,060'],
+                ['Airi Satou', 'Accountant', 'Tokyo', '33', '2008/11/28', '$162,700'],
+                ['Brielle Williamson', 'Integration Specialist', 'New York', '61', '2012/12/02', '$372,000'],
+                ['Herrod Chandler', 'Sales Assistant', 'San Francisco', '59', '2012/08/06', '$137,500'],
+                ['Rhona Davidson', 'Integration Specialist', 'Tokyo', '55', '2010/10/14', '$327,900'],
+                ['Colleen Hurst', 'Javascript Developer', 'San Francisco', '39', '2009/09/15', '$205,500'],
+                ['Sonya Frost', 'Software Engineer', 'Edinburgh', '23', '2008/12/13', '$103,600'],
+                ['Jena Gaines', 'Office Manager', 'London', '30', '2008/12/19', '$90,560'],
+                ['Quinn Flynn', 'Support Lead', 'Edinburgh', '22', '2013/03/03', '$342,000'],
+                ['Charde Marshall', 'Regional Director', 'San Francisco', '36', '2008/10/16', '$470,600'],
+                ['Haley Kennedy', 'Senior Marketing Designer', 'London', '43', '2012/12/18', '$313,500'],
+              ],
+            });
+
+            return (
+              <MDBDatatable
+                multi
+                selectable
+                data={basicData}
+                selectedRows={selectedRows}
+                setSelectedRows={setSelectedRows}
+              />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Multi -->
+
+  <hr class="my-5" />
+
+  <!--Section: Scroll -->
+  <section id="section-scroll">
+    <!-- Section title -->
+    <h2 class="mb-4">Scroll</h2>
+
+    <p>Setting maximum height/width will enable vertical/horizontal scrolling.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="datatable-scroll" data-mdb-max-height="520" data-mdb-max-width="520"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>    
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBDatatable } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [basicData, setBasicData] = useState({
+              columns: ['Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'],
+              rows: [
+                ['Tiger Nixon', 'System Architect', 'Edinburgh', '61', '2011/04/25', '$320,800'],
+                ['Garrett Winters', 'Accountant', 'Tokyo', '63', '2011/07/25', '$170,750'],
+                ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000'],
+                ['Cedric Kelly', 'Senior Javascript Developer', 'Edinburgh', '22', '2012/03/29', '$433,060'],
+                ['Airi Satou', 'Accountant', 'Tokyo', '33', '2008/11/28', '$162,700'],
+                ['Brielle Williamson', 'Integration Specialist', 'New York', '61', '2012/12/02', '$372,000'],
+                ['Herrod Chandler', 'Sales Assistant', 'San Francisco', '59', '2012/08/06', '$137,500'],
+                ['Rhona Davidson', 'Integration Specialist', 'Tokyo', '55', '2010/10/14', '$327,900'],
+                ['Colleen Hurst', 'Javascript Developer', 'San Francisco', '39', '2009/09/15', '$205,500'],
+                ['Sonya Frost', 'Software Engineer', 'Edinburgh', '23', '2008/12/13', '$103,600'],
+                ['Jena Gaines', 'Office Manager', 'London', '30', '2008/12/19', '$90,560'],
+                ['Quinn Flynn', 'Support Lead', 'Edinburgh', '22', '2013/03/03', '$342,000'],
+                ['Charde Marshall', 'Regional Director', 'San Francisco', '36', '2008/10/16', '$470,600'],
+                ['Haley Kennedy', 'Senior Marketing Designer', 'London', '43', '2012/12/18', '$313,500'],
+              ],
+            });
+
+            return (
+              <MDBDatatable maxHeight='520px' maxWidth='520px' data={basicData} />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Scroll -->
+
+  <hr class="my-5" />
+
+  <!--Section: Fixed -->
+  <section id="section-fixed">
+    <!-- Section title -->
+    <h2 class="mb-4">Fixed header</h2>
+
+    <p>
+      Use the <code>fixedHeader</code> option to ensure that a table's header is always visible
+      while scrolling.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="datatable-fixed" data-mdb-max-height="460" data-mdb-fixed-header="true"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+          
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBDatatable } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [basicData, setBasicData] = useState({
+              columns: ['Name', 'Position', 'Office', 'Age', 'Start date', 'Salary'],
+              rows: [
+                ['Tiger Nixon', 'System Architect', 'Edinburgh', '61', '2011/04/25', '$320,800'],
+                ['Garrett Winters', 'Accountant', 'Tokyo', '63', '2011/07/25', '$170,750'],
+                ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000'],
+                ['Cedric Kelly', 'Senior Javascript Developer', 'Edinburgh', '22', '2012/03/29', '$433,060'],
+                ['Airi Satou', 'Accountant', 'Tokyo', '33', '2008/11/28', '$162,700'],
+                ['Brielle Williamson', 'Integration Specialist', 'New York', '61', '2012/12/02', '$372,000'],
+                ['Herrod Chandler', 'Sales Assistant', 'San Francisco', '59', '2012/08/06', '$137,500'],
+                ['Rhona Davidson', 'Integration Specialist', 'Tokyo', '55', '2010/10/14', '$327,900'],
+                ['Colleen Hurst', 'Javascript Developer', 'San Francisco', '39', '2009/09/15', '$205,500'],
+                ['Sonya Frost', 'Software Engineer', 'Edinburgh', '23', '2008/12/13', '$103,600'],
+                ['Jena Gaines', 'Office Manager', 'London', '30', '2008/12/19', '$90,560'],
+                ['Quinn Flynn', 'Support Lead', 'Edinburgh', '22', '2013/03/03', '$342,000'],
+                ['Charde Marshall', 'Regional Director', 'San Francisco', '36', '2008/10/16', '$470,600'],
+                ['Haley Kennedy', 'Senior Marketing Designer', 'London', '43', '2012/12/18', '$313,500'],
+              ],
+            });
+
+            return (
+              <MDBDatatable fixedHeader maxHeight='460px' data={basicData} />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Fixed -->
+
+  <hr class="my-5" />
+
+  <!--Section: Fixed columns -->
+  <section id="section-fixed-columns">
+    <!-- Section title -->
+    <h2 class="mb-4">Fixed columns</h2>
+
+    <p>
+      Making a column sticky requires setting two options - width and fixed. A first option is a
+      number of pixels, while the other one can be either a
+      <code>true</code> ( in which case the column will stick on the left) or a string
+      <code>right</code>.
+    </p>
+
+    <p class="note note-warning">
+      Using fixed columns in a vertically scrollable table, requires setting an option
+      <code>fixedHeader</code> to <code>true</code> as well.
+    </p>
+
+    <p class="note note-primary">
+      When using a HTML markup instead of a data structure you can still use this feature by setting
+      <code>data-mdb-width</code> and <code>data-mdb-fixed</code> attributes on your th tags.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="datatable-fixed-columns"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBDatatable } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [fixedData, setFixedData] = useState({
+              columns: [
+                { label: 'Name', field: 'name', sort: true, width: 200, fixed: 'left' },
+                { label: 'Position', field: 'position', sort: false, width: 200 },
+                { label: 'Office', field: 'office', sort: false, width: 200, fixed: 'left', fixedValue: 200 },
+                { label: 'Age', field: 'age', sort: false, width: 200 },
+                { label: 'Start date', field: 'date', sort: true, width: 200 },
+                { label: 'Salary', field: 'salary', sort: false, width: 200, fixed: 'right' },
+              ],
+              rows: [
+                {
+                  name: 'Tiger Nixon',
+                  position: 'System Architect',
+                  office: 'Edinburgh',
+                  age: 61,
+                  date: '2011/04/25',
+                  salary: '$320,800',
+                },
+                {
+                  name: 'Garrett Winters',
+                  position: 'Accountant',
+                  office: 'Tokyo',
+                  age: 63,
+                  date: '2011/07/25',
+                  salary: '$170,750',
+                },
+                {
+                  name: 'Ashton Cox',
+                  position: 'Junior Technical Author',
+                  office: 'San Francisco',
+                  age: 66,
+                  date: '2009/01/12',
+                  salary: '$86,000',
+                },
+                {
+                  name: 'Cedric Kelly',
+                  position: 'Senior Javascript Developer',
+                  office: 'Edinburgh',
+                  age: 22,
+                  date: '2012/03/29',
+                  salary: '$433,060',
+                },
+                { name: 'Airi Satou', position: 'Accountant', office: 'Tokyo', age: 33, date: '2008/11/28', salary: '$162,700' },
+                {
+                  name: 'Brielle Williamson',
+                  position: 'Integration Specialist',
+                  office: 'New York',
+                  age: 61,
+                  date: '2012/12/02',
+                  salary: '$372,000',
+                },
+                {
+                  name: 'Herrod Chandler',
+                  position: 'Sales Assistant',
+                  office: 'San Francisco',
+                  age: 59,
+                  date: '2012/08/06',
+                  salary: '$137,500',
+                },
+                {
+                  name: 'Rhona Davidson',
+                  position: 'Integration Specialist',
+                  office: 'Tokyo',
+                  age: 55,
+                  date: '2010/10/14',
+                  salary: '$327,900',
+                },
+                {
+                  name: 'Colleen Hurst',
+                  position: 'Javascript Developer',
+                  office: 'San Francisco',
+                  age: 39,
+                  date: '2009/09/15',
+                  salary: '$205,500',
+                },
+                {
+                  name: 'Sonya Frost',
+                  position: 'Software Engineer',
+                  office: 'Edinburgh',
+                  age: 23,
+                  date: '2008/12/13',
+                  salary: '$103,600',
+                },
+                {
+                  name: 'Jena Gaines',
+                  position: 'Office Manager',
+                  office: 'London',
+                  age: 30,
+                  date: '2008/12/19',
+                  salary: '$90,560',
+                },
+                {
+                  name: 'Quinn Flynn',
+                  position: 'Support Lead',
+                  office: 'Edinburgh',
+                  age: 22,
+                  date: '2013/03/03',
+                  salary: '$342,000',
+                },
+                {
+                  name: 'Charde Marshall',
+                  position: 'Regional Director',
+                  office: 'San Francisco',
+                  age: 36,
+                  date: '2008/10/16',
+                  salary: '$470,600',
+                },
+                {
+                  name: 'Haley Kennedy',
+                  position: 'Senior Marketing Designer',
+                  office: 'London',
+                  age: 43,
+                  date: '2012/12/18',
+                  salary: '$313,500',
+                },
+              ],
+            });
+
+            return (
+              <MDBDatatable data={fixedData} advancedData />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Fixed columns -->
+
+  <hr class="my-5" />
+
+  <!--Section: Async data -->
+  <section id="section-async-data">
+    <!-- Section title -->
+    <h2 class="mb-4">Async data</h2>
+    <p>
+      Loading content asynchronously is an important part of working with data tables - with MDB
+      Datatable you can easily display content after fetching it from API by using the
+      <code>update</code> method. Additionally, setting a <code>loading</code> option to
+      <code>true</code> will disable all interactions and display a simple loader while awaiting
+      data.
+    </p>
+    <button class="btn btn-primary mb-4" id="reload-button">
+      Reload data<i class="fa fa-sync ms-2"></i>
+    </button>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="datatable-async-data"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+      
+        <code data-lang="js" data-name="JSX">
+          import React, { useEffect, useState } from 'react';
+          import { MDBDatatable, MDBtn, MDBIcon } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [asyncData, setAsyncData] = useState({
+              columns: [
+                { label: 'Address', field: 'address' },
+                { label: 'Company', field: 'company' },
+                { label: 'Email', field: 'email' },
+                { label: 'Name', field: 'name' },
+                { label: 'Phone', field: 'phone' },
+                { label: 'Username', field: 'username' },
+                { label: 'Website', field: 'website' },
+              ],
+              rows: [],
+            });
+
+            const [loading, setLoading] = useState(false);
+
+            useEffect(() => {
+              if (loading) {
+                fetch('https://jsonplaceholder.typicode.com/users')
+                  .then((response) => response.json())
+                  .then((data) =>
+                    setTimeout(() => {
+                      setAsyncData({
+                        columns: asyncData.columns,
+                        rows: data.map((user: any) => ({
+                          ...user,
+                          address: `${user.address.city}, ${user.address.street}`,
+                          company: user.company.name,
+                        })),
+                      });
+                    }, 3000)
+                  );
+              }
+            }, [loading, asyncData.columns]);
+          
+            useEffect(() => {
+              if (asyncData.rows.length === 0) {
+                setLoading(true);
+              } else {
+                setLoading(false);
+              }
+            }, [asyncData.rows]);
+
+            return (
+              <>
+                <MDBBtn className='mb-4' onClick={() => setAsyncData({ ...asyncData, rows: [] })}>
+                  Reload data
+                  <MDBIcon icon='sync' className='ms-2' />
+                </MDBBtn>
+      
+                <MDBDatatable data={asyncData} loading={loading} advancedData />
+              </>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Async data -->
+
+  <hr class="my-5" />
+
+  <!--Section: Action buttons-->
+  <section id="section-action-btns">
+    <!-- Section title -->
+    <h2 class="mb-4">Action buttons</h2>
+
+    <p>
+      With the Datatable it's possible to render custom content, such as action buttons and attach
+      listeners to their events. Keep in mind, that the component rerenders content when various
+      actions occur (f.e. sort, search) and event listeners need to be updated. To make it possible,
+      the components emits a custom event <code>render.mdb.datatable</code>.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="datatable-custom" data-mdb-hover="true"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+      
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBDatatable, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [actionData, setActionData] = useState({
+              columns: [
+                { label: 'Name', field: 'name' },
+                { label: 'Position', field: 'position' },
+                { label: 'Office', field: 'office' },
+                { label: 'Contact', field: 'contact', sort: false },
+              ],
+              rows: [
+                {
+                  name: 'Tiger Nixon',
+                  position: 'System Architect',
+                  office: 'Edinburgh',
+                  phone: '+48000000000',
+                  email: 'tiger.nixon@gmail.com',
+                },
+                {
+                  name: 'Sonya Frost',
+                  position: 'Software Engineer',
+                  office: 'Edinburgh',
+                  phone: '+53456123456',
+                  email: 'sfrost@gmail.com',
+                },
+                {
+                  name: 'Tatyana Fitzpatrick',
+                  position: 'Regional Director',
+                  office: 'London',
+                  phone: '+42123432456',
+                  email: 'tfitz@gmail.com',
+                },
+              ].map((row) => {
+                return {
+                  ...row,
+                  contact: (
+                    <>
+                      <MDBBtn outline size='sm' floating className='call-btn' onClick={() => console.log(`call ${row.phone}`)}>
+                        <MDBIcon icon='phone' />
+                      </MDBBtn>
+                      <MDBBtn
+                        size='sm'
+                        floating
+                        className='message-btn ms-2'
+                        onClick={() => console.log(`send a message to ${row.email}`)}
+                      >
+                        <MDBIcon icon='envelope' />
+                      </MDBBtn>
+                    </>
+                  ),
+                };
+              }),
+            });
+
+            return (
+              <MDBDatatable hover data={actionData} advancedData />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Action buttons-->
+
+  <hr class="my-5" />
+
+  <!--Section: Cell formatting-->
+  <section id="section-cell-format">
+    <!-- Section title -->
+    <h2 class="mb-4">Cell formatting</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div
+        id="datatable-cell-format"
+        data-mdb-sort-field="purchases"
+        data-mdb-sort-order="desc"
+      ></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+      
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBDatatable } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [formatData, setFormatData] = useState({
+              columns: [
+                { label: 'Product', field: 'product' },
+                { label: 'Quantity', field: 'quantity' },
+                { label: 'Purchases', field: 'purchases' },
+              ],
+              rows: [
+                { product: 'Product 1', quantity: 10, purchases: 103 },
+                { product: 'Product 2', quantity: 45, purchases: 110 },
+                { product: 'Product 3', quantity: 76, purchases: 56 },
+                { product: 'Product 4', quantity: 89, purchases: 230 },
+                { product: 'Product 5', quantity: 104, purchases: 240 },
+                { product: 'Product 6', quantity: 97, purchases: 187 },
+                { product: 'Product 7', quantity: 167, purchases: 130 },
+                { product: 'Product 8', quantity: 50, purchases: 199 },
+                { product: 'Product 9', quantity: 4, purchases: 206 },
+                { product: 'Product 10', quantity: 120, purchases: 88 },
+                { product: 'Product 11', quantity: 22, purchases: 100 },
+              ],
+            });
+
+            return (
+              <MDBDatatable
+                data={formatData}
+                advancedData
+                format={(field: string, value: any) => {
+                  if (field === 'purchases') {
+                    const colors = ['#E3F2FD', '#BBDEFB', '#90CAF9', '#64B5F6', '#42A5F5'];
+
+                    const maxValue = Math.max(...formatData.rows.map((row) => row.purchases));
+                    const minValue = Math.min(...formatData.rows.map((row) => row.purchases));
+
+                    const step = (maxValue - minValue) / (colors.length - 1);
+
+                    const colorIndex = Math.floor((value - minValue) / step);
+
+                    return { backgroundColor: colors[colorIndex], fontWeight: 400 };
+                  }
+                }}
+              />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Cell formatting-->
+
+  <hr class="my-5" />
+
+  <!--Section: Clickable rows-->
+  <section id="section-clickable-rows">
+    <!-- Section title -->
+    <h2 class="mb-4">Clickable rows</h2>
+
+    <p>Click on the row to preview the message.</p>
+    <p>Selecting the row with checkbox doesn't trigger <code>rowClick</code> event.</p>
+
+    <p class="note note-primary">
+      Note: To prevent this action with other clickable elements within the row, call
+      <code>stopPropagation()</code> method.
+    </p>
+    <p class="note note-warning">
+      Note: This feature cannot be used simultaneously with <code>edit</code> option.
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div
+        id="datatable-clickable-rows"
+        data-mdb-clickable-rows="true"
+        data-mdb-selectable="true"
+        data-mdb-multi="true"
+      ></div>
+
+      <!-- Modal -->
+      <div class="modal fade" tabindex="-1" aria-hidden="true" id="modal-clickable-rows">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modal-header-clickable-rows"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-mdb-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body mt-4 mb-5" id="modal-body-clickable-rows"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-primary">
+                Reply<i class="fa fa-paper-plane ms-2"></i>
+              </button>
+              <button type="button" class="btn btn-outline-primary">
+                Forward<i class="fa fa-arrow-right ms-2"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="js" data-name="JSX">
+          import React, { useState } from 'react';
+          import { 
+            MDBDatatable, 
+            MDBIcon,
+            MDBModal,
+            MDBModalBody,
+            MDBModalDialog,
+            MDBModalContent,
+            MDBModalFooter,
+            MDBModalHeader,
+            MDBModalTitle,
+          } from 'mdb-react-ui-kit';
+          
+          export default function App() {
+
+            const [basicModal, setBasicModal] = useState(false);
+            const [selectedRowsAdvanced, setSelectedRowsAdvanced] = useState([]);
+            const [modalState, setModalState] = useState({ from: '', message: '' });
+
+            const [clicakbleData, setClickableData] = useState({
+              columns: [
+                { label: 'Actions', field: 'actions', sort: false },
+                { label: 'From', field: 'from' },
+                { label: 'Title', field: 'title' },
+                { label: 'Message', field: 'preview', sort: false },
+                { label: 'Date', field: 'date' },
+              ],
+              rows: [
+                {
+                  from: 'admin@mdbootstrap.com',
+                  title: 'MDBootstrap spring sale',
+                  message:
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed metus ultricies, sollicitudin est nec, blandit turpis. Fusce venenatis nisi volutpat, pharetra elit eu, ullamcorper metus. Vestibulum dapibus laoreet aliquam. Maecenas sed magna ut libero consequat elementum. Maecenas euismod pellentesque pulvinar. Morbi sit amet turpis eget dolor rutrum eleifend. Sed bibendum diam nec diam posuere pulvinar. Cras ac bibendum arcu.',
+                  date: '11/12/2019',
+                },
+                {
+                  from: 'user@mdbootstrap.com',
+                  title: 'How to purchase MDB5 package?',
+                  message:
+                    'Quisque tempor ligula eu lobortis scelerisque. Mauris tristique mi a erat egestas, quis dictum nibh iaculis. Sed gravida sodales egestas. In tempus mollis libero sit amet lacinia. Duis non augue sed leo imperdiet efficitur faucibus vitae elit. Mauris eu cursus ligula. Praesent posuere efficitur cursus.',
+                  date: '10/12/2019',
+                },
+                {
+                  from: 'user@mdbootstrap.com',
+                  title: 'Licence renewal',
+                  message:
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed metus ultricies, sollicitudin est nec, blandit turpis. Fusce venenatis nisi volutpat, pharetra elit eu, ullamcorper metus. Vestibulum dapibus laoreet aliquam. Maecenas sed magna ut libero consequat elementum. Maecenas euismod pellentesque pulvinar. Morbi sit amet turpis eget dolor rutrum eleifend. Sed bibendum diam nec diam posuere pulvinar. Cras ac bibendum arcu.',
+                  date: '09/12/2019',
+                },
+                {
+                  from: 'admin@mdbootstrap.com',
+                  title: 'Black friday offer',
+                  message:
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed metus ultricies, sollicitudin est nec, blandit turpis. Fusce venenatis nisi volutpat, pharetra elit eu, ullamcorper metus. Vestibulum dapibus laoreet aliquam. Maecenas sed magna ut libero consequat elementum. Maecenas euismod pellentesque pulvinar. Morbi sit amet turpis eget dolor rutrum eleifend. Sed bibendum diam nec diam posuere pulvinar. Cras ac bibendum arcu.',
+                  date: '08/12/2019',
+                },
+              ].map((email, i) => {
+                const getPreview = (message: string, length: number) => {
+                  if (message.length <= length) return message;
+          
+                  return `${message.slice(0, length)}...`;
+                };
+          
+                return {
+                  ...email,
+                  preview: getPreview(email.message, 20),
+                  actions: (
+                    <>
+                      <a
+                        role='button'
+                        onClick={() => console.log(`star message: ${i}`, email)}
+                        className='star-email-button text-warning'
+                      >
+                        <MDBIcon far icon='star' className='datatable-disable-onclick' />
+                      </a>
+                      <a
+                        role='button'
+                        onClick={() => console.log(`delete message: ${i}`, email)}
+                        className='delete-email-button text-muted ms-2'
+                      >
+                        <MDBIcon icon='trash-alt' className='datatable-disable-onclick' />
+                      </a>
+                    </>
+                  ),
+                };
+              }),
+            });
+
+            return (
+              <>
+                <MDBDatatable
+                  selectable
+                  data={clicakbleData}
+                  advancedData
+                  selectedRows={selectedRowsAdvanced}
+                  setSelectedRows={setSelectedRowsAdvanced}
+                  clickableRows={(row: any) => {
+                    setBasicModal(true);
+                    setModalState({ from: row.from, message: row.message });
+                  }}
+                />
+
+                <MDBModal show={basicModal} getOpenState={(e: any) => setBasicModal(e)} tabIndex='-1'>
+                  <MDBModalDialog>
+                    <MDBModalContent>
+                      <MDBModalHeader>
+                        <MDBModalTitle>MDBootstrap spring sale</MDBModalTitle>
+                        <MDBBtn className='btn-close' color='none' onClick={() => setBasicModal(false)}></MDBBtn>
+                      </MDBModalHeader>
+                      <MDBModalBody>
+                        <h6 className='mb-4'>
+                          From: <strong>{modalState.from}</strong>
+                        </h6>
+                        <p>{modalState.message}</p>
+                      </MDBModalBody>
+      
+                      <MDBModalFooter>
+                        <MDBBtn outline>
+                          Reply
+                          <MDBIcon icon='paper-plane' className='ms-2' />
+                        </MDBBtn>
+                        <MDBBtn outline>
+                          Forward
+                          <MDBIcon icon='arrow-right' className='ms-2' />
+                        </MDBBtn>
+                      </MDBModalFooter>
+                    </MDBModalContent>
+                  </MDBModalDialog>
+                </MDBModal>
+              </>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Clickable rows-->
+
+  <hr class="my-5" />
+</section>
+<!--Section: Docs content-->
