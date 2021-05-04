@@ -903,5 +903,168 @@
     <!--Section: Code-->
   </section>
   <!--Section: Offset-->
+
+  <hr class="my-5" />
+
+  <!--Section: Stacking-->
+  <section id="section-stacking">
+    <!-- Section title -->
+    <h2 class="mb-4">Stacking</h2>
+    <p>
+      You can turn on stacking your alerts using the
+      <code>stacking</code> property.
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div class="container text-center">
+        <button type="button" class="btn btn-primary" id="stacking-trigger-example">
+          Show notification
+        </button>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBAlert, MDBBtn } from 'mdb-react-ui-kit';
+
+          export default function App() {
+            const [stackingAlerts, setStackingAlerts] = useState<Array<Record<string, any>>>([]);
+            const [stackingColor, setStackingColor] = useState(0);
+          
+            const handleClick = () => {
+              const colors = ['primary', 'warning', 'info', 'success', 'secondary', 'danger', 'light'];
+          
+              stackingColor + 1 > colors.length - 1 ? setStackingColor(0) : setStackingColor(stackingColor + 1);
+          
+              setStackingAlerts([
+                ...stackingAlerts,
+                {
+                  color: colors[stackingColor],
+                  count: stackingAlerts.length > 0 ? stackingAlerts.length + 1 : 1,
+                },
+              ]);
+            };
+
+            return (
+              <>
+                <MDBBtn className='m-1' onClick={handleClick}>
+                  Show notification
+                </MDBBtn>
+    
+                {stackingAlerts.map((item) => (
+                  <MDBAlert
+                    color={item.color}
+                    stacking
+                    autohide
+                    width={450}
+                    position='bottom-right'
+                    offset={50}
+                    delay={2000}
+                    appendToBody
+                    show
+                    key={item.count}
+                  >
+                    <p className='mb-0'>
+                      <strong>{item.count}.</strong> Stacking alerts
+                    </p>
+                  </MDBAlert>
+                ))}
+              </>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Stacking-->
+
+  <hr class="my-5" />
+
+  <!--Section: Stacking - Container-->
+  <section id="section-stacking-container">
+    <!-- Section title -->
+    <h2 class="mb-4">Stacking - Container</h2>
+    <p>You can also stack alerts inside the container</p>
+
+    <!--Section: Demo-->
+    <section
+      class="border p-4 d-flex justify-content-center mb-4"
+      style="height: 400px; overflow: scroll;"
+    >
+      <div class="container text-center" id="parent-stacking-container-example">
+        <button type="button" class="btn btn-primary mb-5" id="stacking-container-trigger-example">
+          Show notification
+        </button>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState, useRef } from 'react';
+          import { MDBAlert, MDBBtn } from 'mdb-react-ui-kit';
+
+          export default function App() {
+            const [containerAlerts, setContainerAlerts] = useState<Array<Record<string, any>>>([]);
+            const [containerColor, setContainerColor] = useState(0);
+          
+            const handleContainerClick = () => {
+              const colors = ['primary', 'warning', 'info', 'success', 'secondary', 'danger', 'light'];
+          
+              containerColor + 1 > colors.length - 1 ? setContainerColor(0) : setContainerColor(containerColor + 1);
+          
+              setContainerAlerts([
+                ...containerAlerts,
+                {
+                  color: colors[containerColor],
+                  count: containerAlerts.length > 0 ? containerAlerts.length + 1 : 1,
+                },
+              ]);
+            };
+          
+            const stackingContainer = useRef(null);
+
+            return (
+              <div className='container text-center' ref={stackingContainer}>
+                <MDBBtn className='m-1' onClick={handleContainerClick}>
+                  Show notification
+                </MDBBtn>
+  
+                {containerAlerts.map((item) => (
+                  <MDBAlert
+                    color={item.color}
+                    stacking
+                    offset={30}
+                    autohide
+                    width={250}
+                    position='top-right'
+                    delay={2000}
+                    show
+                    containerRef={stackingContainer}
+                    key={item.count}
+                  >
+                    <p className='mb-0'>
+                      <strong>{item.count}.</strong> Stacking alerts
+                    </p>
+                  </MDBAlert>
+                ))}
+              </div>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Stacking - Container-->
 </section>
 <!--Section: Docs content-->

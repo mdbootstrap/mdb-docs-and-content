@@ -986,5 +986,183 @@
     <!--Section: Code-->
   </section>
   <!--Section: Container-->
+
+  <hr class="mt-5" />
+
+  <!--Section: Stacking-->
+  <section id="section-stacking">
+    <!-- Section title -->
+    <h2 class="mb-4">Stacking</h2>
+    <p>
+      You can turn on/off stacking your notifications using
+      <code>stacking</code> property.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-5 d-flex justify-content-center mb-4">
+      <button type="button" class="btn btn-primary me-3" id="stacking-trigger">
+        Show toast notification
+      </button>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBToast, MDBBtn } from 'mdb-react-ui-kit';
+
+          export default function App() {
+            const [stackingToasts, setStackingToasts] = useState<Array<Record<string, any>>>([]);
+            const [stackingColor, setStackingColor] = useState(0);
+          
+            const handleClick = () => {
+              const colors = ['primary', 'warning', 'info', 'success', 'secondary', 'danger', 'light'];
+          
+              stackingColor + 1 > colors.length - 1 ? setStackingColor(0) : setStackingColor(stackingColor + 1);
+          
+              setStackingToasts([
+                ...stackingToasts,
+                {
+                  color: colors[stackingColor],
+                  count: stackingToasts.length > 0 ? stackingToasts.length + 1 : 1,
+                },
+              ]);
+            };
+            
+            return (
+              <>
+                <MDBBtn className='m-1' onClick={handleClick}>
+                  Show toast notification
+                </MDBBtn>
+
+                {
+                  stackingToasts.map((item) => (
+                    <MDBToast
+                      color={item.color}
+                      show
+                      autohide
+                      stacking
+                      offset={50}
+                      width={450}
+                      position='top-right'
+                      delay={2000}
+                      appendToBody
+                      key={item.count}
+                      headerClasses='text-white'
+                      bodyClasses='text-white'
+                      whiteCloseBtn
+                      headerContent={
+                        <>
+                          <strong className='me-auto'>{item.count}</strong>
+                          <small>11 mins ago</small>
+                        </>
+                      }
+                      bodyContent='Stacking Element'
+                    />
+                  ))
+                }
+              </>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Stacking-->
+
+  <hr class="mt-5" />
+
+  <!--Section: Stacking (container)-->
+  <section id="section-stacking-container">
+    <!-- Section title -->
+    <h2 class="mb-4">Stacking (container)</h2>
+    <p>
+      You can turn on/off stacking your notifications using
+      <code>stacking</code> property.
+    </p>
+
+    <!--Section: Demo-->
+    <section
+      class="border p-5 d-flex justify-content-center mb-4"
+      style="height: 400px; overflow: scroll"
+    >
+      <div class="container text-center" id="stacking-container">
+        <button type="button" class="btn btn-primary me-3" id="stacking-container-trigger">
+          Show toast notification
+        </button>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState, useRef } from 'react';
+          import { MDBToast, MDBBtn } from 'mdb-react-ui-kit';
+
+          export default function App() {
+            const [containerToasts, setContainerToasts] = useState<Array<Record<string, any>>>([]);
+            const [containerColor, setContainerColor] = useState(0);
+          
+            const handleContainerClick = () => {
+              const colors = ['primary', 'warning', 'info', 'success', 'secondary', 'danger', 'light'];
+          
+              containerColor + 1 > colors.length - 1 ? setContainerColor(0) : setContainerColor(containerColor + 1);
+          
+              setContainerToasts([
+                ...containerToasts,
+                {
+                  color: colors[containerColor],
+                  count: containerToasts.length > 0 ? containerToasts.length + 1 : 1,
+                },
+              ]);
+            };
+            
+            const stackingContainer = useRef(null);
+            
+            return (
+              <div className='container text-center' ref={stackingContainer}>
+                <MDBBtn className='m-1' onClick={handleContainerClick}>
+                  Show toast notification
+                </MDBBtn>
+
+                {
+                  containerToasts.map((item) => (
+                    <MDBToast
+                      color={item.color}
+                      show
+                      autohide
+                      stacking
+                      offset={50}
+                      width={250}
+                      position='top-right'
+                      delay={2000}
+                      containerRef={stackingContainer}
+                      key={item.count}
+                      whiteCloseBtn
+                      headerContent={
+                        <>
+                          <strong className='me-auto'>{item.count}</strong>
+                          <small>11 mins ago</small>
+                        </>
+                      }
+                      bodyContent='Stacking Element'
+                    />
+                  ))
+                }
+              </div>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+    <!--Section: Stacking (container)-->
 </section>
 <!--Section: Docs content-->
