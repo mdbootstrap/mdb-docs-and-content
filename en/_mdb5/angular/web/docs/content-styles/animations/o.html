@@ -1078,7 +1078,7 @@
     <!--Subsection: Launching via external element-->
 
     <!--Subsection: Fading gallery-->
-    <section id="subsection-fading-gallery">
+    <section id="subsection-gallery">
       <!--Subsection title-->
       <h4 class="mt-5">Fading gallery</h4>
 
@@ -1159,19 +1159,46 @@
             </div>
             <!--Grid row-->
           </code>
+          <!--prettier-ignore-->
           <code data-lang="js" data-name="Typescript">
-            import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core'; import
-            { zoomInEnterAnimation } from 'mdb-angular-ui-kit'; @Component({ selector: 'app-root',
-            templateUrl: './app.component.html', styleUrls: ['./app.component.scss'], animations: [
-            zoomInEnterAnimation() ], }) export class AppComponent implements AfterViewInit {
-            @ViewChild('gallery') gallery: ElementRef; constructor() {} galleryState = false; images
-            = [ { url: 'https://mdbootstrap.com/img/new/standard/city/041.jpg' }, { url:
-            'https://mdbootstrap.com/img/new/standard/city/042.jpg' }, { url:
-            'https://mdbootstrap.com/img/new/standard/city/043.jpg' }, ]; ngAfterViewInit(): void {
-            const galleryObserver = new IntersectionObserver((entries) => { entries.forEach((entry)
-            => { if (entry.intersectionRatio > 0) { this.galleryState = true; } else {
-            this.galleryState = false; } }); });
-            galleryObserver.observe(this.gallery.nativeElement); } }
+            import { Component, AfterViewInit } from '@angular/core';
+            import { zoomInEnterAnimation } from 'mdb-angular-ui-kit';
+
+            @Component({
+              selector: 'app-root',
+              templateUrl: './app.component.html',
+              styleUrls: ['./app.component.scss'],
+              animations: [
+                zoomInEnterAnimation()
+              ],
+            })
+            export class AppComponent implements AfterViewInit {
+            @ViewChild('gallery') gallery: ElementRef;
+
+            constructor() {}
+
+            galleryState = false;
+
+            images = [
+              { url: 'https://mdbootstrap.com/img/new/standard/city/041.jpg' },
+              { url: 'https://mdbootstrap.com/img/new/standard/city/042.jpg' },
+              { url: 'https://mdbootstrap.com/img/new/standard/city/043.jpg' },
+            ];
+
+            ngAfterViewInit(): void {
+              const galleryObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                  if (entry.intersectionRatio > 0) {
+                    this.galleryState = true;
+                  } else {
+                    this.galleryState = false;
+                  }
+                });
+              });
+
+              galleryObserver.observe(this.gallery.nativeElement);
+            }
+          }
           </code>
         </mdbsnippet>
       </section>
