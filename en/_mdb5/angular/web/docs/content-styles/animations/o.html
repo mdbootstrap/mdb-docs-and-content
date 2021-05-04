@@ -1077,6 +1077,108 @@
     </section>
     <!--Subsection: Launching via external element-->
 
+    <!--Subsection: Fading gallery-->
+    <section id="subsection-fading-gallery">
+      <!--Subsection title-->
+      <h4 class="mt-5">Fading gallery</h4>
+
+      <!--Description-->
+      <p>
+        With animation on scroll you can create an impressive gallery that will appear smoothly step
+        by step.
+      </p>
+
+      <p>
+        In the example below, we additionally use <code>delay</code> option in animation parameters
+        on some images to make it appears one by one.
+      </p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 text-center mb-4">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4">
+            <img
+              data-mdb-toggle="animation"
+              data-mdb-animation-start="onScroll"
+              data-mdb-animation="zoom-in"
+              data-mdb-animation-delay="100"
+              src="https://mdbootstrap.com/img/new/standard/city/041.jpg"
+              class="img-fluid shadow-1-strong rounded"
+            />
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <img
+              data-mdb-toggle="animation"
+              data-mdb-animation-start="onScroll"
+              data-mdb-animation="zoom-in"
+              data-mdb-animation-delay="200"
+              src="https://mdbootstrap.com/img/new/standard/city/042.jpg"
+              class="img-fluid shadow-1-strong rounded"
+            />
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <img
+              data-mdb-toggle="animation"
+              data-mdb-animation-start="onScroll"
+              data-mdb-animation="zoom-in"
+              data-mdb-animation-delay="300"
+              src="https://mdbootstrap.com/img/new/standard/city/043.jpg"
+              class="img-fluid shadow-1-strong rounded"
+            />
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <!--Grid row-->
+            <div class="row" #gallery>
+              <!--Grid column-->
+              <div class="col-lg-4 col-md-12 mb-4" *ngFor="let image of images; let i = index">
+                <img
+                  *ngIf="galleryState"
+                  [@zoomInEnter]="{ value: ':enter', params: { duration: 1000, delay: i * 100 } }"
+                  [src]="image.url"
+                  class="img-fluid shadow-1-strong rounded"
+                />
+              </div>
+              <!--Grid column-->
+            </div>
+            <!--Grid row-->
+          </code>
+          <code data-lang="js" data-name="Typescript">
+            import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core'; import
+            { zoomInEnterAnimation } from 'mdb-angular-ui-kit'; @Component({ selector: 'app-root',
+            templateUrl: './app.component.html', styleUrls: ['./app.component.scss'], animations: [
+            zoomInEnterAnimation() ], }) export class AppComponent implements AfterViewInit {
+            @ViewChild('gallery') gallery: ElementRef; constructor() {} galleryState = false; images
+            = [ { url: 'https://mdbootstrap.com/img/new/standard/city/041.jpg' }, { url:
+            'https://mdbootstrap.com/img/new/standard/city/042.jpg' }, { url:
+            'https://mdbootstrap.com/img/new/standard/city/043.jpg' }, ]; ngAfterViewInit(): void {
+            const galleryObserver = new IntersectionObserver((entries) => { entries.forEach((entry)
+            => { if (entry.intersectionRatio > 0) { this.galleryState = true; } else {
+            this.galleryState = false; } }); });
+            galleryObserver.observe(this.gallery.nativeElement); } }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Fading gallery-->
+
     <!--Subsection: List group-->
     <section id="subsection-list-group">
       <!--Subsection title-->
