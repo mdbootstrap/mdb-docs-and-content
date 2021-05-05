@@ -16,7 +16,6 @@
       this.element = document.querySelector(element);
 
       this.allCheckBoxes = this.element.querySelectorAll('.mdb-filter-checkbox');
-      this.btnLoadMore = this.element.querySelector('.btn-load-more-icon');
       this.buttonCopy = this.element.querySelector('#mdb-button-copy');
       this.chipsWrapper = this.element.querySelector('#mdb-chips-wrapper');
       this.codeWrapper = this.element.querySelector('.mdb-code-wrapper');
@@ -41,7 +40,6 @@
 
       this.arrOfCheckedInputs = [];
       this.arryOfSearchedValues = [];
-      this.startedNumberIcons = 150;
     }
 
     async init() {
@@ -55,15 +53,14 @@
 
       this.iconListWrapper.appendChild(wrapperList[0]);
 
-      this._handleCountingTitle(wrapperList[2].length);
+      this._handleCountingTitle(wrapperList[1].length);
 
-      this.fullListIcon = wrapperList[2];
-      this.changedListIcon = wrapperList[2];
+      this.fullListIcon = wrapperList[1];
+      this.changedListIcon = wrapperList[1];
 
       this.list = this.element.querySelector(`#${UL_LIST_ID}`);
 
       this._bindCheckboxClickEvent();
-      this._handleLoadMoreButton();
       this._handleGalleryBtn();
       this._initHandleEvents();
 
@@ -74,17 +71,17 @@
       const { id, prefix, unicode } = options;
 
       const template = `
-    <i class="icon-item ${prefix} fa-${id}" role="button" data-prefix='${prefix}' data-id='${id}' data-unicode="${unicode}"></i>
-    <div class="icon-text mt-1">
-      <span class="icon-span-text">${id}</span>
-      <div id="unicode-${id}" class="justify-content-center d-none" style="display:flex">
-        <span class="mt-2 mdb-span-unicode flex-row-reverse justify-content-center">
-          <div class="ms-2 mdb-unicode">${unicode}</div>
-          <i class="fas fa-clipboard font-glyph mdb-unicode-icon" data-unicode="${unicode}"></i>
-        </span>
+      <i class="icon-item ${prefix} fa-${id}" role="button" data-prefix='${prefix}' data-id='${id}' data-unicode="${unicode}"></i>
+      <div class="icon-text mt-1">
+        <span class="icon-span-text">${id}</span>
+        <div id="unicode-${id}" class="justify-content-center d-none" style="display:flex">
+          <span class="mt-2 mdb-span-unicode flex-row-reverse justify-content-center">
+            <div class="ms-2 mdb-unicode">${unicode}</div>
+            <i class="fas fa-clipboard font-glyph mdb-unicode-icon" data-unicode="${unicode}"></i>
+          </span>
+        </div>
       </div>
-    </div>
-    <div class="mdb-class-label badge bg-info text-uppercase position-absolute">${prefix}</div>`;
+      <div class="mdb-class-label badge bg-info text-uppercase position-absolute">${prefix}</div>`;
 
       return template;
     }
@@ -93,10 +90,10 @@
       const { text } = options;
 
       const template = `
-    <span class="chip icon-chip text-white">
-      ${this._capitalizeFirstLetter(text.trim())}
-      <i class="close far fa-times-circle"></i>
-    </span>`;
+      <span class="chip icon-chip text-white">
+        ${this._capitalizeFirstLetter(text.trim())}
+        <i class="close far fa-times-circle"></i>
+      </span>`;
 
       return template;
     }
@@ -125,12 +122,10 @@
       } else if (arryOfSearchedValues.length > 0 && this.arrOfCheckedInputs.length <= 0) {
         iconList = arryOfSearchedValues;
       } else {
-        const [, list] = await this._getIconsList();
+        const [list] = await this._getIconsList();
 
         iconList = list;
       }
-
-      this.btnLoadMore.classList.add('d-none');
 
       const filteredByValue = iconList.filter(({ id }) => id.includes(target.value.toLowerCase()));
 
@@ -149,26 +144,17 @@
       const [ulListSet, dataArr] = this._handleUIChange([...setData]);
 
       if (target.value === '') {
-        const [ulList] = this._handleUIChange(dataArr.slice(0, this.startedNumberIcons));
+        const [ulList] = this._handleUIChange(dataArr);
 
         this.iconListWrapper.innerHTML = '';
         this.iconListWrapper.appendChild(ulList);
-
-        this.btnLoadMore.classList.remove('d-none');
       } else if (target.value !== '') {
-        if (dataArr.length > this.startedNumberIcons) {
-          arryOfSearchedValues = dataArr;
-          this.changedListIcon = dataArr;
+        arryOfSearchedValues = dataArr;
+        this.changedListIcon = dataArr;
 
-          this.btnLoadMore.classList.remove('d-none');
-
-          const [ulList] = this._handleUIChange(dataArr.slice(0, this.startedNumberIcons));
-          this.iconListWrapper.innerHTML = '';
-          this.iconListWrapper.appendChild(ulList);
-        } else {
-          this.iconListWrapper.innerHTML = '';
-          this.iconListWrapper.appendChild(ulListSet);
-        }
+        const [ulList] = this._handleUIChange(dataArr);
+        this.iconListWrapper.innerHTML = '';
+        this.iconListWrapper.appendChild(ulList);
       }
 
       this._handleCountingTitle([...setData].length);
@@ -301,20 +287,20 @@
     }
 
     async _handleIconWrapperList(iconsNum) {
-      const [dataArray, allIcon] = await this._getIconsList(iconsNum);
+      const [dataArray] = await this._getIconsList();
 
       const ulList = document.createElement('div');
 
       this._createIconList(ulList, dataArray);
 
-      return [ulList, dataArray, allIcon];
+      return [ulList, dataArray];
     }
 
-    async _getIconsList(icons = this.startedNumberIcons) {
+    async _getIconsList() {
       const request = await fetch(ICON_HTTP_API, { credentials: 'same-origin', mode: 'cors' });
       const { dataArray } = await request.json();
 
-      return Promise.all([dataArray.slice(0, icons), dataArray]);
+      return Promise.all([dataArray], dataArray);
     }
 
     _addArrayToAttr() {
@@ -413,35 +399,26 @@
           setData = this._handlerOfArrays(this.searchInput.value, ['filter', 'styles', 'id']);
         }
 
-        if (setData.size > this.startedNumberIcons) {
-          this.btnLoadMore.classList.remove('d-none');
-          this.btnLoadMore.disabled = false;
+        this.changedListIcon = [...setData];
 
-          this.changedListIcon = [...setData];
+        const [ulList] = this._handleUIChange([...setData]);
 
-          const [ulList] = this._handleUIChange([...setData].slice(0, this.startedNumberIcons));
+        this.iconListWrapper.innerHTML = '';
+        this.iconListWrapper.appendChild(ulList);
 
-          this.iconListWrapper.innerHTML = '';
-          this.iconListWrapper.appendChild(ulList);
+        this._handleCountingTitle(setData.size);
 
-          this._handleCountingTitle(setData.size);
-        } else if (setData.size === 0) {
+        if (setData.size === 0) {
           if (this.arrOfCheckedInputs.length <= 0 && this.searchInput.value.length <= 0) {
-            this.btnLoadMore.classList.remove('d-none');
-
-            const [ulList] = this._handleUIChange(
-              this.fullListIcon.slice(0, this.startedNumberIcons)
-            );
+            const [ulList] = this._handleUIChange(this.fullListIcon);
 
             this.iconListWrapper.innerHTML = '';
             this.iconListWrapper.appendChild(ulList);
 
             this._handleCountingTitle(this.fullListIcon.length);
           }
-        } else if (setData.size < this.startedNumberIcons) {
+        } else {
           this.changedListIcon = [...setData];
-
-          this.btnLoadMore.classList.add('d-none');
 
           const [ulListSet] = this._handleUIChange(setData);
 
@@ -500,27 +477,6 @@
       this._handleChipsToRemove(currTarget);
       this.checkboxList.querySelector(`#${currTarget.textContent.trim().toLowerCase()}`).click();
     }
-
-    _handleLoadMoreButton = () => {
-      this.btnLoadMore.addEventListener('click', (e) => handleClick(e));
-
-      const handleClick = ({ target }) => {
-        this.startedNumberIcons += this.startedNumberIcons;
-
-        const [ulListSet] = this._handleUIChange(
-          this.changedListIcon.slice(0, this.startedNumberIcons)
-        );
-
-        this.iconListWrapper.innerHTML = '';
-        this.iconListWrapper.appendChild(ulListSet);
-        this._initHandleEvents();
-
-        if (this.startedNumberIcons >= this.changedListIcon.length) {
-          target.disabled = true;
-          return;
-        }
-      };
-    };
 
     _handleCheatsheetBtn() {
       const handleClickCheatsheetBtn = () => {
