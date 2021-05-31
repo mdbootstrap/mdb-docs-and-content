@@ -1,0 +1,195 @@
+<script>
+const colorGen = () => {
+const randomNum = () => {
+    return Math.floor(Math.random() * 255) + 1;
+};
+    return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`;
+};
+
+
+
+
+
+
+  // PRESS
+const btnPress = document.querySelector('.btn-press');
+const removeBg = document.querySelector('#remove-bg');
+const pressText = document.querySelector('#press-text');
+
+const touch = new mdb.Touch(btnPress, 'press', { time: 2000 });
+touch.init();
+
+btnPress.addEventListener('press', (e) => {
+    removeBg.style.backgroundColor = 'rgba(0,0,0,0)';
+    pressText.innerText = "";
+})
+  // PRESS
+  ///
+  // PRESS DURATION
+const btnPressDuration = document.querySelector('.btn-press-duration');
+const touchPressDuration = new mdb.Touch(btnPressDuration, 'press', { time: 5000 });
+touchPressDuration.init();
+
+const bgPressDuration = document.querySelector('#bg-press-duration');
+const pressDurationText = document.querySelector('#press-duration-text');
+btnPressDuration.addEventListener('press', () => {
+    bgPressDuration.style.backgroundColor = 'rgba(0,0,0,0)';
+    pressDurationText.innerText = "";
+});
+  // PRESS DURATION
+  ///
+  // TAP
+const btnTap = document.querySelector('.btn-tap');
+const tap = new mdb.Touch(btnTap, 'tap');
+tap.init()
+        
+const bgTap = document.querySelector('#bg-tap');
+btnTap.addEventListener('tap', (e) => {
+    bgTap.style.backgroundColor = colorGen();
+})
+  // TAP
+  ///
+  // DOUBLE TAP
+const btnDoubleTap = document.querySelector('.btn-double-tap');
+const doubleTap = new mdb.Touch(btnDoubleTap, 'tap', { taps: 2 });
+doubleTap.init();
+
+const doubleTapBg = document.querySelector('#bg-double-tap')
+btnDoubleTap.addEventListener('tap', (e) => {
+    doubleTapBg.style.backgroundColor = colorGen();
+});
+  // DOUBLE TAP
+  ///
+  // PAN
+const panEl = document.querySelector("#pan");
+const pan = new mdb.Touch(panEl, 'pan');
+pan.init();
+        
+const imgPan = document.querySelector('#img-pan')       
+let moveElement = {
+    x: null,
+    y: null
+};
+        
+panEl.addEventListener('pan', (e) => {
+moveElement = {
+    x: moveElement.x + e.x,
+    y: moveElement.y + e.y,
+};
+
+imgPan.style.transform = `
+translate(${moveElement.x}px, ${moveElement.y}px)
+`
+});
+      // PAN
+      ///
+      // PAN LEFT
+const panLeftEl = document.querySelector('#pan-left');
+const panLeft = new mdb.Touch(panLeftEl, 'pan', { direction: 'left' });
+panLeft.init();
+
+const imgPanLeft = document.querySelector('#img-pan-left');
+let moveElementLeft = {
+    x: null,
+};
+panLeftEl.addEventListener('panleft', (e) => {
+    moveElementLeft = {
+     x: moveElementLeft.x +
+        e.x,
+    };
+    imgPanLeft.style.transform = `translate(${moveElementLeft.x}px, 0px)`;
+});
+      // PAN LEFT
+      ///
+      // PAN RIGHT
+const panRightEl = document.querySelector('#pan-right');
+const panRight = new mdb.Touch(panRightEl, 'pan', { direction: 'right' });
+panRight.init();
+
+const imgPanRight = document.querySelector('#img-pan-right');
+let moveElementRight = {
+    x: null,
+};
+panRightEl.addEventListener('panright', (e) => {
+    moveElementRight = {
+     x: moveElementRight.x +
+        e.x,
+    };
+    imgPanRight.style.transform = `translate(${moveElementRight.x}px, 0px)`;
+});
+      // PAN RIGHT
+      ///
+      // PAN UP DOWN
+const panUpDown = document.querySelector('#pan-up-down');
+const imgPanUpDown =document.querySelector('#img-pan-up-down');
+const touchDown = new mdb.Touch(panUpDown, 'pan', { direction: 'down' });
+const touchUp = new mdb.Touch(panUpDown, 'pan', { direction: 'up' });
+touchUp.init();
+touchDown.init();
+
+let moveElementUpDown = {
+    y: null
+};
+panUpDown.addEventListener('panup', (e) => {
+    moveElementUpDown = {
+        y: moveElementUpDown.y + e.y,
+    };
+    imgPanUpDown.style.transform = `translate(0px, ${moveElementUpDown.y}px)`;
+});
+panUpDown.addEventListener('pandown', (e) => {
+    moveElementUpDown = {
+        y: moveElementUpDown.y + e.y,
+    };
+    imgPanUpDown.style.transform = `translate(0px, ${moveElementUpDown.y}px)`;
+});
+      // PAN UP DOWN
+      ///
+      // PINCH
+const pinchEl = document.querySelector("#pinch");
+const pinch = new mdb.Touch(pinchEl, 'pinch');
+pinch.init()
+        
+pinchEl.addEventListener('pinch', (e) => {
+    e.target.style.transform = `scale(${e.ratio})`;
+    e.target.style.transformOrigin = `translate(${e.origin.x}px, ${e.origin.y}px,)`
+});
+      // PINCH
+      ///
+      // SWIPE LEFT RIGHT
+const swipeLeftRight = document.querySelector('#swipe-left-right')
+const touchSwipeLeftRight = new mdb.Touch(swipeLeftRight, 'swipe', {
+   threshold: 100
+});
+touchSwipeLeftRight.init();
+swipeLeftRight.addEventListener('swipeleft', (e) => {
+e.target.style.backgroundColor = colorGen();
+      });
+swipeLeftRight.addEventListener('swiperight', (e) => {
+    e.target.style.backgroundColor = colorGen();
+});
+      // SWIPE LEFT RIGHT
+      ///
+      // SWIPE UP DOWN
+const swipeUpDown = document.querySelector('#swipe-up-down')
+const touchSwipeUpDown = new mdb.Touch(swipeUpDown, 'swipe', {
+    threshold: 120
+});
+touchSwipeUpDown.init();
+swipeUpDown.addEventListener('swipeup', (e) => {
+    e.target.style.backgroundColor = colorGen();
+});
+swipeUpDown.addEventListener('swipedown', (e) => {
+    e.target.style.backgroundColor = colorGen();
+});
+      // SWIPE UP DOWN
+      ///
+      // ROTATE
+const rotate = document.querySelector('#rotate');
+const touchRotate = new mdb.Touch(rotate, 'rotate');
+touchRotate.init();
+
+rotate.addEventListener('rotate', (e) => {
+    rotate.style.transform = `rotate(${e.currentAngle}turn)`;
+})
+      // ROTATE
+</script>
