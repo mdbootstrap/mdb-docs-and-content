@@ -6,5 +6,5 @@ $data_var = array(
   'description' => 'Collection of practical examples of product lists and product grids. These kinds of sections are necessary when creating listing pages and shop filters. You will find here solutions for all the possible use cases that can occur during creating eCommerce projects.',
   'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/ecommerce/product-lists-and-grids/',
   'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/ecommerce/product-lists-and-grids/assets/2.jpg',
-  'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
+  'video' => 'https://youtu.be/gWs4y2DZngg',
 );
