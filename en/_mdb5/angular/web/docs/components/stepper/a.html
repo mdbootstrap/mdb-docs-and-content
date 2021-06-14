@@ -1,0 +1,328 @@
+<!--Section: API content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="app.module.ts">
+        import { MdbStepperModule } from 'mdb-angular-ui-kit/stepper';
+        …
+        @NgModule ({
+          ...
+          imports: [MdbStepperModule],
+          ...
+        })
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+
+  <hr class="my-5" />
+
+  <!--Section: Inputs-->
+  <section id="api-section-properties">
+    <!-- Section title -->
+    <h2 class="mb-4">Inputs</h2>
+
+    <h3>MdbStepperComponent</h3>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>linear</code>
+            </td>
+            <td><em>boolean</em></td>
+            <td><code>false</code></td>
+            <td>Changes stepper mode to linear</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>markAsCompleted</code>
+            </td>
+            <td><em>boolean</em></td>
+            <td><code>true</code></td>
+            <td>Marks previous step as completed after switching to next step</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>mobile</code>
+            </td>
+            <td><em>boolean</em></td>
+            <td><code>false</code></td>
+            <td>Changes stepper view to mobile</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>MdbStepComponent</h3>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>editable</code>
+            </td>
+            <td><em>boolean</em></td>
+            <td><code>true</code></td>
+            <td>Adds posibility to enable or disable step edition</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>name</code>
+            </td>
+            <td><em>string</em></td>
+            <td><code>-</code></td>
+            <td>Changes step header name</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>optional</code>
+            </td>
+            <td><em>boolean</em></td>
+            <td><code>false</code></td>
+            <td>Changes step to optional (works in linear mode)</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>stepForm</code>
+            </td>
+            <td><em>FromGroup</em></td>
+            <td><code>-</code></td>
+            <td>Form group that will be validated in linear mode</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!--Section: Inputs-->
+
+  <hr class="my-5" />
+
+  <!--Section: Outputs-->
+  <section id="api-section-outputs">
+    <!-- Section title -->
+    <h2 class="mb-4">Outputs</h2>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>stepChanged</code>
+            </td>
+            <td>EventEmitter&lt;MdbStepChangeEvent&gt;</td>
+            <td>Event fired on active step change</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!--prettier-ignore-->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <mdb-stepper (stepChange)="onStepChange($event)">
+              <mdb-step *ngFor="let step of steps" [name]="step.name">
+                {{ step.content }}
+              </mdb-step>
+            </mdb-stepper>
+          </code>
+          <code data-lang="javascript" data-name="TS">
+            import { Component } from '@angular/core';
+            import { MdbStepChangeEvent } from 'mdb-angular-ui-kit/stepper';
+
+            @Component({
+              selector: 'app-stepper',
+              templateUrl: './stepper.component.html',
+              styleUrls: ['./stepper.component.scss'],
+            })
+            export class StepperComponent {
+              steps = [
+                {
+                  name: 'Step 1',
+                  content:
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+                },
+                {
+                  name: 'Step 2',
+                  content:
+                    'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat',
+                },
+                {
+                  name: 'Step 3',
+                  content:
+                    'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                },
+              ];
+
+              onStepChange(event: MdbStepChangeEvent) {
+                console.log(event);
+              }
+            }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </div>
+  </section>
+  <!--Section: Outputs-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">Methods</h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Description</th>
+            <th class="th-sm">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">next</code>
+            </td>
+            <td>Go to next step</td>
+            <td>
+              <code class="language-markup text-nowrap">stepper.next()</code>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">newActiveStep</code>
+            </td>
+            <td>Go to step with specific index</td>
+            <td>
+              <code class="language-markup text-nowrap">stepper.newActiveStep(2)</code>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">previous</code>
+            </td>
+            <td>Go to previous step</td>
+            <td>
+              <code class="language-markup text-nowrap">stepper.previous()</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!--prettier-ignore-->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <div class="mb-3">
+              <button id="prev-step" class="btn btn-primary" (click)="goToPreviousStep()">
+                Previous
+              </button>
+              <button id="next-step" class="btn btn-primary" (click)="goToNextStep()">Next</button>
+            </div>
+            <mdb-stepper #stepper>
+              <mdb-step *ngFor="let step of steps" [name]="step.name">
+                {{ step.content }}
+              </mdb-step>
+            </mdb-stepper>
+          </code>
+          <code data-lang="javascript" data-name="TS">
+            import { Component } from '@angular/core';
+            import { MdbStepperComponent } from 'mdb-angular-ui-kit/stepper';
+
+            @Component({
+              selector: 'app-stepper',
+              templateUrl: './stepper.component.html',
+              styleUrls: ['./stepper.component.scss'],
+            })
+            export class StepperComponent {
+              @ViewChild('stepper') stepper: MdbStepperComponent;
+              steps = [
+                {
+                  name: 'Step 1',
+                  content:
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+                },
+                {
+                  name: 'Step 2',
+                  content:
+                    'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat',
+                },
+                {
+                  name: 'Step 3',
+                  content:
+                    'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                },
+              ];
+
+              goToNextStep(): void {
+                this.stepper.next();
+              }
+
+              goToPreviousStep(): void {
+                this.stepper.previous();
+              }
+            }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </div>
+  </section>
+  <!--Section: Methods-->
+</section>
+<!--Section: API content-->

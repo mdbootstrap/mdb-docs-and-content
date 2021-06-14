@@ -1,0 +1,1449 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8;">
+      <?= $data_var['main_title']; ?>
+      <span id="dpl-newmdb-pro-component-marker"></span>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+
+    <p class="my-4"><?= $data_var['description']; ?></p>
+
+    <p class="my-4">
+      Stepper is a component that displays content as a process with defined by user milestones.
+      This is a great solution for a variety of registration forms, where you don't want to scare
+      the user with lots of fields and questions.
+    </p>
+
+    <p>
+      In this documentation, you can find examples of form wizard, vertical stepper, horizontal
+      stepper, multi step form, mobile stepper, validation & more.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua</span
+            >
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-stepper>
+            <mdb-step *ngFor="let step of steps" [name]="step.name">
+              {{ step.content }}
+            </mdb-step>
+          </mdb-stepper>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-stepper',
+            templateUrl: './stepper.component.html',
+            styleUrls: ['./stepper.component.scss'],
+          })
+          export class StepperComponent {
+            steps = [
+              {
+                name: 'Step 1',
+                content:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+              },
+              {
+                name: 'Step 2',
+                content:
+                  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat',
+              },
+              {
+                name: 'Step 3',
+                content:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              },
+            ];
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: change step usnig external elements-->
+  <section id="section-change-steps-using-external-elements-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Change steps using external elements</h2>
+    <p>
+      To go to the next or previous step, you can use the <code>nextStep</code> and
+      <code>previousStep</code> methods. You can also choose a specific step using the
+      <code>changeStep</code> method by entering the step index
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div class="w-100">
+        <div class="mb-3">
+          <button id="prev-step" class="btn btn-primary">prev</button>
+          <button id="step-1" class="btn btn-primary">step1</button>
+          <button id="step-2" class="btn btn-primary">step2</button>
+          <button id="step-3" class="btn btn-primary">step3</button>
+          <button id="next-step" class="btn btn-primary">next</button>
+        </div>
+        <div>
+          <ul class="stepper" id="stepper-buttons">
+            <li class="stepper-step stepper-active">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 1 </span>
+                <span class="stepper-head-text"> step1 </span>
+              </div>
+              <div class="stepper-content py-3">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua
+              </div>
+            </li>
+            <li class="stepper-step">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 2 </span>
+                <span class="stepper-head-text"> step2 </span>
+              </div>
+              <div class="stepper-content py-3">
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat
+              </div>
+            </li>
+            <li class="stepper-step">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 3 </span>
+                <span class="stepper-head-text"> step3 </span>
+              </div>
+              <div class="stepper-content py-3">
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="mb-3">
+            <button id="prev-step" class="btn btn-primary" (click)="stepper.previous()">
+              prev
+            </button>
+            <button id="step-1" class="btn btn-primary" (click)="stepper.setNewActiveStep(0)">
+              step1
+            </button>
+            <button id="step-2" class="btn btn-primary" (click)="stepper.setNewActiveStep(1)">
+              step2
+            </button>
+            <button id="step-3" class="btn btn-primary" (click)="stepper.setNewActiveStep(2)">
+              step3
+            </button>
+            <button id="next-step" class="btn btn-primary" (click)="stepper.next()">next</button>
+          </div>
+          <mdb-stepper>
+            <mdb-step *ngFor="let step of steps" [name]="step.name">
+              {{ step.content }}
+            </mdb-step>
+          </mdb-stepper>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-stepper',
+            templateUrl: './stepper.component.html',
+            styleUrls: ['./stepper.component.scss'],
+          })
+          export class StepperComponent {
+            steps = [
+              {
+                name: 'Step 1',
+                content:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+              },
+              {
+                name: 'Step 2',
+                content:
+                  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat',
+              },
+              {
+                name: 'Step 3',
+                content:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              },
+            ];
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: change step usnig external elements-->
+
+  <hr class="my-5" />
+
+  <!--Section: linear stepper example-->
+  <section id="section-linear-stepper-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Linear stepper</h2>
+    <p>
+      Use <code>[linear]="true"</code> input to enable linear stepper. Linear stepper requires the
+      users to complete previous steps before proceeding to following steps.
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-linear="true">
+        <form class="needs-validation stepper-form" novalidate>
+          <li class="stepper-step stepper-active">
+            <div class="stepper-head">
+              <span class="stepper-head-icon"> 1 </span>
+              <span class="stepper-head-text"> step1 </span>
+            </div>
+            <div class="stepper-content py-3">
+              <div class="form-outline">
+                <input type="text" id="linear-stepper-input-1" class="form-control" required />
+                <label class="form-label" for="linear-stepper-input-1">step 1</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </div>
+          </li>
+          <li class="stepper-step">
+            <div class="stepper-head">
+              <span class="stepper-head-icon"> 2 </span>
+              <span class="stepper-head-text"> step2 </span>
+            </div>
+            <div class="stepper-content py-3">
+              <div class="form-outline">
+                <input type="text" id="linear-stepper-input-2" class="form-control" required />
+                <label class="form-label" for="linear-stepper-input-2">step 2</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </div>
+          </li>
+          <li class="stepper-step">
+            <div class="stepper-head">
+              <span class="stepper-head-icon"> 3 </span>
+              <span class="stepper-head-text"> step3 </span>
+            </div>
+            <div class="stepper-content py-3">
+              <div class="form-outline">
+                <input type="text" id="linear-stepper-input-3" class="form-control" required />
+                <label class="form-label" for="linear-stepper-input-3">step 3</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+          </li>
+        </form>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-stepper [linear]="true">
+            <mdb-step [stepForm]="firstFormGroup" [name]="'Step 1'">
+              <form [formGroup]="firstFormGroup">
+                <mdb-form-control>
+                  <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="step1"
+                    class="form-control"
+                    formControlName="firstStep"
+                  />
+                  <label mdbLabel class="form-label" for="step1">Step 1</label>
+                </mdb-form-control>
+              </form>
+            </mdb-step>
+            <mdb-step [stepForm]="secondFormGroup" [name]="'Step 2'">
+              <form [formGroup]="secondFormGroup">
+                <mdb-form-control>
+                  <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="step2"
+                    class="form-control"
+                    formControlName="secondStep"
+                  />
+                  <label mdbLabel class="form-label" for="step2">Step 2</label>
+                </mdb-form-control>
+              </form>
+            </mdb-step>
+            <mdb-step [name]="'Step 3'">
+              <mdb-form-control>
+                <input mdbInput mdbValidate type="text" id="step3" class="form-control" />
+                <label mdbLabel class="form-label" for="step3">Step 3</label>
+              </mdb-form-control>
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </mdb-step>
+          </mdb-stepper>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+          @Component({
+            selector: 'app-stepper',
+            templateUrl: './stepper.component.html',
+            styleUrls: ['./stepper.component.scss'],
+          })
+          export class StepperComponent implements OnInit {
+            firstFormGroup: FormGroup;
+            secondFormGroup: FormGroup;
+
+            ngOnInit(): void {
+              this.firstFormGroup = new FormGroup({
+                firstStep: new FormControl('', [Validators.required]),
+              });
+
+              this.secondFormGroup = new FormGroup({
+                secondStep: new FormControl('', Validators.required),
+              });
+            }
+
+            get firstStep() {
+              return this.firstFormGroup.get('firstStep');
+            }
+            get secondStep() {
+              return this.secondFormGroup.get('secondStep');
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: linear stepper example-->
+
+  <hr class="my-5" />
+
+  <!--Section: No editable stepper example-->
+  <section id="section-no-editable-stepper-example">
+    <!-- Section title -->
+    <h2 class="mb-4">No editable stepper</h2>
+    <p>
+      You can use <code>[editable]="false"</code>input on <code>mdb-step</code> to prevent from
+      editing the completed step again.
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-no-editable="true">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-stepper>
+            <mdb-step *ngFor="let step of steps" [name]="step.name" [editable]="false">
+              {{ step.content }}
+            </mdb-step>
+          </mdb-stepper>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-stepper',
+            templateUrl: './stepper.component.html',
+            styleUrls: ['./stepper.component.scss'],
+          })
+          export class StepperComponent {
+            steps = [
+              {
+                name: 'Step 1',
+                content:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+              },
+              {
+                name: 'Step 2',
+                content:
+                  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat',
+              },
+              {
+                name: 'Step 3',
+                content:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              },
+            ];
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: No editable stepper example-->
+
+  <hr class="my-5" />
+
+  <!--Section: vertical stepper example-->
+  <section id="section-vertical-stepper-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Vertical stepper</h2>
+    <p>Use <code>[orientation]="'vertical'"</code> to change stepper orientation to vertical.</p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-type="vertical">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span
+              >Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui,
+              non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</span
+            >
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span
+              >Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui,
+              non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</span
+            >
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span
+              >Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui,
+              non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</span
+            >
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-stepper [orientation]="'vertical'">
+            <mdb-step *ngFor="let step of steps" [name]="step.name" [editable]="false">
+              {{ step.content }}
+            </mdb-step>
+          </mdb-stepper>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-stepper',
+            templateUrl: './stepper.component.html',
+            styleUrls: ['./stepper.component.scss'],
+          })
+          export class StepperComponent {
+            steps = [
+              {
+                name: 'Step 1',
+                content:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+              },
+              {
+                name: 'Step 2',
+                content:
+                  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat',
+              },
+              {
+                name: 'Step 3',
+                content:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              },
+            ];
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: vertical stepper example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Mobile example-->
+  <section id="section-mobile-stepper-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Mobile stepper</h2>
+    <p>
+      Use <code>[mobile]="true"</code>input on stepper with horizontal orientation to change
+      component view to mobile.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-type="mobile">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-stepper [mobile]="true">
+            <mdb-step *ngFor="let step of steps" [name]="step.name">
+              {{ step.content }}
+            </mdb-step>
+          </mdb-stepper>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-stepper',
+            templateUrl: './stepper.component.html',
+            styleUrls: ['./stepper.component.scss'],
+          })
+          export class StepperComponent {
+            steps = [
+              {
+                name: 'Step 1',
+                content:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+              },
+              {
+                name: 'Step 2',
+                content:
+                  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat',
+              },
+              {
+                name: 'Step 3',
+                content:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              },
+            ];
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Mobile example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Mobile progress bar example-->
+  <section id="section-mobile-stpper-progress-bar-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Mobile stepper progress bar</h2>
+    <p>
+      If the mobile stepper contains more than 4 steps, the progress bar will be displayed by
+      default instead of dots. You can edit the step limit with the
+      <code>mobileBarBreakpoint</code> input.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-type="mobile">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 4 </span>
+            <span class="stepper-head-text"> step4 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 4 </span>
+            <span class="stepper-head-text"> step4 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-stepper [mobile]="true">
+            <mdb-step *ngFor="let step of steps" [name]="step.name">
+              {{ step.content }}
+            </mdb-step>
+          </mdb-stepper>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-stepper',
+            templateUrl: './stepper.component.html',
+            styleUrls: ['./stepper.component.scss'],
+          })
+          export class StepperComponent {
+            steps = [
+              {
+                name: 'Step 1',
+                content:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+              },
+              {
+                name: 'Step 2',
+                content:
+                  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat',
+              },
+              {
+                name: 'Step 3',
+                content:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              },
+              {
+                name: 'Step 4',
+                content:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              },
+              {
+                name: 'Step 5',
+                content:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              },
+            ];
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Mobile progress bar example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Optional step example-->
+  <section id="section-optional-step-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Optional step</h2>
+    <p>
+      You can mark a step as optional by adding
+      <code>[optional]="true"</code> to it.
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper">
+        <form class="needs-validation stepper-form" novalidate>
+          <li class="stepper-step stepper-active">
+            <div class="stepper-head">
+              <span class="stepper-head-icon"> 1 </span>
+              <span class="stepper-head-text"> step1 </span>
+            </div>
+            <div class="stepper-content py-3">
+              <div class="form-outline">
+                <input type="text" id="optional-stepper-input-1" class="form-control" required />
+                <label class="form-label" for="optional-stepper-input-1">step 1</label>
+              </div>
+            </div>
+          </li>
+          <li class="stepper-step" data-mdb-stepper-optional="true">
+            <div class="stepper-head">
+              <span class="stepper-head-icon"> 2 </span>
+              <span class="stepper-head-text"> step2 </span>
+            </div>
+            <div class="stepper-content py-3">
+              <div class="form-outline">
+                <input type="text" id="optional-stepper-input-2" class="form-control" required />
+                <label class="form-label" for="optional-stepper-input-2">step 2</label>
+              </div>
+            </div>
+          </li>
+          <li class="stepper-step">
+            <div class="stepper-head">
+              <span class="stepper-head-icon"> 3 </span>
+              <span class="stepper-head-text"> step3 </span>
+            </div>
+            <div class="stepper-content py-3">
+              <div class="form-outline">
+                <input type="text" id="optional-stepper-input-3" class="form-control" required />
+                <label class="form-label" for="optional-stepper-input-3">step 3</label>
+              </div>
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+          </li>
+        </form>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-stepper [linear]="true">
+            <mdb-step [stepForm]="firstFormGroup" [name]="'Step 1'">
+              <form [formGroup]="firstFormGroup">
+                <mdb-form-control>
+                  <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="step1"
+                    class="form-control"
+                    formControlName="firstStep"
+                  />
+                  <label mdbLabel class="form-label" for="step1">Step 1</label>
+                </mdb-form-control>
+              </form>
+            </mdb-step>
+            <mdb-step [stepForm]="secondFormGroup" [name]="'Step 2'" [optional]="true">
+              <form [formGroup]="secondFormGroup">
+                <mdb-form-control>
+                  <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="step2"
+                    class="form-control"
+                    formControlName="secondStep"
+                  />
+                  <label mdbLabel class="form-label" for="step2">Step 2</label>
+                </mdb-form-control>
+              </form>
+            </mdb-step>
+            <mdb-step [name]="'Step 3'">
+              <mdb-form-control>
+                <input mdbInput mdbValidate type="text" id="step3" class="form-control" />
+                <label mdbLabel class="form-label" for="step3">Step 3</label>
+              </mdb-form-control>
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </mdb-step>
+          </mdb-stepper>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+          @Component({
+            selector: 'app-stepper',
+            templateUrl: './stepper.component.html',
+            styleUrls: ['./stepper.component.scss'],
+          })
+          export class StepperComponent implements OnInit {
+            firstFormGroup: FormGroup;
+            secondFormGroup: FormGroup;
+
+            ngOnInit(): void {
+              this.firstFormGroup = new FormGroup({
+                firstStep: new FormControl('', [Validators.required]),
+              });
+
+              this.secondFormGroup = new FormGroup({
+                secondStep: new FormControl('', Validators.required),
+              });
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Optional step example-->
+
+  <hr class="my-5" />
+
+  <!--Section: custom icons example-->
+  <section id="section-custom-icons-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom icons</h2>
+    <p>
+      if you want to use an icon instead of a step number you can do it by placing icon HTML code
+      inside <code>ng-template</code> with <code>mdbStepperIcon</code> directive.
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon">
+              <i class="fas fa-user"></i>
+            </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="custom-icon-input-1" class="form-control" required />
+                <label class="form-label" for="custom-icon-input-1">step 1</label>
+              </div>
+            </form>
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="custom-icon-input-2" class="form-control" required />
+                <label class="form-label" for="custom-icon-input-2">step 2</label>
+              </div>
+            </form>
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon">
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="custom-icon-input-3" class="form-control" required />
+                <label class="form-label" for="custom-icon-input-3">step 3</label>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-stepper>
+            <mdb-step [name]="'Step 1'">
+              <ng-template mdbStepIcon>
+                <i class="fas fa-user"></i>
+              </ng-template>
+
+              <mdb-form-control>
+                <input mdbInput mdbValidate type="text" id="icon1" class="form-control" />
+                <label mdbLabel class="form-label" for="icon1">Step 1</label>
+              </mdb-form-control>
+            </mdb-step>
+
+            <mdb-step [name]="'Step 2'">
+              <ng-template mdbStepIcon>
+                <i class="fas fa-envelope"></i>
+              </ng-template>
+
+              <mdb-form-control>
+                <input mdbInput mdbValidate type="text" id="icon2" class="form-control" />
+                <label mdbLabel class="form-label" for="icon2">Step 2</label>
+              </mdb-form-control>
+            </mdb-step>
+
+            <mdb-step [name]="'Step 3'">
+              <ng-template mdbStepIcon>
+                <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              </ng-template>
+
+              <mdb-form-control>
+                <input mdbInput mdbValidate type="text" id="icon3" class="form-control" />
+                <label mdbLabel class="form-label" for="icon3">Step 3</label>
+              </mdb-form-control>
+            </mdb-step>
+          </mdb-stepper>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: custom icons example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Form wizard-->
+  <section id="section-form-wizard">
+    <!-- Section title -->
+    <h2 class="mb-4">Form wizard</h2>
+
+    <!--Description-->
+    <p>An example of so-called "Form wizard" with multiple inputs on each step.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 text-center mb-4">
+      <!-- Form wizrd -->
+      <div>
+        <!-- Steps -->
+        <ul class="stepper" id="stepper-form-example" data-mdb-stepper-linear="true">
+          <form class="needs-validation stepper-form">
+            <!-- First step -->
+            <li class="stepper-step stepper-active">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 1 </span>
+                <span class="stepper-head-text"> step1 </span>
+              </div>
+              <div class="stepper-content py-3">
+                <div class="form-outline mb-4">
+                  <input type="text" id="stepper-form-first-name" class="form-control" required />
+                  <label class="form-label" for="stepper-form-first-name"
+                    >First name <small class="text-muted">(required)</small></label
+                  >
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="stepper-form-last-name" class="form-control" required />
+                  <label class="form-label" for="stepper-form-last-name"
+                    >Last name <small class="text-muted">(required)</small></label
+                  >
+                </div>
+              </div>
+            </li>
+            <!-- First step -->
+
+            <!-- Second step -->
+            <li class="stepper-step">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 2 </span>
+                <span class="stepper-head-text"> step2 </span>
+              </div>
+              <div class="stepper-content py-3">
+                <div class="form-outline mb-4">
+                  <input type="text" id="form6Example3" class="form-control" required />
+                  <label class="form-label" for="form6Example3"
+                    >Company name <small class="text-muted">(required)</small></label
+                  >
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="form6Example4" class="form-control" required />
+                  <label class="form-label" for="form6Example4"
+                    >Address <small class="text-muted">(required)</small></label
+                  >
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="email" id="form6Example5" class="form-control" required />
+                  <label class="form-label" for="form6Example5"
+                    >Email <small class="text-muted">(required)</small></label
+                  >
+                </div>
+              </div>
+            </li>
+            <!-- Second step -->
+
+            <!-- Third step -->
+            <li class="stepper-step">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 3 </span>
+                <span class="stepper-head-text"> step3 </span>
+              </div>
+              <div class="stepper-content py-3">
+                <div class="form-outline mb-4">
+                  <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+                  <label class="form-label" for="form6Example7">Additional information</label>
+                </div>
+
+                <div class="form-check d-flex justify-content-center mb-4">
+                  <input
+                    class="form-check-input me-2"
+                    type="checkbox"
+                    value=""
+                    id="form6Example8"
+                    checked
+                  />
+                  <label class="form-check-label" for="form6Example8">
+                    Create an account?
+                  </label>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-block mb-4">
+                  Place order
+                </button>
+              </div>
+            </li>
+            <!-- Third step -->
+          </form>
+        </ul>
+        <!-- Steps -->
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center px-3">
+          <button id="form-example-prev-step" class="btn btn-primary w-100 me-2">
+            Previous step
+          </button>
+          <button id="form-example-next-step" class="btn btn-primary w-100">
+            Next step
+          </button>
+        </div>
+        <!-- Buttons -->
+      </div>
+      <!-- Form wizrd -->
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-stepper #stepper [linear]="true">
+            <mdb-step [stepForm]="firstFormGroup" [name]="'Step 1'">
+              <form [formGroup]="firstFormGroup">
+                <mdb-form-control>
+                  <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="first-name"
+                    class="form-control"
+                    formControlName="firstName"
+                  />
+                  <label mdbLabel class="form-label" for="first-name"
+                    >First name <span class="text-muted">(required)</span></label
+                  >
+                </mdb-form-control>
+
+                <mdb-form-control>
+                  <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="last-name"
+                    class="form-control"
+                    formControlName="lastName"
+                  />
+                  <label mdbLabel class="form-label" for="last-name"
+                    >Last name <span class="text-muted">(required)</span></label
+                  >
+                </mdb-form-control>
+              </form>
+            </mdb-step>
+            <mdb-step [stepForm]="secondFormGroup" [name]="'Step 2'">
+              <form [formGroup]="secondFormGroup">
+                <mdb-form-control>
+                  <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="company-name"
+                    class="form-control"
+                    formControlName="companyName"
+                  />
+                  <label mdbLabel class="form-label" for="company-name"
+                    >Company name <span class="text-muted">(required)</span></label
+                  >
+                </mdb-form-control>
+
+                <mdb-form-control>
+                  <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="address"
+                    class="form-control"
+                    formControlName="address"
+                  />
+                  <label mdbLabel class="form-label" for="address"
+                    >Address <span class="text-muted">(required)</span></label
+                  >
+                </mdb-form-control>
+
+                <mdb-form-control>
+                  <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="email"
+                    class="form-control"
+                    formControlName="email"
+                  />
+                  <label mdbLabel class="form-label" for="email"
+                    >Email <span class="text-muted">(required)</span></label
+                  >
+                </mdb-form-control>
+              </form>
+            </mdb-step>
+            <mdb-step [name]="'Step 3'">
+              <mdb-form-control class="mb-4">
+                <textarea mdbInput class="form-control" id="additional-info" rows="4"></textarea>
+                <label mdbLabel class="form-label" for="additional-info"
+                  >Additional information</label
+                >
+              </mdb-form-control>
+
+              <div class="form-check d-flex justify-content-center mb-4">
+                <input
+                  mdbCheckbox
+                  class="form-check-input me-2"
+                  type="checkbox"
+                  value=""
+                  id="crate-account"
+                  [checked]="true"
+                />
+                <label class="form-check-label" for="create-account"> Create an account? </label>
+              </div>
+
+              <button type="submit" class="btn btn-success btn-block mb-4">Place order</button>
+            </mdb-step>
+          </mdb-stepper>
+
+          <!-- Buttons -->
+          <div class="d-flex justify-content-center px-3">
+            <button
+              id="form-example-prev-step"
+              class="btn btn-primary w-100 me-2"
+              (click)="stepper.previous()"
+            >
+              Previous step
+            </button>
+            <button
+              id="form-example-next-step"
+              class="btn btn-primary w-100"
+              (click)="stepper.next()"
+            >
+              Next step
+            </button>
+          </div>
+          <!-- Buttons -->
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+          @Component({
+            selector: 'app-stepper',
+            templateUrl: './stepper.component.html',
+            styleUrls: ['./stepper.component.scss'],
+          })
+          export class StepperComponent implements OnInit {
+            firstFormGroup: FormGroup;
+            secondFormGroup: FormGroup;
+
+            ngOnInit(): void {
+              this.firstFormGroup = new FormGroup({
+                firstName: new FormControl('', [Validators.required]),
+                lastName: new FormControl('', [Validators.required]),
+              });
+
+              this.secondFormGroup = new FormGroup({
+                companyName: new FormControl('', [Validators.required]),
+                address: new FormControl('', [Validators.required]),
+                email: new FormControl('', [Validators.required, Validators.email]),
+              });
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Form wizard-->
+
+  <hr class="my-5" />
+
+  <!--Section: Toggle to vertical example-->
+  <section id="section-toggle-to-vertical-or-mobile-on-smaller-screens-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Toggle to vertical or mobile on smaller screens</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul
+        class="stepper"
+        data-mdb-stepper="stepper"
+        data-mdb-stepper-vertical-breakpoint="768"
+        data-mdb-stepper-mobile-breakpoint="400"
+      >
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua</span
+            >
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-stepper>
+            <mdb-step *ngFor="let step of steps" [name]="step.name">
+              {{ step.content }}
+            </mdb-step>
+          </mdb-stepper>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component, OnInit, NgZone } from '@angular/core';
+
+          @Component({
+            selector: 'app-stepper',
+            templateUrl: './stepper.component.html',
+            styleUrls: ['./stepper.component.scss'],
+          })
+          export class StepperComponent implements OnInit {
+            steps = [
+              {
+                name: 'Step 1',
+                content:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+              },
+              {
+                name: 'Step 2',
+                content:
+                  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat',
+              },
+              {
+                name: 'Step 3',
+                content:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+              },
+            ];
+
+            verticalBreakpoint = 768;
+            mobileBreakpoint = 400;
+
+            constructor(private _ngZone: NgZone) {}
+
+            ngOnInit(): void {
+              this._ngZone.runOutsideAngular(() => {
+                fromEvent(window, 'resize').subscribe((event: any) => {
+                  if (event.target.innerWidth <= this.verticalBreakpoint) {
+                    this._ngZone.run(() => {
+                      this.orientation = 'vertical';
+                    });
+                  }
+                  if (event.target.innerWidth <= this.mobileBreakpoint) {
+                    this._ngZone.run(() => {
+                      this.orientation = 'horizontal';
+                      this.isMobile = true;
+                    });
+                  }
+                  if (event.target.innerWidth > this.verticalBreakpoint) {
+                    this._ngZone.run(() => {
+                      this.orientation = 'horizontal';
+                      this.isMobile = false;
+                    });
+                  }
+                });
+              });
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Toggle to vertical example-->
+</section>
+<!--Section: Docs content-->
