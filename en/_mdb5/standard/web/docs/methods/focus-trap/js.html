@@ -1,0 +1,40 @@
+<script type="text/javascript">
+  const newTrapOneEls = document.querySelectorAll('.trapped-one');
+      const newTrapVisibilityEl = document.querySelector('.trapped-visibility');
+      const toggleVisibilityButtonEl = document.querySelector('.visibility-btn');
+      const customEventEl = document.querySelector('.custom-event');
+      const customEvent = new mdb.FocusTrap(customEventEl, { event: 'click' });
+      customEvent.trap();
+      customEventEl.classList.add('text-white', 'bg-secondary');
+
+      const conditionEl = document.querySelector('.condition');
+      const conditionCheckbox = document.querySelector('#condition-checkbox');
+      const condition = new mdb.FocusTrap(conditionEl, {
+        condition: (e) => {
+          return false;
+        },
+      });
+      condition.trap();
+
+      window.addEventListener('customBlur', (e) => {
+        console.log('hello');
+      });
+
+      const newTrapVisibility = new mdb.FocusTrap(newTrapVisibilityEl);
+      newTrapVisibilityEl.classList.add('text-white', 'bg-secondary');
+
+      newTrapVisibility.trap();
+
+      toggleVisibilityButtonEl.addEventListener('click', (e) => {
+        const inputToHide = document.querySelector(`#hidden-allowed`);
+        inputToHide.classList.toggle('hidden');
+        newTrapVisibility.update();
+      });
+
+      newTrapOneEls.forEach((el) => {
+        const newTrapOne = new mdb.FocusTrap(el);
+        el.classList.add('text-white', 'bg-secondary');
+
+        newTrapOne.trap();
+      });
+</script>
