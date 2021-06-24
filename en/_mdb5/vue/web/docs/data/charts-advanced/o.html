@@ -1,0 +1,856 @@
+<!--Section: Docs content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold" style="line-height: 0.8;">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/b5/vue/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span> 
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">This documentation provides examples of advanced chart usage.</p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the
+      <a href="https://mdbootstrap.com/docs/b5/vue/data/charts/"
+        ><strong>API</strong> tab in the basic chart docs</a
+      >
+      to find all available options and advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Options-->
+  <section id="section-options">
+    <!-- Section title -->
+    <h2 class="mb-4">Options</h2>
+
+    <p>In most cases, working with advanced charts is related to the handling of options.</p>
+
+    <p>
+      MDB provides default options for each chart - you can easily change that by passing an object
+      with your custom options to the Chart constructor.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-options-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBChart
+              type="bar"
+              :data="chartOptionsData"
+              :options="chartOptionsOptions"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBChart } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            export default {
+              components: {
+                MDBChart
+              },
+              setup() {
+                const chartOptionsData = ref({
+                  labels: ["January", "February", "March", "April", "May", "June"],
+                  datasets: [
+                    {
+                      label: "Traffic",
+                      data: [30, 15, 62, 65, 61, 6],
+                      backgroundColor: [
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)"
+                      ],
+                      borderColor: [
+                        "rgba(255,99,132,1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                        "rgba(75, 192, 192, 1)",
+                        "rgba(153, 102, 255, 1)",
+                        "rgba(255, 159, 64, 1)"
+                      ],
+                      borderWidth: 1
+                    }
+                  ]
+                });
+                const chartOptionsOptions = ref({
+                  scales: {
+                    x: {
+                      ticks: {
+                        color: "#4285F4"
+                      }
+                    },
+                    y: {
+                      ticks: {
+                        color: "#f44242"
+                      }
+                    }
+                  }
+                });
+                return {
+                  chartOptionsData,
+                  chartOptionsOptions
+                };
+              }
+            };
+          </script>
+        </code> 
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Options-->
+
+  <hr class="my-5" />
+
+  <!--Section: Mixed-->
+  <section id="section-mixed">
+    <!-- Section title -->
+    <h2 class="mb-4">Mixed</h2>
+
+    <p>
+      With MDB it is possible to create mixed charts that are a combination of two or more different
+      chart types. A common example is a bar chart that also includes a line dataset.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-mixed-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBChart type="bar" :data="chartMixedData" />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBChart } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            export default {
+              components: {
+                MDBChart
+              },
+              setup() {
+                const chartMixedData = ref({
+                  labels: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday "
+                  ],
+                  datasets: [
+                    // First dataset (bar)
+                    {
+                      label: "Impressions",
+                      data: [2112, 2343, 2545, 3423, 2365, 1985, 987],
+                      order: 2
+                    },
+                    // Second dataset (line)
+                    {
+                      label: "Impressions (absolute top) %",
+                      data: [211, 2543, 2745, 3123, 2765, 1485, 587],
+                      type: "line",
+                      order: 1,
+                      backgroundColor: "rgba(66, 133, 244, 0.0)",
+                      borderColor: "#94DFD7",
+                      borderWidth: 2,
+                      pointBorderColor: "#94DFD7",
+                      pointBackgroundColor: "#94DFD7",
+                      lineTension: 0.0
+                    }
+                  ]
+                });
+                return {
+                  chartMixedData
+                };
+              }
+            };
+          </script>
+        </code> 
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Mixed-->
+
+  <hr class="my-5" />
+
+  <!--Section: Data labels-->
+  <section id="section-data-labels">
+    <!-- Section title -->
+    <h2 class="mb-4">Data labels</h2>
+
+    <p>
+      Add <code>datalabels</code> property to display values directly on a
+      graph.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-data-mdb-labels-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBChart
+              type="pie"
+              :data="dataLabelsData"
+              :options="dataLabelsOptions"
+              datalabels
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBChart } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            export default {
+              components: {
+                MDBChart
+              },
+              setup() {
+                const dataLabelsData = ref({
+                  labels: ["January", "February", "March", "April", "May"],
+                  datasets: [
+                    {
+                      label: "Traffic",
+                      data: [30, 45, 62, 65, 61],
+                      backgroundColor: [
+                        "rgba(63, 81, 181, 0.5)",
+                        "rgba(77, 182, 172, 0.5)",
+                        "rgba(66, 133, 244, 0.5)",
+                        "rgba(156, 39, 176, 0.5)",
+                        "rgba(233, 30, 99, 0.5)"
+                      ]
+                    }
+                  ]
+                });
+                const dataLabelsOptions = {
+                  plugins: {
+                    datalabels: {
+                      formatter: value => {
+                        let sum = 0;
+                        // Assign the data to the variable and format it according to your needs
+                        let dataArr = dataLabelsData.value.datasets[0].data;
+                        dataArr.map(data => {
+                          sum += data;
+                        });
+                        let percentage = ((value * 100) / sum).toFixed(2) + "%";
+                        return percentage;
+                      },
+                      color: "white",
+                      labels: {
+                        title: {
+                          font: {
+                            size: "14"
+                          }
+                        }
+                      }
+                    }
+                  }
+                };
+                return {
+                  dataLabelsData,
+                  dataLabelsOptions
+                };
+              }
+            };
+          </script>
+        </code> 
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Data labels-->
+
+  <hr class="my-5" />
+
+  <!--Section: Double Y axis-->
+  <section id="section-double-y-axis">
+    <!-- Section title -->
+    <h2 class="mb-4">Double Y axis</h2>
+
+    <p>
+      In the example below we created chart with double Y axis with 2 datasets, each one with
+      completely different data range.
+    </p>
+
+    <p>
+      Such a construction requires a scale adjustment, so the left axis is assigned and adjusted to
+      the first dataset, and the right axis to the second dataset.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-double-y-axis-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBChart
+              type="line"
+              :data="doubleYAxisData"
+              :options="doubleYAxisOptions"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBChart } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            export default {
+              components: {
+                MDBChart
+              },
+              setup() {
+                const doubleYAxisData = ref({
+                  labels: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday "
+                  ],
+                  datasets: [
+                    {
+                      label: "Impressions",
+                      data: [2112, 2343, 2545, 3423, 2365, 1985, 987],
+                      order: 1,
+                      yAxisID: "y"
+                    },
+                    {
+                      label: "Impressions (absolute top) %",
+                      yAxisID: "y2",
+                      data: [1.5, 2, 0.5, 3, 1.2, 4, 3.4],
+                      type: "line",
+                      order: 0,
+                      backgroundColor: "rgba(66, 133, 244, 0.0)",
+                      borderColor: "#94DFD7",
+                      borderWidth: 2,
+                      pointBorderColor: "#94DFD7",
+                      pointBackgroundColor: "#94DFD7",
+                      lineTension: 0.0
+                    }
+                  ]
+                });
+                const doubleYAxisOptions = ref({
+                  scales: {
+                    y1: {
+                      stacked: false,
+                      position: "left",
+                      grid: {
+                        drawOnChartArea: false,
+                        drawBorder: false,
+                        drawTicks: false
+                      },
+                      ticks: {
+                        display: false
+                      }
+                    },
+                    y2: {
+                      stacked: false,
+                      position: "right",
+                      grid: {
+                        drawOnChartArea: false
+                      },
+                      ticks: {
+                        beginAtZero: true
+                      }
+                    }
+                  }
+                });
+                return {
+                  doubleYAxisData,
+                  doubleYAxisOptions
+                };
+              }
+            };
+          </script>
+        </code> 
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Double Y axis-->
+
+  <hr class="my-5" />
+
+  <!--Section: Funnel-->
+  <section id="section-funnel">
+    <!-- Section title -->
+    <h2 class="mb-4">Funnel</h2>
+
+    <p>
+      Example of horizontal bar chart with custom options and labels formatting (calculating
+      integers numbers into percentages).
+    </p>
+
+    <p>This data visualization is often used to visualize the flow of the website traffic.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-funnel-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBChart
+              type="bar"
+              :data="funnelChartData"
+              :options="funnelChartOptions"
+              datalabels
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBChart } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            export default {
+              components: {
+                MDBChart
+              },
+              setup() {
+                const funnelChartData = ref({
+                  labels: ["Product views", "Checkout", "Purchases"],
+                  datasets: [
+                    {
+                      data: [2112, 343, 45],
+                      barPercentage: 1.24
+                    }
+                  ]
+                });
+                // Options
+                const funnelChartOptions = ref({
+                  indexAxis: "y",
+                  scales: {
+                    x: {
+                      gridLines: {
+                        offsetGridLines: true
+                      }
+                    }
+                  },
+                  plugins: {
+                    legend: {
+                      display: false
+                    },
+                    datalabels: {
+                      formatter: value => {
+                        let sum = 0;
+                        let dataArr = funnelChartData.value.datasets[0].data;
+                        dataArr.map(data => {
+                          sum += data;
+                        });
+                        let percentage = ((value * 100) / sum).toFixed(2) + "%";
+                        return percentage;
+                      },
+                      color: "#4f4f4f",
+                      labels: {
+                        title: {
+                          font: {
+                            size: "13"
+                          },
+                          anchor: "end",
+                          align: "right"
+                        }
+                      }
+                    }
+                  }
+                });
+                return {
+                  funnelChartData,
+                  funnelChartOptions
+                };
+              }
+            };
+          </script>
+        </code> 
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Funnel-->
+
+  <hr class="my-5" />
+
+  <!--Section: Formatting values on the Y axes-->
+  <section id="section-formatting-values-on-the-y-axes">
+    <!-- Section title -->
+    <h2 class="mb-4">Formatting values on the Y axes</h2>
+
+    <p>In the example below we simply add "$" before each value on the Y axis.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-values-formatting-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBChart
+              type="bar"
+              :data="formattingValueData"
+              :options="formattingValueOptions"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBChart } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            export default {
+              components: {
+                MDBChart
+              },
+              setup() {
+                const formattingValueData = ref({
+                  labels: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday "
+                  ],
+                  datasets: [
+                    {
+                      label: "Sales",
+                      data: [2112, 2343, 2545, 3423, 2365, 1985, 987]
+                    }
+                  ]
+                });
+                // Options
+                const formattingValueOptions = ref({
+                  scales: {
+                    y: {
+                      ticks: {
+                        callback: function(value) {
+                          return "$" + value;
+                        }
+                      }
+                    }
+                  }
+                });
+                return {
+                  formattingValueData,
+                  formattingValueOptions
+                };
+              }
+            };
+          </script>
+        </code> 
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Formatting values on the Y axes-->
+
+  <hr class="my-5" />
+
+  <!--Section: Formatting values in the tooltips-->
+  <section id="section-formatting-values-in-the-tooltips">
+    <!-- Section title -->
+    <h2 class="mb-4">Formatting values in the tooltips</h2>
+
+    <p>In the example below we simply add "$" before each value displayed in the tooltips.</p>
+
+    <p>Hover the line of the chart to see the tooltip.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-tooltips-formatting-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBChart
+              type="line"
+              :data="formattingTooltipData"
+              :options="formattingTooltipOptions"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBChart } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            export default {
+              components: {
+                MDBChart
+              },
+              setup() {
+                const formattingTooltipData = ref({
+                  labels: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday "
+                  ],
+                  datasets: [
+                    {
+                      label: "Sales",
+                      data: [2112, 2343, 2545, 3423, 2365, 1985, 987]
+                    }
+                  ]
+                });
+                // Options
+                const formattingTooltipOptions = ref({
+                  plugins: {
+                    tooltip: {
+                      callbacks: {
+                        label: function(value) {
+                          return `$ ${value.parsed.y}`;
+                        }
+                      }
+                    }
+                  }
+                });
+                return {
+                  formattingTooltipData,
+                  formattingTooltipOptions
+                };
+              }
+            };
+          </script>
+        </code> 
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Formatting values in the tooltips-->
+
+  <hr class="my-5" />
+
+  <!--Section: Double datasets in a bar chart-->
+  <section id="section-double-datasets-in-a-bar-chart">
+    <!-- Section title -->
+    <h2 class="mb-4">Double datasets in a bar chart</h2>
+
+    <p>Example of the double datasets in a bar chart.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-bar-double-datasets-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBChart
+              type="bar"
+              :data="doubleDatasetsData"
+              :options="doubleDatasetsOptions"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBChart } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            export default {
+              components: {
+                MDBChart
+              },
+              setup() {
+                const doubleDatasetsData = ref({
+                  labels: ["Desktop", "Mobile", "Tablet"],
+                  datasets: [
+                    {
+                      label: "Users",
+                      data: [510, 653, 255]
+                    },
+                    {
+                      label: "Page views",
+                      data: [1251, 1553, 1355],
+                      backgroundColor: "#94DFD7",
+                      borderColor: "#94DFD7"
+                    }
+                  ]
+                });
+                // Options
+                const doubleDatasetsOptions = ref({
+                  scales: {
+                    y: {
+                      stacked: false,
+                      ticks: {
+                        beginAtZero: true
+                      }
+                    },
+                    x: {
+                      stacked: false
+                    }
+                  }
+                });
+                return {
+                  doubleDatasetsData,
+                  doubleDatasetsOptions
+                };
+              }
+            };
+          </script>
+        </code> 
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Double datasets in a bar chart-->
+
+  <hr class="my-5" />
+
+  <!--Section: Async data-->
+  <section id="section-async-data">
+    <!-- Section title -->
+    <h2 class="mb-4">Async data</h2>
+
+    <p>Example of the fetching data from the JSON file.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div id="chart-async-data-example"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBChart
+              type="bar"
+              :data="asyncData"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBChart } from "mdb-vue-ui-kit";
+            import { ref, onMounted } from "vue";
+            export default {
+              components: {
+                MDBChart
+              },
+              setup() {
+                const asyncData = ref({});
+                onMounted(() => {
+                  fetch(
+                    "https://api.covid19api.com/total/country/poland/status/confirmed?from=2020-10-01T00:00:00Z&to=2020-12-01T00:00:00Z"
+                  )
+                    .then(data => data.json())
+                    .then(data => {
+                      const dataset = data.map(obj => obj["Cases"]);
+                      const labels = data.map(obj => obj["Date"].substr(0, 10));
+                      asyncData.value = {
+                        labels,
+                        datasets: [
+                          {
+                            color: "#FFCDD2",
+                            data: dataset,
+                            label: "Number of cases",
+                            borderColor: dataset.color
+                          }
+                        ]
+                      };
+                    });
+                });
+                return {
+                  asyncData
+                };
+              }
+            };
+          </script>
+        </code> 
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Async data-->
+</section>
+<!--Section: Docs content-->
