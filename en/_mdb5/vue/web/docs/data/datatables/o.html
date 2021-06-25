@@ -1788,17 +1788,23 @@
                 };
                 const setActions = () => {
                   document.getElementsByClassName("call-btn").forEach(btn => {
-                    btn.addEventListener("click", () => {
-                      console.log(`call ${btn.attributes["data-mdb-number"].value}`);
-                    });
+                    if (btn.getAttribute("click-listener") !== "true") {
+                      btn.addEventListener("click", () => {
+                        console.log(`call ${btn.attributes["data-mdb-number"].value}`);
+                      });
+                      btn.setAttribute("click-listener", "true");
+                    }
                   });
 
                   document.getElementsByClassName("message-btn").forEach(btn => {
-                    btn.addEventListener("click", () => {
-                      console.log(
-                        `send a message to ${btn.attributes["data-mdb-email"].value}`
-                      );
-                    });
+                    if (btn.getAttribute("click-listener") !== "true") {
+                      btn.addEventListener("click", () => {
+                        console.log(
+                          `send a message to ${btn.attributes["data-mdb-email"].value}`
+                        );
+                      });
+                      btn.setAttribute("click-listener", "true");
+                    }
                   });
                 };
 
