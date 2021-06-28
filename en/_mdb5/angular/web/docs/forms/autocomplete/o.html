@@ -1,0 +1,905 @@
+<style>
+  .autocomplete-custom-item-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .autocomplete-custom-item-title {
+    font-weight: 500;
+  }
+
+  .autocomplete-custom-item-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .autocomplete-custom-content {
+    padding: 6.5px 16px;
+  }
+</style>
+
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+      <span>
+        <a href="/docs/standard/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p>
+      Autocomplete component predicts the words being typed based on the first few letters given by
+      the user. You can search the list using basic scroll and the keyboard arrows
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="autocomplete" class="form-outline" style="width: 22rem">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-form-control style="width: 22rem">
+            <input
+              mdbInput
+              [ngModel]="searchText | async"
+              (ngModelChange)="searchText.next($event)"
+              [mdbAutocomplete]="autocomplete"
+              type="text"
+              id="autocomplete"
+              class="form-control"
+            />
+            <label mdbLabel class="form-label" for="autocomplete">Example label</label>
+          </mdb-form-control>
+
+          <mdb-autocomplete #autocomplete="mdbAutocomplete">
+            <mdb-option *ngFor="let option of results" [value]="option">
+              {{ option }}
+            </mdb-option>
+            <div *ngIf="notFound" class="autocomplete-no-results">No results found</div>
+          </mdb-autocomplete>
+        </code>
+
+        <code data-lang="js" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { Observable, Subject } from 'rxjs';
+          import {
+            map,
+            startWith,
+            tap,
+          } from 'rxjs/operators';
+
+          @Component({
+            selector: 'app-autocomplete',
+            templateUrl: './autocomplete.component.html',
+            styleUrls: ['./autocomplete.component.scss'],
+          })
+          export class AutocompleteComponent implements OnInit {
+            searchText = new Subject();
+            results: Observable<string[]>;
+            notFound = false;
+
+            data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+
+            constructor() {}
+
+            ngOnInit(): void {
+              this.results = this.searchText.pipe(
+                startWith(''),
+                map((value: string) => this.filter(value)),
+                tap((results: string[]) =>
+                  results.length > 0 ? (this.notFound = false) : (this.notFound = true)
+                )
+              );
+            }
+
+            filter(value: string): string[] {
+              const filterValue = value.toLowerCase();
+              return this.data.filter((item: string) => item.toLowerCase().includes(filterValue));
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Display value-->
+  <section id="section-display-value">
+    <!-- Section title -->
+    <h2 class="mb-4">Display value</h2>
+
+    <p>
+      The <code>displayValue</code> option allow to separate original result value from the value
+      that will be displayed in the result list or input (after selection). Its useful when the data
+      returned by the filter method is an array of objects. You can specify which
+      parameter of the object should be displayed.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="displayValue" class="form-outline" style="width: 22rem">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-form-control style="width: 22rem">
+            <input
+              mdbInput
+              [ngModel]="searchText | async"
+              (ngModelChange)="searchText.next($event)"
+              [mdbAutocomplete]="autocomplete"
+              type="text"
+              id="autocomplete"
+              class="form-control"
+            />
+            <label mdbLabel class="form-label" for="autocomplete">Example label</label>
+          </mdb-form-control>
+
+          <mdb-autocomplete #autocomplete="mdbAutocomplete" [displayValue]="displayValue">
+            <mdb-option *ngFor="let option of results" [value]="option">
+              {{ option.title }}
+            </mdb-option>
+            <div *ngIf="notFound" class="autocomplete-no-results">No results found</div>
+          </mdb-autocomplete>
+        </code>
+
+        <code data-lang="js" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { Observable, Subject } from 'rxjs';
+          import {
+            map,
+            startWith,
+            tap,
+          } from 'rxjs/operators';
+
+          @Component({
+            selector: 'app-autocomplete',
+            templateUrl: './autocomplete.component.html',
+            styleUrls: ['./autocomplete.component.scss'],
+          })
+          export class AutocompleteComponent implements OnInit {
+            searchText = new Subject();
+            results: Observable<string[]>;
+            notFound = false;
+
+            data = [
+              { title: 'One', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+              { title: 'Two', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+              { title: 'Three', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+              { title: 'Four', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+              { title: 'Five', description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit' },
+            ];
+
+            constructor() {}
+
+            ngOnInit(): void {
+              this.results = this.searchText.pipe(
+                startWith(''),
+                map((value: string) => this.filter(value)),
+                tap((results: string[]) =>
+                  results.length > 0 ? (this.notFound = false) : (this.notFound = true)
+                )
+              );
+            }
+
+            filter(value: string): string[] {
+              const filterValue = value.toLowerCase();
+              return this.data.filter((item: string) => item.title.toLowerCase().includes(filterValue));
+            }
+
+            displayValue(value: any): string | undefined {
+              return value ? value.title : undefined;
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Display value-->
+
+  <hr class="my-5" />
+
+  <!--Section: Async search-->
+  <section id="section-async-search">
+    <!-- Section title -->
+    <h2 class="mb-4">Asynchronous search</h2>
+
+    <p>
+      The function passed to the <code>filter</code> option can return a <code>Promise</code> that
+      resolves to an array of results. By default the component expects to receive data as an array
+      of strings. If you want to return an array of objects instead, you can use
+      <code>displayValue</code> option to specify which parameter should be used as a display value
+      of the specific result.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="async" class="form-outline" style="width: 22rem">
+        <input type="text" id="form2" class="form-control" />
+        <label class="form-label" for="form2">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-form-control style="width: 22rem">
+            <input
+              mdbInput
+              [ngModel]="searchText | async"
+              (ngModelChange)="searchText.next($event)"
+              [mdbAutocomplete]="autocomplete"
+              type="text"
+              id="autocomplete"
+              class="form-control"
+            />
+            <label mdbLabel class="form-label" for="autocomplete">Example label</label>
+          </mdb-form-control>
+
+          <mdb-autocomplete #autocomplete="mdbAutocomplete" (opened)="onOpen()">
+            <mdb-option *ngFor="let option of results" [value]="option">
+              {{ option }}
+            </mdb-option>
+            <div *ngIf="notFound" class="autocomplete-no-results">No results found</div>
+          </mdb-autocomplete>
+        </code>
+
+        <code data-lang="js" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { Observable, Subject } from 'rxjs';
+          import {
+            map,
+            startWith,
+            tap,
+            debounceTime,
+            delay
+          } from 'rxjs/operators';
+
+          @Component({
+            selector: 'app-autocomplete',
+            templateUrl: './autocomplete.component.html',
+            styleUrls: ['./autocomplete.component.scss'],
+          })
+          export class AutocompleteComponent implements OnInit {
+            searchText = new Subject();
+            results: Observable<string[]>;
+            notFound = false;
+            loading = false;
+            dataLoaded = false;
+
+            data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+
+            constructor() {}
+
+            ngOnInit(): void {
+              this.results = this.searchText.pipe(
+                debounceTime(250),
+                map((value: string) => this.filter(value)),
+                tap((results: string[]) =>
+                  results.length > 0 ? (this.notFound = false) : (this.notFound = true)
+                )
+              );
+            }
+
+            filter(value: string): string[] {
+              const filterValue = value.toLowerCase();
+              const url = `https://swapi.py4e.com/api/people/?search=${encodeURI(filterValue)}`;
+              this.loading = true;
+
+              return this.http.get(url).pipe(
+                map((data: any) => data.results),
+                delay(300),
+                tap(() => (this.loading = false))
+              );
+            }
+
+            onOpen(): void {
+              if (!this.dataLoaded) {
+                this.searchText.next('');
+                this.dataLoaded = true;
+              }
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Async search-->
+
+  <hr class="my-5" />
+
+  <!--Section: Threshold-->
+  <section id="section-threshold">
+    <!-- Section title -->
+    <h2 class="mb-4">Threshold</h2>
+
+    <p>
+      Use <code>threshold</code> option to specify a minimum number of the characters in the input
+      field needed to perform a search operation.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="threshold" class="form-outline" style="width: 22rem">
+        <input
+          type="text"
+          id="form3"
+          class="form-control"
+          placeholder="Type 2 characters to search"
+        />
+        <label class="form-label" for="form3">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-form-control style="width: 22rem">
+            <input
+              mdbInput
+              [ngModel]="searchText | async"
+              (ngModelChange)="searchText.next($event)"
+              [mdbAutocomplete]="autocomplete"
+              type="text"
+              id="autocomplete"
+              class="form-control"
+            />
+            <label mdbLabel class="form-label" for="autocomplete">Example label</label>
+          </mdb-form-control>
+
+          <mdb-autocomplete #autocomplete="mdbAutocomplete">
+            <mdb-option *ngFor="let option of results" [value]="option">
+              {{ option }}
+            </mdb-option>
+            <div *ngIf="notFound" class="autocomplete-no-results">No results found</div>
+          </mdb-autocomplete>
+        </code>
+
+        <code data-lang="js" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { Observable, Subject } from 'rxjs';
+          import {
+            combineLatest,
+            map,
+            mergeMap
+            startWith,
+            tap,
+            of
+          } from 'rxjs/operators';
+
+          @Component({
+            selector: 'app-autocomplete',
+            templateUrl: './autocomplete.component.html',
+            styleUrls: ['./autocomplete.component.scss'],
+          })
+          export class AutocompleteComponent implements OnInit {
+            searchText = new Subject();
+            results: Observable<string[]>;
+            notFound = false;
+
+            data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+
+            constructor() {}
+
+            ngOnInit(): void {
+              this.results = this.searchText.pipe(
+                mergeMap((value: string) => {
+                  const results = this.filter(value);
+                  return combineLatest([of(value), of(results)]);
+                }),
+                map(([value, results]) => {
+                  if (value.length > 2 && results.length === 0) {
+                    this.notFound = true;
+                    return results;
+                  } else {
+                    this.notFound = false;
+                  }
+
+                  return results;
+                });
+              );
+            }
+
+            filter(value: string): string[] | null {
+              const filterValue = value.toLowerCase();
+
+              if (filterValue.length >= 2) {
+                return this.data.filter((item: string) => item.toLowerCase().includes(filterValue));
+              } else {
+                return [];
+              }
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Threshold-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom item template-->
+  <section id="section-custom-item">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom item template</h2>
+
+    <p>
+      It is possible to customize the apparance of the autocomplete option. You can
+      use the <code>listHeight</code> option to modify the result list height when you want to
+      display more content in the component dropdown.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="customItem" class="form-outline" style="width: 22rem" data-mdb-list-height="290">
+        <input type="text" id="form4" class="form-control" />
+        <label class="form-label" for="form4">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-form-control style="width: 22rem">
+            <input
+              mdbInput
+              [ngModel]="searchText | async"
+              (ngModelChange)="searchText.next($event)"
+              [mdbAutocomplete]="autocomplete"
+              type="text"
+              id="autocomplete"
+              class="form-control"
+            />
+            <label mdbLabel class="form-label" for="autocomplete">Example label</label>
+          </mdb-form-control>
+
+          <mdb-autocomplete
+            #autocomplete="mdbAutocomplete"
+            [displayValue]="displayValue"
+            [listHeight]="290"
+            [optionHeight]="58">
+              <mdb-option *ngFor="let option of results" [value]="option">
+                <div class="autocomplete-custom-item-content">
+                  <div class="autocomplete-custom-item-title">{{ option.title }}</div>
+                  <div class="autocomplete-custom-item-subtitle">{{ option.subtitle }}</div>
+                </div>
+              </mdb-option>
+              <div *ngIf="notFound" class="autocomplete-no-results">No results found</div>
+          </mdb-autocomplete>
+        </code>
+
+        <code data-lang="js" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { Observable, Subject } from 'rxjs';
+          import {
+            map,
+            startWith,
+            tap,
+          } from 'rxjs/operators';
+
+          @Component({
+            selector: 'app-autocomplete',
+            templateUrl: './autocomplete.component.html',
+            styleUrls: ['./autocomplete.component.scss'],
+          })
+          export class AutocompleteComponent implements OnInit {
+            searchText = new Subject();
+            results: Observable<string[]>;
+            notFound = false;
+
+            data = [
+              { title: 'One', subtitle: 'Secondary text' },
+              { title: 'Two', subtitle: 'Secondary text' },
+              { title: 'Three', subtitle: 'Secondary text' },
+              { title: 'Four', subtitle: 'Secondary text' },
+              { title: 'Five', subtitle: 'Secondary text' },
+              { title: 'Six', subtitle: 'Secondary text' },
+            ];
+
+            constructor() {}
+
+            ngOnInit(): void {
+              this.results = this.searchText.pipe(
+                startWith(''),
+                map((value: string) => this.filter(value)),
+                tap((results: string[]) =>
+                  results.length > 0 ? (this.notFound = false) : (this.notFound = true)
+                )
+              );
+            }
+
+            filter(value: string): string[] {
+              const filterValue = value.toLowerCase();
+              return this.data.filter((item: string) => item.title.toLowerCase().includes(filterValue));
+            }
+
+            displayValue(value: any): string | undefined {
+              return value ? value.title : undefined;
+            }
+          }
+        </code>
+        <code data-lang="css" data-name="scss">
+          .autocomplete-custom-item-content {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .autocomplete-custom-item-title {
+            font-weight: 500;
+          }
+
+          .autocomplete-custom-item-subtitle {
+            font-size: 0.8rem;
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom item template-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom content-->
+  <section id="section-custom-content">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom content</h2>
+
+    <p>
+      A custom content container with a class .autocomplete-custom-content will be displayed at the
+      end of the autocomplete-custom-item-subtitle dropdown. You can use it to display a number of
+      search results.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="customContent" class="form-outline" style="width: 22rem">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-form-control style="width: 22rem">
+            <input
+              mdbInput
+              [ngModel]="searchText | async"
+              (ngModelChange)="searchText.next($event)"
+              [mdbAutocomplete]="autocomplete"
+              type="text"
+              id="autocomplete"
+              class="form-control"
+            />
+            <label mdbLabel class="form-label" for="autocomplete">Example label</label>
+          </mdb-form-control>
+
+          <mdb-autocomplete #autocomplete="mdbAutocomplete">
+            <mdb-option *ngFor="let option of results" [value]="option">
+              {{ option }}
+            </mdb-option>
+            <div *ngIf="notFound" class="autocomplete-no-results">No results found</div>
+            <div class="autocomplete-custom-content">Search results: {{ customContentLength }}</div>
+          </mdb-autocomplete>
+        </code>
+
+        <code data-lang="js" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { Observable, Subject } from 'rxjs';
+          import {
+            map,
+            startWith,
+            tap,
+          } from 'rxjs/operators';
+
+          @Component({
+            selector: 'app-autocomplete',
+            templateUrl: './autocomplete.component.html',
+            styleUrls: ['./autocomplete.component.scss'],
+          })
+          export class AutocompleteComponent implements OnInit {
+            searchText = new Subject();
+            results: Observable<string[]>;
+            notFound = false;
+            customContentLength: number;
+
+            data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+
+            constructor() {}
+
+            ngOnInit(): void {
+              this.results = this.searchText.pipe(
+                startWith(''),
+                map((value: string) => this.filter(value)),
+                tap((results: string[]) => {
+                  results.length > 0 ? (this.notFound = false) : (this.notFound = true)
+                  this.customContentLength = results.length;
+                })
+              );
+            }
+
+            filter(value: string): string[] {
+              const filterValue = value.toLowerCase();
+              return this.data.filter((item: string) => item.toLowerCase().includes(filterValue));
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom content-->
+
+  <hr class="my-5" />
+
+  <hr class="my-5" />
+
+  <!--Section: Reactive forms-->
+  <section id="section-reactive-forms">
+    <!-- Section title -->
+    <h2 class="mb-4">Reactive forms</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <mdb-form-control style="width: 22rem">
+        <input
+          mdbInput
+          [formControl]="reactiveControl"
+          [mdbAutocomplete]="autocomplete"
+          type="text"
+          id="reactive"
+          class="form-control"
+        />
+        <label mdbLabel class="form-label" for="reactive">Example label</label>
+      </mdb-form-control>
+
+      <mdb-autocomplete #autocomplete="mdbAutocomplete">
+        <mdb-option *ngFor="let option of results | async" [value]="option">
+          {{ option }}
+        </mdb-option>
+        <div *ngIf="notFound" class="autocomplete-no-results">No results found</div>
+      </mdb-autocomplete>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+            <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-form-control style="width: 22rem">
+            <input
+              mdbInput
+              [ngModel]="searchText | async"
+              (ngModelChange)="searchText.next($event)"
+              [mdbAutocomplete]="autocomplete"
+              type="text"
+              id="autocomplete"
+              class="form-control"
+            />
+            <label mdbLabel class="form-label" for="autocomplete">Example label</label>
+          </mdb-form-control>
+
+          <mdb-autocomplete #autocomplete="mdbAutocomplete">
+            <mdb-option *ngFor="let option of results" [value]="option">
+              {{ option }}
+            </mdb-option>
+            <div *ngIf="notFound" class="autocomplete-no-results">No results found</div>
+          </mdb-autocomplete>
+        </code>
+
+        <code data-lang="js" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { Observable, Subject } from 'rxjs';
+          import {
+            map,
+            startWith,
+            tap,
+          } from 'rxjs/operators';
+          import { FormControl } from '@angular/forms';
+
+          @Component({
+            selector: 'app-autocomplete',
+            templateUrl: './autocomplete.component.html',
+            styleUrls: ['./autocomplete.component.scss'],
+          })
+          export class AutocompleteComponent implements OnInit {
+            reactiveControl = new FormControl();
+            results: Observable<string[]>;
+            notFound = false;
+
+            data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+
+            constructor() {}
+
+            ngOnInit(): void {
+              this.results = this.reactiveControl.valueChanges.pipe(
+                startWith(''),
+                map((value: string) => this.filter(value)),
+                tap((results: string[]) =>
+                  results.length > 0 ? (this.notFound = false) : (this.notFound = true)
+                )
+              );
+            }
+
+            filter(value: string): string[] {
+              const filterValue = value.toLowerCase();
+              return this.data.filter((item: string) => item.toLowerCase().includes(filterValue));
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Reactive forms-->
+
+  <!--Section: Validation-->
+  <section id="section-validation">
+    <!-- Section title -->
+    <h2 class="mb-4">Validation</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <form class="needs-validation" novalidate style="width: 22rem">
+        <div id="validation" class="form-outline">
+          <input type="text" id="form6" class="form-control" required />
+          <label class="form-label" for="form6">Example label</label>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Input value is required</div>
+        </div>
+
+        <button type="submit" id="submit" class="btn btn-primary btn-sm mt-3">Submit</button>
+      </form>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <form [formGroup]="validationFormGroup" style="width: 22rem">
+            <mdb-form-control style="width: 22rem">
+              <input
+                mdbInput
+                mdbValidate
+                formControlName="validationControl"
+                [mdbAutocomplete]="autocomplete"
+                type="text"
+                id="autocomplete"
+                class="form-control"
+              />
+              <label mdbLabel class="form-label" for="autocomplete">Example label</label>
+              <mdb-error *ngIf="input?.invalid && (input?.dirty || input?.touched)"
+                >Input value is required</mdb-error
+              >
+              <mdb-success *ngIf="input?.valid && (input?.dirty || input?.touched)"
+                >Looks good!</mdb-success
+              >
+            </mdb-form-control>
+
+            <mdb-autocomplete #autocomplete="mdbAutocomplete">
+              <mdb-option *ngFor="let option of results | async" [value]="option">
+                {{ option }}
+              </mdb-option>
+              <div *ngIf="notFound" class="autocomplete-no-results">No results found</div>
+            </mdb-autocomplete>
+
+            <button type="submit" id="submit" class="btn btn-primary btn-sm mt-3">Submit</button>
+          </form>
+        </code>
+
+        <code data-lang="js" data-name="TS">
+          import { Component, OnInit } from '@angular/core';
+          import { Observable, Subject } from 'rxjs';
+          import {
+            map,
+            startWith,
+            tap,
+          } from 'rxjs/operators';
+          import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
+
+          @Component({
+            selector: 'app-autocomplete',
+            templateUrl: './autocomplete.component.html',
+            styleUrls: ['./autocomplete.component.scss'],
+          })
+          export class AutocompleteComponent implements OnInit {
+            validationFormGroup: FormGroup;
+            results: Observable<string[]>;
+            notFound = false;
+
+            data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+
+            constructor() {}
+
+            ngOnInit(): void {
+              this.validationFormGroup = new FormGroup({
+                validationControl: new FormControl('', [Validators.required]),
+              });
+
+              this.results = this.input.valueChanges.pipe(
+                startWith(''),
+                map((value: string) => this.filter(value)),
+                tap((results: string[]) =>
+                  results.length > 0 ? (this.notFound = false) : (this.notFound = true)
+                )
+              );
+            }
+
+            get input(): AbstractControl {
+              return this.validationFormGroup.get('validationControl');
+            }
+
+            filter(value: string): string[] {
+              const filterValue = value.toLowerCase();
+              return this.data.filter((item: string) => item.toLowerCase().includes(filterValue));
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Validation-->
+</section>
+<!--Section: Docs content-->
