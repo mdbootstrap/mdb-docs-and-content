@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'eCommerce blocks - categories',
-  'seo_title' => 'Bootstrap eCommerce blocks - categories',
-  'description' => 'Collection of practical examples of eCommerce categories. These kinds of sections are necessary when creating homepages or listing pages. You will find here solutions for all the possible use cases that can occur during creating eCommerce projects.',
-  'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/ecommerce/categories/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/ecommerce/categories/assets/7.jpg',
+  'main_title' => 'Blog blocks - post',
+  'seo_title' => 'Bootstrap Blog blocks - post',
+  'description' => 'Collection of practical examples of blog post elements. These kinds of sections are necessary when creating articles. You will find here solutions for all the possible use cases that can occur during creating Blog projects.',
+  'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/Blog/post/',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/blog/post/assets/1.webp',
   'video' => 'https://youtu.be/gWs4y2DZngg',
 );
