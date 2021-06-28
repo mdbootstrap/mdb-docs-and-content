@@ -1,0 +1,161 @@
+<!--Section: API content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="app.module.ts">
+        import { MdbInfiniteScrollModule } from 'mdb-angular-ui-kit/infinite-scroll';
+        …
+        @NgModule ({
+          ...
+          imports: [MdbInfiniteScrollModule],
+          ...
+        })
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+
+  <hr class="my-5" />
+
+  <!--Section: Inputs-->
+  <section id="api-section-properties">
+    <!-- Section title -->
+    <h2 class="mb-4">Inputs</h2>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>direction</code>
+            </td>
+            <td><em>MdbInfiniteScrollDirection</em></td>
+            <td><code>'vertical'</code></td>
+            <td>Defines scroll direction (horizontal or vertical)</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>window</code>
+            </td>
+            <td><em>boolean</em></td>
+            <td><code>false</code></td>
+            <td>Defines window as a scroll container</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!--Section: Inputs-->
+
+  <hr class="my-5" />
+
+  <!--Section: Outputs-->
+  <section id="api-section-outputs">
+    <!-- Section title -->
+    <h2 class="mb-4">Outputs</h2>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>infiniteScrollCompleted</code>
+            </td>
+            <td>EventEmitter&lt;any&gt;</td>
+            <td>Event fired when scroll reaches bottom of a container</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div style="width: 200px">
+            <ul
+              mdbInfiniteScroll
+              (infiniteScrollCompleted)="onComplete()"
+              class="container list-group"
+              style="max-height: 261px; overflow-y: scroll"
+            >
+              <li *ngFor="let icon of icons" class="list-group-item d-flex align-items-center">
+                <i class="far fa-{{ icon.toLowerCase() }} fa-3x me-4"></i> {{ icon }}
+              </li>
+            </ul>
+          </div>
+        </code>
+        <code data-lang="js" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-infinite-scroll',
+            templateUrl: './infinite-scroll.component.html',
+            styleUrls: ['./infinite-scroll.component.scss'],
+          })
+          export class InfiniteScrollComponent {
+            icons = ['Angry', 'Dizzy', 'Flushed', 'Frown', 'Grimace', 'Grin'];
+
+            iconsToLoad = [
+              'Sad-Tear',
+              'Meh-Blank',
+              'Smile-Wink',
+              'Tired',
+              'Surprise',
+              'Kiss-Beam',
+              'Laugh-Squint',
+            ];
+
+            index = 0;
+
+            constructor() {}
+
+            onComplete(): void {
+              if (this.index < this.iconsToLoad.length) {
+                this.icons.push(this.iconsToLoad[this.index]);
+                this.index++;
+              }
+            }
+          }
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </div>
+  </section>
+  <!--Section: Outputs-->
+</section>
+<!--Section: API content-->

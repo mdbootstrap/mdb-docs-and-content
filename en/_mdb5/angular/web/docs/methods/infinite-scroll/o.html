@@ -1,0 +1,323 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8;">
+      <?= $data_var['main_title']; ?>
+      <span>
+        <a href="/docs/standard/pro/" role="button">
+          <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">
+      This feature adds a scroll event listener (to the window or the component it's attached to if
+      it has the overflow-y property set to scroll) and calls a callback method every time a user
+      reaches an end of a page/container.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!-- Description -->
+    <p>Scroll down the container below to add more items.</p>
+
+    <p class="note note-info">
+      <strong>Note:</strong> Your element should be scrollable, for example, it should have
+      <code>overflow-y: scroll</code> property like in the example below.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div
+        class="infinite-scroll"
+        data-mdb-infinite-direction="y"
+        data-mdb-infinite-container="infinite-scroll-basic"
+        style="width: 200px;"
+      >
+        <ul
+          class="container list-group infinite-scroll infinite-scroll-basic"
+          id="basic-example"
+          style="max-height: 261px; overflow-y: scroll;"
+        >
+          <li class="list-group-item d-flex align-items-center">
+            <i class="far fa-angry fa-3x me-4"></i> Angry
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <i class="far fa-dizzy fa-3x me-4"></i> Dizzy
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <i class="far fa-flushed fa-3x me-4"></i> Flushed
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <i class="far fa-frown fa-3x me-4"></i> Frown
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <i class="far fa-grimace fa-3x me-4"></i> Grimace
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <i class="far fa-grin fa-3x me-4"></i> Grin
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div style="width: 200px">
+            <ul
+              mdbInfiniteScroll
+              (infiniteScrollCompleted)="onComplete()"
+              class="container list-group"
+              style="max-height: 261px; overflow-y: scroll"
+            >
+              <li *ngFor="let icon of icons" class="list-group-item d-flex align-items-center">
+                <i class="far fa-{{ icon.toLowerCase() }} fa-3x me-4"></i> {{ icon }}
+              </li>
+            </ul>
+          </div>
+        </code>
+        <code data-lang="js" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-infinite-scroll',
+            templateUrl: './infinite-scroll.component.html',
+            styleUrls: ['./infinite-scroll.component.scss'],
+          })
+          export class InfiniteScrollComponent {
+            icons = ['Angry', 'Dizzy', 'Flushed', 'Frown', 'Grimace', 'Grin'];
+
+            iconsToLoad = [
+              'Sad-Tear',
+              'Meh-Blank',
+              'Smile-Wink',
+              'Tired',
+              'Surprise',
+              'Kiss-Beam',
+              'Laugh-Squint',
+            ];
+
+            index = 0;
+
+            constructor() {}
+
+            onComplete(): void {
+              if (this.index < this.iconsToLoad.length) {
+                this.icons.push(this.iconsToLoad[this.index]);
+                this.index++;
+              }
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Direction-->
+  <section id="section-direction">
+    <!-- Section title -->
+    <h2 class="mb-4">Direction</h2>
+
+    <!-- Description -->
+    <p>Use <code>[direction]</code> input to define the scrolling direction.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div
+        class="infinite-scroll py-3 text-center"
+        id="direction-example"
+        style="max-width: 1500px; overflow-x: scroll; white-space: nowrap;"
+        data-mdb-infinite-direction="x"
+      >
+        <span class="mx-5"><i class="far fa-angry fa-3x me-4"></i> Angry</span>
+        <span class="mx-5"><i class="far fa-dizzy fa-3x me-4"></i> Dizzy</span>
+        <span class="mx-5"><i class="far fa-flushed fa-3x me-4"></i> Flushed</span>
+        <span class="mx-5"><i class="far fa-grimace fa-3x me-4"></i> Grimace</span>
+        <span class="mx-5"><i class="far fa-grin fa-3x me-4"></i> Grin</span>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div
+          mdbInfiniteScroll
+          [direction]="'horizontal'"
+          (infiniteScrollCompleted)="onComplete()"
+          class="py-3 text-center"
+          style="max-width: 1500px; overflow-x: scroll; white-space: nowrap"
+        >
+          <span *ngFor="let icon of icons" class="mx-5"
+            ><i class="far fa-{{ icon.toLowerCase() }} fa-3x me-4"></i> {{ icon }}</span
+          >
+        </div>
+        </code>
+        <code data-lang="js" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-infinite-scroll',
+            templateUrl: './infinite-scroll.component.html',
+            styleUrls: ['./infinite-scroll.component.scss'],
+          })
+          export class InfiniteScrollComponent {
+            icons = ['Angry', 'Dizzy', 'Flushed', 'Frown', 'Grimace', 'Grin'];
+
+            iconsToLoad = [
+              'Sad-Tear',
+              'Meh-Blank',
+              'Smile-Wink',
+              'Tired',
+              'Surprise',
+              'Kiss-Beam',
+              'Laugh-Squint',
+            ];
+
+            index = 0;
+
+            constructor() {}
+
+            onComplete(): void {
+              if (this.index < this.iconsToLoad.length) {
+                this.icons.push(this.iconsToLoad[this.index]);
+                this.index++;
+              }
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Direction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Spinners and asynchronous data-mdb-->
+  <section id="section-spinners-and-async-data">
+    <!-- Section title -->
+    <h2 class="mb-4">Spinners and asynchronous data</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div
+        class="infinite-scroll py-3 text-center"
+        id="spinners-and-async-example"
+        style="max-height: 500px; overflow-y: scroll;"
+      >
+        <div id="images">
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(100).jpg"
+            class="img-fluid mb-3"
+          />
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(105).jpg"
+            class="img-fluid mb-3"
+          />
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(106).jpg"
+            class="img-fluid mb-3"
+          />
+        </div>
+        <div class="spinner-border mx-auto" id="spinner" style="display: none;"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div
+            class="infinite-scroll py-3 text-center"
+            mdbInfiniteScroll
+            (infiniteScrollCompleted)="onComplete()"
+            style="max-height: 500px; overflow-y: scroll"
+          >
+            <div id="images">
+              <img *ngFor="let image of images" [src]="image" class="img-fluid mb-3" />
+            </div>
+            <div *ngIf="loading" class="spinner-border mx-auto" id="spinner"></div>
+          </div>
+        </code>
+        <code data-lang="js" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-infinite-scroll',
+            templateUrl: './infinite-scroll.component.html',
+            styleUrls: ['./infinite-scroll.component.scss'],
+          })
+          export class InfiniteScrollComponent {
+            images = [
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(100).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(105).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(107).jpg',
+            ];
+
+            imagesToLoad = [
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(103).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(104).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(108).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(109).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(110).jpg',
+            ];
+
+            index = 0;
+            loading = false;
+
+            constructor() {}
+
+            onComplete(): void {
+              if (this.index < this.imagesToLoad.length) {
+                this.loading = true;
+
+                // Simulate async loading
+                setTimeout(() => {
+                  this.images.push(this.imagesToLoad[this.index]);
+                  this.indexx++;
+                  this.loading = false;
+                }, 1500);
+              }
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Spinners and asynchronous data-mdb-->
+</section>
+<!--Section: Docs content-->
