@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => 'eCommerce blocks',
-  'seo_title' => 'eCommerce blocks & product grid - examples & design blocks',
-  'description' => 'Responsive eCommerce design blocks & product grids built with Bootstrap 5. Built your own online store using ready-made sections such as lists, products, store home page, and many more.',
-  'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/ecommerce/',
-  'image' => '',
+  'main_title' => 'Blog blocks',
+  'seo_title' => 'Blog blocks - Bootstrap 5 & Material Design 2.0 design blocks',
+  'description' => 'Responsive Blog blocks built with the latest Bootstrap 5 and stunning Material Design 2.0. Create your own Blog with various sections for the article, homepage, and more.',
+  'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/blog/',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/blog/home/assets/1.jpg',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );
