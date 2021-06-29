@@ -1,10 +1,10 @@
 <?php
 global $data_var;
 $data_var = array(
-  'main_title' => '[Name]',
-  'seo_title' => '[Name] - Bootstrap 5 & Material Design 2.0 design blocks',
-  'description' => '[Name] built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
-  'url' => '',
-  'image' => '',
+  'main_title' => 'Landing Page feature sections',
+  'seo_title' => 'Landing Page feature sections',
+  'description' => 'Collection of practical examples of Landing Page feature sections.',
+  'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/landing-page/features/',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/features/assets/1.jpg',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );
