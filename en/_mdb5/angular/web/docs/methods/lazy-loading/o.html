@@ -39,9 +39,11 @@
     <!-- Section title -->
     <h2 class="mb-4">Basic example</h2>
     <p>
-      Lazy Loading will automatically initialize after adding <code>.lazy</code> class to your
-      <code>img</code> or <code>video</code> element. It is important to add
-      <code>data-mdb-lazy-src</code> attribute - otherwise, Lazy Load will throw an error.
+      Lazy Loading will automatically initialize after adding <code>mdbLazyLoad</code> directive to
+      your <code>img</code> or <code>video</code> element. It is important to add
+      <code>[attr.data-src]</code> attribute - otherwise, directive will throw an error. You can use
+      <code>[container]</code> input to bind directive to specific parent container. In this case,
+      the direcitve will listen to the container scroll event.
     </p>
 
     <!--Section: Demo-->
@@ -75,27 +77,28 @@
     <section>
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
-          <div class="container lazy mt-5" style="height: 500px; overflow-y: scroll;">
+          <div class="container lazy" style="height: 500px; overflow-y: scroll;" #container>
             <div class="row text-center" style="height: 800px;">
               <p>Scroll down to see an image</p>
-
               <p><i class="far fa-arrow-alt-circle-down fa-3x my-4"></i></p>
-
+              <div style="height: 500px;"></div>
+              <p>Img</p>
               <img
-                data-mdb-lazy-src="https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg"
-                data-mdb-lazy-placeholder="https://place-hold.it/1321x583?text=Loading"
+                mdbLazyLoading
+                [container]="container"
+                [loadingPlaceholder]="'https://place-hold.it/838x471?text=Loading'"
+                [attr.data-src]="'https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg'"
                 alt="Example image"
-                class="img-fluid lazy my-3"
-                style="margin-top: 50% !important;"
+                class="img-fluid my-3"
               />
-
               <video
+                mdbLazyLoading
+                [container]="container"
+                [loadingPlaceholder]="'https://place-hold.it/838x471?text=Loading'"
+                [attr.data-src]="'https://mdbootstrap.com/img/video/Sail-Away.mp4'"
                 class="lazy img-fluid"
-                data-mdb-lazy-src="https://mdbootstrap.com/img/video/Sail-Away.mp4"
-                data-mdb-lazy-delay="1000"
-                data-mdb-lazy-placeholder="https://place-hold.it/838x471?text=Loading"
-                muted="muted"
-                autoplay="autoplay"
+                muted
+                autoplay
               ></video>
             </div>
           </div>
@@ -114,8 +117,8 @@
     <h2 class="mb-4">Offset</h2>
 
     <p>
-      Use <code>data-mdb-lazy-offset</code> attribute to define an additional amount of pixels after
-      which image or video will show.
+      Use <code>[offset]</code> input to define an additional amount of pixels after which image or
+      video will show.
     </p>
 
     <p>Scroll more down to load a picture.</p>
@@ -141,11 +144,13 @@
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <img
-            data-mdb-lazy-src="https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg"
-            data-mdb-lazy-offset="800"
-            data-mdb-lazy-placeholder="https://place-hold.it/1321x583?text=Loading"
+            mdbLazyLoading
+            [loadingPlaceholder]="'https://place-hold.it/838x471?text=Loading'"
+            [attr.data-src]="'https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg'"
+            [offset]="500"
+            [delay]="1000"
             alt="Example image"
-            class="img-fluid lazy"
+            class="img-fluid my-3"
           />
         </code>
       </mdbsnippet>
@@ -162,7 +167,7 @@
     <h2 class="mb-4">Error</h2>
 
     <p>
-      Use <code>data-mdb-lazy-error</code> to define a picture that will show if image or video
+      Use <code>[errorPlaceholder]</code> input to define a picture that will show if image or video
       doesn't load.
     </p>
 
@@ -188,12 +193,11 @@
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <img
-            data-mdb-lazy-src="sample"
-            data-mdb-lazy-delay="1000"
-            data-mdb-lazy-placeholder="https://place-hold.it/1321x583?text=Loading"
-            data-mdb-lazy-error="https://place-hold.it/1321x583?text=Error"
+            mdbLazyLoading
+            [loadingPlaceholder]="'https://place-hold.it/838x471?text=Loading'"
+            [errorPlaceholder]="'https://place-hold.it/838x471?text=Error'"
             alt="Example image"
-            class="img-fluid lazy"
+            class="img-fluid my-3"
           />
         </code>
       </mdbsnippet>
@@ -243,107 +247,49 @@
 
     <!--Section: Code-->
     <section>
+      <!--prettier-ignore-->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
           <img
-            data-mdb-lazy-src="https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg"
-            data-mdb-lazy-delay="1000"
-            data-mdb-lazy-placeholder="https://place-hold.it/1321x583?text=Loading"
-            data-mdb-lazy-animation="zoom-in"
+            mdbLazyLoading
+            [@zoomIn]="zoomInLoaded"
+            (loadingEnd)="zoomInLoaded = true"
+            [loadingPlaceholder]="'https://place-hold.it/838x471?text=Loading'"
+            [attr.data-src]="'https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg'"
             alt="Example image"
-            class="img-fluid lazy"
+            class="img-fluid my-3"
           />
           <img
-            data-mdb-lazy-src="https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg"
-            data-mdb-lazy-delay="1000"
-            data-mdb-lazy-placeholder="https://place-hold.it/1321x583?text=Loading"
-            data-mdb-lazy-animation="shake"
+            mdbLazyLoading
+            [@shake]="shakeLoaded"
+            [delay]="5000"
+            (loadingEnd)="shakeLoaded = true"
+            [loadingPlaceholder]="'https://place-hold.it/838x471?text=Loading'"
+            [attr.data-src]="'https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg'"
             alt="Example image"
-            class="img-fluid lazy"
+            class="img-fluid my-3"
           />
+        </code>
+        <code data-lang="js" data-name="TS">
+          import { Component } from '@angular/core';
+          import { shakeAnimation, zoomInAnimation } from'mdb-angular-ui-kit/animations';
+
+          @Component({ selector: 'app-lazy-loading',
+            templateUrl: './lazy-loading.component.html',
+            styleUrls: ['./lazy-loading.component.scss'],
+            animations: [zoomInAnimation(), shakeAnimation()],
+          })
+          export class LazyLoadingComponent {
+            zoomInLoaded= false;
+            shakeLoaded = false;
+
+            constructor() {}
+          }
         </code>
       </mdbsnippet>
     </section>
     <!--Section: Code-->
   </section>
   <!--Section: Animations-->
-
-  <hr class="my-5" />
-
-  <!--Section: Container-->
-  <section id="section-container">
-    <!-- Section title -->
-    <h2 class="mb-4">Container</h2>
-
-    <p>
-      Initialize a set of elements at once by adding <code>.lazy</code> class to their container. If
-      you set <code>data-mdb-lazy</code> attributes in the parent, all of <code>img</code> and
-      <code>video</code> elements inside will inherit them. You can overwrite them by declaring
-      these attributes in inner elements.
-    </p>
-
-    <!--Section: Demo-->
-    <section class="border p-4 d-flex justify-content-center mb-4">
-      <div class="container">
-        <div
-          class="row lazy"
-          data-mdb-lazy-placeholder="https://place-hold.it/1321x583?text=Loading"
-          data-mdb-lazy-error="https://place-hold.it/1321x583?text=Error"
-        >
-          <img
-            data-mdb-lazy-src="."
-            data-mdb-lazy-delay="1000"
-            alt="Example image"
-            class="img-fluid"
-          />
-          <img
-            data-mdb-lazy-src="https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg"
-            data-mdb-lazy-delay="1000"
-            data-mdb-lazy-animation="tada"
-            alt="Example image"
-            class="img-fluid my-3"
-          />
-          <video
-            class="img-fluid"
-            data-mdb-lazy-src="https://mdbootstrap.com/img/video/Sail-Away.mp4"
-            muted="muted"
-            autoplay="autoplay"
-            data-mdb-lazy-animation="zoom-in"
-          ></video>
-        </div>
-      </div>
-    </section>
-    <!--Section: Demo-->
-
-    <!--Section: Code-->
-    <section>
-      <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <div
-            class="container lazy mt-5"
-            data-mdb-lazy-placeholder="https://place-hold.it/1321x583?text=Loading"
-            data-mdb-lazy-error="https://place-hold.it/1321x583?text=Error"
-          >
-            <img data-mdb-lazy-src="." alt="Example image" class="img-fluid mb-3" />
-
-            <img
-              data-mdb-lazy-src="https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg"
-              alt="Example image"
-              class="img-fluid mb-3"
-            />
-
-            <video
-              class="img-fluid"
-              data-mdb-lazy-src="https://mdbootstrap.com/img/video/Sail-Away.mp4"
-              muted="muted"
-              autoplay="autoplay"
-            ></video>
-          </div>
-        </code>
-      </mdbsnippet>
-    </section>
-    <!--Section: Code-->
-  </section>
-  <!--Section: Container-->
 </section>
 <!--Section: Docs content-->
