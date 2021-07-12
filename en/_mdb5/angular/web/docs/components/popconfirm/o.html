@@ -1,0 +1,531 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/standard/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span> 
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+    <p class="my-4"><?= $data_var['description']; ?></p>
+    <p class="my-4">Popconfirm basically is a simple alert with confirmation buttons.</p>
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+    <p>Basic example of popconfirm usage</p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <button
+        type="button"
+        data-mdb-message="This is example"
+        class="btn btn-primary popconfirm-toggle me-1"
+      >
+        Default
+      </button>
+    </section>
+    <!--Section: Demo-->
+
+    <p>
+      You can create popconfirm dynamically from any component using a built-in service. To achieve
+      this, follow these steps:
+    </p>
+
+    
+    <p>
+      <strong
+      >1. Create a new component with Angular CLI and add some HTML code to the template.</strong
+      >
+    </p>
+    
+    <p class="mb-3"><code>ng generate component popconfirm</code></p>
+
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="popconfirm-popover shadow-4">
+          <div class="popconfirm">
+            <p class="popconfirm-message">
+              <span class="popconfirm-message-text">This is example</span>
+            </p>
+            <div class="popconfirm-buttons-container">
+              <button (click)="close()" type="button" aria-label="Cancel" class="btn btn-flat btn-sm">
+                Cancel
+              </button>
+              <button (click)="confirm()" type="button" aria-label="Confirm" class="btn btn-primary btn-sm">
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </code>
+      <!--prettier-ignore-->
+      <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+          import { MdbPopconfirmRef } from 'mdb-angular-ui-kit/popconfirm';
+
+          @Component({
+            selector: 'app-popconfirm',
+            templateUrl: './popconfirm.component.html',
+          })
+          export class PopconfirmComponent {
+
+            constructor(public popconfirmRef: MdbPopconfirmRef<PopconfirmComponent>) {}
+
+          }
+        </code>
+    </mdbsnippet>
+
+    <p class="mt-3">
+      <strong
+        >2. Inject <code>MdbPopconfirmService</code> to the component from which you want to open the
+        popconfirm and use the <code>show</code> method.</strong
+      >
+    </p>
+
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <button class="btn btn-primary" (click)="openPopoconfirm($event.target)">Open modal</button>
+      </code>
+      <!--prettier-ignore-->
+      <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+          import { PopoconfirmComponent } from 'your-path-to-popconfirm-component';
+          import { MdbPopoconfirmRef, MdbPopoconfirmService } from 'mdb-angular-ui-kit/popconfirm';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+            styleUrls: ['./app.component.scss'],
+          })
+          export class AppComponent {
+            popconfirmRef: MdbPopoconfirmRef<PopoconfirmComponent>;
+
+            constructor(private popconfirmService: MdbPopoconfirmService) {}
+
+            openPopoconfirm(target) {
+              this.popconfirmRef = this.popconfirmService.open(PopoconfirmComponent, target)
+            }
+
+          }
+        </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Inject and receive data-->
+  <section id="inject-receive-data">
+    <h2 class="mb-4">Inject and receive data</h2>
+
+    <p>
+      You can inject data to the modal by passing it to the <code>data</code> parameter in the popconfirm
+      options.
+    </p>
+
+    <!--prettier-ignore-->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <button type="button" (click)="openPopoconfirm($event.target)" class="btn btn-primary me-1">
+      </code>
+      <!--pretier-ignore-->
+      <code data-lang="javascript" data-name="TS">
+        import { Component } from '@angular/core';
+        import { PopconfirmComponent } from 'your-path-to-popconfirm-component';
+        import { MdbPopconfirmRef, MdbPopconfirmService } from 'mdb-angular-ui-kit/popconfirm';
+
+        @Component(
+          { selector: 'app-root',
+          templateUrl: './app.component.html',
+          styleUrls: ['./app.component.scss'],
+        })
+        export class AppComponent {
+          popconfirmRef: MdbPopconfirmRef<PopconfirmComponent>;
+
+          constructor(private popconfirmService: MdbPopconfirmService) {}
+          
+          openPopconfirm(target) {
+            this.popconfirmRef = this.popconfirmService.open(PopconfirmComponent, target, { data: { text: 'Custom text' }
+            });
+          }
+        }
+      </code>
+    </mdbsnippet>
+
+    <p>Here is an example showing how to use injected data in the popconfirm component:</p>
+
+    <!--prettier-ignore-->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="popconfirm-popover shadow-4">
+          <div class="popconfirm">
+            <p class="popconfirm-message">
+              <span class="popconfirm-message-text">{{ text }}</span>
+            </p>
+            <div class="popconfirm-buttons-container">
+              <button (click)="close()" type="button" aria-label="Cancel" class="btn btn-flat btn-sm">
+                Cancel
+              </button>
+              <button (click)="confirm()" type="button" aria-label="Confirm" class="btn btn-primary btn-sm">
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </code>
+
+      <code data-lang="javascript" data-name="TS">
+        import { Component } from '@angular/core';
+        import { MdbPopconfirmRef } from 'mdb-angular-ui-kit/popconfirm';
+
+        @Component({ 
+          selector: 'app-popconfirm',
+          templateUrl: './popconfirm.component.html',
+        })
+        export class PopconfirmComponent {
+          text: string;
+
+          constructor(public popconfirmRef: MdbPopconfirmRef<PopconfirmComponent>) {}
+        }
+      </code>
+    </mdbsnippet>
+
+    <h4 class="secondary-heading mt-5 mb-2" id="receive-data">Receive data from the popconfrim</h4>
+    <p>You can receive data from the popconfirm to use it in other components:</p>
+
+    <!--prettier-ignore-->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <div class="popconfirm-popover shadow-4">
+          <div class="popconfirm">
+            <p class="popconfirm-message">
+              <span class="popconfirm-message-text">This is example</span>
+            </p>
+            <div class="popconfirm-buttons-container">
+              <button (click)="close()" type="button" aria-label="Cancel" class="btn btn-flat btn-sm">
+                Cancel
+              </button>
+              <button (click)="confirm()" type="button" aria-label="Confirm" class="btn btn-primary btn-sm">
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </code>
+
+      <code data-lang="javascript" data-name="TS">
+        import { Component } from '@angular/core';
+        import { MdbPopconfirmRef } from 'mdb-angular-ui-kit/popconfirm';
+
+        @Component(
+          { selector: 'app-popconfirm',
+          templateUrl: './popconfirm.component.html',
+        })
+        export class PopconfirmComponent {
+          constructor(public popconfirmRef: MdbPopconfirmRef<PopconfirmComponent>) {}
+
+          close(): void {
+            const closeMessage = 'Popconfirm closed';
+            this.popconfirmRef.close(closeMessage)
+          }
+        }
+      </code>
+    </mdbsnippet>
+
+    <p>Here is an example showing how to use data received from popconfirmRef in other components</p>
+
+    <!--prettier-ignore-->
+    <mdbsnippet>
+      <code data-lang="html" data-name="HTML">
+        <button type="button" (click)="openPopoconfirm($event.target)" class="btn btn-primary me-1">
+      </code>
+
+      <code data-lang="javascript" data-name="TS">
+        import { Component } from '@angular/core';
+        import { PopoconfirmComponent } from 'your-path-to-popconfirm-component';
+        import { MdbPopoconfirmRef, MdbPopoconfirmService } from 'mdb-angular-ui-kit/popconfirm';
+
+        @Component({ 
+          selector: 'create-dynamic-popconfirm',
+          templateUrl: './create-dynamic-popconfirm.component.html',
+        })
+        export class AppComponent {
+          popconfirmRef: MdbPopoconfirmRef<PopoconfirmComponent>;
+
+          constructor(private popconfirmService: MdbPopconfirmService) {}
+
+          openPopoconfirm(target) {
+            this.popconfirmRef = this.popconfirmService.open(PopoconfirmComponent, target);
+            this.popconfirmRef.onClose.subscribe((message: any) => {
+              console.log(message);
+            });
+          }
+        }
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Inject and receive data-->
+
+  <hr class="my-5" />
+
+  <!--Section: Display mode-->
+  <section id="section-display-mode">
+    <!-- Section title -->
+    <h2 class="mb-4">Display mode</h2>
+    <p>You can choose between <code>modal</code> and <code>inline</code> to modify display mode.</p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <button
+        type="button"
+        data-mdb-popconfirm-mode="modal"
+        class="btn btn-primary popconfirm-toggle me-1"
+      >
+        Modal
+      </button>
+      <button
+        type="button"
+        data-mdb-popconfirm-mode="inline"
+        class="btn btn-primary popconfirm-toggle me-1"
+      >
+        Inline
+      </button>
+    </section>
+    <!--Section: Demo-->
+    <p>
+      Modal mode is rendered at the center of the screen and is static, you can't change its
+      position but all other attributes can be applied
+    </p>
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <button
+            type="button"
+            (click)="openPopoconfirm($event.target)"
+            class="btn btn-primary popconfirm-toggle me-1"
+          >
+            Modal
+          </button>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+          import { PopoconfirmComponent } from 'your-path-to-popconfirm-component';
+          import { MdbPopoconfirmRef, MdbPopoconfirmService } from 'mdb-angular-ui-kit/popconfirm';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+            styleUrls: ['./app.component.scss'],
+          })
+          export class AppComponent {
+            popconfirmRef: MdbPopoconfirmRef<PopoconfirmComponent>;
+
+            constructor(private popconfirmService: MdbPopoconfirmService) {}
+
+            openPopoconfirm(target) {
+              this.popconfirmRef = this.popconfirmService.open(PopoconfirmComponent, target, { popconfirmMode: 'modal' })
+            }
+
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: display mode-->
+
+  <hr class="my-5" />
+
+  <!--Section: Inline positions example-->
+  <section id="section-inline-positions-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Inline positions</h2>
+    <p>You can choose between different positions</p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div class="row row-cols-md-1 d-flex justify-content-center">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 d-flex justify-content-center mb-1">
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="top left"
+            class="btn btn-primary popconfirm-toggle me-1"
+          >
+            Top left
+          </button>
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="top"
+            class="btn btn-primary popconfirm-toggle me-1"
+          >
+            Top
+          </button>
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="top right"
+            class="btn btn-primary popconfirm-toggle"
+          >
+            Top right
+          </button>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6 d-flex mb-1" style="justify-content: space-between">
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="left top"
+            class="btn btn-primary popconfirm-toggle me-1"
+          >
+            Left top
+          </button>
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="right top"
+            class="btn btn-primary popconfirm-toggle"
+          >
+            Right top
+          </button>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6 d-flex mb-1" style="justify-content: space-between">
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="left"
+            class="btn btn-primary popconfirm-toggle me-1"
+          >
+            Left
+          </button>
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="right"
+            class="btn btn-primary popconfirm-toggle"
+          >
+            Right
+          </button>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6 d-flex mb-1" style="justify-content: space-between">
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="left bottom"
+            class="btn btn-primary popconfirm-toggle me-1"
+          >
+            Left bottom
+          </button>
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="right bottom"
+            class="btn btn-primary popconfirm-toggle"
+          >
+            Right bottom
+          </button>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-5 d-flex justify-content-center mb-1">
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="bottom left"
+            class="btn btn-primary popconfirm-toggle me-1"
+          >
+            Bottom left
+          </button>
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="bottom"
+            class="btn btn-primary popconfirm-toggle me-1"
+          >
+            Bottom
+          </button>
+          <button
+            type="button"
+            data-mdb-popconfirm-mode="inline"
+            data-mdb-position="bottom right"
+            class="btn btn-primary popconfirm-toggle"
+          >
+            Bottom right
+          </button>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+    <p>
+      Available positions:
+      <code
+        >top left; top; top right; right top; right; right bottom; bottom right; bottom; bottom
+        left; left bottom; left; left top;</code
+      >
+    </p>
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <button
+            type="button"
+            (click)="openPopoconfirm($event.target)"
+            class="btn btn-primary popconfirm-toggle me-1"
+          >
+            Left top
+          </button>
+        </code>
+        <code data-lang="javascript" data-name="TS">
+          import { Component } from '@angular/core';
+          import { PopoconfirmComponent } from 'your-path-to-popconfirm-component';
+          import { MdbPopoconfirmRef, MdbPopoconfirmService } from 'mdb-angular-ui-kit/popconfirm';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+            styleUrls: ['./app.component.scss'],
+          })
+          export class AppComponent {
+            popconfirmRef: MdbPopoconfirmRef<PopoconfirmComponent>;
+
+            constructor(private popconfirmService: MdbPopoconfirmService) {}
+
+            openPopoconfirm(target) {
+              this.popconfirmRef = this.popconfirmService.open(PopoconfirmComponent, target, { position: 'left-top' })
+            }
+
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Inline positions example-->
+</section>
+<!--Section: Docs content-->
