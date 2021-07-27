@@ -488,6 +488,7 @@
 
     <!--Section: Code-->
     <section>
+      <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="js" data-name="JSX">
           import React, { useState, useEffect, useRef } from 'react';
@@ -504,19 +505,25 @@
                    
           export default function App() {
 
-            const [targetsBasic, setTargetsBasic] = useState<NodeListOf<HTMLElement>>();
-            const [activeBasic, setActiveBasic] = useState(0);
-            const scrollRefBasic = useRef<HTMLElement>(null);
+            const [targetsElement, setTargetsElement] = useState<NodeListOf<HTMLElement>>();
+            const [activeElement, setActiveElement] = useState(0);
+            const scrollRefElement = useRef<HTMLElement>(null);
     
             useEffect(() => {
-              setTargets(scrollRefBasic.current?.querySelectorAll('.scrollspy-section'));
+              setTargetsElement(scrollRefElement.current?.querySelectorAll('.scrollspy-section'));
             }, []);
 
             return (
               <MDBContainer>
                 <MDBRow>
                   <MDBCol md='8'>
-                    <MDBScrollspy ref={scrollRefBasic} setActive={setActiveBasic} targets={targetsBasic}>
+                    <MDBScrollspy
+                      onElement
+                      ref={scrollRefElement}
+                      setActive={setActiveElement}
+                      targets={targetsElement}
+                      className='scrollspy-example'
+                    >
                       <MDBScrollspySection>
                         <h3>Section 1</h3>
                         <p>
@@ -601,40 +608,46 @@
                   <MDBCol md='4'>
                     <MDBScrollspyNavList className='flex-column nav-pills menu-sidebar sticky-top'>
                       <MDBScrollspyNavItem>
-                        <MDBScrollspyNavLink active={activeBasic === 1} scrollElement={targetsBasic && targetsBasic[0]}>
+                        <MDBScrollspyNavLink
+                          active={activeElement === 1}
+                          scrollElement={targetsElement && targetsElement[0]}
+                        >
                           Section 1
                         </MDBScrollspyNavLink>
                       </MDBScrollspyNavItem>
                       <MDBScrollspyNavItem>
-                        <MDBScrollspyNavLink active={activeBasic === 2} scrollElement={targetsBasic && targetsBasic[1]}>
+                        <MDBScrollspyNavLink
+                          active={activeElement === 2}
+                          scrollElement={targetsElement && targetsElement[1]}
+                        >
                           Section 2
                         </MDBScrollspyNavLink>
                       </MDBScrollspyNavItem>
                       <MDBScrollspyNavItem>
                         <MDBScrollspyNavLink
+                          active={activeElement === 3 || activeElement === 4 || activeElement === 5}
+                          scrollElement={targetsElement && targetsElement[2]}
                           collapsible
-                          active={activeBasic === 3 || activeBasic === 4 || activeBasic === 5}
-                          scrollElement={targetsBasic && targetsBasic[2]}
                         >
                           Section 3
                         </MDBScrollspyNavLink>
                         <MDBScrollspyNavList
-                          active={activeBasic === 3 || activeBasic === 4 || activeBasic === 5}
+                          active={activeElement === 3 || activeElement === 4 || activeElement === 5}
                           collapsible
                           className='flex-column ps-3'
                         >
                           <MDBScrollspyNavItem>
                             <MDBScrollspyNavLink
-                              active={activeBasic === 4}
-                              scrollElement={targetsBasic && targetsBasic[3]}
+                              active={activeElement === 4}
+                              scrollElement={targetsElement && targetsElement[3]}
                             >
                               Subsection A
                             </MDBScrollspyNavLink>
                           </MDBScrollspyNavItem>
                           <MDBScrollspyNavItem>
                             <MDBScrollspyNavLink
-                              active={activeBasic === 5}
-                              scrollElement={targetsBasic && targetsBasic[4]}
+                              active={activeElement === 5}
+                              scrollElement={targetsElement && targetsElement[4]}
                             >
                               Subsection B
                             </MDBScrollspyNavLink>
@@ -642,7 +655,10 @@
                         </MDBScrollspyNavList>
                       </MDBScrollspyNavItem>
                       <MDBScrollspyNavItem>
-                        <MDBScrollspyNavLink active={activeBasic === 6} scrollElement={targetsBasic && targetsBasic[5]}>
+                        <MDBScrollspyNavLink
+                          active={activeElement === 6}
+                          scrollElement={targetsElement && targetsElement[5]}
+                        >
                           Section 4
                         </MDBScrollspyNavLink>
                       </MDBScrollspyNavItem>
@@ -657,7 +673,7 @@
         <!-- prettier-ignore -->
         <code data-lang="css" data-name="CSS">
           /* Styles required only for the example above */
-          .scrollspy-example-collapsible {
+          .scrollspy-example {
             position: relative;
             height: 200px;
             overflow: auto;
