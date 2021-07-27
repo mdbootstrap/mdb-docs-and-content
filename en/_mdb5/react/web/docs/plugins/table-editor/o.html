@@ -24,7 +24,7 @@
     <!-- Description -->
     <p>
       Table Editor is a useful tool for displaying and managing data. The component works similarly
-      to the Datatable (<a href="https://mdbootstrap.com/docs/standard/data/datatables/">docs</a>)
+      to the React Datatable (<a href="https://mdbootstrap.com/docs/b5/react/data/datatables/">docs</a>)
       with an additional column for action buttons.
     </p>
 
@@ -47,28 +47,7 @@
     <h2 class="mb-4">Basic example</h2>
 
     <p class="mb-4">
-      You can initialize the component on <code>table</code> element by adding
-      <code>table-editor</code> class to its wrapper. In this version, you don't need any additional
-      JavaScript - set all options as data-mdb-attributes (table settings - wrapper element, column
-      settings - <code>th</code> element).
-    </p>
-
-    <p class="mb-4">
-      When edit mode is enabled, the user shouldn't be able to interact with other parts of your
-      website, as it can lead to loss of unsaved changes. You can toggle disable state using
-      <code>edit.mdb.tableEditor</code> and <code>exit.mdb.tableEditor</code> events.
-    </p>
-
-    <p class="note note-primary">
-      <strong>Note:</strong> search field and add button are not a build-in part of Table Editor,
-      but you can easily initialize those functionalities in the simplest form by adding
-      data-mdb-attributes to them (data-mdb-select, data-mdb-add-entry, and data-mdb-target).
-    </p>
-
-    <p class="note note-warning">
-      Table Editor collects information from HTML markup to create a data structure - the
-      <code>&lt;table&gt;</code> element will be replaced in the DOM with a different node after
-      component initializes.
+      You can initialize the component with <code>MDBTableEditor</code>.
     </p>
 
     <!--Section: Demo-->
@@ -148,10 +127,10 @@
           import React, { useState } from 'react';
           import { 
             MDBTableEditor 
-          } from 'mdb-react-ui-kit';
+          } from 'mdb-react-table-editor';
 
           export default function App() {
-            const advancedColumns = [
+            const basicColumns = [
               {
                 width: 250,
                 label: 'Company',
@@ -159,71 +138,54 @@
               },
               {
                 width: 250,
+                label: 'Address',
+                field: 'address',
                 sort: false,
-                defaultValue: 'Warsaw',
-                options: ['London', 'Warsaw', 'New York'],
-                inputType: 'select',
-                label: 'Office',
-                field: 'office',
               },
               {
                 width: 250,
-                inputType: 'number',
-                defaultValue: 1,
                 label: 'Employees',
                 field: 'employees',
-              },
-              {
-                width: 100,
-                defaultValue: false,
-                inputType: 'checkbox',
-                label: 'International',
-                field: 'international',
+                sort: false,
               },
             ];
 
-            const advancedRows = [
+            const basicRows = [
               {
                 company: 'Smith & Johnson',
-                office: 'London',
+                address: 'Park Lane 2, London',
                 employees: 30,
-                international: true,
               },
               {
                 company: 'P.J. Company',
-                office: 'London',
+                address: 'Oak Street 7, Aberdeen',
                 employees: 80,
-                international: false,
               },
               {
                 company: 'Food & Wine',
-                office: 'London',
+                address: 'Netherhall Gardens 3, Hampstead',
                 employees: 12,
-                international: false,
               },
               {
                 company: 'IT Service',
-                office: 'London',
+                address: 'Warwick Road 14, London',
                 employees: 17,
-                international: false,
               },
               {
                 company: 'A. Jonson Gallery',
-                office: 'London',
+                address: 'Oaklands Avenue 2, London',
                 employees: 4,
-                international: false,
               },
               {
                 company: 'F.A. Architects',
-                office: 'London',
+                address: 'Frognal Way 7, Hampstead',
                 employees: 4,
-                international: false,
               },
             ];
 
             const [basicData, setBasicData] = useState({
-              columns: advancedColumns,
-              rows: advancedRows,
+              columns: basicColumns,
+              rows: basicRows,
             });
 
             return (
@@ -249,8 +211,8 @@
     <h2 class="mb-4">Modal</h2>
 
     <p class="mb-4">
-      To change the default editing mode (inline) to the modal version, set option
-      <code>mode</code> to <code>"modal"</code>.
+      To change the default editing mode (inline) to the modal version, set property
+      <code>modal</code> to <code>true</code>.
     </p>
 
     <!--Section: Demo-->
@@ -287,7 +249,7 @@
                 import React, { useState } from 'react';
                 import { 
                   MDBTableEditor 
-                } from 'mdb-react-ui-kit';
+                } from 'mdb-react-table-editor';
       
                 export default function App() {
                   const advancedColumns = [
@@ -438,7 +400,7 @@
                 import React, { useState } from 'react';
                 import { 
                   MDBTableEditor 
-                } from 'mdb-react-ui-kit';
+                } from 'mdb-react-table-editor';
       
                 export default function App() {
                   const advancedColumns = [
@@ -540,7 +502,7 @@
     <h2 class="mb-4">Disable edit</h2>
 
     <p class="mb-4">
-      You can disable editing for a column by setting its <code>editable</code> option to
+      You can disable editing for a table by setting its <code>editable</code> property to
       <code>false</code>. A user won't be able to change its value in the edit mode.
     </p>
 
@@ -578,7 +540,7 @@
                 import React, { useState } from 'react';
                 import { 
                   MDBTableEditor 
-                } from 'mdb-react-ui-kit';
+                } from 'mdb-react-table-editor';
       
                 export default function App() {
                   const advancedColumns = [
@@ -726,7 +688,7 @@
                 import React, { useState } from 'react';
                 import { 
                   MDBTableEditor 
-                } from 'mdb-react-ui-kit';
+                } from 'mdb-react-table-editor';
       
                 export default function App() {
                   const advancedColumns = [
@@ -834,7 +796,7 @@
 
     <p class="mb-4">
       While awaiting data from API, you can prevent a user from interacting with Table Editor by
-      setting <code>loading</code> option to <code>true</code>.
+      managing <code>loading</code> property.
     </p>
 
     <!--Section: Demo-->
@@ -871,10 +833,10 @@
             <!-- prettier-ignore -->
             <mdbsnippet>
               <code data-lang="javascript" data-name="JSX">
-                import React, { useState } from 'react';
+                import React, { useState, useEffect } from 'react';
                 import { 
                   MDBTableEditor 
-                } from 'mdb-react-ui-kit';
+                } from 'mdb-react-table-editor';
       
                 export default function App() {
                   const advancedColumns = [
@@ -1022,9 +984,6 @@
       <code>color</code> option of your Table Editor (f.e. 'bg-dark'). Now change the font to light
       by setting <code>dark</code> attribute to <code>true</code>.
     </p>
-    <p class="note note-primary">
-      <strong>Tip:</strong> add <code>form-white</code> class to your search input's wrapper.
-    </p>
 
     <!--Section: Demo-->
     <section class="border p-4 mb-4 bg-dark">
@@ -1111,7 +1070,7 @@
                 import React, { useState } from 'react';
                 import { 
                   MDBTableEditor 
-                } from 'mdb-react-ui-kit';
+                } from 'mdb-react-table-editor';
       
                 export default function App() {
                   const advancedColumns = [
