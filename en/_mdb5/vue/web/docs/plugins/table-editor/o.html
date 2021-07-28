@@ -216,7 +216,8 @@
         </code>
         <code data-lang="javascript" data-name="script">
           <script>
-            import { MDBInput, MDBBtn, MDBIcon, MDBTableEditor } from "mdb-vue-ui-kit";
+            import { MDBInput, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBTableEditor } from "mdb-vue-table-editor";
             import { ref } from "vue";
 
             export default {
@@ -275,104 +276,113 @@
     <section>
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <div class="d-flex justify-content-end mb-4">
-            <div class="form-outline">
-              <input
-                data-mdb-search
-                data-mdb-target="#table_modal"
-                type="text"
-                id="search_modal"
-                class="form-control"
-              />
-              <label class="form-label" for="search_modal">Search</label>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div class="d-flex justify-content-end mb-4">
+              <MDBInput v-model="modalSearch" label="Search" :disabled="modalEdit" />
+              <MDBBtn color="primary" size="sm" class="ms-3" @click="$refs.modalEditorRef.addRow()" :disabled="modalEdit">
+                <MDBIcon icon="plus"></MDBIcon>
+              </MDBBtn>
             </div>
-            <button class="btn btn-primary btn-sm ms-3" data-mdb-add-entry data-mdb-target="#table_modal">
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
-          <hr />
-          <div id="table_modal"></div>
+            <hr />
+            <MDBTableEditor mode="modal" v-model:dataset="modalData" :search="modalSearch" :entries="5"
+              :entriesOptions="[5, 10, 15]" v-model:edit="modalEdit" ref="modalEditorRef" />
+          </template>
         </code>
-        <code data-lang="JS" data-name="JavaScript">
-          const advancedColumns = [
-            {
-              width: 250,
-              label: 'Company',
-              field: 'company',
-            },
-            {
-              width: 250,
-              sort: false,
-              defaultValue: 'Warsaw',
-              options: ['London', 'Warsaw', 'New York'],
-              inputType: 'select',
-              label: 'Office',
-              field: 'office',
-            },
-            {
-              width: 250,
-              inputType: 'number',
-              defaultValue: 1,
-              label: 'Employees',
-              field: 'employees',
-            },
-            {
-              width: 100,
-              defaultValue: false,
-              inputType: 'checkbox',
-              label: 'International',
-              field: 'international',
-            },
-          ];
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBInput, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBTableEditor } from "mdb-vue-table-editor";
+            import { ref } from "vue";
 
-          const advancedRows = [
-            {
-              company: 'Smith & Johnson',
-              office: 'London',
-              employees: 30,
-              international: true,
-            },
-            {
-              company: 'P.J. Company',
-              office: 'London',
-              employees: 80,
-              international: false,
-            },
-            {
-              company: 'Food & Wine',
-              office: 'London',
-              employees: 12,
-              international: false,
-            },
-            {
-              company: 'IT Service',
-              office: 'London',
-              employees: 17,
-              international: false,
-            },
-            {
-              company: 'A. Jonson Gallery',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-            {
-              company: 'F.A. Architects',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-          ];
+            export default {
+              components: {
+                MDBInput, MDBBtn, MDBIcon, MDBTableEditor
+              },
+              setup() {
+                const modalEditorRef = ref(null);
+                const modalSearch = ref("");
+                const modalEdit = ref(false);
+                const modalData = ref({
+                  columns: [
+                    {
+                      width: 250,
+                      label: "Company",
+                      field: "company",
+                    },
+                    {
+                      width: 250,
+                      sort: false,
+                      defaultValue: "Warsaw",
+                      options: ["London", "Warsaw", "New York"],
+                      inputType: "select",
+                      label: "Office",
+                      field: "office",
+                    },
+                    {
+                      width: 250,
+                      inputType: "number",
+                      defaultValue: 1,
+                      label: "Employees",
+                      field: "employees",
+                    },
+                    {
+                      width: 100,
+                      defaultValue: false,
+                      inputType: "checkbox",
+                      label: "International",
+                      field: "international",
+                    },
+                  ],
+                  rows: [
+                    {
+                      company: "Smith & Johnson",
+                      office: "London",
+                      employees: 30,
+                      international: true,
+                    },
+                    {
+                      company: "P.J. Company",
+                      office: "London",
+                      employees: 80,
+                      international: false,
+                    },
+                    {
+                      company: "Food & Wine",
+                      office: "London",
+                      employees: 12,
+                      international: false,
+                    },
+                    {
+                      company: "IT Service",
+                      office: "London",
+                      employees: 17,
+                      international: false,
+                    },
+                    {
+                      company: "A. Jonson Gallery",
+                      office: "London",
+                      employees: 4,
+                      international: false,
+                    },
+                    {
+                      company: "F.A. Architects",
+                      office: "London",
+                      employees: 4,
+                      international: false,
+                    }
+                  ]
+                });
 
-          const tableModal = new TableEditor(
-          document.getElementById('table_modal'),
-          {
-            columns: advancedColumns,
-            rows: advancedRows,
-          },
-          { mode: 'modal', entries: 5, entriesOptions: [5, 10, 15] }
-        );
+                return {
+                  modalEditorRef,
+                  modalSearch,
+                  modalEdit,
+                  modalData
+                }
+              }
+            };
+          </script>
         </code>
       </mdbsnippet>
     </section>
@@ -424,95 +434,106 @@
     <section>
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <div class="d-flex justify-content-end mb-4">
-            <div class="form-outline">
-              <input data-mdb-search data-mdb-target="#table_inputs" type="text" id="search_table_inputs" class="form-control" />
-              <label class="form-label" for="search_table_inputs">Search</label>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div class="d-flex justify-content-end mb-4">
+              <MDBInput v-model="inputsSearch" label="Search" :disabled="inputsEdit" />
+              <MDBBtn color="primary" size="sm" class="ms-3" @click="$refs.inputsEditorRef.addRow()" :disabled="inputsEdit">
+                <MDBIcon icon="plus"></MDBIcon>
+              </MDBBtn>
             </div>
-            <button class="btn btn-primary btn-sm ms-3" data-mdb-add-entry data-mdb-target="#table_inputs">
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
-          <hr />
-          <div id="table_inputs"></div>
+            <hr />
+            <MDBTableEditor v-model:dataset="inputsData" :search="inputsSearch" :entries="5" :entriesOptions="[5, 10, 15]"
+              v-model:edit="inputsEdit" ref="inputsEditorRef" />
+          </template>
         </code>
-        <code data-lang="JS" data-name="JavaScript">
-          const advancedColumns = [
-            {
-              width: 250,
-              label: 'Company',
-              field: 'company',
-            },
-            {
-              width: 250,
-              sort: false,
-              defaultValue: 'Warsaw',
-              options: ['London', 'Warsaw', 'New York'],
-              inputType: 'select',
-              label: 'Office',
-              field: 'office',
-            },
-            {
-              width: 250,
-              inputType: 'number',
-              defaultValue: 1,
-              label: 'Employees',
-              field: 'employees',
-            },
-            {
-              width: 100,
-              defaultValue: false,
-              inputType: 'checkbox',
-              label: 'International',
-              field: 'international',
-            },
-          ];
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBInput, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBTableEditor } from "mdb-vue-table-editor";
+            import { ref } from "vue";
 
-          const advancedRows = [
-            {
-              company: 'Smith & Johnson',
-              office: 'London',
-              employees: 30,
-              international: true,
-            },
-            {
-              company: 'P.J. Company',
-              office: 'London',
-              employees: 80,
-              international: false,
-            },
-            {
-              company: 'Food & Wine',
-              office: 'London',
-              employees: 12,
-              international: false,
-            },
-            {
-              company: 'IT Service',
-              office: 'London',
-              employees: 17,
-              international: false,
-            },
-            {
-              company: 'A. Jonson Gallery',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-            {
-              company: 'F.A. Architects',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-          ];
+            const inputsEditorRef = ref(null);
+            const inputsSearch = ref("");
+            const inputsEdit = ref(false);
+            const inputsData = ref({
+              columns: [
+                {
+                  width: 250,
+                  label: "Company",
+                  field: "company",
+                },
+                {
+                  width: 250,
+                  sort: false,
+                  defaultValue: "Warsaw",
+                  options: ["London", "Warsaw", "New York"],
+                  inputType: "select",
+                  label: "Office",
+                  field: "office",
+                },
+                {
+                  width: 250,
+                  inputType: "number",
+                  defaultValue: 1,
+                  label: "Employees",
+                  field: "employees",
+                },
+                {
+                  width: 100,
+                  defaultValue: false,
+                  inputType: "checkbox",
+                  label: "International",
+                  field: "international",
+                },
+              ],
+              rows: [
+                {
+                  company: "Smith & Johnson",
+                  office: "London",
+                  employees: 30,
+                  international: true,
+                },
+                {
+                  company: "P.J. Company",
+                  office: "London",
+                  employees: 80,
+                  international: false,
+                },
+                {
+                  company: "Food & Wine",
+                  office: "London",
+                  employees: 12,
+                  international: false,
+                },
+                {
+                  company: "IT Service",
+                  office: "London",
+                  employees: 17,
+                  international: false,
+                },
+                {
+                  company: "A. Jonson Gallery",
+                  office: "London",
+                  employees: 4,
+                  international: false,
+                },
+                {
+                  company: "F.A. Architects",
+                  office: "London",
+                  employees: 4,
+                  international: false,
+                }
+              ]
+            });
 
-          const tableDisableEdit = new TableEditor(
-            document.getElementById('table_inputs'),
-            { columns: advancedColumns, rows: advancedRows },
-            { entries: 5, entriesOptions: [5, 10, 15] }
-          );
+            return {
+              inputsEdit,
+              inputsEditorRef,
+              inputsSearch,
+              inputsData,
+            }
+          </script>
         </code>
       </mdbsnippet>
     </section>
@@ -553,113 +574,118 @@
     <section>
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <div class="d-flex justify-content-end mb-4">
-            <div class="form-outline">
-              <input
-                data-mdb-search
-                data-mdb-target="#table_disable_edit"
-                type="text"
-                id="search_disable_edit"
-                class="form-control"
-              />
-              <label class="form-label" for="search_disable_edit">Search</label>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div class="d-flex justify-content-end mb-4">
+              <MDBInput v-model="disabledSearch" label="Search" :disabled="disabledEdit" />
+              <MDBBtn color="primary" size="sm" class="ms-3" @click="$refs.disabledEditorRef.addRow()" :disabled="disabledEdit">
+                <MDBIcon icon="plus"></MDBIcon>
+              </MDBBtn>
             </div>
-            <button
-              class="btn btn-primary btn-sm ms-3"
-              data-mdb-add-entry
-              data-mdb-target="#table_disable_edit"
-            >
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
-          <hr />
-          <div id="table_disable_edit"></div>
+            <hr />
+            <MDBTableEditor v-model:dataset="disabledData" :search="disabledSearch" :entries="5" :entriesOptions="[5, 10, 15]"
+              v-model:edit="disabledEdit" ref="disabledEditorRef" />
+          </template>
         </code>
-        <code data-lang="JS" data-name="JavaScript">
-          const advancedColumns = [
-            {
-              width: 250,
-              label: 'Company',
-              field: 'company',
-            },
-            {
-              width: 250,
-              sort: false,
-              defaultValue: 'Warsaw',
-              options: ['London', 'Warsaw', 'New York'],
-              inputType: 'select',
-              label: 'Office',
-              field: 'office',
-            },
-            {
-              width: 250,
-              inputType: 'number',
-              defaultValue: 1,
-              label: 'Employees',
-              field: 'employees',
-            },
-            {
-              width: 100,
-              defaultValue: false,
-              inputType: 'checkbox',
-              label: 'International',
-              field: 'international',
-            },
-          ];
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBInput, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBTableEditor } from "mdb-vue-table-editor";
+            import { ref } from "vue";
 
-          const advancedRows = [
-            {
-              company: 'Smith & Johnson',
-              office: 'London',
-              employees: 30,
-              international: true,
-            },
-            {
-              company: 'P.J. Company',
-              office: 'London',
-              employees: 80,
-              international: false,
-            },
-            {
-              company: 'Food & Wine',
-              office: 'London',
-              employees: 12,
-              international: false,
-            },
-            {
-              company: 'IT Service',
-              office: 'London',
-              employees: 17,
-              international: false,
-            },
-            {
-              company: 'A. Jonson Gallery',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-            {
-              company: 'F.A. Architects',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-          ];
 
-          const tableDisableEdit = new TableEditor(
-          document.getElementById('table_disable_edit'),
-          {
-            columns: advancedColumns.map((column) => {
-              return {
-                ...column,
-                editable: false,
-              };
-            }),
-            rows: advancedRows,
-          },
-          { entries: 5, entriesOptions: [5, 10, 15] }
-        );
+            export default {
+              components: {
+                MDBInput, MDBBtn, MDBIcon, MDBTableEditor
+              },
+              setup() {
+                const disabledEditorRef = ref(null);
+                const disabledSearch = ref("");
+                const disabledEdit = ref(false);
+                const disabledData = ref({
+                  columns: [
+                    {
+                      width: 250,
+                      label: "Company",
+                      field: "company",
+                      editable: false
+                    },
+                    {
+                      width: 250,
+                      sort: false,
+                      defaultValue: "Warsaw",
+                      options: ["London", "Warsaw", "New York"],
+                      inputType: "select",
+                      label: "Office",
+                      field: "office",
+                      editable: false
+                    },
+                    {
+                      width: 250,
+                      inputType: "number",
+                      defaultValue: 1,
+                      label: "Employees",
+                      field: "employees",
+                      editable: false
+                    },
+                    {
+                      width: 100,
+                      defaultValue: false,
+                      inputType: "checkbox",
+                      label: "International",
+                      field: "international",
+                      editable: false
+                    },
+                  ],
+                  rows: [
+                    {
+                      company: "Smith & Johnson",
+                      office: "London",
+                      employees: 30,
+                      international: true,
+                    },
+                    {
+                      company: "P.J. Company",
+                      office: "London",
+                      employees: 80,
+                      international: false,
+                    },
+                    {
+                      company: "Food & Wine",
+                      office: "London",
+                      employees: 12,
+                      international: false,
+                    },
+                    {
+                      company: "IT Service",
+                      office: "London",
+                      employees: 17,
+                      international: false,
+                    },
+                    {
+                      company: "A. Jonson Gallery",
+                      office: "London",
+                      employees: 4,
+                      international: false,
+                    },
+                    {
+                      company: "F.A. Architects",
+                      office: "London",
+                      employees: 4,
+                      international: false,
+                    }
+                  ]
+                });
+
+                return {
+                  disabledEditorRef,
+                  disabledSearch,
+                  disabledEdit,
+                  disabledData
+                }
+              }
+            };
+          </script>
         </code>
       </mdbsnippet>
     </section>
@@ -701,109 +727,113 @@
     <section>
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <div class="d-flex justify-content-end mb-4">
-            <div class="form-outline">
-              <input
-                data-mdb-search
-                data-mdb-target="#table_confirm_delete"
-                type="text"
-                id="search_confirm_delete"
-                class="form-control"
-              />
-              <label class="form-label" for="search_confirm_delete">Search</label>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div class="d-flex justify-content-end mb-4">
+              <MDBInput v-model="confirmSearch" label="Search" :disabled="confirmEdit" />
+              <MDBBtn color="primary" size="sm" class="ms-3" @click="$refs.disabledEditorRef.addRow()" :disabled="confirmEdit">
+                <MDBIcon icon="plus"></MDBIcon>
+              </MDBBtn>
             </div>
-            <button
-              class="btn btn-primary btn-sm ms-3"
-              data-mdb-add-entry
-              data-mdb-target="#table_confirm_delete"
-            >
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
-          <hr />
-          <div id="table_confirm_delete"></div>
+            <hr />
+            <MDBTableEditor confirm v-model:dataset="confirmData" :search="confirmSearch" :entries="5" :entriesOptions="[5, 10, 15]"
+              v-model:edit="confirmEdit" ref="confirmEditorRef" />
+          </template>
         </code>
-        <code data-lang="JS" data-name="JavaScript">
-          const advancedColumns = [
-            {
-              width: 250,
-              label: 'Company',
-              field: 'company',
-            },
-            {
-              width: 250,
-              sort: false,
-              defaultValue: 'Warsaw',
-              options: ['London', 'Warsaw', 'New York'],
-              inputType: 'select',
-              label: 'Office',
-              field: 'office',
-            },
-            {
-              width: 250,
-              inputType: 'number',
-              defaultValue: 1,
-              label: 'Employees',
-              field: 'employees',
-            },
-            {
-              width: 100,
-              defaultValue: false,
-              inputType: 'checkbox',
-              label: 'International',
-              field: 'international',
-            },
-          ];
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBInput, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBTableEditor } from "mdb-vue-table-editor";
+            import { ref } from "vue";
 
-          const advancedRows = [
-            {
-              company: 'Smith & Johnson',
-              office: 'London',
-              employees: 30,
-              international: true,
-            },
-            {
-              company: 'P.J. Company',
-              office: 'London',
-              employees: 80,
-              international: false,
-            },
-            {
-              company: 'Food & Wine',
-              office: 'London',
-              employees: 12,
-              international: false,
-            },
-            {
-              company: 'IT Service',
-              office: 'London',
-              employees: 17,
-              international: false,
-            },
-            {
-              company: 'A. Jonson Gallery',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-            {
-              company: 'F.A. Architects',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-          ];
+            export default {
+              components: {
+                MDBInput, MDBBtn, MDBIcon, MDBTableEditor
+              },
+              setup() {
+                const confirmEditorRef = ref(null);
+                const confirmSearch = ref("");
+                const confirmEdit = ref(false);
+                const confirmData = ref({
+                  columns: [
+                    {
+                      width: 250,
+                      label: "Company",
+                      field: "company"
+                    },
+                    {
+                      width: 250,
+                      sort: false,
+                      defaultValue: "Warsaw",
+                      options: ["London", "Warsaw", "New York"],
+                      inputType: "select",
+                      label: "Office",
+                      field: "office"
+                    },
+                    {
+                      width: 250,
+                      inputType: "number",
+                      defaultValue: 1,
+                      label: "Employees",
+                      field: "employees"
+                    },
+                    {
+                      width: 100,
+                      defaultValue: false,
+                      inputType: "checkbox",
+                      label: "International",
+                      field: "international"
+                    },
+                  ],
+                  rows: [
+                    {
+                      company: "Smith & Johnson",
+                      office: "London",
+                      employees: 30,
+                      international: true,
+                    },
+                    {
+                      company: "P.J. Company",
+                      office: "London",
+                      employees: 80,
+                      international: false,
+                    },
+                    {
+                      company: "Food & Wine",
+                      office: "London",
+                      employees: 12,
+                      international: false,
+                    },
+                    {
+                      company: "IT Service",
+                      office: "London",
+                      employees: 17,
+                      international: false,
+                    },
+                    {
+                      company: "A. Jonson Gallery",
+                      office: "London",
+                      employees: 4,
+                      international: false,
+                    },
+                    {
+                      company: "F.A. Architects",
+                      office: "London",
+                      employees: 4,
+                      international: false,
+                    }
+                  ]
+                });
 
-          const tableConfirmDelete = new TableEditor(
-            document.getElementById('table_confirm_delete'),
-            {
-              columns: advancedColumns,
-              rows: advancedRows,
-            },
-            { entries: 5, entriesOptions: [5, 10, 15], confirm: true }
-          );
-        );
+                return {
+                  confirmEditorRef,
+                  confirmSearch,
+                  confirmEdit,
+                  confirmData
+                }
+              }
+            };
+          </script>
         </code>
       </mdbsnippet>
     </section>
@@ -857,156 +887,73 @@
     <section>
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <div class="d-flex justify-content-between mb-4">
-            <div class="d-flex">
-              <div class="form-outline">
-                <input type="text" id="search_advanced" class="form-control" />
-                <label class="form-label" for="search_advanced">Search</label>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div class="d-flex justify-content-between mb-4">
+              <div class="d-flex">
+                <MDBInput v-model="advancedSearchQuery" label="Search" :disabled="advancedSearchEdit" />
+                <div class="px-3 mt-1">in:</div>
+                <MDBSelect v-model:options="advancedSearchQueryCols" v-model:selected="advancedSearchSelectedValue"
+                  :disabled="advancedSearchEdit" multiple />
+                <MDBBtn outline="primary" size="sm" class="ms-3" @click="searchAdvanced">
+                  <MDBIcon icon="search" />
+                </MDBBtn>
               </div>
-              <div class="px-3 mt-1">in:</div>
-              <div>
-                <select class="select" id="search_advanced_select">
-                  <option value="">All columns</option>
-                  <option value="company">Company</option>
-                  <option value="office">Office</option>
-                </select>
-              </div>
-              <button id="search_advanced_btn" class="btn btn-outline-primary btn-sm mx-2">
-                <i class="fa fa-search"></i>
-              </button>
+              <MDBBtn color="primary" size="sm" class="ms-3" @click="$refs.advancedSearchEditorRef.addRow()"
+                :disabled="advancedSearchEdit">
+                <MDBIcon icon="plus"></MDBIcon>
+              </MDBBtn>
             </div>
-            <button
-              class="btn btn-primary btn-sm ms-3"
-              data-mdb-add-entry
-              data-mdb-target="#table_advanced_search"
-            >
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
-          <hr />
-          <div id="table_advanced_search"></div>
+            <hr />
+            <MDBTableEditor v-model:dataset="advancedSearchData" :search="advancedSearchQueryPhrase"
+              :searchColumns="advancedSearchSelectedCols" :entries="5" :entriesOptions="[5, 10, 15]"
+              v-model:edit="advancedSearchEdit" ref="advancedSearchEditorRef" />
+          </template>
         </code>
-        <code data-lang="JS" data-name="JavaScript">
-          const advancedColumns = [
-            {
-              width: 250,
-              label: 'Company',
-              field: 'company',
-            },
-            {
-              width: 250,
-              sort: false,
-              defaultValue: 'Warsaw',
-              options: ['London', 'Warsaw', 'New York'],
-              inputType: 'select',
-              label: 'Office',
-              field: 'office',
-            },
-            {
-              width: 250,
-              inputType: 'number',
-              defaultValue: 1,
-              label: 'Employees',
-              field: 'employees',
-            },
-            {
-              width: 100,
-              defaultValue: false,
-              inputType: 'checkbox',
-              label: 'International',
-              field: 'international',
-            },
-          ];
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBInput, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBTableEditor } from "mdb-vue-table-editor";
+            import { ref } from "vue";
 
-          const advancedRows = [
-            {
-              company: 'Smith & Johnson',
-              office: 'London',
-              employees: 30,
-              international: true,
-            },
-            {
-              company: 'P.J. Company',
-              office: 'London',
-              employees: 80,
-              international: false,
-            },
-            {
-              company: 'Food & Wine',
-              office: 'London',
-              employees: 12,
-              international: false,
-            },
-            {
-              company: 'IT Service',
-              office: 'London',
-              employees: 17,
-              international: false,
-            },
-            {
-              company: 'A. Jonson Gallery',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-            {
-              company: 'F.A. Architects',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-          ];
+            export default {
+              components: {
+                MDBInput, MDBSelect, MDBBtn, MDBIcon, MDBTableEditor
+              },
+              setup() {
+                const advancedSearchEditorRef = ref(null);
+                const advancedSearchQuery = ref("");
+                const advancedSearchEdit = ref(false);
+                const advancedSearchData = ref(advancedData.value);
+                const advancedSearchQueryCols = ref([
+                  { text: "Company", value: "company" },
+                  { text: "Office", value: "office" },
+                ]);
+                const advancedSearchSelectedValue = ref("");
+                const advancedSearchQueryPhrase = ref("");
+                const advancedSearchSelectedCols = ref([]);
 
-          const input = document.getElementById('search_advanced');
-          const select = document.getElementById('search_advanced_select');
-          const searchBtn = document.getElementById('search_advanced_btn');
-          const table = document.getElementById('table_advanced_search');
+                const searchAdvanced = () => {
+                  advancedSearchQueryPhrase.value = advancedSearchQuery.value;
 
-          const search = () => {
-            tableAdvancedSearch.search(input.value, select.value)
-          }
+                  advancedSearchSelectedCols.value =
+                    advancedSearchSelectedValue.value.split(",");
+                };
 
-          const tableAdvancedSearch = new TableEditor(
-            table,
-            {
-              columns: advancedColumns,
-              rows: advancedRows,
-            },
-            { entries: 5, entriesOptions: [5, 10, 15] }
-          );
-
-          searchBtn.addEventListener('click', search);
-
-          // disable search in edit mode
-
-          const toggleSelectState = (disabled) => {
-            const selectInstance = mdb.Select.getInstance(select);
-            selectInstance.dispose();
-
-            if (disabled) {
-              select.setAttribute('data-mdb-disabled', true);
-            } else {
-              select.removeAttribute('data-mdb-disabled');
-            }
-
-            new mdb.Select(select);
-          };
-
-          table.addEventListener('edit.mdb.tableEditor', () => {
-            input.setAttribute('disabled', true);
-            searchBtn.setAttribute('disabled', true);
-
-            toggleSelectState(true);
-          });
-
-          table.addEventListener('exit.mdb.tableEditor', () => {
-            input.removeAttribute('disabled');
-            searchBtn.removeAttribute('disabled');
-
-            toggleSelectState(false);
-          });
-        );
+                return {
+                  advancedSearchEditorRef,
+                  advancedSearchEdit,
+                  advancedSearchData,
+                  advancedSearchQuery,
+                  advancedSearchQueryCols,
+                  advancedSearchSelectedValue,
+                  advancedSearchSelectedCols,
+                  advancedSearchQueryPhrase,
+                  searchAdvanced
+                }
+              }
+            };
+          </script>
         </code>
       </mdbsnippet>
     </section>
@@ -1050,80 +997,76 @@
     <section>
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <div class="d-flex justify-content-between mb-4">
-            <button id="async_data_btn" class="btn btn-primary btn-sm">
-              Load data
-            </button>
-            <div class="d-flex">
-              <div class="form-outline">
-                <input
-                  type="text"
-                  data-mdb-search
-                  data-mdb-target="#table_async_data"
-                  id="search_async"
-                  class="form-control"
-                />
-                <label class="form-label" for="search_async">Search</label>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div class="d-flex justify-content-between mb-4">
+              <MDBBtn color="primary" size="sm" @click="loadAsyncData">Load data</MDBBtn>
+            
+              <div class="d-flex justify-content-end">
+                <MDBInput v-model="asyncSearch" label="Search" :disabled="asyncEdit" />
+                <MDBBtn color="primary" size="sm" class="ms-3" @click="$refs.asyncEditorRef.addRow()" :disabled="asyncEdit">
+                  <MDBIcon icon="plus"></MDBIcon>
+                </MDBBtn>
               </div>
-              <button
-                class="btn btn-primary btn-sm ms-3"
-                data-mdb-add-entry
-                data-mdb-target="#table_async_data"
-              >
-                <i class="fa fa-plus"></i>
-              </button>
             </div>
-          </div>
-          <hr />
-          <div id="table_async_data"></div>
+            <hr />
+            <MDBTableEditor v-model:dataset="asyncData" :search="asyncSearch" :loading="loadingAsync" v-model:edit="asyncEdit"
+              ref="asyncEditorRef" />
+          </template>
         </code>
-        <code data-lang="JS" data-name="JavaScript">
-          const table = document.getElementById('table_async_data');
-          const loadBtn = document.getElementById('async_data_btn');
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBInput, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBTableEditor } from "mdb-vue-table-editor";
+            import { ref } from "vue";
 
-          const columns = [
-            { label: 'Company', field: 'company' },
-            { label: 'Email', field: 'email' },
-            { label: 'Name', field: 'name' },
-            { label: 'Phone', field: 'phone' },
-          ];
+            export default {
+              components: {
+                MDBInput, MDBBtn, MDBIcon, MDBTableEditor
+              },
+              setup() {
+                const asyncEditorRef = ref(null);
+                const asyncSearch = ref("");
+                const asyncEdit = ref(false);
+                const asyncData = ref({
+                  columns: [
+                    { label: "Company", field: "company" },
+                    { label: "Email", field: "email" },
+                    { label: "Name", field: "name" },
+                    { label: "Phone", field: "phone" },
+                  ],
+                  rows: [],
+                });
+                const loadingAsync = ref(false);
 
-          const asyncTable = new TableEditor(
-            table,
-            {
-              columns,
-            },
-            {
-              loading: true,
-            }
-          );
+                const loadAsyncData = () => {
+                  asyncData.value.rows = [];
 
-          const loadData = () => {
-            asyncTable.update(null, { loading: true });
+                  loadingAsync.value = true;
 
-            fetch('https://jsonplaceholder.typicode.com/users')
-              .then((response) => response.json())
-              .then((data) => {
-                asyncTable.update(
-                  {
-                    rows: data.map((user) => ({
-                      ...user,
-                      address: `${user.address.city}, ${user.address.street}`,
-                      company: user.company.name,
-                    })),
-                  },
-                  { loading: false }
-                );
-              });
-          };
+                  fetch("https://jsonplaceholder.typicode.com/users")
+                    .then((response) => response.json())
+                    .then((data) => {
+                      asyncData.value.rows = data.map((user) => ({
+                        ...user,
+                        address: `${user.address.city}, ${user.address.street}`,
+                        company: user.company.name,
+                      }));
+                      loadingAsync.value = false;
+                    });
+                }
 
-          loadBtn.addEventListener('click', loadData);
-
-          table.addEventListener('update.mdb.tableEditor', e => {
-            // here you can create a POST request to update your database
-            console.log(e.columns, e.rows);
-          })
+                return {
+                  asyncEditorRef,
+                  asyncSearch,
+                  asyncEdit,
+                  asyncData,
+                  loadingAsync,
+                  loadAsyncData
+                }
+              }
+            };
+          </script>
         </code>
       </mdbsnippet>
     </section>
@@ -1197,122 +1140,130 @@
     <section>
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <div id="template_list" class="row">
-            <div class="col-md-3 col-sm-6 p-3">
+        <code data-lang="html" data-name="template">
+          <template>
+          <MDBRow>
+            <MDBCol md="3" sm="6" class="p-3">
               <h4>M.B.</h4>
               <p>(5 Avenue 26, New York)</p>
-              <button
-                class="btn btn-primary btn-sm add-entry-button"
-                data-mdb-company="M.B."
-                data-mdb-address="5 Avenue 26"
-                data-mdb-city="New York"
-              >
+              <MDBBtn color="primary" size="sm" @click="
+                $refs.customRowsEditorRef.addRow({
+                  company: 'M.B.',
+                  address: '5 Avenue 26',
+                  city: 'New York',
+                })
+              ">
                 Load into table
-              </button>
-            </div>
-            <div class="col-md-3 col-sm-6 p-3">
+              </MDBBtn>
+            </MDBCol>
+            <MDBCol md="3" sm="6" class="p-3">
               <h4>Berkley & Clark</h4>
               <p>(43th Street 12, New York)</p>
-              <button
-                class="btn btn-primary btn-sm add-entry-button"
-                data-mdb-company="Berkley & Clark"
-                data-mdb-address="43th Street 12"
-                data-mdb-city="New York"
-              >
+              <MDBBtn color="primary" size="sm" @click="
+                  $refs.customRowsEditorRef.addRow({
+                    company: 'Berkley & Clark',
+                    address: '43th Street 12',
+                    city: 'New York',
+                  })
+                ">
                 Load into table
-              </button>
-            </div>
-            <div class="col-md-3 col-sm-6 p-3">
+              </MDBBtn>
+            </MDBCol>
+            <MDBCol md="3" sm="6" class="p-3">
               <h4>D&D Inc.</h4>
               <p>(14 Street 67, New York)</p>
-              <button
-                class="btn btn-primary btn-sm add-entry-button"
-                data-mdb-company="D&D Inc."
-                data-mdb-address="14 Street 67"
-                data-mdb-city="New York"
-              >
+              <MDBBtn color="primary" size="sm" @click="
+                  $refs.customRowsEditorRef.addRow({
+                    company: 'D&D Inc.',
+                    address: '14 Street 67',
+                    city: 'New York',
+                  })
+                ">
                 Load into table
-              </button>
-            </div>
-            <div class="col-md-3 col-sm-6 p-3">
+              </MDBBtn>
+            </MDBCol>
+            <MDBCol md="3" sm="6" class="p-3">
               <h4>Thomas & Co.</h4>
               <p>(2 Avenue 54, New York)</p>
-              <button
-                class="btn btn-primary btn-sm add-entry-button"
-                data-mdb-company="Thomas & Co."
-                data-mdb-address="2 Avenue 54"
-                data-mdb-city="New York"
-              >
+              <MDBBtn color="primary" size="sm" @click="
+                $refs.customRowsEditorRef.addRow({
+                  company: 'Thomas & Co.',
+                  address: '2 Avenue 54',
+                  city: 'New York',
+                })
+              ">
                 Load into table
-              </button>
-            </div>
-          </div>
+              </MDBBtn>
+            </MDBCol>
+          </MDBRow>
           <hr class="mt-3" />
-          <div id="table_custom_rows"></div>
+          <MDBTableEditor v-model:dataset="customRowsData" :search="customRowsSearch" v-model:edit="customRowsEdit"
+            ref="customRowsEditorRef" />
+          </template>
         </code>
-        <code data-lang="JS" data-name="JavaScript">
-          const columns = [
-            {
-              width: 250,
-              label: 'Company',
-              field: 'company',
-            },
-            {
-              width: 250,
-              label: 'Address',
-              field: 'address',
-            },
-            {
-              width: 250,
-              label: 'City',
-              field: 'city',
-            },
-          ];
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBInput, MDBBtn, MDBIcon, MDBCol, MDBRow } from "mdb-vue-ui-kit";
+            import { MDBTableEditor } from "mdb-vue-table-editor";
+            import { ref } from "vue";
 
-          const rows = [
-            { company: 'Smith & Johnson', address: 'Park Lane 2', city: 'London' },
-            { company: 'P.J. Company', address: 'Oak Street 7', city: 'Aberdeen' },
-            { company: 'Food & Wine', address: 'Netherhall Gardens 3', city: 'Hampstead' },
-            { company: 'IT Service', address: 'Warwick Road 14', city: 'London' },
-            { company: 'A. Jonson Gallery', address: 'Oaklands Avenue 2', city: 'London' },
-            { company: 'F.A. Architects', address: 'Frognal Way 7', city: 'Hampstead' },
-          ];
+            export default {
+              components: {
+                MDBInput, MDBBtn, MDBIcon, MDBCol, MDBRow, MDBTableEditor
+              },
+              setup() {
+                const customRowsEditorRef = ref(null);
+                const customRowsSearch = ref("");
+                const customRowsEdit = ref(false);
+                const customRowsData = ref({
+                  columns: [
+                    {
+                      width: 250,
+                      label: "Company",
+                      field: "company",
+                    },
+                    {
+                      width: 250,
+                      label: "Address",
+                      field: "address",
+                    },
+                    {
+                      width: 250,
+                      label: "City",
+                      field: "city",
+                    },
+                  ],
+                  rows: [
+                    { company: "Smith & Johnson", address: "Park Lane 2", city: "London" },
+                    { company: "P.J. Company", address: "Oak Street 7", city: "Aberdeen" },
+                    {
+                      company: "Food & Wine",
+                      address: "Netherhall Gardens 3",
+                      city: "Hampstead",
+                    },
+                    { company: "IT Service", address: "Warwick Road 14", city: "London" },
+                    {
+                      company: "A. Jonson Gallery",
+                      address: "Oaklands Avenue 2",
+                      city: "London",
+                    },
+                    {
+                      company: "F.A. Architects",
+                      address: "Frognal Way 7",
+                      city: "Hampstead",
+                    },
+                  ],
+                });
 
-          const table = document.getElementById('table_custom_rows');
-
-          const tableEditorInstance = new TableEditor(table, { rows, columns }, { pagination: false });
-
-          const buttons = document.getElementsByClassName('add-entry-button');
-
-          buttons.forEach((button) => {
-            button.addEventListener('click', (e) => {
-              const company = e.target.getAttribute('data-mdb-company');
-              const address = e.target.getAttribute('data-mdb-address');
-              const city = e.target.getAttribute('data-mdb-city');
-
-              tableEditorInstance.add({ company, address, city });
-
-              e.target.setAttribute('disabled', true);
-              e.target.innerText = 'Loaded';
-            });
-          });
-
-          // disable buttons in edit mode
-
-          table.addEventListener('edit.mdb.tableEditor', () => {
-            buttons.forEach((button) => {
-              button.setAttribute('disabled', true);
-            });
-          });
-
-          table.addEventListener('exit.mdb.tableEditor', () => {
-            buttons.forEach((button) => {
-              if (button.innerText.toLowerCase() !== 'loaded') {
-                button.removeAttribute('disabled');
+                return {
+                  customRowsEditorRef,
+                  customRowsSearch,
+                  customRowsEdit,
+                  customRowsData
+                }
               }
-            });
-          });
+            };
+          </script>
         </code>
       </mdbsnippet>
     </section>
@@ -1359,162 +1310,135 @@
     <section>
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
+        <code data-lang="html" data-name="template">
+          <template>
           <div class="d-flex justify-content-end mb-4">
-            <div class="form-outline">
-              <input
-                data-mdb-search
-                data-mdb-target="#table_notifications"
-                type="text"
-                id="search_table_notifications"
-                class="form-control"
-              />
-              <label class="form-label" for="search_table_notifications">Search</label>
-            </div>
-            <button
-              class="btn btn-primary btn-sm ms-3"
-              data-mdb-add-entry
-              data-mdb-target="#table_notifications"
-            >
-              <i class="fa fa-plus"></i>
-            </button>
+            <MDBInput v-model="notificationsSearch" label="Search" :disabled="notificationsEdit" />
+            <MDBBtn color="primary" size="sm" class="ms-3" @click="$refs.notificationsEditorRef.addRow()"
+              :disabled="notificationsEdit">
+              <MDBIcon icon="plus"></MDBIcon>
+            </MDBBtn>
           </div>
           <hr />
-          <div id="table_notifications"></div>
-          <div
-            class="alert fade"
-            id="alert-add-entry"
-            role="alert"
-            data-mdb-position="top-right"
-            data-mdb-autohide="true"
-            data-mdb-width="360px"
-            data-mdb-color="success"
-          >
-          </div>
-          <div
-            class="alert fade"
-            id="alert-update-entry"
-            role="alert"
-            data-mdb-position="top-right"
-            data-mdb-autohide="true"
-            data-mdb-width="360px"
-            data-mdb-color="primary"
-          ></div>
-          <div
-            class="alert fade"
-            id="alert-remove-entry"
-            role="alert"
-            data-mdb-position="top-right"
-            data-mdb-autohide="true"
-            data-mdb-width="360px"
-            data-mdb-color="danger"
-          >
-          </div>
+          <MDBTableEditor v-model:dataset="notificationsData" :search="notificationsSearch" v-model:edit="notificationsEdit"
+            ref="notificationsEditorRef" @add="showNotification('success', 'New entry: ', $event)"
+            @delete="showNotification('danger', 'Deleted entry: ', $event)" @updateEntry="
+            showNotification('primary', 'Updated entry: ', $event)"
+          />
+          <MDBAlert v-model="alert" :color="alertColor" position="top-right" width="360px" :delay="2000" autohide>
+            <div v-html="alertMessage" />
+          </MDBAlert>
+          </template>
         </code>
-        <code data-lang="JS" data-name="JavaScript">
-          const advancedColumns = [
-            {
-              width: 250,
-              label: 'Company',
-              field: 'company',
-            },
-            {
-              width: 250,
-              sort: false,
-              defaultValue: 'Warsaw',
-              options: ['London', 'Warsaw', 'New York'],
-              inputType: 'select',
-              label: 'Office',
-              field: 'office',
-            },
-            {
-              width: 250,
-              inputType: 'number',
-              defaultValue: 1,
-              label: 'Employees',
-              field: 'employees',
-            },
-            {
-              width: 100,
-              defaultValue: false,
-              inputType: 'checkbox',
-              label: 'International',
-              field: 'international',
-            },
-          ];
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBInput, MDBBtn, MDBIcon, MDBAlert } from "mdb-vue-ui-kit";
+            import { MDBTableEditor } from "mdb-vue-table-editor";
+            import { ref } from "vue";
 
-          const advancedRows = [
-            {
-              company: 'Smith & Johnson',
-              office: 'London',
-              employees: 30,
-              international: true,
-            },
-            {
-              company: 'P.J. Company',
-              office: 'London',
-              employees: 80,
-              international: false,
-            },
-            {
-              company: 'Food & Wine',
-              office: 'London',
-              employees: 12,
-              international: false,
-            },
-            {
-              company: 'IT Service',
-              office: 'London',
-              employees: 17,
-              international: false,
-            },
-            {
-              company: 'A. Jonson Gallery',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-            {
-              company: 'F.A. Architects',
-              office: 'London',
-              employees: 4,
-              international: false,
-            },
-          ];
+            export default {
+              components: {
+                MDBInput, MDBBtn, MDBIcon, MDBAlert, MDBTableEditor
+              },
+              setup() {
+                const notificationsEditorRef = ref(null);
+                const notificationsSearch = ref("");
+                const notificationsEdit = ref(false);
+                const notificationsData = ref({
+                  columns: [
+                    {
+                      width: 250,
+                      label: "Company",
+                      field: "company",
+                    },
+                    {
+                      width: 250,
+                      sort: false,
+                      defaultValue: "Warsaw",
+                      options: ["London", "Warsaw", "New York"],
+                      inputType: "select",
+                      label: "Office",
+                      field: "office",
+                    },
+                    {
+                      width: 250,
+                      inputType: "number",
+                      defaultValue: 1,
+                      label: "Employees",
+                      field: "employees",
+                    },
+                    {
+                      width: 100,
+                      defaultValue: false,
+                      inputType: "checkbox",
+                      label: "International",
+                      field: "international",
+                    },
+                  ],
+                  rows: [
+                    {
+                      company: "Smith & Johnson",
+                      office: "London",
+                      employees: 30,
+                      international: true,
+                    },
+                    {
+                      company: "P.J. Company",
+                      office: "London",
+                      employees: 80,
+                      international: false,
+                    },
+                    {
+                      company: "Food & Wine",
+                      office: "London",
+                      employees: 12,
+                      international: false,
+                    },
+                    {
+                      company: "IT Service",
+                      office: "London",
+                      employees: 17,
+                      international: false,
+                    },
+                    {
+                      company: "A. Jonson Gallery",
+                      office: "London",
+                      employees: 4,
+                      international: false,
+                    },
+                    {
+                      company: "F.A. Architects",
+                      office: "London",
+                      employees: 4,
+                      international: false,
+                    },
+                  ]
+                });
 
-          const table = document.getElementById('table_notifications');
+                const alert = ref(false);
+                const alertColor = ref("primary");
+                const alertMessage = ref("");
 
-          new TableEditor(table, { rows: advancedRows, columns: advancedColumns });
+                const showNotification = (type, message, event) => {
+                  const { company, office } = event.row;
+                  alertMessage.value = `<strong>${message}</strong> ${company} ${office}`;
+                  alertColor.value = type;
+                  alert.value = true;
+                };
 
-          table.addEventListener('add.mdb.tableEditor', (e) => {
-            const alert = document.getElementById('alert-add-entry');
-            const alertInstance = mdb.Alert.getInstance(alert);
-
-            const { company, office } = e.row;
-            alert.innerHTML = `<strong>New entry:</strong> ${company} (${office})`;
-
-            alertInstance.show();
-          });
-
-          table.addEventListener('delete.mdb.tableEditor', (e) => {
-            const alert = document.getElementById('alert-remove-entry');
-            const alertInstance = mdb.Alert.getInstance(alert);
-
-            const { company, office } = e.row;
-            alert.innerHTML = `<strong>Deleted entry:</strong> ${company} (${office})`;
-
-            alertInstance.show();
-          });
-
-          table.addEventListener('updateEntry.mdb.tableEditor', (e) => {
-            const alert = document.getElementById('alert-update-entry');
-            const alertInstance = mdb.Alert.getInstance(alert);
-
-            const { company, office } = e.row;
-            alert.innerHTML = `<strong>Updated entry:</strong> ${company} (${office})`;
-
-            alertInstance.show();
-          });
+                return {
+                  showNotification,
+                  notificationsEditorRef,
+                  notificationsSearch,
+                  notificationsEdit,
+                  notificationsData,
+                  alert,
+                  alertColor,
+                  alertMessage
+                }
+              }
+            };
+          </script>
         </code>
       </mdbsnippet>
     </section>
@@ -1604,81 +1528,116 @@
     <section>
       <!-- prettier-ignore -->
       <mdbsnippet>
-        <code data-lang="html" data-name="HTML">
-          <div class="bg-dark">
+        <code data-lang="html" data-name="template">
+          <template>
             <div class="d-flex justify-content-end mb-4">
-              <div class="form-outline form-white">
-                <input
-                  data-mdb-search
-                  data-mdb-target="#table_dark"
-                  type="text"
-                  id="search_table_dark"
-                  class="form-control"
-                />
-                <label class="form-label" for="search_table_dark">Search</label>
-              </div>
-              <button
-                class="btn btn-outline-light btn-sm ms-3"
-                data-mdb-add-entry
-                data-mdb-target="#table_dark"
-              >
-                <i class="fa fa-plus"></i>
-              </button>
+              <MDBInput v-model="darkSearch" label="Search" :disabled="darkEdit" white />
+              <MDBBtn color="primary" size="sm" class="ms-3" @click="$refs.darkEditorRef.addRow()" :disabled="darkEdit">
+                <MDBIcon icon="plus"></MDBIcon>
+              </MDBBtn>
             </div>
             <hr />
-            <div
-              class="table-editor bg-dark"
-              id="table_dark"
-              data-mdb-mode="modal"
-              data-mdb-dark="true"
-              data-mdb-entries="5"
-              data-mdb-entries-options="[5, 10, 15]"
-            >
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th class="th-sm" data-mdb-width="250">Company</th>
-                    <th class="th-sm" data-mdb-width="250">Address</th>
-                    <th class="th-sm" data-mdb-width="250">
-                      Employees
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Smith & Johnson</td>
-                    <td>Park Lane 2, London</td>
-                    <td>30</td>
-                  </tr>
-                  <tr>
-                    <td>P.J. Company</td>
-                    <td>Oak Street 7, Aberdeen</td>
-                    <td>80</td>
-                  </tr>
-                  <tr>
-                    <td>Food & Wine</td>
-                    <td>Netherhall Gardens 3, Hampstead</td>
-                    <td>12</td>
-                  </tr>
-                  <tr>
-                    <td>IT Service</td>
-                    <td>Warwick Road 14, London</td>
-                    <td>17</td>
-                  </tr>
-                  <tr>
-                    <td>A. Jonson Gallery</td>
-                    <td>Oaklands Avenue 2, London</td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <td>F.A. Architects</td>
-                    <td>Frognal Way 7, Hampstead</td>
-                    <td>4</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+            <MDBTableEditor v-model:dataset="darkData" :search="darkSearch" v-model:edit="darkEdit" color="bg-dark" dark
+              ref="darkEditorRef" @add="showNotification('success', 'New entry: ', $event)"
+              @delete="showNotification('danger', 'Deleted entry: ', $event)" @updateEntry="
+              showNotification('primary', 'Updated entry: ', $event)"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBInput, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
+            import { MDBTableEditor } from "mdb-vue-table-editor";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBInput, MDBBtn, MDBIcon, MDBTableEditor
+              },
+              setup() {
+                const darkEditorRef = ref(null);
+                const darkSearch = ref("");
+                const darkEdit = ref(false);
+                const darkData = ref({
+                  columns: [
+                    {
+                      width: 250,
+                      label: "Company",
+                      field: "company"
+                    },
+                    {
+                      width: 250,
+                      sort: false,
+                      defaultValue: "Warsaw",
+                      options: ["London", "Warsaw", "New York"],
+                      inputType: "select",
+                      label: "Office",
+                      field: "office"
+                    },
+                    {
+                      width: 250,
+                      inputType: "number",
+                      defaultValue: 1,
+                      label: "Employees",
+                      field: "employees"
+                    },
+                    {
+                      width: 100,
+                      defaultValue: false,
+                      inputType: "checkbox",
+                      label: "International",
+                      field: "international"
+                    },
+                  ],
+                  rows: [
+                    {
+                      company: "Smith & Johnson",
+                      office: "London",
+                      employees: 30,
+                      international: true,
+                    },
+                    {
+                      company: "P.J. Company",
+                      office: "London",
+                      employees: 80,
+                      international: false,
+                    },
+                    {
+                      company: "Food & Wine",
+                      office: "London",
+                      employees: 12,
+                      international: false,
+                    },
+                    {
+                      company: "IT Service",
+                      office: "London",
+                      employees: 17,
+                      international: false,
+                    },
+                    {
+                      company: "A. Jonson Gallery",
+                      office: "London",
+                      employees: 4,
+                      international: false,
+                    },
+                    {
+                      company: "F.A. Architects",
+                      office: "London",
+                      employees: 4,
+                      international: false,
+                    }
+                  ]
+                });
+
+                return {
+                  darkEditorRef,
+                  darkSearch,
+                  darkEdit,
+                  darkData
+                }
+              }
+            };
+          </script>
         </code>
       </mdbsnippet>
     </section>
