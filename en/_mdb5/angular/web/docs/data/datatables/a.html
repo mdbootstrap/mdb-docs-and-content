@@ -36,10 +36,12 @@
 
   <hr class="my-5" />
 
-  <!--Section: Options-->
-  <section id="api-section-options">
+  <!--Section: Inputs-->
+  <section id="api-section-inputs">
     <!-- Section title -->
     <h2 class="mb-4">Inputs</h2>
+
+    <h3>MdbTableDirective</h3>
 
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
@@ -70,11 +72,11 @@
           </tr>
           <tr>
             <td class="text-nowrap">
-              <code class="highlighter-rouge">entriesOptions</code>
+              <code class="highlighter-rouge">dataSource</code>
             </td>
-            <td><i>Array</i></td>
-            <td><code>[10, 25, 50, 200]</code></td>
-            <td>Options available to choose from in a pagination select (rows per page)</td>
+            <td><i>T[]</i></td>
+            <td><code>[]]</code></td>
+            <td>Changes table data source array</td>
           </tr>
           <tr>
             <td class="text-nowrap">
@@ -85,10 +87,24 @@
             <td>When it's set to true, the table's header will remain visible while scrolling</td>
           </tr>
           <tr>
+            <td class="text-nowrap"><code class="highlighter-rouge">filterFn</code></td>
+            <td><i>(data: T, searchTerm: string) => boolean</i></td>
+            <td><code>-</code></td>
+            <td>Changes function used for data search</td>
+          </tr>
+          <tr>
             <td class="text-nowrap"><code class="highlighter-rouge">hover</code></td>
             <td><i>Boolean</i></td>
             <td><code>false</code></td>
             <td>Changes the background color of a hovered row</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">pagination</code>
+            </td>
+            <td><i>MdbTablePaginationComponent</i></td>
+            <td><code>-</code></td>
+            <td>Changes attached table pagination component</td>
           </tr>
           <tr>
             <td class="text-nowrap">
@@ -97,6 +113,14 @@
             <td><i>Boolean</i></td>
             <td><code>false</code></td>
             <td>Enables selecting rows with checkboxes</td>
+          </tr>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">sort</code>
+            </td>
+            <td><i>MdbTableSortDirective</i></td>
+            <td><code>-</code></td>
+            <td>Changes attached table sort directive</td>
           </tr>
           <tr>
             <td class="text-nowrap"><code class="highlighter-rouge">multi</code></td>
@@ -129,8 +153,357 @@
         </tbody>
       </table>
     </div>
-  </section>
-  <!--Section: Options-->
 
+    <h3>MdbTableSortHeaderDirective</h3>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Type</th>
+            <th class="th-sm">Default</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">mdbTableSortHeader</code>
+            </td>
+            <td><i>string</i></td>
+            <td><code>''</code></td>
+            <td>Changes name of the sort header</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>MdbTablePaginationComponent</h3>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Type</th>
+            <th class="th-sm">Default</th>
+            <th class="th-sm">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">entries</code>
+            </td>
+            <td><i>number</i></td>
+            <td><code>10</code></td>
+            <td>Changes number of displayed entries</td>
+          </tr>
+
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">entriesOptions</code>
+            </td>
+            <td><i>Array</i></td>
+            <td><code>[10, 25, 50, 200]</code></td>
+            <td>Options available to choose from in a pagination select (rows per page)</td>
+          </tr>
+
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">prevButtonDisabled</code>
+            </td>
+            <td><i>boolean</i></td>
+            <td><code>false</code></td>
+            <td>Whether previous button should be disabled</td>
+          </tr>
+
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">nextButtonDisabled</code>
+            </td>
+            <td><i>boolean</i></td>
+            <td><code>false</code></td>
+            <td>Whether next button should be disabled</td>
+          </tr>
+
+          <tr>
+            <td class="text-nowrap">
+              <code class="highlighter-rouge">total</code>
+            </td>
+            <td><i>number</i></td>
+            <td><code>0</code></td>
+            <td>Changes number of total pagination entries</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!--Section: Inputs-->
+
+  <hr class="my-5" />
+
+  <!--Section: Outputs-->
+  <section id="api-section-outputs">
+    <!-- Section title -->
+    <h2 class="mb-4">Outputs</h2>
+
+    <h3>MdbTableSortDirective</h3>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>sortChange</code>
+            </td>
+            <td>EventEmitter&lt;MdbSortChange&gt;</td>
+            <td>Event fired on data sort change</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>MdbTablePaginationComponent</h3>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>paginationChange</code>
+            </td>
+            <td>EventEmitter&lt;MdbPaginationChange&gt;</td>
+            <td>Event fired on pagination change</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--Section: Code-->
+    <section class="mb-4">
+      <mdbsnippet>
+        <!--prettier-ignore-->
+        <code data-lang="html" data-name="HTML">
+            <div class="datatable mt-4">
+              <table
+                class="table datatable-table"
+                mdbTable
+                mdbTableSort
+                #table="mdbTable"
+                #sort="mdbTableSort"
+                [dataSource]="dataSource"
+                [pagination]="pagination"
+                [sort]="sort"
+                (sortChange)="onSortChange($event)"
+              >
+                <thead class="datatable-header">
+                  <tr>
+                    <th *ngFor="let header of headers" [mdbTableSortHeader]="header" scope="col">
+                      {{ header | titlecase }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="datatable-body">
+                  <tr *ngFor="let data of table.data" scope="row">
+                    <td>
+                      {{ data.name }}
+                    </td>
+                    <td>
+                      {{ data.position }}
+                    </td>
+                    <td>
+                      {{ data.office }}
+                    </td>
+                    <td>
+                      {{ data.age }}
+                    </td>
+                    <td>
+                      {{ data.startDate }}
+                    </td>
+                    <td>
+                      {{ data.salary }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <mdb-table-pagination #pagination (paginationChange)="onPaginationChange($event)"></mdb-table-pagination>
+            </div>
+          </code>
+        <!--prettier-ignore-->
+        <code data-lang="js" data-name="Typescript">
+            import { Component } from '@angular/core';
+            import { MdbSortChange, MdbPaginationChange } from 'mdb-angular-ui-kit/table';
+
+            export interface Person {
+              name: string;
+              position: string;
+              office: string;
+              age: number;
+              startDate: string;
+              salary: string;
+            }
+
+            @Component({ selector: 'app-datatable',
+              templateUrl: './datatable.component.html',
+              styleUrls: ['./datatable.component.scss'],
+            })
+            export class DatatableComponent {
+              headers = ['Name', 'Position', 'Office', 'Age', 'Start Date', 'Salary'];
+
+              dataSource: Person[] = [
+                {
+                  name: 'Tiger Nixon',
+                  position: 'System Architect',
+                  office: 'Edinburgh',
+                  age: 61,
+                  startDate: '2011/04/25',
+                  salary: '$320,800',
+                },
+                {
+                  name: 'Sonya Frost',
+                  position: 'Software Engineer',
+                  office: 'Edinburgh',
+                  age: 23,
+                  startDate: '2008/12/13',
+                  salary: '$103,600',
+                },
+                {
+                  name: 'Jena Gaines',
+                  position: 'Office Manager',
+                  office: 'London',
+                  age: 30,
+                  startDate: '2008/12/19',
+                  salary: '$90,560',
+                },
+                {
+                  name: 'Quinn Flynn',
+                  position: 'Support Lead',
+                  office: 'Edinburgh',
+                  age: 22,
+                  startDate: '2013/03/03',
+                  salary: '$342,000',
+                },
+                {
+                  name: 'Charde Marshall',
+                  position: 'Regional Director',
+                  office: 'San Francisco',
+                  age: 36,
+                  startDate: '2008/10/16',
+                  salary: '$470,600',
+                },
+                {
+                  name: 'Haley Kennedy',
+                  position: 'Senior Marketing Designer',
+                  office: 'London',
+                  age: 43,
+                  startDate: '2012/12/18',
+                  salary: '$313,500',
+                },
+                {
+                  name: 'Tatyana Fitzpatrick',
+                  position: 'Regional Director',
+                  office: 'London',
+                  age: 19,
+                  startDate: '2010/03/17',
+                  salary: '$385,750',
+                },
+                {
+                  name: 'Michael Silva',
+                  position: 'Marketing Designer',
+                  office: 'London',
+                  age: 66,
+                  startDate: '2012/11/27',
+                  salary: '$198,500',
+                },
+                {
+                  name: 'Paul Byrd',
+                  position: 'Chief Financial Officer (CFO)',
+                  office: 'New York',
+                  age: 64,
+                  startDate: '2010/06/09',
+                  salary: '$725,000',
+                },
+                {
+                  name: 'Gloria Little',
+                  position: 'Systems Administrator',
+                  office: 'New York',
+                  age: 59,
+                  startDate: '2009/04/10',
+                  salary: '$237,500',
+                },
+                {
+                  name: 'Garrett Winters',
+                  position: 'Accountant',
+                  office: 'Tokyo',
+                  age: 63,
+                  startDate: '2011/07/25',
+                  salary: '$170,750',
+                },
+                {
+                  name: 'Ashton Cox',
+                  position: 'Junior Technical Author',
+                  office: 'San Francisco',
+                  age: 66,
+                  startDate: '2009/01/12',
+                  salary: '$86,000',
+                },
+                {
+                  name: 'Cedric Kelly',
+                  position: 'Senior Javascript Developer',
+                  office: 'Edinburgh',
+                  age: 22,
+                  startDate: '2012/03/29',
+                  salary: '$433,060',
+                },
+                {
+                  name: 'Airi Satou',
+                  position: 'Accountant',
+                  office: 'Tokyo',
+                  age: 33,
+                  startDate: '2008/11/28',
+                  salary: '$162,700',
+                },
+                {
+                  name: 'Brielle Williamson',
+                  position: 'Integration Specialist',
+                  office: 'New York',
+                  age: 61,
+                  startDate: '2012/12/02',
+                  salary: '$372,000',
+                },
+              ];
+
+              constructor() {}
+
+              onSortChange(event: MdbSortChange): void {
+                console.log('sort change event', event);
+              }
+
+              onPaginationChange(event: MdbPaginationChange): void {
+                console.log('pagination change event', event);
+              }
+            }
+          </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Outputs-->
 </section>
 <!--Section: API content-->
