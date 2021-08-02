@@ -133,19 +133,6 @@
     );
   })();
 
-  // Confirm delete
-
-  (function () {
-    const tableConfirmDelete = new TableEditor(
-      document.getElementById('table_confirm_delete'),
-      {
-        columns: advancedColumns,
-        rows: advancedRows,
-      },
-      { entries: 5, entriesOptions: [5, 10, 15], confirm: true }
-    );
-  })();
-
   // advanced search
 
   (function () {
@@ -246,82 +233,6 @@
     table.addEventListener('update.mdb.tableEditor', (e) => {
       // here you can create a POST request to update your database
       console.log(e.columns, e.rows);
-    });
-  })();
-
-  // custom rows
-
-  (function () {
-    const table = document.getElementById('table_custom_rows');
-
-    const tableEditorInstance = new TableEditor(table, { rows, columns }, { pagination: false });
-
-    const buttons = document.getElementsByClassName('add-entry-button');
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', (e) => {
-        const company = e.target.getAttribute('data-mdb-company');
-        const address = e.target.getAttribute('data-mdb-address');
-        const city = e.target.getAttribute('data-mdb-city');
-
-        tableEditorInstance.add({ company, address, city });
-
-        e.target.setAttribute('disabled', true);
-        e.target.innerText = 'Loaded';
-      });
-    });
-
-    // disable buttons in edit mode
-
-    table.addEventListener('edit.mdb.tableEditor', () => {
-      buttons.forEach((button) => {
-        button.setAttribute('disabled', true);
-      });
-    });
-
-    table.addEventListener('exit.mdb.tableEditor', () => {
-      buttons.forEach((button) => {
-        if (button.innerText.toLowerCase() !== 'loaded') {
-          button.removeAttribute('disabled');
-        }
-      });
-    });
-  })();
-
-  // notifications
-
-  (function () {
-    const table = document.getElementById('table_notifications');
-    new TableEditor(table, { rows: advancedRows, columns: advancedColumns });
-
-    table.addEventListener('add.mdb.tableEditor', (e) => {
-      const alert = document.getElementById('alert-add-entry');
-      const alertInstance = mdb.Alert.getInstance(alert);
-
-      const { company, office } = e.row;
-      alert.innerHTML = `<strong>New entry:</strong> ${company} (${office})`;
-
-      alertInstance.show();
-    });
-
-    table.addEventListener('delete.mdb.tableEditor', (e) => {
-      const alert = document.getElementById('alert-remove-entry');
-      const alertInstance = mdb.Alert.getInstance(alert);
-
-      const { company, office } = e.row;
-      alert.innerHTML = `<strong>Deleted entry:</strong> ${company} (${office})`;
-
-      alertInstance.show();
-    });
-
-    table.addEventListener('updateEntry.mdb.tableEditor', (e) => {
-      const alert = document.getElementById('alert-update-entry');
-      const alertInstance = mdb.Alert.getInstance(alert);
-
-      const { company, office } = e.row;
-      alert.innerHTML = `<strong>Updated entry:</strong> ${company} (${office})`;
-
-      alertInstance.show();
     });
   })();
 </script>
