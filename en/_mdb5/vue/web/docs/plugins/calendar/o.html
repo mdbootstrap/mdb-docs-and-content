@@ -1,0 +1,1149 @@
+<link rel="stylesheet"
+  href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/calendar.min.css?v=<?= STANDARD_DOCS_BUNDLE_VERSION; ?>" />
+
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+      <span>
+        <a href="/docs/standard/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6">
+      <?= $data_var['subheading']; ?>
+    </h1>
+
+    <!-- Description -->
+    <p>
+      MDB calendar is a plugin that allows you to efficiently manage tasks. Thanks to this extension
+      you will be able to easily create new events, manage current events, move existing events
+      between other days, and store all data in an easily readable array.
+    </p>
+
+    <p>
+      <?= $data_var['description']; ?>
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!-- description -->
+    <p class="mb-4">A few predefined events allowing you to see how the plugin looks like.</p>
+
+    <!--Section: Demo-->
+    <div class="calendar"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBCalendar ref="basicCalendar" :events="basicEvents" />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBCalendar } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            import dayjs from 'dayjs';
+
+            export default {
+              components: {
+                MDBCalendar
+              },
+              setup() {
+                const basicCalendar = ref(null);
+                const basicEvents = ref([
+                  {
+                    summary: "JS Conference",
+                    start: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Vue Meetup",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#00B74A",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Angular Meetup",
+                    description:
+                      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+                    start: {
+                      date: dayjs().subtract(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().subtract(3, "day").format("DD/MM/YYYY") + " 10:00",
+                    },
+                    end: {
+                      date: dayjs().add(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(3, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#F93154",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "React Meetup",
+                    start: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(8, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#39C0ED",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Meeting",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 8:00",
+                    },
+                    end: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 12:00",
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Call",
+                    start: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 11:00",
+                    },
+                    end: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#FFA900",
+                    },
+                  },
+                ]);
+
+
+                return {
+                  basicCalendar,
+                  basicEvents
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Event format-->
+  <section id="section-event-formats">
+    <!-- Section title -->
+    <h2 class="mb-4">Event formats</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Calendar events can be added with time in two different formats - 12h
+      or 24h. Optionally, you can also use external time libraries like
+      <a href="https://momentjs.com/" target="_blank">moment</a>
+      or <a href="https://day.js.org/" target="_blank">dayjs</a>.
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="24h">
+          {
+            summary: 'Call',
+            start: {
+              date: '08/09/2020',
+              dateTime: '08/09/2020 10:00',
+            },
+            end: {
+              date: '08/09/2020',
+              dateTime: '08/09/2020 14:00',
+            },
+            color: {
+              background: '#FFA900',
+            },
+          }
+        </code>
+        <code data-lang="js" data-name="12h">
+          {
+            summary: 'Call',
+            start: {
+              date: '08/09/2020',
+              dateTime: '08/09/2020 10:00 AM',
+            },
+            end: {
+              date: '08/09/2020',
+              dateTime: '08/09/2020 02:00 PM',
+            },
+            color: {
+              background: '#FFA900',
+            },
+          }
+        </code>
+        <code data-lang="js" data-name="dayjs">
+          {
+            summary: 'Call',
+            start: {
+              date: dayjs().add(2, 'day').format('DD/MM/YYYY'),
+              dateTime: dayjs().add(2, 'day').format('DD/MM/YYYY') + ' 11:00',
+            },
+            end: {
+              date: dayjs().add(2, 'day').format('DD/MM/YYYY'),
+              dateTime: dayjs().add(2, 'day').format('DD/MM/YYYY') + ' 14:00',
+            },
+            color: {
+              background: '#FFA900',
+            },
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Event format-->
+
+  <hr class="my-5" />
+
+  <!--Section: Monday first-->
+  <section id="section-monday-first">
+    <!-- Section title -->
+    <h2 class="mb-4">Monday first</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Set the <code>mondayFirst</code> property to true so that Monday is
+      the first day of the week.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-monday-first="true"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBCalendar
+              ref="mondayFirstCalendar"
+              :events="mondayFirstEvents"
+              mondayFirst
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBCalendar } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            import dayjs from "dayjs";
+
+            export default {
+              components: {
+                MDBCalendar
+              },
+              setup() {
+                const mondayFirstCalendar = ref(null);
+                const mondayFirstEvents = ref([
+                  {
+                    summary: "JS Conference",
+                    start: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Vue Meetup",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#00B74A",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Angular Meetup",
+                    description:
+                      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+                    start: {
+                      date: dayjs().subtract(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().subtract(3, "day").format("DD/MM/YYYY") + " 10:00",
+                    },
+                    end: {
+                      date: dayjs().add(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(3, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#F93154",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "React Meetup",
+                    start: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(8, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#39C0ED",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Meeting",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 8:00",
+                    },
+                    end: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 12:00",
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Call",
+                    start: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 11:00",
+                    },
+                    end: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#FFA900",
+                    },
+                  },
+                ]);
+
+
+                return {
+                  mondayFirstCalendar,
+                  mondayFirstEvents
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Monday first-->
+
+  <hr class="my-5" />
+
+  <!--Section: Default view-->
+  <section id="section-default-view">
+    <!-- Section title -->
+    <h2 class="mb-4">Default view</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Set the <code>defaultView</code> property to <code>week</code> or
+      <code>list</code> to change the start view. By default, it is a
+      <code>month</code>.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-default-view="week"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBCalendar
+              ref="defaultViewCalendar"
+              :events="defaultViewEvents"
+              defaultView="week"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBCalendar } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            import dayjs from "dayjs";
+
+            export default {
+              components: {
+                MDBCalendar
+              },
+              setup() {
+                const mondayFirstCalendar = ref(null);
+                const mondayFirstEvents = ref([
+                  {
+                    summary: "JS Conference",
+                    start: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Vue Meetup",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#00B74A",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Angular Meetup",
+                    description:
+                      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+                    start: {
+                      date: dayjs().subtract(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().subtract(3, "day").format("DD/MM/YYYY") + " 10:00",
+                    },
+                    end: {
+                      date: dayjs().add(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(3, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#F93154",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "React Meetup",
+                    start: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(8, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#39C0ED",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Meeting",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 8:00",
+                    },
+                    end: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 12:00",
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Call",
+                    start: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 11:00",
+                    },
+                    end: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#FFA900",
+                    },
+                  },
+                ]);
+
+
+                return {
+                  mondayFirstCalendar,
+                  mondayFirstEvents
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Default view-->
+
+  <hr class="my-5" />
+
+  <!--Section: Twelve hour-->
+  <section id="section-twelve-hour">
+    <!-- Section title -->
+    <h2 class="mb-4">Twelve hour</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      By adding the <code>twelveHour</code> property, you get a 12-hour
+      schedule.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-default-view="week" data-mdb-twelve-hour="true"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBCalendar
+              ref="twelveHourCalendar"
+              :events="twelveHourEvents"
+              defaultView="week"
+              twelveHour
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBCalendar } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            import dayjs from "dayjs";
+
+            export default {
+              components: {
+                MDBCalendar
+              },
+              setup() {
+                const twelveHourCalendar = ref(null);
+                const twelveHourEvents = ref([
+                  {
+                    summary: "JS Conference",
+                    start: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Vue Meetup",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#00B74A",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Angular Meetup",
+                    description:
+                      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+                    start: {
+                      date: dayjs().subtract(3, "day").format("DD/MM/YYYY"),
+                      dateTime:
+                        dayjs().subtract(3, "day").format("DD/MM/YYYY") + " 10:00 AM",
+                    },
+                    end: {
+                      date: dayjs().add(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(3, "day").format("DD/MM/YYYY") + " 02:00 PM",
+                    },
+                    color: {
+                      background: "#F93154",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "React Meetup",
+                    start: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(8, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#39C0ED",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Meeting",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 8:00 AM",
+                    },
+                    end: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 12:00 PM",
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Call",
+                    start: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 11:00 AM",
+                    },
+                    end: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 02:00 PM",
+                    },
+                    color: {
+                      background: "#FFA900",
+                    },
+                  },
+                ]);
+
+                return {
+                  twelveHourCalendar,
+                  twelveHourEvents
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Twelve hour-->
+
+  <hr class="my-5" />
+
+  <!--Section: Customize captions-->
+  <section id="section-customize-captions">
+    <!-- Section title -->
+    <h2 class="mb-4">Customize captions</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      You can customize all captions very easily using data attributes. Detailed options are
+      described in the API tab.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-weekdays="Nd, Pon, Wt, Śr, Czw, Pt, Sb"
+      data-mdb-months="Styczeń, Luty, Marzec, Kwiecień, Maj, Czerwiec, Lipiec, Sierpień, Wrzesień, Październik, Listopad, Grudzień"
+      data-mdb-months-short="Sty, Lut, Mar, Kwi, Maj, Cze, Lip, Sie, Wrz, Paź, Lis, Gru"
+      data-mdb-today-caption="Dzisiaj" data-mdb-month-caption="Miesiąc" data-mdb-week-caption="Tydzień"
+      data-mdb-list-caption="Lista" data-mdb-all-day-caption="Cały dzień" data-mdb-no-events-caption="Brak wydarzeń"
+      data-mdb-summary-caption="Nazwa wydarzenia" data-mdb-description-caption="Szczegółowy opis wydarzenia"
+      data-mdb-start-caption="Początek" data-mdb-end-caption="Koniec"
+      data-mdb-add-event-modal-caption="Dodaj wydarzenie" data-mdb-edit-event-modal-caption="Edytuj wydarzenie"
+      data-mdb-add-caption="Dodaj" data-mdb-edit-caption="Edytuj" data-mdb-delete-caption="Usuń"
+      data-mdb-close-caption="Zamknij"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBCalendar
+              ref="customCaptionCalendar"
+              :events="basicEvents"
+              :weekdays="['Nd', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb']"
+              :months="['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień']"
+              :monthsShort="['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru']"
+              todayCaption="Dzisiaj"
+              monthCaption="Miesiąc"
+              weekCaption="Tydzień"
+              listCaption="Lista"
+              allDayCaption="Cały dzień"
+              noEventsCaption="Brak wydarzeń"
+              summaryCaption="Nazwa wydarzenia"
+              descriptionCaption="Szczegółowy opis wydarzenia"
+              startCaption="Początek"
+              endCaption="Koniec"
+              addEventModalCaption="Dodaj wydarzenie"
+              editEventModalCaption="Edytuj wydarzenie"
+              addCaption="Dodaj"
+              editCaption="Edytuj"
+              deleteCaption="Usuń"
+              closeCaption="Zamknij"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBCalendar } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            import dayjs from "dayjs";
+
+            export default {
+              components: {
+                MDBCalendar
+              },
+              setup() {
+                const customCaptionCalendar = ref(null);
+                const customCaptionEvents = ref([
+                  {
+                    summary: "JS Conference",
+                    start: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Vue Meetup",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#00B74A",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Angular Meetup",
+                    description:
+                      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+                    start: {
+                      date: dayjs().subtract(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().subtract(3, "day").format("DD/MM/YYYY") + " 10:00",
+                    },
+                    end: {
+                      date: dayjs().add(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(3, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#F93154",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "React Meetup",
+                    start: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(8, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#39C0ED",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Meeting",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 8:00",
+                    },
+                    end: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 12:00",
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Call",
+                    start: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 11:00",
+                    },
+                    end: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#FFA900",
+                    },
+                  },
+                ]);
+
+
+                return {
+                  customCaptionCalendar,
+                  customCaptionEvents
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Customize captions-->
+
+  <hr class="my-5" />
+
+  <!--Section: Default date-->
+  <section id="section-default-date">
+    <!-- Section title -->
+    <h2 class="mb-4">Default date</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      A starting day can be easily set using the
+      <code>defaultDate</code> property.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-default-date="01-12-2019"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBCalendar
+              ref="defaultDateCalendar"
+              :events="defaultDateEvents"
+              defaultDate="01-12-2019"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBCalendar } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            import dayjs from "dayjs";
+
+            export default {
+              components: {
+                MDBCalendar
+              },
+              setup() {
+                const defaultDateCalendar = ref(null);
+                const defaultDateEvents = ref([
+                  {
+                    summary: "JS Conference",
+                    start: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Vue Meetup",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#00B74A",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Angular Meetup",
+                    description:
+                      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+                    start: {
+                      date: dayjs().subtract(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().subtract(3, "day").format("DD/MM/YYYY") + " 10:00",
+                    },
+                    end: {
+                      date: dayjs().add(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(3, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#F93154",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "React Meetup",
+                    start: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(8, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#39C0ED",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Meeting",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 8:00",
+                    },
+                    end: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 12:00",
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Call",
+                    start: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 11:00",
+                    },
+                    end: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#FFA900",
+                    },
+                  },
+                ]);
+
+
+                return {
+                  defaultDateCalendar,
+                  defaultDateEvents
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Default date-->
+
+  <hr class="my-5" />
+
+  <!--Section: Readonly-->
+  <section id="section-readonly">
+    <!-- Section title -->
+    <h2 class="mb-4">Readonly</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      The editable mode can be easily disabled using the
+      <code>readonly</code> property.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-readonly="true"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBCalendar ref="readonlyCalendar" :events="readonlyEvents" readonly />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBCalendar } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            import dayjs from "dayjs";
+
+            export default {
+              components: {
+                MDBCalendar
+              },
+              setup() {
+                const readonlyCalendar = ref(null);
+                const readonlyEvents = ref([
+                  {
+                    summary: "JS Conference",
+                    start: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Vue Meetup",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#00B74A",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Angular Meetup",
+                    description:
+                      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+                    start: {
+                      date: dayjs().subtract(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().subtract(3, "day").format("DD/MM/YYYY") + " 10:00",
+                    },
+                    end: {
+                      date: dayjs().add(3, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(3, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#F93154",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "React Meetup",
+                    start: {
+                      date: dayjs().add(5, "day").format("DD/MM/YYYY"),
+                    },
+                    end: {
+                      date: dayjs().add(8, "day").format("DD/MM/YYYY"),
+                    },
+                    color: {
+                      background: "#39C0ED",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Meeting",
+                    start: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 8:00",
+                    },
+                    end: {
+                      date: dayjs().add(1, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(1, "day").format("DD/MM/YYYY") + " 12:00",
+                    },
+                    color: {
+                      background: "#1266F1",
+                      foreground: "white",
+                    },
+                  },
+                  {
+                    summary: "Call",
+                    start: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 11:00",
+                    },
+                    end: {
+                      date: dayjs().add(2, "day").format("DD/MM/YYYY"),
+                      dateTime: dayjs().add(2, "day").format("DD/MM/YYYY") + " 14:00",
+                    },
+                    color: {
+                      background: "#FFA900",
+                    },
+                  },
+                ]);
+
+
+                return {
+                  readonlyCalendar,
+                  readonlyEvents
+                };
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Readonly-->
+</section>
+<!--Section: Docs content-->
