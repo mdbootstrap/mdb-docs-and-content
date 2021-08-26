@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Landing Page blocks - project sections',
   'description' => 'Collection of practical examples of project sections.',
   'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/landing-page/project-sections/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/project-sections/assets/1.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/project-sections/assets/landing-page-project-sections.jpg',
   'video' => '',
 );
