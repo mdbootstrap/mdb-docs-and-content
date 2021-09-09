@@ -1,0 +1,205 @@
+<!--Section: API content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="app.module.ts">
+        import { MdbAutocompleteModule } from 'mdb-angular-ui-kit/autocomplete';
+        …
+        @NgModule ({
+          ...
+          imports: [MdbAutocompleteModule],
+          ...
+        })
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+
+  <hr class="my-5" />
+
+  <!--Section: Inputs-->
+  <section id="api-section-properties">
+    <!-- Section title -->
+    <h2 class="mb-4">Inputs</h2>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>displayValue</code>
+            </td>
+            <td><em>Function</em></td>
+            <td><code>(value) => value</code></td>
+            <td>Function executed for complex search results, to get value to display in the results list
+              ue</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>optionHeight</code>
+            </td>
+            <td><em>number</em></td>
+            <td><code>38</code></td>
+            <td>Changes the single option height value</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>listHeight</code>
+            </td>
+            <td><em>number</em></td>
+            <td><code>190</code></td>
+            <td>Height of the results list</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!--Section: Inputs-->
+
+  <hr class="my-5" />
+
+  <!--Section: Outputs-->
+  <section id="api-section-outputs">
+    <!-- Section title -->
+    <h2 class="mb-4">Outputs</h2>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>closed</code>
+            </td>
+            <td>EventEmitter&lt;any&gt;</td>
+            <td>Event fired when the select is closed</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>opened</code>
+            </td>
+            <td>EventEmitter&lt;any&gt;</td>
+            <td>Event fired when the select is opened</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>selected</code>
+            </td>
+            <td>EventEmitter&lt;any&gt;</td>
+            <td>Event fired when the autocomplete item is selected</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!--prettier-ignore-->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <mdb-form-control style="width: 22rem">
+              <input
+                mdbInput
+                [ngModel]="searchText | async"
+                (ngModelChange)="searchText.next($event)"
+                [mdbAutocomplete]="autocomplete"
+                type="text"
+                id="autocomplete"
+                class="form-control"
+              />
+              <label mdbLabel class="form-label" for="autocomplete">Example label</label>
+            </mdb-form-control>
+
+            <mdb-autocomplete #autocomplete="mdbAutocomplete" (opened)="onOpen()">
+              <mdb-option *ngFor="let option of results" [value]="option">
+                {{ option }}
+              </mdb-option>
+              <div *ngIf="notFound" class="autocomplete-no-results">No results found</div>
+            </mdb-autocomplete>
+          </code>
+
+          <code data-lang="js" data-name="TS">
+            import { Component, OnInit } from '@angular/core';
+            import { Observable, Subject } from 'rxjs';
+            import {
+              map,
+              startWith,
+              tap,
+            } from 'rxjs/operators';
+
+            @Component({
+              selector: 'app-autocomplete',
+              templateUrl: './autocomplete.component.html',
+              styleUrls: ['./autocomplete.component.scss'],
+            })
+            export class AutocompleteComponent implements OnInit {
+              searchText = new Subject();
+              results: Observable<string[]>;
+              notFound = false;
+
+              data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+
+              constructor() {}
+
+              ngOnInit(): void {
+                this.results = this.searchText.pipe(
+                  startWith(''),
+                  map((value: string) => this.filter(value)),
+                  tap((results: string[]) =>
+                    results.length > 0 ? (this.notFound = false) : (this.notFound = true)
+                  )
+                );
+              }
+
+              filter(value: string): string[] {
+                const filterValue = value.toLowerCase();
+                return this.data.filter((item: string) => item.toLowerCase().includes(filterValue));
+              }
+
+              onOpen(): void {
+                console.log('opened');
+              }
+            }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </div>
+  </section>
+  <!--Section: Outputs-->
+</section>
+<!--Section: API content-->

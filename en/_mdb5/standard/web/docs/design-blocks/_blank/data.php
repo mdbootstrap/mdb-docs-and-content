@@ -6,5 +6,5 @@ $data_var = array(
   'description' => '[Name] built with the latest Bootstrap 5 & Material Design 2.0. Multiple examples, a user-friendly guide, extensive API, and customization tools',
   'url' => '',
   'image' => '',
-  'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
+  'video' => 'https://youtu.be/gWs4y2DZngg',
 );

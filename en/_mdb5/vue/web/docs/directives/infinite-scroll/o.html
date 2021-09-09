@@ -1,0 +1,665 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/b5/vue/pro/" role="button">
+            <i class="far fa-xs fa-gem text-danger"></i>
+        </a>
+      </span>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">
+      This feature adds a scroll event listener (to the window or the component it's attached to if
+      it has the overflow-y property set to scroll) and calls a callback method every time a user
+      reaches an end of a page/container.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!-- Description -->
+    <p>Scroll down the container below to add more items.</p>
+
+    <p class="note note-info">
+      <strong>Note:</strong> Your element should be scrollable, for
+      example, it should have <code>overflow-y: scroll</code> property
+      like in the example below.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div class="infinite-scroll" data-mdb-infinite-direction="y" data-mdb-infinite-container="infinite-scroll-basic" style="width: 200px;">
+      <ul
+        class="container list-group infinite-scroll infinite-scroll-basic"
+        id="basic-example"
+        style="max-height: 261px; overflow-y: scroll"
+      >
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-angry fa-3x me-4"></i> Angry
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-dizzy fa-3x me-4"></i> Dizzy
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-flushed fa-3x me-4"></i> Flushed
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-frown fa-3x me-4"></i> Frown
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-grimace fa-3x me-4"></i> Grimace
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-grin fa-3x me-4"></i> Grin
+        </li>
+      </ul>
+    </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBListGroup
+              class="container"
+              style="max-height: 261px; overflow-y: scroll"
+              v-mdb-infinite-scroll="infiniteScroll1"
+            >
+              <MDBListGroupItem
+                v-for="(item, i) in listGroup1"
+                :key="i"
+                class="d-flex align-items-center"
+              >
+                <MDBIcon
+                  iconStyle="far"
+                  :icon="item.icon"
+                  size="3x"
+                  class="me-4"
+                />
+                {{ item.content }}
+              </MDBListGroupItem>
+            </MDBListGroup>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { mdbInfiniteScroll, MDBIcon, MDBListGroup, MDBListGroupItem } from 'mdb-vue-ui-kit';
+            import { ref } from "vue";
+
+            export default {
+              directives: {
+                mdbInfiniteScroll
+              },
+              components: {
+                MDBIcon, 
+                MDBListGroup, 
+                MDBListGroupItem
+              },
+              setup() {
+                const icons = [
+                  "Sad-Tear",
+                  "Meh-Blank",
+                  "Smile-Wink",
+                  "Tired",
+                  "Surprise",
+                  "Kiss-Beam",
+                  "Laugh-Squint"
+                ];
+
+                const listGroup1 = ref([
+                  {
+                    icon: "angry",
+                    content: "Angry"
+                  },
+                  {
+                    icon: "dizzy",
+                    content: "Dizzy"
+                  },
+                  {
+                    icon: "flushed",
+                    content: "Flushed"
+                  },
+                  {
+                    icon: "frown",
+                    content: "Frown"
+                  },
+                  {
+                    icon: "grimace",
+                    content: "Grimace"
+                  },
+                  {
+                    icon: "grin",
+                    content: "Grin"
+                  }
+                ]);
+                const itemIndex1 = ref(0);
+
+                const infiniteScroll1 = () => {
+                  if (itemIndex1.value === icons.length - 1) {
+                    return;
+                  }
+
+                  listGroup1.value.push({
+                    icon: icons[itemIndex1.value].toLowerCase(),
+                    content: icons[itemIndex1.value]
+                  });
+
+                  itemIndex1.value++;
+                };
+
+                return {
+                  listGroup1,
+                  infiniteScroll1
+                }
+              }
+            };      
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Direction-->
+  <section id="section-direction">
+    <!-- Section title -->
+    <h2 class="mb-4">Direction</h2>
+
+    <!-- Description -->
+    <p>
+      Use <code>v-mdb-infinite-scroll:x</code> to change the scrolling
+      direction to horizontall.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div
+        class="infinite-scroll py-3 text-center"
+        id="direction-example"
+        style="max-width: 1500px; overflow-x: scroll; white-space: nowrap"
+        data-mdb-infinite-direction="x"
+      >
+        <span class="mx-5"><i class="far fa-angry fa-3x me-4"></i> Angry</span>
+        <span class="mx-5"><i class="far fa-dizzy fa-3x me-4"></i> Dizzy</span>
+        <span class="mx-5"><i class="far fa-flushed fa-3x me-4"></i> Flushed</span>
+        <span class="mx-5"><i class="far fa-grimace fa-3x me-4"></i> Grimace</span>
+        <span class="mx-5"><i class="far fa-grin fa-3x me-4"></i> Grin</span>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div
+              class="text-center py-3"
+              style="max-width: 1500px; overflow-x: scroll; white-space: nowrap"
+              v-mdb-infinite-scroll:x="infiniteScroll2"
+            >
+              <span v-for="(item, i) in listGroup2" :key="i" class="mx-5">
+                <MDBIcon
+                  iconStyle="far"
+                  :icon="item.icon"
+                  size="3x"
+                  class="me-4"
+                />
+                {{ item.content }}
+              </span>
+            </div>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { mdbInfiniteScroll, MDBIcon } from 'mdb-vue-ui-kit';
+            import { ref } from "vue";
+
+            export default {
+              directives: {
+                mdbInfiniteScroll
+              },
+              components: {
+                MDBIcon
+              },
+              setup() {
+                const icons = [
+                  "Sad-Tear",
+                  "Meh-Blank",
+                  "Smile-Wink",
+                  "Tired",
+                  "Surprise",
+                  "Kiss-Beam",
+                  "Laugh-Squint"
+                ];
+
+                const listGroup2 = ref([
+                  {
+                    icon: "angry",
+                    content: "Angry"
+                  },
+                  {
+                    icon: "dizzy",
+                    content: "Dizzy"
+                  },
+                  {
+                    icon: "flushed",
+                    content: "Flushed"
+                  },
+                  {
+                    icon: "frown",
+                    content: "Frown"
+                  },
+                  {
+                    icon: "grimace",
+                    content: "Grimace"
+                  },
+                  {
+                    icon: "grin",
+                    content: "Grin"
+                  }
+                ]);
+                const itemIndex2 = ref(0);
+
+                const infiniteScroll2 = () => {
+                  if (itemIndex2.value === icons.length - 1) {
+                    return;
+                  }
+
+                  listGroup2.value.push({
+                    icon: icons[itemIndex2.value].toLowerCase(),
+                    content: icons[itemIndex2.value]
+                  });
+
+                  itemIndex2.value++;
+                };
+
+                return {
+                  listGroup2,
+                  infiniteScroll2
+                }
+              }
+            };      
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Direction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Spinners and asynchronous data-mdb-->
+  <section id="section-spinners-and-async-data">
+    <!-- Section title -->
+    <h2 class="mb-4">Spinners and asynchronous data</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div
+        class="infinite-scroll py-3 text-center"
+        id="spinners-and-async-example"
+        style="max-height: 500px; overflow-y: scroll"
+      >
+        <div id="images">
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(100).jpg"
+            class="img-fluid mb-3"
+          />
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(105).jpg"
+            class="img-fluid mb-3"
+          />
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(106).jpg"
+            class="img-fluid mb-3"
+          />
+        </div>
+        <div class="spinner-border mx-auto" id="spinner" style="display: none"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div
+              class="infinite-scroll py-3 text-center"
+              v-mdb-infinite-scroll="loadImages"
+              style="max-height: 500px; overflow-y: scroll"
+            >
+              <div id="images">
+                <img
+                  v-for="(image, i) in images"
+                  :key="i"
+                  :src="image"
+                  class="img-fluid mb-3"
+                />
+              </div>
+              <MDBSpinner v-if="isLoading" class="mx-auto" />
+            </div>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { mdbInfiniteScroll, MDBSpinner } from 'mdb-vue-ui-kit';
+            import { ref } from "vue";
+
+            export default {
+              directives: {
+                mdbInfiniteScroll
+              },
+              components: {
+                MDBSpinner
+              },
+              setup() {
+                const images = ref([
+                  "https://mdbootstrap.com/img/Photos/Slides/img%20(100).jpg",
+                  "https://mdbootstrap.com/img/Photos/Slides/img%20(105).jpg",
+                  "https://mdbootstrap.com/img/Photos/Slides/img%20(106).jpg"
+                ]);
+
+                const isLoading = ref(false);
+
+                 const loadImages = () => {
+                    // Make spinner visible
+                   isLoading.value = true;
+                    // Fetch your API
+                   fetch('YOUR_API/getNextItem')
+                   .then(response => response.json)
+                   .then(imgUrl => {
+                     // Hide spinner after data loads
+                     isLoading.value = false;
+                    // Append an image element
+                     images.value.push(imgUrl);
+                     })
+                 }
+
+                return {
+                  images,
+                  isLoading,
+                  loadImages
+                }
+              }
+            };      
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Spinners and asynchronous data-mdb-->
+
+  <hr class="my-5" />
+
+  <!--Section: Window-->
+  <section id="section-window">
+    <!-- Section title -->
+    <h2 class="mb-4">Window</h2>
+
+    <!-- Description -->
+    <p>
+      You can apply the <code>mdbInfiniteScroll</code> directive to a
+      window by placing
+      <code>v-mdb-infinite-scroll:window</code> directive to the container
+      of your scrolling elements.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4 justify-content-center">
+      <a
+        class="btn btn-primary"
+        role="button"
+        target="_blank"
+        href="https://mdbootstrap.com/previews/mdb-ui-kit/infinite-scroll/full-page-example.html"
+        >View full screen demo<i class="far fa-eye ps-2"></i
+      ></a>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <main class="my-4" v-mdb-infinite-scroll:window="loadImages">
+              <MDBContainer>
+                <section class="text-center mb-4" id="posts">
+                  <MDBRow v-for="(pair, i) in imagePairs" :key="i">
+                    <MDBCol md="6" class="mb-4" v-for="(image, i) in pair" :key="i">
+                      <div
+                        class="bg-image hover-overlay ripple shadow-1-strong rounded mb-4"
+                        v-mdb-ripple="{ color: 'light' }"
+                      >
+                        <img
+                          v-mdb-lazy="{
+                            src: image.src,
+                            placeholder: 'https://place-hold.it/1321x583?text=Loading'
+                          }"
+                          class="w-100"
+                        />
+                        <a href="#!">
+                          <div
+                            class="mask"
+                            style="background-color: rgba(251, 251, 251, 0.2);"
+                          ></div>
+                        </a>
+                      </div>
+                      <h5>{{ image.title }}</h5>
+
+                      <p>
+                        {{ image.text }}
+                      </p>
+
+                      <MDBBtn tag="a" color="info" rounded href="#!">Read more</MDBBtn>
+                    </MDBCol>
+                  </MDBRow>
+
+                  <MDBRow v-if="isLoading">
+                    <MDBCol md="12">
+                      <MDBSpinner class="mx-auto"></MDBSpinner>
+                    </MDBCol>
+                  </MDBRow>
+                </section>
+              </MDBContainer>
+            </main>
+          </template>
+        </code>
+        <code data-lang="js" data-name="JavaScript">
+          <script>
+            import {
+              mdbInfiniteScroll,
+              mdbLazy,
+              mdbRipple,
+              MDBContainer,
+              MDBRow,
+              MDBCol,
+              MDBBtn, 
+              MDBSpinner
+            } from "mdb-vue-ui-kit";
+            import { ref, nextTick } from "vue";
+
+            export default {
+              name: "infinite-scroll-window",
+              components: { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBSpinner },
+              directives: {
+                mdbInfiniteScroll,
+                mdbLazy,
+                mdbRipple
+              },
+              setup() {
+                const items = [
+                  [
+                    {
+                      src: "https://mdbcdn.b-cdn.net/img/Photos/Others/images/31.jpg",
+                      title: "This is an title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    },
+                    {
+                      src: "https://mdbcdn.b-cdn.net/img/Photos/Others/images/23.jpg",
+                      title: "This is an title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    }
+                  ],
+                  [
+                    {
+                      src: "https://mdbcdn.b-cdn.net/img/Photos/Others/images/29.jpg",
+                      title: "This is an title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    },
+                    {
+                      src: "https://mdbcdn.b-cdn.net/img/Photos/Others/images/27.jpg",
+                      title: "This is an title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    }
+                  ],
+                  [
+                    {
+                      src: "https://mdbcdn.b-cdn.net/img/Photos/Others/images/25.jpg",
+                      title: "This is an title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    },
+                    {
+                      src: "https://mdbcdn.b-cdn.net/img/Photos/Others/images/24.jpg",
+                      title: "This is an title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    }
+                  ],
+                  [
+                    {
+                      src: "https://mdbcdn.b-cdn.net/img/Photos/Others/images/31.jpg",
+                      title: "This is an title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    },
+                    {
+                      src: "https://mdbcdn.b-cdn.net/img/Photos/Others/images/32.jpg",
+                      title: "This is an title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    }
+                  ]
+                ];
+
+                const imagePairs = ref([
+                  [
+                    {
+                      src: "https://mdbootstrap.com/img/Photos/Others/images/29.jpg",
+                      title: "This is a title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    },
+                    {
+                      src: "https://mdbootstrap.com/img/Photos/Others/images/27.jpg",
+                      title: "This is a title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    }
+                  ],
+                  [
+                    {
+                      src: "https://mdbootstrap.com/img/Photos/Others/images/25.jpg",
+                      title: "This is a title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    },
+                    {
+                      src: "https://mdbootstrap.com/img/Photos/Others/images/24.jpg",
+                      title: "This is a title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    }
+                  ],
+                  [
+                    {
+                      src: "https://mdbootstrap.com/img/Photos/Others/images/31.jpg",
+                      title: "This is a title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    },
+                    {
+                      src: "https://mdbootstrap.com/img/Photos/Others/images/23.jpg",
+                      title: "This is a title of the article",
+                      text:
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus laudantium cum dolorem illo. Quos architecto deserunt saepe."
+                    }
+                  ]
+                ]);
+                const itemsIndex = ref(0);
+                const isLoading = ref(false);
+
+                const loadImages = () => {
+                  if (itemsIndex.value === items.length - 1) {
+                    return;
+                  }
+
+                  isLoading.value = true;
+                  imagePairs.value.push(items[itemsIndex.value]);
+
+                  nextTick(() => {
+                    isLoading.value = false;
+                  });
+                  itemsIndex.value++;
+                };
+
+                return {
+                  imagePairs,
+                  isLoading,
+                  loadImages
+                };
+              }
+            };
+            </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="container" id="window-example"></div>
+    </section>
+    <!--Section: Demo-->
+  </section>
+  <!--Section: Window-->
+</section>
+<!--Section: Docs content-->

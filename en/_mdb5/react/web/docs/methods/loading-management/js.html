@@ -1,0 +1,87 @@
+<script>
+    const loadingColors = document.querySelector('.loading-colors');
+
+    const newloadingColors = new mdb.Loading(loadingColors, {
+      parentSelector: '#loading-test-2',
+      backdropColor: 'blue',
+      backdropOpacity: '.2',
+    });
+
+    const loader = `<div id="loading-test-6" style="height: 300px; width: 100%">
+                <div class="loading-delay">
+                  <div class="spinner-border loading-icon text-succes"></div>
+                    <span class="loading-text">Loading...</span>
+                  </div>
+              </div>`;
+
+    const loader1 = `<div class="loading-full">
+                  <div class="spinner-border loading-icon text-succes"></div>
+                  <span class="loading-text">Loading...</span>
+                </div>`;
+
+    const switches = document.querySelector('#flexSwitchCheckDefault');
+
+    let timeleft = 4;
+
+    switches.addEventListener('change', (e) => {
+      const test = document.querySelector('#test');
+
+      if (e.target.checked) {
+        test.insertAdjacentHTML('beforeend', loader);
+        const loadingDelay = document.querySelector('.loading-delay');
+        const test1 = document.querySelector('.test-counter');
+
+        const downloadTimer = setInterval(function () {
+          test1.classList.add('h2', 'd-flex', 'justify-content-center', 'align-items-center');
+          if (timeleft <= 0) {
+            clearInterval(downloadTimer);
+            timeleft = 4;
+          }
+          test1.innerHTML = timeleft;
+
+          timeleft -= 1;
+        }, 1000);
+
+        new mdb.Loading(loadingDelay, {
+          delay: 5000,
+          backdropID: 'delay-backdrop',
+        });
+
+        setTimeout(() => {
+          const backdrop = document.querySelector('#delay-backdrop');
+
+          backdrop.remove();
+          loadingDelay.remove();
+          document.body.style.overflow = '';
+        }, 8000);
+
+      } else {
+        const loadingDelay = document.querySelector('#loading-test-6');
+
+        loadingDelay.remove();
+
+        document.querySelector('.test-counter').innerHTML = 0;
+      }
+    });
+
+    const btnfull = document.querySelector('#btn-full-screen');
+
+    btnfull.addEventListener('click', () => {
+      const test2 = document.querySelector('#test-full');
+      test2.insertAdjacentHTML('beforeend', loader1);
+
+      const loadingFull = document.querySelector('.loading-full');
+
+      const loading = new mdb.Loading(loadingFull, {
+        scroll: false,
+        backdropID: 'full-backdrop',
+      });
+
+      setTimeout(() => {
+        const backdrop = document.querySelector('#full-backdrop');
+        backdrop.remove();
+        loadingFull.remove();
+        document.body.style.overflow = '';
+      }, 5000);
+    });
+  </script>

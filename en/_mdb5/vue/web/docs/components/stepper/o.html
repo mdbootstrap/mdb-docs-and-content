@@ -1,0 +1,2070 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8;">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/b5/vue/pro/" role="button">
+            <i class="far fa-xs fa-gem text-danger"></i>
+        </a>
+      </span>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+
+    <p class="my-4"><?= $data_var['description']; ?></p>
+
+    <p class="my-4">
+      Stepper is a component that displays content as a process with defined by user milestones.
+      This is a great solution for a variety of registration forms, where you don't want to scare
+      the user with lots of fields and questions.
+    </p>
+
+    <p>
+      In this documentation, you can find examples of form wizard, vertical stepper, horizontal
+      stepper, multi step form, mobile stepper, validation & more.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+    <p>
+      Initialize stepper with <code>MDBStepper</code> component
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua</span
+            >
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBStepper>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="1">
+                  Step 1
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep>
+                <MDBStepperHead icon="2">
+                  Step 2
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep>
+                <MDBStepperHead icon="3">
+                  Step 3
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+            </MDBStepper>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent } from "mdb-vue-ui-kit";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: change step usnig external elements-->
+  <section id="section-change-steps-using-external-elements-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Change steps using external elements</h2>
+    <p>
+      To go to the next or previous step, you can use the
+      <code>nextStep</code> and <code>previousStep</code> methods. You can
+      also choose a specific step using the <code>changeStep</code> method
+      by entering the step index
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div class="w-100">
+        <div class="mb-3">
+          <button id="prev-step" class="btn btn-primary">prev</button>
+          <button id="step-1" class="btn btn-primary">step1</button>
+          <button id="step-2" class="btn btn-primary">step2</button>
+          <button id="step-3" class="btn btn-primary">step3</button>
+          <button id="next-step" class="btn btn-primary">next</button>
+        </div>
+        <div>
+          <ul class="stepper" id="stepper-buttons">
+            <li class="stepper-step stepper-active">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 1 </span>
+                <span class="stepper-head-text"> step1 </span>
+              </div>
+              <div class="stepper-content py-3">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua
+              </div>
+            </li>
+            <li class="stepper-step">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 2 </span>
+                <span class="stepper-head-text"> step2 </span>
+              </div>
+              <div class="stepper-content py-3">
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat
+              </div>
+            </li>
+            <li class="stepper-step">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 3 </span>
+                <span class="stepper-head-text"> step3 </span>
+              </div>
+              <div class="stepper-content py-3">
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div class="w-100">
+              <div class="mb-3">
+                <MDBBtn
+                  id="prev-step"
+                  color="primary"
+                  @click="$refs.btnStepper.prevStep()"
+                  >prev</MDBBtn
+                >
+                <MDBBtn
+                  id="step-1"
+                  color="primary"
+                  @click="$refs.btnStepper.changeStep(1)"
+                  >step1</MDBBtn
+                >
+                <MDBBtn
+                  id="step-2"
+                  color="primary"
+                  @click="$refs.btnStepper.changeStep(2)"
+                  >step2</MDBBtn
+                >
+                <MDBBtn
+                  id="step-3"
+                  color="primary"
+                  @click="$refs.btnStepper.changeStep(3)"
+                  >step3</MDBBtn
+                >
+                <MDBBtn
+                  id="next-step"
+                  color="primary"
+                  @click="$refs.btnStepper.nextStep()"
+                  >next</MDBBtn
+                >
+              </div>
+              <div>
+                <MDBStepper ref="btnStepper">
+                  <MDBStepperStep active>
+                    <MDBStepperHead icon="1">
+                      Step 1
+                    </MDBStepperHead>
+                    <MDBStepperContent>
+                      <span>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna
+                        aliqua</span
+                      >
+                    </MDBStepperContent>
+                  </MDBStepperStep>
+                  <MDBStepperStep>
+                    <MDBStepperHead icon="2">
+                      Step 2
+                    </MDBStepperHead>
+                    <MDBStepperContent>
+                      <span>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna
+                        aliqua</span
+                      >
+                    </MDBStepperContent>
+                  </MDBStepperStep>
+                  <MDBStepperStep>
+                    <MDBStepperHead icon="3">
+                      Step 3
+                    </MDBStepperHead>
+                    <MDBStepperContent>
+                      <span>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna
+                        aliqua</span
+                      >
+                    </MDBStepperContent>
+                  </MDBStepperStep>
+                </MDBStepper>
+              </div>
+            </div>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent, MDBBtn } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent, 
+                MDBBtn
+              },
+              setup(){
+                const btnStepper = ref(null);
+
+                return {
+                  btnStepper
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: change step usnig external elements-->
+
+  <hr class="my-5" />
+
+  <!--Section: linear stepper example-->
+  <section id="section-linear-stepper-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Linear stepper</h2>
+    <p>
+      If you want to use basic validation before proceeding to the next step
+      you can set
+      <code>linear</code> property
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-linear="true">
+        <form class="needs-validation stepper-form" novalidate>
+          <li class="stepper-step stepper-active">
+            <div class="stepper-head">
+              <span class="stepper-head-icon"> 1 </span>
+              <span class="stepper-head-text"> step1 </span>
+            </div>
+            <div class="stepper-content py-3">
+              <div class="form-outline">
+                <input type="text" id="linear-stepper-input-1" class="form-control" required />
+                <label class="form-label" for="linear-stepper-input-1">step 1</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </div>
+          </li>
+          <li class="stepper-step">
+            <div class="stepper-head">
+              <span class="stepper-head-icon"> 2 </span>
+              <span class="stepper-head-text"> step2 </span>
+            </div>
+            <div class="stepper-content py-3">
+              <div class="form-outline">
+                <input type="text" id="linear-stepper-input-2" class="form-control" required />
+                <label class="form-label" for="linear-stepper-input-2">step 2</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </div>
+          </li>
+          <li class="stepper-step">
+            <div class="stepper-head">
+              <span class="stepper-head-icon"> 3 </span>
+              <span class="stepper-head-text"> step3 </span>
+            </div>
+            <div class="stepper-content py-3">
+              <div class="form-outline">
+                <input type="text" id="linear-stepper-input-3" class="form-control" required />
+                <label class="form-label" for="linear-stepper-input-3">step 3</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+          </li>
+        </form>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBStepper linear>
+              <MDBStepperForm>
+                <MDBStepperStep active>
+                  <MDBStepperHead icon="1">
+                    Step 1
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput
+                      label="Step 1"
+                      v-model="stepperInput1"
+                      invalidFeedback="Invalid"
+                      required
+                    />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+                <MDBStepperStep>
+                  <MDBStepperHead icon="2">
+                    Step 2
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput
+                      label="Step 2"
+                      v-model="stepperInput2"
+                      invalidFeedback="Invalid"
+                      required
+                    />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+                <MDBStepperStep>
+                  <MDBStepperHead icon="3">
+                    Step 3
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput
+                      label="Step 3"
+                      v-model="stepperInput3"
+                      invalidFeedback="Invalid"
+                      required
+                    />
+                    <MDBBtn color="primary" type="submit">Submit</MDBBtn>
+                  </MDBStepperContent>
+                </MDBStepperStep>
+              </MDBStepperForm>
+            </MDBStepper>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent, MDBStepperForm, MDBInput, MDBBtn } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent, 
+                MDBStepperForm,  
+                MDBInput, 
+                MDBBtn
+              },
+              setup(){
+                const stepperInput1 = ref("");
+                const stepperInput2 = ref("");
+                const stepperInput3 = ref("");
+
+                return {
+                  stepperInput1,
+                  stepperInput2,
+                  stepperInput3
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: linear stepper example-->
+
+  <hr class="my-5" />
+
+  <!--Section: No editable stepper example-->
+  <section id="section-no-editable-stepper-example">
+    <!-- Section title -->
+    <h2 class="mb-4">No editable stepper</h2>
+    <p>
+      You can set <code>noEditable</code> property to
+      prevent you from editing the completed step again
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-no-editable="true">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="no-editable-stepper-input-1" class="form-control" required />
+                <label class="form-label" for="no-editable-stepper-input-1">step 1</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="no-editable-stepper-input-2" class="form-control" required />
+                <label class="form-label" for="no-editable-stepper-input-2">step 2</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="no-editable-stepper-input-3" class="form-control" required />
+                <label class="form-label" for="no-editable-stepper-input-3">step 3</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBStepper noEditable>
+              <MDBStepperForm>
+                <MDBStepperStep active>
+                  <MDBStepperHead icon="1">
+                    Step 1
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput label="Step 1" v-model="stepperInput4" />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+                <MDBStepperStep>
+                  <MDBStepperHead icon="2">
+                    Step 2
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput label="Step 2" v-model="stepperInput5" />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+                <MDBStepperStep>
+                  <MDBStepperHead icon="3">
+                    Step 3
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput label="Step 3" v-model="stepperInput6" />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+              </MDBStepperForm>
+            </MDBStepper>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent, MDBStepperForm, MDBInput } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent, 
+                MDBStepperForm, 
+                MDBInput
+              },
+              setup(){
+                const stepperInput4 = ref("");
+                const stepperInput5 = ref("");
+                const stepperInput6 = ref("");
+
+                return {
+                  stepperInput4,
+                  stepperInput5,
+                  stepperInput6
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: No editable stepper example-->
+
+  <hr class="my-5" />
+
+  <!--Section: vertical stepper example-->
+  <section id="section-vertical-stepper-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Vertical stepper</h2>
+    <p>
+      Set <code>vertical</code> property to use the vertical view
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-type="vertical">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span
+              >Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui,
+              non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</span
+            >
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span
+              >Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui,
+              non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</span
+            >
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span
+              >Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui,
+              non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</span
+            >
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBStepper vertical>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="1">
+                  step1
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep>
+                <MDBStepperHead icon="2">
+                  step2
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep>
+                <MDBStepperHead icon="3">
+                  step3
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+            </MDBStepper>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent } from "mdb-vue-ui-kit";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: vertical stepper example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Mobile example-->
+  <section id="section-mobile-stepper-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Mobile stepper</h2>
+    <p>
+      Set <code>mobile</code> property to use mobile view
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-type="mobile">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBStepper mobile>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="1">
+                  step1
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep>
+                <MDBStepperHead icon="2">
+                  step2
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep>
+                <MDBStepperHead icon="3">
+                  step3
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+            </MDBStepper>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent } from "mdb-vue-ui-kit";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Mobile example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Mobile progress bar example-->
+  <section id="section-mobile-stpper-progress-bar-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Mobile stepper progress bar</h2>
+    <p>
+      If the stepper contains more than 4 steps, the progress bar will be
+      displayed by default instead of dots. You can edit the step limit with
+      the
+      <code>mobile mobileProgress</code> properties
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-type="mobile">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBStepper mobile mobileProgress>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="1">
+                  step1
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="2">
+                  step2
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="3">
+                  step3
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="4">
+                  step4
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="5">
+                  step5
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="6">
+                  step6
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="7">
+                  step7
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="8">
+                  step8
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="9">
+                  step9
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="10">
+                  step10
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="11">
+                  step11
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="12">
+                  step12
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+            </MDBStepper>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent } from "mdb-vue-ui-kit";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Mobile progress bar example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Optional step example-->
+  <section id="section-optional-step-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Optional step</h2>
+    <p>
+      You can mark a step as optional by adding
+      <code>optional</code> to it
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span
+              >Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui,
+              non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</span
+            >
+          </div>
+        </li>
+        <li class="stepper-step" data-mdb-stepper-optional="true">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span
+              >Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui,
+              non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</span
+            >
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <span
+              >Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui,
+              non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</span
+            >
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBStepper>
+              <MDBStepperStep active>
+                <MDBStepperHead icon="1">
+                  step1
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep>
+                <MDBStepperHead icon="2" optional>
+                  step2
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep>
+                <MDBStepperHead icon="3">
+                  step3
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <span
+                    >Lorem ipsum dolor sit amet enim. Etiam ullamcorper.
+                    Suspendisse a pellentesque dui, non felis. Maecenas malesuada
+                    elit lectus felis, malesuada ultricies.</span
+                  >
+                </MDBStepperContent>
+              </MDBStepperStep>
+            </MDBStepper>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent } from "mdb-vue-ui-kit";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Optional step example-->
+
+  <hr class="my-5" />
+
+  <!--Section: custom icons example-->
+  <section id="section-custom-icons-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom icons</h2>
+    <p>
+      if you want to use an icon instead of a step number you can do it by
+      placing it inside
+      <code>#icon</code> slot
+    </p>
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon">
+              <i class="fas fa-user"></i>
+            </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="custom-icon-input-1" class="form-control" required />
+                <label class="form-label" for="custom-icon-input-1">step 1</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="custom-icon-input-2" class="form-control" required />
+                <label class="form-label" for="custom-icon-input-2">step 2</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon">
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="custom-icon-input-3" class="form-control" required />
+                <label class="form-label" for="custom-icon-input-3">step 3</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBStepper>
+              <MDBStepperForm>
+                <MDBStepperStep active>
+                  <MDBStepperHead>
+                    <template #icon>
+                      <MDBIcon icon="user" />
+                    </template>
+                    Step 1
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput label="Step 1" v-model="stepperInput7" />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+                <MDBStepperStep>
+                  <MDBStepperHead>
+                    <template #icon>
+                      <MDBIcon icon="envelope" />
+                    </template>
+                    Step 2
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput label="Step 2" v-model="stepperInput8" />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+                <MDBStepperStep>
+                  <MDBStepperHead>
+                    <template #icon>
+                      <MDBSpinner size="sm"></MDBSpinner>
+                    </template>
+                    Step 3
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput label="Step 3" v-model="stepperInput9" />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+              </MDBStepperForm>
+            </MDBStepper>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent, MDBStepperForm, MDBInput, MDBIcon, MDBSpinner } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent,
+                MDBStepperForm, 
+                MDBInput, 
+                MDBIcon, 
+                MDBSpinner
+              },
+              setup(){
+                const stepperInput7 = ref("");
+                const stepperInput8 = ref("");
+                const stepperInput9 = ref("");
+
+                return {
+                  stepperInput7,
+                  stepperInput8,
+                  stepperInput9
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: custom icons example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Form wizard-->
+  <section id="section-form-wizard">
+    <!-- Section title -->
+    <h2 class="mb-4">Form wizard</h2>
+
+    <!--Description-->
+    <p>An example of so-called "Form wizard" with multiple inputs on each step.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 text-center mb-4">
+      <!-- Form wizrd -->
+      <div>
+        <!-- Steps -->
+        <ul class="stepper" id="stepper-form-example" data-mdb-stepper-linear="true">
+          <form class="needs-validation stepper-form">
+            <!-- First step -->
+            <li class="stepper-step stepper-active">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 1 </span>
+                <span class="stepper-head-text"> step1 </span>
+              </div>
+              <div class="stepper-content py-3">
+                <div class="form-outline mb-4">
+                  <input type="text" id="stepper-form-first-name" class="form-control" required />
+                  <label class="form-label" for="stepper-form-first-name"
+                    >First name <small class="text-muted">(required)</small></label
+                  >
+                  <div class="invalid-feedback">invalid</div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="stepper-form-last-name" class="form-control" required />
+                  <label class="form-label" for="stepper-form-last-name"
+                    >Last name <small class="text-muted">(required)</small></label
+                  >
+                  <div class="invalid-feedback">invalid</div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="stepper-form-last-name" class="form-control" />
+                  <label class="form-label" for="stepper-form-last-name"
+                    >Nickname <small class="text-muted">(optional)</small></label
+                  >
+                </div>
+              </div>
+            </li>
+            <!-- First step -->
+
+            <!-- Second step -->
+            <li class="stepper-step">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 2 </span>
+                <span class="stepper-head-text"> step2 </span>
+              </div>
+              <div class="stepper-content py-3">
+                <div class="form-outline mb-4">
+                  <input type="text" id="form6Example3" class="form-control" required />
+                  <label class="form-label" for="form6Example3"
+                    >Company name <small class="text-muted">(required)</small></label
+                  >
+                  <div class="invalid-feedback">invalid</div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="form6Example4" class="form-control" required />
+                  <label class="form-label" for="form6Example4"
+                    >Address <small class="text-muted">(required)</small></label
+                  >
+                  <div class="invalid-feedback">invalid</div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="email" id="form6Example5" class="form-control" required />
+                  <label class="form-label" for="form6Example5"
+                    >Email <small class="text-muted">(required)</small></label
+                  >
+                  <div class="invalid-feedback">invalid</div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="number" id="form6Example6" class="form-control" />
+                  <label class="form-label" for="form6Example6"
+                    >Phone <small class="text-muted">(optional)</small></label
+                  >
+                  <div class="invalid-feedback">invalid</div>
+                </div>
+              </div>
+            </li>
+            <!-- Second step -->
+
+            <!-- Third step -->
+            <li class="stepper-step">
+              <div class="stepper-head">
+                <span class="stepper-head-icon"> 3 </span>
+                <span class="stepper-head-text"> step3 </span>
+              </div>
+              <div class="stepper-content py-3">
+                <div class="form-outline mb-4">
+                  <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+                  <label class="form-label" for="form6Example7">Additional information</label>
+                </div>
+
+                <div class="form-check d-flex justify-content-center mb-4">
+                  <input
+                    class="form-check-input me-2"
+                    type="checkbox"
+                    value=""
+                    id="form6Example8"
+                    checked
+                  />
+                  <label class="form-check-label" for="form6Example8">
+                    Create an account?
+                  </label>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-block mb-4">
+                  Place order
+                </button>
+              </div>
+            </li>
+            <!-- Third step -->
+          </form>
+        </ul>
+        <!-- Steps -->
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center px-3">
+          <button id="form-example-prev-step" class="btn btn-primary w-100 me-2">
+            Previous step
+          </button>
+          <button id="form-example-next-step" class="btn btn-primary w-100">
+            Next step
+          </button>
+        </div>
+        <!-- Buttons -->
+      </div>
+      <!-- Form wizrd -->
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div>
+              <MDBStepper linear ref="formWizardRef">
+                <MDBStepperForm>
+                  <MDBStepperStep active>
+                    <MDBStepperHead icon="1">
+                      Step 1
+                    </MDBStepperHead>
+                    <MDBStepperContent>
+                      <MDBInput
+                        label="First Name (required)"
+                        v-model="stepperInput10"
+                        invalidFeedback="Invalid"
+                        required
+                        wrapperClass="mb-4"
+                      />
+                      <MDBInput
+                        label="Last Name (required)"
+                        v-model="stepperInput11"
+                        invalidFeedback="Invalid"
+                        required
+                        wrapperClass="mb-4"
+                      />
+                      <MDBInput
+                        label="Nickname (optional)"
+                        v-model="stepperInput12"
+                        wrapperClass="mb-4"
+                      />
+                    </MDBStepperContent>
+                  </MDBStepperStep>
+                  <MDBStepperStep>
+                    <MDBStepperHead icon="2">
+                      Step 2
+                    </MDBStepperHead>
+                    <MDBStepperContent>
+                      <MDBInput
+                        label="Company Name (required)"
+                        v-model="stepperInput13"
+                        invalidFeedback="Invalid"
+                        required
+                        wrapperClass="mb-4"
+                      />
+                      <MDBInput
+                        label="Address (required)"
+                        v-model="stepperInput14"
+                        invalidFeedback="Invalid"
+                        required
+                        wrapperClass="mb-4"
+                      />
+                      <MDBInput
+                        label="Email (required)"
+                        type="email"
+                        v-model="stepperInput15"
+                        invalidFeedback="Invalid"
+                        required
+                        wrapperClass="mb-4"
+                      />
+                      <MDBInput
+                        label="Phone (optional)"
+                        type="number"
+                        v-model="stepperInput16"
+                        wrapperClass="mb-4"
+                      />
+                    </MDBStepperContent>
+                  </MDBStepperStep>
+                  <MDBStepperStep>
+                    <MDBStepperHead icon="3">
+                      Step 3
+                    </MDBStepperHead>
+                    <MDBStepperContent>
+                      <MDBTextarea
+                        label="Additional information"
+                        rows="4"
+                        v-model="textarea1"
+                        wrapperClass="mb-4"
+                      />
+                      <MDBCheckbox
+                        label="Create an account?"
+                        v-model="checkbox1"
+                        wrapperClass="d-flex justify-content-center mb-4"
+                      />
+                      <MDBBtn color="success" block type="submit"
+                        >Place Order</MDBBtn
+                      >
+                    </MDBStepperContent>
+                  </MDBStepperStep>
+                </MDBStepperForm>
+              </MDBStepper>
+              <div class="d-flex justify-content-center px-3">
+                <MDBBtn
+                  color="primary"
+                  class="w-100 me-2"
+                  @click="$refs.formWizardRef.prevStep()"
+                >
+                  Previous step
+                </MDBBtn>
+                <MDBBtn
+                  color="primary"
+                  class="w-100"
+                  @click="$refs.formWizardRef.nextStep()"
+                >
+                  Next step
+                </MDBBtn>
+              </div>
+            </div>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent, MDBStepperForm, MDBInput, MDBTextarea, MDBCheckbox, MDBBtn } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent, 
+                MDBStepperForm,
+                MDBInput, 
+                MDBTextarea, 
+                MDBCheckbox, MDBBtn
+              },
+              setup(){
+                const formWizardRef = ref(null);
+
+                const stepperInput10 = ref("");
+                const stepperInput11 = ref("");
+                const stepperInput12 = ref("");
+                const stepperInput13 = ref("");
+                const stepperInput14 = ref("");
+                const stepperInput15 = ref("");
+                const stepperInput16 = ref("");
+                const textarea1 = ref("");
+                const checkbox1 = ref(true);
+
+                return {
+                  formWizardRef,
+                  stepperInput10,
+                  stepperInput11,
+                  stepperInput12,
+                  stepperInput13,
+                  stepperInput14,
+                  stepperInput15,
+                  stepperInput16,
+                  textarea1,
+                  checkbox1
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Form wizard-->
+
+  <hr class="my-5" />
+
+  <!--Section: Toggle to vertical example-->
+  <section id="section-toggle-to-vertical-or-mobile-on-smaller-screens-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Toggle to vertical or mobile on smaller screens</h2>
+    <p>
+      If you want to change the view from horizontal to vertical or mobile
+      with smaller screens you can use the
+      <code>verticalBreakpoint</code> and
+      <code>mobileBeakpoint</code> properties specifying
+      the number of pixels at which the stepper should change to vertical or
+      mobile. You can resize the browser window to test it.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul
+        class="stepper"
+        data-mdb-stepper="stepper"
+        data-mdb-stepper-vertical-breakpoint="768"
+        data-mdb-stepper-mobile-breakpoint="400"
+      >
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon">
+              <i class="fas fa-user"></i>
+            </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="toggle-to-vertical-input-1" class="form-control" required />
+                <label class="form-label" for="toggle-to-vertical-input-1">step 1</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="toggle-to-vertical-input-2" class="form-control" required />
+                <label class="form-label" for="toggle-to-vertical-input-2">step 2</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+        <li class="stepper-step" data-mdb-stepper-optional="true">
+          <div class="stepper-head">
+            <span class="stepper-head-icon">
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="toggle-to-vertical-input-3" class="form-control" required />
+                <label class="form-label" for="toggle-to-vertical-input-3">step 3</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBStepper :verticalBreakpoint="768" :mobileBreakpoint="400">
+              <MDBStepperStep active>
+                <MDBStepperHead>
+                  <template #icon>
+                    <MDBIcon icon="user" />
+                  </template>
+                  Step 1
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <MDBInput label="Step 1" v-model="stepperInput17" />
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep>
+                <MDBStepperHead>
+                  <template #icon>
+                    <MDBIcon icon="envelope" />
+                  </template>
+                  Step 2
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <MDBInput label="Step 2" v-model="stepperInput18" />
+                </MDBStepperContent>
+              </MDBStepperStep>
+              <MDBStepperStep>
+                <MDBStepperHead>
+                  <template #icon>
+                    <MDBSpinner size="sm"></MDBSpinner>
+                  </template>
+                  Step 3
+                </MDBStepperHead>
+                <MDBStepperContent>
+                  <MDBInput label="Step 3" v-model="stepperInput19" />
+                </MDBStepperContent>
+              </MDBStepperStep>
+            </MDBStepper>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent, MDBInput, MDBIcon, MDBSpinner } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent, 
+                MDBInput, 
+                MDBIcon, 
+                MDBSpinner
+              },
+              setup(){
+                const stepperInput17 = ref("");
+                const stepperInput18 = ref("");
+                const stepperInput19 = ref("");
+
+                return {
+                  stepperInput17,
+                  stepperInput18,
+                  stepperInput19
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Toggle to vertical example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Events example-->
+  <section id="section-events-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Events</h2>
+    <p>
+      Stepper emits events after successful step validation, after failed step validation, and
+      before changing to another step. Check the browser console and try to change the step to see
+      the result.
+    </p>
+    <!--Section: Demo-->
+    <section id="linear-stepper" class="border p-4 d-flex justify-content-center mb-4">
+      <ul class="stepper" data-mdb-stepper="stepper" data-mdb-stepper-linear="true">
+        <li class="stepper-step stepper-active">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 1 </span>
+            <span class="stepper-head-text"> step1 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="events-input-1" class="form-control" required />
+                <label class="form-label" for="events-input-1">step 1</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 2 </span>
+            <span class="stepper-head-text"> step2 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="events-input-2" class="form-control" required />
+                <label class="form-label" for="events-input-2">step 2</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+        <li class="stepper-step">
+          <div class="stepper-head">
+            <span class="stepper-head-icon"> 3 </span>
+            <span class="stepper-head-text"> step3 </span>
+          </div>
+          <div class="stepper-content py-3">
+            <form class="needs-validation" novalidate>
+              <div class="form-outline">
+                <input type="text" id="events-input-3" class="form-control" required />
+                <label class="form-label" for="events-input-3">step 3</label>
+                <div class="invalid-feedback">invalid</div>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBStepper
+              linear
+              @onInvalid="onInvalid"
+              @onValid="onValid"
+              @onChangeStep="onChangeStep"
+            >
+              <MDBStepperForm>
+                <MDBStepperStep active>
+                  <MDBStepperHead icon="1">
+                    Step 1
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput
+                      label="Step 1"
+                      v-model="stepperInput20"
+                      invalidFeedback="Invalid"
+                      required
+                    />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+                <MDBStepperStep>
+                  <MDBStepperHead icon="2">
+                    Step 2
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput
+                      label="Step 2"
+                      v-model="stepperInput21"
+                      invalidFeedback="Invalid"
+                      required
+                    />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+                <MDBStepperStep>
+                  <MDBStepperHead icon="3">
+                    Step 3
+                  </MDBStepperHead>
+                  <MDBStepperContent>
+                    <MDBInput
+                      label="Step 3"
+                      v-model="stepperInput22"
+                      invalidFeedback="Invalid"
+                      required
+                    />
+                  </MDBStepperContent>
+                </MDBStepperStep>
+              </MDBStepperForm>
+            </MDBStepper>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBStepper, MDBStepperStep, MDBStepperHead, MDBStepperContent, MDBStepperForm, MDBInput } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBStepper, 
+                MDBStepperStep, 
+                MDBStepperHead, 
+                MDBStepperContent, 
+                MDBStepperForm,
+                MDBInput
+              },
+              setup(){
+                const stepperInput20 = ref("");
+                const stepperInput21 = ref("");
+                const stepperInput22 = ref("");
+
+                const onInvalid = e => {
+                  console.log(e);
+                };
+                const onValid = e => {
+                  console.log(e);
+                };
+                const onChangeStep = e => {
+                  console.log(e);
+                };
+
+                return {
+                  stepperInput20,
+                  stepperInput21,
+                  stepperInput22,
+                  onInvalid,
+                  onValid,
+                  onChangeStep
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Events example-->
+
+  <hr class="my-5" />
+
+  <!-- Section: Tailwind Elements -->
+  <section class="">
+    <p>
+      If you want to support our friends from Tailwind Elements you can also check out the
+      <a target="_blank" href="https://tailwind-elements.com/docs/standard/components/stepper/"
+        >Tailwind stepper</a
+      >
+      documentation.
+    </p>
+  </section>
+  <!-- Section: Tailwind Elements -->
+</section>
+<!--Section: Docs content-->

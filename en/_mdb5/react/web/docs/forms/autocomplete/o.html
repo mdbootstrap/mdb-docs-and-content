@@ -1,0 +1,492 @@
+<style>
+  .autocomplete-custom-item-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .autocomplete-custom-item-title {
+    font-weight: 500;
+  }
+
+  .autocomplete-custom-item-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .autocomplete-custom-content {
+    padding: 6.5px 16px;
+  }
+</style>
+
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/b5/react/pro/" role="button">
+            <i class="far fa-xs fa-gem text-danger"></i>
+        </a>
+      </span>  
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p>
+      Autocomplete component predicts the words being typed based on the first few letters given by
+      the user. You can search the list using basic scroll and the keyboard arrows
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <p>
+      The <code>dataFilter</code> property is required in order for component to work properly. The option
+      accepts a function that is expected to return an array of results or a
+      <code>Promise</code> that resolves to an array of results.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="basic" class="form-outline" style="width: 22rem">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBAutocomplete } from 'mdb-react-ui-kit';
+    
+          export default function App() {
+            const [basicValue, setBasicValue] = useState('');
+            const data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+
+            return (
+              <MDBAutocomplete
+                inputValue={basicValue}
+                setInputValue={setBasicValue}
+                label='Example label'
+                dataFilter={(value: any) => {
+                  return data.filter((item) => {
+                    return item.toLowerCase().startsWith(value.toLowerCase());
+                  });
+                }}
+              />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Display value-->
+  <section id="section-display-value">
+    <!-- Section title -->
+    <h2 class="mb-4">Display value</h2>
+
+    <p>
+      The <code>displayValue</code> property allow to separate oryginal result value from the value
+      that will be displayed in the result list or input (after selection). Its useful when the data
+      returned by the <code>dataFilter</code> function is an array of objects. You can specify which
+      parameter of the object should be displayed.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="displayValue" class="form-outline" style="width: 22rem">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBAutocomplete } from 'mdb-react-ui-kit';
+    
+          export default function App() {
+            const [displayValue, setDisplayValue] = useState('');
+            const dataAdvanced = [
+              { title: 'One', subtitle: 'Secondary text' },
+              { title: 'Two', subtitle: 'Secondary text' },
+              { title: 'Three', subtitle: 'Secondary text' },
+              { title: 'Four', subtitle: 'Secondary text' },
+              { title: 'Five', subtitle: 'Secondary text' },
+              { title: 'Six', subtitle: 'Secondary text' },
+            ];
+
+            return (
+              <MDBAutocomplete
+                inputValue={displayValue}
+                setInputValue={setDisplayValue}
+                label='Example label'
+                displayValue={(value: any) => value.title}
+                dataFilter={(value: any) => {
+                  return dataAdvanced.filter((item) => {
+                    return item.title.toLowerCase().startsWith(value.toLowerCase());
+                  });
+                }}
+              />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Display value-->
+
+  <hr class="my-5" />
+
+  <!--Section: Async search-->
+  <section id="section-async-search">
+    <!-- Section title -->
+    <h2 class="mb-4">Asynchronous search</h2>
+
+    <p>
+      The function passed to the <code>dataFilter</code> property can return a <code>Promise</code> that
+      resolves to an array of results. By default the component expects to receive data as an array
+      of strings. If you want to return an array of objects instead, you can use
+      <code>displayValue</code> property to specify which parameter should be used as a display value
+      of the specific result.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="async" class="form-outline" style="width: 22rem">
+        <input type="text" id="form2" class="form-control" />
+        <label class="form-label" for="form2">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBAutocomplete } from 'mdb-react-ui-kit';
+    
+          export default function App() {
+            const [asyncValue, setAsyncValue] = useState('');
+
+            return (
+              <MDBAutocomplete
+                inputValue={asyncValue}
+                setInputValue={setAsyncValue}
+                label='Example label'
+                displayValue={(value: any) => value.name}
+                dataFilter={async (query: string) => {
+                  const url = `https://swapi.py4e.com/api/people/?search=${encodeURI(query)}`;
+                  const response = await fetch(url);
+                  const data = await response.json();
+                  return data.results;
+                }}
+              />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Async search-->
+
+  <hr class="my-5" />
+
+  <!--Section: Threshold-->
+  <section id="section-threshold">
+    <!-- Section title -->
+    <h2 class="mb-4">Threshold</h2>
+
+    <p>
+      Use <code>threshold</code> property to specify a minimum number of the characters in the input
+      field needed to perform a search operation.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="threshold" class="form-outline" style="width: 22rem">
+        <input
+          type="text"
+          id="form3"
+          class="form-control"
+          placeholder="Type 2 characters to search"
+        />
+        <label class="form-label" for="form3">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBAutocomplete } from 'mdb-react-ui-kit';
+    
+          export default function App() {
+            const data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+            const [holdValue, setHoldValue] = useState('');
+
+            return (
+              <MDBAutocomplete
+                inputValue={holdValue}
+                setInputValue={setHoldValue}
+                label='Example label'
+                threshold={2}
+                dataFilter={(value: any) => {
+                  return data.filter((item) => {
+                    return item.toLowerCase().startsWith(value.toLowerCase());
+                  });
+                }}
+              />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Threshold-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom item template-->
+  <section id="section-custom-item">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom item template</h2>
+
+    <p>
+      The <code>itemContent</code> property allow to display custom HTML in the result list.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="customItem" class="form-outline" style="width: 22rem" data-mdb-list-height="290">
+        <input type="text" id="form4" class="form-control" />
+        <label class="form-label" for="form4">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBAutocomplete } from 'mdb-react-ui-kit';
+    
+          export default function App() {
+            const [customIValue, setCustomIValue] = useState('');
+            const dataAdvanced = [
+              { title: 'One', subtitle: 'Secondary text' },
+              { title: 'Two', subtitle: 'Secondary text' },
+              { title: 'Three', subtitle: 'Secondary text' },
+              { title: 'Four', subtitle: 'Secondary text' },
+              { title: 'Five', subtitle: 'Secondary text' },
+              { title: 'Six', subtitle: 'Secondary text' },
+            ];
+
+            return (
+              <MDBAutocomplete
+                inputValue={customIValue}
+                setInputValue={setCustomIValue}
+                label='Example label'
+                dataFilter={(value: any) => {
+                  return dataAdvanced.filter((item) => {
+                    return item.title.toLowerCase().startsWith(value.toLowerCase());
+                  });
+                }}
+                displayValue={(value: any) => value.title}
+                itemContent={(result: any) => (
+                  <div className='autocomplete-custom-item-content'>
+                    <div className='autocomplete-custom-item-title'>{result.title}</div>
+                    <div className='autocomplete-custom-item-subtitle'>{result.subtitle}</div>
+                  </div>
+                )}
+              />
+            );
+          }
+        </code>
+
+        <code data-lang="css" data-name="SCSS">
+          .autocomplete-custom-item-content {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .autocomplete-custom-item-title {
+            font-weight: 500;
+          }
+
+          .autocomplete-custom-item-subtitle {
+            font-size: 0.8rem;
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom item template-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom content-->
+  <section id="section-custom-content">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom content</h2>
+
+    <p>
+      A custom content container with a class .autocomplete-custom-content will be displayed at the
+      end of the autocomplete-custom-item-subtitle dropdown. You can use it to display a number of
+      search results.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <div id="customContent" class="form-outline" style="width: 22rem">
+        <input type="text" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Example label</label>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBAutocomplete } from 'mdb-react-ui-kit';
+    
+          export default function App() {
+            const data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+            const [customCValue, setCustomCValue] = useState('');
+            const [searchResult, setSearchResult] = useState(data.length);
+
+            return (
+              <MDBAutocomplete
+                inputValue={customCValue}
+                setInputValue={setCustomCValue}
+                label='Example label'
+                getFilteredData={(data: Array<any>) => {
+                  setSearchResult(data.length);
+                }}
+                dataFilter={(value: any) => {
+                  return data.filter((item) => {
+                    return item.toLowerCase().startsWith(value.toLowerCase());
+                  });
+                }}
+                customContent={<div className='autocomplete-custom-content'>Search results: {searchResult}</div>}
+              />
+            );
+          }
+        </code>
+
+        <code data-lang="css" data-name="SCSS">
+          .autocomplete-custom-content {
+            padding: 6.5px 16px;
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom content-->
+
+  <hr class="my-5" />
+
+  <!--Section: Validation-->
+  <section id="section-validation">
+    <!-- Section title -->
+    <h2 class="mb-4">Validation</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <form class="needs-validation" novalidate style="width: 22rem">
+        <div id="validation" class="form-outline">
+          <input type="text" id="form6" class="form-control" required />
+          <label class="form-label" for="form6">Example label</label>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Input value is required</div>
+        </div>
+
+        <button type="submit" id="submit" class="btn btn-primary btn-sm mt-3">Submit</button>
+      </form>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!--prettier-ignore-->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBAutocomplete, MDBValidation, MDBBtn } from 'mdb-react-ui-kit';
+    
+          export default function App() {
+            const data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+            const [validationValue, setValidationValue] = useState('');
+
+            return (
+              <MDBValidation noValidate>
+                <MDBAutocomplete
+                  inputValue={validationValue}
+                  setInputValue={setValidationValue}
+                  validation='Looks good!'
+                  required
+                  label='Example label'
+                  dataFilter={(value: any) => {
+                    return data.filter((item) => {
+                      return item.toLowerCase().startsWith(value.toLowerCase());
+                    });
+                  }}
+                />
+                <MDBBtn size='sm' className='mt-3' type='submit'>
+                  Submit
+                </MDBBtn>
+              </MDBValidation>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Validation-->
+</section>
+<!--Section: Docs content-->

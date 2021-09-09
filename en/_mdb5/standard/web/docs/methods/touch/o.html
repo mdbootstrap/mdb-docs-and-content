@@ -5,7 +5,11 @@
     <!-- Main title -->
     <h2 class="h1 fw-bold" style="line-height: 0.8">
       <?= $data_var['main_title']; ?>
-      <span id="dpl-newmdb-pro-component-marker"></span>
+      <span>    
+        <a href="/docs/standard/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span> 
     </h2>
 
     <!-- Seo title -->
@@ -34,7 +38,7 @@
 
   <hr class="my-5" />
 
-  <!--Section: press-->
+  <!--Section: Press-->
   <section id="section-press">
     <!-- Section title -->
     <h2 class="mb-4">Press</h2>
@@ -52,7 +56,7 @@
           <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
           <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="remove-bg">
             <div class="d-flex justify-content-center align-items-center h-100">
-              <p class="text-white mb-0">Hold the button to remove the mask from the image</p>
+              <p id="press-text" class="text-white mb-0"> Hold the button to remove the mask from the image</p>
             </div>
           </div>
         </div>
@@ -72,38 +76,46 @@
         <div>
           <div class="bg-image">
             <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
-            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);" id="remove-bg">
+            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="remove-bg">
               <div class="d-flex justify-content-center align-items-center h-100">
-                <p class="text-white mb-0">Hold the button to remove the mask from the image</p>
+                <p id="press-text" class="text-white mb-0"> Hold the button to remove the mask from the image</p>
               </div>
             </div>
           </div>
-
-          <div class="my-3"> <button type="button" class="btn btn-primary btn-press">Tap & hold to show
-              image</button>
+  
+          <div class="my-3">
+            <button type="button" class="btn btn-primary btn-press">Tap & hold to show image</button>
           </div>
         </div>
       </code>
 
       <code data-lang="js" data-name="JavaScript">
         const btnPress = document.querySelector('.btn-press');
+        const removeBg = document.querySelector('#remove-bg');
+        const pressText = document.querySelector('#press-text');
+        
+        const touch = new mdb.Touch(btnPress, 'press', { time: 2000 });
+        touch.init();
+        
+        const colorGen = () => {
+          const randomNum = () => {
+              return Math.floor(Math.random() * 255) + 1;
+          };
+              return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`;
+          };
+          
 
-        const touch1 = new mdb.Touch(btnPress, 'tap', {
-          duration: 2000
-        });
-
-        touch1.init();
-
-        btnPress.addEventListener('tap', (e) => {
+        btnPress.addEventListener('press', (e) => {
           removeBg.style.backgroundColor = 'rgba(0,0,0,0)';
+          pressText.innerText = "";
         })
       </code>
     </mdbsnippet>
     </section>
-    <!--Section: Code-->
+    <!--Section: Press-->
 
-    <!--Subsection: Content-->
-    <section id="subsection-press-duration">
+    <!--Section: Press time-->
+    <section id="subsection-press-time">
       <!--Subsection title-->
       <h4 class="mt-5">Press duration</h4>
 
@@ -115,19 +127,15 @@
         <div>
           <div class="bg-image">
             <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
-            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="change-bg">
+            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="bg-press-duration">
               <div class="d-flex justify-content-center align-items-center h-100">
-                <p class="text-white mb-0">
-                  Hold the button to remove the mask from the image with 5s
-                </p>
+                <p class="text-white mb-0" id="press-duration-text">Hold the button to remove the mask from the image with 5 seconds</p>
               </div>
             </div>
           </div>
-
+  
           <div class="my-3">
-            <button type="button" class="btn btn-primary btn-test-2">
-              Tap & hold to show image
-            </button>
+            <button type="button" class="btn btn-primary btn-press-duration">Tap & hold to show image</button>
           </div>
         </div>
       </section>
@@ -139,31 +147,37 @@
           <code data-lang="html" data-name="HTML">
             <div>
               <div class="bg-image">
-                <img
-                  src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
-                  class="img-fluid"
-                />
-                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="change-bg">
+                <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
+                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="bg-press-duration">
                   <div class="d-flex justify-content-center align-items-center h-100">
-                    <p class="text-white mb-0">
-                      Hold the button to remove the mask from the image with 5s
-                    </p>
+                    <p class="text-white mb-0" id="press-duration-text">Hold the button to remove the mask from the image with 5 seconds</p>
                   </div>
                 </div>
               </div>
-
+      
               <div class="my-3">
-                <button type="button" class="btn btn-primary btn-test-2">
-                  Tap & hold to show image
-                </button>
+                <button type="button" class="btn btn-primary btn-press-duration">Tap & hold to show image</button>
               </div>
             </div>
           </code>
           <code data-lang="js" data-name="JavaScript">
-            const btnPressTime = document.querySelector('.btn-test-2'); const removeBg =
-            document.querySelector('#remove-bg'); const touchPressTime = new mdb.Touch(btnPressTime,
-            'press', { time: 5000, }); touchPressTime.init(); btnPressTime.addEventListener('press',
-            () => { changeBg.style.backgroundColor = 'rgba(111,33,231,.4)'; });
+            const btnPressDuration = document.querySelector('.btn-press-duration');
+            const touchPressDuration = new mdb.Touch(btnPressDuration, 'press', { time: 5000 });
+            touchPressDuration.init();
+            
+            const colorGen = () => {
+              const randomNum = () => {
+                  return Math.floor(Math.random() * 255) + 1;
+              };
+                  return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`;
+              }
+
+            const bgPressDuration = document.querySelector('#bg-press-duration');
+            const pressDurationText = document.querySelector('#press-duration-text');
+            btnPressDuration.addEventListener('press', () => {
+                bgPressDuration.style.backgroundColor = 'rgba(0,0,0,0)';
+                pressDurationText.innerText = "";
+            });
           </code>
         </mdbsnippet>
       </section>
@@ -191,7 +205,7 @@
       <div>
         <div class="bg-image">
           <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
-          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="img-tap">
+          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="bg-tap">
             <div class="d-flex justify-content-center align-items-center h-100">
               <p class="text-white mb-0">Tap button to change a color</p>
             </div>
@@ -199,7 +213,7 @@
         </div>
 
         <div class="my-3">
-          <button type="button" class="btn btn-primary btn-img-tap">Tap to change a color</button>
+          <button type="button" class="btn btn-primary btn-tap">Tap to change a color</button>
         </div>
       </div>
     </section>
@@ -213,35 +227,37 @@
         <div>
           <div class="bg-image">
             <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
-            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);" id="img-tap">
+            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="bg-tap">
               <div class="d-flex justify-content-center align-items-center h-100">
-                <p class="text-white mb-0">
-                  Tap button to change a color
-                </p>
+                <p class="text-white mb-0">Tap button to change a color</p>
               </div>
             </div>
           </div>
-
+  
           <div class="my-3">
-            <button type="button" class="btn btn-primary btn-img-tap">
-              Tap to change a color
-            </button>
+            <button type="button" class="btn btn-primary btn-tap">Tap to change a color</button>
           </div>
         </div>
       </code>
 
 
       <code data-lang="js" data-name="JavaScript">
-        const btnTap = document.querySelector('.btn-img-tap');
-        const imgTap = document.querySelector('#img-tap');
-
+        const btnTap = document.querySelector('.btn-tap');
         const tap = new mdb.Touch(btnTap, 'tap');
+        tap.init();
 
-        tap.init()
-
+        const colorGen = () => {
+          const randomNum = () => {
+              return Math.floor(Math.random() * 255) + 1;
+          };
+              return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`;
+          };
+          
+                
+        const bgTap = document.querySelector('#bg-tap');
         btnTap.addEventListener('tap', (e) => {
-          imgTap.style.backgroundColor = colorGen();
-        })
+            bgTap.style.backgroundColor = colorGen();
+        });
       </code>
     </mdbsnippet>
     </section>
@@ -260,7 +276,7 @@
         <div>
           <div class="bg-image">
             <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
-            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="img-double-tap">
+            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="bg-double-tap">
               <div class="d-flex justify-content-center align-items-center h-100">
                 <p class="text-white mb-0">Change background color with 2 taps</p>
               </div>
@@ -268,7 +284,7 @@
           </div>
 
           <div class="my-3">
-            <button type="button" class="btn btn-primary btn-img-double-tap">Tap button</button>
+            <button type="button" class="btn btn-primary btn-double-tap">Tap button twice</button>
           </div>
         </div>
       </section>
@@ -280,28 +296,35 @@
           <code data-lang="html" data-name="HTML">
             <div>
               <div class="bg-image">
-                <img
-                  src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
-                  class="img-fluid"
-                />
-                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="img-double-tap">
+                <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
+                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="bg-double-tap">
                   <div class="d-flex justify-content-center align-items-center h-100">
                     <p class="text-white mb-0">Change background color with 2 taps</p>
                   </div>
                 </div>
               </div>
-
+    
               <div class="my-3">
-                <button type="button" class="btn btn-primary btn-img-double-tap">Tap button</button>
+                <button type="button" class="btn btn-primary btn-double-tap">Tap button twice</button>
               </div>
             </div>
           </code>
           <code data-lang="js" data-name="JavaScript">
-            const colorGen = () => { const randomNum = () => { return Math.floor(Math.random() *
-            255) + 1 } return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`; } const
-            btnTap = document.querySelector('.btn-tap'); const tap = new mdb.Touch(btnTest3, 'tap');
-            tap.init() btnTap.addEventListener('doubletap', (e) => {
-            changeBgRandom.style.backgroundColor = colorGen(); })
+            const btnDoubleTap = document.querySelector('.btn-double-tap');
+            const doubleTap = new mdb.Touch(btnDoubleTap, 'tap', { taps: 2 });
+            doubleTap.init();
+            
+            const colorGen = () => {
+              const randomNum = () => {
+                  return Math.floor(Math.random() * 255) + 1;
+              };
+                  return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`;
+              };
+
+              const doubleTapBg = document.querySelector('#bg-double-tap')
+              btnDoubleTap.addEventListener('tap', (e) => {
+                  doubleTapBg.style.backgroundColor = colorGen();
+              });
           </code>
         </mdbsnippet>
       </section>
@@ -329,7 +352,7 @@
     <!--Section: Demo-->
     <section class="border p-4 d-flex justify-content-center mb-4">
       <div>
-        <div class="bg-image" id="div-pan">
+        <div class="bg-image" id="pan">
           <img
             src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
             class="img-fluid"
@@ -346,35 +369,37 @@
       <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <div>
-          <div class="bg-image" id="div-pan">
-            <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid"
-              id="img-pan" />
+          <div class="bg-image" id="pan">
+            <img
+              src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
+              class="img-fluid"
+              id="img-pan"
+            />
           </div>
         </div>
       </code>
 
       <code data-lang="js" data-name="JavaScript">
-        const divPan = document.querySelector("#div-pan");
-        const touch4 = new mdb.Touch(divPan, 'pan');
-
-        touch4.init()
-
-        const imgPan = document.querySelector('#img-pan')
-
+        const panEl = document.querySelector("#pan");
+        const pan = new mdb.Touch(panEl, 'pan');
+        pan.init();
+                
+        const imgPan = document.querySelector('#img-pan')       
         let moveElement = {
-          x: null,
-          y: null
+            x: null,
+            y: null
         };
-
-        divPan.addEventListener('pan', (e) => {
-          moveElement = {
-            x: moveElement.x + e.movementX,
-            y: moveElement.y + e.movementY,
-          }
-
-          imgPan.style.transform = `translate(${moveElement.x}px, ${moveElement.y}px)`
-        })
-
+                
+        panEl.addEventListener('pan', (e) => {
+        moveElement = {
+            x: moveElement.x + e.x,
+            y: moveElement.y + e.y,
+        };
+        
+        imgPan.style.transform = `
+        translate(${moveElement.x}px, ${moveElement.y}px)
+        `
+        });
       </code>
     </mdbsnippet>
     </section>
@@ -393,7 +418,7 @@
       <!--Section: Demo-->
       <section class="border p-4 text-center mb-4">
         <div>
-          <div class="bg-image" id="div-pan-left">
+          <div class="bg-image" id="pan-left">
             <img
               src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
               class="img-fluid"
@@ -409,7 +434,7 @@
         <mdbsnippet>
           <code data-lang="html" data-name="HTML">
             <div>
-              <div class="bg-image" id="div-pan-left">
+              <div class="bg-image" id="pan-left">
                 <img
                   src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
                   class="img-fluid"
@@ -419,11 +444,21 @@
             </div>
           </code>
           <code data-lang="js" data-name="JavaScript">
-            const divPanLeft = document.querySelector('#div-pan-left'); const imgPanLeft =
-            document.querySelector('#img-pan-left'); const touchPanLeft = new mdb.Touch(divPanLeft,
-            'pan', { direction: 'left', }); touchPanLeft.init(); let moveElementLeft = { x: null, };
-            divPanLeft.addEventListener('panleft', (e) => { moveElementLeft = { x: moveElementLeft.x
-            + e.x, }; imgPanLeft.style.transform = `translate(${moveElementLeft.x}px, 0px)`; });
+            const panLeftEl = document.querySelector('#pan-left');
+            const panLeft = new mdb.Touch(panLeftEl, 'pan', { direction: 'left' });
+            panLeft.init();
+            
+            const imgPanLeft = document.querySelector('#img-pan-left');
+            let moveElementLeft = {
+                x: null,
+            };
+            panLeftEl.addEventListener('panleft', (e) => {
+                moveElementLeft = {
+                 x: moveElementLeft.x +
+                    e.x,
+                };
+                imgPanLeft.style.transform = `translate(${moveElementLeft.x}px, 0px)`;
+            });
           </code>
         </mdbsnippet>
       </section>
@@ -444,7 +479,7 @@
       <!--Section: Demo-->
       <section class="border p-4 text-center mb-4">
         <div>
-          <div class="bg-image" id="div-pan-right">
+          <div class="bg-image" id="pan-right">
             <img
               src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
               class="img-fluid"
@@ -460,7 +495,7 @@
         <mdbsnippet>
           <code data-lang="html" data-name="HTML">
             <div>
-              <div class="bg-image" id="div-pan-right">
+              <div class="bg-image" id="pan-right">
                 <img
                   src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
                   class="img-fluid"
@@ -470,12 +505,21 @@
             </div>
           </code>
           <code data-lang="js" data-name="JavaScript">
-            const divPanRight = document.querySelector('#div-pan-right'); const imgPanRight =
-            document.querySelector('#img-pan-right'); const touchPanRight = new
-            mdb.Touch(divPanRight, 'pan', { direction: 'right', }); touchPanRight.init(); let
-            moveElementRight = { x: null, }; divPanRight.addEventListener('panright', (e) => {
-            moveElementRight = { x: moveElementRight.x + e.x, }; imgPanRight.style.transform =
-            `translate(${moveElementRight.x}px, 0px)`; });
+            const panRightEl = document.querySelector('#pan-right');
+            const panRight = new mdb.Touch(panRightEl, 'pan', { direction: 'right' });
+            panRight.init();
+            
+            const imgPanRight = document.querySelector('#img-pan-right');
+            let moveElementRight = {
+                x: null,
+            };
+            panRightEl.addEventListener('panright', (e) => {
+                moveElementRight = {
+                 x: moveElementRight.x +
+                    e.x,
+                };
+                imgPanRight.style.transform = `translate(${moveElementRight.x}px, 0px)`;
+            });
           </code>
         </mdbsnippet>
       </section>
@@ -496,7 +540,7 @@
       <!--Section: Demo-->
       <section class="border p-4 text-center mb-4">
         <div>
-          <div class="bg-image" id="div-pan-up-down">
+          <div class="bg-image" id="pan-up-down">
             <img
               src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
               class="img-fluid"
@@ -512,7 +556,7 @@
         <mdbsnippet>
           <code data-lang="html" data-name="HTML">
             <div>
-              <div class="bg-image" id="div-pan-up-down">
+              <div class="bg-image" id="pan-up-down">
                 <img
                   src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
                   class="img-fluid"
@@ -522,15 +566,28 @@
             </div>
           </code>
           <code data-lang="js" data-name="JavaScript">
-            const divPanUpDown = document.querySelector('#div-pan-up-down'); const imgPanUpDown =
-            document.querySelector('#img-pan-up-down'); const touchDown = new
-            mdb.Touch(divPanUpDown, 'pan', { direction: 'down', }); const touchUp = new
-            mdb.Touch(divPanUpDown, 'pan', { direction: 'up', }); touchUp.init(); touchDown.init();
-            let moveElementUpDown = { y: null }; divPanUpDown.addEventListener('panup', (e) => {
-            moveElementUpDown = { y: moveElementUpDown.y + e.y, }; imgPanUpDown.style.transform =
-            `translate(0px, ${moveElementUpDown.y}px)`; }); divPanUpDown.addEventListener('pandown',
-            (e) => { moveElementUpDown = { y: moveElementUpDown.y + e.y, };
-            imgPanUpDown.style.transform = `translate(0px, ${moveElementUpDown.y}px)`; });
+            const panUpDown = document.querySelector('#pan-up-down');
+            const imgPanUpDown =document.querySelector('#img-pan-up-down');
+            const touchDown = new mdb.Touch(panUpDown, 'pan', { direction: 'down' });
+            const touchUp = new mdb.Touch(panUpDown, 'pan', { direction: 'up' });
+            touchUp.init();
+            touchDown.init();
+            
+            let moveElementUpDown = {
+                y: null
+            };
+            panUpDown.addEventListener('panup', (e) => {
+                moveElementUpDown = {
+                    y: moveElementUpDown.y + e.y,
+                };
+                imgPanUpDown.style.transform = `translate(0px, ${moveElementUpDown.y}px)`;
+            });
+            panUpDown.addEventListener('pandown', (e) => {
+                moveElementUpDown = {
+                    y: moveElementUpDown.y + e.y,
+                };
+                imgPanUpDown.style.transform = `translate(0px, ${moveElementUpDown.y}px)`;
+            });
           </code>
         </mdbsnippet>
       </section>
@@ -562,7 +619,7 @@
         <img
           src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
           class="img-fluid"
-          id="img-pinch"
+          id="pinch"
         />
       </div>
     </section>
@@ -574,20 +631,24 @@
       <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <div class="bg-image" id="div-pinch">
-          <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid"
-            id="img-pinch" />
+          <img
+            src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
+            class="img-fluid"
+            id="pinch"
+          />
         </div>
       </code>
 
 
       <code data-lang="js" data-name="JavaScript">
-        const imgPinch = document.querySelector("#img-pinch");
-        const touch5 = new mdb.Touch(imgPinch, 'pinch');
-        touch5.init()
-        imgPinch.addEventListener('pinch', (e) => {
-          e.target.style.transform = `scale(${1})`;
-          e.target.style.transformOrigin = `translate(${e.movementX}px, ${e.movementY}px)`
-        })
+        const pinchEl = document.querySelector("#pinch");
+        const pinch = new mdb.Touch(pinchEl, 'pinch');
+        pinch.init()
+                
+        pinchEl.addEventListener('pinch', (e) => {
+            e.target.style.transform = `scale(${e.ratio})`;
+            e.target.style.transformOrigin = `translate(${e.origin.x}px, ${e.origin.y}px,)`
+        });
       </code>
     </mdbsnippet>
     </section>
@@ -610,13 +671,13 @@
       and the string indicating the direction will be passed as an argument.
     </p>
 
-    <p>This exmaple shows exmaple with left and right</p>
+    <p>This example shows example with left and right</p>
 
     <!--Section: Demo-->
     <section class="border p-4 d-flex justify-content-center mb-4">
       <div class="bg-image">
         <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
-        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="img-swipe-left-right">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="swipe-left-right">
           <div class="d-flex justify-content-center align-items-center h-100">
             <p class="text-white mb-0">Swipe Left-Right to change a color</p>
           </div>
@@ -632,11 +693,9 @@
       <code data-lang="html" data-name="HTML">
         <div class="bg-image">
           <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
-          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);" id="img-swipe-left-right">
+          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="swipe-left-right">
             <div class="d-flex justify-content-center align-items-center h-100">
-              <p class="text-white mb-0">
-                Swipe Left-Right to change a color
-              </p>
+              <p class="text-white mb-0">Swipe Left-Right to change a color</p>
             </div>
           </div>
         </div>
@@ -644,21 +703,26 @@
 
 
       <code data-lang="js" data-name="JavaScript">
+        const swipeLeftRight = document.querySelector('#swipe-left-right')
+        const touchSwipeLeftRight = new mdb.Touch(swipeLeftRight, 'swipe', {
+           threshold: 100
+        });
+        touchSwipeLeftRight.init();
+
         const colorGen = () => {
           const randomNum = () => {
-            return Math.floor(Math.random() * 255) + 1;
+              return Math.floor(Math.random() * 255) + 1;
           };
-          return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`;
-        }
-        const touchSwipeLeftRight = new mdb.Touch(swipeLeftRight, 'swipe', { threshold: 100 });
-        touchSwipeLeftRight.init();
-        swipeLeftRight.addEventListener('swipeleft', (e) => {
-          e.target.style.backgroundColor = colorGen();
-        });
-        swipeLeftRight.addEventListener('swiperight', (e) => {
-          e.target.style.backgroundColor = colorGen();
-        });
+              return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`;
+          };
 
+          
+        swipeLeftRight.addEventListener('swipeleft', (e) => {
+        e.target.style.backgroundColor = colorGen();
+              });
+        swipeLeftRight.addEventListener('swiperight', (e) => {
+            e.target.style.backgroundColor = colorGen();
+        });
       </code>
     </mdbsnippet>
     </section>
@@ -674,13 +738,13 @@
     <h2 class="mb-4">Swipe Up/Down</h2>
 
     <!-- Description -->
-    <p>This exmaple shows exmaple with up and down</p>
+    <p>This example shows example with up and down</p>
 
     <!--Section: Demo-->
     <section class="border p-4 d-flex justify-content-center mb-4">
       <div class="bg-image">
         <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
-        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="img-swipe-up-down">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)" id="swipe-up-down">
           <div class="d-flex justify-content-center align-items-center h-100">
             <p class="text-white mb-0">Swipe Up-Down to change a color</p>
           </div>
@@ -696,7 +760,7 @@
       <code data-lang="html" data-name="HTML">
         <div class="bg-image">
           <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
-          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);" id="img-swipe-up-down">
+          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);" id="swipe-up-down">
             <div class="d-flex justify-content-center align-items-center h-100">
               <p class="text-white mb-0">
                 Swipe Up-Down to change a color
@@ -708,19 +772,25 @@
 
 
       <code data-lang="js" data-name="JavaScript">
+        const swipeUpDown = document.querySelector('#swipe-up-down')
+        const touchSwipeUpDown = new mdb.Touch(swipeUpDown, 'swipe', {
+            threshold: 120
+        });
+        touchSwipeUpDown.init();
+
         const colorGen = () => {
           const randomNum = () => {
-            return Math.floor(Math.random() * 255) + 1;
+              return Math.floor(Math.random() * 255) + 1;
           };
-          return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`;
-        }
-        const touchSwipeUpDown = new mdb.Touch(swipeUpDown, 'swipe', { threshold: 120 });
-        touchSwipeUpDown.init();
+              return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`;
+          };
+
+          
         swipeUpDown.addEventListener('swipeup', (e) => {
-          e.target.style.backgroundColor = colorGen();
+            e.target.style.backgroundColor = colorGen();
         });
         swipeUpDown.addEventListener('swipedown', (e) => {
-          e.target.style.backgroundColor = colorGen();
+            e.target.style.backgroundColor = colorGen();
         });
       </code>
     </mdbsnippet>
@@ -731,21 +801,21 @@
 
   <hr class="my-5" />
 
-  <!--Section: Swipe Left-Right -->
-  <section id="section-swipe-up-down">
+  <!--Section: Rotate -->
+  <section id="section-rotate">
     <!-- Section title -->
     <h2 class="mb-4">Rotate</h2>
 
     <!-- Description -->
-    <p>This exmaple shows exmaple with rotate</p>
+    <p>This example shows example with rotate</p>
 
     <!--Section: Demo-->
     <section class="border p-4 d-flex justify-content-center mb-4">
-      <div class="bg-image">
+      <div class="bg-image" >
         <img
           src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
-          class="img-fluid"
-          id="img-rotate"
+          class="img-fluid" 
+          id="rotate"
         />
       </div>
     </section>
@@ -757,38 +827,26 @@
       <mdbsnippet>
       <code data-lang="html" data-name="HTML">
         <div class="bg-image">
-          <img src="https://mdbootstrap.com/img/new/standard/city/053.jpg" class="img-fluid" />
-          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);" id="img-swipe-up-down">
-            <div class="d-flex justify-content-center align-items-center h-100">
-              <p class="text-white mb-0">
-                Swipe Up-Down to change a color
-              </p>
-            </div>
-          </div>
+          <img
+            src="https://mdbootstrap.com/img/new/standard/city/053.jpg"
+            class="img-fluid" 
+            id="rotate"
+          />
         </div>
       </code>
-
-
       <code data-lang="js" data-name="JavaScript">
-        const colorGen = () => {
-          const randomNum = () => {
-            return Math.floor(Math.random() * 255) + 1;
-          };
-          return `rgba(${randomNum()},${randomNum()},${randomNum()},.4)`;
-        }
-        const touchSwipeUpDown = new mdb.Touch(swipeUpDown, 'swipe', { threshold: 120 });
-        touchSwipeUpDown.init();
-        swipeUpDown.addEventListener('swipeup', (e) => {
-          e.target.style.backgroundColor = colorGen();
-        });
-        swipeUpDown.addEventListener('swipedown', (e) => {
-          e.target.style.backgroundColor = colorGen();
-        });
+        const rotate = document.querySelector('#rotate');
+        const touchRotate = new mdb.Touch(rotate, 'rotate');
+        touchRotate.init();
+        
+        rotate.addEventListener('rotate', (e) => {
+            rotate.style.transform = `rotate(${e.currentAngle}turn)`;
+        })
       </code>
     </mdbsnippet>
     </section>
     <!--Section: Code-->
   </section>
-  <!--Section: Swipe Left-Right-->
+  <!--Section: Rotate-->
 </section>
 <!--Section: Docs content-->

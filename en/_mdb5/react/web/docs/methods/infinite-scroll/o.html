@@ -1,0 +1,464 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold" style="line-height: 0.8">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/b5/react/pro/" role="button">
+            <i class="far fa-xs fa-gem text-danger"></i>
+        </a>
+      </span>  
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p class="my-4">
+      This feature adds a scroll event listener (to the window or the component it's attached to if
+      it has the overflow-y property set to scroll) and calls a callback method every time a user
+      reaches an end of a page/container.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!-- Description -->
+    <p>Scroll down the container below to add more items.</p>
+
+    <p class="note note-info">
+      <strong>Note:</strong> Your element should be scrollable, for example, it should have
+      <code>overflow-y: scroll</code> property like in the example below.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex justify-content-center mb-4">
+      <ul
+        class="container list-group infinite-scroll"
+        id="basic-example"
+        style="max-height: 261px; overflow-y: scroll"
+      >
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-angry fa-3x me-4"></i> Angry
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-dizzy fa-3x me-4"></i> Dizzy
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-flushed fa-3x me-4"></i> Flushed
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-frown fa-3x me-4"></i> Frown
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-grimace fa-3x me-4"></i> Grimace
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <i class="far fa-grin fa-3x me-4"></i> Grin
+        </li>
+      </ul>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState, useRef } from 'react';
+          import { MDBInfiniteScroll } from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const infiniteRef = useRef<HTMLDivElement>(null);
+
+            const [itemIndex, setItemIndex] = useState(0);
+            const [renderedIcons, setRenderedIcons] = useState(['Angry', 'Dizzy', 'Flushed', 'Frown', 'Grimace', 'Grin']);
+
+            const icons = ['Sad-Tear', 'Meh-Blank', 'Smile-Wink', 'Tired', 'Surprise', 'Kiss-Beam', 'Laugh-Squint'];
+
+            const handleScroll = () => {
+              if (itemIndex > icons.length - 1) {
+                return;
+              }
+          
+              setRenderedIcons([...renderedIcons, icons[itemIndex]]);
+          
+              setItemIndex(itemIndex + 1);
+            };
+
+            return (
+              <MDBInfiniteScroll
+                infiniteScrollRef={infiniteRef}
+                className='container list-group'
+                style={{ maxHeight: '261px', overflowY: 'scroll' }}
+                onInfiniteScroll={handleScroll}
+              >
+                {renderedIcons.map((icon) => (
+                  <li key={icon.toLocaleLowerCase()} className='list-group-item d-flex align-items-center'>
+                    <i className={`far fa-${icon.toLowerCase()} fa-3x me-4`}></i>
+                    {icon}
+                  </li>
+                ))}
+              </MDBInfiniteScroll>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Direction-->
+  <section id="section-direction">
+    <!-- Section title -->
+    <h2 class="mb-4">Direction</h2>
+
+    <!-- Description -->
+    <p>Use <code>infiniteDirection</code> property to define the scrolling direction.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div
+        class="infinite-scroll py-3 text-center"
+        id="direction-example"
+        style="max-width: 1500px; overflow-x: scroll; white-space: nowrap"
+        data-mdb-infinite-direction="x"
+      >
+        <span class="mx-5"><i class="far fa-angry fa-3x me-4"></i> Angry</span>
+        <span class="mx-5"><i class="far fa-dizzy fa-3x me-4"></i> Dizzy</span>
+        <span class="mx-5"><i class="far fa-flushed fa-3x me-4"></i> Flushed</span>
+        <span class="mx-5"><i class="far fa-grimace fa-3x me-4"></i> Grimace</span>
+        <span class="mx-5"><i class="far fa-grin fa-3x me-4"></i> Grin</span>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState, useRef } from 'react';
+          import { MDBInfiniteScroll } from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const directionRef = useRef<HTMLDivElement>(null);
+
+            const [directionIndex, setDirectionIndex] = useState(0);
+            const [directionIcons, setDirectionIcons] = useState(['Angry', 'Dizzy', 'Flushed', 'Frown', 'Grimace', 'Grin']);
+
+            const icons = ['Sad-Tear', 'Meh-Blank', 'Smile-Wink', 'Tired', 'Surprise', 'Kiss-Beam', 'Laugh-Squint'];
+
+            const handleDirectionScroll = () => {
+              if (directionIndex > icons.length - 1) {
+                return;
+              }
+          
+              setDirectionIcons([...directionIcons, icons[directionIndex]]);
+          
+              setDirectionIndex(directionIndex + 1);
+            };
+            
+            return (
+              <MDBInfiniteScroll
+                infiniteDirection='x'
+                infiniteScrollRef={directionRef}
+                className='py-3 text-center'
+                style={{ maxWidth: '1500px', overflowX: 'scroll', whiteSpace: 'nowrap' }}
+                onInfiniteScroll={handleDirectionScroll}
+              >
+                {directionIcons.map((icon) => (
+                  <span key={icon.toLocaleLowerCase()} className='mx-5'>
+                    <i className={`far fa-${icon.toLocaleLowerCase()} fa-3x me-4`} /> {icon}
+                  </span>
+                ))}
+              </MDBInfiniteScroll>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Direction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Spinners and asynchronous data-mdb-->
+  <section id="section-spinners-and-async-data">
+    <!-- Section title -->
+    <h2 class="mb-4">Spinners and asynchronous data</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div
+        class="infinite-scroll py-3 text-center"
+        id="spinners-and-async-example"
+        style="max-height: 500px; overflow-y: scroll"
+      >
+        <div id="images">
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(100).jpg"
+            class="img-fluid mb-3"
+          />
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(105).jpg"
+            class="img-fluid mb-3"
+          />
+          <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(106).jpg"
+            class="img-fluid mb-3"
+          />
+        </div>
+        <div class="spinner-border mx-auto" id="spinner" style="display: none"></div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState, useRef } from 'react';
+          import { MDBInfiniteScroll, MDBSpinner } from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const asyncRef = useRef<HTMLDivElement>(null);
+            const [isSpinnerHidden, setIsSpinnerHidden] = useState(false);
+            const [asyncIndex, setAsyncIndex] = useState(0);
+            const [asyncImages, setAsyncImages] = useState([
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(100).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(105).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(106).jpg',
+            ]);
+
+            const images = [
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(102).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(103).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(104).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(107).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(108).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(109).jpg',
+              'https://mdbootstrap.com/img/Photos/Slides/img%20(110).jpg',
+            ];
+        
+
+            const handleAsyncScroll = () => {
+              if (asyncIndex > images.length - 1) {
+                return;
+              }
+          
+              setIsSpinnerHidden(false);
+          
+              setTimeout(() => {
+                setAsyncImages([...asyncImages, images[asyncIndex]]);
+          
+                setIsSpinnerHidden(true);
+                setAsyncIndex(asyncIndex + 1);
+              }, 1000);
+            };
+            
+            return (
+              <MDBInfiniteScroll
+                infiniteScrollRef={asyncRef}
+                className='container list-group'
+                style={{ maxHeight: '500px', overflowY: 'scroll' }}
+                onInfiniteScroll={handleAsyncScroll}
+              >
+                <div>
+                  {asyncImages.map((image, index) => (
+                    <img src={image} key={index} className='img-fluid mb-3' />
+                  ))}
+                </div>
+
+                <div>
+                  <MDBSpinner
+                    tag='div'
+                    role='status'
+                    style={{ display: isSpinnerHidden ? 'none' : 'block' }}
+                    className='mx-auto'
+                  />
+                </div>
+              </MDBInfiniteScroll>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Spinners and asynchronous data-mdb-->
+
+  <hr class="my-5" />
+
+  <!--Section: Window-->
+  <section id="section-window">
+    <!-- Section title -->
+    <h2 class="mb-4">Window</h2>
+
+    <!-- Description -->
+    <p>You can set a window as the parent of <code>MDBInfiniteScroll</code> component by using <code>windowParent</code> property.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4 justify-content-center">
+      <a
+        class="btn btn-primary"
+        role="button"
+        target="_blank"
+        href="https://mdbootstrap.com/previews/mdb-ui-kit/infinite-scroll/full-page-example.html"
+        >View full screen demo<i class="far fa-eye ps-2"></i
+      ></a>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState, useRef } from 'react';
+          import { MDBContainer, MDBRow, MDBCol, MDBRipple, MDBBtn, MDBInfiniteScroll } from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const newImages = [
+              {
+                first: 'https://mdbcdn.b-cdn.net/img/Photos/Others/images/31.jpg',
+                second: 'https://mdbcdn.b-cdn.net/img/Photos/Others/images/23.jpg',
+              },
+              {
+                first: 'https://mdbcdn.b-cdn.net/img/Photos/Others/images/29.jpg',
+                second: 'https://mdbcdn.b-cdn.net/img/Photos/Others/images/27.jpg',
+              },
+              {
+                first: 'https://mdbcdn.b-cdn.net/img/Photos/Others/images/25.jpg',
+                second: 'https://mdbcdn.b-cdn.net/img/Photos/Others/images/24.jpg',
+              },
+              {
+                first: 'https://mdbcdn.b-cdn.net/img/Photos/Others/images/31.jpg',
+                second: 'https://mdbcdn.b-cdn.net/img/Photos/Others/images/32.jpg',
+              },
+            ];
+          
+            const [imgCounter, setImgCounter] = useState(0);
+          
+            const [images, setImages] = useState([
+              {
+                first: 'https://mdbootstrap.com/img/Photos/Others/images/29.jpg',
+                second: 'https://mdbootstrap.com/img/Photos/Others/images/27.jpg',
+              },
+              {
+                first: 'https://mdbootstrap.com/img/Photos/Others/images/25.jpg',
+                second: 'https://mdbootstrap.com/img/Photos/Others/images/24.jpg',
+              },
+              {
+                first: 'https://mdbootstrap.com/img/Photos/Others/images/31.jpg',
+                second: 'https://mdbootstrap.com/img/Photos/Others/images/23.jpg',
+              },
+            ]);
+          
+            const handleScroll = () => {
+              if (imgCounter > newImages.length - 1) {
+                return;
+              }
+          
+              setImages([...images, newImages[imgCounter]]);
+              setImgCounter(imgCounter + 1);
+            };
+            
+            return (
+              <main className='my-4'>
+                <MDBContainer>
+                  <MDBInfiniteScroll windowParent onInfiniteScroll={handleScroll} tag='section' className='text-center mb-4'>
+                    {images.map((img, index) => (
+                      <MDBRow key={index}>
+                        <MDBCol md='6' className='mb-4'>
+                          <MDBRipple
+                            rippleTag='div'
+                            className='bg-image hover-overlay shadow-1-strong rounded mb-4'
+                            rippleColor='light'
+                          >
+                            <img src={img.first} className='w-100' />
+                            <a href='#!'>
+                              <div className='mask' style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }}></div>
+                            </a>
+                          </MDBRipple>
+                          <h5>This is an title of the article</h5>
+          
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus
+                            laudantium cum dolorem illo. Quos architecto deserunt saepe.
+                          </p>
+          
+                          <MDBBtn rounded color='info' href='#!'>
+                            Read more
+                          </MDBBtn>
+                        </MDBCol>
+          
+                        <MDBCol md='6' className='mb-4'>
+                          <MDBRipple
+                            rippleTag='div'
+                            className='bg-image hover-overlay shadow-1-strong rounded mb-4'
+                            rippleColor='light'
+                          >
+                            <img src={img.second} className='w-100' />
+                            <a href='#!'>
+                              <div className='mask' style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }}></div>
+                            </a>
+                          </MDBRipple>
+                          <h5>This is an title of the article</h5>
+          
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam cupiditate veniam voluptatibus
+                            laudantium cum dolorem illo. Quos architecto deserunt saepe.
+                          </p>
+          
+                          <MDBBtn rounded color='info' href='#!'>
+                            Read more
+                          </MDBBtn>
+                        </MDBCol>
+                      </MDBRow>
+                    ))}
+          
+                    <MDBRow id='spinner' style={{ display: 'none' }}>
+                      <div className='col-md-12'>
+                        <div className='spinner-border mx-auto'></div>
+                      </div>
+                    </MDBRow>
+                  </MDBInfiniteScroll>
+                </MDBContainer>
+              </main>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="container" id="window-example"></div>
+    </section>
+    <!--Section: Demo-->
+  </section>
+  <!--Section: Window-->
+</section>
+<!--Section: Docs content-->
