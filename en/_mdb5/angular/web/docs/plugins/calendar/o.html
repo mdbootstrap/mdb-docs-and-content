@@ -1,0 +1,847 @@
+<link
+  rel="stylesheet"
+  href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/calendar.min.css?v=<?= STANDARD_DOCS_BUNDLE_VERSION; ?>"
+/>
+
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/b5/angular/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span> 
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p>
+      MDB calendar is a plugin that allows you to efficiently manage tasks. Thanks to this extension
+      you will be able to easily create new events, manage current events, move existing events
+      between other days, and store all data in an easily readable array.
+    </p>
+
+    <p><?= $data_var['description']; ?></p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!-- description -->
+    <p class="mb-4">A few predefined events allowing you to see how the plugin looks like.</p>
+
+    <!--Section: Demo-->
+    <div class="calendar"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [events]="events"></mdb-calendar>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+          import { MdbCalendarEvent } from 'mdb-calendar';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            events: MdbCalendarEvent[] = [
+              {
+                id: 'event1',
+                summary: 'JS Conference',
+                startDate: startOfDay(new Date()),
+                endDate: endOfDay(new Date()),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              { id: 'event2',
+                summary: 'Vue Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 1))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                color: {
+                  background: 'success',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event3',
+                summary: 'Angular Meetup',
+                description:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() - 3)).setHours(10,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 3)).setHours(14,0,0,0)),
+                color: {
+                  background: 'danger',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event4',
+                summary: 'React Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 8))),
+                color: {
+                  background: 'info',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event5',
+                summary: 'Meeting',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(8,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(12,0,0,0)),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event6',
+                summary: 'Call',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(11,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(14,0,0,0)),
+                color: {
+                  background: 'warning',
+                },
+              }
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Event format-->
+  <section id="section-event-formats">
+    <!-- Section title -->
+    <h2 class="mb-4">Event formats</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Calendar events can be added with time in two different formats - 12h or 24h. 
+    </p>
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="js" data-name="24h">
+          {
+            id: 'event6',
+            summary: 'Call',
+            startDate: new Date('2020/09/08 11:00'),
+            endDate: new Date('2020/09/08 14:00'),
+            color: {
+              background: 'warning',
+            },
+          }
+        </code>
+        <code data-lang="js" data-name="12h">
+          {
+            id: 'event6',
+            summary: 'Call',
+            startDate: new Date('2021/09/10 11:00 AM'),
+            endDate: new Date('2021/09/10 02:00 PM'),
+            color: {
+              background: 'warning',
+            },
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Event format-->
+
+  <hr class="my-5" />
+
+  <!--Section: Monday first-->
+  <section id="section-monday-first">
+    <!-- Section title -->
+    <h2 class="mb-4">Monday first</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Set the <code>mondayFirst</code> input to true so that Monday is the first day
+      of the week.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-monday-first="true"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [mondayFirst]="true" [events]="events"></mdb-calendar>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+          import { MdbCalendarEvent } from 'mdb-calendar';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            events: MdbCalendarEvent[] = [
+              {
+                id: 'event1',
+                summary: 'JS Conference',
+                startDate: startOfDay(new Date()),
+                endDate: endOfDay(new Date()),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              { id: 'event2',
+                summary: 'Vue Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 1))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                color: {
+                  background: 'success',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event3',
+                summary: 'Angular Meetup',
+                description:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() - 3)).setHours(10,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 3)).setHours(14,0,0,0)),
+                color: {
+                  background: 'danger',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event4',
+                summary: 'React Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 8))),
+                color: {
+                  background: 'info',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event5',
+                summary: 'Meeting',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(8,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(12,0,0,0)),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event6',
+                summary: 'Call',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(11,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(14,0,0,0)),
+                color: {
+                  background: 'warning',
+                },
+              }
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Monday first-->
+
+  <hr class="my-5" />
+
+  <!--Section: Default view-->
+  <section id="section-default-view">
+    <!-- Section title -->
+    <h2 class="mb-4">Default view</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      Set the <code>defaultView</code> input to <code>week</code> or
+      <code>list</code> to change the start view. By default, it is a <code>month</code>.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-default-view="week"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [defaultView]="'week'" [events]="events"></mdb-calendar>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+          import { MdbCalendarEvent } from 'mdb-calendar';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            events: MdbCalendarEvent[] = [
+              {
+                id: 'event1',
+                summary: 'JS Conference',
+                startDate: startOfDay(new Date()),
+                endDate: endOfDay(new Date()),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              { id: 'event2',
+                summary: 'Vue Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 1))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                color: {
+                  background: 'success',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event3',
+                summary: 'Angular Meetup',
+                description:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() - 3)).setHours(10,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 3)).setHours(14,0,0,0)),
+                color: {
+                  background: 'danger',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event4',
+                summary: 'React Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 8))),
+                color: {
+                  background: 'info',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event5',
+                summary: 'Meeting',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(8,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(12,0,0,0)),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event6',
+                summary: 'Call',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(11,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(14,0,0,0)),
+                color: {
+                  background: 'warning',
+                },
+              }
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Default view-->
+
+  <hr class="my-5" />
+
+  <!--Section: Twelve hour-->
+  <section id="section-twelve-hour">
+    <!-- Section title -->
+    <h2 class="mb-4">Twelve hour</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      By setting the <code>twelveHours</code> input to true, you get a 12-hour
+      schedule.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-default-view="week" data-mdb-twelve-hour="true"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [twelveHours]="true" [events]="eventsTwelveHours"></mdb-calendar>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+          import { MdbCalendarEvent } from 'mdb-calendar';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            events: MdbCalendarEvent[] = [
+              {
+                id: 'event1',
+                summary: 'JS Conference',
+                startDate: startOfDay(new Date()),
+                endDate: endOfDay(new Date()),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              { id: 'event2',
+                summary: 'Vue Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 1))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                color: {
+                  background: 'success',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event3',
+                summary: 'Angular Meetup',
+                description:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() - 3)).setHours(10,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 3)).setHours(14,0,0,0)),
+                color: {
+                  background: 'danger',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event4',
+                summary: 'React Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 8))),
+                color: {
+                  background: 'info',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event5',
+                summary: 'Meeting',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(8,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(12,0,0,0)),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event6',
+                summary: 'Call',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(11,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(14,0,0,0)),
+                color: {
+                  background: 'warning',
+                },
+              }
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Twelve hour-->
+
+  <hr class="my-5" />
+
+  <!--Section: Customize captions-->
+  <section id="section-customize-captions">
+    <!-- Section title -->
+    <h2 class="mb-4">Customize captions</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      You can customize all captions very easily using options input. Detailed options are
+      described in the API tab.
+    </p>
+
+    <!--Section: Demo-->
+    <div
+      class="calendar"
+      data-mdb-weekdays="Nd, Pon, Wt, Śr, Czw, Pt, Sb"
+      data-mdb-months="Styczeń, Luty, Marzec, Kwiecień, Maj, Czerwiec, Lipiec, Sierpień, Wrzesień, Październik, Listopad, Grudzień"
+      data-mdb-months-short="Sty, Lut, Mar, Kwi, Maj, Cze, Lip, Sie, Wrz, Paź, Lis, Gru"
+      data-mdb-today-caption="Dzisiaj"
+      data-mdb-month-caption="Miesiąc"
+      data-mdb-week-caption="Tydzień"
+      data-mdb-list-caption="Lista"
+      data-mdb-all-day-caption="Cały dzień"
+      data-mdb-no-events-caption="Brak wydarzeń"
+      data-mdb-summary-caption="Nazwa wydarzenia"
+      data-mdb-description-caption="Szczegółowy opis wydarzenia"
+      data-mdb-start-caption="Początek"
+      data-mdb-end-caption="Koniec"
+      data-mdb-add-event-modal-caption="Dodaj wydarzenie"
+      data-mdb-edit-event-modal-caption="Edytuj wydarzenie"
+      data-mdb-add-caption="Dodaj"
+      data-mdb-edit-caption="Edytuj"
+      data-mdb-delete-caption="Usuń"
+      data-mdb-close-caption="Zamknij"
+    ></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [options]="options" [events]="events"></mdb-calendar>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+          import { MdbCalendarEvent, MdbCalendarOptions } from 'mdb-calendar';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            events: MdbCalendarEvent[] = [
+              {
+                id: 'event1',
+                summary: 'JS Conference',
+                startDate: startOfDay(new Date()),
+                endDate: endOfDay(new Date()),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              { id: 'event2',
+                summary: 'Vue Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 1))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                color: {
+                  background: 'success',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event3',
+                summary: 'Angular Meetup',
+                description:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() - 3)).setHours(10,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 3)).setHours(14,0,0,0)),
+                color: {
+                  background: 'danger',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event4',
+                summary: 'React Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 8))),
+                color: {
+                  background: 'info',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event5',
+                summary: 'Meeting',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(8,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(12,0,0,0)),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event6',
+                summary: 'Call',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(11,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(14,0,0,0)),
+                color: {
+                  background: 'warning',
+                },
+              }
+            ];
+
+            options: MdbCalendarOptions = {
+              weekdays: ['Nd', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb'],
+              months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+              todayCaption: 'Dzisiaj',
+              monthCaption: 'Miesiąc',
+              weekCaption: 'Tydzień',
+              listCaption: 'Lista',
+              allDayCaption: 'Cały dzień',
+              noEventsCaption: 'Brak wydarzeń',
+              summaryCaption: 'Nazwa wydarzenia',
+              descriptionCaption: 'Szczegółowy opis wydarzenia',
+              startCaption: 'Początek',
+              endCaption: 'Koniec',
+              addCaption: 'Dodaj',
+              deleteCaption: 'Usuń',
+              editCaption: 'Edytuj',
+              closeCaption: 'Zamknij',
+              addEventModalCaption: 'Dodaj wydarzenie',
+              editEventModalCaption: 'Edytuj wydarzenie',
+            }
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Customize captions-->
+
+  <hr class="my-5" />
+
+  <!--Section: Default date-->
+  <section id="section-default-date">
+    <!-- Section title -->
+    <h2 class="mb-4">Default date</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      A starting day can be easily set using the
+      <code>defaultDate</code> input.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-default-date="01-12-2019"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [defaultDate]="defaultDate" [events]="events"></mdb-calendar>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+          import { MdbCalendarEvent } from 'mdb-calendar';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            defaultDate = new Date('2019/12/01');
+
+            events: MdbCalendarEvent[] = [
+              {
+                id: 'event1',
+                summary: 'JS Conference',
+                startDate: startOfDay(new Date()),
+                endDate: endOfDay(new Date()),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              { id: 'event2',
+                summary: 'Vue Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 1))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                color: {
+                  background: 'success',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event3',
+                summary: 'Angular Meetup',
+                description:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() - 3)).setHours(10,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 3)).setHours(14,0,0,0)),
+                color: {
+                  background: 'danger',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event4',
+                summary: 'React Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 8))),
+                color: {
+                  background: 'info',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event5',
+                summary: 'Meeting',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(8,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(12,0,0,0)),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event6',
+                summary: 'Call',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(11,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(14,0,0,0)),
+                color: {
+                  background: 'warning',
+                },
+              }
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Default date-->
+
+  <hr class="my-5" />
+
+  <!--Section: Readonly-->
+  <section id="section-readonly">
+    <!-- Section title -->
+    <h2 class="mb-4">Readonly</h2>
+
+    <!-- description -->
+    <p class="mb-4">
+      The editable mode can be easily disabled using the
+      <code>readonly</code> input.
+    </p>
+
+    <!--Section: Demo-->
+    <div class="calendar" data-mdb-readonly="true"></div>
+    <!--Section: Demo-->
+
+    <!--Section: Live Preview-->
+    <section class="mt-4">
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-calendar [readonly]="true" [events]="events"></mdb-calendar>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+          import { MdbCalendarEvent } from 'mdb-calendar';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            events: MdbCalendarEvent[] = [
+              {
+                id: 'event1',
+                summary: 'JS Conference',
+                startDate: startOfDay(new Date()),
+                endDate: endOfDay(new Date()),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              { id: 'event2',
+                summary: 'Vue Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 1))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                color: {
+                  background: 'success',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event3',
+                summary: 'Angular Meetup',
+                description:
+                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() - 3)).setHours(10,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 3)).setHours(14,0,0,0)),
+                color: {
+                  background: 'danger',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event4',
+                summary: 'React Meetup',
+                startDate: startOfDay(new Date(new Date().setDate(new Date().getDate() + 5))),
+                endDate: endOfDay(new Date(new Date().setDate(new Date().getDate() + 8))),
+                color: {
+                  background: 'info',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event5',
+                summary: 'Meeting',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(8,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(12,0,0,0)),
+                color: {
+                  background: 'primary',
+                  foreground: 'white',
+                },
+              },
+              {
+                id: 'event6',
+                summary: 'Call',
+                startDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(11,0,0,0)),
+                endDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(14,0,0,0)),
+                color: {
+                  background: 'warning',
+                },
+              }
+            ];
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Live Preview-->
+  </section>
+  <!--Section: Readonly-->
+</section>
+<!--Section: Docs content-->
