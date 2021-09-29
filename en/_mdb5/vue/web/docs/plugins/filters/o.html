@@ -1,0 +1,4330 @@
+<link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/filters.min.css?v=
+  <?= STANDARD_DOCS_BUNDLE_VERSION; ?>" />
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+      <span>
+        <a href="/docs/standard/pro/" role="button">
+          <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6">
+      <?= $data_var['subheading']; ?>
+    </h1>
+
+    <!-- Description -->
+    <p>
+      Filters are the best way to select data that meets your requirements - they affect your search
+      results by filtrating and sorting the dataset you pass to our component.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <!-- Section: Live preview -->
+  <section class="border p-4 d-flex justify-content-center my-5">
+    <a class="btn btn-primary" role="button" target="_blank"
+      href="https://mdbootstrap.com/previews/mdb-ui-kit/filters/full-page-example.html">View full screen demo<i
+        class="far fa-eye ps-2"></i></a>
+  </section>
+  <!-- Section: Live preview -->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example - DOM Elements-->
+  <section id="section-basic-example-dom-elements">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example - DOM Elements</h2>
+
+    <!-- Description -->
+    <p>
+      Use the <code>items</code> prop to define a container with data to filter. This
+      is required for proper component initialization.
+    </p>
+
+    <p>
+      Add <code>data-mdb-filter-property</code> to every item you want to be filtrable. If you
+      want to handle your filters by inputs, make a container for them, and add
+      <code>data-mdb-filter-property</code> to it.
+    </p>
+
+    <p class="note note-warning">
+      <strong>Note:</strong> You must have at least one filtrable element for a component to work
+      properly.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-center" id="basic-example-filters" data-mdb-items=".basic-example-item"
+        data-mdb-auto-filter="true">
+        <div class="col-md-6" data-mdb-filter="color">
+          <span class="fa-lg">Filter: Color</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="black" />
+            <label class="form-check-label" for="inlineRadio1">Black</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="red" />
+            <label class="form-check-label" for="inlineRadio2">Red</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="blue" />
+            <label class="form-check-label" for="inlineRadio3">Blue</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="gray" />
+            <label class="form-check-label" for="inlineRadio4">Gray</label>
+          </div>
+        </div>
+
+        <div class="col-md-6" data-mdb-filter="sale">
+          <span class="fa-lg mb-5">Filter: Sale</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio5" value="yes" />
+            <label class="form-check-label" for="inlineRadio5">Yes</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio6" value="no" />
+            <label class="form-check-label" for="inlineRadio6">No</label>
+          </div>
+
+          <button type="button" class="btn btn-primary mt-3" id="resetButton">
+            Clear all filters
+          </button>
+        </div>
+      </div>
+
+      <div class="row text-center" id="basic-example-data">
+        <div class="col-md-4 mt-3 basic-example-item" data-mdb-color="black" data-mdb-sale="no" data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 basic-example-item" data-mdb-sale="yes" data-mdb-color="gray" data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 basic-example-item" data-mdb-color="blue" data-mdb-sale="no" data-mdb-price="90">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Blue Jeans Jacket</h5>
+              <p class="card-text">90$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 basic-example-item" data-mdb-color="red" data-mdb-sale="yes" data-mdb-price="120">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Red Hoodie</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">150$</span>
+                <span class="fw-bold fa-lg">120$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 basic-example-item" data-mdb-color="black" data-mdb-sale="no" data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 basic-example-item" data-mdb-color="gray" data-mdb-sale="yes" data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBFilter
+              items=".basic-example-item"
+              :filters="{ color: colorRadio, sale: saleRadio }"
+            >
+              <MDBRow class="justify-content-center">
+                <MDBCol md="6">
+                  <span class="fa-lg">Filter: Color</span>
+
+                  <MDBRadio
+                    label="Black"
+                    wrapperClass="mt-3"
+                    name="colorRadio"
+                    v-model="colorRadio"
+                    value="black"
+                  />
+                  <MDBRadio
+                    label="Red"
+                    name="colorRadio"
+                    v-model="colorRadio"
+                    value="red"
+                  />
+                  <MDBRadio
+                    label="Blue"
+                    name="colorRadio"
+                    v-model="colorRadio"
+                    value="blue"
+                  />
+                  <MDBRadio
+                    label="Gray"
+                    name="colorRadio"
+                    v-model="colorRadio"
+                    value="gray"
+                  />
+                </MDBCol>
+
+                <MDBCol md="6">
+                  <span class="fa-lg mb-5">Filter: Sale</span>
+
+                  <MDBRadio
+                    label="Yes"
+                    wrapperClass="mt-3"
+                    name="saleRadio"
+                    v-model="saleRadio"
+                    value="yes"
+                  />
+                  <MDBRadio
+                    label="No"
+                    name="saleRadio"
+                    v-model="saleRadio"
+                    value="no"
+                  />
+
+                  <MDBBtn
+                    color="primary"
+                    class="mt-3"
+                    id="reset-button"
+                    @click="resetRadios"
+                    >Clear all filters</MDBBtn
+                  >
+                </MDBCol>
+              </MDBRow>
+
+              <MDBRow class="text-center">
+                <MDBCol
+                  md="4"
+                  class="mt-3 basic-example-item"
+                  data-mdb-filter-color="black"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="100"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>100$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 basic-example-item"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-color="gray"
+                  data-mdb-filter-price="80"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">100$</span>
+                        <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 basic-example-item"
+                  data-mdb-filter-color="blue"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="90"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Blue Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>90$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 basic-example-item"
+                  data-mdb-filter-color="red"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-price="120"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Red Hoodie</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">150$</span>
+                        <span class="fw-bold fa-lg ps-1">120$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 basic-example-item"
+                  data-mdb-filter-color="black"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="100"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>100$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 basic-example-item"
+                  data-mdb-filter-color="gray"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-price="80"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">100$</span>
+                        <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+              </MDBRow>
+            </MDBFilter>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBRadio,
+              MDBCard,
+              MDBCardImg,
+              MDBCardBody,
+              MDBCardTitle,
+              MDBCardText,
+              MDBBtn,
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBRadio,
+                MDBCard,
+                MDBCardImg,
+                MDBCardBody,
+                MDBCardTitle,
+                MDBCardText,
+                MDBBtn,
+              },
+              setup() {
+                const colorRadio = ref("");
+                const saleRadio = ref("");
+                const resetRadios = () => {
+                  colorRadio.value = "";
+                  saleRadio.value = "";
+                };
+
+                return {
+                  colorRadio,
+                  saleRadio,
+                  resetRadios,
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example - DOM Elements-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Checkbox example-->
+  <section id="subsection-checkbox-example">
+    <!-- Subsection title -->
+    <h4 class="mb-4">Checkbox example</h4>
+
+    <p class="note note-light">
+      <strong>Note:</strong> If there is more than one option, the result of filtering will show
+      items that match both of them.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-center" id="checkbox-example-filters" data-mdb-items=".checkbox-example-item"
+        data-mdb-auto-filter="true">
+        <div class="col-md-6" data-mdb-filter="color">
+          <span class="fa-lg mb-5">Filter: Color</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="red" />
+            <label class="form-check-label" for="inlineCheckbox1">Red</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="blue" />
+            <label class="form-check-label" for="inlineCheckbox2">Blue</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="black" />
+            <label class="form-check-label" for="inlineCheckbox3">Black</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="gray" />
+            <label class="form-check-label" for="inlineCheckbox4">Gray</label>
+          </div>
+        </div>
+
+        <div class="col-md-6" data-mdb-filter="sale">
+          <span class="fa-lg mb-5">Filter: Sale</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="yes" />
+            <label class="form-check-label" for="inlineCheckbox5">Yes</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="no" />
+            <label class="form-check-label" for="inlineCheckbox6">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row text-center">
+        <div class="col-md-4 mt-3 checkbox-example-item" data-mdb-color="black" data-mdb-sale="no" data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 checkbox-example-item" data-mdb-sale="yes" data-mdb-color="gray" data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 checkbox-example-item" data-mdb-color="blue" data-mdb-sale="no" data-mdb-price="90">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Blue Jeans Jacket</h5>
+              <p class="card-text">90$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 checkbox-example-item" data-mdb-color="red" data-mdb-sale="yes" data-mdb-price="120">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Red Hoodie</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">150$</span>
+                <span class="fw-bold fa-lg">120$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 checkbox-example-item" data-mdb-color="black" data-mdb-sale="no" data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 checkbox-example-item" data-mdb-color="gray" data-mdb-sale="yes" data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBFilter
+              items=".checkbox-example-item"
+              :filters="{ color: colorCheckboxes, sale: saleCheckboxes }"
+            >
+              <MDBRow class="justify-content-center">
+                <MDBCol md="6">
+                  <span class="fa-lg">Filter: Color</span>
+
+                  <MDBCheckbox
+                    label="Red"
+                    v-model="colorCheckboxes.red"
+                    wrapperClass="mt-3"
+                  />
+                  <MDBCheckbox label="Blue" v-model="colorCheckboxes.blue" />
+                  <MDBCheckbox label="Black" v-model="colorCheckboxes.black" />
+                  <MDBCheckbox label="Gray" v-model="colorCheckboxes.gray" />
+                </MDBCol>
+
+                <MDBCol md="6">
+                  <span class="fa-lg mb-5">Filter: Sale</span>
+
+                  <MDBCheckbox
+                    label="Yes"
+                    wrapperClass="mt-3"
+                    v-model="saleCheckboxes.yes"
+                  />
+                  <MDBCheckbox label="No" v-model="saleCheckboxes.no" />
+
+                  <MDBBtn
+                    color="primary"
+                    class="mt-3"
+                    id="reset-button"
+                    @click="resetCheckboxes"
+                    >Clear all filters</MDBBtn
+                  >
+                </MDBCol>
+              </MDBRow>
+
+              <MDBRow class="text-center">
+                <MDBCol
+                  md="4"
+                  class="mt-3 checkbox-example-item"
+                  data-mdb-filter-color="black"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="100"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>100$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 checkbox-example-item"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-color="gray"
+                  data-mdb-filter-price="80"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">100$</span>
+                        <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 checkbox-example-item"
+                  data-mdb-filter-color="blue"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="90"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Blue Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>90$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 checkbox-example-item"
+                  data-mdb-filter-color="red"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-price="120"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Red Hoodie</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">150$</span>
+                        <span class="fw-bold fa-lg ps-1">120$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 checkbox-example-item"
+                  data-mdb-filter-color="black"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="100"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>100$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 checkbox-example-item"
+                  data-mdb-filter-color="gray"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-price="80"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">100$</span>
+                        <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+              </MDBRow>
+            </MDBFilter>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBCheckbox,
+              MDBCard,
+              MDBCardImg,
+              MDBCardBody,
+              MDBCardTitle,
+              MDBCardText,
+              MDBBtn,
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBCheckbox,
+                MDBCard,
+                MDBCardImg,
+                MDBCardBody,
+                MDBCardTitle,
+                MDBCardText,
+                MDBBtn,
+              },
+              setup() {
+                const colorCheckboxes = ref({
+                  red: false,
+                  blue: false,
+                  black: false,
+                  gray: false,
+                });
+                const saleCheckboxes = ref({
+                  yes: false,
+                  no: false,
+                });
+                const resetCheckboxes = () => {
+                  Object.keys(colorCheckboxes.value).forEach((key) => {
+                    colorCheckboxes.value[key] = false;
+                  });
+                  Object.keys(saleCheckboxes.value).forEach((key) => {
+                    saleCheckboxes.value[key] = false;
+                  });
+                };
+
+                return {
+                  colorCheckboxes,
+                  saleCheckboxes,
+                  resetCheckboxes,
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Checkbox example-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Color example-->
+  <section id="subsection-color-example">
+    <!-- Subsection title -->
+    <h4 class="mb-4">Color example</h4>
+
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-center" id="color-example-filters" data-mdb-items=".color-example-item"
+        data-mdb-auto-filter="true">
+        <div class="col-md-12 text-center mb-3" data-mdb-filter="color">
+          <p class="fa-lg mt-2 mb-4">Filter: Color</p>
+
+          <div class="form-check form-check-inline">
+            <input class="btn-check" type="radio" name="colorRadio" id="colorRadio1" value="red" />
+            <label class="btn bg-danger btn-rounded p-4" for="colorRadio1"></label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input class="btn-check" type="radio" name="colorRadio" id="colorRadio2" value="blue" />
+            <label class="btn bg-primary btn-rounded p-4" for="colorRadio2"></label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input class="btn-check" type="radio" name="colorRadio" id="colorRadio3" value="black" />
+            <label class="btn bg-dark text-white btn-rounded p-4" for="colorRadio3"></label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input class="btn-check" type="radio" name="colorRadio" id="colorRadio4" value="gray" />
+            <label class="btn btn-rounded p-4" for="colorRadio4" style="background-color: #bdbdbd"></label>
+          </div>
+        </div>
+        <div class="col-md-12 text-center my-3">
+          <button type="button" class="btn btn-primary" id="resetButton2">Clear all filters</button>
+        </div>
+      </div>
+
+      <div class="row text-center">
+        <div class="col-md-4 mt-3 color-example-item" data-mdb-color="black" data-mdb-sale="no" data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 color-example-item" data-mdb-sale="yes" data-mdb-color="gray" data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 color-example-item" data-mdb-color="blue" data-mdb-sale="no" data-mdb-price="90">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Blue Jeans Jacket</h5>
+              <p class="card-text">90$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 color-example-item" data-mdb-color="red" data-mdb-sale="yes" data-mdb-price="120">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Red Hoodie</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">150$</span>
+                <span class="fw-bold fa-lg">120$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 color-example-item" data-mdb-color="black" data-mdb-sale="no" data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 color-example-item" data-mdb-color="gray" data-mdb-sale="yes" data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBFilter
+            items=".color-example-item"
+            :filters="{ color: colorButtonsRadio }"
+          >
+            <MDBRow class="justify-content-center">
+              <MDBCol md="12" class="text-center mb-3">
+                <p class="fa-lg mt-2 mb-4">Filter: Color</p>
+                <MDBRadio
+                  inline
+                  label=" "
+                  labelClass="btn bg-danger btn-rounded p-4"
+                  name="colorButtonsRadio"
+                  v-model="colorButtonsRadio"
+                  value="red"
+                  hidden
+                />
+                <MDBRadio
+                  inline
+                  label=" "
+                  labelClass="btn bg-primary btn-rounded p-4"
+                  name="colorButtonsRadio"
+                  v-model="colorButtonsRadio"
+                  value="blue"
+                  hidden
+                />
+                <MDBRadio
+                  inline
+                  label=" "
+                  labelClass="btn bg-dark btn-rounded p-4"
+                  name="colorButtonsRadio"
+                  v-model="colorButtonsRadio"
+                  value="black"
+                  hidden
+                />
+                <MDBRadio
+                  inline
+                  label=" "
+                  labelClass="btn bg-dark opacity-50 btn-rounded p-4"
+                  name="colorButtonsRadio"
+                  v-model="colorButtonsRadio"
+                  value="gray"
+                  hidden
+                />
+              </MDBCol>
+              <MDBCol md="12" class="my-3 text-center">
+                <MDBBtn
+                  color="primary"
+                  class="mt-3"
+                  id="reset-button"
+                  @click="resetButtonsRadio"
+                  >Clear all filters</MDBBtn
+                >
+              </MDBCol>
+            </MDBRow>
+
+            <MDBRow class="text-center">
+              <MDBCol
+                md="4"
+                class="mt-3 color-example-item"
+                data-mdb-filter-color="black"
+                data-mdb-filter-sale="no"
+                data-mdb-filter-price="100"
+              >
+                <MDBCard class="shadow-2">
+                  <MDBCardImg
+                    src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                    top
+                    alt="..."
+                  />
+                  <MDBCardBody>
+                    <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                    <MDBCardText>100$</MDBCardText>
+                    <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+              <MDBCol
+                md="4"
+                class="col-md-4 mt-3 color-example-item"
+                data-mdb-filter-sale="yes"
+                data-mdb-filter-color="gray"
+                data-mdb-filter-price="80"
+              >
+                <MDBCard class="shadow-2">
+                  <MDBCardImg
+                    src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                    top
+                    alt="..."
+                  />
+                  <MDBCardBody>
+                    <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                    <MDBCardText>
+                      <span class="text-decoration-line-through">100$</span>
+                      <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                    >
+                    <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+              <MDBCol
+                md="4"
+                class="col-md-4 mt-3 color-example-item"
+                data-mdb-filter-color="blue"
+                data-mdb-filter-sale="no"
+                data-mdb-filter-price="90"
+              >
+                <MDBCard class="shadow-2">
+                  <MDBCardImg
+                    src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
+                    top
+                    alt="..."
+                  />
+                  <MDBCardBody>
+                    <MDBCardTitle>Blue Jeans Jacket</MDBCardTitle>
+                    <MDBCardText>90$</MDBCardText>
+                    <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+              <MDBCol
+                md="4"
+                class="col-md-4 mt-3 color-example-item"
+                data-mdb-filter-color="red"
+                data-mdb-filter-sale="yes"
+                data-mdb-filter-price="120"
+              >
+                <MDBCard class="shadow-2">
+                  <MDBCardImg
+                    src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
+                    top
+                    alt="..."
+                  />
+                  <MDBCardBody>
+                    <MDBCardTitle>Red Hoodie</MDBCardTitle>
+                    <MDBCardText>
+                      <span class="text-decoration-line-through">150$</span>
+                      <span class="fw-bold fa-lg ps-1">120$</span></MDBCardText
+                    >
+                    <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+              <MDBCol
+                md="4"
+                class="col-md-4 mt-3 color-example-item"
+                data-mdb-filter-color="black"
+                data-mdb-filter-sale="no"
+                data-mdb-filter-price="100"
+              >
+                <MDBCard class="shadow-2">
+                  <MDBCardImg
+                    src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                    top
+                    alt="..."
+                  />
+                  <MDBCardBody>
+                    <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                    <MDBCardText>100$</MDBCardText>
+                    <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+              <MDBCol
+                md="4"
+                class="col-md-4 mt-3 color-example-item"
+                data-mdb-filter-color="gray"
+                data-mdb-filter-sale="yes"
+                data-mdb-filter-price="80"
+              >
+                <MDBCard class="shadow-2">
+                  <MDBCardImg
+                    src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                    top
+                    alt="..."
+                  />
+                  <MDBCardBody>
+                    <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                    <MDBCardText>
+                      <span class="text-decoration-line-through">100$</span>
+                      <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                    >
+                    <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
+          </MDBFilter>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBRadio,
+              MDBCard,
+              MDBCardImg,
+              MDBCardBody,
+              MDBCardTitle,
+              MDBCardText,
+              MDBBtn,
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBRadio,
+                MDBCard,
+                MDBCardImg,
+                MDBCardBody,
+                MDBCardTitle,
+                MDBCardText,
+                MDBBtn,
+              },
+              setup() {
+                const colorButtonsRadio = ref("");
+                const resetButtonsRadio = () => {
+                  colorButtonsRadio.value = "";
+                };
+
+                return {
+                  colorButtonsRadio,
+                  resetButtonsRadio,
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Color example-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Size-->
+  <section id="subsection-size-dom-elements">
+    <!-- Section title -->
+    <h2 class="mb-4">Size example</h2>
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-center" id="size-filters" data-mdb-items=".size-item" data-mdb-auto-filter="true">
+        <div class="col-md-6" data-mdb-filter="size">
+          <span class="fa-lg mb-5">Filter: Size</span>
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="36" />
+            <label class="form-check-label" for="inlineCheckbox1">36</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="38" />
+            <label class="form-check-label" for="inlineCheckbox2">38</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="40" />
+            <label class="form-check-label" for="inlineCheckbox3">40</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="42" />
+            <label class="form-check-label" for="inlineCheckbox4">42</label>
+          </div>
+        </div>
+        <div class="col-md-6" data-mdb-filter="sale">
+          <span class="fa-lg mb-5">Filter: Sale</span>
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio5" value="yes" />
+            <label class="form-check-label" for="inlineRadio5">Yes</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio6" value="no" />
+            <label class="form-check-label" for="inlineRadio6">No</label>
+          </div>
+          <button type="button" class="btn btn-primary mt-3" id="resetButtonSize">
+            Clear all filters
+          </button>
+        </div>
+      </div>
+      <div class="row text-center" id="size-data">
+        <div class="col-md-4 mt-3 size-item" data-mdb-size="[36, 38, 40, 42]" data-mdb-sale="no" data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 size-item" data-mdb-sale="yes" data-mdb-size="[40, 42]" data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 size-item" data-mdb-size="[38]" data-mdb-sale="no" data-mdb-price="90">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="card-img-top"
+              alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Blue Jeans Jacket</h5>
+              <p class="card-text">90$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 size-item" data-mdb-size="[36]" data-mdb-sale="yes" data-mdb-price="120">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg" class="card-img-top"
+              alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Red Hoodie</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">150$</span>
+                <span class="fw-bold fa-lg">120$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 size-item" data-mdb-size="[36, 40, 42]" data-mdb-sale="no" data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 size-item" data-mdb-size="[36, 38, 40]" data-mdb-sale="yes" data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBFilter
+              items=".size-item"
+              :filters="{ size: sizeCheckboxes, sale: saleRadio2 }"
+            >
+              <MDBRow class="justify-content-center">
+                <MDBCol md="6" data-mdb-filter-filter="size">
+                  <span class="fa-lg">Filter: Size</span>
+
+                  <MDBCheckbox
+                    label="36"
+                    v-model="sizeCheckboxes['36']"
+                    wrapperClass="mt-3"
+                  />
+                  <MDBCheckbox label="38" v-model="sizeCheckboxes['38']" />
+                  <MDBCheckbox label="40" v-model="sizeCheckboxes['40']" />
+                  <MDBCheckbox label="42" v-model="sizeCheckboxes['42']" />
+                </MDBCol>
+
+                <MDBCol md="6">
+                  <span class="fa-lg mb-5">Filter: Sale</span>
+
+                  <MDBRadio
+                    label="Yes"
+                    wrapperClass="mt-3"
+                    name="saleRadio2"
+                    v-model="saleRadio2"
+                    value="yes"
+                  />
+                  <MDBRadio
+                    label="No"
+                    name="saleRadio2"
+                    v-model="saleRadio2"
+                    value="no"
+                  />
+
+                  <MDBBtn
+                    color="primary"
+                    class="mt-3"
+                    id="reset-button"
+                    @click="resetFilters"
+                    >Clear all filters</MDBBtn
+                  >
+                </MDBCol>
+              </MDBRow>
+
+              <MDBRow class="text-center">
+                <MDBCol
+                  md="4"
+                  class="mt-3 size-item"
+                  data-mdb-filter-size="[36,38,40,42]"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="100"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>100$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 size-item"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-size="[40,42]"
+                  data-mdb-filter-price="80"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">100$</span>
+                        <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 size-item"
+                  data-mdb-filter-size="[38]"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="90"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Blue Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>90$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 size-item"
+                  data-mdb-filter-size="[36]"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-price="120"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Red Hoodie</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">150$</span>
+                        <span class="fw-bold fa-lg ps-1">120$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 size-item"
+                  data-mdb-filter-size="[36,40,42]"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="100"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>100$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 size-item"
+                  data-mdb-filter-size="[36,38,40]"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-price="80"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">100$</span>
+                        <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+              </MDBRow>
+            </MDBFilter>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBCheckbox,
+              MDBRadio,
+              MDBCard,
+              MDBCardImg,
+              MDBCardBody,
+              MDBCardTitle,
+              MDBCardText,
+              MDBBtn,
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBCheckbox,
+                MDBRadio,
+                MDBCard,
+                MDBCardImg,
+                MDBCardBody,
+                MDBCardTitle,
+                MDBCardText,
+                MDBBtn,
+              },
+              setup() {
+                const sizeCheckboxes = ref({
+                  36: false,
+                  38: false,
+                  40: false,
+                  42: false,
+                });
+                const saleRadio2 = ref("");
+                const resetFilters = () => {
+                  Object.keys(sizeCheckboxes.value).forEach((key) => {
+                    sizeCheckboxes.value[key] = false;
+                  });
+                  saleRadio2.value = "";
+                };
+
+                return {
+                  sizeCheckboxes,
+                  saleRadio2,
+                  resetFilters,
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Size-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Animations with DOM Elements-->
+  <section id="subsection-animations-dom-elements">
+    <!-- Section title -->
+    <h2 class="mb-4">Animations with DOM Elements</h2>
+
+    <p>
+      Add <code>data-mdb-filter-animation</code> attribute with animation type to filtrable elements to
+      animate them. The full list of available animations you can find
+      <a href="https://mdbootstrap.com/docs/b5/vue/content-styles/animations/">here</a>.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-center" id="animation-filters" data-mdb-items=".animation-dom-item"
+        data-mdb-auto-filter="true">
+        <div class="col-md-6" data-mdb-filter="color">
+          <span class="fa-lg">Filter: Color</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="animationRadio" id="animationRadio1" value="black" />
+            <label class="form-check-label" for="animationRadio1">Black</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="animationRadio" id="animationRadio2" value="red" />
+            <label class="form-check-label" for="animationRadio2">Red</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="animationRadio" id="animationRadio3" value="blue" />
+            <label class="form-check-label" for="animationRadio3">Blue</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="animationRadio" id="animationRadio4" value="gray" />
+            <label class="form-check-label" for="animationRadio4">Gray</label>
+          </div>
+        </div>
+
+        <div class="col-md-6" data-mdb-filter="sale">
+          <span class="fa-lg mb-5">Filter: Sale</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="animationRadio2" id="animationRadio5" value="yes" />
+            <label class="form-check-label" for="animationRadio5">Yes</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="animationRadio2" id="animationRadio6" value="no" />
+            <label class="form-check-label" for="animationRadio6">No</label>
+          </div>
+
+          <button type="button" class="btn btn-primary mt-3" id="animationResetButton">
+            Clear all filters
+          </button>
+        </div>
+      </div>
+
+      <div class="row text-center" id="animation-filters-data">
+        <div class="col-md-4 mt-3 animation-dom-item animation fade-in" data-mdb-color="black" data-mdb-sale="no"
+          data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 animation-dom-item animation fade-in" data-mdb-sale="yes" data-mdb-color="gray"
+          data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 animation-dom-item animation fade-in" data-mdb-color="blue" data-mdb-sale="no"
+          data-mdb-price="90">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Blue Jeans Jacket</h5>
+              <p class="card-text">90$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 animation-dom-item animation fade-in" data-mdb-color="red" data-mdb-sale="yes"
+          data-mdb-price="120">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Red Hoodie</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">150$</span>
+                <span class="fw-bold fa-lg">120$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 animation-dom-item animation fade-in" data-mdb-color="black" data-mdb-sale="no"
+          data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 animation-dom-item animation fade-in" data-mdb-color="gray" data-mdb-sale="yes"
+          data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBFilter
+              items=".animation-dom-item"
+              data-mdb-filter-animation="fade-in"
+              :filters="{ color: colorRadio3, sale: saleRadio3 }"
+            >
+              <MDBRow class="justify-content-center">
+                <MDBCol md="6">
+                  <span class="fa-lg">Filter: Color</span>
+
+                  <MDBRadio
+                    label="Black"
+                    wrapperClass="mt-3"
+                    name="colorRadio3"
+                    v-model="colorRadio3"
+                    value="black"
+                  />
+                  <MDBRadio
+                    label="Red"
+                    name="colorRadio3"
+                    v-model="colorRadio3"
+                    value="red"
+                  />
+                  <MDBRadio
+                    label="Blue"
+                    name="colorRadio3"
+                    v-model="colorRadio3"
+                    value="blue"
+                  />
+                  <MDBRadio
+                    label="Gray"
+                    name="colorRadio3"
+                    v-model="colorRadio3"
+                    value="gray"
+                  />
+                </MDBCol>
+
+                <MDBCol md="6">
+                  <span class="fa-lg mb-5">Filter: Sale</span>
+
+                  <MDBRadio
+                    label="Yes"
+                    wrapperClass="mt-3"
+                    name="saleRadio3"
+                    v-model="saleRadio3"
+                    value="yes"
+                  />
+                  <MDBRadio
+                    label="No"
+                    name="saleRadio3"
+                    v-model="saleRadio3"
+                    value="no"
+                  />
+
+                  <MDBBtn
+                    color="primary"
+                    class="mt-3"
+                    id="reset-button"
+                    @click="resetRadios3"
+                    >Clear all filters</MDBBtn
+                  >
+                </MDBCol>
+              </MDBRow>
+
+              <MDBRow class="text-center">
+                <MDBCol
+                  md="4"
+                  class="mt-3 animation-dom-item"
+                  data-mdb-filter-animation="fade-in"
+                  data-mdb-filter-color="black"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="100"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>100$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 animation-dom-item"
+                  data-mdb-filter-animation="fade-in"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-color="gray"
+                  data-mdb-filter-price="80"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">100$</span>
+                        <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 animation-dom-item"
+                  data-mdb-filter-animation="fade-in"
+                  data-mdb-filter-color="blue"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="90"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Blue Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>90$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 animation-dom-item"
+                  data-mdb-filter-animation="fade-in"
+                  data-mdb-filter-color="red"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-price="120"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Red Hoodie</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">150$</span>
+                        <span class="fw-bold fa-lg ps-1">120$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 animation-dom-item"
+                  data-mdb-filter-animation="fade-in"
+                  data-mdb-filter-color="black"
+                  data-mdb-filter-sale="no"
+                  data-mdb-filter-price="100"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                      <MDBCardText>100$</MDBCardText>
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+                <MDBCol
+                  md="4"
+                  class="col-md-4 mt-3 animation-dom-item"
+                  data-mdb-filter-animation="fade-in"
+                  data-mdb-filter-color="gray"
+                  data-mdb-filter-sale="yes"
+                  data-mdb-filter-price="80"
+                >
+                  <MDBCard class="shadow-2">
+                    <MDBCardImg
+                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                      top
+                      alt="..."
+                    />
+                    <MDBCardBody>
+                      <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                      <MDBCardText>
+                        <span class="text-decoration-line-through">100$</span>
+                        <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                      >
+                      <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                    </MDBCardBody>
+                  </MDBCard>
+                </MDBCol>
+              </MDBRow>
+            </MDBFilter>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBRadio,
+              MDBCard,
+              MDBCardImg,
+              MDBCardBody,
+              MDBCardTitle,
+              MDBCardText,
+              MDBBtn,
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBRadio,
+                MDBCard,
+                MDBCardImg,
+                MDBCardBody,
+                MDBCardTitle,
+                MDBCardText,
+                MDBBtn,
+              },
+              setup() {
+                const colorRadio3 = ref("");
+                const saleRadio3 = ref("");
+                const resetRadios3 = () => {
+                  colorRadio3.value = "";
+                  saleRadio3.value = "";
+                };
+
+                return {
+                  colorRadio3,
+                  saleRadio3,
+                  resetRadios3,
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Animations with DOM Elements-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example - Array of Items-->
+  <section id="section-basic-example-array">
+    <!-- Section title -->
+    <h2 class="mb-4">Data structure - array</h2>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Your <code>items</code> dataset can be an array of items. We made
+      this solution for backend needs.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-center" id="array-example-filters" data-mdb-auto-filter="true">
+        <div class="col-md-6" data-mdb-filter="color">
+          <span class="fa-lg">Filter: Color</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="arrayRadioOptions" id="arrayRadio1" value="black" />
+            <label class="form-check-label" for="arrayRadio1">Black</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="arrayRadioOptions" id="arrayRadio2" value="red" />
+            <label class="form-check-label" for="arrayRadio2">Red</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="arrayRadioOptions" id="arrayRadio3" value="blue" />
+            <label class="form-check-label" for="arrayRadio3">Blue</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="arrayRadioOptions" id="arrayRadio4" value="gray" />
+            <label class="form-check-label" for="arrayRadio4">Gray</label>
+          </div>
+        </div>
+
+        <div class="col-md-6" data-mdb-filter="sale">
+          <span class="fa-lg mb-5">Filter: Sale</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="arrayRadioOptions2" id="arrayRadio5" value="yes" />
+            <label class="form-check-label" for="arrayRadio5">Yes</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="arrayRadioOptions2" id="arrayRadio6" value="no" />
+            <label class="form-check-label" for="arrayRadio6">No</label>
+          </div>
+
+          <button type="button" class="btn btn-primary mt-3" id="arrayReset">
+            Clear all filters
+          </button>
+        </div>
+      </div>
+      <div class="row text-center" id="array-example-data"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBRow class="justify-content-center">
+              <MDBCol md="6">
+                <span class="fa-lg">Filter: Color</span>
+
+                <MDBRadio
+                  label="Black"
+                  wrapperClass="mt-3"
+                  name="colorRadio4"
+                  v-model="colorRadio4"
+                  value="black"
+                />
+                <MDBRadio
+                  label="Red"
+                  name="colorRadio4"
+                  v-model="colorRadio4"
+                  value="red"
+                />
+                <MDBRadio
+                  label="Blue"
+                  name="colorRadio4"
+                  v-model="colorRadio4"
+                  value="blue"
+                />
+                <MDBRadio
+                  label="Gray"
+                  name="colorRadio4"
+                  v-model="colorRadio4"
+                  value="gray"
+                />
+              </MDBCol>
+
+              <MDBCol md="6">
+                <span class="fa-lg mb-5">Filter: Sale</span>
+
+                <MDBRadio
+                  label="Yes"
+                  wrapperClass="mt-3"
+                  name="saleRadio4"
+                  v-model="saleRadio4"
+                  value="yes"
+                />
+                <MDBRadio
+                  label="No"
+                  name="saleRadio4"
+                  v-model="saleRadio4"
+                  value="no"
+                />
+
+                <MDBBtn
+                  color="primary"
+                  class="mt-3"
+                  id="reset-button"
+                  @click="resetRadios4"
+                  >Clear all filters</MDBBtn
+                >
+              </MDBCol>
+            </MDBRow>
+
+            <MDBFilter
+              :dataset="filterDataset"
+              :template="filterTemplate"
+              :filters="{ color: colorRadio4, sale: saleRadio4 }"
+              items=".filter-item"
+              class="row text-center"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBRadio,
+              MDBBtn
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBRadio,
+                MDBBtn
+              },
+              setup() {
+                const colorRadio4 = ref("");
+                const saleRadio4 = ref("");
+                const resetRadios4 = () => {
+                  colorRadio4.value = "";
+                  saleRadio4.value = "";
+                };
+                const filterDataset = ref([
+                  {
+                    id: 1,
+                    color: "black",
+                    price: 100,
+                    sale: "no",
+                    product: "Black Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15.jpg",
+                  },
+                  {
+                    id: 2,
+                    color: "black",
+                    price: 100,
+                    sale: "no",
+                    product: "Black Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15.jpg",
+                  },
+                  {
+                    id: 3,
+                    color: "gray",
+                    price: 80,
+                    sale: "yes",
+                    product: "Gray Jumper",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14.jpg",
+                  },
+                  {
+                    id: 4,
+                    color: "gray",
+                    price: 80,
+                    sale: "yes",
+                    product: "Gray Jumper",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14.jpg",
+                  },
+                  {
+                    id: 5,
+                    color: "red",
+                    price: 120,
+                    sale: "yes",
+                    product: "Red Hoodie",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/13.jpg",
+                  },
+                  {
+                    id: 6,
+                    color: "blue",
+                    price: 90,
+                    sale: "no",
+                    product: "Blue Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12.jpg",
+                  },
+                ]);
+                const filterTemplate = (item) => `
+                  <div class="col-md-4 mt-3 filter-item" data-mdb-filter-color="${item.color}" data-mdb-filter-sale="${item.sale}">
+                    <div class="card shadow-2">
+                      <img src="${item.img}" class="card-img-top" alt="..." />
+                      <div class="card-body">
+                        <h5 class="card-title">${item.product}</h5>
+                        <p class="card-text">${item.price}$</p>
+                        <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+                      </div>
+                    </div>
+                  </div>
+                `;
+
+                return {
+                  colorRadio4,
+                  saleRadio4,
+                  resetRadios4,
+                  filterDataset,
+                  filterTemplate,
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example - Array of Items-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Spinner example-->
+  <section id="subsection-spinner-example">
+    <!-- Subsection title -->
+    <h4 class="mb-4">Spinner & Asynchronous Data example</h4>
+
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-center mb-5" id="spinner-example-filters">
+        <p class="text-center fa-lg fw-bold">Price:</p>
+
+        <div class="col-md-3 mt-3 text-center">
+          <div class="form-outline">
+            <input type="number" id="typeNumber" class="form-control" value="0" />
+            <label class="form-label" for="typeNumber">Minimum</label>
+          </div>
+        </div>
+
+        <div class="col-md-3 mt-3 text-center">
+          <div class="form-outline">
+            <input type="number" id="typeNumber2" class="form-control" value="200" />
+            <label class="form-label" for="typeNumber2">Maximum</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row text-center mt-3" id="spinner-example-data" style="max-height: 800px; overflow-y: scroll"></div>
+
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <div class="spinner-grow text-primary mx-auto my-5" id="spinner" role="status" style="display: none">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBRow class="justify-content-center mb-5">
+              <p class="text-center fa-lg fw-bold">Price:</p>
+              <MDBCol md="3" class="mt-3 text-center">
+                <MDBInput
+                  type="number"
+                  v-model="defaultMinPrice"
+                  @change="handleMinPriceChange"
+                />
+              </MDBCol>
+
+              <MDBCol md="3" class="mt-3 text-center">
+                <MDBInput
+                  type="number"
+                  v-model="defaultMaxPrice"
+                  @change="handleMaxPriceChange"
+                />
+              </MDBCol>
+            </MDBRow>
+
+            <MDBRow v-if="loading" class="text-center mb-5">
+              <MDBCol md="12">
+                <MDBSpinner grow color="primary" />
+              </MDBCol>
+            </MDBRow>
+
+            <MDBFilter
+              v-else
+              :dataset="filterDataset2"
+              :template="filterTemplate2"
+              :filters="{ price: { min: minPrice, max: maxPrice } }"
+              items=".filter-item"
+              class="row text-center mt-3"
+              style="max-height: 800px; overflow-y: scroll"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBInput,
+              MDBSpinner,
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBInput,
+                MDBSpinner,
+              },
+              setup() {
+                const defaultMinPrice = ref(0);
+                const defaultMaxPrice = ref(200);
+                const minPrice = ref(0);
+                const maxPrice = ref(200);
+                const loading = ref(true);
+                const filterDataset2 = ref([]);
+                const loadData = () => {
+                  loading.value = true;
+                  setTimeout(() => {
+                    fetch("products.json")
+                      .then((response) => response.json())
+                      .then((data) => {
+                        filterDataset2.value = data;
+                        loading.value = false;
+                      });
+                  }, 1000);
+                };
+                const filterTemplate2 = (item) => `
+                  <div class="col-md-4 mt-3 filter-item" data-mdb-filter-price="${item.price}">
+                    <div class="card shadow-2">
+                      <img src="${item.image}" class="card-img-top" alt="..." />
+                      <div class="card-body">
+                        <h5 class="card-title">${item.name}</h5>
+                        <p class="card-text">${item.price}$</p>
+                        <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                loadData();
+                const handleMinPriceChange = (event) => {
+                  minPrice.value = event.target.value;
+                  loadData();
+                };
+                const handleMaxPriceChange = (event) => {
+                  maxPrice.value = event.target.value;
+                  loadData();
+                };
+
+                return {
+                  defaultMinPrice,
+                  defaultMaxPrice,
+                  minPrice,
+                  maxPrice,
+                  filterDataset2,
+                  filterTemplate2,
+                  loading,
+                  handleMinPriceChange,
+                  handleMaxPriceChange,
+                };
+              },
+            };
+          </script>
+        </code>
+        <code data-lang="json" data-name="products.json">
+          [
+            {
+              "id": 1,
+              "category": "shirts",
+              "name": "Fantasy T-shirt",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["34", "36", "40"],
+              "condition": "new",
+              "color": "blue",
+              "price": 12.99,
+              "keywords": ["t-shirt", "sweatshitrt"],
+              "discount": 0,
+              "gender": "male"
+            },
+            {
+              "id": 2,
+              "category": "shirts",
+              "name": "Fantasy T-shirt",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["34", "36", "40", "44"],
+              "condition": "new",
+              "color": "red",
+              "price": 12.99,
+              "discount": 0,
+              "gender": "male"
+            },
+            {
+              "id": 3,
+              "category": "shirts",
+              "name": "Fantasy T-shirt",
+              "rating": 3,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["34", "36"],
+              "condition": "new",
+              "color": "grey",
+              "price": 40.99,
+              "discount": 10,
+              "gender": "male"
+            },
+            {
+              "id": 4,
+              "category": "jackets",
+              "name": "Denim Jacket",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "condition": "new",
+              "color": "grey",
+              "price": 40.99,
+              "discount": 0,
+              "gender": "unisex"
+            },
+            {
+              "id": 5,
+              "category": "jeans",
+              "name": "Ripped jeans",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/11.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["34", "36", "38", "40"],
+              "condition": "renewed",
+              "color": "blue",
+              "price": 20.99,
+              "discount": 5,
+              "gender": "female"
+            },
+            {
+              "id": 6,
+              "category": "jeans",
+              "name": "Boyfriend jeans",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/10.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": false,
+              "size": ["34", "36", "38", "40"],
+              "condition": "used",
+              "color": "blue",
+              "price": 20.99,
+              "discount": 5,
+              "gender": "female"
+            },
+            {
+              "id": 7,
+              "category": "shirts",
+              "name": "Ripped sweatshirt",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/7.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["34", "36", "38", "40"],
+              "condition": "collectible",
+              "color": "white",
+              "price": 29.99,
+              "discount": 5,
+              "gender": "female"
+            },
+            {
+              "id": 8,
+              "category": "shirts",
+              "name": "Longsleeve",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/8.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40"],
+              "condition": "collectible",
+              "color": "black",
+              "price": 120.99,
+              "discount": 0,
+              "gender": "male"
+            },
+            {
+              "id": 8,
+              "category": "shirts",
+              "name": "Stripped sweatshirt",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/6.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40", "38", "36"],
+              "condition": "new",
+              "color": "white",
+              "price": 32.99,
+              "discount": 10,
+              "gender": "female"
+            },
+            {
+              "id": 9,
+              "category": "trousers",
+              "name": "Red chinos",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/5.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40", "38", "36"],
+              "condition": "new",
+              "color": "red",
+              "price": 62.99,
+              "discount": 10,
+              "gender": "female"
+            },
+            {
+              "id": 10,
+              "category": "coats",
+              "name": "Camel coat",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/4.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40", "38", "36"],
+              "condition": "used",
+              "color": "brown",
+              "price": 62.99,
+              "discount": 10,
+              "gender": "female"
+            },
+            {
+              "id": 11,
+              "category": "jeans",
+              "name": "Blue jeans",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/3.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40", "38", "36"],
+              "condition": "new",
+              "color": "blue",
+              "price": 42.99,
+              "discount": 0,
+              "gender": "female"
+            },
+            {
+              "id": 12,
+              "category": "shirts",
+              "name": "Orange T-shirt",
+              "rating": 3,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/3.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40", "38", "36"],
+              "condition": "new",
+              "color": "orange",
+              "price": 12.99,
+              "discount": 0,
+              "gender": "female"
+            },
+            {
+              "id": 13,
+              "category": "skirts",
+              "name": "Ballerina skirt",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/2.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["38", "36"],
+              "condition": "collectible",
+              "color": "white",
+              "price": 12.99,
+              "discount": 0,
+              "gender": "female"
+            }
+          ]
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Spinner example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Animations - Array of Items-->
+  <section id="subsection-animations-array">
+    <!-- Section title -->
+    <h2 class="mb-4">Animations - Array of Items</h2>
+
+    <p>
+      Add <code>data-mdb-filter-animation</code> attribute with animation type to filtrable elements to
+      animate them. The full list of available animations you can find
+      <a href="https://mdbootstrap.com/docs/b5/vue/content-styles/animations/">here</a>.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-center" id="array-animation-filters" data-mdb-auto-filter="true">
+        <div class="col-md-6" data-mdb-filter="color">
+          <span class="fa-lg">Filter: Color</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="animationArrayRadio" id="animationArrayRadio1"
+              value="black" />
+            <label class="form-check-label" for="animationArrayRadio1">Black</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="animationArrayRadio" id="animationArrayRadio2"
+              value="red" />
+            <label class="form-check-label" for="animationArrayRadio2">Red</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="animationArrayRadio" id="animationArrayRadio3"
+              value="blue" />
+            <label class="form-check-label" for="animationArrayRadio3">Blue</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="animationArrayRadio" id="animationArrayRadio4"
+              value="gray" />
+            <label class="form-check-label" for="animationArrayRadio4">Gray</label>
+          </div>
+        </div>
+
+        <div class="col-md-6" data-mdb-filter="sale">
+          <span class="fa-lg mb-5">Filter: Sale</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="animationArrayRadio2" id="animationArrayRadio5"
+              value="yes" />
+            <label class="form-check-label" for="animationArrayRadio5">Yes</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="animationArrayRadio2" id="animationArrayRadio6"
+              value="no" />
+            <label class="form-check-label" for="animationArrayRadio6">No</label>
+          </div>
+
+          <button type="button" class="btn btn-primary mt-3" id="animationArrayReset">
+            Clear all filters
+          </button>
+        </div>
+      </div>
+      <div class="row text-center" id="animation-array-data"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBRow class="justify-content-center">
+              <MDBCol md="6">
+                <span class="fa-lg">Filter: Color</span>
+
+                <MDBRadio
+                  label="Black"
+                  wrapperClass="mt-3"
+                  name="colorRadio5"
+                  v-model="colorRadio5"
+                  value="black"
+                />
+                <MDBRadio
+                  label="Red"
+                  name="colorRadio5"
+                  v-model="colorRadio5"
+                  value="red"
+                />
+                <MDBRadio
+                  label="Blue"
+                  name="colorRadio5"
+                  v-model="colorRadio5"
+                  value="blue"
+                />
+                <MDBRadio
+                  label="Gray"
+                  name="colorRadio5"
+                  v-model="colorRadio5"
+                  value="gray"
+                />
+              </MDBCol>
+
+              <MDBCol md="6">
+                <span class="fa-lg mb-5">Filter: Sale</span>
+
+                <MDBRadio
+                  label="Yes"
+                  wrapperClass="mt-3"
+                  name="saleRadio5"
+                  v-model="saleRadio5"
+                  value="yes"
+                />
+                <MDBRadio
+                  label="No"
+                  name="saleRadio5"
+                  v-model="saleRadio5"
+                  value="no"
+                />
+
+                <MDBBtn
+                  color="primary"
+                  class="mt-3"
+                  id="reset-button"
+                  @click="resetRadios5"
+                  >Clear all filters</MDBBtn
+                >
+              </MDBCol>
+            </MDBRow>
+
+            <MDBFilter
+              :dataset="filterDataset5"
+              :template="filterTemplate5"
+              :filters="{ color: colorRadio5, sale: saleRadio5 }"
+              items=".filter-item"
+              class="row text-center"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBRadio,
+              MDBBtn
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBRadio,
+                MDBBtn
+              },
+              setup() {
+                const colorRadio5 = ref("");
+                const saleRadio5 = ref("");
+                const resetRadios5 = () => {
+                  colorRadio5.value = "";
+                  saleRadio5.value = "";
+                };
+                const filterDataset5 = ref([
+                  {
+                    id: 1,
+                    color: "black",
+                    price: 100,
+                    sale: "no",
+                    product: "Black Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15.jpg",
+                  },
+                  {
+                    id: 2,
+                    color: "black",
+                    price: 100,
+                    sale: "no",
+                    product: "Black Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15.jpg",
+                  },
+                  {
+                    id: 3,
+                    color: "gray",
+                    price: 80,
+                    sale: "yes",
+                    product: "Gray Jumper",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14.jpg",
+                  },
+                  {
+                    id: 4,
+                    color: "gray",
+                    price: 80,
+                    sale: "yes",
+                    product: "Gray Jumper",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14.jpg",
+                  },
+                  {
+                    id: 5,
+                    color: "red",
+                    price: 120,
+                    sale: "yes",
+                    product: "Red Hoodie",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/13.jpg",
+                  },
+                  {
+                    id: 6,
+                    color: "blue",
+                    price: 90,
+                    sale: "no",
+                    product: "Blue Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12.jpg",
+                  },
+                ]);
+                const filterTemplate5 = (item) => `
+                  <div
+                    class="col-md-4 mt-3 filter-item"
+                    data-mdb-filter-color="${item.color}"
+                    data-mdb-filter-sale="${item.sale}"
+                    data-mdb-filter-animation="fade-in"
+                  >
+                    <div class="card shadow-2">
+                      <img src="${item.img}" class="card-img-top" alt="..." />
+                      <div class="card-body">
+                        <h5 class="card-title">${item.product}</h5>
+                        <p class="card-text">${item.price}$</p>
+                        <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+                      </div>
+                    </div>
+                  </div>
+                `;
+
+                return {
+                  colorRadio5,
+                  saleRadio5,
+                  resetRadios5,
+                  filterDataset5,
+                  filterTemplate5,
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Animations - Array of Items-->
+
+  <hr class="my-5" />
+
+  <!--Section: Filter and sort -->
+  <section id="section-filter-sort">
+    <!-- Section title -->
+    <h2 class="mb-4">Filter and sort</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-start" id="filter-sort-example-filters" data-mdb-auto-filter="true">
+        <div class="col-md-6" data-mdb-filter="color">
+          <span class="fa-lg">Filter: Color</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="filterSortRadioOptions" id="filterSortRadio1"
+              value="black" />
+            <label class="form-check-label" for="filterSortRadio1">Black</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="filterSortRadioOptions" id="filterSortRadio2"
+              value="red" />
+            <label class="form-check-label" for="filterSortRadio2">Red</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="filterSortRadioOptions" id="filterSortRadio3"
+              value="blue" />
+            <label class="form-check-label" for="filterSortRadio3">Blue</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="filterSortRadioOptions" id="filterSortRadio4"
+              value="gray" />
+            <label class="form-check-label" for="filterSortRadio4">Gray</label>
+          </div>
+        </div>
+
+        <div class="col-md-6" data-mdb-filter="sale">
+          <span class="fa-lg mb-5">Filter: Sale</span>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="radio" name="filterSortRadioOptions2" id="filterSortRadio5"
+              value="yes" />
+            <label class="form-check-label" for="filterSortRadio5">Yes</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="filterSortRadioOptions2" id="filterSortRadio6"
+              value="no" />
+            <label class="form-check-label" for="filterSortRadio6">No</label>
+          </div>
+
+          <button type="button" class="btn btn-primary mt-3" id="filterSortReset">
+            Clear all filters
+          </button>
+        </div>
+
+        <div class="col-md-8 my-5">
+          <select class="select" id="filter-sort-select">
+            <option value="" disabled selected>Choose category</option>
+            <option value="1">Product name ascending</option>
+            <option value="2">Product name descending</option>
+            <option value="3">Highest price</option>
+            <option value="4">Lowest price</option>
+          </select>
+          <label class="form-label select-label">Sort</label>
+        </div>
+      </div>
+      <div class="row text-center" id="filter-sort-example-data"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBRow class="justify-content-center">
+              <MDBCol md="6">
+                <span class="fa-lg">Filter: Color</span>
+
+                <MDBRadio
+                  label="Black"
+                  wrapperClass="mt-3"
+                  name="colorRadio6"
+                  v-model="colorRadio6"
+                  value="black"
+                />
+                <MDBRadio
+                  label="Red"
+                  name="colorRadio6"
+                  v-model="colorRadio6"
+                  value="red"
+                />
+                <MDBRadio
+                  label="Blue"
+                  name="colorRadio6"
+                  v-model="colorRadio6"
+                  value="blue"
+                />
+                <MDBRadio
+                  label="Gray"
+                  name="colorRadio6"
+                  v-model="colorRadio6"
+                  value="gray"
+                />
+              </MDBCol>
+
+              <MDBCol md="6">
+                <span class="fa-lg mb-5">Filter: Sale</span>
+
+                <MDBRadio
+                  label="Yes"
+                  wrapperClass="mt-3"
+                  name="saleRadio6"
+                  v-model="saleRadio6"
+                  value="yes"
+                />
+                <MDBRadio
+                  label="No"
+                  name="saleRadio6"
+                  v-model="saleRadio6"
+                  value="no"
+                />
+
+                <MDBBtn
+                  color="primary"
+                  class="mt-3"
+                  id="reset-button"
+                  @click="resetRadios6"
+                  >Clear all filters</MDBBtn
+                >
+              </MDBCol>
+            </MDBRow>
+
+            <MDBFilter
+              :dataset="filterDataset6"
+              :template="filterTemplate6"
+              :filters="{ color: colorRadio6, sale: saleRadio6 }"
+              items=".filter-item"
+              class="row text-center"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref, watch } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBRadio,
+              MDBBtn
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBRadio,
+                MDBBtn
+              },
+              setup() {
+                const colorRadio6 = ref("");
+                const saleRadio6 = ref("");
+                const resetRadios6 = () => {
+                  colorRadio6.value = "";
+                  saleRadio6.value = "";
+                };
+                const filterDataset6 = ref([
+                  {
+                    id: 1,
+                    color: "black",
+                    price: 100,
+                    sale: "no",
+                    product: "Black Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15.jpg",
+                  },
+                  {
+                    id: 2,
+                    color: "black",
+                    price: 100,
+                    sale: "no",
+                    product: "Black Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15.jpg",
+                  },
+                  {
+                    id: 3,
+                    color: "gray",
+                    price: 80,
+                    sale: "yes",
+                    product: "Gray Jumper",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14.jpg",
+                  },
+                  {
+                    id: 4,
+                    color: "gray",
+                    price: 80,
+                    sale: "yes",
+                    product: "Gray Jumper",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14.jpg",
+                  },
+                  {
+                    id: 5,
+                    color: "red",
+                    price: 120,
+                    sale: "yes",
+                    product: "Red Hoodie",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/13.jpg",
+                  },
+                  {
+                    id: 6,
+                    color: "blue",
+                    price: 90,
+                    sale: "no",
+                    product: "Blue Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12.jpg",
+                  },
+                ]);
+                const filterTemplate6 = (item) => `
+                  <div
+                    class="col-md-4 mt-3 filter-item"
+                    data-mdb-filter-color="${item.color}"
+                    data-mdb-filter-sale="${item.sale}"
+                    data-mdb-filter-animation="fade-in"
+                  >
+                    <div class="card shadow-2">
+                      <img src="${item.img}" class="card-img-top" alt="..." />
+                      <div class="card-body">
+                        <h5 class="card-title">${item.product}</h5>
+                        <p class="card-text">${item.price}$</p>
+                        <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                const sortingOptions6 = ref([
+                  { text: "Product name ascending", value: 1 },
+                  { text: "Product name descending", value: 2 },
+                  { text: "Highest price", value: 3 },
+                  { text: "Lowest price", value: 4 },
+                ]);
+                const sortingSelected6 = ref("");
+                const sort6 = ref({});
+                watch(
+                  () => sortingSelected6.value,
+                  (selected) => {
+                    switch (selected) {
+                      case 1: {
+                        sort6.value.category = "product";
+                        sort6.value.order = "asc";
+                        break;
+                      }
+                      case 2: {
+                        sort6.value.category = "product";
+                        sort6.value.order = "desc";
+                        break;
+                      }
+                      case 3: {
+                        sort6.value.category = "price";
+                        sort6.value.order = "desc";
+                        break;
+                      }
+                      case 4: {
+                        sort6.value.category = "price";
+                        sort6.value.order = "asc";
+                        break;
+                      }
+                      default: {
+                        return;
+                      }
+                    }
+                  }
+                );
+
+                return {
+                  colorRadio6,
+                  saleRadio6,
+                  resetRadios6,
+                  filterDataset6,
+                  filterTemplate6,
+                  sortingOptions6,
+                  sortingSelected6,
+                  sort6
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Filter and sort-->
+
+  <hr class="my-5" />
+
+  <!--Section: Customization: Custom Filter-->
+  <section id="section-range-example">
+    <!-- Subsection title -->
+    <h4 class="mb-4">Customization - custom filter</h4>
+
+    <p>
+      Pass an arrow function as the value of the filter key at the filter object to define your
+      custom filter.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-center" id="range-example-filters" data-mdb-items=".range-example-item"
+        data-mdb-auto-filter="false">
+        <div class="col-md-12 mt-3 text-center">
+          <p class="fa-lg">Price:</p>
+
+          <label for="customRange" class="form-label">Min</label>
+          <input type="range" class="form-range" value="80" min="80" max="120" id="customRange" autocompleted="" />
+
+          <p id="min-val">Current: 80$</p>
+
+          <label for="customRange2" class="form-label">Max</label>
+          <input type="range" class="form-range" value="120" min="80" max="120" id="customRange2" autocompleted="" />
+
+          <p id="max-val">Current: 120$</p>
+        </div>
+      </div>
+
+      <div class="row text-center" id="range-example-data">
+        <div class="col-md-4 mt-3 range-example-item" data-mdb-color="black" data-mdb-sale="no" data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 range-example-item" data-mdb-sale="yes" data-mdb-color="gray" data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 range-example-item" data-mdb-color="blue" data-mdb-sale="no" data-mdb-price="90">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Blue Jeans Jacket</h5>
+              <p class="card-text">90$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 range-example-item" data-mdb-color="red" data-mdb-sale="yes" data-mdb-price="120">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Red Hoodie</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">150$</span>
+                <span class="fw-bold fa-lg">120$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 range-example-item" data-mdb-color="black" data-mdb-sale="no" data-mdb-price="100">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Black Jeans Jacket</h5>
+              <p class="card-text">100$</p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 range-example-item" data-mdb-color="gray" data-mdb-sale="yes" data-mdb-price="80">
+          <div class="card shadow-2">
+            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" class="card-img-top"
+              alt="..." />
+
+            <div class="card-body">
+              <h5 class="card-title">Gray Jumper</h5>
+              <p class="card-text">
+                <span class="text-decoration-line-through">100$</span>
+                <span class="fw-bold fa-lg">80$</span>
+              </p>
+              <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBFilter
+                :filters="{ price: { min: minRange, max: maxRange } }"
+                items=".filter-item"
+                class="row text-center mt-3"
+              >
+                <MDBRow class="justify-content-center mb-5">
+                  <MDBCol md="12" class="mt-3 text-center">
+                    <p class="fa-lg">Price:</p>
+
+                    <MDBRange
+                      label="Min"
+                      v-model="defaultMinRange"
+                      @change="handleMinRangeChange"
+                      :min="80"
+                      :max="120"
+                    />
+                    <p id="min-val">Current: {{ minRange }}$</p>
+
+                    <MDBRange
+                      label="Max"
+                      v-model="defaultMaxRange"
+                      @change="handleMaxRangeChange"
+                      :min="80"
+                      :max="120"
+                    />
+                    <p id="min-val">Current: {{ maxRange }}$</p>
+                  </MDBCol>
+                </MDBRow>
+                <MDBRow class="text-center">
+                  <MDBCol
+                    md="4"
+                    class="mt-3 filter-item"
+                    data-mdb-filter-color="black"
+                    data-mdb-filter-sale="no"
+                    data-mdb-filter-price="100"
+                  >
+                    <MDBCard class="shadow-2">
+                      <MDBCardImg
+                        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                        top
+                        alt="..."
+                      />
+                      <MDBCardBody>
+                        <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                        <MDBCardText>100$</MDBCardText>
+                        <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                  <MDBCol
+                    md="4"
+                    class="col-md-4 mt-3 filter-item"
+                    data-mdb-filter-sale="yes"
+                    data-mdb-filter-color="gray"
+                    data-mdb-filter-price="80"
+                  >
+                    <MDBCard class="shadow-2">
+                      <MDBCardImg
+                        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                        top
+                        alt="..."
+                      />
+                      <MDBCardBody>
+                        <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                        <MDBCardText>
+                          <span class="text-decoration-line-through">100$</span>
+                          <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                        >
+                        <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                  <MDBCol
+                    md="4"
+                    class="col-md-4 mt-3 filter-item"
+                    data-mdb-filter-color="blue"
+                    data-mdb-filter-sale="no"
+                    data-mdb-filter-price="90"
+                  >
+                    <MDBCard class="shadow-2">
+                      <MDBCardImg
+                        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
+                        top
+                        alt="..."
+                      />
+                      <MDBCardBody>
+                        <MDBCardTitle>Blue Jeans Jacket</MDBCardTitle>
+                        <MDBCardText>90$</MDBCardText>
+                        <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                  <MDBCol
+                    md="4"
+                    class="col-md-4 mt-3 filter-item"
+                    data-mdb-filter-color="red"
+                    data-mdb-filter-sale="yes"
+                    data-mdb-filter-price="120"
+                  >
+                    <MDBCard class="shadow-2">
+                      <MDBCardImg
+                        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
+                        top
+                        alt="..."
+                      />
+                      <MDBCardBody>
+                        <MDBCardTitle>Red Hoodie</MDBCardTitle>
+                        <MDBCardText>
+                          <span class="text-decoration-line-through">150$</span>
+                          <span class="fw-bold fa-lg ps-1">120$</span></MDBCardText
+                        >
+                        <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                  <MDBCol
+                    md="4"
+                    class="col-md-4 mt-3 filter-item"
+                    data-mdb-filter-color="black"
+                    data-mdb-filter-sale="no"
+                    data-mdb-filter-price="100"
+                  >
+                    <MDBCard class="shadow-2">
+                      <MDBCardImg
+                        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
+                        top
+                        alt="..."
+                      />
+                      <MDBCardBody>
+                        <MDBCardTitle>Black Jeans Jacket</MDBCardTitle>
+                        <MDBCardText>100$</MDBCardText>
+                        <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                  <MDBCol
+                    md="4"
+                    class="col-md-4 mt-3 filter-item"
+                    data-mdb-filter-color="gray"
+                    data-mdb-filter-sale="yes"
+                    data-mdb-filter-price="80"
+                  >
+                    <MDBCard class="shadow-2">
+                      <MDBCardImg
+                        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
+                        top
+                        alt="..."
+                      />
+                      <MDBCardBody>
+                        <MDBCardTitle>Gray Jumper</MDBCardTitle>
+                        <MDBCardText>
+                          <span class="text-decoration-line-through">100$</span>
+                          <span class="fw-bold fa-lg ps-1">80$</span></MDBCardText
+                        >
+                        <MDBBtn tag="a" color="primary">Buy now</MDBBtn>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                </MDBRow>
+              </MDBFilter>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBRange,
+              MDBCard,
+              MDBCardImg,
+              MDBCardBody,
+              MDBCardTitle,
+              MDBCardText,
+              MDBBtn,
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBRange,
+                MDBCard,
+                MDBCardImg,
+                MDBCardBody,
+                MDBCardTitle,
+                MDBCardText,
+                MDBBtn,
+              },
+              setup() {
+                const defaultMinRange = ref(80);
+                const defaultMaxRange = ref(120);
+                const minRange = ref(80);
+                const maxRange = ref(120);
+                const handleMinRangeChange = (event) => {
+                  minRange.value = event.target.value;
+                };
+                const handleMaxRangeChange = (event) => {
+                  maxRange.value = event.target.value;
+                };
+
+                return {
+                  defaultMinRange,
+                  defaultMaxRange,
+                  minRange,
+                  maxRange,
+                  handleMinRangeChange,
+                  handleMaxRangeChange,
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Customization: Custom filter-->
+
+  <hr class="my-5" />
+
+  <!-- Subection: Custom sort -->
+  <section id="subsection-custom-sort">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom sort</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 justify-content-center mb-4">
+      <div class="row justify-content-center" id="custom-sort">
+        <div class="col-md-4 text-center">
+          <button type="button" class="btn btn-primary" id="customSortBtn">
+            Sort by product name ascending
+          </button>
+        </div>
+        <div class="col-md-4 text-center">
+          <button type="button" class="btn btn-primary" id="customSortBtn2">
+            Sort by product name descending
+          </button>
+        </div>
+      </div>
+      <div class="row text-center" id="custom-sort-data"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBRow class="justify-content-center">
+              <MDBCol md="4" class="text-center">
+                <MDBBtn color="primary" @click="customSort('product', 'asc')">
+                  Sort by product name ascending
+                </MDBBtn>
+              </MDBCol>
+              <MDBCol md="4" class="text-center">
+                <MDBBtn color="primary" @click="customSort('product', 'desc')">
+                  Sort by product name descending
+                </MDBBtn>
+              </MDBCol>
+            </MDBRow>
+
+            <MDBFilter
+              :dataset="filterDataset7"
+              :template="filterTemplate7"
+              :sort="sort7"
+              items=".filter-item"
+              class="row text-center"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { ref } from "vue";
+            import { MDBFilter } from "mdb-vue-filters";
+            import {
+              MDBRow,
+              MDBCol,
+              MDBBtn
+            } from "mdb-vue-ui-kit";
+
+            export default {
+              name: "App",
+              components: {
+                MDBFilter,
+                MDBRow,
+                MDBCol,
+                MDBBtn
+              },
+              setup() {
+                const sort7 = ref({});
+                const customSort = (category, order) => {
+                  sort7.value.category = category;
+                  sort7.value.order = order;
+                };
+                const filterDataset7 = ref([
+                  {
+                    id: 1,
+                    color: "black",
+                    price: 100,
+                    sale: "no",
+                    product: "Black Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15.jpg",
+                  },
+                  {
+                    id: 2,
+                    color: "black",
+                    price: 100,
+                    sale: "no",
+                    product: "Black Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/15.jpg",
+                  },
+                  {
+                    id: 3,
+                    color: "gray",
+                    price: 80,
+                    sale: "yes",
+                    product: "Gray Jumper",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14.jpg",
+                  },
+                  {
+                    id: 4,
+                    color: "gray",
+                    price: 80,
+                    sale: "yes",
+                    product: "Gray Jumper",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/14.jpg",
+                  },
+                  {
+                    id: 5,
+                    color: "red",
+                    price: 120,
+                    sale: "yes",
+                    product: "Red Hoodie",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/13.jpg",
+                  },
+                  {
+                    id: 6,
+                    color: "blue",
+                    price: 90,
+                    sale: "no",
+                    product: "Blue Jeans Jacket",
+                    img: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12.jpg",
+                  },
+                ]);
+                const filterTemplate7 = (item) => `
+                  <div
+                    class="col-md-4 mt-3 filter-item"
+                    data-mdb-filter-color="${item.color}"
+                    data-mdb-filter-sale="${item.sale}"
+                  >
+                    <div class="card shadow-2">
+                      <img src="${item.img}" class="card-img-top" alt="..." />
+                      <div class="card-body">
+                        <h5 class="card-title">${item.product}</h5>
+                        <p class="card-text">${item.price}$</p>
+                        <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+                      </div>
+                    </div>
+                  </div>
+                `;
+
+                return {
+                  sort7,
+                  customSort,
+                  filterDataset7,
+                  filterTemplate7,
+                };
+              },
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subection: Custom sort-->
+
+  <hr class="my-5" />
+
+  <!-- Section: Full page example -->
+  <section id="section-full-screen-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Full screen example</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 text-center mb-4">
+      <a class="btn btn-primary" role="button" target="_blank"
+        href="https://mdbootstrap.com/previews/mdb-ui-kit/filters/full-page-example.html">View full screen demo<i
+          class="far fa-eye ps-2"></i></a>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <header>
+              <MDBNavbar expand="lg" light bg="white" position="sticky" container>
+                <MDBNavbarToggler @click="collapse = !collapse" target="#navbarSupportedContent"></MDBNavbarToggler>
+                <MDBNavbarBrand href="#">
+                  <MDBIcon iconStyle="fab" icon="mdb" size="2x" alt="mdb logo" />
+                </MDBNavbarBrand>
+                <MDBCollapse v-model="collapse" id="navbarSupportedContent">
+                  <MDBNavbarNav right>
+                    <MDBNavbarItem to="/full-page-example" active class="my-auto">
+                      <MDBBadge color="danger" rounded pill>1</MDBBadge>
+                      <MDBIcon icon="shopping-cart" />
+                    </MDBNavbarItem>
+                    <MDBNavbarItem class="my-auto">
+                      <!-- Navbar dropdown -->
+                      <MDBDropdown class="nav-item" v-model="dropdown">
+                        <MDBDropdownToggle tag="a" class="nav-link" @click="dropdown = !dropdown"><i
+                            class="united kingdom flag m-0"></i>
+                        </MDBDropdownToggle>
+                        <MDBDropdownMenu>
+                          <MDBDropdownItem href="#">Action</MDBDropdownItem>
+                          <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+                          <MDBDropdownItem href="#">Something else here</MDBDropdownItem>
+                        </MDBDropdownMenu>
+                      </MDBDropdown>
+                    </MDBNavbarItem>
+                    <MDBNavbarItem to="/full-page-example" active class="my-auto">Shop</MDBNavbarItem>
+                    <MDBNavbarItem to="/full-page-example" active class="my-auto">Contact</MDBNavbarItem>
+                    <MDBNavbarItem to="/full-page-example" active class="my-auto">Sign in</MDBNavbarItem>
+                    <MDBNavbarItem to="/full-page-example" class="my-auto">
+                      <MDBBtn outline="dark" rounded>Sign up</MDBBtn>
+                    </MDBNavbarItem>
+                  </MDBNavbarNav>
+                </MDBCollapse>
+              </MDBNavbar>
+              <div class="p-5 text-center bg-image" style="
+                  background-image: url('https://mdbootstrap.com/img/Photos/Others/clothes(5)-crop.jpg');
+                  height: 400px;
+                ">
+                <div class="mask" style="background-color: rgba(0, 0, 0, 0.7)">
+                  <div class="d-flex justify-content-center align-items-center h-100">
+                    <div class="text-white">
+                      <h1 class="mb-3">Shop</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </header>
+
+            <main>
+              <MDBContainer class="mt-5">
+                <MDBRow>
+                  <MDBCol md="4">
+                    <section>
+                      <h5>Filters</h5>
+                      <section class="mb-4">
+                        <h6 class="fw-bold mb-3">Condition</h6>
+                        <MDBCheckbox v-model="condition.new" label="New" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                        <MDBCheckbox v-model="condition.used" label="Used" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                        <MDBCheckbox v-model="condition.collectible" label="Collectible" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                        <MDBCheckbox v-model="condition.renewed" label="Renewed" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                      </section>
+                      <section class="mb-4">
+                        <h6 class="fw-bold mb-3">Avg. Customer Review</h6>
+                        <MDBRating v-model="rating">
+                          <MDBRatingItem title="1" :index="1" />
+                          <MDBRatingItem title="2" :index="2" />
+                          <MDBRatingItem title="3" :index="3" />
+                          <MDBRatingItem title="4" :index="4" />
+                          <MDBRatingItem title="5" :index="5" />
+                        </MDBRating>
+                      </section>
+                      <section class="mb-4">
+                        <h6 class="fw-bold mb-3">Price</h6>
+                        <MDBRadio name="price" v-model="price" value="under25" label="Under $25" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                        <MDBRadio name="price" v-model="price" value="25to50" label="$25 to $50" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                        <MDBRadio name="price" v-model="price" value="50to100" label="$50 to $100" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                        <MDBRadio name="price" v-model="price" value="100to200" label="$100 to $200" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                        <MDBRadio name="price" v-model="price" value="over200" label="$200 & above" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                      </section>
+                      <section class="mb-4">
+                        <h6 class="fw-bold mb-3">Size</h6>
+                        <MDBCheckbox v-model="size['34']" label="34" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                        <MDBCheckbox v-model="size['36']" label="36" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                        <MDBCheckbox v-model="size['38']" label="38" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                        <MDBCheckbox v-model="size['40']" label="40" wrapperClass="mb-3"
+                          labelClass="form-check-label text-uppercase small text-muted" />
+                      </section>
+
+                      <section class="mb-4">
+                        <h6 class="fw-bold mb-3">Color</h6>
+                        <MDBRadio inline label=" " wrapperClass="m-0 p-0 pe-3" labelClass="btn bg-white btn-rounded p-3"
+                          name="colorButtonsRadio" v-model="color" value="white" hidden />
+                        <MDBRadio inline label=" " wrapperClass="m-0 p-0 pe-3"
+                          labelClass="btn bg-black opacity-50 btn-rounded p-3" name="colorButtonsRadio" v-model="color"
+                          value="grey" hidden />
+                        <MDBRadio inline label=" " wrapperClass="m-0 p-0 pe-3" labelClass="btn bg-black btn-rounded p-3"
+                          name="colorButtonsRadio" v-model="color" value="black" hidden />
+                        <MDBRadio inline label=" " wrapperClass="m-0 p-0 pe-3" labelClass="btn bg-primary btn-rounded p-3"
+                          name="colorButtonsRadio" v-model="color" value="blue" hidden />
+                        <MDBRadio inline label=" " wrapperClass="m-0 p-0 pe-3" labelClass="btn bg-danger btn-rounded p-3"
+                          name="colorButtonsRadio" v-model="color" value="red" hidden />
+                        <MDBRadio inline label=" " wrapperClass="m-0 p-0 pe-3" labelClass="btn bg-warning btn-rounded p-3"
+                          name="colorButtonsRadio" v-model="color" value="orange" hidden />
+                      </section>
+                    </section>
+                  </MDBCol>
+                  <MDBCol md="8">
+                    <MDBRow class="justify-content-center">
+                      <MDBCol md="6" class="my-auto py-3">
+                        <MDBSelect label="Sort" placeholder="Choose category" v-model:options="sortingOptions"
+                          v-model:selected="sortingSelected" />
+                      </MDBCol>
+                    </MDBRow>
+
+                    <MDBFilter class="row mb-4" :dataset="filterDataset" :template="filterTemplate" :filters="filters"
+                      :sort="sort" items=".filter-item" />
+                  </MDBCol>
+                </MDBRow>
+              </MDBContainer>
+            </main>
+
+            <footer class="bg-dark text-white text-center text-lg-left">
+              <!-- Socials -->
+              <div class="bg-primary text-center p-3">
+                <div class="row">
+                  <div class="col-md-6">
+                    <span class="font-weight-bold">Get connected with us on social networks!</span>
+                  </div>
+                  <div class="col-md-6">
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin-in ms-4"></i>
+                    <i class="fab fa-twitter ms-4"></i>
+                    <i class="fab fa-facebook-f ms-4"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- Socials -->
+
+              <!-- Grid container -->
+              <div class="container p-5">
+                <!--Grid row-->
+                <div class="row p-2">
+                  <!--Grid column-->
+                  <div class="col-md-3 mx-auto py-4">
+                    <h5 class="text-uppercase">About me</h5>
+                    <hr class="mb-4 mt-0" />
+
+                    <p>
+                      Here you can use rows and columns to organize your footer content.
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    </p>
+                  </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-md-3 mx-auto py-4">
+                    <h5 class="text-uppercase">Products</h5>
+                    <hr class="mb-4 mt-0" />
+
+                    <ul class="list-unstyled mb-0">
+                      <li class="mb-2">
+                        <a href="#!" class="text-white">MDBootstrap</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#!" class="text-white">MDWordPress</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#!" class="text-white">BrandFlow</a>
+                      </li>
+                      <li>
+                        <a href="#!" class="text-white">Bootstrap Angular</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-md-3 mx-auto py-4">
+                    <h5 class="text-uppercase">Useful links</h5>
+                    <hr class="mb-4 mt-0" />
+
+                    <ul class="list-unstyled">
+                      <li class="mb-2">
+                        <a href="#!" class="text-white">Your Account</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#!" class="text-white">Become an Affiliate</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#!" class="text-white">Shipping Rates</a>
+                      </li>
+                      <li>
+                        <a href="#!" class="text-white">Help</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-md-3 mx-auto py-4">
+                    <h5 class="text-uppercase">Contacts</h5>
+                    <hr class="mb-4 mt-0" />
+
+                    <ul class="list-unstyled">
+                      <li class="mb-2">
+                        <a href="#!" class="text-white"><i class="far fa-map mr-1"></i> New York, Avenue Street 10</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#!" class="text-white"><i class="fas fa-phone-alt mr-1"></i> 042 876 836 908</a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#!" class="text-white"><i class="far fa-envelope mr-1"></i> company@example.com</a>
+                      </li>
+                      <li>
+                        <a href="#!" class="text-white"><i class="far fa-clock mr-1"></i> Monday - Friday: 10-17</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!--Grid column-->
+                </div>
+                <!--Grid row-->
+              </div>
+              <!-- Grid container -->
+
+              <!-- Copyright -->
+              <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+                © 2020 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+              </div>
+              <!-- Copyright -->
+            </footer>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import {
+              MDBNavbar,
+              MDBNavbarToggler,
+              MDBNavbarBrand,
+              MDBNavbarNav,
+              MDBNavbarItem,
+              MDBCollapse,
+              MDBDropdown,
+              MDBDropdownToggle,
+              MDBDropdownMenu,
+              MDBDropdownItem,
+              MDBIcon,
+              MDBBadge,
+              MDBBtn,
+              MDBContainer,
+              MDBRow,
+              MDBCol,
+              MDBCheckbox,
+              MDBRating,
+              MDBRatingItem,
+              MDBRadio,
+              MDBSelect,
+            } from "mdb-vue-ui-kit";
+            import MDBFilter from "@/components/MDBFilter";
+            import { ref, computed, watch } from "vue";
+
+            export default {
+              components: {
+                MDBNavbar,
+                MDBNavbarToggler,
+                MDBNavbarBrand,
+                MDBNavbarNav,
+                MDBNavbarItem,
+                MDBCollapse,
+                MDBDropdown,
+                MDBDropdownToggle,
+                MDBDropdownMenu,
+                MDBDropdownItem,
+                MDBIcon,
+                MDBBadge,
+                MDBBtn,
+                MDBContainer,
+                MDBRow,
+                MDBCol,
+                MDBCheckbox,
+                MDBRating,
+                MDBRatingItem,
+                MDBRadio,
+                MDBSelect,
+                MDBFilter,
+              },
+              setup() {
+                const collapse = ref(false);
+                const dropdown = ref(false);
+                const condition = ref({
+                  new: false,
+                  used: false,
+                  collectible: false,
+                  renewed: false,
+                });
+                const rating = ref(0);
+                const price = ref("");
+                const size = ref({
+                  34: false,
+                  36: false,
+                  38: false,
+                  40: false,
+                });
+                const color = ref("");
+
+                const parsedPrice = computed(() => {
+                  if (price.value === "under25") {
+                    return { max: 25 };
+                  } else if (price.value === "25to50") {
+                    return { min: 25, max: 50 };
+                  } else if (price.value === "50to100") {
+                    return { min: 50, max: 100 };
+                  } else if (price.value === "100to200") {
+                    return { min: 100, max: 200 };
+                  } else if (price.value === "over200") {
+                    return { min: 200 };
+                  }
+
+                  return "";
+                });
+                const filters = computed(() => ({
+                  condition: condition.value,
+                  rating: rating.value,
+                  price: parsedPrice.value,
+                  size: size.value,
+                  color: color.value,
+                }));
+
+                const filterDataset = ref([]);
+                fetch("products.json")
+                  .then((response) => response.json())
+                  .then((data) => {
+                    filterDataset.value = data;
+                  });
+                const filterTemplate = (item) => `
+                <div
+                  class="col-md-4 my-4 justify-content-center text-center filter-item"
+                  data-mdb-filter-condition="${item.condition}"
+                  data-mdb-filter-rating="${item.rating}"
+                  data-mdb-filter-price="${item.price}"
+                  data-mdb-filter-size="${item.size}"
+                  data-mdb-filter-color="${item.color}"
+                  data-mdb-filter-animation="fade-in"
+                >
+                  <div class="bg-image hover-overlay hover-zoom hover-shadow">
+                    <img src="${item.image}" class="img-fluid w-100" alt="..." style="height: 325px" />
+                    <a href="#!">
+                      <div class="mask rounded" style="background-color: rgba(66, 66, 66, 0.2);"></div>
+                    </a>
+                  </div>
+                  <div class="pt-4">
+                    <h5>${item.name}</h5>
+                    <strong>$${item.price}</strong>
+                  </div>
+                </div>
+              `;
+
+                const sortingOptions = ref([
+                  { text: "Best rating", value: 1 },
+                  { text: "Lowest price first", value: 2 },
+                  { text: "Highest price first", value: 3 },
+                ]);
+                const sortingSelected = ref("");
+                const sort = ref({});
+                watch(
+                  () => sortingSelected.value,
+                  (selected) => {
+                    switch (selected) {
+                      case 1: {
+                        sort.value.category = "rating";
+                        sort.value.order = "desc";
+                        break;
+                      }
+                      case 2: {
+                        sort.value.category = "price";
+                        sort.value.order = "asc";
+                        break;
+                      }
+                      case 3: {
+                        sort.value.category = "price";
+                        sort.value.order = "desc";
+                        break;
+                      }
+                      default: {
+                        return;
+                      }
+                    }
+                  }
+                );
+
+                return {
+                  collapse,
+                  dropdown,
+                  condition,
+                  rating,
+                  price,
+                  size,
+                  color,
+                  filters,
+                  filterDataset,
+                  filterTemplate,
+                  sortingOptions,
+                  sortingSelected,
+                  sort,
+                };
+              },
+            };
+          </script>    
+        </code>
+        <code data-lang="JavaScript" data-name="products.json">
+          [
+            {
+              "id": 1,
+              "category": "shirts",
+              "name": "Fantasy T-shirt",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["34", "36", "40"],
+              "condition": "new",
+              "color": "blue",
+              "price": 12.99,
+              "keywords": ["t-shirt", "sweatshitrt"],
+              "discount": 0,
+              "gender": "male"
+            },
+            {
+              "id": 2,
+              "category": "shirts",
+              "name": "Fantasy T-shirt",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["34", "36", "40", "44"],
+              "condition": "new",
+              "color": "red",
+              "price": 12.99,
+              "discount": 0,
+              "gender": "male"
+            },
+            {
+              "id": 3,
+              "category": "shirts",
+              "name": "Fantasy T-shirt",
+              "rating": 3,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["34", "36"],
+              "condition": "new",
+              "color": "grey",
+              "price": 40.99,
+              "discount": 10,
+              "gender": "male"
+            },
+            {
+              "id": 4,
+              "category": "jackets",
+              "name": "Denim Jacket",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "condition": "new",
+              "color": "grey",
+              "price": 40.99,
+              "discount": 0,
+              "gender": "unisex"
+            },
+            {
+              "id": 5,
+              "category": "jeans",
+              "name": "Ripped jeans",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/11.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["34", "36", "38", "40"],
+              "condition": "renewed",
+              "color": "blue",
+              "price": 20.99,
+              "discount": 5,
+              "gender": "female"
+            },
+            {
+              "id": 6,
+              "category": "jeans",
+              "name": "Boyfriend jeans",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/10.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": false,
+              "size": ["34", "36", "38", "40"],
+              "condition": "used",
+              "color": "blue",
+              "price": 20.99,
+              "discount": 5,
+              "gender": "female"
+            },
+            {
+              "id": 7,
+              "category": "shirts",
+              "name": "Ripped sweatshirt",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/7.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["34", "36", "38", "40"],
+              "condition": "collectible",
+              "color": "white",
+              "price": 29.99,
+              "discount": 5,
+              "gender": "female"
+            },
+            {
+              "id": 8,
+              "category": "shirts",
+              "name": "Longsleeve",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/8.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40"],
+              "condition": "collectible",
+              "color": "black",
+              "price": 120.99,
+              "discount": 0,
+              "gender": "male"
+            },
+            {
+              "id": 8,
+              "category": "shirts",
+              "name": "Stripped sweatshirt",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/6.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40", "38", "36"],
+              "condition": "new",
+              "color": "white",
+              "price": 32.99,
+              "discount": 10,
+              "gender": "female"
+            },
+            {
+              "id": 9,
+              "category": "trousers",
+              "name": "Red chinos",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/5.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40", "38", "36"],
+              "condition": "new",
+              "color": "red",
+              "price": 62.99,
+              "discount": 10,
+              "gender": "female"
+            },
+            {
+              "id": 10,
+              "category": "coats",
+              "name": "Camel coat",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/4.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40", "38", "36"],
+              "condition": "used",
+              "color": "brown",
+              "price": 62.99,
+              "discount": 10,
+              "gender": "female"
+            },
+            {
+              "id": 11,
+              "category": "jeans",
+              "name": "Blue jeans",
+              "rating": 5,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/3.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40", "38", "36"],
+              "condition": "new",
+              "color": "blue",
+              "price": 42.99,
+              "discount": 0,
+              "gender": "female"
+            },
+            {
+              "id": 12,
+              "category": "shirts",
+              "name": "Orange T-shirt",
+              "rating": 3,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/3.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["40", "38", "36"],
+              "condition": "new",
+              "color": "orange",
+              "price": 12.99,
+              "discount": 0,
+              "gender": "female"
+            },
+            {
+              "id": 13,
+              "category": "skirts",
+              "name": "Ballerina skirt",
+              "rating": 4,
+              "image": "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/2.jpg",
+              "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam.",
+              "available": true,
+              "size": ["38", "36"],
+              "condition": "collectible",
+              "color": "white",
+              "price": 12.99,
+              "discount": 0,
+              "gender": "female"
+            }
+          ]
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Full page example-->
+</section>
+<!--Section: Docs content-->
