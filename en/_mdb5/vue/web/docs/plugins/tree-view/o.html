@@ -1,0 +1,1702 @@
+<link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/treeview.min.css?v=
+  <?= STANDARD_DOCS_BUNDLE_VERSION; ?>" />
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+      <span>
+        <a href="/docs/b5/vue/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6">
+      <?= $data_var['subheading']; ?>
+    </h1>
+
+    <!-- Description -->
+    <p>
+      MDB treeview plugin is used to show hierarchical information which starts from the root item
+      and proceed to its children and their respective children. Each item besides the root has a
+      parent and can have children.
+    </p>
+
+    <p>
+      The parent is the node which is higher in the hierarchy and the child the one that is lower.
+      Siblings are items which have one and the same parent. Items can be expanded and collapsed.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example - DOM-->
+  <section id="section-basic-example-dom">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example - DOM</h2>
+
+    <!-- Description -->
+    <p>
+      Initialize tree view structure with
+      <code>MDBTreeview</code> component. If you want to nest your lists -
+      wrap a text of a <code>li</code> tag in <code>a</code> tag and define
+      other <code>ul</code> after it. Add <code>.show</code> class to the
+      list that you want to expand from the beginning.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-treeview-duration="1">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBTreeview>
+              <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>
+                  <a>Three</a>
+                  <ul class="show">
+                    <li>Second-one</li>
+                    <li>Second-two</li>
+                    <li>
+                      <a>Second-three</a>
+                      <ul>
+                        <li>
+                          <a>Third-one</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                        <li>Third-two</li>
+                        <li>
+                          <a>Third-three</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </MDBTreeview>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+
+            export default {
+              components: {
+                MDBTreeview
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example - DOM-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example - JavaScript-->
+  <section id="section-basic-example-javascript">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example - JavaScript</h2>
+
+    <div>
+      <p>
+        You can define whole structure of tree using only JavaScript. There are some props in data
+        that you can use to customize it:
+      </p>
+      <ul>
+        <li><code>name</code> - defines a text for an item</li>
+        <li><code>children</code> - defines a nested list and it's children</li>
+        <li><code>icon</code> - defines a custom expanding icon for the nested list</li>
+        <li><code>show</code> - defines if list expands from the beginning or not</li>
+        <li><code>disabled</code> - defines if list item is disabled or not</li>
+      </ul>
+    </div>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div id="sample-element"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBTreeview
+              :structure="[
+                { name: 'One' },
+                { name: 'Two' },
+                {
+                  name: 'Three',
+                  children: [
+                    { name: 'Second-one' },
+                    { name: 'Second-two' },
+                    {
+                      name: 'Second-three',
+                      children: [
+                        {
+                          name: 'Third-one',
+                          children: [
+                            { name: 'Fourth-one' },
+                            { name: 'Fourth-two' },
+                            { name: 'Fourth-three' },
+                          ],
+                        },
+                        { name: 'Third-two' },
+                        {
+                          name: 'Third-three',
+                          children: [
+                            { name: 'Fourth-one' },
+                            { name: 'Fourth-two' },
+                            { name: 'Fourth-three' },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ]"
+            />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+
+            export default {
+              components: {
+                MDBTreeview
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example - JavaScript-->
+
+  <hr class="my-5" />
+
+  <!--Section: Open on click-->
+  <section id="section-open-on-click">
+    <!-- Section title -->
+    <h2 class="mb-4">Open on item click</h2>
+
+    <p>
+      Use a <code>openOnClick</code> property to define opening lists of
+      treeview by click only on the arrow or on the whole list item.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-open-on-click="false">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBTreeview :openOnClick="false">
+              <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>
+                  <a>Three</a>
+                  <ul class="show">
+                    <li>Second-one</li>
+                    <li>Second-two</li>
+                    <li>
+                      <a>Second-three</a>
+                      <ul>
+                        <li>
+                          <a>Third-one</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                        <li>Third-two</li>
+                        <li>
+                          <a>Third-three</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </MDBTreeview>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+
+            export default {
+              components: {
+                MDBTreeview
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Open on click-->
+
+  <hr class="my-5" />
+
+  <!--Section: Accordion-->
+  <section id="section-accordion">
+    <!-- Section title -->
+    <h2 class="mb-4">Accordion</h2>
+
+    <p>
+      Use a <code>accordion</code> property to enable or disable opening
+      only one list at the same level.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-accordion="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBTreeview accordion>
+              <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>
+                  <a>Three</a>
+                  <ul class="show">
+                    <li>Second-one</li>
+                    <li>Second-two</li>
+                    <li>
+                      <a>Second-three</a>
+                      <ul>
+                        <li>
+                          <a>Third-one</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                        <li>Third-two</li>
+                        <li>
+                          <a>Third-three</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </MDBTreeview>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+
+            export default {
+              components: {
+                MDBTreeview
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Accordion-->
+
+  <hr class="my-5" />
+
+  <!--Section: Selectable-->
+  <section id="section-selectable">
+    <!-- Section title -->
+    <h2 class="mb-4">Selectable</h2>
+
+    <p>
+      Use a <code>selectable</code> property to set up checkboxes in every
+      list item.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-selectable="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBTreeview selectable>
+              <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>
+                  <a>Three</a>
+                  <ul class="show">
+                    <li>Second-one</li>
+                    <li>Second-two</li>
+                    <li>
+                      <a>Second-three</a>
+                      <ul>
+                        <li>
+                          <a>Third-one</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                        <li>Third-two</li>
+                        <li>
+                          <a>Third-three</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </MDBTreeview>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+
+            export default {
+              components: {
+                MDBTreeview
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Selectable-->
+
+  <hr class="my-5" />
+
+  <!--Section: Expand-->
+  <section id="section-expand">
+    <!-- Section title -->
+    <h2 class="mb-4">Expand</h2>
+
+    <p>
+      Expand your treeview to the particular list using the
+      <code>expand(ID)</code> method.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary" id="expand-example-button">
+            Expand first list
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="expand-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul id="expand-example-item">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBRow class="justify-content-center mb-3">
+              <MDBCol md="3">
+                <MDBBtn
+                  color="primary"
+                  @click="$refs.expandExample.expand('expand-example-item')"
+                >
+                  Expand first list
+                </MDBBtn>
+              </MDBCol>
+            </MDBRow>
+
+            <MDBRow>
+              <MDBTreeview ref="expandExample">
+                <ul>
+                  <li>One</li>
+                  <li>Two</li>
+                  <li>
+                    <a>Three</a>
+                    <ul id="expand-example-item">
+                      <li>Second-one</li>
+                      <li>Second-two</li>
+                      <li>
+                        <a>Second-three</a>
+                        <ul>
+                          <li>
+                            <a>Third-one</a>
+                            <ul>
+                              <li>Fourth-one</li>
+                              <li>Fourth-two</li>
+                              <li>Fourth-three</li>
+                            </ul>
+                          </li>
+                          <li>Third-two</li>
+                          <li>
+                            <a>Third-three</a>
+                            <ul>
+                              <li>Fourth-one</li>
+                              <li>Fourth-two</li>
+                              <li>Fourth-three</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </MDBTreeview>
+            </MDBRow>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+            import { MDBBtn, MDBCol, MDBRow } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBTreeview,
+                MDBBtn,
+                MDBCol,
+                MDBRow
+              },
+              setup() {
+                const expandExample = ref(null);
+
+                return {
+                  expandExample
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Expand-->
+
+  <hr class="my-5" />
+
+  <!--Section: Collapse-->
+  <section id="section-collapse">
+    <!-- Section title -->
+    <h2 class="mb-4">Collapse</h2>
+
+    <p>Collapse your treeview using the <code>collapse()</code> method.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary" id="collapse-example-button">
+            Collapse treeview
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="collapse-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul class="show">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul class="show">
+                    <li>
+                      <a>Third-one</a>
+                      <ul class="show">
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul class="show">
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBRow class="justify-content-center mb-3">
+              <MDBCol md="3">
+                <MDBBtn color="primary" @click="$refs.collapseExample.collapse()">
+                  Collapse treeview
+                </MDBBtn>
+              </MDBCol>
+            </MDBRow>
+
+            <MDBRow>
+              <MDBTreeview class="treeview" ref="collapseExample">
+                <ul>
+                  <li>One</li>
+                  <li>Two</li>
+                  <li>
+                    <a>Three</a>
+                    <ul class="show">
+                      <li>Second-one</li>
+                      <li>Second-two</li>
+                      <li>
+                        <a>Second-three</a>
+                        <ul class="show">
+                          <li>
+                            <a>Third-one</a>
+                            <ul class="show">
+                              <li>Fourth-one</li>
+                              <li>Fourth-two</li>
+                              <li>Fourth-three</li>
+                            </ul>
+                          </li>
+                          <li>Third-two</li>
+                          <li>
+                            <a>Third-three</a>
+                            <ul class="show">
+                              <li>Fourth-one</li>
+                              <li>Fourth-two</li>
+                              <li>Fourth-three</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </MDBTreeview>
+            </MDBRow>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+            import { MDBBtn, MDBCol, MDBRow } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBTreeview,
+                MDBBtn,
+                MDBCol,
+                MDBRow
+              },
+              setup() {
+                const collapseExample = ref(null);
+
+                return {
+                  collapseExample
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Collapse-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom icons - DOM-->
+  <section id="section-custom-icons-dom">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom icons - DOM</h2>
+
+    <p>
+      You can add your custom icons to your treeview. For non-nested
+      elements - paste code of an icon in the item. For nested elements -
+      declare <code>span</code> tag inside <code>a</code> element and paste
+      there the code for your icon.
+    </p>
+
+    <p>
+      Use a <code>rotationAngle</code> property to define a
+      rotation angle of nested lists icons.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="treeview">
+        <ul>
+          <li><i class="fas fa-dot-circle"></i> One</li>
+          <li><i class="fas fa-dot-circle"></i> Two</li>
+          <li>
+            <a>
+              <span
+                aria-label="toggle"
+                class="ripple"
+                data-mdb-ripple-unbound="true"
+                data-mdb-ripple-centered="true"
+                data-mdb-ripple-color="dark"
+                ><i class="fas fa-angle-double-right"></i
+              ></span>
+              Three
+            </a>
+            <ul class="show" id="custom-icon-list">
+              <li><i class="fas fa-dot-circle"></i> Second-one</li>
+              <li><i class="fas fa-dot-circle"></i> Second-two</li>
+              <li>
+                <a
+                  ><span
+                    aria-label="toggle"
+                    class="ripple"
+                    data-mdb-ripple-unbound="true"
+                    data-mdb-ripple-centered="true"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fas fa-angle-double-right"></i
+                  ></span>
+                  Second-three</a>
+                <ul>
+                  <li><i class="fas fa-dot-circle"></i> Third-one</li>
+                  <li><i class="fas fa-dot-circle"></i> Third-two</li>
+                  <li><i class="fas fa-dot-circle"></i> Third-three</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBTreeview>
+              <ul>
+                <li><i class="fas fa-dot-circle"></i> One</li>
+                <li><i class="fas fa-dot-circle"></i> Two</li>
+                <li>
+                  <a>
+                    <span><i class="fas fa-angle-double-right"></i></span>
+                    Three
+                  </a>
+                  <ul class="show" id="custom-icon-list">
+                    <li><i class="fas fa-dot-circle"></i> Second-one</li>
+                    <li><i class="fas fa-dot-circle"></i> Second-two</li>
+                    <li>
+                      <a
+                        ><span><i class="fas fa-angle-double-right"></i></span>
+                        Second-three</a
+                      >
+                      <ul>
+                        <li><i class="fas fa-dot-circle"></i> Third-one</li>
+                        <li><i class="fas fa-dot-circle"></i> Third-two</li>
+                        <li><i class="fas fa-dot-circle"></i> Third-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </MDBTreeview>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+
+            export default {
+              components: {
+                MDBTreeview
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom icons - DOM-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Custom icons - JavaScript-->
+  <section id="subsection-custom-icons-javascript">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom icons - JavaScript</h2>
+
+    <p>
+      Add icons to the list elements by pasting an icon code in the
+      <code>name</code> property. If you want to change the rotatable icon
+      in the nested list - use <code>icon</code> property instead.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="custom-icons-js"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBTreeview :structure="customIconStructure" />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBTreeview
+              },
+              setup() {
+                const customIconStructure = ref([
+                  { name: '<i class="fas fa-dot-circle"></i> One' },
+                  { name: '<i class="fas fa-dot-circle"></i> Two' },
+                  {
+                    name: " Three",
+                    show: true,
+                    icon: '<i class="fas fa-angle-double-right"></i>',
+                    children: [
+                      { name: '<i class="fas fa-dot-circle"></i> Second-one' },
+                      { name: '<i class="fas fa-dot-circle"></i> Second-two' },
+                      {
+                        name: " Second-three",
+                        icon: '<i class="fas fa-angle-double-right"></i>',
+                        children: [
+                          {
+                            name: " Third-one",
+                            icon: '<i class="fas fa-angle-double-right"></i>',
+                            children: [
+                              { name: '<i class="fas fa-dot-circle"></i> Fourth-one' },
+                              { name: '<i class="fas fa-dot-circle"></i> Fourth-two' },
+                              { name: '<i class="fas fa-dot-circle"></i> Fourth-three' },
+                            ],
+                          },
+                          { name: '<i class="fas fa-dot-circle"></i> Third-two' },
+                          {
+                            name: " Third-three",
+                            icon: '<i class="fas fa-angle-double-right"></i>',
+                            children: [
+                              { name: '<i class="fas fa-dot-circle"></i> Fourth-one' },
+                              { name: '<i class="fas fa-dot-circle"></i> Fourth-two' },
+                              { name: '<i class="fas fa-dot-circle"></i> Fourth-three' },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ]);
+
+                return {
+                  customIconStructure
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Custom icons - JavaScript-->
+
+  <hr class="my-5" />
+
+  <!--Section: Color-->
+  <section id="section-color">
+    <!-- Section title -->
+    <h2 class="mb-4">Color</h2>
+
+    <p>
+      Set the color of an active item using the
+      <code>treeviewColor</code> property.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="text-center mb-5">
+        <button type="button" class="btn btn-primary" id="primary">Primary</button>
+        <button type="button" class="btn btn-secondary" id="secondary">Secondary</button>
+        <button type="button" class="btn btn-warning" id="warning">Warning</button>
+        <button type="button" class="btn btn-danger" id="danger">Danger</button>
+        <button type="button" class="btn btn-info" id="info">Info</button>
+        <button type="button" class="btn btn-success" id="success">Success</button>
+        <button type="button" class="btn btn-dark" id="dark">Dark</button>
+      </div>
+
+      <div class="row text-center">
+        <h5>Current color: <span id="current-color">primary</span></h5>
+      </div>
+
+      <div class="row mt-4">
+        <div class="treeview" id="color-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul class="show">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <div class="text-center mb-5">
+              <MDBBtn color="primary" @click="treeviewColor = 'primary'">
+                Primary
+              </MDBBtn>
+              <MDBBtn color="secondary" @click="treeviewColor = 'secondary'">
+                Secondary
+              </MDBBtn>
+              <MDBBtn color="warning" @click="treeviewColor = 'warning'">
+                Warning
+              </MDBBtn>
+              <MDBBtn color="danger" @click="treeviewColor = 'danger'">
+                Danger
+              </MDBBtn>
+              <MDBBtn color="info" @click="treeviewColor = 'info'">Info</MDBBtn>
+              <MDBBtn color="success" @click="treeviewColor = 'success'">
+                Success
+              </MDBBtn>
+              <MDBBtn color="dark" @click="treeviewColor = 'dark'">Dark</MDBBtn>
+            </div>
+
+            <MDBRow class="text-center">
+              <h5>Current color: <span id="current-color">primary</span></h5>
+            </MDBRow>
+
+            <MDBRow class="mt-4">
+              <MDBTreeview :treeviewColor="treeviewColor">
+                <ul>
+                  <li>One</li>
+                  <li>Two</li>
+                  <li>
+                    <a>Three</a>
+                    <ul class="show">
+                      <li>Second-one</li>
+                      <li>Second-two</li>
+                      <li>
+                        <a>Second-three</a>
+                        <ul>
+                          <li>
+                            <a>Third-one</a>
+                            <ul>
+                              <li>Fourth-one</li>
+                              <li>Fourth-two</li>
+                              <li>Fourth-three</li>
+                            </ul>
+                          </li>
+                          <li>Third-two</li>
+                          <li>
+                            <a>Third-three</a>
+                            <ul>
+                              <li>Fourth-one</li>
+                              <li>Fourth-two</li>
+                              <li>Fourth-three</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </MDBTreeview>
+            </MDBRow>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+            import { MDBBtn, MDBRow } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBTreeview,
+                MDBBtn,
+                MDBRow
+              },
+              setup() {
+                const treeviewColor = ref("primary");
+
+                return {
+                  treeviewColor
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Color-->
+
+  <hr class="my-5" />
+
+  <!--Section: Line-->
+  <section id="section-line">
+    <!-- Section title -->
+    <h2 class="mb-4">Line</h2>
+
+    <p>
+      Use a <code>line</code> property to set up an additional line in every
+      nested list.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-line="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBTreeview line>
+              <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>
+                  <a>Three</a>
+                  <ul class="show">
+                    <li>Second-one</li>
+                    <li>Second-two</li>
+                    <li>
+                      <a>Second-three</a>
+                      <ul>
+                        <li>
+                          <a>Third-one</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                        <li>Third-two</li>
+                        <li>
+                          <a>Third-three</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </MDBTreeview>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+
+            export default {
+              components: {
+                MDBTreeview
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Line-->
+
+  <hr class="my-5" />
+
+  <!--Section: Disabled - DOM-->
+  <section id="section-disabled-dom">
+    <!-- Section title -->
+    <h2 class="mb-4">Disabled - DOM</h2>
+
+    <p>
+      Add <code>.treeview-disabled</code> class to the <code>a</code> (if
+      nested) or <code>li</code> tag to disable your list item. You can
+      expand disabled items, but you can't select them.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-selectable="true">
+        <ul>
+          <li>One</li>
+          <li class="treeview-disabled">Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a class="treeview-disabled">Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBTreeview selectable>
+              <ul>
+                <li>One</li>
+                <li class="treeview-disabled">Two</li>
+                <li>
+                  <a>Three</a>
+                  <ul class="show">
+                    <li>Second-one</li>
+                    <li>Second-two</li>
+                    <li class="treeview-disabled">
+                      <a>Second-three</a>
+                      <ul>
+                        <li>
+                          <a>Third-one</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                        <li>Third-two</li>
+                        <li>
+                          <a>Third-three</a>
+                          <ul>
+                            <li>Fourth-one</li>
+                            <li>Fourth-two</li>
+                            <li>Fourth-three</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </MDBTreeview>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+
+            export default {
+              components: {
+                MDBTreeview
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Disabled - DOM-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Disabled - JavaScript-->
+  <section id="subsection-disabled-javascript">
+    <!-- Section title -->
+    <h2 class="mb-4">Disabled - JavaScript</h2>
+
+    <p>
+      To generate a disabled list item, use <code>disabled</code> property.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div id="disabled-element"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBTreeview :structure="disabledStructure" />
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBTreeview
+              },
+              setup() {
+                const disabledStructure = ref([
+                  { name: "One", disabled: true },
+                  { name: "Two" },
+                  {
+                    name: " Three",
+                    show: true,
+                    children: [
+                      { name: "Second-one" },
+                      { name: "Second-two" },
+                      {
+                        name: " Second-three",
+                        disabled: true,
+                        children: [
+                          {
+                            name: " Third-one",
+                            children: [
+                              { name: "Fourth-one" },
+                              { name: "Fourth-two" },
+                              { name: "Fourth-three" },
+                            ],
+                          },
+                          { name: "Third-two" },
+                          {
+                            name: " Third-three",
+                            children: [
+                              { name: "Fourth-one" },
+                              { name: "Fourth-two" },
+                              { name: "Fourth-three" },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ]);
+
+                return {
+                  disabledStructure
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Disabled - JavaScript-->
+
+  <hr class="my-5" />
+
+  <!--Section: Filter-->
+  <section id="section-filter">
+    <!-- Section title -->
+    <h2 class="mb-4">Filter</h2>
+
+    <p>
+      Use the <code>.filter(string)</code> method to expand list items that
+      meet your requirements.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row mb-4 justify-content-center">
+        <div class="col-md-6">
+          <div class="form-outline">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Find in the treeview</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="filter-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul>
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBRow class="mb-4 justify-content-center">
+              <MDBCol md="6">
+                <MDBInput
+                  v-model="filter"
+                  label="Find the treeview"
+                  @change="$refs.filterExample.filter(filter)"
+                />
+              </MDBCol>
+            </MDBRow>
+
+            <MDBRow>
+              <MDBTreeview ref="filterExample">
+                <ul>
+                  <li>One</li>
+                  <li>Two</li>
+                  <li>
+                    <a>Three</a>
+                    <ul>
+                      <li>Second-one</li>
+                      <li>Second-two</li>
+                      <li>
+                        <a>Second-three</a>
+                        <ul>
+                          <li>
+                            <a>Third-one</a>
+                            <ul>
+                              <li>Fourth-one</li>
+                              <li>Fourth-two</li>
+                              <li>Fourth-three</li>
+                            </ul>
+                          </li>
+                          <li>Third-two</li>
+                          <li>
+                            <a>Third-three</a>
+                            <ul>
+                              <li>Fourth-one</li>
+                              <li>Fourth-two</li>
+                              <li>Fourth-three</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </MDBTreeview>
+            </MDBRow>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBTreeview } from "mdb-vue-tree-view";
+            import { MDBRow, MDBCol, MDBInput } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+
+            export default {
+              components: {
+                MDBTreeview,
+                MDBRow,
+                MDBCol,
+                MDBInput
+              },
+              setup() {
+                const filter = ref("");
+                const filterExample = ref("");
+
+                return {
+                  filter,
+                  filterExample
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Filter-->
+
+  <hr class="my-5" />
+</section>
+<!--Section: Docs content-->
