@@ -100,7 +100,7 @@
                 setup() {
                   const Cookie = inject("MDBCookies");
 
-                  const basicCookie = ref("");
+                  const basicCookie = ref(Cookie.get("first-visit"));
                   const setBasicCookie = () => {
                     Cookie.set("first-visit", new Date(), { expires: 1 });
                     basicCookie.value = Cookie.get("first-visit");
@@ -443,10 +443,10 @@
 
                   const nextVisitModal = ref(false);
                   const setNextVisitCookie = () => {
-                    cookie.showModalScoring(nextVisitModal, 3);
+                    Cookie.showModalScoring(nextVisitModal, 3);
                   };
                   const resetNextVisitCookie = () => {
-                    cookie.remove("visit-counter");
+                    Cookie.remove("visit-counter");
                   };
 
                   return {
