@@ -1,0 +1,414 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/standard/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span> 
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p>
+      Storage hook allows you to manage data stored in the browser's memory. Thanks to the
+      component, you can easily add, delete, get data and check their expiration time.
+    </p>
+
+    <p><?= $data_var['description']; ?></p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!-- Description -->
+    <p>The Storage Hook provides methods to add, remove and get Storage.</p>
+
+    <!--Subsection: Set Storage Example-->
+    <section id="subsection-set-storage">
+      <!-- Subsection title -->
+      <h4 class="mt-5">Set Storage</h4>
+
+      <!-- Description -->
+      <p>
+        Use the function <code>setItem()</code> to add data to storage. You can test this method using the example
+        below. The button will call <code>setItem(new Date())</code> and set a value to name provided in a hook
+        declaration. To use this example again, press the reset button.
+      </p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 d-flex justify-content-evenly mb-4">
+        <button id="basic-example-set-storage-button" type="button" class="btn btn-primary">
+          Set Storage
+        </button>
+        <button id="basic-example-reset-storage-button" type="button" class="btn btn-primary">
+          Reset Storage
+        </button>
+        <span id="basic-example-set-storage-result"></span>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="javascript" data-name="JSX">
+            import React from 'react';
+            import { MDBBtn } from 'mdb-react-ui-kit';
+            import { useMDBStorage } from 'mdb-react-storage-management';
+    
+            export default function App() {
+              const [item, { setItem, removeItem }] = useMDBStorage('date', '');
+
+              return (
+                <>
+                  <MDBBtn onClick={() => setItem(new Date())}>Set storage</MDBBtn>
+                  <MDBBtn onClick={removeItem}>Reset Storage</MDBBtn>
+                  <span>{item}</span>
+                </>
+              );
+            }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Set Storage Example-->
+
+    <!--Subsection: Set Storage with an expiration date Example-->
+    <section id="subsection-set-the-expiration-time">
+      <!-- Subsection title -->
+      <h4 class="mt-5">Set the expiration time</h4>
+
+      <!-- Description -->
+      <p>You can set the expiration time (in days) of saved data in local storage</p>
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="js" data-name="JavaScript">
+            setItem(new Date(), 1)
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Set Storage with an expiration date Example-->
+
+    <!--Subsection: Get Storage Example-->
+    <section id="subsection-get-storage">
+      <!-- Subsection title -->
+      <h4 class="mt-5">Get storage</h4>
+
+      <!-- Description -->
+      <p>
+        Your storage value is saved in the first value returned from hook. If there's no such a key in your localStorage - this value will have the initial one passed as second parameter to the hook.
+      </p>
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="js" data-name="JavaScript">
+            const [item] = useMDBStorage('date', '');
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Get Storage Example-->
+
+    <!--Subsection: Remove Storage Example-->
+    <section id="subsection-remove-storage">
+      <!-- Subsection title -->
+      <h4 class="mt-5">Remove Storage</h4>
+
+      <!-- Description -->
+      <p>
+        When the data saved in storage are no longer needed and you want to delete them, use
+        <code>removeItem</code> function.
+      </p>
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="js" data-name="JavaScript">
+            removeItem()
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Remove Storage Example-->
+
+    <!--Subsection: Check Storage Example-->
+    <section id="subsection-check-storage">
+      <!-- Subsection title -->
+      <h4 class="mt-5">Check Storage</h4>
+
+      <!-- Description -->
+      <p>
+        You can set a task to check if the data has expired, delete it and set callback function. Set the interval
+        (in minutes) on how often to check expires date, and callback fn in <code>callback</code> property inside the
+        third parameter.
+      </p>
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="js" data-name="JavaScript">
+            const [value, { setItem, removeItem }] = useMDBStorage('name', 'initialValue', { 
+              time: 0.5,
+              callback: () = { ... //do something }
+            )
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Check Storage Example-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Advanced example -->
+  <section id="section-advanced-example">
+    <h2 class="mb-4">Advanced example</h2>
+    <!--Subsection: Show modal for new user example -->
+    <section id="subsection-show-modal-for-new-user-example">
+      <!-- Subsection title -->
+      <h4 class="mt-5">Show Modal for new users</h4>
+
+      <!--Section: Demo-->
+      <section class="border p-4 d-flex justify-content-evenly mb-4">
+        <button id="show-modal-for-new-user-button" type="button" class="btn btn-primary">
+          Show Modal
+        </button>
+        <button id="reset-show-modal-for-new-user-button" type="button" class="btn btn-primary">
+          Reset
+        </button>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="show-modal-for-new-user-modal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="show-modal-for-new-user-modal">
+                  This is modal for new user
+                </h5>
+                <button type="button" class="close" data-mdb-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                This model will not appear again until you press the reset button.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="javascript" data-name="JSX">
+            import React, { useState } from 'react';
+            import {
+              MDBBtn,
+              MDBModal,
+              MDBModalDialog,
+              MDBModalContent,
+              MDBModalHeader,
+              MDBModalTitle,
+              MDBModalBody,
+              MDBModalFooter,
+            } from 'mdb-react-ui-kit';
+            import { useMDBStorage } from 'mdb-react-storage-management';
+    
+            export default function App() {
+              const [isFirstVisit, { setItem: setFirstVisit }] = useMDBStorage('is-first-visit', true);
+              const [firstVisitModal, setFirstVisitModal] = useState(false);
+
+              const handleClick = () => {
+                if (isFirstVisit) {
+                  setFirstVisitModal(true);
+                  setFirstVisit(false);
+                }
+              };
+
+              return (
+                <>
+                  <MDBBtn onClick={handleClick}>Show modal</MDBBtn>
+                  <MDBBtn onClick={() => setFirstVisit(true)}>Reset</MDBBtn>
+                  <MDBModal show={firstVisitModal} getOpenState={(e: any) => setFirstVisitModal(e)} tabIndex='-1'>
+                    <MDBModalDialog>
+                      <MDBModalContent>
+                        <MDBModalHeader>
+                          <MDBModalTitle>This is modal for new user</MDBModalTitle>
+                          <MDBBtn className='btn-close' color='none' onClick={() => setFirstVisitModal(false)}></MDBBtn>
+                        </MDBModalHeader>
+                        <MDBModalBody>This model will not appear again until you press the reset button.</MDBModalBody>
+      
+                        <MDBModalFooter>
+                          <MDBBtn color='secondary' onClick={() => setFirstVisitModal(false)}>
+                            Close
+                          </MDBBtn>
+                        </MDBModalFooter>
+                      </MDBModalContent>
+                    </MDBModalDialog>
+                  </MDBModal>
+                </>
+              );
+            }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Show modal for new user example -->
+
+    <!--Subsection: Show modal after next visit example -->
+    <section id="subsection-show-modal-after-next-visit-example">
+      <!-- Section title -->
+      <h4 class="mt-5">Show modal after next visit</h4>
+
+      <!--Section: Demo-->
+      <section class="border p-4 d-flex justify-content-evenly mb-4">
+        <button id="show-modal-after-next-visit-button" type="button" class="btn btn-primary">
+          Show Modal
+        </button>
+        <button id="reset-show-modal-after-next-visit-button" type="button" class="btn btn-primary">
+          Reset
+        </button>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="show-after-next-visit-modal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="show-after-next-visit-modal">
+                  This model shows up after the third visit to the page.
+                </h5>
+                <button type="button" class="close" data-mdb-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                This model will not appear again until you press the reset button.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="javascript" data-name="JSX">
+            import React, { useState } from 'react';
+            import {
+              MDBBtn,
+              MDBModal,
+              MDBModalDialog,
+              MDBModalContent,
+              MDBModalHeader,
+              MDBModalTitle,
+              MDBModalBody,
+              MDBModalFooter,
+            } from 'mdb-react-ui-kit';
+            import { useMDBStorage } from 'mdb-react-storage-management';
+    
+            export default function App() {
+              const [visitCounter, { setItem: setVisitCounter, removeItem: resetVisitCounet }] = useMDBStorage('visit-counter', 0);
+              const [counterModal, setCounterModal] = useState(false);
+
+              const handleVisitClick = () => {
+                setVisitCounter(visitCounter + 1);
+            
+                if (visitCounter === 2) setCounterModal(true);
+              };
+
+              return (
+                <>
+                  <MDBBtn onClick={handleVisitClick}>Show modal</MDBBtn>
+                  <MDBBtn onClick={() => setVisitCounter(0)}>Reset</MDBBtn>
+                  <MDBModal show={counterModal} getOpenState={(e: any) => setCounterModal(e)} tabIndex='-1'>
+                    <MDBModalDialog>
+                      <MDBModalContent>
+                        <MDBModalHeader>
+                          <MDBModalTitle>This model shows up after the third visit to the page.</MDBModalTitle>
+                          <MDBBtn className='btn-close' color='none' onClick={() => setCounterModal(false)}></MDBBtn>
+                        </MDBModalHeader>
+                        <MDBModalBody>This model will not appear again until you press the reset button.</MDBModalBody>
+      
+                        <MDBModalFooter>
+                          <MDBBtn color='secondary' onClick={() => setCounterModal(false)}>
+                            Close
+                          </MDBBtn>
+                        </MDBModalFooter>
+                      </MDBModalContent>
+                    </MDBModalDialog>
+                  </MDBModal>
+                </>
+              );
+            }
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Show modal after next visit example -->
+  </section>
+  <!--Section: Advanced example -->
+</section>
+<!--Section: Docs content-->
