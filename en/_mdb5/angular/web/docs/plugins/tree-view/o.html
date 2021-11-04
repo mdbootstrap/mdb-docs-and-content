@@ -1,0 +1,1279 @@
+<link
+  rel="stylesheet"
+  href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/treeview.min.css?v=
+  <?= STANDARD_DOCS_BUNDLE_VERSION; ?>"
+/>
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/standard/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span> 
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p>
+      MDB treeview plugin is used to show hierarchical information which starts from the root item
+      and proceed to its children and their respective children. Each item besides the root has a
+      parent and can have children.
+    </p>
+
+    <p>
+      The parent is the node which is higher in the hierarchy and the child the one that is lower.
+      Siblings are items which have one and the same parent. Items can be expanded and collapsed.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example - DOM-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-treeview-duration="1">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-treeview
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            data = [
+              { name: 'One' },
+              { name: 'Two' },
+              {
+                name: 'Three',
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: 'Second-three',
+                    children: [
+                      {
+                        name: 'Third-one',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: 'Third-three',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example - DOM-->
+
+  <hr class="my-5" />
+
+  <!--Section: Open on click-->
+  <section id="section-open-on-click">
+    <!-- Section title -->
+    <h2 class="mb-4">Open on item click</h2>
+
+    <p>
+      Use a <code>[openOnClick]</code> to define opening lists of treeview by click only on
+      the arrow or on the whole list item.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-open-on-click="false">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-treeview
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+            [openOnClick]="false"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            data = [
+              { name: 'One' },
+              { name: 'Two' },
+              {
+                name: 'Three',
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: 'Second-three',
+                    children: [
+                      {
+                        name: 'Third-one',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: 'Third-three',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Open on click-->
+
+  <hr class="my-5" />
+
+  <!--Section: Accordion-->
+  <section id="section-accordion">
+    <!-- Section title -->
+    <h2 class="mb-4">Accordion</h2>
+
+    <p>
+      Use a <code>[accordion]</code> input to enable or disable opening only one list at
+      the same level.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-accordion="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-treeview
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+            [accordion]="true"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            data = [
+              { name: 'One' },
+              { name: 'Two' },
+              {
+                name: 'Three',
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: 'Second-three',
+                    children: [
+                      {
+                        name: 'Third-one',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: 'Third-three',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Accordion-->
+
+  <hr class="my-5" />
+
+  <!--Section: Selectable-->
+  <section id="section-selectable">
+    <!-- Section title -->
+    <h2 class="mb-4">Selectable</h2>
+
+    <p>Use a <code>[selectable]</code> input to set up checkboxes in every list item.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-selectable="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-treeview
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+            [selectable]="true"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            data = [
+              { name: 'One' },
+              { name: 'Two' },
+              {
+                name: 'Three',
+          
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: 'Second-three',
+          
+                    children: [
+                      {
+                        name: 'Third-one',
+                        expandId: 'expand-example-item',
+          
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: 'Third-three',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Selectable-->
+
+  <hr class="my-5" />
+
+  <!--Section: Expand-->
+  <section id="section-expand">
+    <!-- Section title -->
+    <h2 class="mb-4">Expand</h2>
+
+    <p>
+      Expand your treeview to the particular list using the
+      <code>expand(ID)</code> method.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary" id="expand-example-button">
+            Expand first list
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="expand-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul id="expand-example-item">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <button type="button" class="btn btn-primary" (click)="treeview.expand('expand-example-item')">
+            Expand first list
+          </button>
+          <mdb-treeview
+            #treeview="mdbTreeview"
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            data = [
+              { name: 'One' },
+              { name: 'Two' },
+              {
+                name: 'Three',
+                expandId: 'expand-example-item',
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: 'Second-three',
+                    children: [
+                      {
+                        name: 'Third-one',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: 'Third-three',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Expand-->
+
+  <hr class="my-5" />
+
+  <!--Section: Collapse-->
+  <section id="section-collapse">
+    <!-- Section title -->
+    <h2 class="mb-4">Collapse</h2>
+
+    <p>Collapse your treeview using the <code>collapse()</code> method.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary" id="collapse-example-button">
+            Collapse treeview
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="collapse-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul class="show">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul class="show">
+                    <li>
+                      <a>Third-one</a>
+                      <ul class="show">
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul class="show">
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <button type="button" class="btn btn-primary" (click)="treeview.collapse()">
+            Collapse treeview
+          </button>
+          <mdb-treeview
+            #treeview="mdbTreeview"
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            data = [
+              { name: 'One' },
+              { name: 'Two' },
+              {
+                name: 'Three',
+                collapsed: false,
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: 'Second-three',
+                    collapsed: false,
+                    children: [
+                      {
+                        name: 'Third-one',
+                        collapsed: false,
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: 'Third-three',
+                        collapsed: false,
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Collapse-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom icons - DOM-->
+  <section id="section-custom-icons">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom icons</h2>
+
+    <p>
+      Add icons to the list elements by pasting an icon code in the
+      <code>icon</code> property.
+    </p>
+
+    <p>
+      Use a <code>[rotationAngle]</code> input to define a rotation angle of nested
+      lists icons.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="treeview">
+        <ul>
+          <li><i class="fas fa-dot-circle"></i> One</li>
+          <li><i class="fas fa-dot-circle"></i> Two</li>
+          <li>
+            <a>
+              <span
+                aria-label="toggle"
+                class="ripple"
+                data-mdb-ripple-unbound="true"
+                data-mdb-ripple-centered="true"
+                data-mdb-ripple-color="dark"
+                ><i class="fas fa-angle-double-right"></i
+              ></span>
+              Three
+            </a>
+            <ul class="show" id="custom-icon-list">
+              <li><i class="fas fa-dot-circle"></i> Second-one</li>
+              <li><i class="fas fa-dot-circle"></i> Second-two</li>
+              <li>
+                <a
+                  ><span
+                    aria-label="toggle"
+                    class="ripple"
+                    data-mdb-ripple-unbound="true"
+                    data-mdb-ripple-centered="true"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fas fa-angle-double-right"></i
+                  ></span>
+                  Second-three</a
+                >
+                <ul>
+                  <li><i class="fas fa-dot-circle"></i> Third-one</li>
+                  <li><i class="fas fa-dot-circle"></i> Third-two</li>
+                  <li><i class="fas fa-dot-circle"></i> Third-three</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-treeview
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+            [rotationAngle]="'90'"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            data = [
+              { name: 'One', icon: 'fas fa-dot-circle' },
+              { name: 'Two', icon: 'fas fa-dot-circle' },
+              {
+                name: 'Three',
+                icon: 'fas fa-angle-double-right',
+                children: [
+                  { name: 'Second-one', icon: 'fas fa-dot-circle' },
+                  { name: 'Second-two', icon: 'fas fa-dot-circle' },
+                  {
+                    name: 'Second-three',
+                    icon: 'fas fa-angle-double-right',
+                    children: [
+                      { name: 'Third-one', icon: 'fas fa-dot-circle' },
+                      { name: 'Third-two', icon: 'fas fa-dot-circle' },
+                      { name: 'Third-three', icon: 'fas fa-dot-circle' },
+                    ],
+                  },
+                ],
+              },
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom icons - DOM-->
+
+  <hr class="my-5" />
+
+  <!--Section: Color-->
+  <section id="section-color">
+    <!-- Section title -->
+    <h2 class="mb-4">Color</h2>
+
+    <p>
+      Set the color of an active item using the
+      <code>[color]</code> input.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="text-center mb-5">
+        <button type="button" class="btn btn-primary" id="primary">Primary</button>
+        <button type="button" class="btn btn-secondary" id="secondary">Secondary</button>
+        <button type="button" class="btn btn-warning" id="warning">Warning</button>
+        <button type="button" class="btn btn-danger" id="danger">Danger</button>
+        <button type="button" class="btn btn-info" id="info">Info</button>
+        <button type="button" class="btn btn-success" id="success">Success</button>
+        <button type="button" class="btn btn-dark" id="dark">Dark</button>
+      </div>
+
+      <div class="row text-center">
+        <h5>Current color: <span id="current-color">primary</span></h5>
+      </div>
+
+      <div class="row mt-4">
+        <div class="treeview" id="color-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul class="show">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="text-center mb-5">
+            <button (click)="setColor('primary')" type="button" class="btn btn-primary" id="primary">Primary</button>
+            <button (click)="setColor('secondary')" type="button" class="btn btn-secondary" id="secondary">Secondary</button>
+            <button (click)="setColor('warning')" type="button" class="btn btn-warning" id="warning">Warning</button>
+            <button (click)="setColor('danger')" type="button" class="btn btn-danger" id="danger">Danger</button>
+            <button (click)="setColor('info')" type="button" class="btn btn-info" id="info">Info</button>
+            <button (click)="setColor('success')" type="button" class="btn btn-success" id="success">Success</button>
+            <button (click)="setColor('dark')" type="button" class="btn btn-dark" id="dark">Dark</button>
+          </div>
+    
+          <div class="row text-center">
+            <h5>Current color: <span id="current-color">{{ color }}</span></h5>
+          </div>
+
+          <mdb-treeview
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+            [color]="color"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            color = 'primary';
+
+            data = [
+              { name: 'One' },
+              { name: 'Two' },
+              {
+                name: 'Three',
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: 'Second-three',
+                    children: [
+                      {
+                        name: 'Third-one',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: 'Third-three',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ];
+
+            setColor(newColor) {
+              this.color = newColor;
+            }
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Color-->
+
+  <hr class="my-5" />
+
+  <!--Section: Line-->
+  <section id="section-line">
+    <!-- Section title -->
+    <h2 class="mb-4">Line</h2>
+
+    <p>
+      Use a <code>[line]</code> input to set up an additional line in every nested list.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-line="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-treeview
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+            [line]="true"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            data = [
+              { name: 'One' },
+              { name: 'Two' },
+              {
+                name: 'Three',
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: 'Second-three',
+                    children: [
+                      {
+                        name: 'Third-one',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: 'Third-three',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Line-->
+
+  <hr class="my-5" />
+
+  <!--Section: Disabled - DOM-->
+  <section id="section-disabled">
+    <!-- Section title -->
+    <h2 class="mb-4">Disabled</h2>
+
+    <p>To generate a disabled list item, use <code>disabled</code> property. You can expand disabled items, but you can't select them.</p>
+
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-selectable="true">
+        <ul>
+          <li>One</li>
+          <li class="treeview-disabled">Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a class="treeview-disabled">Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-treeview
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+            [selectable]="true"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            data = [
+              { name: 'One' },
+              { name: 'Two', disabled: true },
+              {
+                name: 'Three',
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: 'Second-three',
+                    disabled: true,
+                    children: [
+                      {
+                        name: 'Third-one',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: 'Third-three',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Disabled - DOM-->
+
+  <hr class="my-5" />
+
+  <!--Section: Filter-->
+  <section id="section-filter">
+    <!-- Section title -->
+    <h2 class="mb-4">Filter</h2>
+
+    <p>
+      Use the <code>.filter(string)</code> method to expand list items that meet your requirements.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row mb-4 justify-content-center">
+        <div class="col-md-6">
+          <div class="form-outline">
+            <input type="text" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Find in the treeview</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="filter-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul>
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-form-control>
+            <input (change)="treeview.filter($event.target.value)" mdbInput type="text" id="form1" class="form-control" />
+            <label mdbLabel class="form-label" for="form1">Find in the treeview</label>
+          </mdb-form-control>
+
+          <mdb-treeview
+            #treeview="mdbTreeview"
+            textField="name"
+            childrenField="children"
+            [nodes]="data"
+          ></mdb-treeview>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            data = [
+              { name: 'One' },
+              { name: 'Two' },
+              {
+                name: 'Three',
+                children: [
+                  { name: 'Second-one' },
+                  { name: 'Second-two' },
+                  {
+                    name: 'Second-three',
+                    children: [
+                      {
+                        name: 'Third-one',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                      { name: 'Third-two' },
+                      {
+                        name: 'Third-three',
+                        children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ];
+          };
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Filter-->
+
+  <hr class="my-5" />
+</section>
+<!--Section: Docs content-->

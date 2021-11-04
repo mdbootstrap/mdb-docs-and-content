@@ -1,0 +1,323 @@
+<script src="<?php echo get_template_directory_uri() ?>/js/mdb5/plugins/filters.min.js?v=
+<?= STANDARD_DOCS_BUNDLE_VERSION; ?>"></script>
+<script>
+  (function () {
+    const basicExampleFilters = document.getElementById('basic-example-filters');
+    const resetButton = document.getElementById('resetButton');
+
+    const filtersInstance = new Filters(basicExampleFilters);
+
+    resetButton.addEventListener('click', () => {
+      filtersInstance.clear();
+    });
+  })();
+
+  // Checkbox Example
+
+  (function () {
+    const checkboxExampleFilters = document.getElementById('checkbox-example-filters');
+
+    const checkboxExampleInstance = new Filters(checkboxExampleFilters);
+  })();
+
+  // Color Example
+
+  (function () {
+    const secondResetButton = document.getElementById('resetButton2');
+    const colorExampleFilters = document.getElementById('color-example-filters');
+
+    const colorExampleInstance = new Filters(colorExampleFilters);
+
+    secondResetButton.addEventListener('click', () => {
+      colorExampleInstance.clear();
+    });
+  })();
+
+  // Customization - custom filter
+
+  (function () {
+    const rangeExampleFilters = document.getElementById('range-example-filters');
+    const minRange = document.getElementById('customRange');
+    const maxRange = document.getElementById('customRange2');
+
+    const rangeInstance = new Filters(rangeExampleFilters);
+
+    minRange.addEventListener('change', () => {
+      const min = minRange.value;
+      const max = maxRange.value;
+
+      document.getElementById('min-val').textContent = `Current: ${min}$`;
+
+      rangeInstance.filter({
+        price: (price) => {
+          return price >= min && price <= max;
+        },
+      });
+    });
+
+    maxRange.addEventListener('change', () => {
+      const min = minRange.value;
+      const max = maxRange.value;
+
+      document.getElementById('max-val').textContent = `Current: ${max}$`;
+
+      rangeInstance.filter({
+        price: (price) => {
+          return price >= min && price <= max;
+        },
+      });
+    });
+  })();
+
+  // Filter and sort example
+
+  (function () {
+    const multiExampleFilters = document.getElementById('filter-sort-example-filters');
+    const multiExampleData = document.getElementById('filter-sort-example-data');
+    const multiReset = document.getElementById('filterSortReset');
+    const multiSelect = document.getElementById('filter-sort-select');
+
+    const dataset = [
+      {
+        id: 1,
+        color: 'black',
+        price: 100,
+        sale: 'no',
+        product: 'Black Jeans Jacket',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg',
+      },
+      {
+        id: 2,
+        color: 'black',
+        price: 100,
+        sale: 'no',
+        product: 'Black Jeans Jacket',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg',
+      },
+      {
+        id: 3,
+        color: 'gray',
+        price: 80,
+        sale: 'yes',
+        product: 'Gray Jumper',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg',
+      },
+      {
+        id: 4,
+        color: 'gray',
+        price: 80,
+        sale: 'yes',
+        product: 'Gray Jumper',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg',
+      },
+      {
+        id: 5,
+        color: 'red',
+        price: 120,
+        sale: 'yes',
+        product: 'Red Hoodie',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg',
+      },
+      {
+        id: 6,
+        color: 'blue',
+        price: 90,
+        sale: 'no',
+        product: 'Blue Jeans Jacket',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg',
+      },
+    ];
+
+    const multiInstance = new Filters(multiExampleFilters, {
+      items: dataset,
+    });
+
+    const renderItems = (items) => {
+      const elements = items.map((item) => {
+        const template = `
+              <div class="col-md-4 mt-3">
+                <div class="card shadow-2">
+                  <img src="${item.img}"
+                    class="card-img-top" alt="..." />
+
+                  <div class="card-body">
+                    <h5 class="card-title">${item.product}</h5>
+                    <p class="card-text">
+                      ${item.price}$
+                    </p>
+                    <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+                  </div>
+                </div>
+              </div>
+              `;
+        return template;
+      });
+
+      multiExampleData.innerHTML = elements.join('\n');
+    };
+
+    renderItems(dataset);
+
+    multiExampleFilters.addEventListener('update.mdb.filters', (e) => {
+      renderItems(e.items);
+    });
+
+    multiReset.addEventListener('click', () => {
+      multiInstance.clear();
+    });
+
+    multiSelect.addEventListener('optionSelect.mdb.select', (e) => {
+      const value = e.target.value;
+      if (value === '1') {
+        multiInstance.sort('product');
+      }
+
+      if (value === '2') {
+        multiInstance.sort('product', 'desc');
+      }
+
+      if (value === '3') {
+        multiInstance.sort('price', 'desc');
+      }
+
+      if (value === '4') {
+        multiInstance.sort('price');
+      }
+    });
+  })();
+
+  // Custom sort
+
+  (function () {
+    const customSort = document.getElementById('custom-sort');
+    const customSortData = document.getElementById('custom-sort-data');
+    const customSortAsc = document.getElementById('customSortBtn');
+    const customSortDesc = document.getElementById('customSortBtn2');
+
+    const dataset = [
+      {
+        id: 1,
+        color: 'black',
+        price: 100,
+        sale: 'no',
+        product: 'Black Jeans Jacket',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg',
+      },
+      {
+        id: 2,
+        color: 'black',
+        price: 100,
+        sale: 'no',
+        product: 'Black Jeans Jacket',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg',
+      },
+      {
+        id: 3,
+        color: 'gray',
+        price: 80,
+        sale: 'yes',
+        product: 'Gray Jumper',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg',
+      },
+      {
+        id: 4,
+        color: 'gray',
+        price: 80,
+        sale: 'yes',
+        product: 'Gray Jumper',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg',
+      },
+      {
+        id: 5,
+        color: 'red',
+        price: 120,
+        sale: 'yes',
+        product: 'Red Hoodie',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg',
+      },
+      {
+        id: 6,
+        color: 'blue',
+        price: 90,
+        sale: 'no',
+        product: 'Blue Jeans Jacket',
+        img: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg',
+      },
+    ];
+
+    const customSortInstance = new Filters(customSort, {
+      items: dataset,
+    });
+
+    const renderItems = (items) => {
+      const elements = items.map((item) => {
+        const template = `
+              <div class="col-md-4 mt-3">
+                <div class="card shadow-2">
+                  <img src="${item.img}"
+                    class="card-img-top" alt="..." />
+
+                  <div class="card-body">
+                    <h5 class="card-title">${item.product}</h5>
+                    <p class="card-text">
+                      ${item.price}$
+                    </p>
+                    <a href="#" class="btn btn-primary ripple-surface">Buy now</a>
+                  </div>
+                </div>
+              </div>
+              `;
+        return template;
+      });
+
+      customSortData.innerHTML = elements.join('\n');
+    };
+
+    renderItems(dataset);
+
+    customSort.addEventListener('update.mdb.filters', (e) => {
+      renderItems(e.items);
+    });
+
+    customSortAsc.addEventListener('click', (e) => {
+      customSortInstance.sort('product', null, (firstItem, secondItem) => {
+        if (firstItem < secondItem) return -1;
+        if (firstItem > secondItem) return 1;
+        return 0;
+      });
+    });
+
+    customSortDesc.addEventListener('click', (e) => {
+      customSortInstance.sort('product', null, (firstItem, secondItem) => {
+        if (firstItem > secondItem) return -1;
+        if (firstItem < secondItem) return 1;
+        return 0;
+      });
+    });
+  })();
+
+  // Size example
+
+  (function () {
+    const sizeExampleFilters = document.getElementById('size-filters');
+    const resetButton = document.getElementById('resetButtonSize');
+    const filtersInstance = new Filters(sizeExampleFilters);
+
+    resetButton.addEventListener('click', () => {
+      filtersInstance.clear();
+    });
+  })();
+
+  // Animations - DOM Elements
+
+  (function () {
+    const animationFilters = document.getElementById('animation-filters');
+    const resetButton = document.getElementById('animationResetButton');
+
+    const animationFiltersInstance = new Filters(animationFilters);
+
+    resetButton.addEventListener('click', () => {
+      animationFiltersInstance.clear();
+    });
+  })();
+</script>
