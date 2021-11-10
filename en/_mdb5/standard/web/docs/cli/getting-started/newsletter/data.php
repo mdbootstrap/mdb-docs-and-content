@@ -4,7 +4,7 @@ $data_var = array(
   'main_title' => 'PHP Newsletter',
   'seo_title' => 'PHP Newsletter',
   'description' => 'Create, deploy and host your MDB project with a single command',
-  'url' => 'https://mdbootstrap.com/docs/standard/cli/about/',
+  'url' => 'https://mdbootstrap.com/docs/standard/cli/',
   'image' => 'https://mdbootstrap.com/img/Marketing/products/cli/cli-free.jpg',
   'video' => 'https://www.youtube.com/watch?v=-pIJnQQMexg',
 );

@@ -1,0 +1,234 @@
+<!--Section: API content-->
+<section>
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 font-weight-bold">
+      <?= $data_var['main_title']; ?>
+      - API
+    </h2>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Import-->
+  <section id="api-section-import">
+    <!-- Section title -->
+    <h2 class="mb-4">Import</h2>
+
+    <!-- prettier-ignore -->
+    <mdbsnippet>
+      <code data-lang="js" data-name="app.module.ts">
+        import { MdbSmoothScrollModule } from 'mdb-angular-ui-kit/smooth-scroll';
+        …
+        @NgModule ({
+          ...
+          imports: [MdbSmoothScrollModule],
+          ...
+        })
+      </code>
+    </mdbsnippet>
+  </section>
+  <!--Section: Import-->
+
+  <hr class="my-5" />
+
+  <!--Section: Inputs-->
+  <section id="api-section-properties">
+    <!-- Section title -->
+    <h2 class="mb-4">Inputs</h2>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>container</code>
+            </td>
+            <td><em>HTMLElement</em></td>
+            <td><code>-</code></td>
+            <td>Defines scrolling container</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>duration</code>
+            </td>
+            <td><em>number</em></td>
+            <td><code>500</code></td>
+            <td>Changes scroll duration</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>easing</code>
+            </td>
+            <td><em>string</em></td>
+            <td><code>'linear'</code></td>
+            <td>
+              Changes motion type of smooth scroll, available easings: 'linear', 'easeInQuad',
+              'easeInCubic', 'easeInQuart', 'easeInQuint', 'easeInOutQuad' 'easeInOutCubic',
+              'easeInOutQuart', 'easeInOutQuint', 'easeOutQuad', 'easeOutCubic', 'easeOutQuart',
+              'easeOutQuint'
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>offset</code>
+            </td>
+            <td><em>number</em></td>
+            <td><code>0</code></td>
+            <td>Changes offset from element</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!--Section: Inputs-->
+
+  <hr class="my-5" />
+
+  <!--Section: Outputs-->
+  <section id="api-section-outputs">
+    <!-- Section title -->
+    <h2 class="mb-4">Outputs</h2>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>scrollStart</code>
+            </td>
+            <td>EventEmitter&lt;void&gt;</td>
+            <td>Event fired when scrolling start</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>scrollEnd</code>
+            </td>
+            <td>EventEmitter&lt;void&gt;</td>
+            <td>Event fired when scrolling ends</td>
+          </tr>
+
+          <tr>
+            <td>
+              <code>scrollCancel</code>
+            </td>
+            <td>EventEmitter&lt;void&gt;</td>
+            <td>Event fired when scrolling is canceled</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <a href="#section-1" mdbSmoothScroll (scrollStart)="onScrollStart()">Smooth Scroll to #section-1</a>
+          </code>
+        <code data-lang="js" data-name="TS">
+          import { Component } from '@angular/core';
+
+          @Component({ selector: 'app-smooth-scroll',
+            templateUrl: './smooth-scroll.component.html',
+            styleUrls: ['./smooth-scroll.component.scss'],
+          })
+          export class SmoothScrollComponent {
+            onScrollStart() {
+              console.log('scrolling start');
+            }
+
+            constructor() {}
+          }
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </div>
+  </section>
+  <!--Section: Outputs-->
+
+  <hr class="my-5" />
+
+  <!--Section: Methods-->
+  <section id="api-section-methods">
+    <!-- Section title -->
+    <h2 class="mb-4">Outputs</h2>
+
+    <div class="table-responsive">
+      <table class="table my-4 table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>cancelScroll</code>
+            </td>
+            <td>Manually cancel scrolling</td>
+            <td>smoothScroll.cancelScroll()</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--Section: Code-->
+      <section class="mb-4">
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="html" data-name="HTML">
+            <a href="#section-1" #scroll mdbSmoothScroll (click)="onClick()">Smooth Scroll to #section-1</a>
+          </code>
+        <code data-lang="js" data-name="TS">
+          import { Component, ViewChild } from '@angular/core';
+          import { MdbSmoothScrollDirective } from 'mdb-angular-ui-kit/smooth-scroll';
+
+          @Component({ selector: 'app-smooth-scroll',
+            templateUrl: './smooth-scroll.component.html',
+            styleUrls: ['./smooth-scroll.component.scss'],
+          })
+          export class SmoothScrollComponent {
+            @ViewChild('scroll', { static: true }) scroll?: MdbSmoothScrollDirective;
+
+            constructor() {}
+
+            onClick(): void {
+              if (this.scroll) {
+                setTimeout(() => {
+                  this.scroll.cancelScroll();
+                }, 100);
+              }
+            }
+          }
+        </code>
+      </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </div>
+  </section>
+  <!--Section: Methods-->
+</section>
+<!--Section: API content-->

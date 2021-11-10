@@ -1,0 +1,1286 @@
+<link
+  rel="stylesheet"
+  href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/treeview.min.css?v=
+  <?= STANDARD_DOCS_BUNDLE_VERSION; ?>"
+/>
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/standard/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span> 
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p>
+      MDB treeview plugin is used to show hierarchical information which starts from the root item
+      and proceed to its children and their respective children. Each item besides the root has a
+      parent and can have children.
+    </p>
+
+    <p>
+      The parent is the node which is higher in the hierarchy and the child the one that is lower.
+      Siblings are items which have one and the same parent. Items can be expanded and collapsed.
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example - JSX-->
+  <section id="section-basic-example-jsx">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example - JSX</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-treeview-duration="1">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React from 'react';
+          import { MDBTreeview, MDBTreeviewItem } from 'mdb-react-treeview';
+  
+          export default function App() {
+            return (
+              <MDBTreeview>
+                <MDBTreeviewItem name='One' />
+                <MDBTreeviewItem name='Two' />
+                <MDBTreeviewItem subtree show name='Three'>
+                  <MDBTreeviewItem name='Second-one' />
+                  <MDBTreeviewItem name='Second-two' />
+                  <MDBTreeviewItem name='Second-three' subtree>
+                    <MDBTreeviewItem name='Third-one' subtree>
+                      <MDBTreeviewItem name='Fourth-one' />
+                      <MDBTreeviewItem name='Fourth-two' />
+                      <MDBTreeviewItem name='Fourth-three' />
+                    </MDBTreeviewItem>
+                    <MDBTreeviewItem name='Third-two' />
+                    <MDBTreeviewItem name='Third-three' subtree>
+                      <MDBTreeviewItem name='Fourth-one' />
+                      <MDBTreeviewItem name='Fourth-two' />
+                      <MDBTreeviewItem name='Fourth-three' />
+                    </MDBTreeviewItem>
+                  </MDBTreeviewItem>
+                </MDBTreeviewItem>
+              </MDBTreeview>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example - JSX-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example - JavaScript-->
+  <section id="section-basic-example-javascript">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example - JavaScript</h2>
+
+    <div>
+      <p>
+        You can define whole structure of tree using only JavaScript. There are some props in data
+        that you can use to customize it:
+      </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div id="sample-element"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React from 'react';
+          import { MDBTreeview } from 'mdb-react-treeview';
+  
+          export default function App() {
+            return (
+              <MDBTreeview
+                items={[
+                  { name: 'One' },
+                  { name: 'Two' },
+                  {
+                    name: 'Three',
+                    children: [
+                      { name: 'Second-one' },
+                      { name: 'Second-two' },
+                      {
+                        name: 'Second-three',
+                        children: [
+                          {
+                            name: 'Third-one',
+
+                            children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                          },
+                          { name: 'Third-two' },
+                          {
+                            name: 'Third-three',
+                            children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ]}
+              />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example - JavaScript-->
+
+  <hr class="my-5" />
+
+  <!--Section: Open on click-->
+  <section id="section-open-on-click">
+    <!-- Section title -->
+    <h2 class="mb-4">Open on item click</h2>
+
+    <p>
+      Use a <code>openOnItemClick</code> to define opening lists of treeview by click only on
+      the arrow or on the whole list item.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-open-on-click="false">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React from 'react';
+          import { MDBTreeview, MDBTreeviewItem } from 'mdb-react-treeview';
+  
+          export default function App() {
+            return (
+              <MDBTreeview openOnItemClick={false}>
+                <MDBTreeviewItem name='One' />
+                <MDBTreeviewItem name='Two' />
+                <MDBTreeviewItem subtree name='Three' show>
+                  <MDBTreeviewItem name='Second-one' />
+                  <MDBTreeviewItem name='Second-two' />
+                  <MDBTreeviewItem name='Second-three' subtree>
+                    <MDBTreeviewItem name='Third-one' subtree>
+                      <MDBTreeviewItem name='Fourth-one' />
+                      <MDBTreeviewItem name='Fourth-two' />
+                      <MDBTreeviewItem name='Fourth-three' />
+                    </MDBTreeviewItem>
+                    <MDBTreeviewItem name='Third-two' />
+                    <MDBTreeviewItem name='Third-three' subtree>
+                      <MDBTreeviewItem name='Fourth-one' />
+                      <MDBTreeviewItem name='Fourth-two' />
+                      <MDBTreeviewItem name='Fourth-three' />
+                    </MDBTreeviewItem>
+                  </MDBTreeviewItem>
+                </MDBTreeviewItem>
+              </MDBTreeview>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Open on click-->
+
+  <hr class="my-5" />
+
+  <!--Section: Selectable-->
+  <section id="section-selectable">
+    <!-- Section title -->
+    <h2 class="mb-4">Selectable</h2>
+
+    <p>Use a <code>selectable</code> property to set up checkboxes in every list item.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-selectable="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React from 'react';
+          import { MDBTreeview, MDBTreeviewItem } from 'mdb-react-treeview';
+  
+          export default function App() {
+            return (
+              <MDBTreeview selectable>
+                <MDBTreeviewItem name='One' />
+                <MDBTreeviewItem name='Two' />
+                <MDBTreeviewItem subtree name='Three'>
+                  <MDBTreeviewItem name='Second-one' />
+                  <MDBTreeviewItem name='Second-two' />
+                  <MDBTreeviewItem name='Second-three' subtree>
+                    <MDBTreeviewItem name='Third-one' subtree>
+                      <MDBTreeviewItem name='Fourth-one' />
+                      <MDBTreeviewItem name='Fourth-two' />
+                      <MDBTreeviewItem name='Fourth-three' />
+                    </MDBTreeviewItem>
+                    <MDBTreeviewItem name='Third-two' />
+                    <MDBTreeviewItem name='Third-three' subtree>
+                      <MDBTreeviewItem name='Fourth-one' />
+                      <MDBTreeviewItem name='Fourth-two' />
+                      <MDBTreeviewItem name='Fourth-three' />
+                    </MDBTreeviewItem>
+                  </MDBTreeviewItem>
+                </MDBTreeviewItem>
+              </MDBTreeview>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Selectable-->
+
+  <hr class="my-5" />
+
+  <!--Section: Expand-->
+  <section id="section-expand">
+    <!-- Section title -->
+    <h2 class="mb-4">Expand</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary" id="expand-example-button">
+            Expand first list
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="expand-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul id="expand-example-item">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBTreeview, MDBTreeviewItem } from 'mdb-react-treeview';
+          import { MDBRow, MDBCol, MDBBtn } from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const [expandExample, setExpandExample] = useState(false);
+
+            return (
+              <MDBRow className='justify-content-center mb-3'>
+                <MDBCol md='3'>
+                  <MDBBtn style={{ minWidth: '155px' }} onClick={() => setExpandExample(true)}>
+                    Expand first list
+                  </MDBBtn>
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBTreeview>
+                  <MDBTreeviewItem name='One' />
+                  <MDBTreeviewItem name='Two' />
+                  <MDBTreeviewItem subtree show={expandExample} name='Three'>
+                    <MDBTreeviewItem name='Second-one' />
+                    <MDBTreeviewItem name='Second-two' />
+                    <MDBTreeviewItem name='Second-three' subtree>
+                      <MDBTreeviewItem name='Third-one' subtree>
+                        <MDBTreeviewItem name='Fourth-one' />
+                        <MDBTreeviewItem name='Fourth-two' />
+                        <MDBTreeviewItem name='Fourth-three' />
+                      </MDBTreeviewItem>
+                      <MDBTreeviewItem name='Third-two' />
+                      <MDBTreeviewItem name='Third-three' subtree>
+                        <MDBTreeviewItem name='Fourth-one' />
+                        <MDBTreeviewItem name='Fourth-two' />
+                        <MDBTreeviewItem name='Fourth-three' />
+                      </MDBTreeviewItem>
+                    </MDBTreeviewItem>
+                  </MDBTreeviewItem>
+                </MDBTreeview>
+              </MDBRow>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Expand-->
+
+  <hr class="my-5" />
+
+  <!--Section: Collapse-->
+  <section id="section-collapse">
+    <!-- Section title -->
+    <h2 class="mb-4">Collapse</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary" id="collapse-example-button">
+            Collapse treeview
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="treeview" id="collapse-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul class="show">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul class="show">
+                    <li>
+                      <a>Third-one</a>
+                      <ul class="show">
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul class="show">
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBTreeview, MDBTreeviewItem } from 'mdb-react-treeview';
+          import { MDBRow, MDBCol, MDBBtn } from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const [collapseExample, setCollapseExample] = useState(true);
+            
+            return (
+              <MDBRow className='justify-content-center mb-3'>
+                <MDBCol md='3'>
+                  <MDBBtn style={{ minWidth: '155px' }} onClick={() => setCollapseExample(false)}>
+                    Collapse Treeview
+                  </MDBBtn>
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBTreeview>
+                  <MDBTreeviewItem name='One' />
+                  <MDBTreeviewItem name='Two' />
+                  <MDBTreeviewItem subtree show={collapseExample} name='Three'>
+                    <MDBTreeviewItem name='Second-one' />
+                    <MDBTreeviewItem name='Second-two' />
+                    <MDBTreeviewItem name='Second-three' show subtree>
+                      <MDBTreeviewItem name='Third-one' show subtree>
+                        <MDBTreeviewItem name='Fourth-one' />
+                        <MDBTreeviewItem name='Fourth-two' />
+                        <MDBTreeviewItem name='Fourth-three' />
+                      </MDBTreeviewItem>
+                      <MDBTreeviewItem name='Third-two' />
+                      <MDBTreeviewItem name='Third-three' show subtree>
+                        <MDBTreeviewItem name='Fourth-one' />
+                        <MDBTreeviewItem name='Fourth-two' />
+                        <MDBTreeviewItem name='Fourth-three' />
+                      </MDBTreeviewItem>
+                    </MDBTreeviewItem>
+                  </MDBTreeviewItem>
+                </MDBTreeview>
+              </MDBRow>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Collapse-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom icons - JSX-->
+  <section id="section-custom-icons-jsx">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom icons - JSX</h2>
+
+    <p>
+      Use a <code>rotationAngle</code> property to define a rotation angle of nested
+      lists icons.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="treeview">
+        <ul>
+          <li><i class="fas fa-dot-circle"></i> One</li>
+          <li><i class="fas fa-dot-circle"></i> Two</li>
+          <li>
+            <a>
+              <span
+                aria-label="toggle"
+                class="ripple"
+                data-mdb-ripple-unbound="true"
+                data-mdb-ripple-centered="true"
+                data-mdb-ripple-color="dark"
+                ><i class="fas fa-angle-double-right"></i
+              ></span>
+              Three
+            </a>
+            <ul class="show" id="custom-icon-list">
+              <li><i class="fas fa-dot-circle"></i> Second-one</li>
+              <li><i class="fas fa-dot-circle"></i> Second-two</li>
+              <li>
+                <a
+                  ><span
+                    aria-label="toggle"
+                    class="ripple"
+                    data-mdb-ripple-unbound="true"
+                    data-mdb-ripple-centered="true"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fas fa-angle-double-right"></i
+                  ></span>
+                  Second-three</a
+                >
+                <ul>
+                  <li><i class="fas fa-dot-circle"></i> Third-one</li>
+                  <li><i class="fas fa-dot-circle"></i> Third-two</li>
+                  <li><i class="fas fa-dot-circle"></i> Third-three</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React from 'react';
+          import { MDBTreeview, MDBTreeviewItem } from 'mdb-react-treeview';
+  
+          export default function App() {
+            return (
+              <MDBTreeview>
+                <MDBTreeviewItem
+                  name={
+                    <>
+                      <MDBIcon icon='dot-circle' fas /> One
+                    </>
+                  }
+                />
+                <MDBTreeviewItem
+                  name={
+                    <>
+                      <MDBIcon icon='dot-circle' fas /> Two
+                    </>
+                  }
+                />
+                <MDBTreeviewItem subtree show icon='angle-double-right' name='Three'>
+                  <MDBTreeviewItem
+                    name={
+                      <>
+                        <MDBIcon icon='dot-circle' fas /> Second-one
+                      </>
+                    }
+                  />
+                  <MDBTreeviewItem
+                    name={
+                      <>
+                        <MDBIcon icon='dot-circle' fas /> Second-two
+                      </>
+                    }
+                  />
+                  <MDBTreeviewItem name='Second-three' icon='angle-double-right' subtree>
+                    <MDBTreeviewItem name='Third-one' icon='angle-double-right' subtree>
+                      <MDBTreeviewItem
+                        name={
+                          <>
+                            <MDBIcon icon='dot-circle' fas /> Fourth-one
+                          </>
+                        }
+                      />
+                      <MDBTreeviewItem
+                        name={
+                          <>
+                            <MDBIcon icon='dot-circle' fas /> Fourth-two
+                          </>
+                        }
+                      />
+                      <MDBTreeviewItem
+                        name={
+                          <>
+                            <MDBIcon icon='dot-circle' fas /> Fourth-three
+                          </>
+                        }
+                      />
+                    </MDBTreeviewItem>
+                    <MDBTreeviewItem
+                      name={
+                        <>
+                          <MDBIcon icon='dot-circle' fas /> Third-two
+                        </>
+                      }
+                    />
+                    <MDBTreeviewItem name='Third-three' icon='angle-double-right' subtree>
+                      <MDBTreeviewItem
+                        name={
+                          <>
+                            <MDBIcon icon='dot-circle' fas /> Fourth-one
+                          </>
+                        }
+                      />
+                      <MDBTreeviewItem
+                        name={
+                          <>
+                            <MDBIcon icon='dot-circle' fas /> Fourth-two
+                          </>
+                        }
+                      />
+                      <MDBTreeviewItem
+                        name={
+                          <>
+                            <MDBIcon icon='dot-circle' fas /> Fourth-three
+                          </>
+                        }
+                      />
+                    </MDBTreeviewItem>
+                  </MDBTreeviewItem>
+                </MDBTreeviewItem>
+              </MDBTreeview>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom icons - JSX-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Custom icons - JavaScript-->
+  <section id="subsection-custom-icons-javascript">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom icons - JavaScript</h2>
+
+    <p>
+      Add icons to the list elements by pasting an icon code in the
+      <code>name</code> property. If you want to change the rotatable icon in the nested list - use
+      <code>icon</code> property instead.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="custom-icons-js"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React from 'react';
+          import { MDBTreeview, MDBTreeviewItem } from 'mdb-react-treeview';
+  
+          export default function App() {
+            return (
+              <MDBTreeview
+                items={[
+                  {
+                    name: (
+                      <>
+                        <MDBIcon icon='dot-circle' fas /> One{' '}
+                      </>
+                    ),
+                  },
+                  {
+                    name: (
+                      <>
+                        <MDBIcon icon='dot-circle' fas /> Two{' '}
+                      </>
+                    ),
+                  },
+                  {
+                    name: 'Three',
+                    subtree: true,
+                    icon: 'angle-double-right',
+                    children: [
+                      {
+                        name: (
+                          <>
+                            <MDBIcon icon='dot-circle' fas /> Second-one{' '}
+                          </>
+                        ),
+                      },
+                      {
+                        name: (
+                          <>
+                            <MDBIcon icon='dot-circle' fas /> Second-two{' '}
+                          </>
+                        ),
+                      },
+                      {
+                        name: 'Second-three',
+                        subtree: true,
+                        icon: 'angle-double-right',
+                        children: [
+                          {
+                            name: 'Third-one',
+                            icon: 'angle-double-right',
+                            subtree: true,
+                            children: [
+                              {
+                                name: (
+                                  <>
+                                    <MDBIcon icon='dot-circle' fas /> Fourth-one
+                                  </>
+                                ),
+                              },
+                              {
+                                name: (
+                                  <>
+                                    <MDBIcon icon='dot-circle' fas /> Fourth-two
+                                  </>
+                                ),
+                              },
+                              {
+                                name: (
+                                  <>
+                                    <MDBIcon icon='dot-circle' fas /> Fourth-three
+                                  </>
+                                ),
+                              },
+                            ],
+                          },
+                          {
+                            name: (
+                              <>
+                                <MDBIcon icon='dot-circle' fas /> Third-two
+                              </>
+                            ),
+                          },
+                          {
+                            name: 'Third-three',
+                            subtree: true,
+                            icon: 'angle-double-right',
+                            children: [
+                              {
+                                name: (
+                                  <>
+                                    <MDBIcon icon='dot-circle' fas /> Fourth-one
+                                  </>
+                                ),
+                              },
+                              {
+                                name: (
+                                  <>
+                                    <MDBIcon icon='dot-circle' fas /> Fourth-two
+                                  </>
+                                ),
+                              },
+                              {
+                                name: (
+                                  <>
+                                    <MDBIcon icon='dot-circle' fas /> Fourth-three
+                                  </>
+                                ),
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ]}
+              />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Custom icons - JavaScript-->
+
+  <hr class="my-5" />
+
+  <!--Section: Color-->
+  <section id="section-color">
+    <!-- Section title -->
+    <h2 class="mb-4">Color</h2>
+
+    <p>
+      Set the color of an active item using the
+      <code>color</code> property.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="text-center mb-5">
+        <button type="button" class="btn btn-primary" id="primary">Primary</button>
+        <button type="button" class="btn btn-secondary" id="secondary">Secondary</button>
+        <button type="button" class="btn btn-warning" id="warning">Warning</button>
+        <button type="button" class="btn btn-danger" id="danger">Danger</button>
+        <button type="button" class="btn btn-info" id="info">Info</button>
+        <button type="button" class="btn btn-success" id="success">Success</button>
+        <button type="button" class="btn btn-dark" id="dark">Dark</button>
+      </div>
+
+      <div class="row text-center">
+        <h5>Current color: <span id="current-color">primary</span></h5>
+      </div>
+
+      <div class="row mt-4">
+        <div class="treeview" id="color-example">
+          <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>
+              <a>Three</a>
+              <ul class="show">
+                <li>Second-one</li>
+                <li>Second-two</li>
+                <li>
+                  <a>Second-three</a>
+                  <ul>
+                    <li>
+                      <a>Third-one</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                    <li>Third-two</li>
+                    <li>
+                      <a>Third-three</a>
+                      <ul>
+                        <li>Fourth-one</li>
+                        <li>Fourth-two</li>
+                        <li>Fourth-three</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React, { useState } from 'react';
+          import { MDBTreeview, MDBTreeviewItem } from 'mdb-react-treeview';
+          import { MDBRow, MDBBtn } from 'mdb-react-ui-kit';
+  
+          export default function App() {
+            const [color, setColor] = useState('primary');
+
+            return (
+              <>
+                <div className='text-center mb-5'>
+                  <MDBBtn color='primary' onClick={() => setColor('primary')}>
+                    Primary
+                  </MDBBtn>
+                  <MDBBtn color='secondary' onClick={() => setColor('secondary')}>
+                    Secondary
+                  </MDBBtn>
+                  <MDBBtn color='warning' onClick={() => setColor('warning')}>
+                    Warning
+                  </MDBBtn>
+                  <MDBBtn color='danger' onClick={() => setColor('danger')}>
+                    Danger
+                  </MDBBtn>
+                  <MDBBtn color='info' onClick={() => setColor('info')}>
+                    Info
+                  </MDBBtn>
+                  <MDBBtn color='success' onClick={() => setColor('success')}>
+                    Success
+                  </MDBBtn>
+                  <MDBBtn color='dark' onClick={() => setColor('dark')}>
+                    Dark
+                  </MDBBtn>
+                </div>
+                <MDBRow className='mt-3'>
+                  <MDBTreeview color={color}>
+                    <MDBTreeviewItem name='One' />
+                    <MDBTreeviewItem name='Two' />
+                    <MDBTreeviewItem subtree show name='Three'>
+                      <MDBTreeviewItem name='Second-one' />
+                      <MDBTreeviewItem name='Second-two' />
+                      <MDBTreeviewItem name='Second-three' subtree>
+                        <MDBTreeviewItem name='Third-one' subtree>
+                          <MDBTreeviewItem name='Fourth-one' />
+                          <MDBTreeviewItem name='Fourth-two' />
+                          <MDBTreeviewItem name='Fourth-three' />
+                        </MDBTreeviewItem>
+                        <MDBTreeviewItem name='Third-two' />
+                        <MDBTreeviewItem name='Third-three' subtree>
+                          <MDBTreeviewItem name='Fourth-one' />
+                          <MDBTreeviewItem name='Fourth-two' />
+                          <MDBTreeviewItem name='Fourth-three' />
+                        </MDBTreeviewItem>
+                      </MDBTreeviewItem>
+                    </MDBTreeviewItem>
+                  </MDBTreeview>
+                </MDBRow>
+              </>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Color-->
+
+  <hr class="my-5" />
+
+  <!--Section: Line-->
+  <section id="section-line">
+    <!-- Section title -->
+    <h2 class="mb-4">Line</h2>
+
+    <p>
+      Use a <code>line</code> property to set up an additional line in every nested list.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-line="true">
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a>Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React from 'react';
+          import { MDBTreeview, MDBTreeviewItem } from 'mdb-react-treeview';
+  
+          export default function App() {
+            return (
+              <MDBTreeview line>
+                <MDBTreeviewItem name='One' />
+                <MDBTreeviewItem name='Two' />
+                <MDBTreeviewItem subtree show name='Three'>
+                  <MDBTreeviewItem name='Second-one' />
+                  <MDBTreeviewItem name='Second-two' />
+                  <MDBTreeviewItem name='Second-three' subtree>
+                    <MDBTreeviewItem name='Third-one' subtree>
+                      <MDBTreeviewItem name='Fourth-one' />
+                      <MDBTreeviewItem name='Fourth-two' />
+                      <MDBTreeviewItem name='Fourth-three' />
+                    </MDBTreeviewItem>
+                    <MDBTreeviewItem name='Third-two' />
+                    <MDBTreeviewItem name='Third-three' subtree>
+                      <MDBTreeviewItem name='Fourth-one' />
+                      <MDBTreeviewItem name='Fourth-two' />
+                      <MDBTreeviewItem name='Fourth-three' />
+                    </MDBTreeviewItem>
+                  </MDBTreeviewItem>
+                </MDBTreeviewItem>
+              </MDBTreeview>
+            );
+          }
+        </code>
+      </mdbsnippet>
+  </section>
+  <!--Section: Line-->
+
+  <hr class="my-5" />
+
+  <!--Section: Disabled - JSX-->
+  <section id="section-disabled-jsx">
+    <!-- Section title -->
+    <h2 class="mb-4">Disabled - JSX</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div class="treeview" data-mdb-selectable="true">
+        <ul>
+          <li>One</li>
+          <li class="treeview-disabled">Two</li>
+          <li>
+            <a>Three</a>
+            <ul class="show">
+              <li>Second-one</li>
+              <li>Second-two</li>
+              <li>
+                <a class="treeview-disabled">Second-three</a>
+                <ul>
+                  <li>
+                    <a>Third-one</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                  <li>Third-two</li>
+                  <li>
+                    <a>Third-three</a>
+                    <ul>
+                      <li>Fourth-one</li>
+                      <li>Fourth-two</li>
+                      <li>Fourth-three</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React from 'react';
+          import { MDBTreeview, MDBTreeviewItem } from 'mdb-react-treeview';
+  
+          export default function App() {
+            return (
+              <MDBTreeview selectable>
+                <MDBTreeviewItem name='One' />
+                <MDBTreeviewItem disabled name='Two' />
+                <MDBTreeviewItem subtree show name='Three'>
+                  <MDBTreeviewItem name='Second-one' />
+                  <MDBTreeviewItem name='Second-two' />
+                  <MDBTreeviewItem name='Second-three' disabled subtree>
+                    <MDBTreeviewItem name='Third-one' subtree>
+                      <MDBTreeviewItem name='Fourth-one' />
+                      <MDBTreeviewItem name='Fourth-two' />
+                      <MDBTreeviewItem name='Fourth-three' />
+                    </MDBTreeviewItem>
+                    <MDBTreeviewItem name='Third-two' />
+                    <MDBTreeviewItem name='Third-three' subtree>
+                      <MDBTreeviewItem name='Fourth-one' />
+                      <MDBTreeviewItem name='Fourth-two' />
+                      <MDBTreeviewItem name='Fourth-three' />
+                    </MDBTreeviewItem>
+                  </MDBTreeviewItem>
+                </MDBTreeviewItem>
+              </MDBTreeview>
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Disabled - DOM-->
+
+  <hr class="my-5" />
+
+  <!--Subsection: Disabled - JavaScript-->
+  <section id="subsection-disabled-javascript">
+    <!-- Section title -->
+    <h2 class="mb-4">Disabled - JavaScript</h2>
+
+    <p>To generate a disabled list item, use <code>disabled</code> property.</p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 d-flex mb-4">
+      <div id="disabled-element"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="javascript" data-name="JSX">
+          import React from 'react';
+          import { MDBTreeview } from 'mdb-react-treeview';
+  
+          export default function App() {
+            return (
+              <MDBTreeview
+                items={[
+                  { name: 'One', disabled: true },
+                  { name: 'Two' },
+                  {
+                    name: ' Three',
+                    show: true,
+                    children: [
+                      { name: 'Second-one' },
+                      { name: 'Second-two' },
+                      {
+                        name: ' Second-three',
+                        disabled: true,
+                        children: [
+                          {
+                            name: ' Third-one',
+                            children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                          },
+                          { name: 'Third-two' },
+                          {
+                            name: ' Third-three',
+                            children: [{ name: 'Fourth-one' }, { name: 'Fourth-two' }, { name: 'Fourth-three' }],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ]}
+              />
+            );
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Subsection: Disabled - JavaScript-->
+
+  <hr class="my-5" />
+</section>
+<!--Section: Docs content-->

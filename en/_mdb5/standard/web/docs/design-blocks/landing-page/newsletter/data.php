@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Landing Page blocks - newsletter',
   'description' => 'Collection of practical examples of newsletter.',
   'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/landing-page/newsletter/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/newsletter/assets/4.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/newsletter/assets/landing-page-newsletter.jpg',
   'video' => '',
 );

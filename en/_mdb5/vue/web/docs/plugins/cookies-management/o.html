@@ -1,0 +1,469 @@
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+      <span>
+        <a href="/docs/b5/vue/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span>
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6">
+      <?= $data_var['subheading']; ?>
+    </h1>
+
+    <!-- Description -->
+    <p>
+      This component is used to save in the browser data that we want to have access at the next
+      user visit. For example how many times or when last time user visit our page.
+    </p>
+
+    <p>
+      <?= $data_var['description']; ?>
+    </p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> Read the <strong>API</strong> tab to find all available options and
+      advanced customization
+    </p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!-- Description -->
+    <p>The Cookies Management Component provides methods to add, remove and get cookies</p>
+
+    <!--Subsection: Set Cookie Example-->
+    <section id="subsection-set-cookie">
+      <!-- Subsection title -->
+      <h4 class="mt-5">Set cookie</h4>
+
+      <!-- Description -->
+      <p>
+        Use the method <code>Cookie.set()</code> to add a cookie. You can test this method using the
+        example below. The button will call
+        <code>Cookie.set('first-visit', new Date(), {expires: 1})</code>. To use this example again,
+        press the reset button and refresh the page.
+      </p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 d-flex justify-content-evenly mb-4">
+        <button id="basic-example-set-cookie-button" type="button" class="btn btn-primary">
+          Set cookie
+        </button>
+        <button id="basic-example-reset-cookie-button" type="button" class="btn btn-primary">
+          reset cookie
+        </button>
+        <span id="basic-example-set-cookie-result"></span>
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="HTML" data-name="template">
+            <template>
+              <MDBBtn color="primary" @click="setBasicCookie">
+                Set cookie
+              </MDBBtn>
+              <MDBBtn color="primary" @click="resetBasicCookie">
+                reset cookie
+              </MDBBtn>
+              <span>
+                {{ basicCookie }}
+              </span>
+            </template>
+          </code>
+          <code data-lang="js" data-name="script">
+            <script>
+              import { inject, ref } from "vue";
+              import { MDBBtn } from 'mdb-vue-ui-kit';
+
+              export default {
+                components: {
+                  MDBBtn
+                },
+                setup() {
+                  const Cookie = inject("MDBCookies");
+
+                  const basicCookie = ref(Cookie.get("first-visit"));
+                  const setBasicCookie = () => {
+                    Cookie.set("first-visit", new Date(), { expires: 1 });
+                    basicCookie.value = Cookie.get("first-visit");
+                  };
+                  const resetBasicCookie = () => {
+                    Cookie.remove("first-visit");
+                    basicCookie.value = Cookie.get("first-visit");
+                  };
+
+                  return {
+                    basicCookie,
+                    setBasicCookie,
+                    resetBasicCookie,
+                  };
+                },
+              };
+            </script>
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Set Cookie Example-->
+
+    <!--Subsection: Get Cookie Example-->
+    <section id="subsection-get-cookie">
+      <!-- Subsection title -->
+      <h4 class="mt-5">Get cookie</h4>
+
+      <!-- Description -->
+      <p>
+        If you have saved any data in the user's cookies, you can load them using the
+        <code>Cookie.get()</code> method.
+      </p>
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="js" data-name="script">
+            <script>
+              import { inject, ref } from "vue";
+
+              export default {
+                setup() {
+                  const Cookie = inject("MDBCookies");
+
+                  const getCookie = () => {
+                    Cookie.get("cookie-name");
+                  };
+
+                  return {
+                    getCookie,
+                  };
+                },
+              };
+            </script>
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Get Cookie Example-->
+
+    <!--Subsection: Remove Cookie Example-->
+    <section id="subsection-remove-cookie">
+      <!-- Subsection title -->
+      <h4 class="mt-5">Remove cookie</h4>
+
+      <!-- Description -->
+      <p>
+        When the data saved in cookies are no longer needed and you want to delete them, use
+        <code>Cookie.remove()</code> method. After refreshing the page the cookie will be deleted
+      </p>
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="js" data-name="script">
+            <script>
+              import { inject, ref } from "vue";
+
+              export default {
+                setup() {
+                  const Cookie = inject("MDBCookies");
+
+                  const removeCookie = () => {
+                    Cookie.remove("cookie-name");
+                  };
+
+                  return {
+                    removeCookie,
+                  };
+                },
+              };
+            </script>
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Remove Cookie Example-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Advanced example -->
+  <section id="section-advanced-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Advanced example</h2>
+
+    <!--Subsection: Show modal for new user example -->
+    <section id="subsection-show-modal-for-new-user-example">
+      <!-- Subsection title -->
+      <h4 class="mt-5">Show Modal for new users</h4>
+
+      <!-- Description -->
+      <p>
+        Using the <code>showModalNewUser</code> method you can display the modal for new users.
+        Click start button to start simulate this behavior. After next click modal don't show any
+        more until you click reset.
+      </p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 d-flex justify-content-evenly mb-4">
+        <button id="show-modal-for-new-user-button" type="button" class="btn btn-primary">
+          Show Modal
+        </button>
+        <button id="reset-show-modal-for-new-user-button" type="button" class="btn btn-primary">
+          Reset
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="show-modal-for-new-user-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="show-modal-for-new-user-modal">
+                  This is modal for new user
+                </h5>
+                <button type="button" class="close" data-mdb-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                This model will not appear again until you press the start button and refresh the
+                page.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="HTML" data-name="template">
+            <template>
+              <MDBBtn color="primary" @click="setNewUserCookie">
+                Show modal
+              </MDBBtn>
+              <MDBBtn color="primary" @click="resetNewUserCookie"> Reset </MDBBtn>
+
+              <MDBModal
+                id="newUserModal"
+                tabindex="-1"
+                labelledby="newUserModalLabel"
+                v-model="newUserModal"
+              >
+                <MDBModalHeader>
+                  <MDBModalTitle id="newUserModalLabel">
+                    This is modal for new user
+                  </MDBModalTitle>
+                </MDBModalHeader>
+                <MDBModalBody>
+                  This model will not appear again until you press the reset
+                  button and refresh the page
+                </MDBModalBody>
+                <MDBModalFooter>
+                  <MDBBtn color="secondary" @click="newUserModal = false"
+                    >Close</MDBBtn
+                  >
+                </MDBModalFooter>
+              </MDBModal>
+            </template>
+          </code>
+          <code data-lang="js" data-name="script">
+            <script>
+              import { inject, ref } from "vue";
+              import { MDBBtn, MDBModal, MDBModalHeader, MDBModalTitle, MDBModalBody, MDBModalFooter } from 'mdb-vue-ui-kit';
+
+              export default {
+                components: {
+                  MDBBtn,
+                  MDBModal,
+                  MDBModalHeader,
+                  MDBModalTitle,
+                  MDBModalBody,
+                  MDBModalFooter
+                },
+                setup() {
+                  const Cookie = inject("MDBCookies");
+
+                  const newUserModal = ref(false);
+                  const setNewUserCookie = () => {
+                    Cookie.showModalNewUser(newUserModal);
+                  };
+                  const resetNewUserCookie = () => {
+                    Cookie.remove("is-first-visit");
+                  };
+
+                  return {
+                    newUserModal,
+                    setNewUserCookie,
+                    resetNewUserCookie,
+                  };
+                },
+              };
+            </script>
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Show modal for new user example -->
+
+    <!--Subsection: Show modal after next visit example -->
+    <section id="subsection-show-modal-after-next-visit-example">
+      <!-- Section title -->
+      <h4 class="mt-5">Show modal after next visit</h4>
+
+      <!-- Description -->
+      <p>
+        If you want to display the modal to the person who will visit the page again, you can use
+        the <code>showModalScoring</code> method. Enter as a parameter the information after how
+        many visits to the website the modal should appear. Click start button 3 times to test this
+        feature.
+      </p>
+
+      <!--Section: Demo-->
+      <section class="border p-4 d-flex justify-content-evenly mb-4">
+        <button id="show-modal-after-next-visit-button" type="button" class="btn btn-primary">
+          Show Modal
+        </button>
+        <button id="reset-show-modal-after-next-visit-button" type="button" class="btn btn-primary">
+          Reset
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="show-after-next-visit-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="show-after-next-visit-modal">
+                  This model shows up after the third visit to the page.
+                </h5>
+                <button type="button" class="close" data-mdb-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                This model will not appear again until you press the reset button.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+      </section>
+      <!--Section: Demo-->
+
+      <!--Section: Code-->
+      <section>
+        <!-- prettier-ignore -->
+        <mdbsnippet>
+          <code data-lang="HTML" data-name="template">
+            <template>
+              <MDBBtn color="primary" @click="setNextVisitCookie">
+                Show modal
+              </MDBBtn>
+              <MDBBtn color="primary" @click="resetNextVisitCookie">
+                Reset
+              </MDBBtn>
+
+              <MDBModal
+                id="nextVisitModal"
+                tabindex="-1"
+                labelledby="nextVisitModalLabel"
+                v-model="nextVisitModal"
+              >
+                <MDBModalHeader>
+                  <MDBModalTitle id="nextVisitModalLabel">
+                    This model shows up after the third visit to the page.
+                  </MDBModalTitle>
+                </MDBModalHeader>
+                <MDBModalBody>
+                  This model will not appear again until you press the reset
+                  button and refresh the page
+                </MDBModalBody>
+                <MDBModalFooter>
+                  <MDBBtn color="secondary" @click="nextVisitModal = false"
+                    >Close</MDBBtn
+                  >
+                </MDBModalFooter>
+              </MDBModal>
+            </template>
+          </code>
+          <code data-lang="js" data-name="script">
+            <script>
+              import { inject, ref } from "vue";
+              import { MDBBtn, MDBModal, MDBModalHeader, MDBModalTitle, MDBModalBody, MDBModalFooter } from 'mdb-vue-ui-kit';
+
+              export default {
+                components: {
+                  MDBBtn,
+                  MDBModal,
+                  MDBModalHeader,
+                  MDBModalTitle,
+                  MDBModalBody,
+                  MDBModalFooter
+                },
+                setup() {
+                  const Cookie = inject("MDBCookies");
+
+                  const nextVisitModal = ref(false);
+                  const setNextVisitCookie = () => {
+                    Cookie.showModalScoring(nextVisitModal, 3);
+                  };
+                  const resetNextVisitCookie = () => {
+                    Cookie.remove("visit-counter");
+                  };
+
+                  return {
+                    nextVisitModal,
+                    setNextVisitCookie,
+                    resetNextVisitCookie,
+                  };
+                },
+              };
+            </script>
+          </code>
+        </mdbsnippet>
+      </section>
+      <!--Section: Code-->
+    </section>
+    <!--Subsection: Show modal after next visit example -->
+  </section>
+  <!--Section: Advanced example -->
+</section>
+<!--Section: Docs content-->

@@ -1,0 +1,3531 @@
+<link
+  rel="stylesheet"
+  href="<?php echo get_template_directory_uri() ?>/css/mdb5/plugins/table-editor.min.css?v=
+  <?= STANDARD_DOCS_BUNDLE_VERSION; ?>"
+/>
+
+<!--Section: Docs content-->
+<section class="mdb-docs-content-pro">
+  <!--Section: Introduction-->
+  <section id="section-introduction">
+    <!-- Main title -->
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+      <span>    
+        <a href="/docs/b5/angular/pro/" role="button">
+            <i class="far fa-xs fa-gem ms-1 text-danger"></i>
+        </a>
+      </span> 
+    </h2>
+
+    <!-- Seo title -->
+    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+
+    <!-- Description -->
+    <p>
+      Table Editor is a useful tool for displaying and managing data. The component works similarly
+      to the Datatable (<a href="https://mdbootstrap.com/docs/b5/angular/data/datatables/">docs</a>)
+      with an additional column for action buttons.
+    </p>
+
+    <p><?= $data_var['description']; ?></p>
+
+    <p class="note note-light">
+      <strong>Note:</strong> 
+      Examples use additional components such as 
+      <a href="https://mdbootstrap.com/docs/b5/angular/data/datatables">Datatables</a>, 
+      <a href="https://mdbootstrap.com/docs/b5/angular/components/modal/">Modal</a>, 
+      <a href="https://mdbootstrap.com/docs/b5/angular/components/alerts/">Alerts</a> and 
+      <a href="https://mdbootstrap.com/docs/b5/angular/components/popconfirm/">Popconfirm</a>. Remember to import them.
+    </p>
+
+    <span class="dpl-newmdb-docs-alert-advanced"></span>
+  </section>
+  <!--Section: Introduction-->
+
+  <hr class="my-5" />
+
+  <!--Section: Basic example-->
+  <section id="section-basic-example">
+    <!-- Section title -->
+    <h2 class="mb-4">Basic example</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="d-flex justify-content-end mb-4">
+        <div class="form-outline">
+          <input
+            data-mdb-search
+            data-mdb-target="#table_1"
+            type="text"
+            id="search_table_1"
+            class="form-control"
+          />
+          <label class="form-label" for="search_table_1">Search</label>
+        </div>
+        <button class="btn btn-primary btn-sm ms-3" data-mdb-add-entry data-mdb-target="#table_1">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      <hr />
+      <div
+        class="table-editor"
+        id="table_1"
+        data-mdb-entries="5"
+        data-mdb-entries-options="[5, 10, 15]"
+      >
+        <table>
+          <thead>
+            <tr>
+              <th class="th-sm" data-mdb-width="250">Company</th>
+              <th class="th-sm" data-mdb-width="250" data-mdb-sort="false">Address</th>
+              <th class="th-sm" data-mdb-width="250" data-mdb-sort="false">Employees</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Smith & Johnson</td>
+              <td>Park Lane 2, London</td>
+              <td>30</td>
+            </tr>
+            <tr>
+              <td>P.J. Company</td>
+              <td>Oak Street 7, Aberdeen</td>
+              <td>80</td>
+            </tr>
+            <tr>
+              <td>Food & Wine</td>
+              <td>Netherhall Gardens 3, Hampstead</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <td>IT Service</td>
+              <td>Warwick Road 14, London</td>
+              <td>17</td>
+            </tr>
+            <tr>
+              <td>A. Jonson Gallery</td>
+              <td>Oaklands Avenue 2, London</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>F.A. Architects</td>
+              <td>Frognal Way 7, Hampstead</td>
+              <td>4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="d-flex justify-content-end mb-4">
+            <mdb-form-control>
+              <input
+                mdbInput
+                type="text"
+                class="form-control"
+                id="search-input"
+                [disabled]="editElementIndex !== -1"
+                (keyup)="search($event)"
+              />
+              <label mdbLabel class="form-label" for="search-input">Search</label>
+            </mdb-form-control>
+            <button
+              MdbRiple
+              class="btn btn-primary btn-sm ms-3"
+              [disabled]="editElementIndex !== -1"
+              (click)="addRow=true"  
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <hr />
+          <div class="datatable table-editor mt-4">
+            <table
+              class="table datatable-table"
+              mdbTable
+              mdbTableSort
+              #table="mdbTable"
+              #sort="mdbTableSort"
+              [dataSource]="dataSource"
+              [sort]="sort"
+              [pagination]="pagination"
+            >
+              <thead class="datatable-header">
+                <tr>
+                  <th
+                    *ngFor="let header of headers"
+                    [mdbTableSortHeader]="header"
+                    scope="col"
+                  >
+                    {{ header | titlecase }}
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="datatable-body">
+                <tr *ngIf="addRow"
+                  scope="row"
+                >
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.company=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.address=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.employees=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <button
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addNewRow()"
+                    >
+                      <i class="fa fa-check"></i>
+                    </button>
+                    <button 
+                      class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addRow=false"
+                    >
+                      <i class="fa fa-ban"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="let data of table.data; let index = index"
+                  scope="row"
+                >
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.company }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.company"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.address }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.address"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.employees }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.employees"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex === -1 || editElementIndex !== index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=index"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="onDeleteClick(data)"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"
+                      >
+                        <i class="fa fa-trash-alt"></i>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-check"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-ban"></i>
+                      </button>
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <mdb-table-pagination #pagination [entries]="5"></mdb-table-pagination>
+          </div>
+        </code>
+        <code data-lang="js" data-name="TypeScript">
+          import { Component, ViewChild } from '@angular/core';
+
+          export interface Person {
+            company: string,
+            address: string,
+            employees: number,
+          }
+          
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+
+          export class AppComponent {
+            @ViewChild('table') table: MdbTableDirective<Person>;
+
+            editElementIndex = -1;
+            addRow = false;
+
+            newRow = {
+              company: '',
+              address: '',
+              employees: 0,
+            };
+
+            headers = ['Company', 'Address', 'Employees'];
+
+            dataSource: Person[] = [
+              {
+                company: 'Smith & Johnson',
+                address: 'Park Lane 2, London',
+                employees: 30,
+              },
+              {
+                company: 'P.J. Company',
+                address: 'Oak Street 7, Aberdeen',
+                employees: 80,
+              },
+              {
+                company: 'Food & Wine',
+                address: 'Netherhall Gardens 3, Hampstead',
+                employees: 12,
+              },
+              {
+                company: 'IT Service',
+                address: 'Warwick Road 14, London',
+                employees: 17,
+              },
+              {
+                company: 'A. Jonson Gallery',
+                address: 'Oaklands Avenue 2, London',
+                employees: 4,
+              },
+              {
+                company: 'F.A. Architects',
+                address: 'Frognal Way 7, Hampsteadn',
+                employees: 4,
+              },
+            ];
+
+            constructor() {}
+
+            search(event: Event): void {
+              const searchTerm = (event.target as HTMLInputElement).value;
+              this.table.search(searchTerm);
+            }
+
+            addNewRow() {
+              this.dataSource = [...this.dataSource, {...this.newRow}];
+              this.newRow.company = '';
+              this.newRow.address = '';
+              this.newRow.employees = 0;
+              this.addRow = false;
+            }
+
+            onDeleteClick(data) {
+              const index = this.dataSource.indexOf(data);
+              this.dataSource.splice(index, 1);
+              this.dataSource = [...this.dataSource]
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Basic example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Modal-->
+  <section id="section-modal">
+    <!-- Section title -->
+    <h2 class="mb-4">Modal</h2>
+
+    <p class="note note-light">
+      <strong>Note:</strong> 
+      This example use <a href="https://mdbootstrap.com/docs/b5/angular/components/modal/">Modal</a>. Remember to import them.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="d-flex justify-content-end mb-4">
+        <div class="form-outline">
+          <input
+            data-mdb-search
+            data-mdb-target="#table_modal"
+            type="text"
+            id="search_modal"
+            class="form-control"
+          />
+          <label class="form-label" for="search_modal">Search</label>
+        </div>
+        <button
+          class="btn btn-primary btn-sm ms-3"
+          data-mdb-add-entry
+          data-mdb-target="#table_modal"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      <hr />
+      <div id="table_modal"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="App.Component.HTML">
+          <div class="d-flex justify-content-end mb-4">
+            <mdb-form-control>
+              <input
+                mdbInput
+                type="text"
+                class="form-control"
+                id="search-input"
+                (keyup)="search($event)"
+              />
+              <label mdbLabel class="form-label" for="search-input">Search</label>
+            </mdb-form-control>
+            <button
+              MdbRiple
+              class="btn btn-primary btn-sm ms-3"
+              (click)="openModal('add')"  
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <hr />
+          <div class="datatable table-editor mt-4">
+            <table
+              class="table datatable-table"
+              mdbTable
+              mdbTableSort
+              #table="mdbTable"
+              #sort="mdbTableSort"
+              [dataSource]="dataSource"
+              [sort]="sort"
+              [pagination]="pagination"
+            >
+              <thead class="datatable-header">
+                <tr>
+                  <th
+                    *ngFor="let header of headers"
+                    [mdbTableSortHeader]="header"
+                    scope="col"
+                  >
+                    {{ header | titlecase }}
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="datatable-body">
+                <tr
+                  *ngFor="let data of table.data; let index = index"
+                  scope="row"
+                >
+                  <td style="min-width: 250px; max-width: 250px">
+                    {{ data.company }}
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    {{ data.office }}
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    {{ data.employees }}
+                  </td>
+                  <td style="min-width: 100px; max-width: 100px">
+                    {{ data.international }}
+                  </td>
+  
+                  <td>
+                    <button
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="openModal('edit', data)"
+                    >
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <button 
+                      class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="onDeleteClick(data)"
+                    >
+                      <i class="fa fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <mdb-table-pagination #pagination [entries]="5"></mdb-table-pagination>
+          </div>
+        </code>
+        <code data-lang="JS" data-name="App.Component.TS">
+          import { Component, ViewChild } from '@angular/core';
+          import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+          import { ModalComponent } from 'your-path-to-modal-component';
+
+          export interface Person {
+            company: string,
+            office: string,
+            employees: number,
+            international: boolean,
+          }
+          
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+
+          export class AppComponent {
+            @ViewChild('table') table: MdbTableDirective<Person>;
+
+            modalRef: MdbModalRef<ModalComponent>;
+
+            newRow = {
+              company: '',
+              office: '',
+              employees: 0,
+              international: false,
+            };
+
+            headers = ['Company', 'Office', 'Employees', 'International'];
+
+            dataSource: Person[] = [
+              {
+                company: 'Smith & Johnson',
+                office: 'London',
+                employees: 30,
+                international: true,
+              },
+              {
+                company: 'P.J. Company',
+                office: 'London',
+                employees: 80,
+                international: false,
+              },
+              {
+                company: 'Food & Wine',
+                office: 'London',
+                employees: 12,
+                international: false,
+              },
+              {
+                company: 'IT Service',
+                office: 'London',
+                employees: 17,
+                international: false,
+              },
+              {
+                company: 'A. Jonson Gallery',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+              {
+                company: 'F.A. Architects',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+            ];
+
+            constructor(private modalService: MdbModalService) {}
+
+            search(event: Event): void {
+              const searchTerm = (event.target as HTMLInputElement).value;
+              this.table.search(searchTerm);
+            }
+
+            openModal(mode, data?) {
+              this.modalRef = this.modalService.open(ModalComponent, { data: {
+                modalTitle: mode === 'edit' ? 'Edit item' : 'New item',
+                company: data ? data.company : '',
+                office: data ? data.office : 'Warsaw',
+                employees: data ? data.employees : 1,
+                international: data ? data.international : false,
+              }})
+          
+              this.modalRef.onClose.subscribe((modalData: Person) => {
+                if (!modalData) {
+                  return;
+                }
+          
+                if (mode === 'add') {
+                  this.dataSource = [...this.dataSource, {...modalData}];
+                } else {
+                  const index = this.dataSource.indexOf(data)
+          
+                  this.dataSource[index] = modalData;
+                  this.dataSource = [...this.dataSource]
+                }
+              });
+            }
+
+            onDeleteClick(data) {
+              const index = this.dataSource.indexOf(data);
+              this.dataSource.splice(index, 1);
+              this.dataSource = [...this.dataSource]
+            }
+          }
+        </code>
+        <code data-lang="html" data-name="Modal.Component.HTML">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+            <button
+              type="button"
+              class="btn-close"
+              aria-label="Close"
+              (click)="modalRef.close()"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="my-4 table-editor_input-wrapper">
+              <mdb-form-control>
+                <input mdbInput type="text" id="company-input" class="form-control" [(ngModel)]="company" />
+                <label mdbLabel class="form-label" for="company-input">Company</label>
+              </mdb-form-control>
+            </div>
+            <div class="my-4 table-editor_input-wrapper">
+              <mdb-form-control>
+                <mdb-select [(ngModel)]="office">
+                  <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                    option.label
+                  }}</mdb-option>
+                </mdb-select>
+                <label mdbLabel class="form-label">Office</label>
+              </mdb-form-control>
+            </div>
+            <div class="my-4 table-editor_input-wrapper">
+              <mdb-form-control>
+                <input mdbInput type="text" id="employees-input" class="form-control" [(ngModel)]="employees"/>
+                <label mdbLabel class="form-label" for="employees-input">Employees</label>
+              </mdb-form-control>
+            </div>
+            <div class="my-4 table-editor_input-wrapper">
+              <div class="form-check ms-1 mt-1">
+                <input
+                  mdbCheckbox
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="international-checkbox"
+                  [(ngModel)]="international"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  International
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="shadow-0 btn btn-md btn-outline-primary" (click)="modalRef.close()">
+              Cancel
+            </button>
+            <button type="button" class="shadow-0 btn btn-md btn-primary" (click)="saveData()">Save</button>
+          </div>
+        </code>
+        <code data-lang="js" data-name="Modal.Component.TS">
+          import { Component, OnInit } from '@angular/core';
+          import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+
+          @Component({
+            selector: 'app-table-editor-modal',
+            templateUrl: './table-editor-modal.component.html',
+            styleUrls: ['./table-editor-modal.component.scss']
+          })
+          export class ModalComponent implements OnInit {
+            modalTitle;
+            company;
+            office;
+            employees;
+            international;
+
+            options = [
+              { value: 'London', label: 'London' },
+              { value: 'Warsaw', label: 'Warsaw' },
+              { value: 'New York', label: 'New York' },
+            ];
+
+            constructor(public modalRef: MdbModalRef<ModalComponent>) {}
+
+            ngOnInit(): void {
+            }
+
+            saveData(): void {
+              const closeMessage = {
+                company: this.company,
+                office: this.office,
+                employees: this.employees,
+                international: this.international
+              };
+
+              this.modalRef.close(closeMessage)
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Modal-->
+
+  <hr class="my-5" />
+
+  <!--Section: Inputs example-->
+  <section id="section-inputs">
+    <!-- Section title -->
+    <h2 class="mb-4">Inputs example</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="d-flex justify-content-end mb-4">
+        <div class="form-outline">
+          <input
+            data-mdb-search
+            data-mdb-target="#table_inputs"
+            type="text"
+            id="search_table_inputs"
+            class="form-control"
+          />
+          <label class="form-label" for="search_table_inputs">Search</label>
+        </div>
+        <button
+          class="btn btn-primary btn-sm ms-3"
+          data-mdb-add-entry
+          data-mdb-target="#table_inputs"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      <hr />
+      <div id="table_inputs"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="d-flex justify-content-end mb-4">
+            <mdb-form-control>
+              <input
+                mdbInput
+                type="text"
+                class="form-control"
+                id="search-input"
+                [disabled]="editElementIndex !== -1"
+                (keyup)="search($event)"
+              />
+              <label mdbLabel class="form-label" for="search-input">Search</label>
+            </mdb-form-control>
+            <button
+              MdbRiple
+              class="btn btn-primary btn-sm ms-3"
+              [disabled]="editElementIndex !== -1"
+              (click)="addRow=true"  
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <hr />
+          <div class="datatable table-editor mt-4">
+            <table
+              class="table datatable-table"
+              mdbTable
+              mdbTableSort
+              #table="mdbTable"
+              #sort="mdbTableSort"
+              [dataSource]="dataSource"
+              [sort]="sort"
+              [pagination]="pagination"
+            >
+              <thead class="datatable-header">
+                <tr>
+                  <th
+                    *ngFor="let header of headers"
+                    [mdbTableSortHeader]="header"
+                    scope="col"
+                  >
+                    {{ header | titlecase }}
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="datatable-body">
+                <tr *ngIf="addRow"
+                  scope="row"
+                >
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.company=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <mdb-select [(ngModel)]="newRow.office">
+                        <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                          option.label
+                        }}</mdb-option>
+                      </mdb-select>
+                      <label mdbLabel class="form-label">Office</label>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="number" class="form-control" [value]=0 (keyup)="newRow.employees=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <div class="form-check ms-1 mt-1">
+                      <input
+                        mdbCheckbox
+                        class="form-check-input"
+                        type="checkbox"
+                        (change)="newRow.international=$event.target.checked"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addNewRow()"  
+                    >
+                      <i class="fa fa-check"></i>
+                    </button>
+                    <button 
+                      class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addRow=false"
+                    >
+                      <i class="fa fa-ban"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="let data of table.data; let index = index"
+                  scope="row"
+                >
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.company }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.company"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.office }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <mdb-select [(ngModel)]="data.office">
+                          <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                            option.label
+                          }}</mdb-option>
+                        </mdb-select>
+                        <label mdbLabel class="form-label">Office</label>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.employees }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="number" class="form-control" [(ngModel)]="data.employees"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.international }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <div class="form-check ms-1 mt-1">
+                        <input
+                          mdbCheckbox
+                          class="form-check-input"
+                          type="checkbox"
+                          [(ngModel)]="data.international"
+                        />
+                      </div>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex === -1 || editElementIndex !== index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=index"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="onInputsExampleDeleteClick(data)"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-trash-alt"></i>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-check"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-ban"></i>
+                      </button>
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <mdb-table-pagination #pagination [entries]="5"></mdb-table-pagination>
+          </div>
+        </code>
+        <code data-lang="JS" data-name="TypeScript">
+          import { Component, ViewChild } from '@angular/core';
+
+          export interface Person {
+            company: string,
+            office: string,
+            employees: number,
+            international: boolean,
+          }
+          
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+
+          export class AppComponent {
+            @ViewChild('table') table: MdbTableDirective<Person>;
+
+            editElementIndex = -1;
+            addRow = false;
+
+            newRow = {
+              company: '',
+              office: '',
+              employees: 0,
+              international: false,
+            };
+
+            options = [
+              { value: 'London', label: 'London' },
+              { value: 'Warsaw', label: 'Warsaw' },
+              { value: 'New York', label: 'New York' },
+            ];
+
+            headers = ['Company', 'Office', 'Employees', 'International'];
+
+            dataSource: Person[] = [
+              {
+                company: 'Smith & Johnson',
+                office: 'London',
+                employees: 30,
+                international: true,
+              },
+              {
+                company: 'P.J. Company',
+                office: 'London',
+                employees: 80,
+                international: false,
+              },
+              {
+                company: 'Food & Wine',
+                office: 'London',
+                employees: 12,
+                international: false,
+              },
+              {
+                company: 'IT Service',
+                office: 'London',
+                employees: 17,
+                international: false,
+              },
+              {
+                company: 'A. Jonson Gallery',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+              {
+                company: 'F.A. Architects',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+            ];
+
+            constructor() {}
+
+            search(event: Event): void {
+              const searchTerm = (event.target as HTMLInputElement).value;
+              this.table.search(searchTerm);
+            }
+
+            addNewRow() {
+              this.dataSource = [...this.dataSource, {...this.newRow}];
+              this.newRow.company = '';
+              this.newRow.address = '';
+              this.newRow.employees = 0;
+              this.addRow = false;
+            }
+
+            onDeleteClick(data) {
+              const index = this.dataSource.indexOf(data);
+              this.dataSource.splice(index, 1);
+              this.dataSource = [...this.dataSource]
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Inputs example-->
+
+  <hr class="my-5" />
+
+  <!--Section: Disable edit-->
+  <section id="section-disable-edit">
+    <!-- Section title -->
+    <h2 class="mb-4">Disable edit</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="d-flex justify-content-end mb-4">
+        <div class="form-outline">
+          <input
+            data-mdb-search
+            data-mdb-target="#table_disable_edit"
+            type="text"
+            id="search_disable_edit"
+            class="form-control"
+          />
+          <label class="form-label" for="search_disable_edit">Search</label>
+        </div>
+        <button
+          class="btn btn-primary btn-sm ms-3"
+          data-mdb-add-entry
+          data-mdb-target="#table_disable_edit"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      <hr />
+      <div id="table_disable_edit"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="d-flex justify-content-end mb-4">
+            <mdb-form-control>
+              <input
+                mdbInput
+                type="text"
+                class="form-control"
+                id="search-input"
+                [disabled]="editElementIndex !== -1"
+                (keyup)="search($event)"
+              />
+              <label mdbLabel class="form-label" for="search-input">Search</label>
+            </mdb-form-control>
+            <button
+              MdbRiple
+              class="btn btn-primary btn-sm ms-3"
+              [disabled]="editElementIndex !== -1"
+              (click)="addRow=true"  
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <hr />
+          <div class="datatable table-editor mt-4">
+            <table
+              class="table datatable-table"
+              mdbTable
+              mdbTableSort
+              #table="mdbTable"
+              #sort="mdbTableSort"
+              [dataSource]="dataSource"
+              [sort]="sort"
+              [pagination]="pagination"
+            >
+              <thead class="datatable-header">
+                <tr>
+                  <th
+                    *ngFor="let header of headers"
+                    [mdbTableSortHeader]="header"
+                    scope="col"
+                  >
+                    {{ header | titlecase }}
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="datatable-body">
+                <tr *ngIf="addRow"
+                  scope="row"
+                >
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.company=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <mdb-select [(ngModel)]="newRow.office">
+                        <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                          option.label
+                        }}</mdb-option>
+                      </mdb-select>
+                      <label mdbLabel class="form-label">Office</label>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="number" class="form-control" [value]=0 (keyup)="newRow.employees=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <div class="form-check ms-1 mt-1">
+                      <input
+                        mdbCheckbox
+                        class="form-check-input"
+                        type="checkbox"
+                        (change)="newRow.international=$event.target.checked"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addNewRow()"  
+                    >
+                      <i class="fa fa-check"></i>
+                    </button>
+                    <button 
+                      class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addRow=false"
+                    >
+                      <i class="fa fa-ban"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="let data of table.data; let index = index"
+                  scope="row"
+                >
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.company }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.company" disabled/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.office }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <mdb-select [(ngModel)]="data.office" [disabled]="true">
+                          <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                            option.label
+                          }}</mdb-option>
+                        </mdb-select>
+                        <label mdbLabel class="form-label">Office</label>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.employees }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="number" class="form-control" [(ngModel)]="data.employees" disabled/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.international }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <div class="form-check ms-1 mt-1">
+                        <input
+                          mdbCheckbox
+                          class="form-check-input"
+                          type="checkbox"
+                          [(ngModel)]="data.international"
+                          disabled
+                        />
+                      </div>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex === -1 || editElementIndex !== index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=index"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="onDeleteClick(data)"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-trash-alt"></i>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-check"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-ban"></i>
+                      </button>
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <mdb-table-pagination #pagination [entries]="5"></mdb-table-pagination>
+          </div>
+        </code>
+        <code data-lang="JS" data-name="TypeScript">
+          import { Component, ViewChild } from '@angular/core';
+
+          export interface Person {
+            company: string,
+            office: string,
+            employees: number,
+            international: boolean,
+          }
+          
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+
+          export class AppComponent {
+            @ViewChild('table') table: MdbTableDirective<Person>;
+
+            editElementIndex = -1;
+            addRow = false;
+
+            newRow = {
+              company: '',
+              office: '',
+              employees: 0,
+              international: false,
+            };
+
+            options = [
+              { value: 'London', label: 'London' },
+              { value: 'Warsaw', label: 'Warsaw' },
+              { value: 'New York', label: 'New York' },
+            ];
+
+            headers = ['Company', 'Office', 'Employees', 'International'];
+
+            dataSource: Person[] = [
+              {
+                company: 'Smith & Johnson',
+                office: 'London',
+                employees: 30,
+                international: true,
+              },
+              {
+                company: 'P.J. Company',
+                office: 'London',
+                employees: 80,
+                international: false,
+              },
+              {
+                company: 'Food & Wine',
+                office: 'London',
+                employees: 12,
+                international: false,
+              },
+              {
+                company: 'IT Service',
+                office: 'London',
+                employees: 17,
+                international: false,
+              },
+              {
+                company: 'A. Jonson Gallery',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+              {
+                company: 'F.A. Architects',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+            ];
+
+            constructor() {}
+
+            search(event: Event): void {
+              const searchTerm = (event.target as HTMLInputElement).value;
+              this.table.search(searchTerm);
+            }
+
+            addNewRow() {
+              this.dataSource = [...this.dataSource, {...this.newRow}];
+              this.newRow.company = '';
+              this.newRow.address = '';
+              this.newRow.employees = 0;
+              this.addRow = false;
+            }
+
+            onDeleteClick(data) {
+              const index = this.dataSource.indexOf(data);
+              this.dataSource.splice(index, 1);
+              this.dataSource = [...this.dataSource]
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Disable edit-->
+
+  <hr class="my-5" />
+
+  <!--Section: Confirm delete-->
+  <section id="section-confirm-delete">
+    <!-- Section title -->
+    <h2 class="mb-4">Confirm delete</h2>
+
+    <p class="note note-light">
+      <strong>Note:</strong> 
+      This example use <a href="https://mdbootstrap.com/docs/b5/angular/components/popconfirm/">Popconfirm</a>. Remember to import them.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="d-flex justify-content-end mb-4">
+        <div class="form-outline">
+          <input
+            data-mdb-search
+            data-mdb-target="#table_confirm_delete"
+            type="text"
+            id="search_confirm_delete"
+            class="form-control"
+          />
+          <label class="form-label" for="search_confirm_delete">Search</label>
+        </div>
+        <button
+          class="btn btn-primary btn-sm ms-3"
+          data-mdb-add-entry
+          data-mdb-target="#table_confirm_delete"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      <hr />
+      <div id="table_confirm_delete"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="App.Component.HTML">
+          <div class="d-flex justify-content-end mb-4">
+            <mdb-form-control>
+              <input
+                mdbInput
+                type="text"
+                class="form-control"
+                id="search-input"
+                [disabled]="editElementIndex !== -1"
+                (keyup)="search($event)"
+              />
+              <label mdbLabel class="form-label" for="search-input">Search</label>
+            </mdb-form-control>
+            <button
+              MdbRiple
+              class="btn btn-primary btn-sm ms-3"
+              [disabled]="editElementIndex !== -1"
+              (click)="addRow=true"  
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <hr />
+          <div class="datatable table-editor mt-4">
+            <table
+              class="table datatable-table"
+              mdbTable
+              mdbTableSort
+              #table="mdbTable"
+              #sort="mdbTableSort"
+              [dataSource]="dataSource"
+              [sort]="sort"
+              [pagination]="pagination"
+            >
+              <thead class="datatable-header">
+                <tr>
+                  <th
+                    *ngFor="let header of headers"
+                    [mdbTableSortHeader]="header"
+                    scope="col"
+                  >
+                    {{ header | titlecase }}
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="datatable-body">
+                <tr *ngIf="addRow"
+                  scope="row"
+                >
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.company=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <mdb-select [(ngModel)]="newRow.office">
+                        <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                          option.label
+                        }}</mdb-option>
+                      </mdb-select>
+                      <label mdbLabel class="form-label">Office</label>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="number" class="form-control" [value]=0 (keyup)="newRow.employees=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <div class="form-check ms-1 mt-1">
+                      <input
+                        mdbCheckbox
+                        class="form-check-input"
+                        type="checkbox"
+                        (change)="newRow.international=$event.target.checked"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addNewRow()"  
+                    >
+                      <i class="fa fa-check"></i>
+                    </button>
+                    <button 
+                      class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addRow=false"
+                    >
+                      <i class="fa fa-ban"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="let data of table.data; let index = index"
+                  scope="row"
+                >
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.company }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.company"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.office }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <mdb-select [(ngModel)]="data.office">
+                          <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                            option.label
+                          }}</mdb-option>
+                        </mdb-select>
+                        <label mdbLabel class="form-label">Office</label>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.employees }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="number" class="form-control" [(ngModel)]="data.employees"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.international }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <div class="form-check ms-1 mt-1">
+                        <input
+                          mdbCheckbox
+                          class="form-check-input"
+                          type="checkbox"
+                          [(ngModel)]="data.international"
+                        />
+                      </div>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex === -1 || editElementIndex !== index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=index"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="openPopconfirm($event.target, data)"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-trash-alt"></i>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-check"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-ban"></i>
+                      </button>
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <mdb-table-pagination #pagination [entries]="5"></mdb-table-pagination>
+          </div>
+        </code>
+        <code data-lang="JS" data-name="App.Component.ts">
+          import { Component, ViewChild } from '@angular/core';
+          import { MdbPopconfirmRef, MdbPopconfirmService } from 'mdb-angular-ui-kit/popconfirm';
+          import { PopconfirmComponent } from 'your-path-to-popconfirm-component';
+
+          export interface Person {
+            company: string,
+            office: string,
+            employees: number,
+            international: boolean,
+          }
+          
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+
+          export class AppComponent {
+            @ViewChild('table') table: MdbTableDirective<Person>;
+
+            popconfirmRef: MdbPopconfirmRef<PopconfirmComponent>;
+
+            editElementIndex = -1;
+            addRow = false;
+
+            newRow = {
+              company: '',
+              office: '',
+              employees: 0,
+              international: false,
+            };
+
+            headers = ['Company', 'Office', 'Employees', 'International'];
+
+            options = [
+              { value: 'London', label: 'London' },
+              { value: 'Warsaw', label: 'Warsaw' },
+              { value: 'New York', label: 'New York' },
+            ]
+
+            dataSource: Person[] = [
+              {
+                company: 'Smith & Johnson',
+                office: 'London',
+                employees: 30,
+                international: true,
+              },
+              {
+                company: 'P.J. Company',
+                office: 'London',
+                employees: 80,
+                international: false,
+              },
+              {
+                company: 'Food & Wine',
+                office: 'London',
+                employees: 12,
+                international: false,
+              },
+              {
+                company: 'IT Service',
+                office: 'London',
+                employees: 17,
+                international: false,
+              },
+              {
+                company: 'A. Jonson Gallery',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+              {
+                company: 'F.A. Architects',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+            ];
+
+            constructor(private popconfirmService: MdbPopconfirmService) {}
+
+            search(event: Event): void {
+              const searchTerm = (event.target as HTMLInputElement).value;
+              this.table.search(searchTerm);
+            }
+
+            addNewRow() {
+              this.dataSource = [...this.dataSource, {...this.newRow}];
+              this.newRow.company = '';
+              this.newRow.address = '';
+              this.newRow.employees = 0;
+              this.addRow = false;
+            }
+
+            onDeleteClick(data) {
+              const index = this.dataSource.indexOf(data);
+              this.dataSource.splice(index, 1);
+              this.dataSource = [...this.dataSource]
+            }
+
+            openPopconfirm(target, data) {
+              this.popconfirmRef = this.popconfirmService.open(PopconfirmComponent, target,  { data: { data: data}});
+              this.popconfirmRef.onClose.subscribe(() => {
+                this.editElementIndex = -1
+              });
+              this.popconfirmRef.onConfirm.subscribe((data) => {
+                this.onDeleteClick(data)
+              });
+            }
+          }
+        </code>
+        <code data-lang="html" data-name="Popconfirm.Component.HTML">
+          <div class="popconfirm-popover shadow-4">
+            <div class="popconfirm">
+              <p class="popconfirm-message">
+                <span class="popconfirm-message-text">Are you sure you want to delete this entry?</span>
+              </p>
+              <div class="popconfirm-buttons-container">
+                <button (click)="popconfirmRef.close()" type="button" aria-label="Cancel" class="btn btn-flat btn-sm">
+                  Cancel
+                </button>
+                <button (click)="popconfirmRef.confirm(data)" type="button" aria-label="Confirm" class="btn btn-primary btn-sm">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </code>
+        <code data-lang="js" data-name="Popconfirm.Component.TS">
+          import { Component, OnInit } from '@angular/core';
+          import { MdbPopconfirmRef } from 'mdb-angular-ui-kit/popconfirm';
+
+          @Component({
+            selector: 'app-table-editor-popconfirm',
+            templateUrl: './table-editor-popconfirm.component.html'
+          })
+          export class PopconfirmComponent implements OnInit {
+            data;
+            
+            constructor(public popconfirmRef: MdbPopconfirmRef<TableEditorPopconfirmComponent>) {}
+
+            ngOnInit(): void {
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Confirm delete-->
+
+  <hr class="my-5" />
+
+  <!--Section: Advanced Search-->
+  <section id="section-advanced-search">
+    <!-- Section title -->
+    <h2 class="mb-4">Advanced Search</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="d-flex justify-content-between mb-4">
+        <div class="d-flex">
+          <div class="form-outline">
+            <input type="text" id="search_advanced" class="form-control" />
+            <label class="form-label" for="search_advanced">Search</label>
+          </div>
+          <div class="px-3 mt-1">in:</div>
+          <div>
+            <select class="select" id="search_advanced_select">
+              <option value="">All columns</option>
+              <option value="company">Company</option>
+              <option value="office">Office</option>
+            </select>
+          </div>
+          <button id="search_advanced_btn" class="btn btn-outline-primary btn-sm mx-2">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+        <button
+          class="btn btn-primary btn-sm ms-3"
+          data-mdb-add-entry
+          data-mdb-target="#table_advanced_search"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      <hr />
+      <div id="table_advanced_search"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="d-flex justify-content-between mb-4">
+            <div class="d-flex">
+              <mdb-form-control>
+                <input
+                  mdbInput
+                  type="text"
+                  class="form-control"
+                  id="search-input"
+                  [disabled]="editElementIndex !== -1"
+                  #searchInput
+                />
+                <label mdbLabel class="form-label" for="search-input">Search</label>
+              </mdb-form-control>
+              <div class="px-3 mt-1">in:</div>
+              <mdb-form-control>
+                <mdb-select [(ngModel)]="selectValue" [disabled]="editElementIndex !== -1">
+                  <mdb-option [value]="'all'">All columns</mdb-option>
+                  <mdb-option [value]="'company'">Company</mdb-option>
+                  <mdb-option [value]="'office'">Office</mdb-option>
+                </mdb-select>
+              </mdb-form-control>
+              <button
+                class="btn btn-outline-primary btn-sm mx-2"
+                (click)="advancedSearchExampleSearch(searchInput.value)" 
+                [disabled]="editElementIndex !== -1" 
+              >
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+            <button
+              MdbRiple
+              class="btn btn-primary btn-sm ms-3"
+              [disabled]="editElementIndex !== -1"
+              (click)="addRow=true"  
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <hr />
+          <div class="datatable table-editor mt-4">
+            <table
+              class="table datatable-table"
+              mdbTable
+              mdbTableSort
+              #table="mdbTable"
+              #sort="mdbTableSort"
+              [dataSource]="dataSource"
+              [sort]="sort"
+              [pagination]="pagination"
+              [filterFn]="filterFn"
+            >
+              <thead class="datatable-header">
+                <tr>
+                  <th
+                    *ngFor="let header of headers"
+                    [mdbTableSortHeader]="header"
+                    scope="col"
+                  >
+                    {{ header | titlecase }}
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="datatable-body">
+                <tr *ngIf="addRow"
+                  scope="row"
+                >
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.company=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <mdb-select [(ngModel)]="newRow.office">
+                        <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                          option.label
+                        }}</mdb-option>
+                      </mdb-select>
+                      <label mdbLabel class="form-label">Office</label>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="number" class="form-control" [value]=0 (keyup)="newRow.employees=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <div class="form-check ms-1 mt-1">
+                      <input
+                        mdbCheckbox
+                        class="form-check-input"
+                        type="checkbox"
+                        (change)="newRow.international=$event.target.checked"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addNewRow()"  
+                    >
+                      <i class="fa fa-check"></i>
+                    </button>
+                    <button 
+                      class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addRow=false"
+                    >
+                      <i class="fa fa-ban"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="let data of table.data; let index = index"
+                  scope="row"
+                >
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.company }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.company"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.office }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <mdb-select [(ngModel)]="data.office">
+                          <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                            option.label
+                          }}</mdb-option>
+                        </mdb-select>
+                        <label mdbLabel class="form-label">Office</label>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.employees }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="number" class="form-control" [(ngModel)]="data.employees"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.international }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <div class="form-check ms-1 mt-1">
+                        <input
+                          mdbCheckbox
+                          class="form-check-input"
+                          type="checkbox"
+                          [(ngModel)]="data.international"
+                        />
+                      </div>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex === -1 || editElementIndex !== index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=index"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="onDeleteClick($event.target, data)"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-trash-alt"></i>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-check"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-ban"></i>
+                      </button>
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <mdb-table-pagination #pagination [entries]="5"></mdb-table-pagination>
+          </div>
+        </code>
+        <code data-lang="JS" data-name="TypeScript">
+          import { Component, ViewChild } from '@angular/core';
+
+          export interface Person {
+            company: string,
+            office: string,
+            employees: number,
+            international: boolean,
+          }
+          
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+
+          export class AppComponent {
+            @ViewChild('table') table: MdbTableDirective<Person>;
+
+            editElementIndex = -1;
+            addRow = false;
+            advancedSearchSelectValue = 'all';
+
+            newRow = {
+              company: '',
+              office: '',
+              employees: 0,
+              international: false,
+            };
+
+            options = [
+              { value: 'London', label: 'London' },
+              { value: 'Warsaw', label: 'Warsaw' },
+              { value: 'New York', label: 'New York' },
+            ]
+
+            headers = ['Company', 'Office', 'Employees', 'International'];
+
+            dataSource: Person[] = [
+              {
+                company: 'Smith & Johnson',
+                office: 'London',
+                employees: 30,
+                international: true,
+              },
+              {
+                company: 'P.J. Company',
+                office: 'London',
+                employees: 80,
+                international: false,
+              },
+              {
+                company: 'Food & Wine',
+                office: 'London',
+                employees: 12,
+                international: false,
+              },
+              {
+                company: 'IT Service',
+                office: 'London',
+                employees: 17,
+                international: false,
+              },
+              {
+                company: 'A. Jonson Gallery',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+              {
+                company: 'F.A. Architects',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+            ];
+
+            constructor() {}
+
+            search(event: Event): void {
+              let searchTerm = value;
+
+              if (this.selectValue !== 'all') {
+                searchTerm = `${value} in: ${this.selectValue}`;
+              }
+          
+              this.table.search(searchTerm);
+            }
+
+            filterFn(data: any, searchTerm: string): boolean {
+              // tslint:disable-next-line: prefer-const
+              let [phrase, columns] = searchTerm.split(' in:').map((str) => str.trim());
+              return Object.keys(data).some((key: any) => {
+                if (columns?.length) {
+                  let result;
+                  columns.split(',').forEach((column) => {
+                    if (
+                      column.toLowerCase().trim() === key.toLowerCase() &&
+                      data[key].toLowerCase().includes(phrase.toLowerCase())
+                    ) {
+                      result = true;
+                    }
+                  });
+                  return result;
+                }
+                if (data[key] && !columns?.length) {
+                  return JSON.stringify(data).toLowerCase().includes(phrase.toLowerCase());
+                }
+              });
+            }
+
+            addNewRow() {
+              this.dataSource = [...this.dataSource, {...this.newRow}];
+              this.newRow.company = '';
+              this.newRow.address = '';
+              this.newRow.employees = 0;
+              this.addRow = false;
+            }
+
+            onDeleteClick(data) {
+              const index = this.dataSource.indexOf(data);
+              this.dataSource.splice(index, 1);
+              this.dataSource = [...this.dataSource]
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Advanced Search-->
+
+  <hr class="my-5" />
+
+  <!--Section: Async data-mdb-->
+  <section id="section-async-data">
+    <!-- Section title -->
+    <h2 class="mb-4">Async data</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="d-flex justify-content-between mb-4">
+        <button id="async_data_btn" class="btn btn-primary btn-sm">Load data</button>
+        <div class="d-flex">
+          <div class="form-outline">
+            <input
+              type="text"
+              data-mdb-search
+              data-mdb-target="#table_async_data"
+              id="search_async"
+              class="form-control"
+            />
+            <label class="form-label" for="search_async">Search</label>
+          </div>
+          <button
+            class="btn btn-primary btn-sm ms-3"
+            data-mdb-add-entry
+            data-mdb-target="#table_async_data"
+          >
+            <i class="fa fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      <hr />
+      <div id="table_async_data"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div class="d-flex justify-content-between mb-4">
+            <button class="btn btn-primary btn-sm" (click)="loadData()">
+              Load data
+            </button>
+            <div class="d-flex">
+              <mdb-form-control>
+                <input
+                  mdbInput
+                  type="text"
+                  class="form-control"
+                  id="search-input"
+                  [disabled]="editElementIndex !== -1 || loading"
+                  (keyup)="search($event)"
+                />
+                <label mdbLabel class="form-label" for="search-input">Search</label>
+              </mdb-form-control>
+              <button
+                MdbRiple
+                class="btn btn-primary btn-sm ms-3"
+                [disabled]="editElementIndex !== -1 || loading"
+                (click)="addRow=true"  
+              >
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          <hr />
+          <div class="datatable table-editor mt-4">
+            <table
+              class="table datatable-table"
+              mdbTable
+              mdbTableSort
+              #asyncDataExampleTable="mdbTable"
+              #sort="mdbTableSort"
+              [dataSource]="dataSource"
+              [responsive]="true"
+              [pagination]="pagination"
+              [sort]="sort"
+            >
+              <thead class="datatable-header">
+                <tr>
+                  <th
+                    *ngFor="let header of headers"
+                    [mdbTableSortHeader]="header"
+                    scope="col"
+                  >
+                    {{ header | titlecase }}
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="datatable-body" *ngIf="!loading">
+                <tr *ngIf="addRow"
+                  scope="row"
+                >
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.company.name=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.email=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.name=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.phone=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <button
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addNewRow()"  
+                    >
+                      <i class="fa fa-check"></i>
+                    </button>
+                    <button 
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addRow=false"
+                    >
+                      <i class="fa fa-ban"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="let data of asyncDataExampleTable.data; let index = index"
+                  scope="row"
+                >
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.company.name }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.company.name"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.email }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.email"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.name }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.name"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.phone }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.phone"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex === -1 || editElementIndex !== index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=index"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="onAsyncDataDeleteClick(data)"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-trash-alt"></i>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-check"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-ban"></i>
+                      </button>
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ng-container *ngIf="loading">
+              <div class="datatable-loader bg-light">
+                <span class="datatable-loader-inner">
+                  <span class="datatable-progress bg-primary"></span>
+                </span>
+              </div>
+              <p class="text-center text-muted my-4">Loading results...</p>
+            </ng-container>
+            <mdb-table-pagination #pagination [entries]="10"></mdb-table-pagination>
+          </div>
+        </code>
+        <code data-lang="JS" data-name="TypeScript">
+          import { Component, ViewChild } from '@angular/core';
+       
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+
+          export class AppComponent {
+            @ViewChild('table') table: MdbTableDirective<Person>;
+
+            dataUrl = 'https://jsonplaceholder.typicode.com/users';
+            loading = true;
+
+            editElementIndex = -1;
+            addRow = false;
+
+            newRow = {
+              company: {
+                name: '',
+              },
+              email: '',
+              name: '',
+              phone: '',
+            };
+
+            headers = ['Company', 'Email', 'Name', 'Phone'];
+
+            dataSource;
+
+            constructor(private _http: HttpClient) {}
+
+            loadData() {
+              this.getData().pipe(take(1)).subscribe((data) => {
+                this.asyncDataExampleDataSource = data;
+              })
+            }
+          
+            getData() {
+              return this._http.get<any>(this.dataUrl).pipe(
+                tap(() => (this.loading = false))
+              )
+            }
+
+            search(event: Event): void {
+              const searchTerm = (event.target as HTMLInputElement).value;
+              this.table.search(searchTerm);
+            }
+
+            addNewRow() {
+              this.dataSource = [...this.dataSource, {...this.newRow}];
+              this.newRow.company.name = '';
+              this.newRow.email = '';
+              this.newRow.name = '';
+              this.newRow.phone = '';
+              this.addRow = false;
+            }
+
+            onDeleteClick(data) {
+              const index = this.dataSource.indexOf(data);
+              this.dataSource.splice(index, 1);
+              this.dataSource = [...this.dataSource]
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Async data-mdb-->
+
+  <hr class="my-5" />
+
+  <!--Section: Custom rows-->
+  <section id="section-custom-rows">
+    <!-- Section title -->
+    <h2 class="mb-4">Custom rows</h2>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div id="template_list" class="row">
+        <div class="col-md-3 col-sm-6 p-3">
+          <h4>M.B.</h4>
+          <p>(5 Avenue 26, New York)</p>
+          <button
+            class="btn btn-primary btn-sm add-entry-button"
+            data-mdb-company="M.B."
+            data-mdb-address="5 Avenue 26"
+            data-mdb-city="New York"
+          >
+            Load into table
+          </button>
+        </div>
+        <div class="col-md-3 col-sm-6 p-3">
+          <h4>Berkley & Clark</h4>
+          <p>(43th Street 12, New York)</p>
+          <button
+            class="btn btn-primary btn-sm add-entry-button"
+            data-mdb-company="Berkley & Clark"
+            data-mdb-address="43th Street 12"
+            data-mdb-city="New York"
+          >
+            Load into table
+          </button>
+        </div>
+        <div class="col-md-3 col-sm-6 p-3">
+          <h4>D&D Inc.</h4>
+          <p>(14 Street 67, New York)</p>
+          <button
+            class="btn btn-primary btn-sm add-entry-button"
+            data-mdb-company="D&D Inc."
+            data-mdb-address="14 Street 67"
+            data-mdb-city="New York"
+          >
+            Load into table
+          </button>
+        </div>
+        <div class="col-md-3 col-sm-6 p-3">
+          <h4>Thomas & Co.</h4>
+          <p>(2 Avenue 54, New York)</p>
+          <button
+            class="btn btn-primary btn-sm add-entry-button"
+            data-mdb-company="Thomas & Co."
+            data-mdb-address="2 Avenue 54"
+            data-mdb-city="New York"
+          >
+            Load into table
+          </button>
+        </div>
+      </div>
+
+      <hr class="mt-3" />
+      <div id="table_custom_rows"></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <div id="template_list" class="row">
+            <div class="col-md-3 col-sm-6 p-3">
+              <h4>M.B.</h4>
+              <p>(5 Avenue 26, New York)</p>
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="loadCustomRowMB()"
+                [disabled]="customRowMBLoaded || addRow"
+              >
+                {{ customRowMBLoaded ? 'Loaded' : 'Load into table'}}
+              </button>
+            </div>
+            <div class="col-md-3 col-sm-6 p-3">
+              <h4>Berkley & Clark</h4>
+              <p>(43th Street 12, New York)</p>
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="loadCustomRowBarkleyAndClark()"
+                [disabled]="customRowBarkleyAndClarkLoaded || addRow"
+              >
+                {{ customRowBarkleyAndClarkLoaded ? 'Loaded' : 'Load into table'}}
+              </button>
+            </div>
+            <div class="col-md-3 col-sm-6 p-3">
+              <h4>D&D Inc.</h4>
+              <p>(14 Street 67, New York)</p>
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="loadCustomRowDAndDInc()"
+                [disabled]="customRowDAndDIncLoaded || addRow"
+              >
+                {{ customRowDAndDIncLoaded ? 'Loaded' : 'Load into table'}}
+              </button>
+            </div>
+            <div class="col-md-3 col-sm-6 p-3">
+              <h4>Thomas & Co.</h4>
+              <p>(2 Avenue 54, New York)</p>
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="loadCustomRowThomasAndCo()"
+                [disabled]="customRowThomasAndCoLoaded || addRow"
+              >
+                {{ customRowThomasAndCoLoaded ? 'Loaded' : 'Load into table'}}
+              </button>
+            </div>
+          </div>
+  
+          <hr />
+          <div class="datatable table-editor mt-4">
+            <table
+              class="table datatable-table"
+              mdbTable
+              mdbTableSort
+              #table="mdbTable"
+              #sort="mdbTableSort"
+              [dataSource]="dataSource"
+              [sort]="sort"
+            >
+              <thead class="datatable-header">
+                <tr>
+                  <th
+                    *ngFor="let header of headers"
+                    [mdbTableSortHeader]="header"
+                    scope="col"
+                  >
+                    {{ header | titlecase }}
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="datatable-body">
+                <tr *ngIf="addRow"
+                  scope="row"
+                >
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" [(ngModel)]="newRow.company"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" [(ngModel)]="newRow.address"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" [(ngModel)]="newRow.city"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <button
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addNewRow()"  
+                    >
+                      <i class="fa fa-check"></i>
+                    </button>
+                    <button 
+                      class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addRow=false"
+                    >
+                      <i class="fa fa-ban"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="let data of table.data; let index = index"
+                  scope="row"
+                >
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.company }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.company"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.address }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.address"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.city }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.city"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex === -1 || editElementIndex !== index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=index"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="onDeleteClick(data)"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-trash-alt"></i>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-check"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-ban"></i>
+                      </button>
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>   
+        </code>
+        <code data-lang="JS" data-name="TypeScript">
+          import { Component, ViewChild } from '@angular/core';
+
+          export interface Person {
+            company: string,
+            address: string,
+            city: string,
+          }
+          
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+
+          export class AppComponent {
+            @ViewChild('table') table: MdbTableDirective<Person>;
+
+            editElementIndex = -1;
+            addRow = false;
+            customRowMBLoaded = false;
+            customRowBarkleyAndClarkLoaded = false;
+            customRowDAndDIncLoaded = false;
+            customRowThomasAndCoLoaded = false;
+
+            newRow = {
+              company: '',
+              address: '',
+              city: '',
+            };
+
+            headers = ['Company', 'Address', 'City',];
+
+            dataSource: Person[] = [
+              { company: 'Smith & Johnson', address: 'Park Lane 2', city: 'London' },
+              { company: 'P.J. Company', address: 'Oak Street 7', city: 'Aberdeen' },
+              { company: 'Food & Wine', address: 'Netherhall Gardens 3', city: 'Hampstead' },
+              { company: 'IT Service', address: 'Warwick Road 14', city: 'London' },
+              { company: 'A. Jonson Gallery', address: 'Oaklands Avenue 2', city: 'London' },
+              { company: 'F.A. Architects', address: 'Frognal Way 7', city: 'Hampstead' },
+            ];
+
+            constructor() {}
+
+            search(event: Event): void {
+              const searchTerm = (event.target as HTMLInputElement).value;
+              this.table.search(searchTerm);
+            }
+
+            addNewRow() {
+              this.customRowsDataSource = [...this.customRowsDataSource, {...this.customRowsNewRow}];
+              this.customRowsExampleAddRow = false;
+            }
+
+            onDeleteClick(data) {
+              const index = this.dataSource.indexOf(data);
+              this.dataSource.splice(index, 1);
+              this.dataSource = [...this.dataSource]
+            }
+
+            loadCustomRowMB() {
+              const row = {
+                company: "M.B.",
+                address: "5 Avenue 26",
+                city: "New York",
+              }
+              this.customRowMBLoaded = true;
+              this.customRowsExampleAddRow = true;
+              this.customRowsNewRow = row;
+            }
+          
+            loadCustomRowBarkleyAndClark() {
+              const row = {
+                company: "Berkley & Clark",
+                address: "43th Street 12",
+                city: "New York",
+              }
+              this.customRowBarkleyAndClarkLoaded = true;
+              this.customRowsExampleAddRow = true;
+              this.customRowsNewRow = row;
+            }
+          
+            loadCustomRowDAndDInc() {
+              const row = {
+                company: "D&D Inc.",
+                address: "14 Street 67",
+                city: "New York",
+              }
+              this.customRowDAndDIncLoaded = true;
+              this.customRowsExampleAddRow = true;
+              this.customRowsNewRow = row;
+            }
+          
+            loadCustomRowThomasAndCo() {
+              const row = {
+                company: "Thomas & Co.",
+                address: "2 Avenue 54",
+                city: "New York",
+              }
+              this.customRowThomasAndCoLoaded = true;
+              this.customRowsExampleAddRow = true;
+              this.customRowsNewRow = row;
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Custom rows-->
+
+  <hr class="my-5" />
+
+  <!--Section: Notifications-->
+  <section id="section-notifications">
+    <!-- Section title -->
+    <h2 class="mb-4">Notifications</h2>
+
+    <p class="note note-light">
+      <strong>Note:</strong> 
+      This example use <a href="https://mdbootstrap.com/docs/b5/angular/components/alerts/">Alerts</a> Remember to import them.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4">
+      <div class="d-flex justify-content-end mb-4">
+        <div class="form-outline">
+          <input
+            data-mdb-search
+            data-mdb-target="#table_notifications"
+            type="text"
+            id="search_table_notifications"
+            class="form-control"
+          />
+          <label class="form-label" for="search_table_notifications">Search</label>
+        </div>
+        <button
+          class="btn btn-primary btn-sm ms-3"
+          data-mdb-add-entry
+          data-mdb-target="#table_notifications"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      <hr />
+      <div id="table_notifications"></div>
+      <div
+        class="alert fade"
+        style="z-index: 10000"
+        id="alert-add-entry"
+        role="alert"
+        data-mdb-position="top-right"
+        data-mdb-autohide="true"
+        data-mdb-width="360px"
+        data-mdb-color="success"
+      ></div>
+      <div
+        class="alert fade"
+        style="z-index: 10000"
+        id="alert-update-entry"
+        role="alert"
+        data-mdb-position="top-right"
+        data-mdb-autohide="true"
+        data-mdb-width="360px"
+        data-mdb-color="primary"
+      ></div>
+      <div
+        class="alert fade"
+        style="z-index: 10000"
+        id="alert-remove-entry"
+        role="alert"
+        data-mdb-position="top-right"
+        data-mdb-autohide="true"
+        data-mdb-width="360px"
+        data-mdb-color="danger"
+      ></div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="App.Component.HTML">
+          <div class="d-flex justify-content-end mb-4">
+            <mdb-form-control>
+              <input
+                mdbInput
+                type="text"
+                class="form-control"
+                id="search-input"
+                [disabled]="editElementIndex !== -1"
+                (keyup)="search($event)"
+              />
+              <label mdbLabel class="form-label" for="search-input">Search</label>
+            </mdb-form-control>
+            <button
+              MdbRiple
+              class="btn btn-primary btn-sm ms-3"
+              [disabled]="editElementIndex !== -1"
+              (click)="addRow=true"  
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <hr />
+          <div class="datatable table-editor mt-4">
+            <table
+              class="table datatable-table"
+              mdbTable
+              mdbTableSort
+              #table="mdbTable"
+              #sort="mdbTableSort"
+              [dataSource]="dataSource"
+              [sort]="sort"
+              [pagination]="pagination"
+            >
+              <thead class="datatable-header">
+                <tr>
+                  <th
+                    *ngFor="let header of headers"
+                    [mdbTableSortHeader]="header"
+                    scope="col"
+                  >
+                    {{ header | titlecase }}
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="datatable-body">
+                <tr *ngIf="addRow"
+                  scope="row"
+                >
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="text" class="form-control" (keyup)="newRow.company=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <mdb-select [(ngModel)]="newRow.office">
+                        <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                          option.label
+                        }}</mdb-option>
+                      </mdb-select>
+                      <label mdbLabel class="form-label">Office</label>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <mdb-form-control>
+                      <input mdbInput type="number" class="form-control" [value]=0 (keyup)="newRow.employees=$event.target.value"/>
+                    </mdb-form-control>
+                  </td>
+                  <td>
+                    <div class="form-check ms-1 mt-1">
+                      <input
+                        mdbCheckbox
+                        class="form-check-input"
+                        type="checkbox"
+                        (change)="newRow.international=$event.target.checked"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addNewRow()"  
+                    >
+                      <i class="fa fa-check"></i>
+                    </button>
+                    <button 
+                      class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                      (click)="addRow=false"
+                    >
+                      <i class="fa fa-ban"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  *ngFor="let data of table.data; let index = index"
+                  scope="row"
+                >
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.company }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="text" class="form-control" [(ngModel)]="data.company"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.office }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <mdb-select [(ngModel)]="data.office">
+                          <mdb-option *ngFor="let option of options" [value]="option.value">{{
+                            option.label
+                          }}</mdb-option>
+                        </mdb-select>
+                        <label mdbLabel class="form-label">Office</label>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.employees }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <mdb-form-control>
+                        <input mdbInput type="number" class="form-control" [(ngModel)]="data.employees"/>
+                      </mdb-form-control>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex !== index">
+                      {{ data.international }}
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <div class="form-check ms-1 mt-1">
+                        <input
+                          mdbCheckbox
+                          class="form-check-input"
+                          type="checkbox"
+                          [(ngModel)]="data.international"
+                        />
+                      </div>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="editElementIndex === -1 || editElementIndex !== index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=index"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="onDeleteClick(data)"
+                        [disabled]="editElementIndex !== -1 && editElementIndex !== index"  
+                      >
+                        <i class="fa fa-trash-alt"></i>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="editElementIndex === index">
+                      <button
+                        class="me-2 m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="onEditClick(data)"
+                      >
+                        <i class="fa fa-check"></i>
+                      </button>
+                      <button 
+                        class="m-0 p-0 shadow-0 btn btn-lg text-dark"
+                        (click)="editElementIndex=-1"
+                      >
+                        <i class="fa fa-ban"></i>
+                      </button>
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <mdb-table-pagination #pagination [entries]="5"></mdb-table-pagination>
+          </div>
+        </code>
+        <code data-lang="JS" data-name="App.Component.TS">
+          import { Component, ViewChild } from '@angular/core';
+          import { MdbNotificationService, MdbNotificationRef } from 'mdb-angular-ui-kit/notification';
+          import { NotificationsComponent } from 'your-path-to-notifications-component';
+
+          export interface Person {
+            company: string,
+            office: string,
+            employees: number,
+            international: boolean,
+          }
+          
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+
+          export class AppComponent {
+            @ViewChild('table') table: MdbTableDirective<Person>;
+
+            notificationRef: MdbNotificationRef<NotificationsComponent>;
+
+            editElementIndex = -1;
+            addRow = false;
+
+            newRow = {
+              company: '',
+              office: '',
+              employees: 0,
+              international: false,
+            };
+
+            options = [
+              { value: 'London', label: 'London' },
+              { value: 'Warsaw', label: 'Warsaw' },
+              { value: 'New York', label: 'New York' },
+            ]
+
+            headers = ['Company', 'Office', 'Employees', 'International'];
+
+            dataSource: Person[] = [
+              {
+                company: 'Smith & Johnson',
+                office: 'London',
+                employees: 30,
+                international: true,
+              },
+              {
+                company: 'P.J. Company',
+                office: 'London',
+                employees: 80,
+                international: false,
+              },
+              {
+                company: 'Food & Wine',
+                office: 'London',
+                employees: 12,
+                international: false,
+              },
+              {
+                company: 'IT Service',
+                office: 'London',
+                employees: 17,
+                international: false,
+              },
+              {
+                company: 'A. Jonson Gallery',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+              {
+                company: 'F.A. Architects',
+                office: 'London',
+                employees: 4,
+                international: false,
+              },
+            ];
+
+            constructor(private notificationService: MdbNotificationService) {}
+
+            search(event: Event): void {
+              const searchTerm = (event.target as HTMLInputElement).value;
+              this.table.search(searchTerm);
+            }
+
+            addNewRow() {
+              this.dataSource = [...this.dataSource, {...this.inputsNewRow}];
+              this.openAlert(this.inputsNewRow, 'add')
+              this.newRow.company = '';
+              this.newRow.address = '';
+              this.newRow.employees = 0;
+              this.addRow = false;
+            }
+
+            onDeleteClick(data) {
+              const index = this.dataSource.indexOf(data);
+              this.dataSource.splice(index, 1);
+              this.dataSource = [...this.dataSource];
+          
+              this.openAlert(data, 'delete')
+            }
+
+            onEditClick(data) {
+              this.editElementIndex=-1
+              this.openAlert(data, 'edit')
+            }
+
+            openAlert(data, action) {
+              const options = {action: action, rowData: `${data.company} (${data.office})`}
+              this.notificationRef = this.notificationService.open(NotificationsComponent, { data: options, autohide: true, delay: 1000});
+            }
+          }
+        </code>
+        <code data-lang="html" data-name="Notifications.Component.HTML">
+          <div class="alert alert-{{color}}" role="alert">
+            <strong>{{ actionText }}</strong> {{ rowData }}
+          </div>
+        </code>
+        <code data-lang="JS" data-name="Notifications.Component.TS">
+          import { Component, OnInit } from '@angular/core';
+          import { MdbNotificationRef } from 'mdb-angular-ui-kit/notification';
+          
+          @Component({
+            selector: 'app-table-editor-notifications',
+            templateUrl: './table-editor-notifications.component.html'
+          })
+          export class NotificationsComponent implements OnInit {
+            action;
+            rowData;
+          
+            color;
+            actionText;
+            constructor(public notificationRef: MdbNotificationRef<NotificationsComponent>) {}
+          
+            ngOnInit(): void {
+              switch (this.action) {
+                case 'add':
+                  this.color = 'success'
+                  this.actionText = 'New entry:'
+                  break;
+                case 'delete':
+                  this.color = 'danger'
+                  this.actionText = 'Deleted entry:'
+                  break;
+                case 'edit':
+                  this.color = 'primary'
+                  this.actionText = 'Updated entry:'
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Notifications-->
+
+  <hr class="my-5" />
+
+  <!--Section: Dark-->
+  <section id="section-dark">
+    <!-- Section title -->
+    <h2 class="mb-4">Dark</h2>
+
+    <p class="note note-light">
+      <strong>Note:</strong> 
+      This example use <a href="https://mdbootstrap.com/docs/b5/angular/components/modal/">Modal</a>. Remember to import them.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 mb-4 bg-dark">
+      <div class="d-flex justify-content-end mb-4">
+        <div class="form-outline form-white">
+          <input
+            data-mdb-search
+            data-mdb-target="#table_dark"
+            type="text"
+            id="search_table_dark"
+            class="form-control"
+          />
+          <label class="form-label" for="search_table_dark">Search</label>
+        </div>
+        <button
+          class="btn btn-outline-light btn-sm ms-3"
+          data-mdb-add-entry
+          data-mdb-target="#table_dark"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      <hr />
+      <div
+        class="table-editor"
+        id="table_dark"
+        data-mdb-color="bg-dark"
+        data-mdb-mode="modal"
+        data-mdb-dark="true"
+        data-mdb-entries="5"
+        data-mdb-entries-options="[5, 10, 15]"
+      >
+        <table>
+          <thead>
+            <tr>
+              <th class="th-sm" data-mdb-width="250">Company</th>
+              <th class="th-sm" data-mdb-width="250">Address</th>
+              <th class="th-sm" data-mdb-width="250">Employees</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Smith & Johnson</td>
+              <td>Park Lane 2, London</td>
+              <td>30</td>
+            </tr>
+            <tr>
+              <td>P.J. Company</td>
+              <td>Oak Street 7, Aberdeen</td>
+              <td>80</td>
+            </tr>
+            <tr>
+              <td>Food & Wine</td>
+              <td>Netherhall Gardens 3, Hampstead</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <td>IT Service</td>
+              <td>Warwick Road 14, London</td>
+              <td>17</td>
+            </tr>
+            <tr>
+              <td>A. Jonson Gallery</td>
+              <td>Oaklands Avenue 2, London</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>F.A. Architects</td>
+              <td>Frognal Way 7, Hampstead</td>
+              <td>4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="app.component.html">
+          <div class="d-flex justify-content-end mb-4">
+            <mdb-form-control class="form-white">
+              <input
+                mdbInput
+                type="text"
+                class="form-control"
+                (keyup)="search($event)"
+              />
+              <label mdbLabel class="form-label" for="search-input">Search</label>
+            </mdb-form-control>
+            <button
+              MdbRiple
+              class="btn btn-outline-light btn-sm ms-3"
+              (click)="openModal('add')"  
+            >
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <hr />
+          <div 
+            class="datatable table-editor bg-dark dark text-white border-white mt-4"
+          >
+            <table
+              class="table datatable-table"
+              mdbTable
+              mdbTableSort
+              #table="mdbTable"
+              #sort="mdbTableSort"
+              [dataSource]="dataSource"
+              [sort]="sort"
+              [pagination]="pagination"
+            >
+              <thead class="datatable-header text-white">
+                <tr>
+                  <th
+                    *ngFor="let header of headers"
+                    [mdbTableSortHeader]="header"
+                    scope="col"
+                  >
+                    {{ header | titlecase }}
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="datatable-body text-white">
+                <tr
+                  *ngFor="let data of table.data; let index = index"
+                  scope="row"
+                >
+                  <td style="min-width: 250px; max-width: 250px">
+                    {{ data.company }}
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    {{ data.address }}
+                  </td>
+                  <td style="min-width: 250px; max-width: 250px">
+                    {{ data.employees }}
+                  </td>
+  
+                  <td>
+                    <button
+                      class="me-2 m-0 p-0 shadow-0 btn btn-lg text-light"
+                      (click)="openModal('edit', data)"
+                    >
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <button 
+                      class="m-0 p-0 shadow-0 btn btn-lg text-light"
+                      (click)="onDeleteClick(data)"
+                    >
+                      <i class="fa fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <mdb-table-pagination #pagination [entries]="5"></mdb-table-pagination>
+          </div>
+        </code>
+        <code data-lang="js" data-name="app.component.ts">
+          import { Component, ViewChild } from '@angular/core';
+          import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+          import { ModalComponent } from 'your-path-to-modal-component';
+
+          export interface Person {
+            company: string,
+            office: string,
+            employees: number,
+            international: boolean,
+          }
+          
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+
+          export class AppComponent {
+            @ViewChild('table') table: MdbTableDirective<Person>;
+
+            modalRef: MdbModalRef<ModalComponent>;
+
+            newRow = {
+              company: '',
+              address: '',
+              employees: 0,
+            };
+
+            headers = ['Company', 'Address', 'Employees'];
+
+            dataSource: Person[] = [
+              {
+                company: 'Smith & Johnson',
+                address: 'Park Lane 2, London',
+                employees: 30,
+              },
+              {
+                company: 'P.J. Company',
+                address: 'Oak Street 7, Aberdeen',
+                employees: 80,
+              },
+              {
+                company: 'Food & Wine',
+                address: 'Netherhall Gardens 3, Hampstead',
+                employees: 12,
+              },
+              {
+                company: 'IT Service',
+                address: 'Warwick Road 14, London',
+                employees: 17,
+              },
+              {
+                company: 'A. Jonson Gallery',
+                address: 'Oaklands Avenue 2, London',
+                employees: 4,
+              },
+              {
+                company: 'F.A. Architects',
+                address: 'Frognal Way 7, Hampsteadn',
+                employees: 4,
+              },
+            ];
+
+            constructor(private modalService: MdbModalService) {}
+
+            search(event: Event): void {
+              const searchTerm = (event.target as HTMLInputElement).value;
+              this.table.search(searchTerm);
+            }
+
+            openModal(mode, data?) {
+              this.modalRef = this.modalService.open(ModalComponent, { data: {
+                modalTitle: mode === 'edit' ? 'Edit item' : 'New item',
+                company: data ? data.company : '',
+                office: data ? data.office : 'Warsaw',
+                employees: data ? data.employees : 1,
+                international: data ? data.international : false,
+              }})
+          
+              this.modalRef.onClose.subscribe((modalData: Person) => {
+                if (!modalData) {
+                  return;
+                }
+          
+                if (mode === 'add') {
+                  this.dataSource = [...this.dataSource, {...modalData}];
+                } else {
+                  const index = this.dataSource.indexOf(data)
+          
+                  this.dataSource[index] = modalData;
+                  this.dataSource = [...this.dataSource]
+                }
+              });
+            }
+
+            onDeleteClick(data) {
+              const index = this.dataSource.indexOf(data);
+              this.dataSource.splice(index, 1);
+              this.dataSource = [...this.dataSource]
+            }
+          }
+        </code>
+        <code data-lang="html" data-name="Modal.Component.HTML">
+          <div class="modal-header bg-dark text-white">
+            <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+          </div>
+          <div class="modal-body bg-dark text-white">
+            <div class="my-4 table-editor_input-wrapper">
+              <mdb-form-control class="form-white">
+                <input mdbInput type="text" id="company-input" class="form-control" [(ngModel)]="company" />
+                <label mdbLabel class="form-label" for="company-input">Company</label>
+              </mdb-form-control>
+            </div>
+            <div class="my-4 table-editor_input-wrapper">
+              <mdb-form-control class="form-white">
+                <input mdbInput type="text" id="address-input" class="form-control" [(ngModel)]="address"/>
+                <label mdbLabel class="form-label" for="address-input">Address</label>
+              </mdb-form-control>
+            </div>
+            <div class="my-4 table-editor_input-wrapper">
+              <mdb-form-control class="form-white">
+                <input mdbInput type="text" id="employees-input" class="form-control" [(ngModel)]="employees"/>
+                <label mdbLabel class="form-label" for="employees-input">Employees</label>
+              </mdb-form-control>
+            </div>
+          </div>
+          <div class="modal-footer bg-dark text-white">
+            <button type="button" class="shadow-0 btn btn-md btn-outline-light" (click)="modalRef.close()">
+              Cancel
+            </button>
+            <button type="button" class="shadow-0 btn btn-md btn-light" (click)="saveData()">Save</button>
+          </div>
+        </code>
+        <code data-lang="js" data-name="Modal.Component.TS">
+          import { Component, OnInit } from '@angular/core';
+          import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+
+          @Component({
+            selector: 'app-table-editor-modal-dark',
+            templateUrl: './table-editor-modal-dark.component.html',
+          })
+          export class TableEditorModalDarkComponent implements OnInit {
+            modalTitle;
+            company;
+            employees;
+            address;
+
+            options = [
+              { value: 'London', label: 'London' },
+              { value: 'Warsaw', label: 'Warsaw' },
+              { value: 'New York', label: 'New York' },
+            ];
+
+            constructor(public modalRef: MdbModalRef<TableEditorModalDarkComponent>) { }
+
+            ngOnInit(): void {
+            }
+
+            saveData(): void {
+              const closeMessage = {
+                company: this.company,
+                employees: this.employees,
+                address: this.address,
+              };
+
+              this.modalRef.close(closeMessage)
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Dark-->
+</section>
+<!--Section: Docs content-->

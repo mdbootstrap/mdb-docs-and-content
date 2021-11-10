@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Landing page blocks - pricing',
   'description' => 'Collection of practical examples of pricing.',
   'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/landing-page/pricing/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/ecommerce/pricing/assets/1.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/pricing/assets/landing-page-pricing.jpg',
   'video' => '',
 );
