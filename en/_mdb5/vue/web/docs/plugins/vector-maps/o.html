@@ -506,11 +506,11 @@
                   { fill: "#1B5E20", regions: [], min: 1000000000, max: 1 / 0 },
                 ]);
 
-                fetch("https://restcountries.eu/rest/v2/all")
+                fetch("https://restcountries.com/v3.1/all")
                   .then((response) => response.json())
                   .then((data) => {
                     data.map((country) => {
-                      const { alpha2Code, population, flag } = country;
+                      const { cca2, population, flags } = country;
                       const section = colorMap.value.find((section) => {
                         return population >= section.min && population < section.max;
                       });
@@ -520,11 +520,11 @@
                       }
 
                       section.regions.push({
-                        id: alpha2Code,
+                        id: cca2,
                         tooltip: `
-                          <div>
-                            <img src="${flag}" class="my-1" style="max-width: 40px">
-                          </div>
+                        <div>
+                          <img src="${flags.png}" class="my-1" style="max-width: 40px">
+                        </div>
                         `,
                       });
                     });
