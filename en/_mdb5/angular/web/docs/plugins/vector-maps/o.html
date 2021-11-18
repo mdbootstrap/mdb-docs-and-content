@@ -141,8 +141,7 @@
     <h2 class="mb-4">Read-only</h2>
 
     <p class="mb-4">
-      Setting the <code>[readonly]</code> input to <code>true</code> will disable selecting
-      regions.
+      Setting the <code>[readonly]</code> input to <code>true</code> will disable selecting regions.
     </p>
 
     <!--Section: Demo-->
@@ -1301,8 +1300,446 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
+          <mdb-vector-map
+            [stroke]="'#37474F'"
+            [fill]="'#263238'"
+            [readonly]="true"
+            [btnClass]="'btn-light'"
+            [colorMap]="advancedColorMap"
+            [markers]="advancedMarkers"
+          ></mdb-vector-map>
+          <hr class="mt-0" />
+          <div id="map-advanced-legend" class="d-flex flex-wrap justify-content-center">
+            <small class="mt-5">{{ legendMin }}</small>
+            <div
+              *ngFor="let color of colors[activeColor]"
+              [style.height.px]="30"
+              [style.width.px]="30"
+              [style.background-color]="color"
+            ></div>
+            <small class="mt-5">{{ legendMax }}</small>
+          </div>
+          <hr />
+          <div class="d-flex flex-wrap justify-content-center">
+            <button
+              class="btn m-1"
+              data-mdb-color="green"
+              data-mdb-key="sales"
+              (click)="changeSection('sales', 'green')"
+              [ngClass]="{
+                'btn-outline-light': activeKey !== 'sales',
+                'btn-light': activeKey === 'sales'
+              }"
+            >
+              Sales
+            </button>
+            <button
+              class="btn btn-outline-light m-1"
+              (click)="changeSection('employees', 'pink')"
+              [ngClass]="{
+                'btn-outline-light': activeKey !== 'employees',
+                'btn-light': activeKey === 'employees'
+              }"
+            >
+              Employees
+            </button>
+            <button
+              class="btn btn-outline-light m-1"
+              (click)="changeSection('annualProfit', 'blue')"
+              [ngClass]="{
+                'btn-outline-light': activeKey !== 'annualProfit',
+                'btn-light': activeKey === 'annualProfit'
+              }"
+            >
+              Annual Profit increase (2019-202)
+            </button>
+            <button
+              class="btn btn-outline-light m-1"
+              (click)="changeSection('salesIncrease', 'purple')"
+              [ngClass]="{
+                'btn-outline-light': activeKey !== 'salesIncrease',
+                'btn-light': activeKey === 'salesIncrease'
+              }"
+            >
+              Sales increase (2019-2020)
+            </button>
+          </div>
+          <hr />
+          <div class="d-flex flex-wrap justify-content-center">
+            <button
+              class="btn btn-outline-light m-1 mb-3"
+              (click)="changeDisplay('bullets')"
+              [ngClass]="{
+                'btn-outline-light': !showBullets,
+                'btn-light': showBullets
+              }"
+            >
+              Company units (bullets)
+            </button>
+            <button
+              class="btn btn-light m-1 mb-3"
+              (click)="changeDisplay('fills')"
+              [ngClass]="{
+                'btn-outline-light': showBullets,
+                'btn-light': !showBullets
+              }"
+            >
+              Countries (fills)
+            </button>
+          </div>
         </code>
-        <code data-lang="JS" data-name="JavaScript">
+        <code data-lang="js" data-name="TypeScript">
+          import { Component } from '@angular/core';
+          import { MdbMapMarker } from 'mdb-angular-vector-maps';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent {
+            showBullets = false;
+            advancedColorMap = [];
+            advancedMarkers = [];
+
+            activeKey = 'sales';
+            activeColor = 'green';
+            legendMin: string | null = null;
+            legendMax: string | null = null;
+
+            data = [
+              {
+                country: 'GB',
+                sales: 45002,
+                employees: 122,
+                salesIncrease: 12,
+                annualProfit: 10,
+                units: [
+                  {
+                    x: 474,
+                    y: 294,
+                    label: 'GB-01',
+                  },
+                ],
+              },
+              {
+                country: 'PL',
+                sales: 1200,
+                employees: 34,
+                salesIncrease: 60,
+                annualProfit: 49,
+                units: [
+                  {
+                    x: 533,
+                    y: 290,
+                    label: 'PL-01',
+                  },
+                ],
+              },
+              {
+                country: 'US',
+                sales: 120000,
+                employees: 1241,
+                salesIncrease: 6,
+                annualProfit: 3,
+                units: [
+                  {
+                    x: 267,
+                    y: 337,
+                    label: 'US-01',
+                  },
+                  {
+                    x: 180,
+                    y: 320,
+                    label: 'US-02',
+                  },
+                  {
+                    x: 160,
+                    y: 340,
+                    label: 'US-03',
+                  },
+                ],
+              },
+              {
+                country: 'CN',
+                sales: 30000,
+                employees: 400,
+                salesIncrease: 40,
+                annualProfit: 32,
+                units: [
+                  {
+                    x: 800,
+                    y: 338,
+                    label: 'CN-01',
+                  },
+                  {
+                    x: 700,
+                    y: 350,
+                    label: 'CN-02',
+                  },
+                ],
+              },
+              {
+                country: 'NO',
+                sales: 5000,
+                employees: 23,
+                salesIncrease: 10,
+                annualProfit: 8,
+                units: [
+                  {
+                    x: 505,
+                    y: 252,
+                    label: 'NO-01',
+                  },
+                ],
+              },
+              {
+                country: 'SE',
+                sales: 16000,
+                employees: 120,
+                salesIncrease: 13,
+                annualProfit: 9,
+                units: [
+                  {
+                    x: 515,
+                    y: 242,
+                    label: 'SE-01',
+                  },
+                ],
+              },
+              {
+                country: 'FI',
+                sales: 6500,
+                employees: 40,
+                salesIncrease: 5,
+                annualProfit: 2,
+                units: [
+                  {
+                    x: 545,
+                    y: 242,
+                    label: 'FI-01',
+                  },
+                ],
+              },
+              {
+                country: 'FR',
+                sales: 64500,
+                employees: 230,
+                salesIncrease: 4,
+                annualProfit: 2,
+                units: [
+                  {
+                    x: 481,
+                    y: 308,
+                    label: 'FR-01',
+                  },
+                ],
+              },
+              {
+                country: 'DE',
+                sales: 34500,
+                employees: 100,
+                salesIncrease: 12,
+                annualProfit: 9,
+                units: [
+                  {
+                    x: 510,
+                    y: 308,
+                    label: 'DE-01',
+                  },
+                  {
+                    x: 510,
+                    y: 290,
+                    label: 'DE-02',
+                  },
+                ],
+              },
+              {
+                country: 'BE',
+                sales: 4000,
+                employees: 24,
+                salesIncrease: 80,
+                annualProfit: 67,
+                units: [
+                  {
+                    x: 490,
+                    y: 298,
+                    label: 'BE-01',
+                  },
+                ],
+              },
+              {
+                country: 'IT',
+                sales: 14500,
+                employees: 140,
+                salesIncrease: 0.4,
+                annualProfit: 0.2,
+                units: [
+                  {
+                    x: 510,
+                    y: 320,
+                    label: 'IT-01',
+                  },
+                ],
+              },
+              {
+                country: 'CA',
+                sales: 94500,
+                employees: 1300,
+                salesIncrease: 24,
+                annualProfit: 19,
+                units: [
+                  {
+                    x: 267,
+                    y: 307,
+                    label: 'CA-01',
+                  },
+                  {
+                    x: 180,
+                    y: 260,
+                    label: 'CA-02',
+                  },
+                ],
+              },
+            ];
+
+            colors = {
+              green: [
+                '#C8E6C9',
+                '#A5D6A7',
+                '#81C784',
+                '#66BB6A',
+                '#4CAF50',
+                '#43A047',
+                '#388E3C',
+                '#2E7D32',
+                '#1B5E20',
+              ],
+              pink: [
+                '#F8BBD0',
+                '#F48FB1',
+                '#F06292',
+                '#EC407A',
+                '#E91E63',
+                '#D81B60',
+                '#C2185B',
+                '#AD1457',
+                '#880E4F',
+              ],
+              blue: [
+                '#BBDEFB',
+                '#90CAF9',
+                '#64B5F6',
+                '#42A5F5',
+                '#2196F3',
+                '#1E88E5',
+                '#1976D2',
+                '#1565C0',
+                '#0D47A1',
+              ],
+              purple: [
+                '#E1BEE7',
+                '#CE93D8',
+                '#BA68C8',
+                '#AB47BC',
+                '#9C27B0',
+                '#8E24AA',
+                '#7B1FA2',
+                '#6A1B9A',
+                '#4A148C',
+              ],
+            };
+
+            constructor() {}
+
+            ngOnInit(): void {
+              if (!this.showBullets) {
+                this.advancedColorMap = [...this.getColorMap()];
+              } else {
+                this.advancedMarkers = this.getMarkers();
+              }
+            }
+
+            private getColorMap() {
+              const values = this.data.map((entry) => entry[this.activeKey]);
+              const max = Math.max(...values);
+              const min = Math.min(...values);
+
+              this.legendMin = `${min}`;
+              this.legendMax = `${max}`;
+
+              if (this.activeKey === 'salesIncrease' || this.activeKey === 'annualProfit') {
+                this.legendMin = `${min}%`;
+                this.legendMax = `${max}%`;
+              }
+
+              const step = Math.floor((max - min) / (this.colors[this.activeColor].length - 1));
+
+              const colorMap = this.colors[this.activeColor].map((color: string, i: number) => {
+                return {
+                  fill: color,
+                  regions: [],
+                };
+              });
+
+              values.forEach((value, i) => {
+                let valueLabel =
+                  this.activeKey === 'salesIncrease' || this.activeKey === 'annualProfit'
+                    ? `${value}%`
+                    : value;
+
+                const color = Math.floor((value - min) / step);
+                colorMap[color].regions.push({
+                  id: this.data[i].country,
+                  tooltip: valueLabel,
+                  ...this.data[i],
+                });
+              });
+
+              return colorMap;
+            }
+
+            private getMarkers() {
+              const markers = [];
+
+              this.advancedColorMap.forEach((color: any) => {
+                color.regions.forEach((region: any) => {
+                  const units = region.units.map((point: any) => ({
+                    x: point.x,
+                    y: point.y,
+                    fill: color.fill,
+                    type: 'bullet',
+                  }));
+
+                  markers.push(...units);
+                });
+              });
+
+              return markers;
+            }
+
+            changeDisplay(type: 'bullets' | 'fills') {
+              if (type === 'bullets' && !this.showBullets) {
+                this.showBullets = true;
+                this.advancedMarkers = this.getMarkers();
+                this.advancedColorMap = [];
+              } else if (type === 'fills' && this.showBullets) {
+                this.showBullets = false;
+                this.advancedColorMap = this.getColorMap();
+                this.advancedMarkers = [];
+              }
+            }
+
+            changeSection(key: string, color: string) {
+              this.activeKey = key;
+              this.activeColor = color;
+              this.advancedColorMap = this.getColorMap();
+
+              if (this.showBullets) {
+                this.advancedMarkers = this.getMarkers();
+                this.advancedColorMap = [];
+              }
+            }
+          };
         </code>
       </mdbsnippet>
     </section>

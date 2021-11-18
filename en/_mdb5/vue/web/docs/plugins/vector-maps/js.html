@@ -103,11 +103,11 @@
 
     legend.innerHTML = generateLegend(colorMap);
 
-    fetch('https://restcountries.eu/rest/v2/all')
+    fetch('https://restcountries.com/v3.1/all')
       .then((response) => response.json())
       .then((data) => {
         data.map((country) => {
-          const { alpha2Code, population, capital, flag } = country;
+          const { cca2, population, capital, flags } = country;
           const section = colorMap.find((section) => {
             return population >= section.min && population < section.max;
           });
@@ -117,12 +117,12 @@
           }
 
           section.regions.push({
-            id: alpha2Code,
+            id: cca2,
             tooltip: `
-                <div>
-                  <img src="${flag}" class="my-1" style="max-width: 40px">
-                </div>
-                `,
+          <div>
+            <img src="${flags.png}" class="my-1" style="max-width: 40px">
+          </div>
+          `,
           });
         });
 
