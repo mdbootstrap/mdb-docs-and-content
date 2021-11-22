@@ -90,8 +90,8 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
-          <mdb-form-control>
-            <mdb-select>
+          <mdb-form-control class="my-5">
+            <mdb-select [formControl]="selectControl">
               <mdb-option *ngFor="let option of options" [value]="option.value">{{
                 option.name
               }}</mdb-option>
@@ -103,6 +103,7 @@
         </code>
         <code data-lang="js" data-name="TypeScript">
           import { Component, OnInit } from '@angular/core';
+          import { FormControl } from '@angular/forms';
 
           @Component({
             selector: 'app-root',
@@ -118,12 +119,12 @@
               { name: 'Australia', value: 'australia' }
             ];
 
-            select = new FormControl('africa');
+            selectControl = new FormControl('africa');
 
             map = 'africa';
 
             ngOnInit() {
-              this.select.valueChanges.subscribe((value: string) => this.map = value);
+              this.selectControl.valueChanges.subscribe((value: string) => this.map = value);
             }
           };
         </code>
@@ -198,69 +199,87 @@
           <h5 class="px-3">Select region:</h5>
           <div class="d-flex flex-wrap px-3 pb-3">
             <button
-              class="select-region-btn btn btn-outline-primary me-2 my-2"
-              (click)="selectRegion('US', $event.target)"
+              class="select-region-btn btn me-2 my-2"
+              (click)="selectRegion('US')"
+              [ngClass]="{
+                'btn-primary': activeRegion === 'US',
+                'btn-outline-primary': activeRegion !== 'US'
+              }"
             >
               United States
             </button>
             <button
               class="select-region-btn btn btn-primary me-2 my-2 active"
-              (click)="selectRegion('IN', $event.target)"
+              (click)="selectRegion('IN')"
+              [ngClass]="{
+                'btn-primary': activeRegion === 'IN',
+                'btn-outline-primary': activeRegion !== 'IN'
+              }"
             >
               India
             </button>
             <button
-              class="select-region-btn btn btn-outline-primary me-2 my-2"
-              (click)="selectRegion('RU', $event.target)"
+              class="select-region-btn btn me-2 my-2"
+              (click)="selectRegion('RU')"
+              [ngClass]="{
+                'btn-primary': activeRegion === 'RU',
+                'btn-outline-primary': activeRegion !== 'RU'
+              }"
             >
               Russia
             </button>
             <button
-              class="select-region-btn btn btn-outline-primary me-2 my-2"
-              (click)="selectRegion('CN', $event.target)"
+              class="select-region-btn btn me-2 my-2"
+              (click)="selectRegion('CN')"
+              [ngClass]="{
+                'btn-primary': activeRegion === 'CN',
+                'btn-outline-primary': activeRegion !== 'CN'
+              }"
             >
               China
             </button>
             <button
-              class="select-region-btn btn btn-outline-primary me-2 my-2"
-              (click)="selectRegion('PL', $event.target)"
+              class="select-region-btn btn me-2 my-2"
+              (click)="selectRegion('PL')"
+              [ngClass]="{
+                'btn-primary': activeRegion === 'PL',
+                'btn-outline-primary': activeRegion !== 'PL'
+              }"
             >
               Poland
             </button>
             <button
-              class="select-region-btn btn btn-outline-primary me-2 my-2"
-              (click)="selectRegion('FR', $event.target)"
+              class="select-region-btn btn me-2 my-2"
+              (click)="selectRegion('FR')"
+              [ngClass]="{
+                'btn-primary': activeRegion === 'FR',
+                'btn-outline-primary': activeRegion !== 'FR'
+              }"
             >
               France
             </button>
           </div>
         </code>
         <code data-lang="js" data-name="TypeScript">
-          import { Component, OnInit, ViewChild } from '@angular/core';
+          import { AfterViewInit, Component, ViewChild } from '@angular/core';
+          import { MdbVectorMapComponent } from 'mdb-angular-vector-maps';
 
           @Component({
             selector: 'app-root',
             templateUrl: './app.component.html',
           })
-          export class AppComponent implements OnInit {
-            @ViewChild('map', { static: true }) map: MdbVectorMapComponent;
+          export class AppComponent implements AfterViewInit {
+            @ViewChild('map', { static: true }) map!: MdbVectorMapComponent;
 
-            activeButton: HTMLElement | null = null;
+            activeRegion = 'IN';
 
-            selectRegion(region: string, button: HTMLElement) {
+            selectRegion(region: string) {
               this.map.select(region);
-
-              if (this.activeButton) {
-                this.activeButton.classList.add('btn-outline-primary');
-              }
-
-              button.classList.add('btn-outline-primary');
-              this.activeButton = button;
+              this.activeRegion = region;
             }
 
-            ngOnInit() {
+            ngAfterViewInit() {
               this.map.select('IN');
-              this.activeButton = document.querySelector('.select-region-btn.active');
             }
           };
         </code>
@@ -390,6 +409,98 @@
 
   <hr class="my-5" />
 
+  <!--Section: Data from API-->
+  <section id="section-data-mdb-api">
+    <!-- Section title -->
+    <h2 class="mb-4">Data from API with custom tooltips</h2>
+
+    <p class="mb-4">
+      To customize tooltips, you need to set <code>options.colorMap.regions</code> to an array of
+      objects (instead of strings). Each object should consist of two keys -
+      <code>id</code> (region's ID) and <code>tooltip</code> (the additional tooltip's content).
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border mb-4">
+      <div id="api-map" style="background-color: #bbdefb;" ;></div>
+      <div class="p-3 border-top">
+        <h6>Population:</h6>
+        <ul id="api-legend" class="vector-map-legend"></ul>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <!-- prettier-ignore -->
+      <mdbsnippet>
+        <code data-lang="html" data-name="HTML">
+          <mdb-vector-map
+            [colorMap]="colorMap"
+            [readonly]="true"
+            [hover]="false"
+            [fill]="'white'"
+            [strokeWidth]="0.2"
+            style="background-color: #bbdefb;"
+          ></mdb-vector-map>
+        </code>
+        <code data-lang="JS" data-name="Typescript">
+          import { HttpClient } from '@angular/common/http';
+          import { Component, OnInit } from '@angular/core';
+
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+          })
+          export class AppComponent implements OnInit {
+            colorMap: any[] = [
+              { fill: '#fff', regions: [], min: 0, max: 1000000 },
+              { fill: '#E8F5E9', regions: [], min: 1000000, max: 5000000 },
+              { fill: '#A5D6A7', regions: [], min: 5000000, max: 10000000 },
+              { fill: '#66BB6A', regions: [], min: 10000000, max: 20000000 },
+              { fill: '#43A047', regions: [], min: 20000000, max: 50000000 },
+              { fill: '#388E3C', regions: [], min: 50000000, max: 100000000 },
+              { fill: '#2E7D32', regions: [], min: 100000000, max: 1000000000 },
+              { fill: '#1B5E20', regions: [], min: 1000000000, max: 1 / 0 },
+            ];
+
+            constructor(private http: HttpClient) {}
+
+            ngOnInit() {
+              this.http
+                .get('https://restcountries.com/v3.1/all')
+                .subscribe((data: any) => {
+                  data.map((country: any) => {
+                    const { cca2, population, flags } = country;
+                    const section = this.colorMap.find((section) => {
+                      return population >= section.min && population < section.max;
+                    });
+
+                    if (!section) {
+                      return;
+                    }
+
+                    section.regions.push({
+                      id: cca2,
+                      tooltip: `
+                      <div><img src="${flags.png}" class="my-1 custom-tooltip"></div>
+                      `,
+                    });
+                  });
+
+                  this.colorMap = [...this.colorMap];
+                });
+            }
+          }
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--Section: Data from API-->
+
+  <hr class="my-5" />
+
   <!--Section: Custom zoom-->
   <section id="section-custom-zoom">
     <!-- Section title -->
@@ -447,7 +558,7 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
-          <mdb-vector-maps [zoomEvents]="false"></mdb-vector-maps>
+          <mdb-vector-map [zoomEvents]="false"></mdb-vector-map>
         </code>
       </mdbsnippet>
     </section>
@@ -1116,7 +1227,76 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
-            <mdb-vector-map style="background-color: #b3e5fc" [markers]="pins"></mdb-vector-map>
+          <mdb-vector-map
+            style="background-color: #b3e5fc"
+            [readonly]="true"
+            [markers]="pins"
+            [markerFill]="'#F93154'"
+            [markerStroke]="'#F93154'"
+            [fill]="'#C8E6C9'"
+            [selectFill]="'#81C784'"
+            [hoverFill]="'#A5D6A7'"
+          ></mdb-vector-map>
+          <div class="my-3 d-flex flex-wrap">
+            <button
+              class="btn btn-primary btn-map-with-pins m-1"
+              (click)="updateActivePin('Warsaw', 533, 290)"
+              [ngClass]="{
+                activet: activePin === 'Warsaw'
+              }"
+            >
+              Warsaw
+            </button>
+            <button
+              class="btn btn-primary btn-map-with-pins m-1"
+              (click)="updateActivePin('New York', 267, 337)"
+              [ngClass]="{
+                activet: activePin === 'New York'
+              }"
+            >
+              New York
+            </button>
+            <button
+              class="btn btn-primary btn-map-with-pins m-1"
+              (click)="updateActivePin('London', 474, 294)"
+              [ngClass]="{
+                activet: activePin === 'London'
+              }"
+            >
+              London
+            </button>
+            <button
+              class="btn btn-primary btn-map-with-pins m-1"
+              (click)="updateActivePin('Oslo', 505, 252)"
+              [ngClass]="{
+                activet: activePin === 'Oslo'
+              }"
+            >
+              Oslo
+            </button>
+            <button
+              class="btn btn-primary btn-map-with-pins m-1"
+              (click)="updateActivePin('Paris', 481, 308)"
+              [ngClass]="{
+                activet: activePin === 'Paris'
+              }"
+            >
+              Paris
+            </button>
+            <button
+              class="btn btn-primary btn-map-with-pins m-1"
+              data-mdb-label="Beijing"
+              data-mdb-region="CN"
+              data-mdb-x="800"
+              data-mdb-y="338"
+              (click)="updateActivePin('Beijing', 800, 338)"
+              [ngClass]="{
+                activet: activePin === 'Beijing'
+              }"
+            >
+              Beijing
+            </button>
+          </div>
         </code>
         <code data-lang="js" data-name="TypeScript">
           import { Component } from '@angular/core';
@@ -1130,12 +1310,27 @@
             pins: MdbMapMarker[] = [
               {
                 type: 'pin',
-                x: 800,
-                y: 477,
+                x: 474,
+                y: 294,
                 label: 'London',
               },
             ];
-          };
+
+            activePin = 'London';
+
+            updateActivePin(label: string, x: number, y: number) {
+              this.activePin = label;
+
+              this.pins = [
+                {
+                  type: 'pin',
+                  x,
+                  y,
+                  label,
+                },
+              ];
+            }
+          }
         </code>
       </mdbsnippet>
     </section>
@@ -1171,7 +1366,15 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
-            <mdb-vector-map [markers]="bullets"></mdb-vector-map>
+          <mdb-vector-map
+            [markers]="bullets"
+            [hover]="false"
+            [tooltips]="false"
+            [readonly]="true"
+            [fill]="'#E0E0E0'"
+            [stroke]="'#fff'"
+            [btnClass]="'btn-secondary'"
+          ></mdb-vector-map>
         </code>
         <code data-lang="js" data-name="TypeScript">
           import { Component } from '@angular/core';
@@ -1300,92 +1503,98 @@
       <!-- prettier-ignore -->
       <mdbsnippet>
         <code data-lang="html" data-name="HTML">
-          <mdb-vector-map
-            [stroke]="'#37474F'"
-            [fill]="'#263238'"
-            [readonly]="true"
-            [btnClass]="'btn-light'"
-            [colorMap]="advancedColorMap"
-            [markers]="advancedMarkers"
-          ></mdb-vector-map>
-          <hr class="mt-0" />
-          <div id="map-advanced-legend" class="d-flex flex-wrap justify-content-center">
-            <small class="mt-5">{{ legendMin }}</small>
-            <div
-              *ngFor="let color of colors[activeColor]"
-              [style.height.px]="30"
-              [style.width.px]="30"
-              [style.background-color]="color"
-            ></div>
-            <small class="mt-5">{{ legendMax }}</small>
-          </div>
-          <hr />
-          <div class="d-flex flex-wrap justify-content-center">
-            <button
-              class="btn m-1"
-              data-mdb-color="green"
-              data-mdb-key="sales"
-              (click)="changeSection('sales', 'green')"
-              [ngClass]="{
-                'btn-outline-light': activeKey !== 'sales',
-                'btn-light': activeKey === 'sales'
-              }"
-            >
-              Sales
-            </button>
-            <button
-              class="btn btn-outline-light m-1"
-              (click)="changeSection('employees', 'pink')"
-              [ngClass]="{
-                'btn-outline-light': activeKey !== 'employees',
-                'btn-light': activeKey === 'employees'
-              }"
-            >
-              Employees
-            </button>
-            <button
-              class="btn btn-outline-light m-1"
-              (click)="changeSection('annualProfit', 'blue')"
-              [ngClass]="{
-                'btn-outline-light': activeKey !== 'annualProfit',
-                'btn-light': activeKey === 'annualProfit'
-              }"
-            >
-              Annual Profit increase (2019-202)
-            </button>
-            <button
-              class="btn btn-outline-light m-1"
-              (click)="changeSection('salesIncrease', 'purple')"
-              [ngClass]="{
-                'btn-outline-light': activeKey !== 'salesIncrease',
-                'btn-light': activeKey === 'salesIncrease'
-              }"
-            >
-              Sales increase (2019-2020)
-            </button>
-          </div>
-          <hr />
-          <div class="d-flex flex-wrap justify-content-center">
-            <button
-              class="btn btn-outline-light m-1 mb-3"
-              (click)="changeDisplay('bullets')"
-              [ngClass]="{
-                'btn-outline-light': !showBullets,
-                'btn-light': showBullets
-              }"
-            >
-              Company units (bullets)
-            </button>
-            <button
-              class="btn btn-light m-1 mb-3"
-              (click)="changeDisplay('fills')"
-              [ngClass]="{
-                'btn-outline-light': showBullets,
-                'btn-light': !showBullets
-              }"
-            >
-              Countries (fills)
-            </button>
+          <div
+            class="w-100 p-4 pb-5 text-white"
+            style="background-color: #37474f; border-radius: 0.5rem 0.5rem 0 0"
+          >
+            <mdb-vector-map
+              [stroke]="'#37474F'"
+              [fill]="'#263238'"
+              [readonly]="true"
+              [hover]="false"
+              [btnClass]="'btn-light'"
+              [colorMap]="advancedColorMap"
+              [markers]="advancedMarkers"
+            ></mdb-vector-map>
+            <hr class="mt-0" />
+            <div id="map-advanced-legend" class="d-flex flex-wrap justify-content-center">
+              <small class="mt-5">{{ legendMin }}</small>
+              <div
+                *ngFor="let color of colors[activeColor]"
+                [style.height.px]="30"
+                [style.width.px]="30"
+                [style.background-color]="color"
+              ></div>
+              <small class="mt-5">{{ legendMax }}</small>
+            </div>
+            <hr />
+            <div class="d-flex flex-wrap justify-content-center">
+              <button
+                class="btn m-1"
+                data-mdb-color="green"
+                data-mdb-key="sales"
+                (click)="changeSection('sales', 'green')"
+                [ngClass]="{
+                  'btn-outline-light': activeKey !== 'sales',
+                  'btn-light': activeKey === 'sales'
+                }"
+              >
+                Sales
+              </button>
+              <button
+                class="btn btn-outline-light m-1"
+                (click)="changeSection('employees', 'pink')"
+                [ngClass]="{
+                  'btn-outline-light': activeKey !== 'employees',
+                  'btn-light': activeKey === 'employees'
+                }"
+              >
+                Employees
+              </button>
+              <button
+                class="btn btn-outline-light m-1"
+                (click)="changeSection('annualProfit', 'blue')"
+                [ngClass]="{
+                  'btn-outline-light': activeKey !== 'annualProfit',
+                  'btn-light': activeKey === 'annualProfit'
+                }"
+              >
+                Annual Profit increase (2019-202)
+              </button>
+              <button
+                class="btn btn-outline-light m-1"
+                (click)="changeSection('salesIncrease', 'purple')"
+                [ngClass]="{
+                  'btn-outline-light': activeKey !== 'salesIncrease',
+                  'btn-light': activeKey === 'salesIncrease'
+                }"
+              >
+                Sales increase (2019-2020)
+              </button>
+            </div>
+            <hr />
+            <div class="d-flex flex-wrap justify-content-center">
+              <button
+                class="btn btn-outline-light m-1 mb-3"
+                (click)="changeDisplay('bullets')"
+                [ngClass]="{
+                  'btn-outline-light': !showBullets,
+                  'btn-light': showBullets
+                }"
+              >
+                Company units (bullets)
+              </button>
+              <button
+                class="btn btn-light m-1 mb-3"
+                (click)="changeDisplay('fills')"
+                [ngClass]="{
+                  'btn-outline-light': showBullets,
+                  'btn-light': !showBullets
+                }"
+              >
+                Countries (fills)
+              </button>
+            </div>
           </div>
         </code>
         <code data-lang="js" data-name="TypeScript">
@@ -1398,8 +1607,8 @@
           })
           export class AppComponent {
             showBullets = false;
-            advancedColorMap = [];
-            advancedMarkers = [];
+            advancedColorMap: any[] = [];
+            advancedMarkers: any[] = [];
 
             activeKey = 'sales';
             activeColor = 'green';
@@ -1602,7 +1811,7 @@
               },
             ];
 
-            colors = {
+            colors: any = {
               green: [
                 '#C8E6C9',
                 '#A5D6A7',
@@ -1660,7 +1869,7 @@
             }
 
             private getColorMap() {
-              const values = this.data.map((entry) => entry[this.activeKey]);
+              const values = this.data.map((entry: any) => entry[this.activeKey]);
               const max = Math.max(...values);
               const min = Math.min(...values);
 
@@ -1674,7 +1883,7 @@
 
               const step = Math.floor((max - min) / (this.colors[this.activeColor].length - 1));
 
-              const colorMap = this.colors[this.activeColor].map((color: string, i: number) => {
+              const colorMap: any[] = this.colors[this.activeColor].map((color: string, i: number) => {
                 return {
                   fill: color,
                   regions: [],
@@ -1699,7 +1908,7 @@
             }
 
             private getMarkers() {
-              const markers = [];
+              const markers: MdbMapMarker[] = [];
 
               this.advancedColorMap.forEach((color: any) => {
                 color.regions.forEach((region: any) => {
