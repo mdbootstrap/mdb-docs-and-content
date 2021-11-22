@@ -3,10 +3,14 @@
   <!--Section: Introduction-->
   <section id="section-introduction">
     <!-- Main title -->
-    <h2 class="h1 fw-bold"><?= $data_var['main_title']; ?></h2>
+    <h2 class="h1 fw-bold">
+      <?= $data_var['main_title']; ?>
+    </h2>
 
     <!-- Seo title -->
-    <h1 class="h6"><?= $data_var['subheading']; ?></h1>
+    <h1 class="h6">
+      <?= $data_var['subheading']; ?>
+    </h1>
 
     <!-- Description -->
     <p class="my-4">
@@ -351,6 +355,93 @@
   <!--/Section: Sizing-->
 
   <hr class="my-5" />
+
+  <!--Section: Nesting-->
+  <section id="section-nesting">
+    <!--Section title-->
+    <h2 class="mb-4">Nesting</h2>
+
+    <!-- Section description -->
+    <p>
+      Place a <code>MDBBtnGroup</code> within another
+      <code>MDBBtnGroup</code> when you want dropdown menus mixed with a
+      series of buttons.
+    </p>
+
+    <!--Section: Demo-->
+    <section class="border p-4 text-center mb-4">
+      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-primary">1</button>
+        <button type="button" class="btn btn-primary">2</button>
+
+        <div class="btn-group" role="group">
+          <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-mdb-toggle="dropdown"
+            aria-expanded="false">
+            Dropdown
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+            <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--Section: Demo-->
+
+    <!--Section: Code-->
+    <section>
+      <mdbsnippet>
+        <code data-lang="html" data-name="template">
+          <template>
+            <MDBBtnGroup aria-label="Button group with nested dropdown">
+              <MDBBtn color="primary">2</MDBBtn>
+              <MDBBtn color="primary">1</MDBBtn>
+              <MDBBtnGroup id="dropdown-target">
+                <MDBBtn
+                  color="primary"
+                  v-on:click="dropdown = !dropdown"
+                  class="dropdown-toggle"
+                  >Dropdown</MDBBtn
+                >
+                <MDBDropdown v-model="dropdown" target="#dropdown-target">
+                  <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
+                    <MDBDropdownItem href="#">Dropdown link</MDBDropdownItem>
+                    <MDBDropdownItem href="#">Dropdown link</MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown>
+              </MDBBtnGroup>
+            </MDBBtnGroup>
+          </template>
+        </code>
+        <code data-lang="javascript" data-name="script">
+          <script>
+            import { MDBBtnGroup, MDBBtn, MDBDropdown, MDBDropdownMenu, MDBDropdownItem } from "mdb-vue-ui-kit";
+            import { ref } from "vue";
+            export default {
+              components: {
+                MDBBtnGroup,
+                MDBBtn,
+                MDBDropdown,
+                MDBDropdownMenu,
+                MDBDropdownItem
+              },
+              setup() {
+                const dropdown = ref(false);
+                return {
+                  dropdown
+                }
+              }
+            };
+          </script>
+        </code>
+      </mdbsnippet>
+    </section>
+    <!--Section: Code-->
+  </section>
+  <!--/Section: Nesting-->
+
+  <hr class="my-5" />
+
 
   <!--Section: Vertical variation-->
   <section id="section-vertical-variation">
