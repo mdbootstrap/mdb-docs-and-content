@@ -5,11 +5,11 @@
     <!-- Main title -->
     <h2 class="h1 fw-bold" style="line-height: 0.8;">
       <?= $data_var['main_title']; ?>
-      <span>    
+      <span>
         <a href="/docs/b5/angular/pro/" role="button">
             <i class="far fa-xs fa-gem text-danger"></i>
         </a>
-      </span>  
+      </span>
     </h2>
 
     <!-- Seo title -->
@@ -274,10 +274,10 @@
           }
 
           @Component({
-            selector: 'app-datatable',
-            templateUrl: './datatable.component.html',
+            selector: 'app-root',
+            templateUrl: './app.component.html',
           })
-          export class ModalComponent {
+          export class AppComponent {
 
             constructor() {}
 
@@ -495,6 +495,7 @@
         </code>
         <code data-lang="javascript" data-name="TS">
           import { Component, ViewChild } from '@angular/core';
+          import { MdbTableDirective } from 'mdb-angular-ui-kit/table';
 
           export interface Person {
             name: string;
@@ -506,10 +507,10 @@
           }
 
           @Component({
-            selector: 'app-datatable',
-            templateUrl: './datatable.component.html',
+            selector: 'app-root',
+            templateUrl: './app.component.html',
           })
-          export class ModalComponent {
+          export class AppComponent {
             @ViewChild('tableSearch') searchTable: MdbTableDirective<Person>;
 
             constructor() {}
@@ -766,10 +767,10 @@
           }
 
           @Component({
-            selector: 'app-datatable',
-            templateUrl: './datatable.component.html',
+            selector: 'app-root',
+            templateUrl: './app.component.html',
           })
-          export class ModalComponent {
+          export class AppComponent {
             @ViewChild('table') table: MdbTableDirective<Person>;
 
             constructor() {}
@@ -932,7 +933,7 @@
   </section>
   <!--Section: Advancec Search -->
 
-  
+
 
   <hr class="my-5" />
 
@@ -1017,10 +1018,10 @@
           }
 
           @Component({
-            selector: 'app-datatable',
-            templateUrl: './datatable.component.html',
+            selector: 'app-root',
+            templateUrl: './app.component.html',
           })
-          export class ModalComponent {
+          export class AppComponent {
 
             constructor() {}
 
@@ -1239,10 +1240,10 @@
           }
 
           @Component({
-            selector: 'app-datatable',
-            templateUrl: './datatable.component.html',
+            selector: 'app-root',
+            templateUrl: './app.component.html',
           })
-          export class ModalComponent {
+          export class AppComponent {
 
             constructor() {}
 
@@ -1461,6 +1462,9 @@
         </code>
         <code data-lang="javascript" data-name="TS">
           import { Component, OnInit } from '@angular/core';
+          import { Observable } from 'rxjs';
+          import { HttpClient } from '@angular/common/http';
+          import { delay, tap } from 'rxjs/operators';
 
           export interface Person {
             name: string;
@@ -1472,11 +1476,11 @@
           }
 
           @Component({
-            selector: 'app-datatable',
-            templateUrl: './datatable.component.html',
+            selector: 'app-root',
+            templateUrl: './app.component.html',
           })
 
-          export class ModalComponent implements OnInit {
+          export class AppComponent implements OnInit {
 
             dataUrl = 'https://jsonplaceholder.typicode.com/users';
             dataSource$: Observable<any[]>;
@@ -1564,19 +1568,14 @@
                     {{ data.office }}
                   </td>
                   <td>
-                    {{ data.age }}
-                  </td>
-                  <td>
-                    {{ data.startDate }}
-                  </td>
-                  <td>
-                    {{ data.salary }}
-                  </td>
-                  <td>
-                    <button class="call-btn btn btn-outline-primary btn-floating btn-sm">
+                    <button 
+                      class="call-btn btn btn-outline-primary btn-floating btn-sm"
+                      (click)="logData(data.phone)">
                       <i class="fa fa-phone"></i>
                     </button>
-                    <button class="messhandle-btn btn ms-2 btn-primary btn-floating btn-sm">
+                    <button
+                      class="messhandle-btn btn ms-2 btn-primary btn-floating btn-sm"
+                      (click)="logData(data.email)">
                       <i class="fa fa-envelope"></i>
                     </button>
                   </td>
@@ -1594,142 +1593,47 @@
             position: string;
             office: string;
             age: number;
-            startDate: string;
-            salary: string;
+            phone: string;
+            email: string;
           }
 
           @Component({
-            selector: 'app-datatable',
-            templateUrl: './datatable.component.html',
+            selector: 'app-root',
+            templateUrl: './app.component.html',
           })
-          export class ModalComponent {
+          export class AppComponent {
 
             constructor() {}
 
-            headers = ['Name', 'Position', 'Office', 'Age', 'Start Date', 'Salary'];
+            headers = ['Name', 'Position', 'Office'];
 
             dataSource: Person[] = [
               {
                 name: 'Tiger Nixon',
                 position: 'System Architect',
                 office: 'Edinburgh',
-                age: 61,
-                startDate: '2011/04/25',
-                salary: '$320,800',
+                phone: '+48000000000',
+                email: 'tiger.nixon@gmail.com'
               },
               {
                 name: 'Sonya Frost',
                 position: 'Software Engineer',
                 office: 'Edinburgh',
-                age: 23,
-                startDate: '2008/12/13',
-                salary: '$103,600',
-              },
-              {
-                name: 'Jena Gaines',
-                position: 'Office Manager',
-                office: 'London',
-                age: 30,
-                startDate: '2008/12/19',
-                salary: '$90,560',
-              },
-              {
-                name: 'Quinn Flynn',
-                position: 'Support Lead',
-                office: 'Edinburgh',
-                age: 22,
-                startDate: '2013/03/03',
-                salary: '$342,000',
-              },
-              {
-                name: 'Charde Marshall',
-                position: 'Regional Director',
-                office: 'San Francisco',
-                age: 36,
-                startDate: '2008/10/16',
-                salary: '$470,600',
-              },
-              {
-                name: 'Haley Kennedy',
-                position: 'Senior Marketing Designer',
-                office: 'London',
-                age: 43,
-                startDate: '2012/12/18',
-                salary: '$313,500',
+                phone: '+53456123456',
+                email: 'sfrost@gmail.com'
               },
               {
                 name: 'Tatyana Fitzpatrick',
                 position: 'Regional Director',
                 office: 'London',
-                age: 19,
-                startDate: '2010/03/17',
-                salary: '$385,750',
-              },
-              {
-                name: 'Michael Silva',
-                position: 'Marketing Designer',
-                office: 'London',
-                age: 66,
-                startDate: '2012/11/27',
-                salary: '$198,500',
-              },
-              {
-                name: 'Paul Byrd',
-                position: 'Chief Financial Officer (CFO)',
-                office: 'New York',
-                age: 64,
-                startDate: '2010/06/09',
-                salary: '$725,000',
-              },
-              {
-                name: 'Gloria Little',
-                position: 'Systems Administrator',
-                office: 'New York',
-                age: 59,
-                startDate: '2009/04/10',
-                salary: '$237,500',
-              },
-              {
-                name: 'Garrett Winters',
-                position: 'Accountant',
-                office: 'Tokyo',
-                age: 63,
-                startDate: '2011/07/25',
-                salary: '$170,750',
-              },
-              {
-                name: 'Ashton Cox',
-                position: 'Junior Technical Author',
-                office: 'San Francisco',
-                age: 66,
-                startDate: '2009/01/12',
-                salary: '$86,000',
-              },
-              {
-                name: 'Cedric Kelly',
-                position: 'Senior Javascript Developer',
-                office: 'Edinburgh',
-                age: 22,
-                startDate: '2012/03/29',
-                salary: '$433,060',
-              },
-              {
-                name: 'Airi Satou',
-                position: 'Accountant',
-                office: 'Tokyo',
-                age: 33,
-                startDate: '2008/11/28',
-                salary: '$162,700',
-              },
-              {
-                name: 'Brielle Williamson',
-                position: 'Integration Specialist',
-                office: 'New York',
-                age: 61,
-                startDate: '2012/12/02',
-                salary: '$372,000',
-              },
+                phone: '+42123432456',
+                email: 'tfitz@gmail.com'
+              }
             ];
+
+            logData(data: string): void {
+              console.log(data)
+            }
           }
         </code>
       </mdbsnippet>
@@ -1830,7 +1734,7 @@
                 <tr
                   *ngFor="let data of table.data"
                   scope="row"
-                  (click)="onRowClick($event, i)"
+                  (click)="onRowClick()"
                   [class.active]="selections.has(data)"
                 >
                   <td>
@@ -1885,6 +1789,7 @@
         </code>
         <code data-lang="javascript" data-name="TS">
           import { Component } from '@angular/core';
+          import { MdbCheckboxChange } from 'mdb-angular-ui-kit/checkbox';
 
           export interface Person {
             name: string;
@@ -1896,10 +1801,10 @@
           }
 
           @Component({
-            selector: 'app-datatable',
-            templateUrl: './datatable.component.html',
+            selector: 'app-root',
+            templateUrl: './app.component.html',
           })
-          export class ModalComponent {
+          export class AppComponent {
 
             constructor() {}
 
@@ -2029,31 +1934,51 @@
                 salary: '$372,000',
               },
             ];
+
+            onRowClick(): void {
+              alert('row clicked');
+            }
+
+            allRowsSelected(): boolean {
+              const selectionsLength = this.selections.size;
+              const dataLength = this.dataSource.length;
+
+              return selectionsLength === dataLength;
+            }
+
+            toggleSelection(event: MdbCheckboxChange, value: Person): void {
+              if (event.checked) {
+                this.select(value);
+              } else {
+                this.deselect(value);
+              }
+            }
+
+            toggleAll(event: MdbCheckboxChange): void {
+              if (event.checked) {
+                this.dataSource.forEach((row: Person) => {
+                  this.select(row);
+                });
+              } else {
+                this.dataSource.forEach((row: Person) => {
+                  this.deselect(row);
+                });
+              }
+            }
+
+            select(value: Person): void {
+              if (!this.selections.has(value)) {
+                this.selections.add(value);
+              }
+            }
+
+            deselect(value: Person): void {
+              if (this.selections.has(value)) {
+                this.selections.delete(value);
+              }
+          }
           }
 
-          toggleAll(event: MdbCheckboxChange): void {
-            if (event.checked) {
-              this.dataSource.forEach((row: Person) => {
-                this.select(row);
-              });
-            } else {
-              this.dataSource.forEach((row: Person) => {
-                this.deselect(row);
-              });
-            }
-          }
-
-          select(value: Person): void {
-            if (!this.selections.has(value)) {
-              this.selections.add(value);
-            }
-          }
-        
-          deselect(value: Person): void {
-            if (this.selections.has(value)) {
-              this.selections.delete(value);
-            }
-          }
         </code>
       </mdbsnippet>
     </section>
