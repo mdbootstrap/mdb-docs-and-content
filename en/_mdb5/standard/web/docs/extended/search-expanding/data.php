@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Expanding Search Bar - examples & tutorial',
   'description' => 'Responsive Expanding Search Bar built with Bootstrap 5. Examples with the trigger on click and on hover.',
   'url' => 'https://mdbootstrap.com/docs/standard/extended/search-expanding/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended//featured.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended//featured.webp',
   'video' => '',
 );

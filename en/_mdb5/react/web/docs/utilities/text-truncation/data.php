@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'React Text truncation with Bootstrap - examples & tutorial',
   'description' => 'Text truncation built with Bootstrap 5, React 17 and Material Design 2.0. Example on how to shorten text content so that it fits within a certain designated area.',
   'url' => 'https://mdbootstrap.com/docs/b5/react/utilities/text-truncation/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/text-truncation/text-truncation.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/text-truncation/text-truncation.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

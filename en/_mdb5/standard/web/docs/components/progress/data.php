@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Progress - examples & tutorial',
   'description' => 'Responsive progress bar built with the latest Bootstrap 5. Progress bar is an indicator showing the completion progress, i.e. task or time. Use it with percents, steps & other options.',
   'url' => 'https://mdbootstrap.com/docs/standard/components/progress/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/components/progress/progress.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/components/progress/progress.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

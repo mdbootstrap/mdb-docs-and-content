@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Footer - examples & tutorial',
   'description' => 'Responsive Footers built with Bootstrap 5. Free footer templates with different options like bottom fixed footer, sticky footer, social media, cards and more. ',
   'url' => 'https://mdbootstrap.com/docs/standard/navigation/footer/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/navigation/footer/examples/assets/2.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/navigation/footer/examples/assets/2.webp',
   'video' => 'https://youtu.be/UEfFpk4sSxE',
 );

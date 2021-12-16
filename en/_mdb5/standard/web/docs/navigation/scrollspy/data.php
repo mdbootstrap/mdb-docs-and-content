@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Scrollspy - examples & tutorial',
   'description' => 'Responsive Scrollspy built with Bootstrap 5. Highlight where the user is on a page by updating links in navigation based on scroll postion. Works perfectly with smooth scroll.',
   'url' => 'https://mdbootstrap.com/docs/standard/navigation/scrollspy/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/navigation/scrollspy/scrollspy.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/navigation/scrollspy/scrollspy.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

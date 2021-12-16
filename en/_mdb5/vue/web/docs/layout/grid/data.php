@@ -6,7 +6,7 @@ $data_var = array(
   'seo_title' => 'Vue Grid system - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Grid system built with the latest Bootstrap 5. Multiple code examples: grid layout, image grid, flexbox grid  & many more.',
   'url' => 'https://mdbootstrap.com/docs/b5/vue/layout/grid/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/layout/grid/grid.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/layout/grid/grid.webp',
   'video' => 'https://youtu.be/DZKf9l42WCo',
 );
 

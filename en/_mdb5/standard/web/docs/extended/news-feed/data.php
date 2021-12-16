@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap News feed - examples & tutorial',
   'description' => 'Responsive News Feed built with the latest Bootstrap 5. Enhance your project with a variety of social sections such as news feed, comments, and post cards.',
   'url' => 'https://mdbootstrap.com/docs/standard/extended/news-feed/',
-  'image' => 'https://mdbcdn.b-cdn.net/wp-content/uploads/2017/12/social-fb.jpg',
+  'image' => 'https://mdbcdn.b-cdn.net/wp-content/uploads/2017/12/social-fb.webp',
   'video' => '',
 );
