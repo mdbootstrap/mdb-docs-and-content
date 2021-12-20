@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Payment Forms - examples & tutorial',
   'description' => 'Responsive Payment Forms built with the latest Bootstrap 5. Credit card, PayPal, Stripe, eCommerce checkout and many more examples.',
   'url' => 'https://mdbootstrap.com/docs/standard/extended/payment-forms/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended/payment-forms/assets/featured.png',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended/payment-forms/assets/featured.webp',
   'video' => '',
 );

@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Angular Sizing with Bootstrap - examples & tutorial',
   'description' => 'Sizing utility with Bootstrap 5, Angular 11 and Material Design 2.0. Examples of classes to set up the width and height of an element. Supports 25%, 50%, 75% and 100%.',
  'url' => 'https://mdbootstrap.com/docs/b5/angular/utilities/sizing/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/sizing/sizing.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/sizing/sizing.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

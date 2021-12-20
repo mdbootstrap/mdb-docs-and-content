@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'WordPress Theme Development Tutorial - WooCommerce Product Page',
   'description' => 'Create WordPress Theme from scratch - tutorial',
   'url' => 'https://mdbootstrap.com/docs/standard/cli/tutorial/wordpress/product-page',
-  'image' => 'https://mdbootstrap.com/img/Marketing/products/cli/cli-free.jpg',
+  'image' => 'https://mdbootstrap.com/img/Marketing/products/cli/cli-free.webp',
   'video' => 'https://www.youtube.com/watch?v=3nJ70cr6NQ8',
 );

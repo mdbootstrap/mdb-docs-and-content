@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Landing Page blocks - hero sections',
   'description' => 'Collection of practical examples of hero sections.',
   'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/landing-page/hero-sections/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/hero-sections/assets/landing-page-hero.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/hero-sections/assets/landing-page-hero.webp',
   'video' => '',
 );

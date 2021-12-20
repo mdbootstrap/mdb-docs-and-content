@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Registration form - examples & tutorial',
   'description' => 'Responsive Registration form built with Bootstrap 5. Free signup form templates & pages ready to download. Various design and functionalities.',
   'url' => 'https://mdbootstrap.com/docs/standard/extended/registration/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended/registration/assets/featured.png',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended/registration/assets/featured.webp',
   'video' => '',
 );

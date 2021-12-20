@@ -27,30 +27,30 @@ So how YOU can contribute to ever growing MDB repo? It is easier than you may th
 
  First you have to click “Edit these docs” button placed on top of MDB component’s page of your choosing. 
 
-<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%201.jpg">
+<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%201.webp">
 
 Thanks to modern day magic known as a link you will jump to GitHub repository that contains designated documentation.
 
 Now you have to click “Fork” button to copy it to your GitHub account.  
 
-<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%202.jpg">
+<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%202.webp">
 
 After a few seconds, you should have your own version of the source file to play with. So click on the filename of documentation and then click on the pencil icon on the right. 
 
-<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%203.jpg">
+<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%203.webp">
 
 Here it is where all the fun begins. You can freely input your insight and code snippets.
 
-<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%204.jpg">
+<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%204.webp">
 
 
 To finish your adjustments you must provide commit name and description. Make sure that you also provide the name of a new branch containing your changes.
 
-<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%205.jpg">
+<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%205.webp">
 
 Press “Propose file change” button, and then “Create pull request” button, finally allowing us to admire your genius and after positive verification letting you to bask in well deserved glory as a top tier programmer and code visionary. 
 
-<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%206.jpg">
+<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%206.webp">
 
-<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%207.jpg">
+<img src="http://mdbootstrap.com/img/Marketing/campaigns/Edit_these_docs/Edit%20the%20docs%207.webp">
 

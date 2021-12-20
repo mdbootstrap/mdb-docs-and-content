@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Offcanvas - examples & tutorial',
   'description' => 'Responsive Offcanvas built with the latest Bootstrap 5. Hidden sidebar, perfect for use in the form of additional navigation, for example in ecommerce projects or dashboards.',
   'url' => 'https://mdbootstrap.com/docs/standard/extended/offcanvas/',
-  'image' => 'https://mdbootstrap.com/wp-content/uploads/2015/08/sidenav-min.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/uploads/2015/08/sidenav-min.webp',
   'video' => '',
 );

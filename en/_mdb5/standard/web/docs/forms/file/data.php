@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap File upload / file input - examples & tutorial',
   'description' => 'File input built with the latest Bootstrap 5. Examples of uploading single or multiple elements. Supports images, files, and documents. Add items directly from your local storage.',
   'url' => 'https://mdbootstrap.com/docs/standard/forms/file/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/forms/file/file.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/forms/file/file.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

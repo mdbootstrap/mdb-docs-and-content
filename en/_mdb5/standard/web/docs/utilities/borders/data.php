@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Borders - examples & tutorial',
   'description' => 'Responsive borders with the latest Bootstrap 5. Style the border and border-radius of an element.',
   'url' => 'https://mdbootstrap.com/docs/standard/utilities/borders/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/borders/borders.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/borders/borders.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

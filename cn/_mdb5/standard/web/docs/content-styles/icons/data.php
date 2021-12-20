@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => '图标-Bootstrap 5和Material Design 2.0',
   'description' => '使用最新的Bootstrap 5和Material Design 2.0构建的图标。多个示例，易于使用的指南，广泛的API和自定义工具',
   'url' => 'https://mdbootstrap.com/docs/standard/content-styles/icons/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/content-styles/icons/icons.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/content-styles/icons/icons.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

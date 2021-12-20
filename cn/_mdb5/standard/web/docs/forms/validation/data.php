@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => '验证-Bootstrap 5和Material Design 2.0表格',
   'description' => '最新的Bootstrap 5和Material Design 2.0的表单验证。多个示例，易于使用的指南，广泛的API和自定义工具',
   'url' => 'https://mdbootstrap.com/docs/standard/validation/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/forms/validation/validation.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/forms/validation/validation.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

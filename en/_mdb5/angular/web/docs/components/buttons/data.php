@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Angular Buttons with Bootstrap - examples & tutorial',
   'description' => 'Responsive Button group built with Bootstrap 5, Angular 11 and Material Design 2.0. Examples with button link, button disabled, small and other button sizes.',
    'url' => 'https://mdbootstrap.com/docs/b5/angular/components/buttons/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/components/buttons/buttons.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/components/buttons/buttons.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

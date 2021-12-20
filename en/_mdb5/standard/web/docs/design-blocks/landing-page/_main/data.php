@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'Landing page blocks - Bootstrap 5 & Material Design 2.0 design blocks',
   'description' => 'Responsive Landing page blocks built with the latest Bootstrap 5. Plenty of design blocks examples such as Teams, services, projects, faq, and many more.',
   'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/landing-page/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/_main/assets/landing-page.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/_main/assets/landing-page.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

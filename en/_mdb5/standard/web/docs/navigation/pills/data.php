@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Pills - examples & tutorial',
   'description' => 'Responsive Pills built with Bootstrap 5. Bootstrap navs like tabs or pills help to organize content on a page. Learn how to use pills in the navbar, in content, in cards, and with different colors and styling options.',
   'url' => 'https://mdbootstrap.com/docs/standard/navigation/pills/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/navigation/pills/pills.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/navigation/pills/pills.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );
