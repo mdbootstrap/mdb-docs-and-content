@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Landing Page blocks - news',
   'description' => 'Collection of practical examples of news.',
   'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/landing-page/news/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/news/assets/landing-page-news.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/landing-page/news/assets/landing-page-news.webp',
   'video' => '',
 );

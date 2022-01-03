@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Credit Card Form - examples & tutorial',
   'description' => 'Responsive Credit Card Form built with the latest Bootstrap 5. Component to be used in eCommerce projects and checkout pages.',
   'url' => 'https://mdbootstrap.com/docs/standard/extended/credit-card/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/pro/_main/assets/mdb5-about-v2.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/pro/_main/assets/mdb5-about-v2.webp',
   'video' => '',
 );

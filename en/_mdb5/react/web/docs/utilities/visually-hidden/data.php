@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'React Visually hidden with Bootstrap - examples & tutorial',
   'description' => 'Visually hidden built with Bootstrap 5, React 17 and Material Design 2.0. Example on how to hide elements on all devices except screen readers using screen reader utilities.',
   'url' => 'https://mdbootstrap.com/docs/b5/react/utilities/visually-hidden/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/screen-readers/visually-hidden.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/screen-readers/visually-hidden.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

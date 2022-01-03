@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Avatar - examples & tutorial',
   'description' => 'Responsive Avatar built with Bootstrap 5. Various templates like a circle avatar, square, inside the navbar, carousel, as a testimonial, profile and many more. ',
   'url' => 'https://mdbootstrap.com/docs/standard/extended/avatar/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended/testimonials/assets/featured.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended/testimonials/assets/featured.webp',
   'video' => '',
 );

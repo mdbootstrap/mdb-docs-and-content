@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Modal - examples & tutorial',
   'description' => 'Responsive modal built with the latest Bootstrap 5. Modal is a responsive popup used to display extra content. That includes prompts, configurations, cookie consents, etc.',
   'url' => 'https://mdbootstrap.com/docs/standard/components/modal/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/components/modal/modal.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/components/modal/modal.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

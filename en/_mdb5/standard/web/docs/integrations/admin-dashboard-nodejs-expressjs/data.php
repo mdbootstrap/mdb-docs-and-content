@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap 5 integration with Node.js & Express.js',
   'description' => 'Admin Dashboard integration build with the latest Bootstrap 5, Node.js and Express.js. Various examples of implementation, backend and frontend functions, and much more.',
   'url' => 'https://mdbootstrap.com/docs/standard/integrations/admin-dashboard-nodejs-expressjs/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/general/integrations/assets/admin-nodejs-expressjs.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/general/integrations/assets/admin-nodejs-expressjs.webp',
   'video' => '',
 );

@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'How to  - code helpers',
   'description' => '',
   'url' => 'zxc',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/how-to/bootstrap/howto.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/how-to/bootstrap/howto.webp',
   'video' => '',
 );

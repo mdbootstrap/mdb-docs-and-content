@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'How to change background color in Bootstrap - code helpers',
   'description' => 'You can easily change the background color in bootstrap by using .bg-* color classes',
   'url' => 'https://mdbootstrap.com/how-to/bootstrap/change-background-color/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/how-to/bootstrap/howto.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/how-to/bootstrap/howto.webp',
   'video' => '',
 );

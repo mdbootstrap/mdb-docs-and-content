@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap Position - examples & tutorial',
   'description' => 'Configure positions in Bootstrap 5 by aligining the content to the top, bottom, left (start), right (end), or center of a page. Learn how to easily arrange elements.',
   'url' => 'https://mdbootstrap.com/docs/standard/utilities/position/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/position/position.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/position/position.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );
