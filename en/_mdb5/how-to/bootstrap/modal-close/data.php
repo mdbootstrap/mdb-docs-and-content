@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'How to close modal in Bootstrap - code helpers',
   'description' => 'There are few ways to close modal in Bootstrap: click on a backdrop, close icon, or close button. You can also use JavaScript "hide" method.',
   'url' => 'https://mdbootstrap.com/how-to/bootstrap/modal-close/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/how-to/bootstrap/howto.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/how-to/bootstrap/howto.webp',
   'video' => '',
 );

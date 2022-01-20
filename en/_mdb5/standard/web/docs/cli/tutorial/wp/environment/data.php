@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'WordPress Theme Development Tutorial - Environment & Theme',
   'description' => 'Create WordPress Theme from scratch - tutorial',
   'url' => 'https://mdbootstrap.com/docs/standard/cli/tutorial/wordpress/environment',
-  'image' => 'https://mdbootstrap.com/img/Marketing/products/cli/cli-free.jpg',
+  'image' => 'https://mdbootstrap.com/img/Marketing/products/cli/cli-free.webp',
   'video' => 'https://www.youtube.com/watch?v=svVCsr1Xezs',
 );

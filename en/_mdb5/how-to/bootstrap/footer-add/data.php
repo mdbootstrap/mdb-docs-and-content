@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'How to add Footer in Bootstrap  - code helpers',
   'description' => 'You can simply add Footer to your Bootstrap project by using these predefined templates. See the examples.',
   'url' => 'https://mdbootstrap.com/how-to/bootstrap/footer-add/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/how-to/bootstrap/howto.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/how-to/bootstrap/howto.webp',
   'video' => '',
 );

@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Vue Select - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Select built with the latest Bootstrap 5. Multiple code examples: with dropdown, search, placeholder, multiselect, validation & many more',
   'url' => 'https://mdbootstrap.com/docs/b5/vue/forms/select/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/forms/select/select.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/forms/select/select.webp',
   'video' => '',
 );

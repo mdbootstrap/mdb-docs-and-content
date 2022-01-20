@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Vue Tooltips - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Tooltips built with the latest Bootstrap 5. Multiple code examples: hover tooltip, popover tooltip, chartsjs & many more',
   'url' => 'https://mdbootstrap.com/docs/b5/vue/components/tooltips/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/components/tooltips/tooltips.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/components/tooltips/tooltips.webp',
   'video' => '',
 );

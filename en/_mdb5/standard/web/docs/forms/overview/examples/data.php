@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => '7 responsive Bootstrap Forms examples - various templates, design & functionalities',
   'description' => 'A stunning collection of forms templates built with the newest Bootstrap 5. Practical examples and usage in real projects.',
   'url' => 'https://mdbootstrap.com/docs/standard/forms/overview/examples-and-customization/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/forms/overview/examples/assets/featured.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/forms/overview/examples/assets/featured.webp',
   'video' => '',
 );

@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'Premium Bootstrap & Material Design Landing page Templates',
   'description' => 'Built with the latest Bootstrap 5: Bookstore, Volunteering, Psychologist, Animal Shelter, Painter, Florist & more',
   'url' => 'https://mdbootstrap.com/docs/standard/templates/landig-page/',
-  'image' => 'https://mdbootstrap.com/wp-content/uploads/2021/01/landingpages.png',
+  'image' => 'https://mdbootstrap.com/wp-content/uploads/2021/01/landingpages.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

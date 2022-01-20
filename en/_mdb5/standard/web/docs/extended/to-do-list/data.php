@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap To Do List - examples & templates',
   'description' => 'Responsive To Do Lists built with the latest Bootstrap 5. Various variants of design and functionality. ',
   'url' => 'https://mdbootstrap.com/docs/standard/extended/to-do-list/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended/to-do-list/assets/featured.png',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended/to-do-list/assets/featured.webp',
   'video' => '',
 );

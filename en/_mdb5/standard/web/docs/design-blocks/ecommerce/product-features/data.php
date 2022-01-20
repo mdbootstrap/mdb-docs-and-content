@@ -5,6 +5,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap eCommerce blocks - product features',
   'description' => 'Collection of practical examples of eCommerce product features blocks.',
   'url' => 'https://mdbootstrap.com/docs/standard/design-blocks/ecommerce/product-features/',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/ecommerce/product-features/assets/1.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/design-blocks/ecommerce/product-features/assets/1.webp',
   'video' => 'https://youtu.be/gWs4y2DZngg',
 );

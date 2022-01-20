@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap [Name] - examples & tutorial',
   'description' => 'Responsive [Name] built with Bootstrap 5. ',
   'url' => 'https://mdbootstrap.com/docs/standard/extended//',
-  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended//featured.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/extended//featured.webp',
   'video' => '',
 );

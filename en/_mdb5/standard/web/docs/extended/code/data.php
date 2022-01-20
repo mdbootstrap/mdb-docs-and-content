@@ -6,6 +6,6 @@ $data_var = array(
   'seo_title' => 'Bootstrap 5 Code utilities - examples & tutorial',
   'description' => 'Documentation and examples for displaying inline and multiline blocks of code with Bootstrap 5.',
   'url' => 'https://mdbootstrap.com/docs/standard/extended/code/',
-  'image' => 'https://mdbootstrap.com/wp-content/uploads/2017/06/code.jpg',
+  'image' => 'https://mdbootstrap.com/wp-content/uploads/2017/06/code.webp',
   'video' => '',
 );
