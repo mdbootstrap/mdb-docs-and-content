@@ -5,7 +5,7 @@ $data_var = array(
   'subheading' => 'Vue Bootstrap 5 Background',
   'seo_title' => 'Vue Background - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Vue Background with the latest Bootstrap 5. Multiple code examples, a user-friendly guide, extensive API, and customization tools.',
-  'url' => 'https://mdbootstrap.com/docs/b5/vue/utilities/background/',
+  'url' => 'https://mdbootstrap.com/docs/vue/utilities/background/',
   'image' => '',
   'video' => '',
 );

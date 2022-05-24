@@ -5,7 +5,7 @@ $data_var = array(
   'subheading' => 'Vue Bootstrap 5 Charts advanced usage',
   'seo_title' => 'Vue Bootstrap Charts advanced usage - examples & tutorial',
   'description' => 'Advanced Charts built with the latest Bootstrap 5 and Vue 3. Easy to customize advanced options for bar, line, pie and radar charts.',
-  'url' => 'https://mdbootstrap.com/docs/b5/vue/data/charts-advanced/',
+  'url' => 'https://mdbootstrap.com/docs/vue/data/charts-advanced/',
   'image' => '',
   'video' => '',
 );

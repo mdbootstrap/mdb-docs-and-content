@@ -5,7 +5,7 @@ $data_var = array(
   'subheading' => 'Vue Bootstrap 5 Cookies management plugin',
   'seo_title' => 'Vue Bootstrap Cookies management - examples & tutorial',
   'description' => 'Cookies management built with the latest Bootstrap 5 and Vue 3. Options included: show modals only to new users, set a cookie, and much more.',
-  'url' => 'https://mdbootstrap.com/docs/b5/vue/plugins/cookies-management/',
+  'url' => 'https://mdbootstrap.com/docs/vue/plugins/cookies-management/',
   'image' => '',
   'video' => '',
 );

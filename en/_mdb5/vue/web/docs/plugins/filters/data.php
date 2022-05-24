@@ -5,7 +5,7 @@ $data_var = array(
   'subheading' => 'Vue Bootstrap 5 Filters plugin',
   'seo_title' => 'Vue Bootstrap Filters - examples & tutorial',
   'description' => 'Filters plugin built with the latest Bootstrap 5. Supports data array, checkboxes, customized sorting, and much more.',
-  'url' => 'https://mdbootstrap.com/docs/b5/vue/plugins/filters/',
+  'url' => 'https://mdbootstrap.com/docs/vue/plugins/filters/',
   'image' => '',
   'video' => '',
 );

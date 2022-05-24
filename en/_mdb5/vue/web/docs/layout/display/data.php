@@ -5,7 +5,7 @@ $data_var = array(
   'subheading' => 'Vue Bootstrap 5 Display',
   'seo_title' => 'Vue Display - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue Display with the latest Bootstrap 5. Multiple code examples: hiding elements, visibility, display in print & many more.',
-  'url' => 'https://mdbootstrap.com/docs/b5/vue/layout/display/',
+  'url' => 'https://mdbootstrap.com/docs/vue/layout/display/',
   'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/layout/display/display.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

@@ -5,7 +5,7 @@ $data_var = array(
   'subheading' => 'Vue Bootstrap 5 Mention plugin',
   'seo_title' => 'Vue Mention - examples & tutorial',
   'description' => 'Responsive Mention plugin built with the latest Bootstrap 5 and Vue 3. Mention is an autocomplete dropdown menu for your search inputs. It is useful for tagging users or topics.',
-  'url' => 'https://mdbootstrap.com/docs/b5/vue/plugins/mention/',
+  'url' => 'https://mdbootstrap.com/docs/vue/plugins/mention/',
   'image' => '',
   'video' => '',
 );

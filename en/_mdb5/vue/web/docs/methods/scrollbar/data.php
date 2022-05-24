@@ -5,7 +5,7 @@ $data_var = array(
   'subheading' => 'Vue Bootstrap 5 Scrollbar',
   'seo_title' => 'Vue Scrollbar - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Vue Scrollbar built with the latest Bootstrap 5. Multiple examples, a user-friendly guide, extensive API, and customization tools',
-  'url' => 'https://mdbootstrap.com/docs/b5/vue/scrollbar/',
+  'url' => 'https://mdbootstrap.com/docs/vue/scrollbar/',
   'image' => '',
   'video' => '',
 );

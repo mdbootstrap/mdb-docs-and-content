@@ -5,7 +5,7 @@ $data_var = array(
   'subheading' => 'Vue Bootstrap 5 Datatables',
   'seo_title' => 'Vue Datatables - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Vue Datatables built with the latest Bootstrap 5. Advanced customization options for tables like searching, sorting, and pagination.',
-  'url' => 'https://mdbootstrap.com/docs/b5/vue/data/datatables/',
+  'url' => 'https://mdbootstrap.com/docs/vue/data/datatables/',
   'image' => '',
   'video' => '',
 );

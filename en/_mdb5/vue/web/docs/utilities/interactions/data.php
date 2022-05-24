@@ -5,7 +5,7 @@ $data_var = array(
   'subheading' => 'Vue Bootstrap 5 Interactions',
   'seo_title' => 'Vue Interactions- examples & tutorial. Bootstrap & Material Design',
   'description' => 'Vue Interactions with the latest Bootstrap 5. Multiple code examples, a user-friendly guide, extensive API, and customization tools.',
-  'url' => 'https://mdbootstrap.com/docs/b5/vue/utilities/interactions/',
+  'url' => 'https://mdbootstrap.com/docs/vue/utilities/interactions/',
   'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/utilities/interactions/interactions.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );

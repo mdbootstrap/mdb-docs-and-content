@@ -5,7 +5,7 @@ $data_var = array(
   'subheading' => 'Vue Bootstrap 5 Carousel component',
   'seo_title' => 'Vue Carousel - examples & tutorial. Bootstrap & Material Design',
   'description' => 'Responsive Vue carousel built with the latest Bootstrap 5. Carousel is a slideshow cycling through different elements such as photos, videos, or text. Many examples and easy tutorials.',
-  'url' => 'https://mdbootstrap.com/docs/b5/vue/components/carousel/',
+  'url' => 'https://mdbootstrap.com/docs/vue/components/carousel/',
   'image' => 'https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content-gh/en/_mdb5/standard/web/docs/components/carousel/carousel.webp',
   'video' => 'https://www.youtube.com/watch?v=c9B4TPnak1A',
 );
